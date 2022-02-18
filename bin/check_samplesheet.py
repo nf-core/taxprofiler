@@ -47,13 +47,10 @@ def check_samplesheet(file_in, file_out):
     This function checks that the samplesheet follows the following structure:
 
     sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
-    2611,ERR5766174,ILLUMINA,NA,NA,FA_EXTENSIONSERX5474930_ERR5766174_1.fa.gz
-    2612,ERR5766176,ILLUMINA,ERX5474932_ERR5766176_1.fastq.gz,ERX5474932_ERR5766176_2.fastq.gz,NA
-    2612,ERR5766174,ILLUMINA,ERX5474936_ERR5766180_1.fastq.gz,NA,NA
-    2613,ERR5766181,ILLUMINA,ERX5474930_ERR5766174_1.fa.gz,ERX5474930_ERR5766174_2.fa.gz,NA
-
-    For an example see:
-    https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/samplesheet_test_illumina_amplicon.csv
+    2611,ERR5766174,ILLUMINA,,,ERX5474930_ERR5766174_1.fa.gz
+    2612,ERR5766176,ILLUMINA,ERX5474932_ERR5766176_1.fastq.gz,ERX5474932_ERR5766176_2.fastq.gz,
+    2612,ERR5766174,ILLUMINA,ERX5474936_ERR5766180_1.fastq.gz,,
+    2613,ERR5766181,ILLUMINA,ERX5474937_ERR5766181_1.fastq.gz,ERX5474937_ERR5766181_2.fastq.gz,
     """
 
     FQ_EXTENSIONS = (".fq", ".fq.gz", ".fastq", ".fastq.gz")
@@ -216,21 +213,9 @@ def check_samplesheet(file_in, file_out):
         with open(file_out, "w") as fout:
             fout.write(",".join(HEADER_OUT) + "\n")
             for sample in sorted(sample_mapping_dict.keys()):
-
-                ## Check that multiple runs of the same sample are of the same datatype
-                if not all(
-                    x[0] == sample_mapping_dict[sample][0][0]
-                    for x in sample_mapping_dict[sample]
-                ):
-                    print_error(
-                        "Multiple runs of a sample must be of the same datatype!",
-                        "Sample: {}".format(sample),
-                    )
-
                 for idx, val in enumerate(sample_mapping_dict[sample]):
-                    fout.write(
-                        ",".join(["{}_T{}".format(sample, idx + 1)] + val) + "\n"
-                    )
+                    fout.write(f"{sample},{','.join(val)}\n")
+                    # fout.write(f",".join(["{}".format(sample)] + val) + "\n")
     else:
         print_error("No entries to process!", "Samplesheet: {}".format(file_in))
 
