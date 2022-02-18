@@ -11,7 +11,7 @@ WorkflowTaxprofiler.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.fasta ]
+def checkPathParamList = [ params.input, params.multiqc_config ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
@@ -50,6 +50,11 @@ include { FASTQC                      } from '../modules/nf-core/modules/fastqc/
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
 
+include { FASTP as FASTP_SINGLE       } from '../modules/nf-core/modules/fastp/main'
+include { FASTP as FASTP_PAIRED       } from '../modules/nf-core/modules/fastp/main'
+include { FASTQC as FASTQC_POST       } from '../modules/nf-core/modules/fastqc/main'
+include { CAT_FASTQ                   } from '../modules/nf-core/modules/cat/fastq/main'
+
 /*
 ========================================================================================
     RUN MAIN WORKFLOW
@@ -75,13 +80,78 @@ workflow TAXPROFILER {
     // MODULE: Run FastQC
     //
     FASTQC (
-        INPUT_CHECK.out.reads
+        INPUT_CHECK.out.fastq
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
+
+    //
+    // MODULE: Run Clip/Merge/Complexity
+    //
+    // TODO give option to clip only and retain pairs
+    // TODO give option to retain singletons (probably fastp option likely)
+    // TODO move to subworkflow
+    if ( params.fastp_clip_merge ) {
+
+        ch_input_for_fastp = INPUT_CHECK.out.fastq
+                                .dump(tag: "pre-fastp_branch")
+                                .branch{
+                                    single: it[0]['single_end'] == true
+                                    paired: it[0]['single_end'] == false
+                                }
+
+        ch_input_for_fastp.single.dump(tag: "input_fastp_single")
+        ch_input_for_fastp.paired.dump(tag: "input_fastp_paired")
+
+        FASTP_SINGLE ( ch_input_for_fastp.single, false, false )
+        FASTP_PAIRED ( ch_input_for_fastp.paired, false, true )
+
+        ch_fastp_reads_prepped = FASTP_PAIRED.out.reads_merged
+                                    .mix( FASTP_SINGLE.out.reads )
+                                    .map {
+                                        meta, reads ->
+                                        def meta_new = meta.clone()
+                                        meta_new['single_end'] = 1
+                                        [ meta_new, reads ]
+                                    }
+
+        FASTQC_POST ( ch_fastp_reads_prepped )
+
+        ch_versions = ch_versions.mix(FASTP_SINGLE.out.versions.first())
+        ch_versions = ch_versions.mix(FASTP_PAIRED.out.versions.first())
+
+        ch_processed_reads = ch_fastp_reads_prepped
+
+    } else {
+        ch_processed_reads = INPUT_CHECK.out.fastq
+    }
+
+
+    // MODULE: Cat merge runs of same sample
+    ch_processed_for_combine = ch_processed_reads
+        .dump(tag: "prep_for_combine_grouping")
+        .map {
+            meta, reads ->
+            def meta_new = meta.clone()
+            meta_new['run_accession'] = 'combined'
+            [ meta_new, reads ]
+        }
+        .groupTuple ( by: 0 )
+        .branch{
+            combine: it[1].size() >= 2
+            skip: it[1].size() < 2
+        }
+
+    CAT_FASTQ ( ch_processed_for_combine.combine )
+
+    // Ready for profiling!
+    ch_reads_for_profiling = ch_processed_for_combine.skip
+                                .dump(tag: "skip_combine")
+                                .mix( CAT_FASTQ.out.reads )
+                                .dump(tag: "files_for_profiling")
 
     //
     // MODULE: MultiQC
@@ -95,6 +165,12 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    if (params.fastp_clip_merge) {
+        ch_multiqc_files = ch_multiqc_files.mix(FASTP_SINGLE.out.json.collect{it[1]}.ifEmpty([]))
+        ch_multiqc_files = ch_multiqc_files.mix(FASTP_PAIRED.out.json.collect{it[1]}.ifEmpty([]))
+        ch_multiqc_files = ch_multiqc_files.mix(FASTQC_POST.out.zip.collect{it[1]}.ifEmpty([]))
+    }
+
 
     MULTIQC (
         ch_multiqc_files.collect()

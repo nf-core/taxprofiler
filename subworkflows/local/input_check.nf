@@ -9,22 +9,38 @@ workflow INPUT_CHECK {
     samplesheet // file: /path/to/samplesheet.csv
 
     main:
-    SAMPLESHEET_CHECK ( samplesheet )
+    parsed_samplesheet = SAMPLESHEET_CHECK ( samplesheet )
         .csv
         .splitCsv ( header:true, sep:',' )
+        .dump(tag: "split_csv_out")
+        .branch {
+            fasta: it['fasta'] != ''
+            fastq: true
+        }
+
+    parsed_samplesheet.fastq
         .map { create_fastq_channels(it) }
-        .set { reads }
+        .dump(tag: "fastq_channel_init")
+        .set { fastq }
+
+    parsed_samplesheet.fasta
+        .map { create_fasta_channels(it) }
+        .dump(tag: "fasta_channel_init")
+        .set { fasta }
 
     emit:
-    reads                                     // channel: [ val(meta), [ reads ] ]
+    fastq                                     // channel: [ val(meta), [ reads ] ]
+    fasta                                     // channel: [ val(meta), fasta ]
     versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
 }
 
 // Function to get list of [ meta, [ fastq_1, fastq_2 ] ]
 def create_fastq_channels(LinkedHashMap row) {
     def meta = [:]
-    meta.id           = row.sample
-    meta.single_end   = row.single_end.toBoolean()
+    meta.id                     = row.sample
+    meta.run_accession          = row.run_accession
+    meta.instrument_platform    = row.instrument_platform
+    meta.single_end             = row.single_end.toBoolean()
 
     def array = []
     if (!file(row.fastq_1).exists()) {
@@ -38,5 +54,22 @@ def create_fastq_channels(LinkedHashMap row) {
         }
         array = [ meta, [ file(row.fastq_1), file(row.fastq_2) ] ]
     }
+    return array
+}
+
+// Function to get list of [ meta, fasta ]
+def create_fasta_channels(LinkedHashMap row) {
+    def meta = [:]
+    meta.id                     = row.sample
+    meta.run_accession          = row.run_accession
+    meta.instrument_platform    = row.instrument_platform
+    meta.single_end             = true
+
+    def array = []
+    if (!file(row.fasta).exists()) {
+        exit 1, "ERROR: Please check input samplesheet -> FastA file does not exist!\n${row.fasta}"
+    }
+    array = [ meta, [ file(row.fasta) ] ]
+
     return array
 }

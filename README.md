@@ -42,9 +42,9 @@ On release, automated continuous integration tests run the pipeline on a full-si
    - Centrifuge
    - Kaiju
    - mOTUs
-4.  Perform optional post-processing with:
-    -  bracken
-5.  Standardises output tables
+4. Perform optional post-processing with:
+    - bracken
+5. Standardises output tables
 6. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 
 ## Quick Start
