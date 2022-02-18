@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-# TODO nf-core: Update the script to check the samplesheet
-# This script is based on the example at: https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/samplesheet_test_illumina_amplicon.csv
-
 from distutils import extension
 import os
 import sys
@@ -83,7 +80,6 @@ def check_samplesheet(file_in, file_out):
 
         ## Check header
         MIN_COLS = 4
-        # TODO nf-core: Update the column names for the input samplesheet
         HEADER = [
             "sample",
             "run_accession",
@@ -188,7 +184,7 @@ def check_samplesheet(file_in, file_out):
             else:
                 print_error("Invalid combination of columns provided!", "Line", line)
 
-            ## Create sample mapping dictionary = { sample: [ single_end, fastq_1, fastq_2 , fasta, run_accession, instrument_platform] }
+            ## Create sample mapping dictionary = { sample: [ run_accession, instrument_platform, single_end, fastq_1, fastq_2 , fasta ] }
             if sample not in sample_mapping_dict:
                 sample_mapping_dict[sample] = [sample_info]
             else:
@@ -215,7 +211,6 @@ def check_samplesheet(file_in, file_out):
             for sample in sorted(sample_mapping_dict.keys()):
                 for idx, val in enumerate(sample_mapping_dict[sample]):
                     fout.write(f"{sample},{','.join(val)}\n")
-                    # fout.write(f",".join(["{}".format(sample)] + val) + "\n")
     else:
         print_error("No entries to process!", "Samplesheet: {}".format(file_in))
 
