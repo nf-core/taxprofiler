@@ -181,6 +181,12 @@ def check_samplesheet(file_in, file_out):
                 sample and fasta and not fastq_1 and not fastq_2
             ):  ## Single-end long reads
                 sample_info.extend(["1", fastq_1, fastq_2, fasta])
+            elif fasta and (fastq_1 or fastq_2):
+                print_error(
+                    "FastQ and FastA files cannot be specified together in the same library!",
+                    "Line",
+                    line,
+                )
             else:
                 print_error("Invalid combination of columns provided!", "Line", line)
 
