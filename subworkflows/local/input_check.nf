@@ -12,7 +12,7 @@ workflow INPUT_CHECK {
     parsed_samplesheet = SAMPLESHEET_CHECK ( samplesheet )
         .csv
         .splitCsv ( header:true, sep:',' )
-        .dump(tag: "split_csv_out")
+        .dump(tag: "input_split_csv_out")
         .branch {
             fasta: it['fasta'] != ''
             fastq: true
