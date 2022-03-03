@@ -203,7 +203,8 @@ workflow TAXPROFILER {
         ch_versions = ch_versions.mix(MALT_RUN.out.versions.first())
     }
 
-
+    // TODO MALT results overwriting per database?
+    // TODO Versions for Karken/MALT not report?
     MULTIQC (
         ch_multiqc_files.collect()
     )
