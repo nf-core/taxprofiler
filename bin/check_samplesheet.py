@@ -37,8 +37,6 @@ def print_error(error, context="Line", context_str=""):
     print(error_str)
     sys.exit(1)
 
-
-# TODO nf-core: Update the check_samplesheet function
 def check_samplesheet(file_in, file_out):
     """
     This function checks that the samplesheet follows the following structure:
