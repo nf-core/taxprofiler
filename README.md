@@ -17,7 +17,7 @@
 ## Introduction
 
 <!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
-**nf-core/taxprofiler** is a bioinformatics best-practice analysis pipeline for Taxonomic profiling of shotgun metagenomic data.
+**nf-core/taxprofiler** is a bioinformatics best-practice analysis pipeline for taxonomic profiling of shotgun metagenomic data. It allows for in-parallel profiling against multiple profiling tools and databases and produces standardised output tables.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
@@ -29,7 +29,23 @@ On release, automated continuous integration tests run the pipeline on a full-si
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+2. Performs optional read pre-processing
+   - Adapter clipping and merging
+   - Low complexity filtering
+   - Host read removal
+   - Run merging
+3. Performs taxonomic profiling a choice of:
+   - Kraken2
+   - MetaPhlAn3
+   - MALT
+   - DIAMOND
+   - Centrifuge
+   - Kaiju
+   - mOTUs
+4. Perform optional post-processing with:
+    - bracken
+5. Standardises output tables
+6. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 
 ## Quick Start
 

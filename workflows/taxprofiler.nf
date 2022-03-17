@@ -11,11 +11,12 @@ WorkflowTaxprofiler.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.multiqc_config, params.fasta ]
+def checkPathParamList = [ params.input, params.databases, params.multiqc_config ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
+if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
+if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,7 +36,11 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check'
+include { INPUT_CHECK         } from '../subworkflows/local/input_check'
+
+include { DB_CHECK            } from '../subworkflows/local/db_check'
+include { FASTQ_PREPROCESSING } from '../subworkflows/local/preprocessing'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,6 +54,11 @@ include { INPUT_CHECK } from '../subworkflows/local/input_check'
 include { FASTQC                      } from '../modules/nf-core/modules/fastqc/main'
 include { MULTIQC                     } from '../modules/nf-core/modules/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
+
+include { CAT_FASTQ                   } from '../modules/nf-core/modules/cat/fastq/main'
+include { MALT_RUN                    } from '../modules/nf-core/modules/malt/run/main'
+include { KRAKEN2_KRAKEN2             } from '../modules/nf-core/modules/kraken2/kraken2/main'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,17 +81,103 @@ workflow TAXPROFILER {
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
+    DB_CHECK (
+        ch_databases
+    )
+
     //
     // MODULE: Run FastQC
     //
     FASTQC (
-        INPUT_CHECK.out.reads
+        INPUT_CHECK.out.fastq
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
+
+    //
+    // PERFORM PREPROCESSING
+    //
+    if ( params.fastp_clip_merge ) {
+        FASTQ_PREPROCESSING ( INPUT_CHECK.out.fastq )
+    }
+
+    //
+    // PERFORM RUN MERGING
+    //
+    ch_processed_for_combine = FASTQ_PREPROCESSING.out.reads
+        .dump(tag: "prep_for_combine_grouping")
+        .map {
+            meta, reads ->
+            def meta_new = meta.clone()
+            meta_new['run_accession'] = 'combined'
+            [ meta_new, reads ]
+        }
+        .groupTuple ( by: 0 )
+        .branch{
+            combine: it[1].size() >= 2
+            skip: it[1].size() < 2
+        }
+
+    CAT_FASTQ ( ch_processed_for_combine.combine )
+
+    ch_reads_for_profiling = ch_processed_for_combine.skip
+                                .dump(tag: "skip_combine")
+                                .mix( CAT_FASTQ.out.reads )
+                                .dump(tag: "files_for_profiling")
+
+    //
+    // COMBINE READS WITH POSSIBLE DATABASES
+    //
+
+    // output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
+    ch_input_for_profiling = ch_reads_for_profiling
+            .combine(DB_CHECK.out.dbs)
+            .dump(tag: "reads_plus_db")
+            .branch {
+                malt:    it[2]['tool'] == 'malt'
+                kraken2: it[2]['tool'] == 'kraken2'
+                unknown: true
+            }
+
+    //
+    // PREP PROFILER INPUT CHANNELS ON PER TOOL BASIS
+    //
+
+    // We groupTuple to have all samples in one channel for MALT as database
+    // loading takes a long time, so we only want to run it once per database
+    ch_input_for_malt =  ch_input_for_profiling.malt
+                            .map {
+                                it ->
+                                    def temp_meta =  [ id: it[2]['db_name']]  + it[2]
+                                    def db = it[3]
+                                    [ temp_meta, it[1], db ]
+                            }
+                            .groupTuple(by: [0,2])
+                            .dump(tag: "input for malt")
+                            .multiMap {
+                                it ->
+                                    reads: [ it[0], it[1].flatten() ]
+                                    db: it[2]
+                            }
+
+    // We can run Kraken2 one-by-one sample-wise
+    ch_input_for_kraken2 =  ch_input_for_profiling.kraken2
+                            .dump(tag: "input for kraken")
+                            .multiMap {
+                                it ->
+                                    reads: [ it[0] + it[2], it[1] ]
+                                    db: it[3]
+                            }
+
+    //
+    // RUN PROFILING
+    //
+    MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
+    KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
+
 
     //
     // MODULE: MultiQC
@@ -95,7 +191,20 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    if (params.fastp_clip_merge) {
+        ch_multiqc_files = ch_multiqc_files.mix(FASTQ_PREPROCESSING.out.mqc)
+    }
+    if (params.run_kraken2) {
+        ch_multiqc_files = ch_multiqc_files.mix(KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]))
+        ch_versions = ch_versions.mix(KRAKEN2_KRAKEN2.out.versions.first())
+    }
+    if (params.run_malt) {
+        ch_multiqc_files = ch_multiqc_files.mix(MALT_RUN.out.log.collect{it[1]}.ifEmpty([]))
+        ch_versions = ch_versions.mix(MALT_RUN.out.versions.first())
+    }
 
+    // TODO MALT results overwriting per database?
+    // TODO Versions for Karken/MALT not report?
     MULTIQC (
         ch_multiqc_files.collect()
     )
