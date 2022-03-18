@@ -34,6 +34,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
    - Low complexity filtering
    - Host read removal
    - Run merging
+   - Adapter and quality trimming of Nanopore reads
 3. Performs taxonomic profiling a choice of:
    - Kraken2
    - MetaPhlAn3
