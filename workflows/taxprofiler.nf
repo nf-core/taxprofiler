@@ -40,7 +40,7 @@ include { INPUT_CHECK         } from '../subworkflows/local/input_check'
 
 include { DB_CHECK            } from '../subworkflows/local/db_check'
 include { FASTQ_PREPROCESSING } from '../subworkflows/local/preprocessing'
-
+include { LONGREAD_PREPROCESSING } from '../subworkflows/local/longread_preprocessing'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,6 +103,10 @@ workflow TAXPROFILER {
     if ( params.fastp_clip_merge ) {
         FASTQ_PREPROCESSING ( INPUT_CHECK.out.fastq )
     }
+
+    LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore )
+
+    ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions.first())
 
     //
     // PERFORM RUN MERGING
@@ -191,6 +195,7 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_PREPROCESSING.out.mqc)
     if (params.fastp_clip_merge) {
         ch_multiqc_files = ch_multiqc_files.mix(FASTQ_PREPROCESSING.out.mqc)
     }
