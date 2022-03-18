@@ -15,6 +15,7 @@ workflow INPUT_CHECK {
         .dump(tag: "input_split_csv_out")
         .branch {
             fasta: it['fasta'] != ''
+            nanopore: it['instrument_platform'] == 'OXFORD_NANOPORE'
             fastq: true
         }
 
