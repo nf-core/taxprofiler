@@ -31,9 +31,9 @@ workflow INPUT_CHECK {
         .set { fasta }
 
     emit:
-    fastq                                     // channel: [ val(meta), [ reads ] ]
-    nanopore                                  // channel: [ val(meta), [ reads ] ]
-    fasta                                     // channel: [ val(meta), fasta ]
+    fastq = fastq ?: []                       // channel: [ val(meta), [ reads ] ]
+    nanopore = nanopore ?: []                 // channel: [ val(meta), [ reads ] ]
+    fasta = fasta ?: []                       // channel: [ val(meta), fasta ]
     versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
 }
 

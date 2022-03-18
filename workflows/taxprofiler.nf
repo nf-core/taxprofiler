@@ -165,9 +165,10 @@ workflow TAXPROFILER {
                             }
 
     ch_input_for_metaphlan3 = ch_input_for_profiling.metaphlan3
+                            .dump(tag: "input_metaphlan3")
                             .multiMap {
                                 it ->
-                                    reads: [ it[0] + it[2], it[1] ]
+                                    reads: [it[0] + it[2], it[1][0]]
                                     db: it[3]
                             }
 
