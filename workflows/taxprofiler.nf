@@ -101,7 +101,9 @@ workflow TAXPROFILER {
     // PERFORM PREPROCESSING
     //
     if ( params.shortread_clipmerge ) {
-        SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq )
+        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq ).reads
+    } else {
+        ch_shortreads_preprocessed = INPUT_CHECK.out.fastq
     }
 
     if ( params.longread_clip ) {
@@ -113,9 +115,10 @@ workflow TAXPROFILER {
     }
 
     //
-    // PERFORM RUN MERGING
+    // PERFORM SHORT READ RUN MERGING
+    // TODO: Check not necessary for long reads too?
     //
-    ch_processed_for_combine = SHORTREAD_PREPROCESSING.out.reads
+    ch_processed_for_combine = ch_shortreads_preprocessed
         .dump(tag: "prep_for_combine_grouping")
         .map {
             meta, reads ->
@@ -140,7 +143,7 @@ workflow TAXPROFILER {
     // COMBINE READS WITH POSSIBLE DATABASES
     //
 
-    // output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
+    // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
     ch_input_for_profiling = ch_reads_for_profiling
             .mix( ch_longreads_preprocessed )
             .combine(DB_CHECK.out.dbs)
@@ -152,7 +155,7 @@ workflow TAXPROFILER {
             }
 
     //
-    // PREP PROFILER INPUT CHANNELS ON PER TOOL BASIS
+    // PREPARE PROFILER INPUT CHANNELS
     //
 
     // We groupTuple to have all samples in one channel for MALT as database

@@ -30,7 +30,7 @@ workflow INPUT_CHECK {
         .set { nanopore }
 
     parsed_samplesheet.fasta
-        .map { create_fasta_channels(it) }
+        .map { create_fasta_channel(it) }
         .dump(tag: "fasta_channel_init")
         .set { fasta }
 
@@ -42,7 +42,7 @@ workflow INPUT_CHECK {
 }
 
 // Function to get list of [ meta, [ fastq_1, fastq_2 ] ]
-def create_fastq_channels(LinkedHashMap row) {
+def create_fastq_channel(LinkedHashMap row) {
     // create meta map
     def meta = [:]
     meta.id                     = row.sample
@@ -74,7 +74,7 @@ def create_fastq_channels(LinkedHashMap row) {
 }
 
 // Function to get list of [ meta, fasta ]
-def create_fasta_channels(LinkedHashMap row) {
+def create_fasta_channel(LinkedHashMap row) {
     def meta = [:]
     meta.id                     = row.sample
     meta.run_accession          = row.run_accession
