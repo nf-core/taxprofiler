@@ -39,7 +39,7 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 include { INPUT_CHECK         } from '../subworkflows/local/input_check'
 
 include { DB_CHECK            } from '../subworkflows/local/db_check'
-include { FASTQ_PREPROCESSING } from '../subworkflows/local/preprocessing'
+include { SHORTREAD_PREPROCESSING } from '../subworkflows/local/shortread_preprocessing'
 include { LONGREAD_PREPROCESSING } from '../subworkflows/local/longread_preprocessing'
 
 /*
@@ -101,7 +101,7 @@ workflow TAXPROFILER {
     // PERFORM PREPROCESSING
     //
     if ( params.fastp_clip_merge ) {
-        FASTQ_PREPROCESSING ( INPUT_CHECK.out.fastq )
+        SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq )
     }
 
     ch_multiqc_files = Channel.empty()
@@ -118,7 +118,7 @@ workflow TAXPROFILER {
     //
     // PERFORM RUN MERGING
     //
-    ch_processed_for_combine = FASTQ_PREPROCESSING.out.reads
+    ch_processed_for_combine = SHORTREAD_PREPROCESSING.out.reads
         .dump(tag: "prep_for_combine_grouping")
         .map {
             meta, reads ->
@@ -203,7 +203,7 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
     if (params.fastp_clip_merge) {
-        ch_multiqc_files = ch_multiqc_files.mix(FASTQ_PREPROCESSING.out.mqc)
+        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_PREPROCESSING.out.mqc)
     }
     if (params.run_kraken2) {
         ch_multiqc_files = ch_multiqc_files.mix(KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]))
