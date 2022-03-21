@@ -100,17 +100,14 @@ workflow TAXPROFILER {
     //
     // PERFORM PREPROCESSING
     //
-    if ( params.fastp_clip_merge ) {
+    if ( params.shortread_clipmerge ) {
         SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq )
     }
 
-    ch_multiqc_files = Channel.empty()
-
-    if ( params.remove_adapters ) {
+    if ( params.longread_clip ) {
         ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
                                         .map { it -> [ it[0], [it[1]] ] }
     ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions.first())
-        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_PREPROCESSING.out.mqc)
     } else {
         ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
     }
@@ -187,9 +184,13 @@ workflow TAXPROFILER {
     //
     // RUN PROFILING
     //
-    MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
-    KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
+    if ( params.run_malt ) {
+        MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
+    }
 
+    if ( params.run_kraken2 ) {
+        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
+    }
 
     //
     // MODULE: MultiQC
@@ -197,13 +198,18 @@ workflow TAXPROFILER {
     workflow_summary    = WorkflowTaxprofiler.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
+    ch_multiqc_files = Channel.empty()
     ch_multiqc_files = ch_multiqc_files.mix(Channel.from(ch_multiqc_config))
     ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
-    if (params.fastp_clip_merge) {
+
+    if (params.shortread_clipmerge) {
         ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_PREPROCESSING.out.mqc)
+    }
+    if (params.longread_clip) {
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_PREPROCESSING.out.mqc)
     }
     if (params.run_kraken2) {
         ch_multiqc_files = ch_multiqc_files.mix(KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]))

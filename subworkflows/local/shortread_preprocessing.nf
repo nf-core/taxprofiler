@@ -23,7 +23,7 @@ workflow SHORTREAD_PREPROCESSING {
     // TODO move to subworkflow
 
 
-    if ( params.fastp_clip_merge ) {
+    if ( params.shortread_clipmerge ) {
 
         ch_input_for_fastp = reads
                                 .dump(tag: "pre-fastp_branch")
