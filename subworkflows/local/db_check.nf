@@ -3,6 +3,7 @@
 //
 
 include { DATABASE_CHECK } from '../../modules/local/database_check'
+include { UNTAR          } from '../../modules/nf-core/modules/untar/main'
 
 workflow DB_CHECK {
     take:
@@ -17,19 +18,19 @@ workflow DB_CHECK {
         .dump(tag: "db_split_csv_out")
         .map { create_db_channels(it) }
         .dump(tag: "db_channel_prepped")
-        .set{ dbs }
-
 
     parsed_samplesheet
         .branch {
-            untar: it[0]['db_path'].toString().endsWith(".tar.gz")
+            untar: it[1].toString().endsWith(".tar.gz")
             skip: true
         }
         .set{ ch_dbs_for_untar }
 
+    // TODO Filter to only run UNTAR on DBs of tools actually using?
+    // TODO make optional whether to save
     UNTAR ( ch_dbs_for_untar.untar )
 
-    ch_final_dbs = ch_dbs_for_untar.skip.mix( ch_dbs_untarred )
+    ch_final_dbs = ch_dbs_for_untar.skip.mix( UNTAR.out.untar )
 
     emit:
     dbs = ch_final_dbs                        // channel: [ val(meta), [ db ] ]
