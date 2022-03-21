@@ -19,8 +19,20 @@ workflow DB_CHECK {
         .dump(tag: "db_channel_prepped")
         .set{ dbs }
 
+
+    parsed_samplesheet
+        .branch {
+            untar: it[0]['db_path'].toString().endsWith(".tar.gz")
+            skip: true
+        }
+        .set{ ch_dbs_for_untar }
+
+    UNTAR ( ch_dbs_for_untar.untar )
+
+    ch_final_dbs = ch_dbs_for_untar.skip.mix( ch_dbs_untarred )
+
     emit:
-    dbs                                       // channel: [ val(meta), [ db ] ]
+    dbs = ch_final_dbs                        // channel: [ val(meta), [ db ] ]
     versions = DATABASE_CHECK.out.versions // channel: [ versions.yml ]
 }
 
