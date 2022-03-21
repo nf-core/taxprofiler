@@ -104,9 +104,16 @@ workflow TAXPROFILER {
         FASTQ_PREPROCESSING ( INPUT_CHECK.out.fastq )
     }
 
-    LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore )
+    ch_multiqc_files = Channel.empty()
 
+    if ( params.remove_adapters ) {
+        ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
+                                        .map { it -> [ it[0], [it[1]] ] }
     ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions.first())
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_PREPROCESSING.out.mqc)
+    } else {
+        ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
+    }
 
     //
     // PERFORM RUN MERGING
@@ -138,6 +145,7 @@ workflow TAXPROFILER {
 
     // output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
     ch_input_for_profiling = ch_reads_for_profiling
+            .mix( ch_longreads_preprocessed )
             .combine(DB_CHECK.out.dbs)
             .dump(tag: "reads_plus_db")
             .branch {
@@ -189,13 +197,11 @@ workflow TAXPROFILER {
     workflow_summary    = WorkflowTaxprofiler.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
-    ch_multiqc_files = Channel.empty()
     ch_multiqc_files = ch_multiqc_files.mix(Channel.from(ch_multiqc_config))
     ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
-    ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_PREPROCESSING.out.mqc)
     if (params.fastp_clip_merge) {
         ch_multiqc_files = ch_multiqc_files.mix(FASTQ_PREPROCESSING.out.mqc)
     }
