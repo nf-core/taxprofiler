@@ -19,12 +19,11 @@ workflow DB_CHECK {
         .map { create_db_channels(it) }
         .dump(tag: "db_channel_prepped")
 
-    parsed_samplesheet
+    ch_dbs_for_untar = parsed_samplesheet
         .branch {
             untar: it[1].toString().endsWith(".tar.gz")
             skip: true
         }
-        .set{ ch_dbs_for_untar }
 
     // TODO Filter to only run UNTAR on DBs of tools actually using?
     // TODO make optional whether to save
