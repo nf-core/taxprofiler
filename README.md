@@ -30,11 +30,10 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Performs optional read pre-processing
-   - Adapter clipping and merging
+   - Adapter clipping and merging (short, and nanopore reads)
    - Low complexity filtering
    - Host read removal
    - Run merging
-   - Adapter and quality trimming of Nanopore reads
 3. Performs taxonomic profiling a choice of:
    - Kraken2
    - MetaPhlAn3
