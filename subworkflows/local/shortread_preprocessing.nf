@@ -7,7 +7,7 @@ include { FASTP as FASTP_SINGLE       } from '../../modules/nf-core/modules/fast
 include { FASTP as FASTP_PAIRED       } from '../../modules/nf-core/modules/fastp/main'
 include { FASTQC as FASTQC_POST       } from '../../modules/nf-core/modules/fastqc/main'
 
-workflow FASTQ_PREPROCESSING {
+workflow SHORTREAD_PREPROCESSING {
     take:
     reads // file: /path/to/samplesheet.csv
 
