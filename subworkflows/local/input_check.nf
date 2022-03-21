@@ -42,7 +42,7 @@ workflow INPUT_CHECK {
 }
 
 // Function to get list of [ meta, [ fastq_1, fastq_2 ] ]
-def create_fastq_channel(LinkedHashMap row) {
+def create_fastq_channels(LinkedHashMap row) {
     // create meta map
     def meta = [:]
     meta.id                     = row.sample
