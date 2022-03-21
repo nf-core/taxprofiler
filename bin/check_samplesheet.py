@@ -173,7 +173,7 @@ def check_samplesheet(file_in, file_out):
             ## Auto-detect paired-end/single-end
             if sample and fastq_1 and fastq_2:  ## Paired-end short reads
                 sample_info.extend(["0", fastq_1, fastq_2, fasta])
-            elif sample and fastq_1 and not fastq_2:  ## Single-end short reads
+            elif sample and fastq_1 and not fastq_2:  ## Single-end short/long fastq reads
                 sample_info.extend(["1", fastq_1, fastq_2, fasta])
             elif (
                 sample and fasta and not fastq_1 and not fastq_2

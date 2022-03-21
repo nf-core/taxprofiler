@@ -7,7 +7,7 @@ include { FASTP as FASTP_SINGLE       } from '../../modules/nf-core/modules/fast
 include { FASTP as FASTP_PAIRED       } from '../../modules/nf-core/modules/fastp/main'
 include { FASTQC as FASTQC_POST       } from '../../modules/nf-core/modules/fastqc/main'
 
-workflow FASTQ_PREPROCESSING {
+workflow SHORTREAD_PREPROCESSING {
     take:
     reads // file: /path/to/samplesheet.csv
 
@@ -23,7 +23,7 @@ workflow FASTQ_PREPROCESSING {
     // TODO move to subworkflow
 
 
-    if ( params.fastp_clip_merge ) {
+    if ( params.shortread_clipmerge ) {
 
         ch_input_for_fastp = reads
                                 .dump(tag: "pre-fastp_branch")

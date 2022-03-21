@@ -39,8 +39,8 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 include { INPUT_CHECK         } from '../subworkflows/local/input_check'
 
 include { DB_CHECK            } from '../subworkflows/local/db_check'
-include { FASTQ_PREPROCESSING } from '../subworkflows/local/preprocessing'
-
+include { SHORTREAD_PREPROCESSING } from '../subworkflows/local/shortread_preprocessing'
+include { LONGREAD_PREPROCESSING } from '../subworkflows/local/longread_preprocessing'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -89,7 +89,7 @@ workflow TAXPROFILER {
     // MODULE: Run FastQC
     //
     FASTQC (
-        INPUT_CHECK.out.fastq
+        INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
@@ -100,14 +100,22 @@ workflow TAXPROFILER {
     //
     // PERFORM PREPROCESSING
     //
-    if ( params.fastp_clip_merge ) {
-        FASTQ_PREPROCESSING ( INPUT_CHECK.out.fastq )
+    if ( params.shortread_clipmerge ) {
+        SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq )
+    }
+
+    if ( params.longread_clip ) {
+        ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
+                                        .map { it -> [ it[0], [it[1]] ] }
+    ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions.first())
+    } else {
+        ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
     }
 
     //
     // PERFORM RUN MERGING
     //
-    ch_processed_for_combine = FASTQ_PREPROCESSING.out.reads
+    ch_processed_for_combine = SHORTREAD_PREPROCESSING.out.reads
         .dump(tag: "prep_for_combine_grouping")
         .map {
             meta, reads ->
@@ -134,6 +142,7 @@ workflow TAXPROFILER {
 
     // output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
     ch_input_for_profiling = ch_reads_for_profiling
+            .mix( ch_longreads_preprocessed )
             .combine(DB_CHECK.out.dbs)
             .dump(tag: "reads_plus_db")
             .branch {
@@ -175,9 +184,13 @@ workflow TAXPROFILER {
     //
     // RUN PROFILING
     //
-    MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
-    KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
+    if ( params.run_malt ) {
+        MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
+    }
 
+    if ( params.run_kraken2 ) {
+        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
+    }
 
     //
     // MODULE: MultiQC
@@ -191,8 +204,12 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
-    if (params.fastp_clip_merge) {
-        ch_multiqc_files = ch_multiqc_files.mix(FASTQ_PREPROCESSING.out.mqc)
+
+    if (params.shortread_clipmerge) {
+        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_PREPROCESSING.out.mqc)
+    }
+    if (params.longread_clip) {
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_PREPROCESSING.out.mqc)
     }
     if (params.run_kraken2) {
         ch_multiqc_files = ch_multiqc_files.mix(KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]))
