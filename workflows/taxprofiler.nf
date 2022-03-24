@@ -24,7 +24,7 @@ if (params.databases) { ch_databases = file(params.databases) } else { exit 1, '
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-ch_multiqc_config        = file("$projectDir/assets/multiqc_config.yaml", checkIfExists: true)
+ch_multiqc_config        = file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
 ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multiqc_config) : Channel.empty()
 
 /*
@@ -88,8 +88,9 @@ workflow TAXPROFILER {
     //
     // MODULE: Run FastQC
     //
+    ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore ).dump(tag: "input_to_fastq")
     FASTQC (
-        INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
+        ch_input_for_fastqc
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
