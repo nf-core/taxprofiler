@@ -88,8 +88,9 @@ workflow TAXPROFILER {
     //
     // MODULE: Run FastQC
     //
+    ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore ).dump(tag: "input_to_fastq")
     FASTQC (
-        INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
+        ch_input_for_fastqc
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
