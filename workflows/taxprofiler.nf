@@ -58,7 +58,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 include { CAT_FASTQ                   } from '../modules/nf-core/modules/cat/fastq/main'
 include { MALT_RUN                    } from '../modules/nf-core/modules/malt/run/main'
 include { KRAKEN2_KRAKEN2             } from '../modules/nf-core/modules/kraken2/kraken2/main'
-
+include { CENTRIFUGE                  } from '../modules/nf-core/modules/centrifuge/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -149,9 +149,10 @@ workflow TAXPROFILER {
             .combine(DB_CHECK.out.dbs)
             .dump(tag: "reads_plus_db")
             .branch {
-                malt:    it[2]['tool'] == 'malt'
-                kraken2: it[2]['tool'] == 'kraken2'
-                unknown: true
+                malt:       it[2]['tool'] == 'malt'
+                kraken2:    it[2]['tool'] == 'kraken2'
+                centrifuge: it[2]['tool'] == 'centrifuge'
+                unknown:    true
             }
 
     //
@@ -184,6 +185,15 @@ workflow TAXPROFILER {
                                     db: it[3]
                             }
 
+    // We can run centrifuge one-by-one sample-wise
+    ch_input_for_centrifuge =  ch_input_for_profiling.centrifuge
+                               .dump(tag: "input for centrifuge")
+                               .multiMap {
+                                    it ->
+                                        reads: [ it[0] + it[2], it[1] ]
+                                        db: it[3]
+                                }
+
     //
     // RUN PROFILING
     //
@@ -193,6 +203,10 @@ workflow TAXPROFILER {
 
     if ( params.run_kraken2 ) {
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
+    }
+
+    if ( params.run_centrifuge ) {
+        CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.save_unaligned, params.save_aligned, params.sam_format  )
     }
 
     //
