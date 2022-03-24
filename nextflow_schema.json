@@ -260,31 +260,27 @@
     "properties": {
         "databases": {
             "type": "string",
-            "default": null
+            "default": "None"
         },
         "shortread_clipmerge": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         },
         "shortread_excludeunmerged": {
-            "type": "string",
-            "default": "true"
+            "type": "boolean",
+            "default": true
         },
         "longread_clip": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         },
         "run_malt": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         },
         "malt_mode": {
             "type": "string",
             "default": "BlastN"
         },
         "run_kraken2": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         }
     }
 }
