@@ -293,20 +293,16 @@
             "type": "boolean"
         },
         "run_centrifuge": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         },
         "centrifuge_save_unaligned": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         },
         "centrifuge_save_aligned": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         },
         "centrifuge_sam_format": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         }
     }
 }
