@@ -1,7 +1,6 @@
-//
-// Check input samplesheet and get read channels
-//
-
+/*
+Process short raw reads with FastP
+*/
 
 include { FASTP as FASTP_SINGLE       } from '../../modules/nf-core/modules/fastp/main'
 include { FASTP as FASTP_PAIRED       } from '../../modules/nf-core/modules/fastp/main'
@@ -17,9 +16,6 @@ workflow SHORTREAD_FASTP {
     //
     // STEP: Read clipping and merging
     //
-    // TODO give option to retain singletons (probably fastp option likely)
-    // TODO move to subworkflow
-
     ch_input_for_fastp = reads
                             .dump(tag: "pre-fastp_branch")
                             .branch{
