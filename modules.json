@@ -29,7 +29,7 @@
             },
             "porechop": {
                 "git_sha": "e20e57f90b6787ac9a010a980cf6ea98bd990046"
-            }
+            },
             "centrifuge": {
                 "git_sha": "ea41a8a6f761b9993d857570e872abaae3fea555"
             }
