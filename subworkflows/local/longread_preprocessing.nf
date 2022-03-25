@@ -24,7 +24,7 @@ workflow LONGREAD_PREPROCESSING {
                                         [ meta_new, reads ]
                                     }
 
-    FASTQC_POST ( PORECHOP.out.reads )
+    FASTQC_PROCESSED ( PORECHOP.out.reads )
     ch_versions = ch_versions.mix(PORECHOP.out.versions.first())
     ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip.collect{it[1]} )
 
