@@ -29,12 +29,11 @@ workflow SHORTREAD_PREPROCESSING {
         ch_processed_reads = reads
     }
 
-    //FASTQC_PROCESSED ( ch_processed_reads )
-    //ch_versions = ch_versions.mix( FASTQC_PROCESSED.out.versions )
-    //ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip.collect{it[1]} )
+    FASTQC_PROCESSED ( ch_processed_reads )
+    ch_versions = ch_versions.mix( FASTQC_PROCESSED.out.versions )
+    ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip.collect{it[1]} )
 
     emit:
-            // TODO: problem, this is being exported as a multi-channel output? This is why FASTQC is broken
     reads    = ch_processed_reads   // channel: [ val(meta), [ reads ] ]
     versions = ch_versions          // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
