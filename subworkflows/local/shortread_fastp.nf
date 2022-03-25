@@ -13,9 +13,6 @@ workflow SHORTREAD_FASTP {
     ch_versions = Channel.empty()
     ch_multiqc_files      = Channel.empty()
 
-    //
-    // STEP: Read clipping and merging
-    //
     ch_input_for_fastp = reads
                             .dump(tag: "pre-fastp_branch")
                             .branch{
