@@ -266,5 +266,47 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "databases": {
+            "type": "string",
+            "default": "None"
+        },
+        "shortread_clipmerge": {
+            "type": "boolean"
+        },
+        "shortread_excludeunmerged": {
+            "type": "boolean",
+            "default": true
+        },
+        "longread_clip": {
+            "type": "boolean"
+        },
+        "run_malt": {
+            "type": "boolean"
+        },
+        "malt_mode": {
+            "type": "string",
+            "default": "BlastN"
+        },
+        "run_kraken2": {
+            "type": "boolean"
+        },
+        "run_centrifuge": {
+            "type": "string",
+            "default": "false"
+        },
+        "centrifuge_save_unaligned": {
+            "type": "string",
+            "default": "false"
+        },
+        "centrifuge_save_aligned": {
+            "type": "string",
+            "default": "false"
+        },
+        "centrifuge_sam_format": {
+            "type": "string",
+            "default": "false"
+        }
+    }
 }
