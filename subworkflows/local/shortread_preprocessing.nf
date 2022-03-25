@@ -3,17 +3,16 @@
 //
 
 
-include { FASTP as FASTP_SINGLE       } from '../../modules/nf-core/modules/fastp/main'
-include { FASTP as FASTP_PAIRED       } from '../../modules/nf-core/modules/fastp/main'
-include { FASTQC as FASTQC_POST       } from '../../modules/nf-core/modules/fastqc/main'
+include { SHORTREAD_FASTP             } from './shortread_fastp'
+include { FASTQC as FASTQC_PROCESSED       } from '../../modules/nf-core/modules/fastqc/main'
 
 workflow SHORTREAD_PREPROCESSING {
     take:
     reads // file: /path/to/samplesheet.csv
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files      = Channel.empty()
+    ch_versions       = Channel.empty()
+    ch_multiqc_files  = Channel.empty()
 
     //
     // STEP: Read clipping and merging
@@ -22,50 +21,20 @@ workflow SHORTREAD_PREPROCESSING {
     // TODO give option to retain singletons (probably fastp option likely)
     // TODO move to subworkflow
 
-
-    if ( params.shortread_clipmerge ) {
-
-        ch_input_for_fastp = reads
-                                .dump(tag: "pre-fastp_branch")
-                                .branch{
-                                    single: it[0]['single_end'] == true
-                                    paired: it[0]['single_end'] == false
-                                }
-
-        ch_input_for_fastp.single.dump(tag: "input_fastp_single")
-        ch_input_for_fastp.paired.dump(tag: "input_fastp_paired")
-
-        FASTP_SINGLE ( ch_input_for_fastp.single, false, false )
-        FASTP_PAIRED ( ch_input_for_fastp.paired, false, true )
-
-        ch_fastp_reads_prepped = FASTP_PAIRED.out.reads_merged
-                                    .mix( FASTP_SINGLE.out.reads )
-                                    .map {
-                                        meta, reads ->
-                                        def meta_new = meta.clone()
-                                        meta_new['single_end'] = 1
-                                        [ meta_new, reads ]
-                                    }
-
-        FASTQC_POST ( ch_fastp_reads_prepped )
-
-        ch_versions = ch_versions.mix(FASTP_SINGLE.out.versions.first())
-        ch_versions = ch_versions.mix(FASTP_PAIRED.out.versions.first())
-
-        ch_processed_reads = ch_fastp_reads_prepped
-
-        ch_multiqc_files = ch_multiqc_files.mix( FASTQC_POST.out.zip.collect{it[1]} )
-        ch_multiqc_files = ch_multiqc_files.mix( FASTP_SINGLE.out.json.collect{it[1]} )
-        ch_multiqc_files = ch_multiqc_files.mix( FASTP_PAIRED.out.json.collect{it[1]} )
-
-        ch_multiqc_files.dump(tag: "preprocessing_mqc_final")
-
+    if ( params.shortread_clipmerge_tool == "fastp" ) {
+        ch_processed_reads = SHORTREAD_FASTP ( reads ).reads
+        ch_versions        =  ch_versions.mix( SHORTREAD_FASTP.out.versions )
+        ch_multiqc_files   =  ch_multiqc_files.mix( SHORTREAD_FASTP.out.mqc )
     } else {
         ch_processed_reads = reads
     }
 
+    //FASTQC_PROCESSED ( ch_processed_reads )
+    //ch_versions = ch_versions.mix( FASTQC_PROCESSED.out.versions )
+    //ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip.collect{it[1]} )
 
     emit:
+            // TODO: problem, this is being exported as a multi-channel output? This is why FASTQC is broken
     reads    = ch_processed_reads   // channel: [ val(meta), [ reads ] ]
     versions = ch_versions          // channel: [ versions.yml ]
     mqc      = ch_multiqc_files

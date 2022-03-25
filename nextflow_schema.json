@@ -265,7 +265,7 @@
         "shortread_clipmerge": {
             "type": "boolean"
         },
-        "shortread_excludeunmerged": {
+        "shortread_clipmerge_excludeunmerged": {
             "type": "boolean",
             "default": true
         },

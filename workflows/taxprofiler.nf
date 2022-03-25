@@ -17,6 +17,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
+if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] warning: MALT does not except uncollapsed paired-reads. Pairs will be profiled as separate files."
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,6 +136,7 @@ workflow TAXPROFILER {
 
     CAT_FASTQ ( ch_processed_for_combine.combine )
 
+    // TODO May need to flatten reads?
     ch_reads_for_profiling = ch_processed_for_combine.skip
                                 .dump(tag: "skip_combine")
                                 .mix( CAT_FASTQ.out.reads )
