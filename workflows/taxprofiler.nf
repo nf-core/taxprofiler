@@ -37,11 +37,11 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK         } from '../subworkflows/local/input_check'
+include { INPUT_CHECK             } from '../subworkflows/local/input_check'
 
-include { DB_CHECK            } from '../subworkflows/local/db_check'
+include { DB_CHECK                } from '../subworkflows/local/db_check'
 include { SHORTREAD_PREPROCESSING } from '../subworkflows/local/shortread_preprocessing'
-include { LONGREAD_PREPROCESSING } from '../subworkflows/local/longread_preprocessing'
+include { LONGREAD_PREPROCESSING  } from '../subworkflows/local/longread_preprocessing'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -171,7 +171,7 @@ workflow TAXPROFILER {
                                     [ temp_meta, it[1], db ]
                             }
                             .groupTuple(by: [0,2])
-                            .dump(tag: "input for malt")
+                            .dump(tag: "input_for_malt")
                             .multiMap {
                                 it ->
                                     reads: [ it[0], it[1].flatten() ]
@@ -180,10 +180,10 @@ workflow TAXPROFILER {
 
     // We can run Kraken2 one-by-one sample-wise
     ch_input_for_kraken2 =  ch_input_for_profiling.kraken2
-                            .dump(tag: "input for kraken")
+                            .dump(tag: "input_for_kraken")
                             .multiMap {
                                 it ->
-                                    reads: [ it[0] + it[2], it[1] ]
+                                    reads: [ it[0] + it[2], it[1].flatten() ]
                                     db: it[3]
                             }
 
