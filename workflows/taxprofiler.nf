@@ -74,9 +74,9 @@ workflow TAXPROFILER {
 
     ch_versions = Channel.empty()
 
-    //
-    // SUBWORKFLOW: Read in samplesheet, validate and stage input files
-    //
+    /*
+        SUBWORKFLOW: Read in samplesheet, validate and stage input files
+    */
     INPUT_CHECK (
         ch_input
     )
@@ -86,9 +86,9 @@ workflow TAXPROFILER {
         ch_databases
     )
 
-    //
-    // MODULE: Run FastQC
-    //
+    /*
+        MODULE: Run FastQC
+    */
     ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore ).dump(tag: "input_to_fastq")
     FASTQC (
         ch_input_for_fastqc
@@ -99,9 +99,9 @@ workflow TAXPROFILER {
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
 
-    //
-    // PERFORM PREPROCESSING
-    //
+    /*
+        SUBWORKFLOW: PERFORM PREPROCESSING
+    */
     if ( params.shortread_clipmerge ) {
         ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq ).reads
     } else {
@@ -116,16 +116,19 @@ workflow TAXPROFILER {
         ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
     }
 
-    //
-    // PERFORM SHORT READ RUN MERGING
+    /*
+        MODULE: PERFORM SHORT READ RUN MERGING
+    */
+
     // TODO: Check not necessary for long reads too?
-    //
+    // TODO: source of clash - combined should only occur when
+    // files ARE to be combined. SE/unmerged (see not below)
     ch_processed_for_combine = ch_shortreads_preprocessed
         .dump(tag: "prep_for_combine_grouping")
         .map {
             meta, reads ->
             def meta_new = meta.clone()
-            meta_new['run_accession'] = 'combined'
+            //meta_new['run_accession'] = 'combined'
             [ meta_new, reads ]
         }
         .groupTuple ( by: 0 )
@@ -134,17 +137,18 @@ workflow TAXPROFILER {
             skip: it[1].size() < 2
         }
 
+    // NOTE: this does not allow CATing of SE & PE runs of same sample
+    // when --shortread_clipmerge_mergepairs is false
     CAT_FASTQ ( ch_processed_for_combine.combine )
 
-    // TODO May need to flatten reads?
     ch_reads_for_profiling = ch_processed_for_combine.skip
                                 .dump(tag: "skip_combine")
                                 .mix( CAT_FASTQ.out.reads )
                                 .dump(tag: "files_for_profiling")
 
-    //
-    // COMBINE READS WITH POSSIBLE DATABASES
-    //
+    /*
+        COMBINE READS WITH POSSIBLE DATABASES
+    */
 
     // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
     ch_input_for_profiling = ch_reads_for_profiling
@@ -157,9 +161,9 @@ workflow TAXPROFILER {
                 unknown: true
             }
 
-    //
-    // PREPARE PROFILER INPUT CHANNELS
-    //
+    /*
+        PREPARE PROFILER INPUT CHANNELS
+    */
 
     // We groupTuple to have all samples in one channel for MALT as database
     // loading takes a long time, so we only want to run it once per database
@@ -171,7 +175,7 @@ workflow TAXPROFILER {
                                     [ temp_meta, it[1], db ]
                             }
                             .groupTuple(by: [0,2])
-                            .dump(tag: "input_for_malt")
+                            .dump(tag: "input_to_malt")
                             .multiMap {
                                 it ->
                                     reads: [ it[0], it[1].flatten() ]
@@ -180,16 +184,16 @@ workflow TAXPROFILER {
 
     // We can run Kraken2 one-by-one sample-wise
     ch_input_for_kraken2 =  ch_input_for_profiling.kraken2
-                            .dump(tag: "input_for_kraken")
+                            .dump(tag: "input_to_kraken")
                             .multiMap {
                                 it ->
                                     reads: [ it[0] + it[2], it[1].flatten() ]
                                     db: it[3]
                             }
 
-    //
-    // RUN PROFILING
-    //
+    /*
+        MODULE: RUN PROFILING
+    */
     if ( params.run_malt ) {
         MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
     }
@@ -198,9 +202,9 @@ workflow TAXPROFILER {
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
     }
 
-    //
-    // MODULE: MultiQC
-    //
+    /*
+        MODULE: MultiQC
+    */
     workflow_summary    = WorkflowTaxprofiler.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
