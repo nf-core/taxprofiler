@@ -120,25 +120,40 @@ workflow TAXPROFILER {
         MODULE: PERFORM SHORT READ RUN MERGING
     */
 
-    // TODO: Check not necessary for long reads too?
-    // TODO: source of clash - combined should only occur when
-    // files ARE to be combined. SE/unmerged (see not below)
+    // Remove run accession to allow grouping by sample. Will only merge
+    // if pairment type is the same.
+
+    // TODO Current Branch system currently problematic - when single file not in a list, splits at
+    // `/` so makes list >= 2, so tries to merge, but then breaks kraken downstream
+    // e.g. `home jfellows Documents git nf-core taxprofiler testing work 68 9a2c8362add37832a776058d280bb7 2612_se.merged.fastq.gz`
+    // So theoretically need to force this into a list, (but results the can't access meta.id error as incorrect  input format)
+    // But second issue >= 2 is MAYBE sufficient because what if merging two paired-end files? Need to chcek if the input channel formatted correctly for this? Need to check...
     ch_processed_for_combine = ch_shortreads_preprocessed
         .dump(tag: "prep_for_combine_grouping")
         .map {
             meta, reads ->
             def meta_new = meta.clone()
-            //meta_new['run_accession'] = 'combined'
+
+            // remove run accession to allow group by sample
+            meta_new.remove('run_accession')
+
+            // update id to prevent file name clashes when unable to group
+            // unmerged PE and SE runs of same sample
+            def type = meta_new['single_end'] ? "_se" : "_pe"
+            meta_new['id'] = meta['id'] + type
+
             [ meta_new, reads ]
         }
         .groupTuple ( by: 0 )
+        .dump(tag: "files_for_cat_fastq_branch")
         .branch{
-            combine: it[1].size() >= 2
-            skip: it[1].size() < 2
+            combine: it[1] && it[1].size() > 1
+            skip: true
         }
 
     // NOTE: this does not allow CATing of SE & PE runs of same sample
     // when --shortread_clipmerge_mergepairs is false
+    ch_processed_for_combine.combine.dump(tag: "input_into_cat_fastq")
     CAT_FASTQ ( ch_processed_for_combine.combine )
 
     ch_reads_for_profiling = ch_processed_for_combine.skip

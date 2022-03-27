@@ -7,7 +7,7 @@ include { FASTP as FASTP_PAIRED       } from '../../modules/nf-core/modules/fast
 
 workflow SHORTREAD_FASTP {
     take:
-    reads // file: /path/to/samplesheet.csv
+    reads // [[meta], [reads]]
 
     main:
     ch_versions = Channel.empty()
@@ -24,16 +24,18 @@ workflow SHORTREAD_FASTP {
     ch_input_for_fastp.paired.dump(tag: "input_fastp_paired")
 
     FASTP_SINGLE ( ch_input_for_fastp.single, false, false )
+    // Last parameter here turns on merging of PE data
     FASTP_PAIRED ( ch_input_for_fastp.paired, false, params.shortread_clipmerge_mergepairs )
 
     if ( params.shortread_clipmerge_mergepairs ) {
+        // TODO update to replace meta suffix
         ch_fastp_reads_prepped = FASTP_PAIRED.out.reads_merged
                                     .mix( FASTP_SINGLE.out.reads )
                                     .map {
                                         meta, reads ->
-                                        def meta_new = meta.clone()
-                                        meta_new['single_end'] = 1
-                                        [ meta_new, reads ]
+                                            def meta_new = meta.clone()
+                                            meta_new['single_end'] = 1
+                                            [ meta_new, reads ]
                                         }
     } else {
         ch_fastp_reads_prepped = FASTP_PAIRED.out.reads

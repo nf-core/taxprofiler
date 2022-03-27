@@ -14,13 +14,6 @@ workflow SHORTREAD_PREPROCESSING {
     ch_versions       = Channel.empty()
     ch_multiqc_files  = Channel.empty()
 
-    //
-    // STEP: Read clipping and merging
-    //
-    // TODO give option to clip only and retain pairs
-    // TODO give option to retain singletons (probably fastp option likely)
-    // TODO move to subworkflow
-
     if ( params.shortread_clipmerge_tool == "fastp" ) {
         ch_processed_reads = SHORTREAD_FASTP ( reads ).reads
         ch_versions        =  ch_versions.mix( SHORTREAD_FASTP.out.versions )
