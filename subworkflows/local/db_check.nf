@@ -14,7 +14,7 @@ workflow DB_CHECK {
     // TODO: make database sheet check
     // Checks:
     // 1) no duplicates,
-    // 2) dbs with no special arguments does not have quotes, e.g. just `,,` and NOT `,"",`
+    // 2) args do not have quotes, e.g. just `,,` and NOT `,"",`
     parsed_samplesheet = DATABASE_CHECK ( dbsheet )
         .csv
         .splitCsv ( header:true, sep:',' )

@@ -90,9 +90,11 @@ workflow TAXPROFILER {
         MODULE: Run FastQC
     */
     ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore ).dump(tag: "input_to_fastq")
+
     FASTQC (
         ch_input_for_fastqc
     )
+
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
@@ -137,7 +139,11 @@ workflow TAXPROFILER {
 
     // We groupTuple to have all samples in one channel for MALT as database
     // loading takes a long time, so we only want to run it once per database
+    // TODO document somewhere we only accept illumina short reads for MALT?
     ch_input_for_malt =  ch_input_for_profiling.malt
+                            .dump(tag: "input_to_malt_prefilter")
+                            .filter { it[0]['instrument_platform'] == 'ILLUMINA' }
+                            .dump(tag: "input_to_malt_postfilter")
                             .map {
                                 it ->
                                     def temp_meta =  [ id: it[2]['db_name']]  + it[2]
