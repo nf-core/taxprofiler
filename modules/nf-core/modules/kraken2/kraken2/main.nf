@@ -32,12 +32,11 @@ process KRAKEN2_KRAKEN2 {
         --threads $task.cpus \\
         --unclassified-out $unclassified \\
         --classified-out $classified \\
-        $args \\
         --report ${prefix}.kraken2.report.txt \\
         --gzip-compressed \\
         $paired \\
+        $args \\
         $reads
-        
 
     pigz -p $task.cpus *.fastq
 
