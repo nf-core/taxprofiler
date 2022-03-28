@@ -117,62 +117,14 @@ workflow TAXPROFILER {
     }
 
     /*
-        MODULE: PERFORM SHORT READ RUN MERGING
-
-    // Remove run accession to allow grouping by sample. Will only merge
-    // if pairment type is the same.
-
-    // TODO Current Branch system currently problematic - when single file not in a list, splits at
-    // `/` so makes list >= 2, so tries to merge, but then breaks kraken downstream
-    // e.g. `home jfellows Documents git nf-core taxprofiler testing work 68 9a2c8362add37832a776058d280bb7 2612_se.merged.fastq.gz`
-    // So theoretically need to force this into a list, (but results the can't access meta.id error as incorrect  input format)
-    // But second issue >= 2 is MAYBE sufficient because what if merging two paired-end files? Need to chcek if the input channel formatted correctly for this? Need to check...
-
-    ch_processed_for_combine = ch_shortreads_preprocessed
-        .dump(tag: "prep_for_combine_grouping")
-        .map {
-            meta, reads ->
-            def meta_new = meta.clone()
-
-            // remove run accession to allow group by sample
-            meta_new.remove('run_accession')
-
-            // update id to prevent file name clashes when unable to group
-            // unmerged PE and SE runs of same sample
-            def type = meta_new['single_end'] ? "_se" : "_pe"
-            meta_new['id'] = meta['id'] + type
-
-            [ meta_new, reads ]
-        }
-        .groupTuple ( by: 0 )
-        .dump(tag: "files_for_cat_fastq_branch")
-        .branch{
-            combine: it[1] && it[1].size() > 1
-            skip: true
-        }
-
-    // NOTE: this does not allow CATing of SE & PE runs of same sample
-    // when --shortread_clipmerge_mergepairs is false
-    ch_processed_for_combine.combine.dump(tag: "input_into_cat_fastq")
-    CAT_FASTQ ( ch_processed_for_combine.combine )
-
-    ch_reads_for_profiling = ch_processed_for_combine.skip
-                                .dump(tag: "skip_combine")
-                                .mix( CAT_FASTQ.out.reads )
-                                .dump(tag: "files_for_profiling")
-    */
-
-    ch_reads_for_profiling = ch_shortreads_preprocessed
-
-    /*
         COMBINE READS WITH POSSIBLE DATABASES
     */
 
     // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
-    ch_input_for_profiling = ch_reads_for_profiling
+    ch_input_for_profiling = ch_shortreads_preprocessed
             .mix( ch_longreads_preprocessed )
             .combine(DB_CHECK.out.dbs)
-            .dump(tag: "reads_plus_db")
+            .dump(tag: "reads_plus_db_clean")
             .branch {
                 malt:    it[2]['tool'] == 'malt'
                 kraken2: it[2]['tool'] == 'kraken2'
@@ -201,12 +153,11 @@ workflow TAXPROFILER {
                             }
 
     // We can run Kraken2 one-by-one sample-wise
-    // TODO Only flatten when paired-end! Causing issue commented out above!
     ch_input_for_kraken2 =  ch_input_for_profiling.kraken2
                             .dump(tag: "input_to_kraken")
                             .multiMap {
                                 it ->
-                                    reads: [ it[0] + it[2], it[1].flatten() ]
+                                    reads: [ it[0] + it[2], it[1] ]
                                     db: it[3]
                             }
 

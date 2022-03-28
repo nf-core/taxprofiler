@@ -28,15 +28,16 @@ workflow SHORTREAD_FASTP {
     FASTP_PAIRED ( ch_input_for_fastp.paired, false, params.shortread_clipmerge_mergepairs )
 
     if ( params.shortread_clipmerge_mergepairs ) {
-        // TODO update to replace meta suffix
-        ch_fastp_reads_prepped = FASTP_PAIRED.out.reads_merged
-                                    .mix( FASTP_SINGLE.out.reads )
-                                    .map {
-                                        meta, reads ->
-                                            def meta_new = meta.clone()
-                                            meta_new['single_end'] = 1
-                                            [ meta_new, reads ]
+        ch_fastp_reads_prepped_pe = FASTP_PAIRED.out.reads_merged
+                                        .map {
+                                            meta, reads ->
+                                                def meta_new = meta.clone()
+                                                meta_new['single_end'] = 1
+                                                [ meta_new, reads ]
                                         }
+
+        ch_fastp_reads_prepped = ch_fastp_reads_prepped_pe.mix( FASTP_SINGLE.out.reads )
+
     } else {
         ch_fastp_reads_prepped = FASTP_PAIRED.out.reads
                                     .mix( FASTP_SINGLE.out.reads )
