@@ -118,7 +118,6 @@ workflow TAXPROFILER {
 
     /*
         MODULE: PERFORM SHORT READ RUN MERGING
-    */
 
     // Remove run accession to allow grouping by sample. Will only merge
     // if pairment type is the same.
@@ -128,6 +127,7 @@ workflow TAXPROFILER {
     // e.g. `home jfellows Documents git nf-core taxprofiler testing work 68 9a2c8362add37832a776058d280bb7 2612_se.merged.fastq.gz`
     // So theoretically need to force this into a list, (but results the can't access meta.id error as incorrect  input format)
     // But second issue >= 2 is MAYBE sufficient because what if merging two paired-end files? Need to chcek if the input channel formatted correctly for this? Need to check...
+
     ch_processed_for_combine = ch_shortreads_preprocessed
         .dump(tag: "prep_for_combine_grouping")
         .map {
@@ -160,6 +160,9 @@ workflow TAXPROFILER {
                                 .dump(tag: "skip_combine")
                                 .mix( CAT_FASTQ.out.reads )
                                 .dump(tag: "files_for_profiling")
+    */
+
+    ch_reads_for_profiling = ch_shortreads_preprocessed
 
     /*
         COMBINE READS WITH POSSIBLE DATABASES
@@ -198,6 +201,7 @@ workflow TAXPROFILER {
                             }
 
     // We can run Kraken2 one-by-one sample-wise
+    // TODO Only flatten when paired-end! Causing issue commented out above!
     ch_input_for_kraken2 =  ch_input_for_profiling.kraken2
                             .dump(tag: "input_to_kraken")
                             .multiMap {
