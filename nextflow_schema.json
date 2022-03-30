@@ -265,7 +265,7 @@
         "shortread_clipmerge": {
             "type": "boolean"
         },
-        "shortread_excludeunmerged": {
+        "shortread_clipmerge_excludeunmerged": {
             "type": "boolean",
             "default": true
         },
@@ -281,6 +281,28 @@
         },
         "run_kraken2": {
             "type": "boolean"
+        },
+        "shortread_clipmerge_tool": {
+            "type": "string",
+            "default": "fastp"
+        },
+        "shortread_clipmerge_skipadaptertrim": {
+            "type": "boolean"
+        },
+        "shortread_clipmerge_mergepairs": {
+            "type": "boolean"
+        },
+        "shortread_clipmerge_adapter1": {
+            "type": "string",
+            "default": null
+        },
+        "shortread_clipmerge_adapter2": {
+            "type": "string",
+            "default": null
+        },
+        "shortread_clipmerge_minlength": {
+            "type": "integer",
+            "default": 15
         }
     }
 }

@@ -12,6 +12,9 @@ workflow DB_CHECK {
     main:
 
     // TODO: make database sheet check
+    // Checks:
+    // 1) no duplicates,
+    // 2) args do not have quotes, e.g. just `,,` and NOT `,"",`
     parsed_samplesheet = DATABASE_CHECK ( dbsheet )
         .csv
         .splitCsv ( header:true, sep:',' )
@@ -21,7 +24,7 @@ workflow DB_CHECK {
 
     ch_dbs_for_untar = parsed_samplesheet
         .branch {
-            untar: it[1].toString().endsWith(".tar.gz")
+            untar: it[1].toString().endsWith(".tar.gz") && it[0]['tool'] != 'centrifuge'
             skip: true
         }
 
