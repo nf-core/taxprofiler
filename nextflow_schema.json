@@ -286,7 +286,7 @@
             "type": "string",
             "default": "fastp"
         },
-        "shortread_clipmerge_skiptrim": {
+        "shortread_clipmerge_skipadaptertrim": {
             "type": "boolean"
         },
         "shortread_clipmerge_mergepairs": {
