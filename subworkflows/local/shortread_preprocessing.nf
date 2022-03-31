@@ -4,6 +4,7 @@
 
 
 include { SHORTREAD_FASTP             } from './shortread_fastp'
+include { SHORTREAD_ADAPTERREMOVAL    } from './shortread_adapterremoval'
 include { FASTQC as FASTQC_PROCESSED       } from '../../modules/nf-core/modules/fastqc/main'
 
 workflow SHORTREAD_PREPROCESSING {
@@ -18,6 +19,10 @@ workflow SHORTREAD_PREPROCESSING {
         ch_processed_reads = SHORTREAD_FASTP ( reads ).reads
         ch_versions        =  ch_versions.mix( SHORTREAD_FASTP.out.versions )
         ch_multiqc_files   =  ch_multiqc_files.mix( SHORTREAD_FASTP.out.mqc )
+    } else if ( params.shortread_clipmerge_tool == "adapterremoval" ) {
+        ch_processed_reads = SHORTREAD_ADAPTERREMOVAL ( reads ).reads
+        ch_versions        =  ch_versions.mix( SHORTREAD_ADAPTERREMOVAL.out.versions )
+        ch_multiqc_files   =  ch_multiqc_files.mix( SHORTREAD_ADAPTERREMOVAL.out.mqc )
     } else {
         ch_processed_reads = reads
     }
