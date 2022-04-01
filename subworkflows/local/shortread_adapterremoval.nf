@@ -16,7 +16,6 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     ch_multiqc_files      = Channel.empty()
 
     ch_input_for_adapterremoval = reads
-                                    .dump(tag: "pre_adapterremoval_branch")
                                     .branch{
                                         single: it[0]['single_end'] == true
                                         paired: it[0]['single_end'] == false
@@ -36,11 +35,13 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                                                 .map {
                                                     meta, reads ->
                                                         def meta_new = meta.clone()
-                                                        meta_new['single_end'] = 1
+                                                        meta_new['single_end'] = true
 
                                                         [ meta_new, reads ]
                                                     }
                                                     .groupTuple(by: 0)
+
+
         ch_adapterremoval_reads_prepped_pe = CAT_FASTQ ( ch_adapterremoval_for_cat ).reads
 
         ch_adapterremoval_reads_prepped = ch_adapterremoval_reads_prepped_pe.mix( ADAPTERREMOVAL_SINGLE.out.singles_truncated )
@@ -51,7 +52,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                                                     .map {
                                                         meta, reads ->
                                                             def meta_new = meta.clone()
-                                                            meta_new['single_end'] = 1
+                                                            meta_new['single_end'] = true
 
                                                             [ meta_new, reads ]
                                                         }
@@ -65,13 +66,10 @@ workflow SHORTREAD_ADAPTERREMOVAL {
 
         ch_adapterremoval_reads_prepped_pe = ADAPTERREMOVAL_PAIRED.out.pair1_truncated
                                                 .join( ADAPTERREMOVAL_PAIRED.out.pair2_truncated )
-                                                .dump(tag: "pre-group")
                                                 .groupTuple(by: 0)
-                                                .dump(tag: "post-group")
                                                 .map { meta, pair1, pair2 ->
                                                         [ meta, [ pair1, pair2 ].flatten() ]
                                                 }
-                                                .dump(tag: "post-map")
 
 
         ch_adapterremoval_reads_prepped = ch_adapterremoval_reads_prepped_pe
