@@ -13,9 +13,25 @@
 - [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
+
   > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
 
-* [Porechop](https://github.com/rrwick/Porechop)
+- [fastp](https://doi.org/10.1093/bioinformatics/bty560)
+
+  > Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. “Fastp: An Ultra-Fast All-in-One FASTQ Preprocessor.” Bioinformatics 34 (17): i884-90. 10.1093/bioinformatics/bty560.
+
+- [AdapterRemoval2](https://doi.org/10.1186/s13104-016-1900-2)
+
+  > Schubert, Mikkel, Stinus Lindgreen, and Ludovic Orlando. 2016. “AdapterRemoval v2: Rapid Adapter Trimming, Identification, and Read Merging.” BMC Research Notes 9 (February): 88. doi:10.1186/s13104-016-1900-2.
+
+- [Porechop](https://github.com/rrwick/Porechop)
+
+- [Kraken2](https://doi.org/10.1186/s13059-019-1891-0)
+
+  > Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. “Improved Metagenomic Analysis with Kraken 2.” Genome Biology 20 (1): 257. doi: 10.1186/s13059-019-1891-0.
+
+- [MALT](https://doi.org/10.1038/s41559-017-0446-6)
+  > Vågene, Åshild J., Alexander Herbig, Michael G. Campana, Nelly M. Robles García, Christina Warinner, Susanna Sabin, Maria A. Spyrou, et al. 2018. “Salmonella Enterica Genomes from Victims of a Major Sixteenth-Century Epidemic in Mexico.” Nature Ecology & Evolution 2 (3): 520-28. doi: 10.1038/s41559-017-0446-6.
 
 ## Software packaging/containerisation tools
 
