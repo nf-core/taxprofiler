@@ -62,15 +62,12 @@ workflow SHORTREAD_ADAPTERREMOVAL {
 
     } else {
 
-        ch_adapterremoval_reads_prepped_pe = ADAPTERREMOVAL_PAIRED.out.pair1_truncated
+        ch_adapterremoval_reads_prepped = ADAPTERREMOVAL_PAIRED.out.pair1_truncated
                                                 .join( ADAPTERREMOVAL_PAIRED.out.pair2_truncated )
-                                                .groupTuple(by: 0)
+                                                .groupTuple()
                                                 .map { meta, pair1, pair2 ->
                                                         [ meta, [ pair1, pair2 ].flatten() ]
                                                 }
-
-
-        ch_adapterremoval_reads_prepped = ch_adapterremoval_reads_prepped_pe
                                     .mix( ADAPTERREMOVAL_SINGLE.out.singles_truncated )
     }
 
