@@ -24,9 +24,10 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     ADAPTERREMOVAL_SINGLE ( ch_input_for_adapterremoval.single, [] )
     ADAPTERREMOVAL_PAIRED ( ch_input_for_adapterremoval.paired, [] )
 
+    // due to the slightly ugly output implementation of the current AdapterRemoval2 version, each file
+    // has to be exported in a separate channel, and we must manually recombine when necessary
+
     if ( params.shortread_clipmerge_mergepairs && !params.shortread_clipmerge_excludeunmerged ) {
-        // due to the slightly ugly output implementation of the current AdapterRemoval2 module, each file
-        // has to be exported in a separate channel, and we must manually recombine when necessary
         ch_adapterremoval_for_cat = ADAPTERREMOVAL_PAIRED.out.collapsed
                                                 .mix(
                                                     ADAPTERREMOVAL_PAIRED.out.collapsed_truncated,
@@ -43,22 +44,23 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                                                     }
                                                     .groupTuple()
 
-
-        ch_adapterremoval_reads_prepped = CAT_FASTQ ( ch_adapterremoval_for_cat ).reads.mix( ADAPTERREMOVAL_SINGLE.out.singles_truncated )
+        ch_adapterremoval_reads_prepped = CAT_FASTQ ( ch_adapterremoval_for_cat ).reads
+                                            .mix( ADAPTERREMOVAL_SINGLE.out.singles_truncated )
 
     } else if ( params.shortread_clipmerge_mergepairs && params.shortread_clipmerge_excludeunmerged ) {
-            ch_adapterremoval_for_cat = ADAPTERREMOVAL_PAIRED.out.collapsed
-                                                    .mix( ADAPTERREMOVAL_PAIRED.out.collapsed_truncated )
-                                                    .map {
-                                                        meta, reads ->
-                                                            def meta_new = meta.clone()
-                                                            meta_new['single_end'] = true
+        ch_adapterremoval_for_cat = ADAPTERREMOVAL_PAIRED.out.collapsed
+                                                .mix( ADAPTERREMOVAL_PAIRED.out.collapsed_truncated )
+                                                .map {
+                                                    meta, reads ->
+                                                        def meta_new = meta.clone()
+                                                        meta_new['single_end'] = true
 
-                                                            [ meta_new, reads ]
-                                                        }
-                                                        .groupTuple(by: 0)
+                                                        [ meta_new, reads ]
+                                                    }
+                                                    .groupTuple(by: 0)
 
-            ch_adapterremoval_reads_prepped = CAT_FASTQ ( ch_adapterremoval_for_cat ).reads.mix( ADAPTERREMOVAL_SINGLE.out.singles_truncated )
+        ch_adapterremoval_reads_prepped = CAT_FASTQ ( ch_adapterremoval_for_cat ).reads
+                                            .mix( ADAPTERREMOVAL_SINGLE.out.singles_truncated )
 
     } else {
 
@@ -68,7 +70,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                                                 .map { meta, pair1, pair2 ->
                                                         [ meta, [ pair1, pair2 ].flatten() ]
                                                 }
-                                    .mix( ADAPTERREMOVAL_SINGLE.out.singles_truncated )
+                                            .mix( ADAPTERREMOVAL_SINGLE.out.singles_truncated )
     }
 
     ch_processed_reads = ch_adapterremoval_reads_prepped

@@ -18,6 +18,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
 if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] warning: MALT does not except uncollapsed paired-reads. Pairs will be profiled as separate files."
+if (params.shortread_clipmerge_excludeunmerged && !params.shortread_clipmerge_mergepairs) exit 1, "[nf-core/taxprofiler] error: cannot include unmerged reads when merging not turned on. Please specify --shortread_clipmerge_mergepairs"
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,7 +127,6 @@ workflow TAXPROFILER {
     ch_input_for_profiling = ch_shortreads_preprocessed
             .mix( ch_longreads_preprocessed )
             .combine(DB_CHECK.out.dbs)
-            .dump(tag: "reads_plus_db_clean")
             .branch {
                 malt:    it[2]['tool'] == 'malt'
                 kraken2: it[2]['tool'] == 'kraken2'
@@ -141,9 +141,7 @@ workflow TAXPROFILER {
     // loading takes a long time, so we only want to run it once per database
     // TODO document somewhere we only accept illumina short reads for MALT?
     ch_input_for_malt =  ch_input_for_profiling.malt
-                            .dump(tag: "input_to_malt_prefilter")
                             .filter { it[0]['instrument_platform'] == 'ILLUMINA' }
-                            .dump(tag: "input_to_malt_postfilter")
                             .map {
                                 it ->
                                     def temp_meta =  [ id: it[2]['db_name']]  + it[2]
@@ -151,7 +149,6 @@ workflow TAXPROFILER {
                                     [ temp_meta, it[1], db ]
                             }
                             .groupTuple(by: [0,2])
-                            .dump(tag: "input_to_malt")
                             .multiMap {
                                 it ->
                                     reads: [ it[0], it[1].flatten() ]
@@ -160,7 +157,6 @@ workflow TAXPROFILER {
 
     // We can run Kraken2 one-by-one sample-wise
     ch_input_for_kraken2 =  ch_input_for_profiling.kraken2
-                            .dump(tag: "input_to_kraken")
                             .multiMap {
                                 it ->
                                     reads: [ it[0] + it[2], it[1] ]
