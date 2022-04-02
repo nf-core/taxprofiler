@@ -90,7 +90,7 @@ workflow TAXPROFILER {
     /*
         MODULE: Run FastQC
     */
-    ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore ).dump(tag: "input_to_fastq")
+    ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
 
     FASTQC (
         ch_input_for_fastqc
@@ -199,27 +199,27 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
     if (params.shortread_clipmerge) {
-        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_shortclipmerge")
+        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     }
 
     if (params.longread_clip) {
-        ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_longclipmerge")
+        ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     }
 
     if (params.shortread_complexityfilter){
-        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_compelxity")
+        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
     }
 
     if (params.run_kraken2) {
-        ch_multiqc_files = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_kraken")
+        ch_multiqc_files = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
     }
 
     if (params.run_malt) {
-        ch_multiqc_files = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_malt")
+        ch_multiqc_files = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( MALT_RUN.out.versions.first() )
     }
 
