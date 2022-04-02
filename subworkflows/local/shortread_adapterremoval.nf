@@ -24,8 +24,10 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     ADAPTERREMOVAL_SINGLE ( ch_input_for_adapterremoval.single, [] )
     ADAPTERREMOVAL_PAIRED ( ch_input_for_adapterremoval.paired, [] )
 
-    // due to the slightly ugly output implementation of the current AdapterRemoval2 version, each file
-    // has to be exported in a separate channel, and we must manually recombine when necessary
+    /*
+     * Due to the ~slightly~ very ugly output implementation of the current AdapterRemoval2 version, each file
+     * has to be exported in a separate channel and we must manually recombine when necessary.
+     */
 
     if ( params.shortread_clipmerge_mergepairs && !params.shortread_clipmerge_excludeunmerged ) {
         ch_adapterremoval_for_cat = ADAPTERREMOVAL_PAIRED.out.collapsed
