@@ -34,8 +34,6 @@
 
   > Vågene, Åshild J., Alexander Herbig, Michael G. Campana, Nelly M. Robles García, Christina Warinner, Susanna Sabin, Maria A. Spyrou, et al. 2018. “Salmonella Enterica Genomes from Victims of a Major Sixteenth-Century Epidemic in Mexico.” Nature Ecology & Evolution 2 (3): 520-28. doi: 10.1038/s41559-017-0446-6.
 
-- [Porechop](https://github.com/rrwick/Porechop)
-
 - [MetaPhlAn3](https://doi.org/10.7554/eLife.65088)
 
   > Beghini, Francesco, Lauren J McIver, Aitor Blanco-Míguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, et al. 2021. “Integrating Taxonomic, Functional, and Strain-Level Profiling of Diverse Microbial Communities with BioBakery 3.” Edited by Peter Turnbaugh, Eduardo Franco, and C Titus Brown. ELife 10 (May): e65088.
