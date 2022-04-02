@@ -168,7 +168,7 @@ workflow TAXPROFILER {
                             .dump(tag: "input_metaphlan3")
                             .multiMap {
                                 it ->
-                                    reads: [it[0] + it[2], it[1][0]]
+                                    reads: [it[0] + it[2], it[1]]
                                     db: it[3]
                             }
 
@@ -217,6 +217,7 @@ workflow TAXPROFILER {
 
     // TODO MALT results overwriting per database?
     // TODO Versions for Karken/MALT not report?
+    // TODO create multiQC module for metaphlan
     MULTIQC (
         ch_multiqc_files.collect()
     )
