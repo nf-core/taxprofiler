@@ -1,6 +1,6 @@
-/*
-Process short raw reads with AdapterRemoval
-*/
+//
+// Process short raw reads with AdapterRemoval
+//
 
 include { ADAPTERREMOVAL as ADAPTERREMOVAL_SINGLE       } from '../../modules/nf-core/modules/adapterremoval/main'
 include { ADAPTERREMOVAL as ADAPTERREMOVAL_PAIRED       } from '../../modules/nf-core/modules/adapterremoval/main'

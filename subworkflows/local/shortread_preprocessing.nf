@@ -1,5 +1,5 @@
 //
-// Check input samplesheet and get read channels
+// Perform read trimming and merging
 //
 
 
@@ -9,7 +9,7 @@ include { FASTQC as FASTQC_PROCESSED       } from '../../modules/nf-core/modules
 
 workflow SHORTREAD_PREPROCESSING {
     take:
-    reads // file: /path/to/samplesheet.csv
+    reads //  [ [ meta ], [ reads ] ]
 
     main:
     ch_versions       = Channel.empty()
@@ -29,7 +29,7 @@ workflow SHORTREAD_PREPROCESSING {
 
     FASTQC_PROCESSED ( ch_processed_reads )
     ch_versions = ch_versions.mix( FASTQC_PROCESSED.out.versions )
-    ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip.collect{it[1]} )
+    ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
 
     emit:
     reads    = ch_processed_reads   // channel: [ val(meta), [ reads ] ]

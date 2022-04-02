@@ -40,9 +40,10 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 //
 include { INPUT_CHECK             } from '../subworkflows/local/input_check'
 
-include { DB_CHECK                } from '../subworkflows/local/db_check'
-include { SHORTREAD_PREPROCESSING } from '../subworkflows/local/shortread_preprocessing'
-include { LONGREAD_PREPROCESSING  } from '../subworkflows/local/longread_preprocessing'
+include { DB_CHECK                      } from '../subworkflows/local/db_check'
+include { SHORTREAD_PREPROCESSING       } from '../subworkflows/local/shortread_preprocessing'
+include { LONGREAD_PREPROCESSING        } from '../subworkflows/local/longread_preprocessing'
+include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_complexityfiltering'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,7 +61,6 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 include { CAT_FASTQ                   } from '../modules/nf-core/modules/cat/fastq/main'
 include { MALT_RUN                    } from '../modules/nf-core/modules/malt/run/main'
 include { KRAKEN2_KRAKEN2             } from '../modules/nf-core/modules/kraken2/kraken2/main'
-
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,10 +98,6 @@ workflow TAXPROFILER {
 
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
-    CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.unique().collectFile(name: 'collated_versions.yml')
-    )
-
     /*
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
@@ -114,9 +110,18 @@ workflow TAXPROFILER {
     if ( params.longread_clip ) {
         ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
                                         .map { it -> [ it[0], [it[1]] ] }
-    ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions.first())
     } else {
         ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
+    }
+
+    /*
+        SUBWORKFLOW: COMPLEXITY FILTERING
+    */
+
+    if ( params.shortread_complexityfilter ) {
+        ch_shortreads_filtered = SHORTREAD_COMPLEXITYFILTERING ( ch_shortreads_preprocessed ).reads
+    } else {
+        ch_shortreads_filtered = ch_shortreads_preprocessed
     }
 
     /*
@@ -124,7 +129,7 @@ workflow TAXPROFILER {
     */
 
     // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
-    ch_input_for_profiling = ch_shortreads_preprocessed
+    ch_input_for_profiling = ch_shortreads_filtered
             .mix( ch_longreads_preprocessed )
             .combine(DB_CHECK.out.dbs)
             .branch {
@@ -177,6 +182,12 @@ workflow TAXPROFILER {
     /*
         MODULE: MultiQC
     */
+
+    CUSTOM_DUMPSOFTWAREVERSIONS (
+        ch_versions.unique().collectFile(name: 'collated_versions.yml')
+    )
+
+
     workflow_summary    = WorkflowTaxprofiler.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
@@ -188,21 +199,30 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
     if (params.shortread_clipmerge) {
-        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_PREPROCESSING.out.mqc)
-    }
-    if (params.longread_clip) {
-        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_PREPROCESSING.out.mqc)
-    }
-    if (params.run_kraken2) {
-        ch_multiqc_files = ch_multiqc_files.mix(KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]))
-        ch_versions = ch_versions.mix(KRAKEN2_KRAKEN2.out.versions.first())
-    }
-    if (params.run_malt) {
-        ch_multiqc_files = ch_multiqc_files.mix(MALT_RUN.out.log.collect{it[1]}.ifEmpty([]))
-        ch_versions = ch_versions.mix(MALT_RUN.out.versions.first())
+        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_shortclipmerge")
+        ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     }
 
-    // TODO MALT results overwriting per database?
+    if (params.longread_clip) {
+        ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_longclipmerge")
+        ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
+    }
+
+    if (params.shortread_complexityfilter){
+        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_compelxity")
+        ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
+    }
+
+    if (params.run_kraken2) {
+        ch_multiqc_files = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_kraken")
+        ch_versions = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
+    }
+
+    if (params.run_malt) {
+        ch_multiqc_files = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([]) ).dump(tag: "mqc_malt")
+        ch_versions = ch_versions.mix( MALT_RUN.out.versions.first() )
+    }
+
     // TODO Versions for Karken/MALT not report?
     MULTIQC (
         ch_multiqc_files.collect()
