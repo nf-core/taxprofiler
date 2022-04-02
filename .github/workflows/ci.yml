@@ -28,6 +28,10 @@ jobs:
           # Test latest edge release of Nextflow
           - NXF_VER: ""
             NXF_EDGE: "1"
+        parameters:
+          - "--shortread_clipmerge_tool fastp"
+          - "--shortread_clipmerge_tool adapterremoval"
+
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v2
@@ -47,6 +51,6 @@ jobs:
         # For example: adding multiple test runs with different parameters
         # Remember that you can parallelise this by using strategy.matrix
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}
 
 #

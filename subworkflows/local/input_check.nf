@@ -12,7 +12,6 @@ workflow INPUT_CHECK {
     parsed_samplesheet = SAMPLESHEET_CHECK ( samplesheet )
         .csv
         .splitCsv ( header:true, sep:',' )
-        .dump(tag: "input_split_csv_out")
         .branch {
             fasta: it['fasta'] != ''
             nanopore: it['instrument_platform'] == 'OXFORD_NANOPORE'
@@ -21,17 +20,14 @@ workflow INPUT_CHECK {
 
     parsed_samplesheet.fastq
         .map { create_fastq_channel(it) }
-        .dump(tag: "fastq_channel_init")
         .set { fastq }
 
     parsed_samplesheet.nanopore
         .map { create_fastq_channel(it) }
-        .dump(tag: "fastq_nanopore_channel_init")
         .set { nanopore }
 
     parsed_samplesheet.fasta
         .map { create_fasta_channel(it) }
-        .dump(tag: "fasta_channel_init")
         .set { fasta }
 
     emit:

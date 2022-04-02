@@ -18,9 +18,7 @@ workflow DB_CHECK {
     parsed_samplesheet = DATABASE_CHECK ( dbsheet )
         .csv
         .splitCsv ( header:true, sep:',' )
-        .dump(tag: "db_split_csv_out")
         .map { create_db_channels(it) }
-        .dump(tag: "db_channel_prepped")
 
     ch_dbs_for_untar = parsed_samplesheet
         .branch {

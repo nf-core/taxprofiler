@@ -267,7 +267,7 @@
         },
         "shortread_clipmerge_excludeunmerged": {
             "type": "boolean",
-            "default": true
+            "default": false
         },
         "longread_clip": {
             "type": "boolean"
@@ -284,7 +284,8 @@
         },
         "shortread_clipmerge_tool": {
             "type": "string",
-            "default": "fastp"
+            "default": "fastp",
+            "enum": ["fastp", "adapterremoval"]
         },
         "shortread_clipmerge_skipadaptertrim": {
             "type": "boolean"
@@ -294,11 +295,11 @@
         },
         "shortread_clipmerge_adapter1": {
             "type": "string",
-            "default": null
+            "default": "None"
         },
         "shortread_clipmerge_adapter2": {
             "type": "string",
-            "default": null
+            "default": "None"
         },
         "shortread_clipmerge_minlength": {
             "type": "integer",

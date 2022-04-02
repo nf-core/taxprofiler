@@ -16,7 +16,6 @@ workflow LONGREAD_PREPROCESSING {
     PORECHOP ( reads )
 
     ch_processed_reads = PORECHOP.out.reads
-                                .dump(tag: "pre_fastqc_check")
                                 .map {
                                         meta, reads ->
                                         def meta_new = meta.clone()
