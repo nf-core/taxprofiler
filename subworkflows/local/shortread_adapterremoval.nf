@@ -127,10 +127,3 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     mqc      = ch_multiqc_files
 }
 
-def ensureFastQExtension(row) {
-    def (meta, read) = row
-    def filename = file(read.parent).resolve("${read.baseName}.fastq.gz")
-
-    read.renameTo(filename.toString())
-    return [meta, read]
-}
