@@ -282,6 +282,10 @@
         "run_kraken2": {
             "type": "boolean"
         },
+        "run_metaphlan3": {
+            "type": "boolean",
+            "description": "Enable MetaPhlAn for taxonomic profiling"
+        },
         "shortread_clipmerge_tool": {
             "type": "string",
             "default": "fastp",
