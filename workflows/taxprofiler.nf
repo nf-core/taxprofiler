@@ -11,14 +11,20 @@ WorkflowTaxprofiler.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.databases, params.multiqc_config ]
+def checkPathParamList = [ params.input, params.databases, params.shortread_hostremoval_reference,
+                            params.shortread_hostremoval_index, params.multiqc_config
+                        ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
-if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
+if (params.input                      ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
+if (params.databases                  ) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
 if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] warning: MALT does not except uncollapsed paired-reads. Pairs will be profiled as separate files."
 if (params.shortread_clipmerge_excludeunmerged && !params.shortread_clipmerge_mergepairs) exit 1, "[nf-core/taxprofiler] error: cannot include unmerged reads when merging not turned on. Please specify --shortread_clipmerge_mergepairs"
+
+// TODO Add check if index but no reference exit 1
+if (params.shortread_hostremoval_reference   ) { ch_reference       = file(params.shortread_hostremoval_reference) } else {    }
+if (params.shortread_hostremoval_index)        { ch_reference_index = file(params.shortread_hostremoval_index    ) } else { ch_reference_index = [] }
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
