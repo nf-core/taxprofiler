@@ -266,8 +266,7 @@
             "type": "boolean"
         },
         "shortread_clipmerge_excludeunmerged": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
         },
         "longread_clip": {
             "type": "boolean"
@@ -304,6 +303,17 @@
         "shortread_clipmerge_minlength": {
             "type": "integer",
             "default": 15
+        },
+        "shortread_hostremoval": {
+            "type": "boolean"
+        },
+        "shortread_hostremoval_reference": {
+            "type": "string",
+            "default": null
+        },
+        "shortread_hostremoval_index": {
+            "type": "string",
+            "default": null
         }
     }
 }

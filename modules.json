@@ -36,9 +36,6 @@
             "porechop": {
                 "git_sha": "e20e57f90b6787ac9a010a980cf6ea98bd990046"
             },
-            "samtools/flagstat": {
-                "git_sha": "1ad73f1b2abdea9398680d6d20014838135c9a35"
-            },
             "untar": {
                 "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"
             }
