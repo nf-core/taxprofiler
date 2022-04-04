@@ -2,7 +2,8 @@
 // Check input samplesheet and get read channels
 //
 
-include { BBMAP_BBDUK } from '../../modules/nf-core/modules/bbmap/bbduk/main'
+include { BBMAP_BBDUK     } from '../../modules/nf-core/modules/bbmap/bbduk/main'
+include { PRINSEQPLUSPLUS } from '../../modules/nf-core/modules/prinseqplusplus/main'
 
 workflow SHORTREAD_COMPLEXITYFILTERING {
     take:
@@ -16,6 +17,9 @@ workflow SHORTREAD_COMPLEXITYFILTERING {
         ch_filtered_reads = BBMAP_BBDUK ( reads, [] ).reads
         ch_versions        =  ch_versions.mix( BBMAP_BBDUK.out.versions.first() )
         ch_multiqc_files   =  ch_multiqc_files.mix( BBMAP_BBDUK.out.log )
+    } else if ( params.shortread_complexityfilter_tool == 'prinseqplusplus' ) {
+        ch_filtered_reads = PRINSEQPLUSPLUS ( reads ).good_reads
+        ch_versions        =  ch_versions.mix( PRINSEQPLUSPLUS.out.versions.first() )
     } else {
         ch_filtered_reads = reads
     }

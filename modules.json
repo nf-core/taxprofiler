@@ -33,6 +33,9 @@
             "porechop": {
                 "git_sha": "e20e57f90b6787ac9a010a980cf6ea98bd990046"
             },
+            "prinseqplusplus": {
+                "git_sha": "f1c5384c31e985591716afdd732cf8c2ae29d05b"
+            },
             "untar": {
                 "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"
             }
