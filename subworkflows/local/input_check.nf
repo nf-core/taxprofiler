@@ -12,7 +12,6 @@ workflow INPUT_CHECK {
     parsed_samplesheet = SAMPLESHEET_CHECK ( samplesheet )
         .csv
         .splitCsv ( header:true, sep:',' )
-        .dump(tag: "input_split_csv_out")
         .branch {
             fasta: it['fasta'] != ''
             nanopore: it['instrument_platform'] == 'OXFORD_NANOPORE'
@@ -21,23 +20,20 @@ workflow INPUT_CHECK {
 
     parsed_samplesheet.fastq
         .map { create_fastq_channel(it) }
-        .dump(tag: "fastq_channel_init")
         .set { fastq }
 
     parsed_samplesheet.nanopore
         .map { create_fastq_channel(it) }
-        .dump(tag: "fastq_nanopore_channel_init")
         .set { nanopore }
 
     parsed_samplesheet.fasta
         .map { create_fasta_channel(it) }
-        .dump(tag: "fasta_channel_init")
         .set { fasta }
 
     emit:
-    fastq                                     // channel: [ val(meta), [ reads ] ]
-    nanopore                                  // channel: [ val(meta), [ reads ] ]
-    fasta                                     // channel: [ val(meta), fasta ]
+    fastq = fastq ?: []                       // channel: [ val(meta), [ reads ] ]
+    nanopore = nanopore ?: []                 // channel: [ val(meta), [ reads ] ]
+    fasta = fasta ?: []                       // channel: [ val(meta), fasta ]
     versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
 }
 
@@ -72,9 +68,7 @@ def create_fastq_channel(LinkedHashMap row) {
 
     }
     return fastq_meta
-}
-
-// Function to get list of [ meta, fasta ]
+}// Function to get list of [ meta, fasta ]
 def create_fasta_channel(LinkedHashMap row) {
     def meta = [:]
     meta.id                     = row.sample

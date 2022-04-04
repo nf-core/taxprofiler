@@ -1,6 +1,9 @@
+/*
+Process long raw reads with porechop
+*/
 
-include { FASTQC as FASTQC_POST } from '../../modules/nf-core/modules/fastqc/main'
-include { PORECHOP              } from '../../modules/nf-core/modules/porechop/main'
+include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/modules/fastqc/main'
+include { PORECHOP                   } from '../../modules/nf-core/modules/porechop/main'
 
 workflow LONGREAD_PREPROCESSING {
     take:
@@ -13,7 +16,6 @@ workflow LONGREAD_PREPROCESSING {
     PORECHOP ( reads )
 
     ch_processed_reads = PORECHOP.out.reads
-                                .dump(tag: "pre_fastqc_check")
                                 .map {
                                         meta, reads ->
                                         def meta_new = meta.clone()
@@ -21,9 +23,9 @@ workflow LONGREAD_PREPROCESSING {
                                         [ meta_new, reads ]
                                     }
 
-    FASTQC_POST ( PORECHOP.out.reads )
+    FASTQC_PROCESSED ( PORECHOP.out.reads )
     ch_versions = ch_versions.mix(PORECHOP.out.versions.first())
-    ch_multiqc_files = ch_multiqc_files.mix( FASTQC_POST.out.zip.collect{it[1]} )
+    ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip.collect{it[1]} )
 
 
     emit:
