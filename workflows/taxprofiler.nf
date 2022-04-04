@@ -61,6 +61,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 include { CAT_FASTQ                   } from '../modules/nf-core/modules/cat/fastq/main'
 include { MALT_RUN                    } from '../modules/nf-core/modules/malt/run/main'
 include { KRAKEN2_KRAKEN2             } from '../modules/nf-core/modules/kraken2/kraken2/main'
+include { METAPHLAN3                  } from '../modules/nf-core/modules/metaphlan3/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,6 +136,7 @@ workflow TAXPROFILER {
             .branch {
                 malt:    it[2]['tool'] == 'malt'
                 kraken2: it[2]['tool'] == 'kraken2'
+                metaphlan3: it[2]['tool'] == 'metaphlan3'
                 unknown: true
             }
 
@@ -168,6 +170,14 @@ workflow TAXPROFILER {
                                     db: it[3]
                             }
 
+    ch_input_for_metaphlan3 = ch_input_for_profiling.metaphlan3
+                            .dump(tag: "input_metaphlan3")
+                            .multiMap {
+                                it ->
+                                    reads: [it[0] + it[2], it[1]]
+                                    db: it[3]
+                            }
+
     /*
         MODULE: RUN PROFILING
     */
@@ -177,6 +187,10 @@ workflow TAXPROFILER {
 
     if ( params.run_kraken2 ) {
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
+    }
+
+    if ( params.run_metaphlan3 ) {
+        METAPHLAN3 ( ch_input_for_metaphlan3.reads, ch_input_for_metaphlan3.db )
     }
 
     /*
@@ -224,6 +238,7 @@ workflow TAXPROFILER {
     }
 
     // TODO Versions for Karken/MALT not report?
+    // TODO create multiQC module for metaphlan
     MULTIQC (
         ch_multiqc_files.collect()
     )
