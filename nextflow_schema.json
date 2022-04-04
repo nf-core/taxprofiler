@@ -336,7 +336,7 @@
         },
         "centrifuge_db_name": {
             "type": "string",
-            "default": "false"
+            "default": null
         }
     }
 }
