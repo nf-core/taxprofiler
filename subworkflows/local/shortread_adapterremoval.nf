@@ -39,7 +39,9 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                 ADAPTERREMOVAL_PAIRED.out.paired_truncated
             )
             .groupTuple()
-            .map { [it.head(), it.tail().flatten()] }
+            // Paired-end reads cause a nested tuple during grouping.
+            // We want to present a flat list of files to `CAT_FASTQ`.
+            .map { meta, fastq -> [meta, fastq.flatten()] }
 
         CAT_FASTQ(ch_concat_fastq)
 
