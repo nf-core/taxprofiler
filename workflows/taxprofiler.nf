@@ -17,7 +17,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
-if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] warning: MALT does not except uncollapsed paired-reads. Pairs will be profiled as separate files."
+if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] warning: MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
 if (params.shortread_clipmerge_excludeunmerged && !params.shortread_clipmerge_mergepairs) exit 1, "[nf-core/taxprofiler] error: cannot include unmerged reads when merging not turned on. Please specify --shortread_clipmerge_mergepairs"
 
 /*
@@ -212,34 +212,34 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
     if (params.shortread_clipmerge) {
-        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]).dump(tag: "clipmerge") )
+        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     }
 
     if (params.longread_clip) {
-        ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]).dump(tag: "clip") )
+        ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     }
 
     if (params.shortread_complexityfilter){
-        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]).dump(tag: "complex") )
+        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([])  )
         ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
     }
 
     if (params.run_kraken2) {
-        ch_multiqc_files = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]).dump(tag: "kraken") )
+        ch_multiqc_files = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([])  )
         ch_versions = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
     }
 
     if (params.run_malt) {
-        ch_multiqc_files = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([]).dump(tag: "malt") )
+        ch_multiqc_files = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
         ch_versions = ch_versions.mix( MALT_RUN.out.versions.first() )
     }
 
     // TODO Versions for Karken/MALT not report?
     // TODO create multiQC module for metaphlan
     MULTIQC (
-        ch_multiqc_files.collect().dump(tag: "input_to_mqc")
+        ch_multiqc_files.collect()
     )
     multiqc_report = MULTIQC.out.report.toList()
     ch_versions    = ch_versions.mix(MULTIQC.out.versions)
