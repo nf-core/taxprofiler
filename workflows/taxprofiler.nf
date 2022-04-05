@@ -171,7 +171,6 @@ workflow TAXPROFILER {
                             }
 
     ch_input_for_metaphlan3 = ch_input_for_profiling.metaphlan3
-                            .dump(tag: "input_metaphlan3")
                             .multiMap {
                                 it ->
                                     reads: [it[0] + it[2], it[1]]
@@ -213,34 +212,34 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
     if (params.shortread_clipmerge) {
-        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
+        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]).dump(tag: "clipmerge") )
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     }
 
     if (params.longread_clip) {
-        ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
+        ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]).dump(tag: "clip") )
         ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     }
 
     if (params.shortread_complexityfilter){
-        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) )
+        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]).dump(tag: "complex") )
         ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
     }
 
     if (params.run_kraken2) {
-        ch_multiqc_files = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]) )
+        ch_multiqc_files = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([]).dump(tag: "kraken") )
         ch_versions = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
     }
 
     if (params.run_malt) {
-        ch_multiqc_files = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([]) )
+        ch_multiqc_files = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([]).dump(tag: "malt") )
         ch_versions = ch_versions.mix( MALT_RUN.out.versions.first() )
     }
 
     // TODO Versions for Karken/MALT not report?
     // TODO create multiQC module for metaphlan
     MULTIQC (
-        ch_multiqc_files.collect()
+        ch_multiqc_files.collect().dump(tag: "input_to_mqc")
     )
     multiqc_report = MULTIQC.out.report.toList()
     ch_versions    = ch_versions.mix(MULTIQC.out.versions)

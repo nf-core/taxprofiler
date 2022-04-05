@@ -117,8 +117,8 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     ch_versions = ch_versions.mix( ADAPTERREMOVAL_SINGLE.out.versions.first() )
     ch_versions = ch_versions.mix( ADAPTERREMOVAL_PAIRED.out.versions.first() )
     ch_multiqc_files = ch_multiqc_files.mix(
-        ADAPTERREMOVAL_PAIRED.out.log.collect{it[1]},
-        ADAPTERREMOVAL_SINGLE.out.log.collect{it[1]}
+        ADAPTERREMOVAL_PAIRED.out.log,
+        ADAPTERREMOVAL_SINGLE.out.log
     )
 
     emit:
