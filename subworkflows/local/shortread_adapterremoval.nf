@@ -1,6 +1,6 @@
-/*
-Process short raw reads with AdapterRemoval
-*/
+//
+// Process short raw reads with AdapterRemoval
+//
 
 include { ADAPTERREMOVAL as ADAPTERREMOVAL_SINGLE       } from '../../modules/nf-core/modules/adapterremoval/main'
 include { ADAPTERREMOVAL as ADAPTERREMOVAL_PAIRED       } from '../../modules/nf-core/modules/adapterremoval/main'
@@ -38,10 +38,16 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                 ADAPTERREMOVAL_PAIRED.out.singles_truncated,
                 ADAPTERREMOVAL_PAIRED.out.paired_truncated
             )
+            .map { meta, reads ->
+                def meta_new = meta.clone()
+                meta_new.single_end = true
+                [meta_new, reads]
+            }
             .groupTuple()
             // Paired-end reads cause a nested tuple during grouping.
             // We want to present a flat list of files to `CAT_FASTQ`.
             .map { meta, fastq -> [meta, fastq.flatten()] }
+
 
         CAT_FASTQ(ch_concat_fastq)
 
@@ -56,10 +62,13 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                 ADAPTERREMOVAL_PAIRED.out.collapsed_truncated
             )
             .map { meta, reads ->
-                meta.single_end = true
-                [meta, reads]
+                def meta_new = meta.clone()
+                meta_new.single_end = true
+                [meta_new, reads]
             }
             .groupTuple()
+            .map { meta, fastq -> [meta, fastq.flatten()] }
+
 
         CAT_FASTQ(ch_concat_fastq)
 
@@ -75,9 +84,10 @@ workflow SHORTREAD_ADAPTERREMOVAL {
 
     ch_versions = ch_versions.mix( ADAPTERREMOVAL_SINGLE.out.versions.first() )
     ch_versions = ch_versions.mix( ADAPTERREMOVAL_PAIRED.out.versions.first() )
+
     ch_multiqc_files = ch_multiqc_files.mix(
-        ADAPTERREMOVAL_PAIRED.out.settings.collect{it[1]},
-        ADAPTERREMOVAL_SINGLE.out.settings.collect{it[1]}
+        ADAPTERREMOVAL_PAIRED.out.settings,
+        ADAPTERREMOVAL_SINGLE.out.settings
     )
 
     emit:
