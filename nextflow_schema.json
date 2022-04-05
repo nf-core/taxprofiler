@@ -328,7 +328,8 @@
         },
         "shortread_complexityfilter_prinseqplusplus_mode": {
             "type": "string",
-            "default": "entropy"
+            "default": "entropy",
+            "enum": ["entropy", "dust"]
         },
         "shortread_complexityfilter_prinseqplusplus_dustscore": {
             "type": "number",
