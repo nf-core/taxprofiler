@@ -308,6 +308,10 @@
             "type": "integer",
             "default": 15
         },
+        "save_preprocessed_reads": {
+            "type": "boolean",
+            "default": false
+        },
         "shortread_complexityfilter_tool": {
             "type": "string",
             "default": "bbduk"
@@ -334,6 +338,10 @@
         "shortread_complexityfilter_prinseqplusplus_dustscore": {
             "type": "number",
             "default": 0.5
+        },
+        "save_complexityfiltered_reads": {
+            "type": "boolean",
+            "default": false
         }
     }
 }
