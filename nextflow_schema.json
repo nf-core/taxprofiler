@@ -276,8 +276,7 @@
             "type": "boolean"
         },
         "shortread_clipmerge_excludeunmerged": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
         },
         "longread_clip": {
             "type": "boolean"
@@ -334,9 +333,40 @@
             "type": "integer",
             "default": 15
         },
-        "centrifuge_db_name": {
+        "save_preprocessed_reads": {
+            "type": "boolean",
+            "default": false
+        },
+        "shortread_complexityfilter_tool": {
             "type": "string",
-            "default": null
+            "default": "bbduk"
+        },
+        "shortread_complexityfilter_bbduk_windowsize": {
+            "type": "integer",
+            "default": 50
+        },
+        "shortread_complexityfilter_bbduk_mask": {
+            "type": "boolean"
+        },
+        "shortread_complexityfilter": {
+            "type": "boolean"
+        },
+        "shortread_complexityfilter_entropy": {
+            "type": "number",
+            "default": 0.3
+        },
+        "shortread_complexityfilter_prinseqplusplus_mode": {
+            "type": "string",
+            "default": "entropy",
+            "enum": ["entropy", "dust"]
+        },
+        "shortread_complexityfilter_prinseqplusplus_dustscore": {
+            "type": "number",
+            "default": 0.5
+        },
+        "save_complexityfiltered_reads": {
+            "type": "boolean",
+            "default": false
         }
     }
 }

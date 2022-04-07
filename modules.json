@@ -4,10 +4,16 @@
     "repos": {
         "nf-core/modules": {
             "adapterremoval": {
-                "git_sha": "f0800157544a82ae222931764483331a81812012"
+                "git_sha": "879d42c5e28661fe0a5e744c9e2c515868f9e08a"
+            },
+            "bbmap/bbduk": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "cat/fastq": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "centrifuge/centrifuge": {
+                "git_sha": "d2726fcf75063960f06b36d2229a4c0966614108"
             },
             "custom/dumpsoftwareversions": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
@@ -33,8 +39,8 @@
             "porechop": {
                 "git_sha": "e20e57f90b6787ac9a010a980cf6ea98bd990046"
             },
-            "centrifuge": {
-                "git_sha": "ea41a8a6f761b9993d857570e872abaae3fea555"
+            "prinseqplusplus": {
+                "git_sha": "f1c5384c31e985591716afdd732cf8c2ae29d05b"
             },
             "untar": {
                 "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"

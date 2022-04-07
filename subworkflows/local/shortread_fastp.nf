@@ -1,6 +1,6 @@
-/*
-Process short raw reads with FastP
-*/
+//
+// Process short raw reads with FastP
+//
 
 include { FASTP as FASTP_SINGLE       } from '../../modules/nf-core/modules/fastp/main'
 include { FASTP as FASTP_PAIRED       } from '../../modules/nf-core/modules/fastp/main'
@@ -44,8 +44,8 @@ workflow SHORTREAD_FASTP {
 
     ch_processed_reads = ch_fastp_reads_prepped
 
-    ch_multiqc_files = ch_multiqc_files.mix( FASTP_SINGLE.out.json.collect{it[1]} )
-    ch_multiqc_files = ch_multiqc_files.mix( FASTP_PAIRED.out.json.collect{it[1]} )
+    ch_multiqc_files = ch_multiqc_files.mix( FASTP_SINGLE.out.json )
+    ch_multiqc_files = ch_multiqc_files.mix( FASTP_PAIRED.out.json )
 
     emit:
     reads    = ch_processed_reads   // channel: [ val(meta), [ reads ] ]
