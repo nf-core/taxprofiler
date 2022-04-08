@@ -147,8 +147,6 @@ workflow TAXPROFILER {
                 skip: true
             }
 
-        ch_reads_for_cat_branch.cat.dump(tag: "for_catting")
-
         ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat_branch.cat ).reads
             .mix( ch_reads_for_cat_branch.skip )
             .map {
@@ -156,8 +154,6 @@ workflow TAXPROFILER {
 
                 [ meta, [ reads ].flatten() ]
             }
-
-        ch_reads_runmerged.dump(tag: "ch_reads_runmerged" )
 
     } else {
         ch_reads_runmerged = ch_shortreads_filtered
@@ -168,8 +164,15 @@ workflow TAXPROFILER {
         COMBINE READS WITH POSSIBLE DATABASES
     */
 
-    // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
+    // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], [ <reads_path>/2612.merged.fastq.gz ], ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
     ch_input_for_profiling = ch_reads_runmerged
+            .map {
+                meta, reads ->
+                    def meta_new = meta.clone()
+                    pairtype = meta_new['single_end'] ? '_se' : '_pe'
+                    meta_new['id'] =  meta_new['id'] + pairtype
+                    [meta_new, reads]
+            }
             .combine(DB_CHECK.out.dbs)
             .branch {
                 malt:    it[2]['tool'] == 'malt'
