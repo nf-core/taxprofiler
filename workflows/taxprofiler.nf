@@ -140,8 +140,7 @@ workflow TAXPROFILER {
             }
             .groupTuple()
 
-        ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat )
-
+        ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat ).reads
     } else {
         ch_reads_runmerged = ch_shortreads_filtered
             .mix( ch_longreads_preprocessed )
@@ -245,6 +244,10 @@ workflow TAXPROFILER {
     if (params.shortread_complexityfilter){
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
+    }
+
+    if (params.run_merging){
+        ch_versions = ch_versions.mix(CAT_FASTQ.out.versions)
     }
 
     if (params.run_kraken2) {
