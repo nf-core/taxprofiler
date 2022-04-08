@@ -126,12 +126,33 @@ workflow TAXPROFILER {
     }
 
     /*
+        STEP: Run merging
+    */
+
+    if ( params.run_merging ) {
+        ch_reads_for_cat = ch_shortreads_filtered
+            .mix( ch_longreads_preprocessed )
+            .map {
+                meta, reads ->
+                    def meta_new = meta.clone()
+                    meta_new['run_accession'].remove()
+                    [ meta_new, reads ]
+            }
+            .groupTuple()
+
+        ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat )
+
+    } else {
+        ch_reads_runmerged = ch_shortreads_filtered
+            .mix( ch_longreads_preprocessed )
+    }
+
+    /*
         COMBINE READS WITH POSSIBLE DATABASES
     */
 
     // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
-    ch_input_for_profiling = ch_shortreads_filtered
-            .mix( ch_longreads_preprocessed )
+    ch_input_for_profiling = ch_reads_runmerged
             .combine(DB_CHECK.out.dbs)
             .branch {
                 malt:    it[2]['tool'] == 'malt'
