@@ -67,7 +67,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                 [meta_new, reads]
             }
             .groupTuple()
-            .map { meta, fastq -> [meta, fastq] }
+            .map { meta, fastq -> [meta, fastq.flatten()] }
 
 
         CAT_FASTQ(ch_concat_fastq)

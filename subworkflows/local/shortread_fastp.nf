@@ -29,7 +29,7 @@ workflow SHORTREAD_FASTP {
                                             meta, reads ->
                                                 def meta_new = meta.clone()
                                                 meta_new['single_end'] = true
-                                                [ meta_new, reads.flatten() ]
+                                                [ meta_new, [ reads ].flatten() ]
                                         }
 
         ch_fastp_reads_prepped = ch_fastp_reads_prepped_pe.mix( FASTP_SINGLE.out.reads )
