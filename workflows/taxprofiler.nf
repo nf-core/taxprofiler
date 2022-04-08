@@ -61,6 +61,7 @@ include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/
 include { CAT_FASTQ                   } from '../modules/nf-core/modules/cat/fastq/main'
 include { MALT_RUN                    } from '../modules/nf-core/modules/malt/run/main'
 include { KRAKEN2_KRAKEN2             } from '../modules/nf-core/modules/kraken2/kraken2/main'
+include { CENTRIFUGE_CENTRIFUGE       } from '../modules/nf-core/modules/centrifuge/centrifuge/main'
 include { METAPHLAN3                  } from '../modules/nf-core/modules/metaphlan3/main'
 
 /*
@@ -137,6 +138,7 @@ workflow TAXPROFILER {
                 malt:    it[2]['tool'] == 'malt'
                 kraken2: it[2]['tool'] == 'kraken2'
                 metaphlan3: it[2]['tool'] == 'metaphlan3'
+                centrifuge: it[2]['tool'] == 'centrifuge'
                 unknown: true
             }
 
@@ -170,6 +172,18 @@ workflow TAXPROFILER {
                                     db: it[3]
                             }
 
+    // We can run centrifuge one-by-one sample-wise
+    ch_input_for_centrifuge =  ch_input_for_profiling.centrifuge
+                               .dump(tag: "input for centrifuge")
+                               .multiMap {
+                                    it ->
+                                        reads: [ it[0] + it[2], it[1] ]
+                                        db: it[3]
+                                }
+
+    //
+    // RUN PROFILING
+    //
     ch_input_for_metaphlan3 = ch_input_for_profiling.metaphlan3
                             .multiMap {
                                 it ->
@@ -186,6 +200,10 @@ workflow TAXPROFILER {
 
     if ( params.run_kraken2 ) {
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
+    }
+
+    if ( params.run_centrifuge ) {
+        CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_unaligned, params.centrifuge_save_aligned, params.centrifuge_sam_format  )
     }
 
     if ( params.run_metaphlan3 ) {

@@ -281,6 +281,18 @@
         "run_kraken2": {
             "type": "boolean"
         },
+        "run_centrifuge": {
+            "type": "boolean"
+        },
+        "centrifuge_save_unaligned": {
+            "type": "boolean"
+        },
+        "centrifuge_save_aligned": {
+            "type": "boolean"
+        },
+        "centrifuge_sam_format": {
+            "type": "boolean"
+        },
         "run_metaphlan3": {
             "type": "boolean",
             "description": "Enable MetaPhlAn for taxonomic profiling"
