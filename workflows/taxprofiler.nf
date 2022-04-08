@@ -149,7 +149,15 @@ workflow TAXPROFILER {
 
         ch_reads_for_cat_branch.cat.dump(tag: "for_catting")
 
-        ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat_branch.cat ).reads.mix( ch_reads_for_cat_branch.skip )
+        ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat_branch.cat ).reads
+            .mix( ch_reads_for_cat_branch.skip )
+            .map {
+                meta, reads ->
+
+                [ meta, [ reads ].flatten() ]
+            }
+
+        ch_reads_runmerged.dump(tag: "ch_reads_runmerged" )
 
     } else {
         ch_reads_runmerged = ch_shortreads_filtered
