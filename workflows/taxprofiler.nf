@@ -140,10 +140,6 @@ workflow TAXPROFILER {
                     [ meta_new, reads ]
             }
             .groupTuple()
-            .map {
-                meta, reads ->
-                    [ meta, reads.flatten() ]
-            }
             .branch {
                 // we can't concate files if there is not a second run, we branch
                 // here to separate them out, and mix after
