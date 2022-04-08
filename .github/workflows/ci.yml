@@ -40,6 +40,7 @@ jobs:
           - "--shortread_complexityfilter_tool bbduk"
           - "--shortread_complexityfilter_tool prinseq"
           - "--run_merging"
+          - "--run_merging --shortread_clipmerge_mergepairs"
 
     steps:
       - name: Check out pipeline code

@@ -130,7 +130,8 @@ workflow TAXPROFILER {
     */
 
     if ( params.run_merging ) {
-        ch_reads_for_cat = ch_shortreads_filtered
+
+        ch_reads_for_cat_branch = ch_shortreads_filtered
             .mix( ch_longreads_preprocessed )
             .map {
                 meta, reads ->
@@ -139,8 +140,21 @@ workflow TAXPROFILER {
                     [ meta_new, reads ]
             }
             .groupTuple()
+            .map {
+                meta, reads ->
+                    [ meta, reads.flatten() ]
+            }
+            .branch {
+                // we can't concate files if there is not a second run, we branch
+                // here to separate them out, and mix after
+                cat: ( it[0]['single_end'] && it[1].size() > 1 ) || ( !it[0]['single_end'] && it[1].size() > 2 )
+                skip: true
+            }
 
-        ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat ).reads
+        ch_reads_for_cat_branch.cat.dump(tag: "for_catting")
+
+        ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat_branch.cat ).reads.mix( ch_reads_for_cat_branch.skip )
+
     } else {
         ch_reads_runmerged = ch_shortreads_filtered
             .mix( ch_longreads_preprocessed )
