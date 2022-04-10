@@ -128,6 +128,7 @@ workflow TAXPROFILER {
     */
 
     PROFILING ( ch_shortreads_filtered, ch_longreads_preprocessed, DB_CHECK.out.dbs )
+    ch_versions = ch_versions.mix( PROFILING.out.versions )
 
     /*
         MODULE: MultiQC
