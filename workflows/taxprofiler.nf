@@ -165,7 +165,6 @@ workflow TAXPROFILER {
 
     ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc )
 
-
     // TODO create multiQC module for metaphlan
     MULTIQC (
         ch_multiqc_files.collect()
