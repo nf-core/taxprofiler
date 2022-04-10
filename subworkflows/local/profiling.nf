@@ -70,7 +70,6 @@ workflow PROFILING {
                             }
 
     ch_input_for_centrifuge =  ch_input_for_profiling.centrifuge
-                                .dump(tag: "input for centrifuge")
                                 .multiMap {
                                     it ->
                                         reads: [ it[0] + it[2], it[1] ]

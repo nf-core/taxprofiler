@@ -85,6 +85,7 @@ workflow TAXPROFILER {
     DB_CHECK (
         ch_databases
     )
+    ch_versions = ch_versions.mix(DB_CHECK.out.versions)
 
     /*
         MODULE: Run FastQC
@@ -101,6 +102,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
     if ( params.shortread_clipmerge ) {
+
         ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq ).reads
     } else {
         ch_shortreads_preprocessed = INPUT_CHECK.out.fastq
