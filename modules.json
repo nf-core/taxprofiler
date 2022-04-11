@@ -18,6 +18,9 @@
             "cat/fastq": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
+            "centrifuge/centrifuge": {
+                "git_sha": "d2726fcf75063960f06b36d2229a4c0966614108"
+            },
             "custom/dumpsoftwareversions": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
