@@ -39,6 +39,7 @@ jobs:
           - "--shortread_clipmerge_tool adapterremoval --shortread_clipmerge_mergepairs"
           - "--shortread_complexityfilter_tool bbduk"
           - "--shortread_complexityfilter_tool prinseq"
+          - "--shortread_complexityfilter false --shortread_hostremoval"
 
     steps:
       - name: Check out pipeline code
