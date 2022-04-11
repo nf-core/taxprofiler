@@ -36,7 +36,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
    - Low complexity filtering ([bbduk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/), [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus))
    - Host read removal ([BowTie2](http://bowtie-bio.sourceforge.net/bowtie2/))
    - Run merging
-3. Performs taxonomic profiling via a choice of any or all of:
+3. Performs taxonomic profiling using one or more of:
    - [Kraken2](https://ccb.jhu.edu/software/kraken2/)
    - [MetaPhlAn3](https://huttenhower.sph.harvard.edu/metaphlan/)
    - [MALT](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/malt/)

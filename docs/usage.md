@@ -20,7 +20,7 @@ This samplesheet is then specified on the command line as follows:
 
 ### Multiple runs of the same sample
 
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will processed reads before performing profiling. Below is an example for the same sample sequenced across 3 lanes:
+The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will process reads before performing profiling. Below is an example for the same sample sequenced across 3 lanes:
 
 ```console
 sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
@@ -30,7 +30,7 @@ sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 
 ```
 
-> ⚠️ Runs of the sample sample sequenced on Illumina platforms with a combination of single and paired-end data will **not** be run-wise concatenated, unless pair-merging is specified. In the example above, `run3` will be profiled independently of `run1` and `run2` if pairs not merged.
+> ⚠️ Runs of the same sample sequenced on Illumina platforms with a combination of single and paired-end data will **not** be run-wise concatenated, unless pair-merging is specified. In the example above, `run3` will be profiled independently of `run1` and `run2` if pairs are not merged.
 
 ### Full samplesheet
 
@@ -61,7 +61,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 
 nf-core/taxprofiler supports multiple databases being profiled in parallel for each tool. These databases, and specific parameters for each, can be specified in a 4 column comma-separated sheet.
 
-> ⚠️ nf-core/taxprofiler does not provide any databases by default, nor currently generates them for you. This must be performed manually by the user.
+> ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user.
 
 An example database sheet can look as follows, where 4 tools are being used, and `malt` and `kraken2` will be used against two databases each.
 
