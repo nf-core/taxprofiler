@@ -125,7 +125,7 @@ workflow TAXPROFILER {
     } else {
         ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
     }
-    
+
     /*
         SUBWORKFLOW: COMPLEXITY FILTERING
     */
@@ -146,12 +146,12 @@ workflow TAXPROFILER {
     } else {
         ch_shortreads_hostremoved = ch_shortreads_filtered
     }
-    
+
     /*
         SUBWORKFLOW: PROFILING
     */
 
-    PROFILING ( ch_shortreads_hostremoved ch_longreads_preprocessed, DB_CHECK.out.dbs )
+    PROFILING ( ch_shortreads_hostremoved, ch_longreads_preprocessed, DB_CHECK.out.dbs )
     ch_versions = ch_versions.mix( PROFILING.out.versions )
 
     /*
@@ -191,7 +191,7 @@ workflow TAXPROFILER {
     if (params.shortread_hostremoval) {
         ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
     }
-    
+
     ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc )
 
     // TODO create multiQC module for metaphlan
