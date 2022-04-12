@@ -23,6 +23,7 @@ workflow PROFILING {
     // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
     ch_input_for_profiling = reads
             .combine(databases)
+            .map {
                 meta, reads ->
                     def meta_new = meta.clone()
                         pairtype = meta_new['single_end'] ? '_se' : '_pe'
