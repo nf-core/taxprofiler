@@ -167,7 +167,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: PROFILING
     */
 
-    PROFILING ( ch_reads_runmerged, ch_longreads_preprocessed, DB_CHECK.out.dbs )
+    PROFILING ( ch_reads_runmerged, DB_CHECK.out.dbs )
     ch_versions = ch_versions.mix( PROFILING.out.versions )
 
     /*

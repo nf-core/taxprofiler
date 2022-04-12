@@ -23,7 +23,6 @@ workflow PROFILING {
     // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
     ch_input_for_profiling = reads
             .combine(databases)
-            .dump(tag: "combined_withdbs")
             .branch {
                 malt:    it[2]['tool'] == 'malt'
                 kraken2: it[2]['tool'] == 'kraken2'
