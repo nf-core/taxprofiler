@@ -30,6 +30,9 @@
             "malt/run": {
                 "git_sha": "72b96f4e504eef673f2b5c13560a9d90b669129b"
             },
+            "megan/rma2info": {
+                "git_sha": "2d38566eca4cc15142b2ffa7c11837569b39aece"
+            },
             "metaphlan3": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },

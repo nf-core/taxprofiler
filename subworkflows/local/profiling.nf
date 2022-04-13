@@ -14,8 +14,9 @@ workflow PROFILING {
     databases // [ [ meta ], path ]
 
     main:
-    ch_versions       = Channel.empty()
-    ch_multiqc_files  = Channel.empty()
+    ch_versions             = Channel.empty()
+    ch_multiqc_files        = Channel.empty()
+    ch_raw_profiles    = Channel.empty()
 
 /*
         COMBINE READS WITH POSSIBLE DATABASES
@@ -89,30 +90,33 @@ workflow PROFILING {
 
     if ( params.run_malt ) {
         MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
-        ch_multiqc_files = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
-        ch_versions = ch_versions.mix( MALT_RUN.out.versions.first() )
+        ch_multiqc_files        = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
+        ch_versions             = ch_versions.mix( MALT_RUN.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( MALT_RUN.out.rma6 )
     }
 
     if ( params.run_kraken2 ) {
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
-        ch_multiqc_files = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([])  )
-        ch_versions = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
+        ch_multiqc_files        = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([])  )
+        ch_versions             = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.txt )
     }
 
     if ( params.run_centrifuge ) {
         CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_unaligned, params.centrifuge_save_aligned, params.centrifuge_sam_format  )
-        ch_versions = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
+        ch_versions             = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( CENTRIFUGE_CENTRIFUGE.out.report )
     }
 
     if ( params.run_metaphlan3 ) {
         METAPHLAN3 ( ch_input_for_metaphlan3.reads, ch_input_for_metaphlan3.db )
         ch_versions = ch_versions.mix( METAPHLAN3.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN3.out.biom )
     }
 
 
     emit:
-    // TODO work out if there is enough standardisation of output to export as one?
-    //output    = ch_filtered_reads    // channel: [ val(meta), [ reads ] ]
+    profiles = ch_raw_profiles    // channel: [ val(meta), [ reads ] ]
     versions = ch_versions          // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }
