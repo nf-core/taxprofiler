@@ -29,8 +29,8 @@ jobs:
           - NXF_VER: ""
             NXF_EDGE: "1"
         parameters:
-          - "--longread_clip false"
-          - "--shortread_clip false"
+          - "--perform_longread_clip false"
+          - "--perform_shortread_clipmerge false"
           - "--shortread_clipmerge_tool fastp"
           - "--shortread_clipmerge_tool fastp --shortread_clipmerge_mergepairs --shortread_clipmerge_excludeunmerged"
           - "--shortread_clipmerge_tool fastp --shortread_clipmerge_mergepairs"
@@ -39,8 +39,8 @@ jobs:
           - "--shortread_clipmerge_tool adapterremoval --shortread_clipmerge_mergepairs"
           - "--shortread_complexityfilter_tool bbduk"
           - "--shortread_complexityfilter_tool prinseq"
-          - "--run_merging"
-          - "--run_merging --shortread_clipmerge_mergepairs"
+          - "--perform_runmerging"
+          - "--perform_runmerging --shortread_clipmerge_mergepairs"
 
     steps:
       - name: Check out pipeline code

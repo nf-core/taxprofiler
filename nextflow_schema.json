@@ -262,13 +262,7 @@
             "type": "string",
             "default": "None"
         },
-        "shortread_clipmerge": {
-            "type": "boolean"
-        },
         "shortread_clipmerge_excludeunmerged": {
-            "type": "boolean"
-        },
-        "longread_clip": {
             "type": "boolean"
         },
         "run_malt": {
@@ -334,9 +328,6 @@
         "shortread_complexityfilter_bbduk_mask": {
             "type": "boolean"
         },
-        "shortread_complexityfilter": {
-            "type": "boolean"
-        },
         "shortread_complexityfilter_entropy": {
             "type": "number",
             "default": 0.3
@@ -353,10 +344,19 @@
         "save_complexityfiltered_reads": {
             "type": "boolean"
         },
-        "run_merging": {
+        "save_runmerged_reads": {
             "type": "boolean"
         },
-        "save_runmerged_reads": {
+        "perform_shortread_clipmerge": {
+            "type": "boolean"
+        },
+        "perform_longread_clip": {
+            "type": "boolean"
+        },
+        "perform_shortread_complexityfilter": {
+            "type": "boolean"
+        },
+        "perform_runmerging": {
             "type": "boolean"
         }
     }

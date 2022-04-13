@@ -101,14 +101,14 @@ workflow TAXPROFILER {
     /*
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
-    if ( params.shortread_clipmerge ) {
+    if ( params.perform_shortread_clipmerge ) {
 
         ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq ).reads
     } else {
         ch_shortreads_preprocessed = INPUT_CHECK.out.fastq
     }
 
-    if ( params.longread_clip ) {
+    if ( params.perform_longread_clip ) {
         ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
                                         .map { it -> [ it[0], [it[1]] ] }
     } else {
@@ -119,7 +119,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: COMPLEXITY FILTERING
     */
 
-    if ( params.shortread_complexityfilter ) {
+    if ( params.perform_shortread_complexityfilter ) {
         ch_shortreads_filtered = SHORTREAD_COMPLEXITYFILTERING ( ch_shortreads_preprocessed ).reads
     } else {
         ch_shortreads_filtered = ch_shortreads_preprocessed
@@ -129,7 +129,7 @@ workflow TAXPROFILER {
         STEP: Run merging
     */
 
-    if ( params.run_merging ) {
+    if ( params.perform_runmerging ) {
 
         ch_reads_for_cat_branch = ch_shortreads_filtered
             .mix( ch_longreads_preprocessed )
@@ -190,22 +190,22 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
-    if (params.shortread_clipmerge) {
+    if (params.perform_shortread_clipmerge) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     }
 
-    if (params.longread_clip) {
+    if (params.perform_longread_clip) {
         ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     }
 
-    if (params.shortread_complexityfilter){
+    if (params.perform_shortread_complexityfilter){
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
     }
 
-    if (params.run_merging){
+    if (params.perform_runmerging){
         ch_versions = ch_versions.mix(CAT_FASTQ.out.versions)
     }
 
