@@ -139,15 +139,16 @@ workflow TAXPROFILER {
                     meta_new.remove('run_accession')
                     [ meta_new, reads ]
             }
-            .groupTuple(by: 0)
+            .groupTuple()
             .map {
                 meta, reads ->
                     [ meta, reads.flatten() ]
             }
             .branch {
+                meta, reads ->
                 // we can't concatenate files if there is not a second run, we branch
                 // here to separate them out, and mix back in after for efficiency
-                cat: ( it[0]['single_end'] && it[1].size() > 1 ) || ( !it[0]['single_end'] && it[1].size() > 2 )
+                cat: ( meta.single_end && reads.size() > 1 ) || ( !meta.single_end && reads.size() > 2 )
                 skip: true
             }
 
