@@ -359,7 +359,7 @@
         "perform_runmerging": {
             "type": "boolean"
         },
-        "shortread_hostremoval": {
+        "perform_shortread_hostremoval": {
             "type": "boolean"
         },
         "shortread_hostremoval_reference": {

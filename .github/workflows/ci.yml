@@ -41,7 +41,7 @@ jobs:
           - "--shortread_complexityfilter_tool prinseq"
           - "--perform_runmerging"
           - "--perform_runmerging --shortread_clipmerge_mergepairs"
-          - "--shortread_complexityfilter false --shortread_hostremoval"
+          - "--shortread_complexityfilter false --perform_shortread_hostremoval"
 
     steps:
       - name: Check out pipeline code
