@@ -28,8 +28,8 @@ workflow SHORTREAD_FASTP {
                                         .map {
                                             meta, reads ->
                                                 def meta_new = meta.clone()
-                                                meta_new['single_end'] = 1
-                                                [ meta_new, reads ]
+                                                meta_new['single_end'] = true
+                                                [ meta_new, [ reads ].flatten() ]
                                         }
 
         ch_fastp_reads_prepped = ch_fastp_reads_prepped_pe.mix( FASTP_SINGLE.out.reads )
