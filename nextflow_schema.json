@@ -358,6 +358,17 @@
         },
         "perform_runmerging": {
             "type": "boolean"
+        },
+        "perform_shortread_hostremoval": {
+            "type": "boolean"
+        },
+        "shortread_hostremoval_reference": {
+            "type": "string",
+            "default": null
+        },
+        "shortread_hostremoval_index": {
+            "type": "string",
+            "default": null
         }
     }
 }

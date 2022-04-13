@@ -11,7 +11,9 @@ WorkflowTaxprofiler.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.databases, params.multiqc_config ]
+def checkPathParamList = [ params.input, params.databases, params.shortread_hostremoval_reference,
+                            params.shortread_hostremoval_index, params.multiqc_config
+                        ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
@@ -19,6 +21,12 @@ if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, '
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
 if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] warning: MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
 if (params.shortread_clipmerge_excludeunmerged && !params.shortread_clipmerge_mergepairs) exit 1, "[nf-core/taxprofiler] error: cannot include unmerged reads when merging not turned on. Please specify --shortread_clipmerge_mergepairs"
+
+if (params.perform_shortread_hostremoval && !params.shortread_hostremoval_reference) { exit 1, "[nf-core/taxprofiler] error: --shortread_hostremoval requested but no --shortread_hostremoval_reference FASTA supplied. Check input." }
+if (!params.shortread_hostremoval_reference && params.shortread_hostremoval_reference_index) { exit 1, "[nf-core/taxprofiler] error: --shortread_hostremoval_index provided but no --shortread_hostremoval_reference FASTA supplied. Check input." }
+
+if (params.shortread_hostremoval_reference ) { ch_reference       = file(params.shortread_hostremoval_reference) }
+if (params.shortread_hostremoval_index     ) { ch_reference_index = file(params.shortread_hostremoval_index    ) } else { ch_reference_index = [] }
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,6 +51,7 @@ include { INPUT_CHECK             } from '../subworkflows/local/input_check'
 include { DB_CHECK                      } from '../subworkflows/local/db_check'
 include { SHORTREAD_PREPROCESSING       } from '../subworkflows/local/shortread_preprocessing'
 include { LONGREAD_PREPROCESSING        } from '../subworkflows/local/longread_preprocessing'
+include { SHORTREAD_HOSTREMOVAL         } from '../subworkflows/local/shortread_hostremoval'
 include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_complexityfiltering'
 include { PROFILING                     } from '../subworkflows/local/profiling'
 
@@ -111,6 +120,7 @@ workflow TAXPROFILER {
     if ( params.perform_longread_clip ) {
         ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
                                         .map { it -> [ it[0], [it[1]] ] }
+        ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions.first())
     } else {
         ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
     }
@@ -126,12 +136,19 @@ workflow TAXPROFILER {
     }
 
     /*
-        STEP: Run merging
+        SUBWORKFLOW: HOST REMOVAL
     */
+
+    if ( params.perform_shortread_hostremoval ) {
+        ch_shortreads_hostremoved = SHORTREAD_HOSTREMOVAL ( ch_shortreads_filtered, ch_reference, ch_reference_index ).reads
+        ch_versions = ch_versions.mix(SHORTREAD_HOSTREMOVAL.out.versions.first())
+    } else {
+        ch_shortreads_hostremoved = ch_shortreads_filtered
+    }
 
     if ( params.perform_runmerging ) {
 
-        ch_reads_for_cat_branch = ch_shortreads_filtered
+        ch_reads_for_cat_branch = ch_shortreads_hostremoved
             .mix( ch_longreads_preprocessed )
             .map {
                 meta, reads ->
@@ -160,7 +177,7 @@ workflow TAXPROFILER {
             }
 
     } else {
-        ch_reads_runmerged = ch_shortreads_filtered
+        ch_reads_runmerged = ch_shortreads_hostremoved
             .mix( ch_longreads_preprocessed )
     }
 
@@ -203,6 +220,11 @@ workflow TAXPROFILER {
     if (params.perform_shortread_complexityfilter){
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
+    }
+
+    if (params.perform_shortread_hostremoval) {
+        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
+        ch_versions = ch_versions.mix(SHORTREAD_HOSTREMOVAL.out.versions)
     }
 
     if (params.perform_runmerging){
