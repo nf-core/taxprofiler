@@ -387,8 +387,7 @@
             "default": "None"
         },
         "run_kaiju": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         }
     }
 }
