@@ -364,11 +364,14 @@
         },
         "shortread_hostremoval_reference": {
             "type": "string",
-            "default": null
+            "default": "None"
         },
         "shortread_hostremoval_index": {
             "type": "string",
-            "default": null
+            "default": "None"
+        },
+        "malt_generatemegansummary": {
+            "type": "boolean"
         }
     }
 }

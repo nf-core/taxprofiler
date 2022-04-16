@@ -3,6 +3,7 @@
 //
 
 include { MALT_RUN                    } from '../../modules/nf-core/modules/malt/run/main'
+include { MEGAN_RMA2INFO              } from '../../modules/nf-core/modules/megan/rma2info/main'
 include { KRAKEN2_KRAKEN2             } from '../../modules/nf-core/modules/kraken2/kraken2/main'
 include { CENTRIFUGE_CENTRIFUGE       } from '../../modules/nf-core/modules/centrifuge/centrifuge/main'
 include { METAPHLAN3                  } from '../../modules/nf-core/modules/metaphlan3/main'
@@ -95,33 +96,48 @@ workflow PROFILING {
 
     if ( params.run_malt ) {
         MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
-        ch_multiqc_files        = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
-        ch_versions             = ch_versions.mix( MALT_RUN.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( MALT_RUN.out.rma6 )
+
+        ch_maltrun_for_megan = MALT_RUN.out.rma6
+                                .transpose()
+                                .map{
+                                    meta, rma ->
+                                            // re-extract meta from file names, use filename without rma to
+                                            // ensure we keep paired-end information in downstream filenames
+                                            // when no pair-merging
+                                            def meta_new = meta.clone()
+                                            meta_new['db_name'] = meta.id
+                                            meta_new['id'] = rma.name - ( '.' + rma.extension )
+                                        [ meta_new, rma ]
+                                }
+
+        MEGAN_RMA2INFO (ch_maltrun_for_megan, params.malt_generatemegansummary )
+        ch_multiqc_files   = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
+        ch_versions        = ch_versions.mix( MALT_RUN.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( MEGAN_RMA2INFO.out.txt )
     }
 
     if ( params.run_kraken2 ) {
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
-        ch_multiqc_files        = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([])  )
-        ch_versions             = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
+        ch_multiqc_files   = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([])  )
+        ch_versions        = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.txt )
     }
 
     if ( params.run_centrifuge ) {
         CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_unaligned, params.centrifuge_save_aligned, params.centrifuge_sam_format  )
-        ch_versions             = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
+        ch_versions        = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( CENTRIFUGE_CENTRIFUGE.out.report )
     }
 
     if ( params.run_metaphlan3 ) {
         METAPHLAN3 ( ch_input_for_metaphlan3.reads, ch_input_for_metaphlan3.db )
-        ch_versions = ch_versions.mix( METAPHLAN3.out.versions.first() )
+        ch_versions        = ch_versions.mix( METAPHLAN3.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN3.out.biom )
     }
 
 
     emit:
-    profiles = ch_raw_profiles    // channel: [ val(meta), [ reads ] ]
+    profiles = ch_raw_profiles    // channel: [ val(meta), [ reads ] ] - should be text files or biom
     versions = ch_versions          // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }
