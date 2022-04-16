@@ -9,8 +9,7 @@ include { METAPHLAN3                  } from '../../modules/nf-core/modules/meta
 
 workflow PROFILING {
     take:
-    shortreads // [ [ meta ], [ reads ] ]
-    longreads // [ [ meta ], [ reads ] ]
+    reads // [ [ meta ], [ reads ] ]
     databases // [ [ meta ], path ]
 
     main:
@@ -23,8 +22,14 @@ workflow PROFILING {
     */
 
     // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
-    ch_input_for_profiling = shortreads
-            .mix( longreads )
+    ch_input_for_profiling = reads
+            .map {
+                meta, reads ->
+                    def meta_new = meta.clone()
+                        pairtype = meta_new['single_end'] ? '_se' : '_pe'
+                        meta_new['id'] =  meta_new['id'] + pairtype
+                    [meta_new, reads]
+            }
             .combine(databases)
             .branch {
                 malt:    it[2]['tool'] == 'malt'

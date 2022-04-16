@@ -11,7 +11,9 @@ WorkflowTaxprofiler.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.databases, params.multiqc_config ]
+def checkPathParamList = [ params.input, params.databases, params.shortread_hostremoval_reference,
+                            params.shortread_hostremoval_index, params.multiqc_config
+                        ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
@@ -19,6 +21,12 @@ if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, '
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
 if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] warning: MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
 if (params.shortread_clipmerge_excludeunmerged && !params.shortread_clipmerge_mergepairs) exit 1, "[nf-core/taxprofiler] error: cannot include unmerged reads when merging not turned on. Please specify --shortread_clipmerge_mergepairs"
+
+if (params.perform_shortread_hostremoval && !params.shortread_hostremoval_reference) { exit 1, "[nf-core/taxprofiler] error: --shortread_hostremoval requested but no --shortread_hostremoval_reference FASTA supplied. Check input." }
+if (!params.shortread_hostremoval_reference && params.shortread_hostremoval_reference_index) { exit 1, "[nf-core/taxprofiler] error: --shortread_hostremoval_index provided but no --shortread_hostremoval_reference FASTA supplied. Check input." }
+
+if (params.shortread_hostremoval_reference ) { ch_reference       = file(params.shortread_hostremoval_reference) }
+if (params.shortread_hostremoval_index     ) { ch_reference_index = file(params.shortread_hostremoval_index    ) } else { ch_reference_index = [] }
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,6 +51,7 @@ include { INPUT_CHECK             } from '../subworkflows/local/input_check'
 include { DB_CHECK                      } from '../subworkflows/local/db_check'
 include { SHORTREAD_PREPROCESSING       } from '../subworkflows/local/shortread_preprocessing'
 include { LONGREAD_PREPROCESSING        } from '../subworkflows/local/longread_preprocessing'
+include { SHORTREAD_HOSTREMOVAL         } from '../subworkflows/local/shortread_hostremoval'
 include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_complexityfiltering'
 include { PROFILING                     } from '../subworkflows/local/profiling'
 
@@ -101,16 +110,17 @@ workflow TAXPROFILER {
     /*
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
-    if ( params.shortread_clipmerge ) {
+    if ( params.perform_shortread_clipmerge ) {
 
         ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq ).reads
     } else {
         ch_shortreads_preprocessed = INPUT_CHECK.out.fastq
     }
 
-    if ( params.longread_clip ) {
+    if ( params.perform_longread_clip ) {
         ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
                                         .map { it -> [ it[0], [it[1]] ] }
+        ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions.first())
     } else {
         ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
     }
@@ -119,17 +129,63 @@ workflow TAXPROFILER {
         SUBWORKFLOW: COMPLEXITY FILTERING
     */
 
-    if ( params.shortread_complexityfilter ) {
+    if ( params.perform_shortread_complexityfilter ) {
         ch_shortreads_filtered = SHORTREAD_COMPLEXITYFILTERING ( ch_shortreads_preprocessed ).reads
     } else {
         ch_shortreads_filtered = ch_shortreads_preprocessed
     }
 
     /*
+        SUBWORKFLOW: HOST REMOVAL
+    */
+
+    if ( params.perform_shortread_hostremoval ) {
+        ch_shortreads_hostremoved = SHORTREAD_HOSTREMOVAL ( ch_shortreads_filtered, ch_reference, ch_reference_index ).reads
+        ch_versions = ch_versions.mix(SHORTREAD_HOSTREMOVAL.out.versions.first())
+    } else {
+        ch_shortreads_hostremoved = ch_shortreads_filtered
+    }
+
+    if ( params.perform_runmerging ) {
+
+        ch_reads_for_cat_branch = ch_shortreads_hostremoved
+            .mix( ch_longreads_preprocessed )
+            .map {
+                meta, reads ->
+                    def meta_new = meta.clone()
+                    meta_new.remove('run_accession')
+                    [ meta_new, reads ]
+            }
+            .groupTuple()
+            .map {
+                meta, reads ->
+                    [ meta, reads.flatten() ]
+            }
+            .branch {
+                meta, reads ->
+                // we can't concatenate files if there is not a second run, we branch
+                // here to separate them out, and mix back in after for efficiency
+                cat: ( meta.single_end && reads.size() > 1 ) || ( !meta.single_end && reads.size() > 2 )
+                skip: true
+            }
+
+        ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat_branch.cat ).reads
+            .mix( ch_reads_for_cat_branch.skip )
+            .map {
+                meta, reads ->
+                [ meta, [ reads ].flatten() ]
+            }
+
+    } else {
+        ch_reads_runmerged = ch_shortreads_hostremoved
+            .mix( ch_longreads_preprocessed )
+    }
+
+    /*
         SUBWORKFLOW: PROFILING
     */
 
-    PROFILING ( ch_shortreads_filtered, ch_longreads_preprocessed, DB_CHECK.out.dbs )
+    PROFILING ( ch_reads_runmerged, DB_CHECK.out.dbs )
     ch_versions = ch_versions.mix( PROFILING.out.versions )
 
     /*
@@ -151,19 +207,28 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
-    if (params.shortread_clipmerge) {
+    if (params.perform_shortread_clipmerge) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     }
 
-    if (params.longread_clip) {
+    if (params.perform_longread_clip) {
         ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     }
 
-    if (params.shortread_complexityfilter){
+    if (params.perform_shortread_complexityfilter){
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) )
         ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
+    }
+
+    if (params.perform_shortread_hostremoval) {
+        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
+        ch_versions = ch_versions.mix(SHORTREAD_HOSTREMOVAL.out.versions)
+    }
+
+    if (params.perform_runmerging){
+        ch_versions = ch_versions.mix(CAT_FASTQ.out.versions)
     }
 
     ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc )

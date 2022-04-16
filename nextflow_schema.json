@@ -262,13 +262,7 @@
             "type": "string",
             "default": "None"
         },
-        "shortread_clipmerge": {
-            "type": "boolean"
-        },
         "shortread_clipmerge_excludeunmerged": {
-            "type": "boolean"
-        },
-        "longread_clip": {
             "type": "boolean"
         },
         "run_malt": {
@@ -321,8 +315,7 @@
             "default": 15
         },
         "save_preprocessed_reads": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
         },
         "shortread_complexityfilter_tool": {
             "type": "string",
@@ -333,9 +326,6 @@
             "default": 50
         },
         "shortread_complexityfilter_bbduk_mask": {
-            "type": "boolean"
-        },
-        "shortread_complexityfilter": {
             "type": "boolean"
         },
         "shortread_complexityfilter_entropy": {
@@ -352,8 +342,33 @@
             "default": 0.5
         },
         "save_complexityfiltered_reads": {
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
+        },
+        "save_runmerged_reads": {
+            "type": "boolean"
+        },
+        "perform_shortread_clipmerge": {
+            "type": "boolean"
+        },
+        "perform_longread_clip": {
+            "type": "boolean"
+        },
+        "perform_shortread_complexityfilter": {
+            "type": "boolean"
+        },
+        "perform_runmerging": {
+            "type": "boolean"
+        },
+        "perform_shortread_hostremoval": {
+            "type": "boolean"
+        },
+        "shortread_hostremoval_reference": {
+            "type": "string",
+            "default": null
+        },
+        "shortread_hostremoval_index": {
+            "type": "string",
+            "default": null
         }
     }
 }
