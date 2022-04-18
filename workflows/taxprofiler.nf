@@ -176,10 +176,10 @@ workflow TAXPROFILER {
                 [ meta, [ reads ].flatten() ]
             }
             .mix( INPUT_CHECK.out.fasta )
+
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
-            .mix( ch_longreads_preprocessed )
-            .mix( INPUT_CHECK.out.fasta )
+            .mix( ch_longreads_preprocessed, INPUT_CHECK.out.fasta )
     }
 
     /*
