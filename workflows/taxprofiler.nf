@@ -19,7 +19,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
-if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler]: MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
+if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
 if (params.shortread_clipmerge_excludeunmerged && !params.shortread_clipmerge_mergepairs) exit 1, "ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging not turned on. Please specify --shortread_clipmerge_mergepairs"
 
 if (params.perform_shortread_hostremoval && !params.shortread_hostremoval_reference) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval requested but no --shortread_hostremoval_reference FASTA supplied. Check input." }
