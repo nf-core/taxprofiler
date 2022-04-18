@@ -75,6 +75,10 @@ workflow PROFILING {
                             }
 
     ch_input_for_centrifuge =  ch_input_for_profiling.centrifuge
+                            .filter{
+                                    if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] Centrifuge does not accept FASTA files as input. Skipping Centrifuge for sample " + it[0].id
+                                    !it[0].is_fasta
+                            }
                                 .multiMap {
                                     it ->
                                         reads: [ it[0] + it[2], it[1] ]
@@ -82,6 +86,10 @@ workflow PROFILING {
                                 }
 
     ch_input_for_metaphlan3 = ch_input_for_profiling.metaphlan3
+                            .filter{
+                                    if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] MetaPhlAn3 does not accept FASTA files as input. Skipping MetaPhlAn3 for sample " + it[0].id
+                                    !it[0].is_fasta
+                            }
                             .multiMap {
                                 it ->
                                     reads: [it[0] + it[2], it[1]]

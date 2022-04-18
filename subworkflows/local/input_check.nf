@@ -45,6 +45,7 @@ def create_fastq_channel(LinkedHashMap row) {
     meta.run_accession          = row.run_accession
     meta.instrument_platform    = row.instrument_platform
     meta.single_end             = row.single_end.toBoolean()
+    meta.is_fasta               = false
 
     // add path(s) of the fastq file(s) to the meta map
     def fastq_meta = []
@@ -75,6 +76,7 @@ def create_fasta_channel(LinkedHashMap row) {
     meta.run_accession          = row.run_accession
     meta.instrument_platform    = row.instrument_platform
     meta.single_end             = true
+    meta.is_fasta               = true
 
     def array = []
     if (!file(row.fasta).exists()) {
