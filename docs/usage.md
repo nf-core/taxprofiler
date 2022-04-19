@@ -86,6 +86,11 @@ Column specifications are as follows:
 
 > 💡 You can also specify the same database directory/file twice (ensuring unique `db_name`s) and specify different parameters for each database to compare the effect of different parameters during profiling.
 
+## Profilers
+
+- `kaiju`
+  - The file `nodes.dmp` must be inside the database directory that is specified to `--databases` file
+
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
