@@ -106,7 +106,7 @@ workflow PROFILING {
                                             // when no pair-merging
                                             def meta_new = meta.clone()
                                             meta_new['db_name'] = meta.id
-                                            meta_new['id'] = rma.name - ( '.' + rma.extension )
+                                            meta_new['id'] = rma.baseName
                                         [ meta_new, rma ]
                                 }
 
