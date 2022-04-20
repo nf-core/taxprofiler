@@ -40,9 +40,17 @@
 
   > Vågene, Åshild J., Alexander Herbig, Michael G. Campana, Nelly M. Robles García, Christina Warinner, Susanna Sabin, Maria A. Spyrou, et al. 2018. Salmonella Enterica Genomes from Victims of a Major Sixteenth-Century Epidemic in Mexico. Nature Ecology & Evolution 2 (3): 520-28. doi: 10.1038/s41559-017-0446-6.
 
+- [MEGAN](https://doi.org/10.1371/journal.pcbi.1004957)
+
+  > Huson, Daniel H., Sina Beier, Isabell Flade, Anna Górska, Mohamed El-Hadidi, Suparna Mitra, Hans-Joachim Ruscheweyh, and Rewati Tappu. 2016. “MEGAN Community Edition - Interactive Exploration and Analysis of Large-Scale Microbiome Sequencing Data.” PLoS Computational Biology 12 (6): e1004957. doi: 10.1371/journal.pcbi.1004957.
+
 - [MetaPhlAn3](https://doi.org/10.7554/eLife.65088)
 
-  > Beghini, Francesco, Lauren J McIver, Aitor Blanco-Míguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, et al. 2021. “Integrating Taxonomic, Functional, and Strain-Level Profiling of Diverse Microbial Communities with BioBakery 3.” Edited by Peter Turnbaugh, Eduardo Franco, and C Titus Brown. ELife 10 (May): e65088.
+  > Beghini, Francesco, Lauren J McIver, Aitor Blanco-Míguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, et al. 2021. “Integrating Taxonomic, Functional, and Strain-Level Profiling of Diverse Microbial Communities with BioBakery 3.” Edited by Peter Turnbaugh, Eduardo Franco, and C Titus Brown. ELife 10 (May): e65088. doi: 10.7554/eLife.65088
+
+- [Centrifuge](https://doi.org/10.1101/gr.210641.116)
+
+  > Kim, Daehwan, Li Song, Florian P. Breitwieser, and Steven L. Salzberg. 2016. “Centrifuge: Rapid and Sensitive Classification of Metagenomic Sequences.” Genome Research 26 (12): 1721-29. doi: 10.1101/gr.210641.116.
 
 ## Software packaging/containerisation tools
 
