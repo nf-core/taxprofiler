@@ -10,7 +10,7 @@
 
 ## Samplesheet inputs
 
-nf-core/profiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (when accepted by a profiler).
+nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers).
 
 You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row as shown in the examples below. Furthermother, nf-core/taxprofiler also requires a second comma-separated file of 3 columns with a header row as in the examples below.
 
@@ -62,8 +62,8 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 ### Full database sheet
 
 nf-core/taxprofiler supports multiple databases being profiled in parallel for each tool.
-Databases can be supplied either be in the form of a compressed `.tar.gz` archive of a folder containing all relevant database files or the path to an (uncompressed) directory.
-The pipelines takes the locations these of databases as input, and specific parameters for each, via a 4 column comma-separated sheet.
+Databases can be supplied either in the form of a compressed `.tar.gz` archive of a directory containing all relevant database files or the path to a directory on the filesystem.
+The pipeline takes the locations and specific parameters of these databases as input via a four column comma-separated sheet.
 
 > ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
 
@@ -163,7 +163,7 @@ There are currently two options for short-read preprocessing: `fastp` or `adapte
 
 For adapter clipping, you can either rely on tool default adapter sequences, or supply your own adapters (`--shortread_clipmerge_adapter1` and `--shortread_clipmerge_adapter2`)
 By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to exclude unmerged reads in the reads sent for profiling (`--shortread_clipmerge_mergepairs` and `--shortread_clipmerge_excludeunmerged`).
-You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (--shortread_clipmerge_skipadaptertrim).
+You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_clipmerge_skipadaptertrim`).
 Both tools support length filtering of reads and can be tuned with `--shortread_clipmerge_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during profiling, with minimal gain.
 
 There is currently one option for long-read Oxford Nanopore processing: `porechop`.
@@ -174,7 +174,7 @@ For both short-read and long-read preprocessing, you can optionally save the res
 
 Complexity filtering can be activated via the `--perform_shortread_complexityfilter` flag.
 
-Complexity filtering is primarily a run-time optimisation step. It is not necessary for accurate taxonomic profiling, however it can speed up run-time of each tool by removing reads with low-diversity of nucleotides (e.g. with mono-nucleotide - `AAAAAAAA`, or di-nucleotide repeats `GAGAGAGAGAGAGAG`) that have a low-chance of giving an informatic taxonomic ID as they can be associated with many different taxa. Removing these reads therefore saves computational time and resources.
+Complexity filtering is primarily a run-time optimisation step. It is not necessary for accurate taxonomic profiling, however it can speed up run-time of each tool by removing reads with low-diversity of nucleotides (e.g. with mono-nucleotide - `AAAAAAAA`, or di-nucleotide repeats `GAGAGAGAGAGAGAG`) that have a low-chance of giving an informative taxonomic ID as they can be associated with many different taxa. Removing these reads therefore saves computational time and resources.
 
 There are currently two options for short-read complexity filtering: [`bbduk`](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/) and [`prinseq++`](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/).
 
@@ -200,7 +200,7 @@ For samples that may have been sequenced over multiple runs, or for FASTQ files 
 
 For more information how to set up your input samplesheet, see [Multiple runs of the same sample](#multiple-runs-of-the-same-sample).
 
-Activating this functionality will concatenate togther the FASTQ files with the same sample name _after_ the optional preprocessing steps and prior profiling. Note that libraries with runs of different pairment types will **not** the different types merged together, and output files will indicate with a `_se` or `_pe` suffix to the sample name accordingly.
+Activating this functionality will concatenate the FASTQ files with the same sample name _after_ the optional preprocessing steps and _before_ profiling. Note that libraries with runs of different pairing types will **not** be merged and this will be indicated on output files with a `_se` or `_pe` suffix to the sample name accordingly.
 
 You can optionally save the FASTQ output of the run merging with the `--save_runmerged_reads`.
 
