@@ -76,9 +76,7 @@ workflow PROFILING {
 
     ch_input_for_centrifuge =  ch_input_for_profiling.centrifuge
                             .filter{
-                                 if (it[0].is_fasta) {
-                                      WorkflowTaxprofiler.logMessage("Centrifuge currently does not accept FASTA files as input. Skipping Centrifuge for sample ${it[0].id}.", log)
-                                 }
+                                 if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] Centrifuge currently does not accept FASTA files as input. Skipping Centrifuge for sample " + it[0].id
                                  !it[0].is_fasta
                             }
                             .multiMap {
