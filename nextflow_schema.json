@@ -378,6 +378,9 @@
         },
         "save_hostremoval_unmapped": {
             "type": "boolean"
+        },
+        "malt_generatemegansummary": {
+            "type": "boolean"
         }
     }
 }
