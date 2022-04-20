@@ -7,6 +7,7 @@ include { MEGAN_RMA2INFO              } from '../../modules/nf-core/modules/mega
 include { KRAKEN2_KRAKEN2             } from '../../modules/nf-core/modules/kraken2/kraken2/main'
 include { CENTRIFUGE_CENTRIFUGE       } from '../../modules/nf-core/modules/centrifuge/centrifuge/main'
 include { METAPHLAN3                  } from '../../modules/nf-core/modules/metaphlan3/main'
+include { KAIJU_KAIJU                 } from '../../modules/nf-core/modules/kaiju/kaiju/main'
 
 workflow PROFILING {
     take:
@@ -37,6 +38,7 @@ workflow PROFILING {
                 kraken2: it[2]['tool'] == 'kraken2'
                 metaphlan3: it[2]['tool'] == 'metaphlan3'
                 centrifuge: it[2]['tool'] == 'centrifuge'
+                kaiju: it[2]['tool'] == 'kaiju'
                 unknown: true
             }
 
@@ -98,6 +100,13 @@ workflow PROFILING {
                                     db: it[3]
                             }
 
+    ch_input_for_kaiju = ch_input_for_profiling.kaiju
+                            .multiMap {
+                                it ->
+                                    reads: [it[0] + it[2], it[1]]
+                                    db: it[3]
+                            }
+
     /*
         RUN PROFILING
     */
@@ -143,6 +152,10 @@ workflow PROFILING {
         ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN3.out.biom )
     }
 
+    if ( params.run_kaiju ) {
+        KAIJU_KAIJU ( ch_input_for_kaiju.reads, ch_input_for_kaiju.db )
+        ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
+    }
 
     emit:
     profiles = ch_raw_profiles    // channel: [ val(meta), [ reads ] ] - should be text files or biom

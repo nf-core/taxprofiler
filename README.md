@@ -44,6 +44,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
    - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/)
    - [Kaiju](https://kaiju.binf.ku.dk/)
    - [mOTUs](https://motu-tool.org/)
+   - [MetaMaps](https://github.com/DiltheyLab/MetaMaps)
 4. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
 5. Standardises output tables

@@ -370,6 +370,9 @@
             "type": "string",
             "default": "None"
         },
+        "run_kaiju": {
+            "type": "boolean"
+        },
         "malt_generatemegansummary": {
             "type": "boolean"
         }

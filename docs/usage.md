@@ -124,6 +124,10 @@ Expected (uncompressed) database files for each tool are as follows:
   - `mpa_v30_CHOCOPhlAn_201901.rev.1.bt2`
   - `mpa_v30_CHOCOPhlAn_201901.rev.2.bt2`
   - `mpa_latest`
+- **Kaiju** output of `kaiju-makedb`. A directory containing:
+  - `kaiju_db_*.fmi`
+  - `nodes.dmp`
+  - `names.dmp`
 
 ## Running the pipeline
 
