@@ -370,6 +370,15 @@
             "type": "string",
             "default": "None"
         },
+        "save_hostremoval_index": {
+            "type": "boolean"
+        },
+        "save_hostremoval_mapped": {
+            "type": "boolean"
+        },
+        "save_hostremoval_unmapped": {
+            "type": "boolean"
+        },
         "run_kaiju": {
             "type": "boolean"
         },
