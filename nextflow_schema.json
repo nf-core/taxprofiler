@@ -379,6 +379,9 @@
         "save_hostremoval_unmapped": {
             "type": "boolean"
         },
+        "run_kaiju": {
+            "type": "boolean"
+        },
         "malt_generatemegansummary": {
             "type": "boolean"
         }

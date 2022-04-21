@@ -53,6 +53,9 @@
             },
             "untar": {
                 "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"
+            },
+            "kaiju/kaiju": {
+                "git_sha": "8856f127c58f6af479128be8b8df4d42e442ddbe"
             }
         }
     }
