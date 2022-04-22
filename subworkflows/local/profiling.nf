@@ -6,6 +6,7 @@ include { MALT_RUN                    } from '../../modules/nf-core/modules/malt
 include { MEGAN_RMA2INFO              } from '../../modules/nf-core/modules/megan/rma2info/main'
 include { KRAKEN2_KRAKEN2             } from '../../modules/nf-core/modules/kraken2/kraken2/main'
 include { CENTRIFUGE_CENTRIFUGE       } from '../../modules/nf-core/modules/centrifuge/centrifuge/main'
+include { CENTRIFUGE_KREPORT          } from '../../modules/nf-core/modules/centrifuge/kreport/main'
 include { METAPHLAN3                  } from '../../modules/nf-core/modules/metaphlan3/main'
 include { KAIJU_KAIJU                 } from '../../modules/nf-core/modules/kaiju/kaiju/main'
 
@@ -142,8 +143,9 @@ workflow PROFILING {
 
     if ( params.run_centrifuge ) {
         CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_unaligned, params.centrifuge_save_aligned, params.centrifuge_sam_format  )
+        CENTRIFUGE_KREPORT (CENTRIFUGE_CENTRIFUGE.out.results, ch_input_for_centrifuge.db)
         ch_versions        = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( CENTRIFUGE_CENTRIFUGE.out.report )
+        ch_raw_profiles    = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
     }
 
     if ( params.run_metaphlan3 ) {
