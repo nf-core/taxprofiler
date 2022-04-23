@@ -111,8 +111,8 @@ workflow TAXPROFILER {
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
     if ( params.perform_shortread_clipmerge ) {
-
         ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq ).reads
+        ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     } else {
         ch_shortreads_preprocessed = INPUT_CHECK.out.fastq
     }
@@ -120,7 +120,7 @@ workflow TAXPROFILER {
     if ( params.perform_longread_clip ) {
         ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
                                         .map { it -> [ it[0], [it[1]] ] }
-        ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions.first())
+        ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     } else {
         ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
     }
@@ -131,6 +131,7 @@ workflow TAXPROFILER {
 
     if ( params.perform_shortread_complexityfilter ) {
         ch_shortreads_filtered = SHORTREAD_COMPLEXITYFILTERING ( ch_shortreads_preprocessed ).reads
+        ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
     } else {
         ch_shortreads_filtered = ch_shortreads_preprocessed
     }
@@ -141,7 +142,7 @@ workflow TAXPROFILER {
 
     if ( params.perform_shortread_hostremoval ) {
         ch_shortreads_hostremoved = SHORTREAD_HOSTREMOVAL ( ch_shortreads_filtered, ch_reference, ch_reference_index ).reads
-        ch_versions = ch_versions.mix(SHORTREAD_HOSTREMOVAL.out.versions.first())
+        ch_versions = ch_versions.mix(SHORTREAD_HOSTREMOVAL.out.versions)
     } else {
         ch_shortreads_hostremoved = ch_shortreads_filtered
     }
@@ -177,6 +178,8 @@ workflow TAXPROFILER {
             }
             .mix( INPUT_CHECK.out.fasta )
 
+        ch_versions = ch_versions.mix(CAT_FASTQ.out.versions)
+
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
             .mix( ch_longreads_preprocessed, INPUT_CHECK.out.fasta )
@@ -193,8 +196,10 @@ workflow TAXPROFILER {
         MODULE: MultiQC
     */
 
+    ch_versions    = ch_versions.mix(MULTIQC.out.versions)
+
     CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.unique().collectFile(name: 'collated_versions.yml')
+        ch_versions.dump(tag: "software_versions_beforeuniqe").unique().dump(tag: "software_versions").collectFile(name: 'collated_versions.yml')
     )
 
 
@@ -210,26 +215,18 @@ workflow TAXPROFILER {
 
     if (params.perform_shortread_clipmerge) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
-        ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     }
 
     if (params.perform_longread_clip) {
         ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
-        ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     }
 
     if (params.perform_shortread_complexityfilter){
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) )
-        ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
     }
 
     if (params.perform_shortread_hostremoval) {
         ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
-        ch_versions = ch_versions.mix(SHORTREAD_HOSTREMOVAL.out.versions)
-    }
-
-    if (params.perform_runmerging){
-        ch_versions = ch_versions.mix(CAT_FASTQ.out.versions)
     }
 
     ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc )
@@ -239,7 +236,6 @@ workflow TAXPROFILER {
         ch_multiqc_files.collect()
     )
     multiqc_report = MULTIQC.out.report.toList()
-    ch_versions    = ch_versions.mix(MULTIQC.out.versions)
 }
 
 /*
