@@ -129,7 +129,7 @@ workflow PROFILING {
 
         MEGAN_RMA2INFO (ch_maltrun_for_megan, params.malt_generatemegansummary )
         ch_multiqc_files   = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
-        ch_versions        = ch_versions.mix( MALT_RUN.out.versions.first() )
+        ch_versions        = ch_versions.mix( MALT_RUN.out.versions.first(), MEGAN_RMA2INFO.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MEGAN_RMA2INFO.out.txt )
     }
 

@@ -196,10 +196,8 @@ workflow TAXPROFILER {
         MODULE: MultiQC
     */
 
-    ch_versions    = ch_versions.mix(MULTIQC.out.versions)
-
     CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.dump(tag: "software_versions_beforeuniqe").unique().dump(tag: "software_versions").collectFile(name: 'collated_versions.yml')
+        ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
 
 
@@ -236,6 +234,7 @@ workflow TAXPROFILER {
         ch_multiqc_files.collect()
     )
     multiqc_report = MULTIQC.out.report.toList()
+    ch_versions    = ch_versions.mix(MULTIQC.out.versions)
 }
 
 /*
