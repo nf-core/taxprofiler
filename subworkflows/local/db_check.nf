@@ -34,7 +34,7 @@ workflow DB_CHECK {
 
     emit:
     dbs = ch_final_dbs                        // channel: [ val(meta), [ db ] ]
-    versions = DATABASE_CHECK.out.versions // channel: [ versions.yml ]
+    versions = DATABASE_CHECK.out.versions.mix(UNTAR.out.versions.first()) // channel: [ versions.yml ]
 }
 
 def create_db_channels(LinkedHashMap row) {
