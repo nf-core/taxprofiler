@@ -384,6 +384,11 @@
         },
         "malt_generatemegansummary": {
             "type": "boolean"
+        },
+        "kaiju_taxon_name": {
+            "type": "string",
+            "default": "species",
+            "enum": ["phylum", "class", "order", "family", "genus", "species"]
         }
     }
 }

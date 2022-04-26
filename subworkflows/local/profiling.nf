@@ -9,6 +9,7 @@ include { CENTRIFUGE_CENTRIFUGE       } from '../../modules/nf-core/modules/cent
 include { CENTRIFUGE_KREPORT          } from '../../modules/nf-core/modules/centrifuge/kreport/main'
 include { METAPHLAN3                  } from '../../modules/nf-core/modules/metaphlan3/main'
 include { KAIJU_KAIJU                 } from '../../modules/nf-core/modules/kaiju/kaiju/main'
+include { KAIJU_KAIJU2TABLE           } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
 
 workflow PROFILING {
     take:
@@ -155,8 +156,11 @@ workflow PROFILING {
     }
 
     if ( params.run_kaiju ) {
-        KAIJU_KAIJU ( ch_input_for_kaiju.reads, ch_input_for_kaiju.db )
+        KAIJU_KAIJU ( ch_input_for_kaiju.reads, ch_input_for_kaiju.db)
+        KAIJU_KAIJU2TABLE (KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_name)
+        ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary.collect{it[1]}.ifEmpty([])  )
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
+        ch_raw_profiles = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE.out.summary )
     }
 
     emit:
