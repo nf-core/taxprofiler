@@ -52,6 +52,10 @@
 
   > Kim, Daehwan, Li Song, Florian P. Breitwieser, and Steven L. Salzberg. 2016. “Centrifuge: Rapid and Sensitive Classification of Metagenomic Sequences.” Genome Research 26 (12): 1721-29. doi: 10.1101/gr.210641.116.
 
+- [DIAMOND](https://doi.org/10.1038/nmeth.3176)
+
+> Buchfink, Benjamin, Chao Xie, and Daniel H. Huson. 2015. “Fast and Sensitive Protein Alignment Using DIAMOND.” Nature Methods 12 (1): 59-60. doi: 10.1038/nmeth.3176.
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)
