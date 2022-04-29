@@ -129,7 +129,7 @@ Expected (uncompressed) database files for each tool are as follows:
   - `nodes.dmp`
   - `names.dmp`
 - **DIAMOND** output of `diamond makedb`. Note: requires building with taxonomy files
-  to generate taxonomic profile. See [DIAMOND documentation](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options#makedb-options).  A file named:
+  to generate taxonomic profile. See [DIAMOND documentation](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options#makedb-options). A file named:
   - `<database_name>.dmnd`
 
 ## Running the pipeline
