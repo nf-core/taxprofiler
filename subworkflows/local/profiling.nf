@@ -10,6 +10,8 @@ include { CENTRIFUGE_KREPORT          } from '../../modules/nf-core/modules/cent
 include { METAPHLAN3                  } from '../../modules/nf-core/modules/metaphlan3/main'
 include { KAIJU_KAIJU                 } from '../../modules/nf-core/modules/kaiju/kaiju/main'
 include { KAIJU_KAIJU2TABLE           } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
+include { DIAMOND_BLASTX              } from '../../modules/nf-core/modules/diamond/blastx/main'
+
 
 workflow PROFILING {
     take:
@@ -41,6 +43,7 @@ workflow PROFILING {
                 metaphlan3: it[2]['tool'] == 'metaphlan3'
                 centrifuge: it[2]['tool'] == 'centrifuge'
                 kaiju: it[2]['tool'] == 'kaiju'
+                diamond: it[2]['tool'] == 'diamond'
                 unknown: true
             }
 
@@ -109,6 +112,13 @@ workflow PROFILING {
                                     db: it[3]
                             }
 
+    ch_input_for_diamond = ch_input_for_profiling.diamond
+                            .multiMap {
+                                it ->
+                                    reads: [it[0] + it[2], it[1]]
+                                    db: it[3]
+                            }
+
     /*
         RUN PROFILING
     */
@@ -161,6 +171,12 @@ workflow PROFILING {
         ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary.collect{it[1]}.ifEmpty([])  )
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
         ch_raw_profiles = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE.out.summary )
+    }
+
+    if ( params.run_diamond ) {
+        DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, params.diamond_output_format )
+        ch_versions        = ch_versions.mix( DIAMOND_BLASTX.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.output )
     }
 
     emit:

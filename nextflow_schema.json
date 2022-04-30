@@ -389,6 +389,14 @@
             "type": "string",
             "default": "species",
             "enum": ["phylum", "class", "order", "family", "genus", "species"]
+        },
+        "run_diamond": {
+            "type": "boolean"
+        },
+        "diamond_output_format": {
+            "type": "string",
+            "default": "tsv",
+            "enum": ["blast", "xml", "txt", "daa", "sam", "tsv", "paf"]
         }
     }
 }
