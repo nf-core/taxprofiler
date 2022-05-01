@@ -75,6 +75,7 @@ workflow PROFILING {
                                     it ->
                                         reads: [ it[0], it[1].flatten() ]
                                         db: it[2]
+                                }
 
         MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
 
