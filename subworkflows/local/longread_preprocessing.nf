@@ -4,6 +4,7 @@
 
 include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/modules/fastqc/main'
 include { PORECHOP                   } from '../../modules/nf-core/modules/porechop/main'
+include { FILTLONG                   } from '../../modules/nf-core/modules/filtlong/main'
 
 workflow LONGREAD_PREPROCESSING {
     take:
@@ -13,20 +14,42 @@ workflow LONGREAD_PREPROCESSING {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    PORECHOP ( reads )
+    if ( params.longread_qc_run_clip && !params.longread_qc_run_filter ) {
+        PORECHOP ( reads )
 
-    ch_processed_reads = PORECHOP.out.reads
-                                .map {
-                                        meta, reads ->
-                                        def meta_new = meta.clone()
-                                        meta_new['single_end'] = 1
-                                        [ meta_new, reads ]
-                                    }
+        ch_processed_reads = PORECHOP.out.reads
+                                        .map {
+                                                meta, reads ->
+                                                def meta_new = meta.clone()
+                                                meta_new['single_end'] = 1
+                                                [ meta_new, reads ]
 
-    FASTQC_PROCESSED ( PORECHOP.out.reads )
-    ch_versions = ch_versions.mix(PORECHOP.out.versions.first())
+        ch_versions = ch_versions.mix(PORECHOP.out.versions.first())
+                                            }
+    } else if ( !params.longread_qc_run_clip && params.longread_qc_run_filter ) {
+
+        ch_processed_reads = FILTLONG ( reads.map{ meta, reads -> [meta, [], reads ]} )
+        ch_versions = ch_versions.mix(FILTLONG.out.versions.first())
+
+    } else {
+        PORECHOP ( reads )
+        ch_clipped_reads = PORECHOP.out.reads
+                                        .map {
+                                                meta, reads ->
+                                                def meta_new = meta.clone()
+                                                meta_new['single_end'] = 1
+                                                [ meta_new, reads ]
+                                        }
+
+        ch_processed_reads = FILTLONG ( ch_clipped_reads.map{ meta, reads -> [meta, [], reads ]} ).reads
+
+        ch_versions = ch_versions.mix(PORECHOP.out.versions.first())
+        ch_versions = ch_versions.mix(FILTLONG.out.versions.first())
+
+    }
+
+    FASTQC_PROCESSED ( ch_processed_reads.dump(tag: "filtlong") )
     ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
-
 
     emit:
     reads    = ch_processed_reads   // channel: [ val(meta), [ reads ] ]
