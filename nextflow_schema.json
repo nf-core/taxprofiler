@@ -278,13 +278,7 @@
         "run_centrifuge": {
             "type": "boolean"
         },
-        "centrifuge_save_unaligned": {
-            "type": "boolean"
-        },
-        "centrifuge_save_aligned": {
-            "type": "boolean"
-        },
-        "centrifuge_sam_format": {
+        "centrifuge_save_reads": {
             "type": "boolean"
         },
         "run_metaphlan3": {
@@ -382,7 +376,7 @@
         "run_kaiju": {
             "type": "boolean"
         },
-        "malt_generatemegansummary": {
+        "malt_generate_megansummary": {
             "type": "boolean"
         },
         "kaiju_taxon_name": {
@@ -397,6 +391,15 @@
             "type": "string",
             "default": "tsv",
             "enum": ["blast", "xml", "txt", "daa", "sam", "tsv", "paf"]
+        },
+        "malt_save_reads": {
+            "type": "boolean"
+        },
+        "kraken2_save_reads": {
+            "type": "boolean"
+        },
+        "kraken2_save_readclassification": {
+            "type": "boolean"
         }
     }
 }

@@ -61,8 +61,11 @@ workflow PROFILING {
     // TODO document somewhere we only accept illumina short reads for MALT?
     ch_input_for_malt =  ch_input_for_profiling.malt
                             .filter { it[0]['instrument_platform'] == 'ILLUMINA' }
+                            .dump(tag: "into malt map")
                             .map {
                                 it ->
+                                // TODO somehow add saving SAM alignments to db_params here
+                                    def sam_format = params.malt_save_reads ? '--alignments' : ""
                                     def temp_meta =  [ id: it[2]['db_name']]  + it[2]
                                     def db = it[3]
                                     [ temp_meta, it[1], db ]
@@ -139,21 +142,21 @@ workflow PROFILING {
                                         [ meta_new, rma ]
                                 }
 
-        MEGAN_RMA2INFO (ch_maltrun_for_megan, params.malt_generatemegansummary )
+        MEGAN_RMA2INFO (ch_maltrun_for_megan, params.malt_generate_megansummary )
         ch_multiqc_files   = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
         ch_versions        = ch_versions.mix( MALT_RUN.out.versions.first(), MEGAN_RMA2INFO.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MEGAN_RMA2INFO.out.txt )
     }
 
     if ( params.run_kraken2 ) {
-        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
-        ch_multiqc_files   = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([])  )
+        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassification  )
+        ch_multiqc_files   = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report.collect{it[1]}.ifEmpty([])  )
         ch_versions        = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.txt )
+        ch_raw_profiles    = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.report )
     }
 
     if ( params.run_centrifuge ) {
-        CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_unaligned, params.centrifuge_save_aligned, params.centrifuge_sam_format  )
+        CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads, params.centrifuge_save_reads  )
         CENTRIFUGE_KREPORT (CENTRIFUGE_CENTRIFUGE.out.results, ch_input_for_centrifuge.db)
         ch_versions        = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
@@ -174,7 +177,8 @@ workflow PROFILING {
     }
 
     if ( params.run_diamond ) {
-        DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, params.diamond_output_format )
+        ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format
+        DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format )
         ch_versions        = ch_versions.mix( DIAMOND_BLASTX.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.output )
     }
