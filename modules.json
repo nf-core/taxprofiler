@@ -73,7 +73,7 @@
                 "git_sha": "897c33d5da084b61109500ee44c01da2d3e4e773"
             },
             "samtools/view": {
-                "git_sha": "12afb6b0faf3cabf769c9a2a7dd477e3f066eac0"
+                "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
             },
             "untar": {
                 "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"
