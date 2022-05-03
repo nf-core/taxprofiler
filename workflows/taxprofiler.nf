@@ -26,7 +26,8 @@ if (params.perform_shortread_hostremoval && !params.shortread_hostremoval_refere
 if (!params.shortread_hostremoval_reference && params.shortread_hostremoval_reference_index) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --shortread_hostremoval_reference FASTA supplied. Check input." }
 
 if (params.shortread_hostremoval_reference ) { ch_reference       = file(params.shortread_hostremoval_reference) }
-if (params.shortread_hostremoval_index     ) { ch_reference_index = file(params.shortread_hostremoval_index    ) } else { ch_reference_index = [] }
+if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = file(params.shortread_hostremoval_index    ) } else { ch_shortread_reference_index = [] }
+if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,6 +53,7 @@ include { DB_CHECK                      } from '../subworkflows/local/db_check'
 include { SHORTREAD_PREPROCESSING       } from '../subworkflows/local/shortread_preprocessing'
 include { LONGREAD_PREPROCESSING        } from '../subworkflows/local/longread_preprocessing'
 include { SHORTREAD_HOSTREMOVAL         } from '../subworkflows/local/shortread_hostremoval'
+include { LONGREAD_HOSTREMOVAL          } from '../subworkflows/local/longread_hostremoval'
 include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_complexityfiltering'
 include { PROFILING                     } from '../subworkflows/local/profiling'
 
@@ -141,16 +143,23 @@ workflow TAXPROFILER {
     */
 
     if ( params.perform_shortread_hostremoval ) {
-        ch_shortreads_hostremoved = SHORTREAD_HOSTREMOVAL ( ch_shortreads_filtered, ch_reference, ch_reference_index ).reads
+        ch_shortreads_hostremoved = SHORTREAD_HOSTREMOVAL ( ch_shortreads_filtered, ch_reference, ch_shortread_reference_index ).reads
         ch_versions = ch_versions.mix(SHORTREAD_HOSTREMOVAL.out.versions)
     } else {
         ch_shortreads_hostremoved = ch_shortreads_filtered
     }
 
+    if ( params.perform_longread_hostremoval ) {
+        ch_longreads_hostremoved = LONGREAD_HOSTREMOVAL ( ch_longreads_preprocessed, ch_reference, ch_longread_reference_index ).reads
+        ch_versions = ch_versions.mix(LONGREAD_HOSTREMOVAL.out.versions)
+    } else {
+        ch_longreads_hostremoved = ch_longreads_preprocessed
+    }
+
     if ( params.perform_runmerging ) {
 
         ch_reads_for_cat_branch = ch_shortreads_hostremoved
-            .mix( ch_longreads_preprocessed )
+            .mix( ch_longreads_hostremoved )
             .map {
                 meta, reads ->
                     def meta_new = meta.clone()
@@ -182,7 +191,7 @@ workflow TAXPROFILER {
 
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
-            .mix( ch_longreads_preprocessed, INPUT_CHECK.out.fasta )
+            .mix( ch_longreads_hostremoved, INPUT_CHECK.out.fasta )
     }
 
     /*
