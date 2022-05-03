@@ -431,26 +431,22 @@
         },
         "longread_hostremoval_index": {
             "type": "string",
-            "default": null
+            "default": "None"
         },
         "save_minimap2_hostremoval_index": {
-            "type": "string",
-            "default": "false",
+            "type": "boolean",
             "description": "Flag for publishing minimap2 host removal index"
         },
         "save_minimap2_hostremoval_mapped": {
-            "type": "string",
-            "default": "false",
+            "type": "boolean",
             "description": "Flag for publishinig bam file with all long reads mapped to a reference"
         },
         "save_samtools_unmapped_bam": {
-            "type": "string",
-            "default": "false",
+            "type": "boolean",
             "description": "Flag for publishing bam for reads that did not map to the host reference"
         },
         "save_minimap2_unmapped_fq": {
-            "type": "string",
-            "default": "false",
+            "type": "boolean",
             "description": "Flag for publishing fastq files for reads that did not map to the host reference"
         }
     }
