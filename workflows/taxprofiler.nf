@@ -11,7 +11,7 @@ WorkflowTaxprofiler.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.databases, params.shortread_hostremoval_reference,
+def checkPathParamList = [ params.input, params.databases, params.hostremoval_reference,
                             params.shortread_hostremoval_index, params.multiqc_config
                         ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
@@ -22,10 +22,10 @@ if (params.databases) { ch_databases = file(params.databases) } else { exit 1, '
 if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
 if (params.shortread_clipmerge_excludeunmerged && !params.shortread_clipmerge_mergepairs) exit 1, "ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging not turned on. Please specify --shortread_clipmerge_mergepairs"
 
-if (params.perform_shortread_hostremoval && !params.shortread_hostremoval_reference) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval requested but no --shortread_hostremoval_reference FASTA supplied. Check input." }
-if (!params.shortread_hostremoval_reference && params.shortread_hostremoval_reference_index) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --shortread_hostremoval_reference FASTA supplied. Check input." }
+if (params.perform_shortread_hostremoval && !params.hostremoval_reference) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval requested but no --hostremoval_reference FASTA supplied. Check input." }
+if (!params.hostremoval_reference && params.hostremoval_reference_index) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input." }
 
-if (params.shortread_hostremoval_reference ) { ch_reference       = file(params.shortread_hostremoval_reference) }
+if (params.hostremoval_reference ) { ch_reference       = file(params.hostremoval_reference) }
 if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = file(params.shortread_hostremoval_index    ) } else { ch_shortread_reference_index = [] }
 if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
 

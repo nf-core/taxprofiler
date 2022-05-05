@@ -365,6 +365,7 @@
         "perform_longread_hostremoval": {
             "type": "boolean"
         },
+        "hostremoval_reference": {
             "type": "string",
             "default": "None"
         },

@@ -197,7 +197,7 @@ Similarly to complexity filtering, host-removal can be useful for runtime optimi
 
 nf-core/taxprofiler currently offers host-removal via alignment against a reference genome with Bowtie2, and the use of the unaligned reads for downstream profiling.
 
-You can supply your reference genome in FASTA format with `--shortread_hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index`, however nf-core/taxprofiler will generate this for you if necessary. Pre-supplying the directory of index files can greatly speed up the process, and these can be re-used.
+You can supply your reference genome in FASTA format with `--hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index`, however nf-core/taxprofiler will generate this for you if necessary. Pre-supplying the directory of index files can greatly speed up the process, and these can be re-used.
 
 > 💡 If you have multiple taxa or sequences you wish to remove (e.g., the host genome and then also PhiX - common quality-control reagent during sequencing) you can simply concatenate the FASTAs of each taxa or sequences into a single reference file.
 
