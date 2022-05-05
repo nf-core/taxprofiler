@@ -362,7 +362,9 @@
         "perform_shortread_hostremoval": {
             "type": "boolean"
         },
-        "shortread_hostremoval_reference": {
+        "perform_longread_hostremoval": {
+            "type": "boolean"
+        },
             "type": "string",
             "default": "None"
         },

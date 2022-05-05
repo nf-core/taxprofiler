@@ -191,7 +191,7 @@ You can optionally save the FASTQ output of the run merging with the `--save_com
 
 #### Host Removal
 
-Removal of possible-host reads from FASTQ files prior profiling can be activated with `--perform_shortread_hostremoval`
+Removal of possible-host reads from FASTQ files prior profiling can be activated with `--perform_shortread_hostremoval` or `--perform_longread_hostremoval`.
 
 Similarly to complexity filtering, host-removal can be useful for runtime optimisation and reduction in misclassified reads. It is not always necessary to report classification of reads from a host when you already know the host of the sample, therefore you can gain a run-time and computational advantage by removing these prior typically resource-heavy profiling with more efficient methods. Furthermore, particularly with human samples, you can reduce the number of false positives during profiling that occur due to host-sequence contamination in reference genomes on public databases.
 
