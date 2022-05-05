@@ -70,7 +70,7 @@
                 "git_sha": "f1c5384c31e985591716afdd732cf8c2ae29d05b"
             },
             "samtools/bam2fq": {
-                "git_sha": "897c33d5da084b61109500ee44c01da2d3e4e773"
+                "git_sha": "5510ea39fe638594bc26ac34cadf4a84bf27d159"
             },
             "samtools/view": {
                 "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
