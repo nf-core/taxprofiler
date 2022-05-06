@@ -191,13 +191,13 @@ You can optionally save the FASTQ output of the run merging with the `--save_com
 
 #### Host Removal
 
-Removal of possible-host reads from FASTQ files prior profiling can be activated with `--perform_shortread_hostremoval`
+Removal of possible-host reads from FASTQ files prior profiling can be activated with `--perform_shortread_hostremoval` or `--perform_longread_hostremoval`.
 
 Similarly to complexity filtering, host-removal can be useful for runtime optimisation and reduction in misclassified reads. It is not always necessary to report classification of reads from a host when you already know the host of the sample, therefore you can gain a run-time and computational advantage by removing these prior typically resource-heavy profiling with more efficient methods. Furthermore, particularly with human samples, you can reduce the number of false positives during profiling that occur due to host-sequence contamination in reference genomes on public databases.
 
 nf-core/taxprofiler currently offers host-removal via alignment against a reference genome with Bowtie2, and the use of the unaligned reads for downstream profiling.
 
-You can supply your reference genome in FASTA format with `--shortread_hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index`, however nf-core/taxprofiler will generate this for you if necessary. Pre-supplying the directory of index files can greatly speed up the process, and these can be re-used.
+You can supply your reference genome in FASTA format with `--hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index` or `--longread_hostremoval_index`, however nf-core/taxprofiler will generate this for you if necessary. Pre-supplying the directory of index files can greatly speed up the process, and these can be re-used.
 
 > 💡 If you have multiple taxa or sequences you wish to remove (e.g., the host genome and then also PhiX - common quality-control reagent during sequencing) you can simply concatenate the FASTAs of each taxa or sequences into a single reference file.
 

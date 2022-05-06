@@ -52,6 +52,12 @@
                 "git_sha": "2d38566eca4cc15142b2ffa7c11837569b39aece"
             },
             "metaphlan3": {
+                "git_sha": "ed4dd1a928ebf4308efb720de878045f7773f8e2"
+            },
+            "minimap2/align": {
+                "git_sha": "1a5a9e7b4009dcf34e6867dd1a5a1d9a718b027b"
+            },
+            "minimap2/index": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "multiqc": {
@@ -62,6 +68,12 @@
             },
             "prinseqplusplus": {
                 "git_sha": "f1c5384c31e985591716afdd732cf8c2ae29d05b"
+            },
+            "samtools/bam2fq": {
+                "git_sha": "5510ea39fe638594bc26ac34cadf4a84bf27d159"
+            },
+            "samtools/view": {
+                "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
             },
             "untar": {
                 "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"

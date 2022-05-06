@@ -362,7 +362,10 @@
         "perform_shortread_hostremoval": {
             "type": "boolean"
         },
-        "shortread_hostremoval_reference": {
+        "perform_longread_hostremoval": {
+            "type": "boolean"
+        },
+        "hostremoval_reference": {
             "type": "string",
             "default": "None"
         },
@@ -397,6 +400,10 @@
             "type": "string",
             "default": "tsv",
             "enum": ["blast", "xml", "txt", "daa", "sam", "tsv", "paf"]
+        },
+        "longread_hostremoval_index": {
+            "type": "string",
+            "default": "None"
         }
     }
 }
