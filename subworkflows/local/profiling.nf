@@ -178,7 +178,7 @@ workflow PROFILING {
 
     if ( params.run_diamond ) {
         ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format
-        DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format )
+        DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format, [] )
         ch_versions        = ch_versions.mix( DIAMOND_BLASTX.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.tsv )
     }
