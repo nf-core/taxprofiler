@@ -29,6 +29,8 @@ if (params.hostremoval_reference           ) { ch_reference = file(params.hostre
 if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = file(params.shortread_hostremoval_index    ) } else { ch_shortread_reference_index = [] }
 if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
 
+if (params.diamond_save_reads              ) log.warn "[nf-core/taxprofiler] DIAMOND only allows output of a single format. Only aligned reads in SAM format will be produced, no taxonomic profiles will be available."
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES
