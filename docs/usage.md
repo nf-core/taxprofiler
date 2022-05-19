@@ -8,56 +8,136 @@
 
 <!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
 
-## Samplesheet input
+## Samplesheet inputs
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers).
+
+You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row as shown in the examples below. Furthermother, nf-core/taxprofiler also requires a second comma-separated file of 3 columns with a header row as in the examples below.
+
+This samplesheet is then specified on the command line as follows:
 
 ```console
---input '[path to samplesheet file]'
+--input '[path to samplesheet file]' --databases '[path to database sheet file]'
 ```
 
 ### Multiple runs of the same sample
 
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate different runs FASTQ files of the same sample before performing profiling, when `--perform_runmerging` is supplied. Below is an example for the same sample sequenced across 3 lanes:
 
 ```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
+sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
+2612,run1,ILLUMINA,2612_run1_R1.fq.gz,,
+2612,run2,ILLUMINA,2612_run2_R1.fq.gz,,
+2612,run3,ILLUMINA,2612_run3_R1.fq.gz,2612_run3_R2.fq.gz,
+
 ```
+
+> ⚠️ Runs of the same sample sequenced on Illumina platforms with a combination of single and paired-end data will **not** be run-wise concatenated, unless pair-merging is specified. In the example above, `run3` will be profiled independently of `run1` and `run2` if pairs are not merged.
 
 ### Full samplesheet
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
+The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 6 columns to match those defined in the table below.
 
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
+A final samplesheet file consisting of both single- and paired-end data, as well as long-read FASTA files may look something like the one below. This is for 6 samples, where `2612` has been sequenced twice.
 
 ```console
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+2611,ERR5766174,ILLUMINA,,,/<path>/<to>/fasta/ERX5474930_ERR5766174_1.fa.gz
+2612,ERR5766176,ILLUMINA,/<path>/<to>/fastq/ERX5474932_ERR5766176_1.fastq.gz,/<path>/<to>/fastq/ERX5474932_ERR5766176_2.fastq.gz,
+2612,ERR5766180,ILLUMINA,/<path>/<to>/fastq/ERX5474936_ERR5766180_1.fastq.gz,,
+2613,ERR5766181,ILLUMINA,/<path>/<to>/fastq/ERX5474937_ERR5766181_1.fastq.gz,/<path>/<to>/fastq/ERX5474937_ERR5766181_2.fastq.gz,
+ERR3201952,ERR3201952,OXFORD_NANOPORE,/<path>/<to>/fastq/ERR3201952.fastq.gz,,
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+| Column                | Description                                                                                                                                                                                              |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample`              | Unique sample name [required].                                                                                                                                                                           |
+| `run_accession`       | Run ID or name unique for each (pairs of) file(s) .Can also supply sample name again here, if only a single run was generated [required].                                                                |
+| `instrument_platform` | Sequencing platform reads generated on, selected from the EBI ENA [controlled vocabulary](https://www.ebi.ac.uk/ena/portal/api/controlledVocab?field=instrument_platform) [required].                    |
+| `fastq_1`             | Path or URL to sequencing reads or for Illumina R1 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if data in FASTA is specifed. Cannot be combined with `fasta`. |
+| `fastq_2`             | Path or URL to Illumina R2 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if single end data. Cannot be combined with `fasta`.                                   |
+| `fasta`               | Path or URL to long-reads or contigs in FASTA format. GZipped compressed files accepted. Can be left empty if data in FASTA is specifed. Cannot be combined with `fastq_1` or `fastq_2`.                 |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+
+### Full database sheet
+
+nf-core/taxprofiler supports multiple databases being profiled in parallel for each tool.
+Databases can be supplied either in the form of a compressed `.tar.gz` archive of a directory containing all relevant database files or the path to a directory on the filesystem.
+The pipeline takes the locations and specific parameters of these databases as input via a four column comma-separated sheet.
+
+> ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
+
+An example database sheet can look as follows, where 4 tools are being used, and `malt` and `kraken2` will be used against two databases each.
+
+```console
+tool,db_name,db_params,db_path
+malt,malt85,-id 85,/<path>/<to>/malt/testdb-malt/
+malt,malt95,-id 90,/<path>/<to>/malt/testdb-malt.tar.gz
+kraken2,db1,,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
+kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
+centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
+metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
+```
+
+Column specifications are as follows:
+
+| Column      | Description                                                                                                                                                                                                                                             |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tool`      | Taxonomic profiling tool (supported by nf-core/taxprofiler) that the database has been indexed for [required].                                                                                                                                          |
+| `db_name`   | A unique name of the particular database [required].                                                                                                                                                                                                    |
+| `db_params` | Any parameters of the given taxonomic profiler that you wish to specify that the taxonomic profiling tool should use when profiling against this specific. Can be empty to use taxonomic profiler defaults Must not be surrounded by quotes [required]. |
+| `db_path`   | Path to the database. Can either be a path to a directory containing the database index files or a `.tar.gz` file which contains the compressed database directory with the same name as the tar archive, minus `.tar.gz` [required].                   |
+
+> 💡 You can also specify the same database directory/file twice (ensuring unique `db_name`s) and specify different parameters for each database to compare the effect of different parameters during profiling.
+
+nf-core/taxprofiler will automatically decompress and extract any compressed archives for you.
+
+Expected (uncompressed) database files for each tool are as follows:
+
+- **MALT** output of `malt-build`. A directory containing:
+  - `ref.idx`
+  - `taxonomy.idx`
+  - `taxonomy.map`
+  - `index0.idx`
+  - `table0.idx`
+  - `table0.db`
+  - `ref.inf`
+  - `ref.db`
+  - `taxonomy.tre`
+- **Kraken2** output of `kraken2-build` command(s) A directory containing:
+  - `opts.k2d`
+  - `hash.k2d`
+  - `taxo.k2d`
+- **Centrifuge** output of `centrifuge-build`. A directory containing:
+  - `<database_name>.<number>.cf`
+  - `<database_name>.<number>.cf`
+  - `<database_name>.<number>.cf`
+  - `<database_name>.<number>.cf`
+- **MetaPhlAn3** generated with `metaphlan --install` or downloaded from links on the [MetaPhlAn3 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0#customizing-the-database). A directory containing:
+  - `mpa_v30_CHOCOPhlAn_201901.pkl`
+  - `mpa_v30_CHOCOPhlAn_201901.pkl`
+  - `mpa_v30_CHOCOPhlAn_201901.fasta`
+  - `mpa_v30_CHOCOPhlAn_201901.3.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.4.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.1.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.2.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.rev.1.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.rev.2.bt2`
+  - `mpa_latest`
+- **Kaiju** output of `kaiju-makedb`. A directory containing:
+  - `kaiju_db_*.fmi`
+  - `nodes.dmp`
+  - `names.dmp`
+- **DIAMOND** output of `diamond makedb`. Note: requires building with taxonomy files
+  to generate taxonomic profile. See [DIAMOND documentation](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options#makedb-options). A file named:
+  - `<database_name>.dmnd`
 
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
 
 ```console
-nextflow run nf-core/taxprofiler --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile docker
+nextflow run nf-core/taxprofiler --input samplesheet.csv --databases databases.csv --outdir <OUTDIR> -profile docker --run_<TOOL1> --run_<TOOL2>
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -66,10 +146,70 @@ Note that the pipeline will create the following files in your working directory
 
 ```console
 work                # Directory containing the nextflow working files
-<OUTIDR>            # Finished results in specified location (defined with --outdir)
+<OUTDIR>            # Finished results in specified location (defined with --outdir)
 .nextflow_log       # Log file from Nextflow
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
+
+### Preprocessing Steps
+
+nf-core/taxprofiler offers four main preprocessing steps
+
+- Read processing: adapter clipping and pair-merging.
+- Complexity filtering: removal of low-sequence complexity reads.
+- Host read-removal: removal of reads aligning to reference genome(s) of a host.
+- Run merging: concatenation of multiple FASTQ chunks/sequencing runs/libraries of a sample.
+
+#### Read Processing
+
+Raw sequencing read processing in the form of adapter clipping and paired-end read merging can be activated via the `--perform_shortread_clipmerge` or `--perform_longread_clip` flags.
+
+It is highly recommended to run this on raw reads to remove artefacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles.
+
+There are currently two options for short-read preprocessing: `fastp` or `adapterremoval`.
+
+For adapter clipping, you can either rely on tool default adapter sequences, or supply your own adapters (`--shortread_clipmerge_adapter1` and `--shortread_clipmerge_adapter2`)
+By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to exclude unmerged reads in the reads sent for profiling (`--shortread_clipmerge_mergepairs` and `--shortread_clipmerge_excludeunmerged`).
+You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_clipmerge_skipadaptertrim`).
+Both tools support length filtering of reads and can be tuned with `--shortread_clipmerge_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during profiling, with minimal gain.
+
+There is currently one option for long-read Oxford Nanopore processing: `porechop`.
+
+For both short-read and long-read preprocessing, you can optionally save the resulting processed reads with `--save_preprocessed_reads`.
+
+#### Complexity Filtering
+
+Complexity filtering can be activated via the `--perform_shortread_complexityfilter` flag.
+
+Complexity filtering is primarily a run-time optimisation step. It is not necessary for accurate taxonomic profiling, however it can speed up run-time of each tool by removing reads with low-diversity of nucleotides (e.g. with mono-nucleotide - `AAAAAAAA`, or di-nucleotide repeats `GAGAGAGAGAGAGAG`) that have a low-chance of giving an informative taxonomic ID as they can be associated with many different taxa. Removing these reads therefore saves computational time and resources.
+
+There are currently three options for short-read complexity filtering: [`bbduk`](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/), [`prinseq++`](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus), and [`fastp`](https://github.com/OpenGene/fastp#low-complexity-filter).
+
+The tools offer different algorithms and parameters for removing low complexity reads. We therefore recommend reviewing the pipeline's [parameter documentation](https://nf-co.re/taxprofiler/parameters) and the documentation of the tools (see links above) to decide on optimal methods and parameters for your dataset.
+
+You can optionally save the FASTQ output of the run merging with the `--save_complexityfiltered_reads`. If running with `fastp`, complexity filtering happens inclusively within the earlier shortread preprocessing step. Therefore there will not be an independent pipeline step for complexity filtering, and no independent FASTQ file (i.e. `--save_complexityfiltered_reads` will be ignored) - your complexity filtered reads will also be in the `fastp/` folder in the same file(s) as the preprocessed read.
+
+#### Host Removal
+
+Removal of possible-host reads from FASTQ files prior profiling can be activated with `--perform_shortread_hostremoval` or `--perform_longread_hostremoval`.
+
+Similarly to complexity filtering, host-removal can be useful for runtime optimisation and reduction in misclassified reads. It is not always necessary to report classification of reads from a host when you already know the host of the sample, therefore you can gain a run-time and computational advantage by removing these prior typically resource-heavy profiling with more efficient methods. Furthermore, particularly with human samples, you can reduce the number of false positives during profiling that occur due to host-sequence contamination in reference genomes on public databases.
+
+nf-core/taxprofiler currently offers host-removal via alignment against a reference genome with Bowtie2, and the use of the unaligned reads for downstream profiling.
+
+You can supply your reference genome in FASTA format with `--hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index` or `--longread_hostremoval_index`, however nf-core/taxprofiler will generate this for you if necessary. Pre-supplying the directory of index files can greatly speed up the process, and these can be re-used.
+
+> 💡 If you have multiple taxa or sequences you wish to remove (e.g., the host genome and then also PhiX - common quality-control reagent during sequencing) you can simply concatenate the FASTAs of each taxa or sequences into a single reference file.
+
+#### Run Merging
+
+For samples that may have been sequenced over multiple runs, or for FASTQ files split into multiple chunks, you can activate the ability to merge across all runs or chunks with `--perform_runmerging`.
+
+For more information how to set up your input samplesheet, see [Multiple runs of the same sample](#multiple-runs-of-the-same-sample).
+
+Activating this functionality will concatenate the FASTQ files with the same sample name _after_ the optional preprocessing steps and _before_ profiling. Note that libraries with runs of different pairing types will **not** be merged and this will be indicated on output files with a `_se` or `_pe` suffix to the sample name accordingly.
+
+You can optionally save the FASTQ output of the run merging with the `--save_runmerged_reads`.
 
 ### Updating the pipeline
 

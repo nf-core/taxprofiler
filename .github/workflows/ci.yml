@@ -28,6 +28,21 @@ jobs:
           # Test latest edge release of Nextflow
           - NXF_VER: ""
             NXF_EDGE: "1"
+        parameters:
+          - "--perform_longread_clip false"
+          - "--perform_shortread_clipmerge false"
+          - "--shortread_clipmerge_tool fastp"
+          - "--shortread_clipmerge_tool fastp --shortread_clipmerge_mergepairs --shortread_clipmerge_excludeunmerged"
+          - "--shortread_clipmerge_tool fastp --shortread_clipmerge_mergepairs"
+          - "--shortread_clipmerge_tool adapterremoval"
+          - "--shortread_clipmerge_tool adapterremoval --shortread_clipmerge_mergepairs --shortread_clipmerge_excludeunmerged"
+          - "--shortread_clipmerge_tool adapterremoval --shortread_clipmerge_mergepairs"
+          - "--shortread_complexityfilter_tool bbduk"
+          - "--shortread_complexityfilter_tool prinseqplusplus"
+          - "--perform_runmerging"
+          - "--perform_runmerging --shortread_clipmerge_mergepairs"
+          - "--shortread_complexityfilter false --perform_shortread_hostremoval"
+
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v2
@@ -42,9 +57,17 @@ jobs:
           wget -qO- get.nextflow.io | bash
           sudo mv nextflow /usr/local/bin/
 
+      - name: Show current locale
+        run: locale
+
+      - name: Set UTF-8 enabled locale
+        run: |
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+
       - name: Run pipeline with test data
         # TODO nf-core: You can customise CI pipeline run tests as required
         # For example: adding multiple test runs with different parameters
         # Remember that you can parallelise this by using strategy.matrix
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}

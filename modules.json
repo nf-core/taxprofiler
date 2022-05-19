@@ -3,14 +3,80 @@
     "homePage": "https://github.com/nf-core/taxprofiler",
     "repos": {
         "nf-core/modules": {
+            "adapterremoval": {
+                "git_sha": "879d42c5e28661fe0a5e744c9e2c515868f9e08a"
+            },
+            "bbmap/bbduk": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "bowtie2/align": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "bowtie2/build": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "cat/fastq": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "centrifuge/centrifuge": {
+                "git_sha": "d2726fcf75063960f06b36d2229a4c0966614108"
+            },
+            "centrifuge/kreport": {
+                "git_sha": "be4ae28c3c95b3c4047a7d9fb4cb0ed749631cea"
+            },
             "custom/dumpsoftwareversions": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "diamond/blastx": {
+                "git_sha": "42564565b934eeb2449e35ec97ed13ff2a67f1de"
+            },
+            "fastp": {
+                "git_sha": "d0a1cbb703a130c19f6796c3fce24fbe7dfce789"
             },
             "fastqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
+            "kaiju/kaiju": {
+                "git_sha": "8856f127c58f6af479128be8b8df4d42e442ddbe"
+            },
+            "kaiju/kaiju2table": {
+                "git_sha": "538dbac98ba9c8f799536cd5a617195501439457"
+            },
+            "kraken2/kraken2": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "malt/run": {
+                "git_sha": "72b96f4e504eef673f2b5c13560a9d90b669129b"
+            },
+            "megan/rma2info": {
+                "git_sha": "2d38566eca4cc15142b2ffa7c11837569b39aece"
+            },
+            "metaphlan3": {
+                "git_sha": "ed4dd1a928ebf4308efb720de878045f7773f8e2"
+            },
+            "minimap2/align": {
+                "git_sha": "1a5a9e7b4009dcf34e6867dd1a5a1d9a718b027b"
+            },
+            "minimap2/index": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
             "multiqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "porechop": {
+                "git_sha": "e20e57f90b6787ac9a010a980cf6ea98bd990046"
+            },
+            "prinseqplusplus": {
+                "git_sha": "f1c5384c31e985591716afdd732cf8c2ae29d05b"
+            },
+            "samtools/bam2fq": {
+                "git_sha": "5510ea39fe638594bc26ac34cadf4a84bf27d159"
+            },
+            "samtools/view": {
+                "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
+            },
+            "untar": {
+                "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"
             }
         }
     }

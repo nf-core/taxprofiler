@@ -54,15 +54,6 @@
                     "fa_icon": "fas fa-book",
                     "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
                 },
-                "fasta": {
-                    "type": "string",
-                    "format": "file-path",
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
-                    "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
-                    "fa_icon": "far fa-file-code"
-                },
                 "igenomes_base": {
                     "type": "string",
                     "format": "directory-path",
@@ -265,5 +256,159 @@
         {
             "$ref": "#/definitions/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "databases": {
+            "type": "string",
+            "default": "None"
+        },
+        "shortread_clipmerge_excludeunmerged": {
+            "type": "boolean"
+        },
+        "run_malt": {
+            "type": "boolean"
+        },
+        "malt_mode": {
+            "type": "string",
+            "default": "BlastN"
+        },
+        "run_kraken2": {
+            "type": "boolean"
+        },
+        "run_centrifuge": {
+            "type": "boolean"
+        },
+        "centrifuge_save_unaligned": {
+            "type": "boolean"
+        },
+        "centrifuge_save_aligned": {
+            "type": "boolean"
+        },
+        "centrifuge_sam_format": {
+            "type": "boolean"
+        },
+        "run_metaphlan3": {
+            "type": "boolean",
+            "description": "Enable MetaPhlAn for taxonomic profiling"
+        },
+        "shortread_clipmerge_tool": {
+            "type": "string",
+            "default": "fastp",
+            "enum": ["fastp", "adapterremoval"]
+        },
+        "shortread_clipmerge_skipadaptertrim": {
+            "type": "boolean"
+        },
+        "shortread_clipmerge_mergepairs": {
+            "type": "boolean"
+        },
+        "shortread_clipmerge_adapter1": {
+            "type": "string",
+            "default": "None"
+        },
+        "shortread_clipmerge_adapter2": {
+            "type": "string",
+            "default": "None"
+        },
+        "shortread_clipmerge_minlength": {
+            "type": "integer",
+            "default": 15
+        },
+        "save_preprocessed_reads": {
+            "type": "boolean"
+        },
+        "shortread_complexityfilter_tool": {
+            "type": "string",
+            "default": "bbduk",
+            "enum": ["bbduk", "prinseqplusplus", "fastp"]
+        },
+        "shortread_complexityfilter_bbduk_windowsize": {
+            "type": "integer",
+            "default": 50
+        },
+        "shortread_complexityfilter_bbduk_mask": {
+            "type": "boolean"
+        },
+        "shortread_complexityfilter_entropy": {
+            "type": "number",
+            "default": 0.3
+        },
+        "shortread_complexityfilter_prinseqplusplus_mode": {
+            "type": "string",
+            "default": "entropy",
+            "enum": ["entropy", "dust"]
+        },
+        "shortread_complexityfilter_prinseqplusplus_dustscore": {
+            "type": "number",
+            "default": 0.5
+        },
+        "save_complexityfiltered_reads": {
+            "type": "boolean"
+        },
+        "save_runmerged_reads": {
+            "type": "boolean"
+        },
+        "perform_shortread_clipmerge": {
+            "type": "boolean"
+        },
+        "perform_longread_clip": {
+            "type": "boolean"
+        },
+        "perform_shortread_complexityfilter": {
+            "type": "boolean"
+        },
+        "perform_runmerging": {
+            "type": "boolean"
+        },
+        "perform_shortread_hostremoval": {
+            "type": "boolean"
+        },
+        "perform_longread_hostremoval": {
+            "type": "boolean"
+        },
+        "hostremoval_reference": {
+            "type": "string",
+            "default": "None"
+        },
+        "shortread_hostremoval_index": {
+            "type": "string",
+            "default": "None"
+        },
+        "save_hostremoval_index": {
+            "type": "boolean"
+        },
+        "save_hostremoval_mapped": {
+            "type": "boolean"
+        },
+        "save_hostremoval_unmapped": {
+            "type": "boolean"
+        },
+        "run_kaiju": {
+            "type": "boolean"
+        },
+        "malt_generatemegansummary": {
+            "type": "boolean"
+        },
+        "kaiju_taxon_name": {
+            "type": "string",
+            "default": "species",
+            "enum": ["phylum", "class", "order", "family", "genus", "species"]
+        },
+        "run_diamond": {
+            "type": "boolean"
+        },
+        "diamond_output_format": {
+            "type": "string",
+            "default": "tsv",
+            "enum": ["blast", "xml", "txt", "daa", "sam", "tsv", "paf"]
+        },
+        "longread_hostremoval_index": {
+            "type": "string",
+            "default": "None"
+        },
+        "shortread_complexityfilter_fastp_threshold": {
+            "type": "integer",
+            "default": 30
+        }
+    }
 }
