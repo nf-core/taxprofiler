@@ -2,8 +2,9 @@
 // Check input samplesheet and get read channels
 //
 
-include { DATABASE_CHECK } from '../../modules/local/database_check'
-include { UNTAR          } from '../../modules/nf-core/modules/untar/main'
+include { DATABASE_CHECK   } from '../../modules/local/database_check'
+include { UNTAR            } from '../../modules/nf-core/modules/untar/main'
+include { MOTUS_DOWNLOADDB } from '../../modules/nf-core/modules/motus/downloaddb/main'
 
 workflow DB_CHECK {
     take:
@@ -19,6 +20,22 @@ workflow DB_CHECK {
         .csv
         .splitCsv ( header:true, sep:',' )
         .map { create_db_channels(it) }
+
+    // Download database for mOTUs
+    if( params.run_motus ){
+        check_motus_db =
+            parsed_samplesheet.filter{ it[0].tool == "motus" }
+                .ifEmpty{[]}
+        if( params.download_motus_db ){
+            MOTUS_DOWNLOADDB( params.motus_downloaddb_script )
+            check_motus_db = MOTUS_DOWNLOADDB.out.db
+                .map{[
+                    [tool: "motus", db_name: "db_mOTU", db_params: ''],
+                    it
+                ]}
+        }
+        parsed_samplesheet = parsed_samplesheet.mix(check_motus_db)
+    }
 
     ch_dbs_for_untar = parsed_samplesheet
         .branch {

@@ -409,6 +409,17 @@
         "shortread_complexityfilter_fastp_threshold": {
             "type": "integer",
             "default": 30
+        },
+        "run_motus": {
+            "type": "boolean"
+        },
+        "download_motus_db": {
+            "type": "boolean"
+        },
+        "motus_downloaddb_script": {
+            "type": "string",
+            "default": "https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py",
+            "description": "mOTUs database download script path."
         }
     }
 }

@@ -11,7 +11,7 @@ include { METAPHLAN3                  } from '../../modules/nf-core/modules/meta
 include { KAIJU_KAIJU                 } from '../../modules/nf-core/modules/kaiju/kaiju/main'
 include { KAIJU_KAIJU2TABLE           } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX              } from '../../modules/nf-core/modules/diamond/blastx/main'
-
+include { MOTUS_PROFILE               } from '../../modules/nf-core/modules/motus/profile/main'
 
 workflow PROFILING {
     take:
@@ -44,6 +44,7 @@ workflow PROFILING {
                 centrifuge: it[2]['tool'] == 'centrifuge'
                 kaiju: it[2]['tool'] == 'kaiju'
                 diamond: it[2]['tool'] == 'diamond'
+                motus: it[2]['tool'] == 'motus'
                 unknown: true
             }
 
@@ -186,9 +187,23 @@ workflow PROFILING {
 
     }
 
+    if ( params.run_motus ) {
+
+        ch_input_for_motus = ch_input_for_profiling.motus
+                                .multiMap {
+                                    it ->
+                                        reads: [it[0] + it[2], it[1]]
+                                        db: it[3]
+                                }
+
+        MOTUS_PROFILE ( ch_input_for_motus.reads, ch_input_for_motus.db )
+        ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
+
+    }
+
     emit:
     profiles = ch_raw_profiles    // channel: [ val(meta), [ reads ] ] - should be text files or biom
     versions = ch_versions          // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }
-
