@@ -190,6 +190,10 @@ workflow PROFILING {
     if ( params.run_motus ) {
 
         ch_input_for_motus = ch_input_for_profiling.motus
+                                .filter{
+                                    if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] mOTUs currently does not accept FASTA files as input. Skipping mOTUs for sample ${it[0].id}."
+                                    !it[0].is_fasta
+                                }
                                 .multiMap {
                                     it ->
                                         reads: [it[0] + it[2], it[1]]
