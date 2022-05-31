@@ -42,6 +42,8 @@ jobs:
           - "--perform_runmerging"
           - "--perform_runmerging --shortread_clipmerge_mergepairs"
           - "--shortread_complexityfilter false --perform_shortread_hostremoval"
+        # Test different profiles
+        profile: ["test", "test_motus"]
 
     steps:
       - name: Check out pipeline code
@@ -70,4 +72,4 @@ jobs:
         # For example: adding multiple test runs with different parameters
         # Remember that you can parallelise this by using strategy.matrix
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}
+          nextflow run ${GITHUB_WORKSPACE} -profile ${{ matrix.profile }},docker --outdir ./results ${{ matrix.parameters }}

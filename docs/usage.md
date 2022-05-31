@@ -77,6 +77,7 @@ kraken2,db1,,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
 metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
+motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ```
 
 Column specifications are as follows:
@@ -131,6 +132,14 @@ Expected (uncompressed) database files for each tool are as follows:
 - **DIAMOND** output of `diamond makedb`. Note: requires building with taxonomy files
   to generate taxonomic profile. See [DIAMOND documentation](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options#makedb-options). A file named:
   - `<database_name>.dmnd`
+- **mOTUs** is composed of code and database together. The mOTUs tools
+  [`downloadDB`](https://github.com/motu-tool/mOTUs/blob/master/motus/downloadDB.py)
+  is used to prepare the mOTUs database and create a file with the version information.
+  The database download step can be time consuming and the database will be consisting
+  with same release version of the mOTUs tools. The database for same version tools
+  can be thus reused for multiple runs. Users can download the database once and
+  assign the database with the table. User can also set the parameter
+  `download_motus_db` and let the pipeline download the database automatically.
 
 ## Running the pipeline
 
