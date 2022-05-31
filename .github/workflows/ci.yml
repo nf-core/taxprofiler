@@ -38,7 +38,7 @@ jobs:
           - "--shortread_qc_tool adapterremoval --shortread_qc_mergepairs --shortread_qc_excludeunmerged"
           - "--shortread_qc_tool adapterremoval --shortread_qc_mergepairs"
           - "--shortread_complexityfilter_tool bbduk"
-          - "--shortread_complexityfilter_tool prinseq"
+          - "--shortread_complexityfilter_tool prinseqplusplus"
           - "--perform_runmerging"
           - "--perform_runmerging --shortread_qc_mergepairs"
           - "--shortread_complexityfilter false --perform_shortread_hostremoval"
@@ -71,5 +71,3 @@ jobs:
         # Remember that you can parallelise this by using strategy.matrix
         run: |
           nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}
-
-#

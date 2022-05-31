@@ -13,6 +13,7 @@ workflow SHORTREAD_COMPLEXITYFILTERING {
     ch_versions       = Channel.empty()
     ch_multiqc_files  = Channel.empty()
 
+    // fastp complexity filtering is activated via modules.conf in shortread_preprocessing
     if ( params.shortread_complexityfilter_tool == 'bbduk' ) {
         ch_filtered_reads = BBMAP_BBDUK ( reads, [] ).reads
         ch_versions        =  ch_versions.mix( BBMAP_BBDUK.out.versions.first() )

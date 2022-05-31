@@ -183,21 +183,21 @@ Complexity filtering can be activated via the `--perform_shortread_complexityfil
 
 Complexity filtering is primarily a run-time optimisation step. It is not necessary for accurate taxonomic profiling, however it can speed up run-time of each tool by removing reads with low-diversity of nucleotides (e.g. with mono-nucleotide - `AAAAAAAA`, or di-nucleotide repeats `GAGAGAGAGAGAGAG`) that have a low-chance of giving an informative taxonomic ID as they can be associated with many different taxa. Removing these reads therefore saves computational time and resources.
 
-There are currently two options for short-read complexity filtering: [`bbduk`](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/) and [`prinseq++`](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/).
+There are currently three options for short-read complexity filtering: [`bbduk`](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/), [`prinseq++`](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus), and [`fastp`](https://github.com/OpenGene/fastp#low-complexity-filter).
 
-The tools offer different algorithms and parameters for removing low complexity reads. We therefore recommend reviewing the pipeline's [parameter documentation](https://nf-co.re/taxprofiler/parameters) and the documentation of both tools (see links above) to decide on optimal methods and parameters for your dataset.
+The tools offer different algorithms and parameters for removing low complexity reads. We therefore recommend reviewing the pipeline's [parameter documentation](https://nf-co.re/taxprofiler/parameters) and the documentation of the tools (see links above) to decide on optimal methods and parameters for your dataset.
 
-You can optionally save the FASTQ output of the run merging with the `--save_complexityfiltered_reads`.
+You can optionally save the FASTQ output of the run merging with the `--save_complexityfiltered_reads`. If running with `fastp`, complexity filtering happens inclusively within the earlier shortread preprocessing step. Therefore there will not be an independent pipeline step for complexity filtering, and no independent FASTQ file (i.e. `--save_complexityfiltered_reads` will be ignored) - your complexity filtered reads will also be in the `fastp/` folder in the same file(s) as the preprocessed read.
 
 #### Host Removal
 
-Removal of possible-host reads from FASTQ files prior profiling can be activated with `--perform_shortread_hostremoval`
+Removal of possible-host reads from FASTQ files prior profiling can be activated with `--perform_shortread_hostremoval` or `--perform_longread_hostremoval`.
 
 Similarly to complexity filtering, host-removal can be useful for runtime optimisation and reduction in misclassified reads. It is not always necessary to report classification of reads from a host when you already know the host of the sample, therefore you can gain a run-time and computational advantage by removing these prior typically resource-heavy profiling with more efficient methods. Furthermore, particularly with human samples, you can reduce the number of false positives during profiling that occur due to host-sequence contamination in reference genomes on public databases.
 
 nf-core/taxprofiler currently offers host-removal via alignment against a reference genome with Bowtie2, and the use of the unaligned reads for downstream profiling.
 
-You can supply your reference genome in FASTA format with `--shortread_hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index`, however nf-core/taxprofiler will generate this for you if necessary. Pre-supplying the directory of index files can greatly speed up the process, and these can be re-used.
+You can supply your reference genome in FASTA format with `--hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index` or `--longread_hostremoval_index`, however nf-core/taxprofiler will generate this for you if necessary. Pre-supplying the directory of index files can greatly speed up the process, and these can be re-used.
 
 > 💡 If you have multiple taxa or sequences you wish to remove (e.g., the host genome and then also PhiX - common quality-control reagent during sequencing) you can simply concatenate the FASTAs of each taxa or sequences into a single reference file.
 

@@ -319,7 +319,8 @@
         },
         "shortread_complexityfilter_tool": {
             "type": "string",
-            "default": "bbduk"
+            "default": "bbduk",
+            "enum": ["bbduk", "prinseqplusplus", "fastp"]
         },
         "shortread_complexityfilter_bbduk_windowsize": {
             "type": "integer",
@@ -362,7 +363,10 @@
         "perform_shortread_hostremoval": {
             "type": "boolean"
         },
-        "shortread_hostremoval_reference": {
+        "perform_longread_hostremoval": {
+            "type": "boolean"
+        },
+        "hostremoval_reference": {
             "type": "string",
             "default": "None"
         },
@@ -398,6 +402,14 @@
             "default": "tsv",
             "enum": ["blast", "xml", "txt", "daa", "sam", "tsv", "paf"]
         },
+        "longread_hostremoval_index": {
+            "type": "string",
+            "default": "None"
+        },
+        "shortread_complexityfilter_fastp_threshold": {
+            "type": "integer",
+            "default": 30
+        },
         "longread_qc_run_clip": {
             "type": "boolean"
         },
@@ -415,6 +427,5 @@
         "longread_qc_targetnbases": {
             "type": "integer",
             "default": 500000000
-        }
     }
 }
