@@ -427,5 +427,6 @@
         "longread_qc_targetnbases": {
             "type": "integer",
             "default": 500000000
+        }
     }
 }
