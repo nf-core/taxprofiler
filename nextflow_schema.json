@@ -420,11 +420,11 @@
             "type": "integer",
             "default": 1000
         },
-        "longread_qc_keepbppercent": {
+        "longread_qc_keep_percent": {
             "type": "integer",
             "default": 90
         },
-        "longread_qc_targetnbases": {
+        "longread_qc_target_bases": {
             "type": "integer",
             "default": 500000000
         }
