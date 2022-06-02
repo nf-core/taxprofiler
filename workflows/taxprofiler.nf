@@ -20,10 +20,11 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
 
-if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
-if (params.shortread_clipmerge_excludeunmerged && !params.shortread_clipmerge_mergepairs) exit 1, "ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging not turned on. Please specify --shortread_clipmerge_mergepairs"
+if (params.shortread_qc_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
+if (params.shortread_qc_excludeunmerged && !params.shortread_qc_mergepairs) exit 1, "ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging not turned on. Please specify --shortread_qc_mergepairs"
+if ( (params.longread_qc_run_clip || params.longread_qc_run_filter) & !params.perform_longread_qc ) exit 1, "ERROR: [nf-core/taxprofiler] --longread_qc_run_clip or --longread_qc_run_filter requested but quality-control not turned on. Please specify --perform_long_qc"
 
-if (params.shortread_complexityfilter_tool == 'fastp' && ( params.perform_shortread_clipmerge == false || params.shortread_clipmerge_tool != 'fastp' ))  exit 1, "ERROR: [nf-core/taxprofiler] cannot use fastp complexity filtering if preprocessing not turned on and/or tool is not fastp. Please specify --perform_shortread_clipmerge and/or --shortread_clipmerge_tool 'fastp'"
+if (params.shortread_complexityfilter_tool == 'fastp' && ( params.perform_shortread_qc == false || params.shortread_qc_tool != 'fastp' ))  exit 1, "ERROR: [nf-core/taxprofiler] cannot use fastp complexity filtering if preprocessing not turned on and/or tool is not fastp. Please specify --perform_shortread_qc and/or --shortread_qc_tool 'fastp'"
 
 if (params.perform_shortread_hostremoval && !params.hostremoval_reference) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval requested but no --hostremoval_reference FASTA supplied. Check input." }
 if (!params.hostremoval_reference && params.hostremoval_reference_index) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input." }
@@ -87,6 +88,7 @@ def multiqc_report = []
 workflow TAXPROFILER {
 
     ch_versions = Channel.empty()
+    ch_taxprofiler_logo = Channel.fromPath("$projectDir/docs/images/nf-core-taxprofiler_logo_custom_light.png")
 
     /*
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -115,14 +117,14 @@ workflow TAXPROFILER {
     /*
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
-    if ( params.perform_shortread_clipmerge ) {
+    if ( params.perform_shortread_qc ) {
         ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq ).reads
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     } else {
         ch_shortreads_preprocessed = INPUT_CHECK.out.fastq
     }
 
-    if ( params.perform_longread_clip ) {
+    if ( params.perform_longread_qc ) {
         ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
                                         .map { it -> [ it[0], [it[1]] ] }
         ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
@@ -224,11 +226,13 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
-    if (params.perform_shortread_clipmerge) {
+    ch_multiqc_files = ch_multiqc_files.mix(ch_taxprofiler_logo.ifEmpty([]))
+
+    if (params.perform_shortread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
 
-    if (params.perform_longread_clip) {
+    if (params.perform_longread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
 
