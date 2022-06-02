@@ -19,8 +19,11 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
+
 if (params.shortread_clipmerge_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
 if (params.shortread_clipmerge_excludeunmerged && !params.shortread_clipmerge_mergepairs) exit 1, "ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging not turned on. Please specify --shortread_clipmerge_mergepairs"
+
+if (params.shortread_complexityfilter_tool == 'fastp' && ( params.perform_shortread_clipmerge == false || params.shortread_clipmerge_tool != 'fastp' ))  exit 1, "ERROR: [nf-core/taxprofiler] cannot use fastp complexity filtering if preprocessing not turned on and/or tool is not fastp. Please specify --perform_shortread_clipmerge and/or --shortread_clipmerge_tool 'fastp'"
 
 if (params.perform_shortread_hostremoval && !params.hostremoval_reference) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval requested but no --hostremoval_reference FASTA supplied. Check input." }
 if (!params.hostremoval_reference && params.hostremoval_reference_index) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input." }
@@ -86,6 +89,7 @@ def multiqc_report = []
 workflow TAXPROFILER {
 
     ch_versions = Channel.empty()
+    ch_taxprofiler_logo = Channel.fromPath("$projectDir/docs/images/nf-core-taxprofiler_logo_custom_light.png")
 
     /*
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -133,7 +137,8 @@ workflow TAXPROFILER {
         SUBWORKFLOW: COMPLEXITY FILTERING
     */
 
-    if ( params.perform_shortread_complexityfilter ) {
+    // fastp complexity filtering is activated via modules.conf in shortread_preprocessing
+    if ( params.perform_shortread_complexityfilter && params.shortread_complexityfilter_tool != 'fastp' ) {
         ch_shortreads_filtered = SHORTREAD_COMPLEXITYFILTERING ( ch_shortreads_preprocessed ).reads
         ch_versions = ch_versions.mix( SHORTREAD_COMPLEXITYFILTERING.out.versions )
     } else {
@@ -222,6 +227,8 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
 
+    ch_multiqc_files = ch_multiqc_files.mix(ch_taxprofiler_logo.ifEmpty([]))
+
     if (params.perform_shortread_clipmerge) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
@@ -230,7 +237,7 @@ workflow TAXPROFILER {
         ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
 
-    if (params.perform_shortread_complexityfilter){
+    if (params.perform_shortread_complexityfilter && params.shortread_complexityfilter_tool != 'fastp'){
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
 

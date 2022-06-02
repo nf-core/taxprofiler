@@ -323,7 +323,8 @@
         },
         "shortread_complexityfilter_tool": {
             "type": "string",
-            "default": "bbduk"
+            "default": "bbduk",
+            "enum": ["bbduk", "prinseqplusplus", "fastp"]
         },
         "shortread_complexityfilter_bbduk_windowsize": {
             "type": "integer",
@@ -426,6 +427,10 @@
         "longread_hostremoval_index": {
             "type": "string",
             "default": "None"
+        },
+        "shortread_complexityfilter_fastp_threshold": {
+            "type": "integer",
+            "default": 30
         },
         "malt_save_reads": {
             "type": "boolean"
