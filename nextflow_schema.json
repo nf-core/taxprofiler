@@ -262,7 +262,7 @@
             "type": "string",
             "default": "None"
         },
-        "shortread_clipmerge_excludeunmerged": {
+        "shortread_qc_excludeunmerged": {
             "type": "boolean"
         },
         "run_malt": {
@@ -282,26 +282,26 @@
             "type": "boolean",
             "description": "Enable MetaPhlAn for taxonomic profiling"
         },
-        "shortread_clipmerge_tool": {
+        "shortread_qc_tool": {
             "type": "string",
             "default": "fastp",
             "enum": ["fastp", "adapterremoval"]
         },
-        "shortread_clipmerge_skipadaptertrim": {
+        "shortread_qc_skipadaptertrim": {
             "type": "boolean"
         },
-        "shortread_clipmerge_mergepairs": {
+        "shortread_qc_mergepairs": {
             "type": "boolean"
         },
-        "shortread_clipmerge_adapter1": {
+        "shortread_qc_adapter1": {
             "type": "string",
             "default": "None"
         },
-        "shortread_clipmerge_adapter2": {
+        "shortread_qc_adapter2": {
             "type": "string",
             "default": "None"
         },
-        "shortread_clipmerge_minlength": {
+        "shortread_qc_minlength": {
             "type": "integer",
             "default": 15
         },
@@ -339,10 +339,10 @@
         "save_runmerged_reads": {
             "type": "boolean"
         },
-        "perform_shortread_clipmerge": {
+        "perform_shortread_qc": {
             "type": "boolean"
         },
-        "perform_longread_clip": {
+        "perform_longread_qc": {
             "type": "boolean"
         },
         "perform_shortread_complexityfilter": {
@@ -401,6 +401,24 @@
             "type": "integer",
             "default": 30
         },
+        "longread_qc_run_clip": {
+            "type": "boolean"
+        },
+        "longread_qc_run_filter": {
+            "type": "boolean"
+        },
+        "longread_qc_minlength": {
+            "type": "integer",
+            "default": 1000
+        },
+        "longread_qc_keep_percent": {
+            "type": "integer",
+            "default": 90
+        },
+        "longread_qc_target_bases": {
+            "type": "integer",
+            "default": 500000000
+        }
         "malt_save_reads": {
             "type": "boolean"
         },

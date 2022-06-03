@@ -29,7 +29,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
      * has to be exported in a separate channel and we must manually recombine when necessary.
      */
 
-    if ( params.shortread_clipmerge_mergepairs && !params.shortread_clipmerge_excludeunmerged ) {
+    if ( params.shortread_qc_mergepairs && !params.shortread_qc_excludeunmerged ) {
 
         ch_concat_fastq = Channel.empty()
             .mix(
@@ -54,7 +54,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
         ch_adapterremoval_reads_prepped = CAT_FASTQ.out.reads
             .mix(ADAPTERREMOVAL_SINGLE.out.singles_truncated)
 
-    } else if ( params.shortread_clipmerge_mergepairs && params.shortread_clipmerge_excludeunmerged ) {
+    } else if ( params.shortread_qc_mergepairs && params.shortread_qc_excludeunmerged ) {
 
         ch_concat_fastq = Channel.empty()
             .mix(

@@ -21,9 +21,9 @@ workflow SHORTREAD_FASTP {
 
     FASTP_SINGLE ( ch_input_for_fastp.single, false, false )
     // Last parameter here turns on merging of PE data
-    FASTP_PAIRED ( ch_input_for_fastp.paired, false, params.shortread_clipmerge_mergepairs )
+    FASTP_PAIRED ( ch_input_for_fastp.paired, false, params.shortread_qc_mergepairs )
 
-    if ( params.shortread_clipmerge_mergepairs ) {
+    if ( params.shortread_qc_mergepairs ) {
         ch_fastp_reads_prepped_pe = FASTP_PAIRED.out.reads_merged
                                         .map {
                                             meta, reads ->
