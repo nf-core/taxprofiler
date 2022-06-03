@@ -114,7 +114,7 @@ jobs:
 
         - name: Prepare the database
           run: |
-            wget https://github.com/motu-tool/mOTUs/blob/master/motus/downloadDB.py
+            wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
             python downloadDB.py
             echo 'tool,db_name,db_params,db_path\nmotus,db_mOTU,,db_mOTU' > 'database_motus.csv'
 
