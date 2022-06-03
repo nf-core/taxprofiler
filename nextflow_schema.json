@@ -418,7 +418,7 @@
         "longread_qc_target_bases": {
             "type": "integer",
             "default": 500000000
-        }
+        },
         "malt_save_reads": {
             "type": "boolean"
         },
