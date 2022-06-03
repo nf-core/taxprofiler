@@ -66,19 +66,17 @@ workflow PROFILING {
                                 .filter { it[0]['instrument_platform'] == 'ILLUMINA' }
                                 .map {
                                     meta, reads, db_meta, db ->
-                                        def sam_format = params.malt_save_reads ? ' --alignments' : ""
-                                        // TODO No MALT SAM?
-                                        // TODO check all aligned reads published
-                                        // TODO try turning on/off aligned reads
+                                        def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
                                         // TODO wut? [9a/a441d6] Submitted process > NFCORE_TAXPROFILER:TAXPROFILER:PROFILING:MALT_RUN (null)
                                         def temp_meta = [ id: meta['db_name'] ]
                                         def new_db_meta = db_meta.clone()
                                         new_db_meta['db_params'] = db_meta['db_params'] + sam_format
                                         def new_meta = temp_meta + new_db_meta
-
+                                        new_meta['id'] = new_meta['db_name']
                                         [ new_meta, reads, db ]
                                 }
                                 .groupTuple(by: [0,2])
+                                .dump(tag: "into_malt")
                                 .multiMap {
                                     it ->
                                         reads: [ it[0], it[1].flatten() ]
@@ -192,7 +190,7 @@ workflow PROFILING {
         // this will replace output file!
         ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format
 
-        DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, params.diamond_output_format, [] )
+        DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format , [] )
         ch_versions        = ch_versions.mix( DIAMOND_BLASTX.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.tsv )
 
