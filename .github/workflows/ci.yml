@@ -118,9 +118,6 @@ jobs:
           python downloadDB.py > download_db_log.txt
           echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
           echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
-          cat database_motus.csv
-          echo $PWD
-          ls $PWD
 
       - name: Run pipeline with test data
         run: |
