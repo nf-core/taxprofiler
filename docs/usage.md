@@ -138,8 +138,7 @@ Expected (uncompressed) database files for each tool are as follows:
   The database download step can be time consuming and the database will be consisting
   with same release version of the mOTUs tools. The database for same version tools
   can be thus reused for multiple runs. Users can download the database once and
-  assign the database with the table. User can also set the parameter
-  `download_motus_db` and let the pipeline download the database automatically.
+  assign the database with the table.
 
 ## Running the pipeline
 

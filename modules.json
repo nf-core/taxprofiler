@@ -63,9 +63,6 @@
             "minimap2/index": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
-            "motus/downloaddb": {
-                "git_sha": "6393a085c5fcea11963774c041808df169907487"
-            },
             "motus/profile": {
                 "git_sha": "6b960f0e75bbb4d5bd301cd3875fa078d0eab4d1"
             },
