@@ -137,8 +137,8 @@ Expected (uncompressed) database files for each tool are as follows:
   is used to prepare the mOTUs database and create a file with the version information.
   The database download step can be time consuming and the database will be consisting
   with same release version of the mOTUs tools. The database for same version tools
-  can be thus reused for multiple runs. Users can download the database once and
-  assign the database with the table.
+  can be thus reused for multiple runs. Users can download the database once using the script above and
+  specify the path the database to the TSV table provided to `--databases`.
 
 ## Running the pipeline
 
