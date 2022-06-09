@@ -164,16 +164,16 @@ nf-core/taxprofiler offers four main preprocessing steps
 
 #### Read Processing
 
-Raw sequencing read processing in the form of adapter clipping and paired-end read merging can be activated via the `--perform_shortread_clipmerge` or `--perform_longread_clip` flags.
+Raw sequencing read processing in the form of adapter clipping and paired-end read merging can be activated via the `--perform_shortread_qc` or `--perform_longread_qc` flags.
 
 It is highly recommended to run this on raw reads to remove artefacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles.
 
 There are currently two options for short-read preprocessing: `fastp` or `adapterremoval`.
 
-For adapter clipping, you can either rely on tool default adapter sequences, or supply your own adapters (`--shortread_clipmerge_adapter1` and `--shortread_clipmerge_adapter2`)
-By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to exclude unmerged reads in the reads sent for profiling (`--shortread_clipmerge_mergepairs` and `--shortread_clipmerge_excludeunmerged`).
-You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_clipmerge_skipadaptertrim`).
-Both tools support length filtering of reads and can be tuned with `--shortread_clipmerge_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during profiling, with minimal gain.
+For adapter clipping, you can either rely on tool default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
+By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to exclude unmerged reads in the reads sent for profiling (`--shortread_qc_mergepairs` and `--shortread_qc_excludeunmerged`).
+You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
+Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during profiling, with minimal gain.
 
 There is currently one option for long-read Oxford Nanopore processing: `porechop`.
 
