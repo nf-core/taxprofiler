@@ -76,7 +76,6 @@ workflow PROFILING {
                                         [ new_meta, reads, db ]
                                 }
                                 .groupTuple(by: [0,2])
-                                .dump(tag: "into_malt")
                                 .multiMap {
                                     it ->
                                         reads: [ it[0], it[1].flatten() ]
