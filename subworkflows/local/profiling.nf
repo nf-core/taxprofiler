@@ -67,7 +67,6 @@ workflow PROFILING {
                                 .map {
                                     meta, reads, db_meta, db ->
                                         def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
-                                        // TODO wut? [9a/a441d6] Submitted process > NFCORE_TAXPROFILER:TAXPROFILER:PROFILING:MALT_RUN (null)
                                         def temp_meta = [ id: meta['db_name'] ]
                                         def new_db_meta = db_meta.clone()
                                         new_db_meta['db_params'] = db_meta['db_params'] + sam_format
