@@ -12,6 +12,8 @@
 
 nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers).
 
+> ⚠️ Input FASTQ files _must_ be gzipped, while FASTA files may optionally be uncompressed (although this is not recommended)
+
 You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row as shown in the examples below. Furthermother, nf-core/taxprofiler also requires a second comma-separated file of 3 columns with a header row as in the examples below.
 
 This samplesheet is then specified on the command line as follows:

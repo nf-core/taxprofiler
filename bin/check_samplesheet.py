@@ -48,7 +48,7 @@ def check_samplesheet(file_in, file_out):
     2613,ERR5766181,ILLUMINA,ERX5474937_ERR5766181_1.fastq.gz,ERX5474937_ERR5766181_2.fastq.gz,
     """
 
-    FQ_EXTENSIONS = (".fq", ".fq.gz", ".fastq", ".fastq.gz")
+    FQ_EXTENSIONS = (".fq.gz", ".fastq.gz")
     FA_EXTENSIONS = (
         ".fa",
         ".fa.gz",
