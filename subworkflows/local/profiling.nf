@@ -61,25 +61,29 @@ workflow PROFILING {
 
         // MALT: We groupTuple to have all samples in one channel for MALT as database
         // loading takes a long time, so we only want to run it once per database
-        // TODO document somewhere we only accept illumina short reads for MALT?
         ch_input_for_malt =  ch_input_for_profiling.malt
                                 .filter { it[0]['instrument_platform'] == 'ILLUMINA' }
                                 .map {
                                     meta, reads, db_meta, db ->
-                                        def new_meta    = meta.clone()
+
+                                        // Reset entire input meta for MALT to just database name,
+                                        // as we don't run run on a per-sample basis due to huge datbaases
+                                        // so all samples are in one run and so sample-specific metadata
+                                        // unnecessary. Set as database name to prevent `null` job ID and prefix.
+                                        def temp_meta = [ id: meta['db_name'] ]
+
+                                        // Extend database parameters to specify whether to save alignments or not
                                         def new_db_meta = db_meta.clone()
-                                        
-                                        // Add the saving of alignments in SAM format to params
                                         def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
                                         new_db_meta['db_params'] = db_meta['db_params'] + sam_format
-                                        
-                                        // As MALT has huge databases, we don't run on a per-sample basis but multiple
-                                        // samples at once. This replaces the ID of the particular process with the 
-                                        // db_name instead to prevent `null` in job name, and in publishDir)
-                                        def updated_meta = new_meta + new_db_meta
-                                        updated_meta['id'] = updated_meta['db_name']
 
-                                        [ updated_meta, reads, db ]
+                                        // Combine reduced sample metadata with updated database parameters metadata,
+                                        // make sure id is db_name for publishing purposes.
+                                        def new_meta = temp_meta + new_db_meta
+                                        new_meta['id'] = new_meta['db_name']
+
+                                        [ new_meta, reads, db ]
+
                                 }
                                 .groupTuple(by: [0,2])
                                 .multiMap {
