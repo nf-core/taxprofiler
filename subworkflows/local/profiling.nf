@@ -66,13 +66,20 @@ workflow PROFILING {
                                 .filter { it[0]['instrument_platform'] == 'ILLUMINA' }
                                 .map {
                                     meta, reads, db_meta, db ->
-                                        def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
-                                        def temp_meta = [ id: meta['db_name'] ]
+                                        def new_meta    = meta.clone()
                                         def new_db_meta = db_meta.clone()
+                                        
+                                        // Add the saving of alignments in SAM format to params
+                                        def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
                                         new_db_meta['db_params'] = db_meta['db_params'] + sam_format
-                                        def new_meta = temp_meta + new_db_meta
-                                        new_meta['id'] = new_meta['db_name']
-                                        [ new_meta, reads, db ]
+                                        
+                                        // As MALT has huge databases, we don't run on a per-sample basis but multiple
+                                        // samples at once. This replaces the ID of the particular process with the 
+                                        // db_name instead to prevent `null` in job name, and in publishDir)
+                                        def updated_meta = new_meta + new_db_meta
+                                        updated_meta['id'] = updated_meta['db_name']
+
+                                        [ updated_meta, reads, db ]
                                 }
                                 .groupTuple(by: [0,2])
                                 .multiMap {
