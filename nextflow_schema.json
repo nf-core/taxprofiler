@@ -278,15 +278,6 @@
         "run_centrifuge": {
             "type": "boolean"
         },
-        "centrifuge_save_unaligned": {
-            "type": "boolean"
-        },
-        "centrifuge_save_aligned": {
-            "type": "boolean"
-        },
-        "centrifuge_sam_format": {
-            "type": "boolean"
-        },
         "run_metaphlan3": {
             "type": "boolean",
             "description": "Enable MetaPhlAn for taxonomic profiling"
@@ -386,7 +377,7 @@
         "run_kaiju": {
             "type": "boolean"
         },
-        "malt_generatemegansummary": {
+        "malt_generate_megansummary": {
             "type": "boolean"
         },
         "kaiju_taxon_name": {
@@ -427,6 +418,21 @@
         "longread_qc_target_bases": {
             "type": "integer",
             "default": 500000000
+        },
+        "malt_save_reads": {
+            "type": "boolean"
+        },
+        "kraken2_save_reads": {
+            "type": "boolean"
+        },
+        "kraken2_save_readclassification": {
+            "type": "boolean"
+        },
+        "centrifuge_save_reads": {
+            "type": "boolean"
+        },
+        "diamond_save_reads": {
+            "type": "boolean"
         }
     }
 }

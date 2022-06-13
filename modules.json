@@ -28,7 +28,7 @@
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "diamond/blastx": {
-                "git_sha": "42564565b934eeb2449e35ec97ed13ff2a67f1de"
+                "git_sha": "bd3bfe0817246082525ab93707976676b1fe208b"
             },
             "fastp": {
                 "git_sha": "d0a1cbb703a130c19f6796c3fce24fbe7dfce789"
@@ -46,7 +46,7 @@
                 "git_sha": "538dbac98ba9c8f799536cd5a617195501439457"
             },
             "kraken2/kraken2": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+                "git_sha": "abe025677cdd805cc93032341ab19885473c1a07"
             },
             "malt/run": {
                 "git_sha": "72b96f4e504eef673f2b5c13560a9d90b669129b"
