@@ -37,6 +37,7 @@ def print_error(error, context="Line", context_str=""):
     print(error_str)
     sys.exit(1)
 
+
 def check_samplesheet(file_in, file_out):
     """
     This function checks that the samplesheet follows the following structure:
@@ -87,10 +88,13 @@ def check_samplesheet(file_in, file_out):
             "fasta",
         ]
         header = [x.strip('"') for x in fin.readline().strip().split(",")]
-        if header[: len(HEADER)] != HEADER:
+
+        ## Check for missing mandatory columns
+        missing_columns = list(set(HEADER) - set(header))
+        if len(missing_columns) > 0:
             print(
-                "ERROR: Please check samplesheet header -> {} != {}".format(
-                    ",".join(header), ",".join(HEADER)
+                "ERROR: Missing required column header -> {}. Note some columns can otherwise be empty. See pipeline documentation (https://nf-co.re/taxprofiler/usage).".format(
+                    ",".join(missing_columns)
                 )
             )
             sys.exit(1)
@@ -173,7 +177,9 @@ def check_samplesheet(file_in, file_out):
             ## Auto-detect paired-end/single-end
             if sample and fastq_1 and fastq_2:  ## Paired-end short reads
                 sample_info.extend(["0", fastq_1, fastq_2, fasta])
-            elif sample and fastq_1 and not fastq_2:  ## Single-end short/long fastq reads
+            elif (
+                sample and fastq_1 and not fastq_2
+            ):  ## Single-end short/long fastq reads
                 sample_info.extend(["1", fastq_1, fastq_2, fasta])
             elif (
                 sample and fasta and not fastq_1 and not fastq_2
