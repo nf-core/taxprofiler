@@ -99,9 +99,17 @@ def check_samplesheet(file_in, file_out):
             )
             sys.exit(1)
 
+        ## Find locations of mandatory columns
+        header_locs = dict()
+        for i in HEADER:
+            header_locs[i] = header.index(i)
+
         ## Check sample entries
         for line in fin:
-            lspl = [x.strip().strip('"') for x in line.strip().split(",")]
+
+            ## Pull out only relevant columns for downstream checking
+            line_parsed = [x.strip().strip('"') for x in line.strip().split(",")]
+            lspl = [line_parsed[i] for i in header_locs.values()]
 
             # Check valid number of columns per row
             if len(lspl) < len(HEADER):
@@ -121,6 +129,7 @@ def check_samplesheet(file_in, file_out):
                 )
 
             ## Check sample name entries
+
             (
                 sample,
                 run_accession,
