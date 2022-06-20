@@ -213,6 +213,12 @@ Activating this functionality will concatenate the FASTQ files with the same sam
 
 You can optionally save the FASTQ output of the run merging with the `--save_runmerged_reads`.
 
+##### Profiling
+
+###### MALT
+
+nf-core/taxprofiler uses MALT 0.4.1, which is a compatively old version. However it has been found that the most recent version of MALT (0.5.\*), at the time of writing, is broken. [The the LCA step appears not to be executed](http://megan.informatik.uni-tuebingen.de/t/lca-placement-failure-with-malt-v-0-5-2-and-0-5-3/1996/3), pushing all hits to the leaves of the taxonomy. However, if you need to use a more recent taxonomy map file with your databases, the output of `malt-build` from MALT 0.5.3 should be still be compatible with `malt-run` of 0.4.1.
+
 ### Updating the pipeline
 
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
