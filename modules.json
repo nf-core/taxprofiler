@@ -42,6 +42,9 @@
             "kaiju/kaiju": {
                 "git_sha": "8856f127c58f6af479128be8b8df4d42e442ddbe"
             },
+            "kaiju/kaiju2krona": {
+                "git_sha": "2f0b19240430de6807b1232e6d9d0e8084e8a28f"
+            },
             "kaiju/kaiju2table": {
                 "git_sha": "538dbac98ba9c8f799536cd5a617195501439457"
             },
