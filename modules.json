@@ -48,6 +48,12 @@
             "kraken2/kraken2": {
                 "git_sha": "abe025677cdd805cc93032341ab19885473c1a07"
             },
+            "krakentools/kreport2krona": {
+                "git_sha": "8b2a473f586bed003e72d2b183acc43fc0ddc422"
+            },
+            "krona/ktimporttext": {
+                "git_sha": "cdefbec66999c0b49d8bfeea9d6f9d19056635a2"
+            },
             "malt/run": {
                 "git_sha": "be8d7b3293cac26cc63e4dbfb364deb8ed6ec7e5"
             },

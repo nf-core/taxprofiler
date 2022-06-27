@@ -433,6 +433,9 @@
         },
         "diamond_save_reads": {
             "type": "boolean"
+        },
+        "run_krona": {
+            "type": "boolean"
         }
     }
 }
