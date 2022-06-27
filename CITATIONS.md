@@ -58,6 +58,10 @@
 
 - [FILTLONG](https://github.com/rrwick/Filtlong)
 
+- [SeqKit](https://doi.org/10.1371/journal.pone.0163962.)
+
+> Shen, Wei, Shuai Le, Yan Li, and Fuquan Hu. 2016. “SeqKit: A Cross-Platform and Ultrafast Toolkit for FASTA/Q File Manipulation.” PloS One 11 (10): e0163962. doi: 10.1371/journal.pone.0163962.
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)

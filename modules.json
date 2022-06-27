@@ -78,6 +78,9 @@
             "samtools/view": {
                 "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
             },
+            "seqkit/stats": {
+                "git_sha": "0de6406217802e0bcbef89f7568b346904f5236c"
+            },
             "untar": {
                 "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"
             }
