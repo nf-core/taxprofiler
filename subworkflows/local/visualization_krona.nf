@@ -9,6 +9,7 @@ include { KRONA_KTIMPORTTEXT        } from '../../modules/nf-core/modules/krona/
 
 workflow VISUALIZATION_KRONA {
     take:
+    classifications
     profiles
     databases
 
@@ -23,8 +24,12 @@ workflow VISUALIZATION_KRONA {
     ch_input_profiles = profiles
         .branch {
             centrifuge: it[0]['tool'] == 'centrifuge'
-            kaiju: it[0]['tool'] == 'kaiju'
             kraken2: it[0]['tool'] == 'kraken2'
+            unknown: true
+        }
+    ch_input_classifications = classifications
+        .branch {
+            kaiju: it[0]['tool'] == 'kaiju'
             unknown: true
         }
 
@@ -40,7 +45,7 @@ workflow VISUALIZATION_KRONA {
     /*
         Combine Kaiju profiles with their databases
     */
-    ch_input_for_kaiju2krona = ch_input_profiles.kaiju
+    ch_input_for_kaiju2krona = ch_input_classifications.kaiju
         .map{ [it[0]['db_name'], it[0], it[1]] }
         .combine( databases.map{ [it[0]['db_name'], it[1]] }, by: 0 )
         .multiMap{
