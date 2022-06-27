@@ -213,8 +213,10 @@ workflow TAXPROFILER {
     /*
         SUBWORKFLOW: VISUALIZATION_KRONA
     */
-    VISUALIZATION_KRONA ( PROFILING.out.profiles )
-    ch_versions = ch_versions.mix( VISUALIZATION_KRONA.out.versions )
+    if ( params.run_krona ) {
+        VISUALIZATION_KRONA ( PROFILING.out.profiles )
+        ch_versions = ch_versions.mix( VISUALIZATION_KRONA.out.versions )
+    }
 
     /*
         MODULE: MultiQC
