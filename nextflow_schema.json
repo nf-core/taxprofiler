@@ -433,6 +433,10 @@
         },
         "diamond_save_reads": {
             "type": "boolean"
+        },
+        "run_bracken": {
+            "type": "string",
+            "default": "false"
         }
     }
 }
