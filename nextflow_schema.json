@@ -435,8 +435,7 @@
             "type": "boolean"
         },
         "run_bracken": {
-            "type": "string",
-            "default": "false"
+            "type": "boolean"
         }
     }
 }
