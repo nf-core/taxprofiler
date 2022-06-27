@@ -214,7 +214,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: VISUALIZATION_KRONA
     */
     if ( params.run_krona ) {
-        VISUALIZATION_KRONA ( PROFILING.out.profiles )
+        VISUALIZATION_KRONA ( PROFILING.out.profiles, DB_CHECK.out.dbs )
         ch_versions = ch_versions.mix( VISUALIZATION_KRONA.out.versions )
     }
 

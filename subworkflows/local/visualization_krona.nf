@@ -2,6 +2,7 @@
 // Create Krona visualizations
 //
 
+include { KAIJU_KAIJU2KRONA         } from '../../modules/nf-core/modules/kaiju/kaiju2krona/main'
 include { KRAKENTOOLS_KREPORT2KRONA } from '../../modules/nf-core/modules/krakentools/kreport2krona/main'
 include { KRONA_CLEANUP             } from '../../modules/local/krona_cleanup'
 include { KRONA_KTIMPORTTEXT        } from '../../modules/nf-core/modules/krona/ktimporttext/main'
@@ -9,6 +10,7 @@ include { KRONA_KTIMPORTTEXT        } from '../../modules/nf-core/modules/krona/
 workflow VISUALIZATION_KRONA {
     take:
     profiles
+    databases
 
     main:
     ch_krona_text = Channel.empty()
@@ -21,6 +23,7 @@ workflow VISUALIZATION_KRONA {
     ch_input_profiles = profiles
         .branch {
             centrifuge: it[0]['tool'] == 'centrifuge'
+            kaiju: it[0]['tool'] == 'kaiju'
             kraken2: it[0]['tool'] == 'kraken2'
             unknown: true
         }
@@ -33,6 +36,25 @@ workflow VISUALIZATION_KRONA {
     KRAKENTOOLS_KREPORT2KRONA ( ch_kraken_reports )
     ch_krona_text = ch_krona_text.mix( KRAKENTOOLS_KREPORT2KRONA.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_KREPORT2KRONA.out.versions.first() )
+
+    /*
+        Combine Kaiju profiles with their databases
+    */
+    ch_input_for_kaiju2krona = ch_input_profiles.kaiju
+        .map{ [it[0]['db_name'], it[0], it[1]] }
+        .combine( databases.map{ [it[0]['db_name'], it[1]] }, by: 0 )
+        .multiMap{
+            it ->
+                profiles: [it[1], it[2]]
+                db: it[3]
+        }
+
+    /*
+        Convert Kaiju formatted reports into Krona text files
+    */
+    KAIJU_KAIJU2KRONA( ch_input_for_kaiju2krona.profiles, ch_input_for_kaiju2krona.db )
+    ch_krona_text = ch_krona_text.mix( KAIJU_KAIJU2KRONA.out.txt )
+    ch_versions = ch_versions.mix( KAIJU_KAIJU2KRONA.out.versions.first() )
 
     /*
         Remove taxonomy level annotations from the Krona text files
