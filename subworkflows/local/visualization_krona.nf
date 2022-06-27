@@ -20,6 +20,7 @@ workflow VISUALIZATION_KRONA {
     */
     ch_input_profiles = profiles
         .branch {
+            centrifuge: it[0]['tool'] == 'centrifuge'
             kraken2: it[0]['tool'] == 'kraken2'
             unknown: true
         }
@@ -28,6 +29,7 @@ workflow VISUALIZATION_KRONA {
         Convert Kraken2 formatted reports into Krona text files
     */
     ch_kraken_reports = ch_input_profiles.kraken2
+        .mix( ch_input_profiles.centrifuge )
     KRAKENTOOLS_KREPORT2KRONA ( ch_kraken_reports )
     ch_krona_text = ch_krona_text.mix( KRAKENTOOLS_KREPORT2KRONA.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_KREPORT2KRONA.out.versions.first() )
