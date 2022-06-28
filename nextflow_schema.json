@@ -260,6 +260,8 @@
     "properties": {
         "databases": {
             "type": "string",
+            "mimetype": "text/csv",
+            "format": "file-path",
             "default": "None"
         },
         "shortread_qc_excludeunmerged": {
