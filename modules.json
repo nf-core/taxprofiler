@@ -39,6 +39,9 @@
             "filtlong": {
                 "git_sha": "089f761f0bf79c4a486f1df9b6205f650196a2c1"
             },
+            "gunzip": {
+                "git_sha": "9aadd9a6d3f5964476582319b3a1c54a3e3fe7c9"
+            },
             "kaiju/kaiju": {
                 "git_sha": "8856f127c58f6af479128be8b8df4d42e442ddbe"
             },
@@ -53,6 +56,9 @@
             },
             "krakentools/kreport2krona": {
                 "git_sha": "8b2a473f586bed003e72d2b183acc43fc0ddc422"
+            },
+            "krona/ktimporttaxonomy": {
+                "git_sha": "233fa70811a03a4cecb2ece483b5c8396e2cee1d"
             },
             "krona/ktimporttext": {
                 "git_sha": "cdefbec66999c0b49d8bfeea9d6f9d19056635a2"
