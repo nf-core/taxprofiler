@@ -51,6 +51,10 @@ workflow VISUALIZATION_KRONA {
     ch_krona_html = ch_krona_html.mix( KRONA_KTIMPORTTEXT.out.html )
     ch_versions = ch_versions.mix( KRONA_KTIMPORTTEXT.out.versions.first() )
 
+    /*
+        Convert Krona
+    */
+
     emit:
     html = ch_krona_html
     versions = ch_versions
