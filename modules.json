@@ -42,11 +42,20 @@
             "kaiju/kaiju": {
                 "git_sha": "8856f127c58f6af479128be8b8df4d42e442ddbe"
             },
+            "kaiju/kaiju2krona": {
+                "git_sha": "2f0b19240430de6807b1232e6d9d0e8084e8a28f"
+            },
             "kaiju/kaiju2table": {
                 "git_sha": "538dbac98ba9c8f799536cd5a617195501439457"
             },
             "kraken2/kraken2": {
                 "git_sha": "abe025677cdd805cc93032341ab19885473c1a07"
+            },
+            "krakentools/kreport2krona": {
+                "git_sha": "8b2a473f586bed003e72d2b183acc43fc0ddc422"
+            },
+            "krona/ktimporttext": {
+                "git_sha": "cdefbec66999c0b49d8bfeea9d6f9d19056635a2"
             },
             "malt/run": {
                 "git_sha": "be8d7b3293cac26cc63e4dbfb364deb8ed6ec7e5"
@@ -62,6 +71,9 @@
             },
             "minimap2/index": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "motus/profile": {
+                "git_sha": "6b960f0e75bbb4d5bd301cd3875fa078d0eab4d1"
             },
             "multiqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"

@@ -11,7 +11,7 @@ include { METAPHLAN3                  } from '../../modules/nf-core/modules/meta
 include { KAIJU_KAIJU                 } from '../../modules/nf-core/modules/kaiju/kaiju/main'
 include { KAIJU_KAIJU2TABLE           } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX              } from '../../modules/nf-core/modules/diamond/blastx/main'
-
+include { MOTUS_PROFILE               } from '../../modules/nf-core/modules/motus/profile/main'
 
 workflow PROFILING {
     take:
@@ -21,7 +21,8 @@ workflow PROFILING {
     main:
     ch_versions             = Channel.empty()
     ch_multiqc_files        = Channel.empty()
-    ch_raw_profiles    = Channel.empty()
+    ch_raw_classifications  = Channel.empty()
+    ch_raw_profiles         = Channel.empty()
 
 /*
         COMBINE READS WITH POSSIBLE DATABASES
@@ -44,6 +45,7 @@ workflow PROFILING {
                 centrifuge: it[2]['tool'] == 'centrifuge'
                 kaiju: it[2]['tool'] == 'kaiju'
                 diamond: it[2]['tool'] == 'diamond'
+                motus: it[2]['tool'] == 'motus'
                 unknown: true
             }
 
@@ -108,9 +110,10 @@ workflow PROFILING {
                                 }
 
         MEGAN_RMA2INFO (ch_maltrun_for_megan, params.malt_generate_megansummary )
-        ch_multiqc_files   = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
-        ch_versions        = ch_versions.mix( MALT_RUN.out.versions.first(), MEGAN_RMA2INFO.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( MEGAN_RMA2INFO.out.txt )
+        ch_multiqc_files       = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
+        ch_versions            = ch_versions.mix( MALT_RUN.out.versions.first(), MEGAN_RMA2INFO.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( ch_maltrun_for_megan )
+        ch_raw_profiles        = ch_raw_profiles.mix( MEGAN_RMA2INFO.out.txt )
 
     }
 
@@ -124,9 +127,10 @@ workflow PROFILING {
                                 }
 
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassification )
-        ch_multiqc_files   = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report.collect{it[1]}.ifEmpty([])  )
-        ch_versions        = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.report )
+        ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report.collect{it[1]}.ifEmpty([])  )
+        ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
+        ch_raw_profiles        = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.report )
 
     }
 
@@ -145,8 +149,9 @@ workflow PROFILING {
 
         CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads, params.centrifuge_save_reads  )
         CENTRIFUGE_KREPORT (CENTRIFUGE_CENTRIFUGE.out.results, ch_input_for_centrifuge.db)
-        ch_versions        = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
+        ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
+        ch_raw_profiles        = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
 
     }
 
@@ -182,6 +187,7 @@ workflow PROFILING {
         KAIJU_KAIJU2TABLE (KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_name)
         ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary.collect{it[1]}.ifEmpty([])  )
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
         ch_raw_profiles = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE.out.summary )
 
     }
@@ -205,9 +211,28 @@ workflow PROFILING {
 
     }
 
-    emit:
-    profiles = ch_raw_profiles    // channel: [ val(meta), [ reads ] ] - should be text files or biom
-    versions = ch_versions          // channel: [ versions.yml ]
-    mqc      = ch_multiqc_files
-}
+    if ( params.run_motus ) {
 
+        ch_input_for_motus = ch_input_for_profiling.motus
+                                .filter{
+                                    if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] mOTUs currently does not accept FASTA files as input. Skipping mOTUs for sample ${it[0].id}."
+                                    !it[0].is_fasta
+                                }
+                                .multiMap {
+                                    it ->
+                                        reads: [it[0] + it[2], it[1]]
+                                        db: it[3]
+                                }
+
+        MOTUS_PROFILE ( ch_input_for_motus.reads, ch_input_for_motus.db )
+        ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
+
+    }
+
+    emit:
+    classifications = ch_raw_classifications
+    profiles        = ch_raw_profiles    // channel: [ val(meta), [ reads ] ] - should be text files or biom
+    versions        = ch_versions          // channel: [ versions.yml ]
+    mqc             = ch_multiqc_files
+}

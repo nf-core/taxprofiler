@@ -260,6 +260,8 @@
     "properties": {
         "databases": {
             "type": "string",
+            "mimetype": "text/csv",
+            "format": "file-path",
             "default": "None"
         },
         "shortread_qc_excludeunmerged": {
@@ -419,6 +421,9 @@
             "type": "integer",
             "default": 500000000
         },
+        "run_motus": {
+            "type": "boolean"
+        },
         "malt_save_reads": {
             "type": "boolean"
         },
@@ -435,6 +440,9 @@
             "type": "boolean"
         },
         "run_bracken": {
+            "type": "boolean"
+        },
+        "run_krona": {
             "type": "boolean"
         }
     }

@@ -71,3 +71,54 @@ jobs:
         # Remember that you can parallelise this by using strategy.matrix
         run: |
           nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}
+
+  motus:
+    name: Test mOTUs with workflow parameters
+    if: ${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}
+    runs-on: ubuntu-latest
+    env:
+      NXF_VER: ${{ matrix.nxf_ver }}
+      NXF_ANSI_LOG: false
+    strategy:
+      matrix:
+        # Nextflow versions
+        include:
+          # Test pipeline minimum Nextflow version
+          - NXF_VER: "21.10.3"
+            NXF_EDGE: ""
+          # Test latest edge release of Nextflow
+          - NXF_VER: ""
+            NXF_EDGE: "1"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        env:
+          NXF_VER: ${{ matrix.NXF_VER }}
+          # Uncomment only if the edge release is more recent than the latest stable release
+          # See https://github.com/nextflow-io/nextflow/issues/2467
+          # NXF_EDGE: ${{ matrix.NXF_EDGE }}
+        run: |
+          wget -qO- get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+
+      - name: Show current locale
+        run: locale
+
+      - name: Set UTF-8 enabled locale
+        run: |
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+
+      - name: Prepare the database
+        run: |
+          wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
+          python downloadDB.py > download_db_log.txt
+          echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
+          echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
+
+      - name: Run pipeline with test data
+        run: |
+          nextflow run ${GITHUB_WORKSPACE} -profile test_motus,docker --outdir ./results --databases ./database_motus.csv

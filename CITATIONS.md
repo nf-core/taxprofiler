@@ -36,6 +36,10 @@
 
   > Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. Improved Metagenomic Analysis with Kraken 2. Genome Biology 20 (1): 257. doi: 10.1186/s13059-019-1891-0.
 
+- [Krona](https://doi.org/10.1186/1471-2105-12-385)
+
+  > Ondov, Brian D., Nicholas H. Bergman, and Adam M. Phillippy. 2011. Interactive metagenomic visualization in a Web browser. BMC Bioinformatics 12 (1): 385. doi: 10.1186/1471-2105-12-385.
+
 - [MALT](https://doi.org/10.1038/s41559-017-0446-6)
 
   > Vågene, Åshild J., Alexander Herbig, Michael G. Campana, Nelly M. Robles García, Christina Warinner, Susanna Sabin, Maria A. Spyrou, et al. 2018. Salmonella Enterica Genomes from Victims of a Major Sixteenth-Century Epidemic in Mexico. Nature Ecology & Evolution 2 (3): 520-28. doi: 10.1038/s41559-017-0446-6.

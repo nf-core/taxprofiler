@@ -62,6 +62,7 @@ include { SHORTREAD_HOSTREMOVAL         } from '../subworkflows/local/shortread_
 include { LONGREAD_HOSTREMOVAL          } from '../subworkflows/local/longread_hostremoval'
 include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_complexityfiltering'
 include { PROFILING                     } from '../subworkflows/local/profiling'
+include { VISUALIZATION_KRONA           } from '../subworkflows/local/visualization_krona'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -214,7 +215,6 @@ workflow TAXPROFILER {
     /*
         POST_PROCESSING
     */
-
     if ( params.run_bracken ) {
         SEQKIT_STATS ( ch_reads_runmerged )
         ch_meta_for_bracken = EXTRACT_READLENGTH( SEQKIT_STATS.out.stats ).read_length
@@ -224,6 +224,16 @@ workflow TAXPROFILER {
 
                                     [ meta_new ]
                                 }
+        ch_versions = ch_versions.mix( SEQKIT_STATS.out.versions )
+    }
+
+    /*
+        SUBWORKFLOW: VISUALIZATION_KRONA
+    */
+    
+    if ( params.run_krona ) {
+        VISUALIZATION_KRONA ( PROFILING.out.classifications, PROFILING.out.profiles, DB_CHECK.out.dbs )
+        ch_versions = ch_versions.mix( VISUALIZATION_KRONA.out.versions )
     }
 
     /*
