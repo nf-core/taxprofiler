@@ -439,6 +439,9 @@
         "diamond_save_reads": {
             "type": "boolean"
         },
+        "run_bracken": {
+            "type": "boolean"
+        },
         "run_krona": {
             "type": "boolean"
         }

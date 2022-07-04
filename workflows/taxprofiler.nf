@@ -78,6 +78,8 @@ include { MULTIQC                     } from '../modules/nf-core/modules/multiqc
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/modules/custom/dumpsoftwareversions/main'
 
 include { CAT_FASTQ                   } from '../modules/nf-core/modules/cat/fastq/main'
+include { SEQKIT_STATS                } from '../modules/nf-core/modules/seqkit/stats/main'
+include { EXTRACT_READLENGTH          } from '../modules/local/extract_readlength'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -211,8 +213,24 @@ workflow TAXPROFILER {
     ch_versions = ch_versions.mix( PROFILING.out.versions )
 
     /*
+        POST_PROCESSING
+    */
+    if ( params.run_bracken ) {
+        SEQKIT_STATS ( ch_reads_runmerged )
+        ch_meta_for_bracken = EXTRACT_READLENGTH( SEQKIT_STATS.out.stats ).read_length
+                                .map { meta, length ->
+                                    def meta_new = meta.clone()
+                                    meta_new['avg_read_length'] = length
+
+                                    [ meta_new ]
+                                }
+        ch_versions = ch_versions.mix( SEQKIT_STATS.out.versions )
+    }
+
+    /*
         SUBWORKFLOW: VISUALIZATION_KRONA
     */
+    
     if ( params.run_krona ) {
         VISUALIZATION_KRONA ( PROFILING.out.classifications, PROFILING.out.profiles, DB_CHECK.out.dbs )
         ch_versions = ch_versions.mix( VISUALIZATION_KRONA.out.versions )
