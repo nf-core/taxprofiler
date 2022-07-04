@@ -421,6 +421,9 @@
             "type": "integer",
             "default": 500000000
         },
+        "run_motus": {
+            "type": "boolean"
+        },
         "malt_save_reads": {
             "type": "boolean"
         },
