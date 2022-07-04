@@ -28,7 +28,7 @@
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "diamond/blastx": {
-                "git_sha": "42564565b934eeb2449e35ec97ed13ff2a67f1de"
+                "git_sha": "bd3bfe0817246082525ab93707976676b1fe208b"
             },
             "fastp": {
                 "git_sha": "d0a1cbb703a130c19f6796c3fce24fbe7dfce789"
@@ -42,14 +42,23 @@
             "kaiju/kaiju": {
                 "git_sha": "8856f127c58f6af479128be8b8df4d42e442ddbe"
             },
+            "kaiju/kaiju2krona": {
+                "git_sha": "2f0b19240430de6807b1232e6d9d0e8084e8a28f"
+            },
             "kaiju/kaiju2table": {
                 "git_sha": "538dbac98ba9c8f799536cd5a617195501439457"
             },
             "kraken2/kraken2": {
-                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+                "git_sha": "abe025677cdd805cc93032341ab19885473c1a07"
+            },
+            "krakentools/kreport2krona": {
+                "git_sha": "8b2a473f586bed003e72d2b183acc43fc0ddc422"
+            },
+            "krona/ktimporttext": {
+                "git_sha": "cdefbec66999c0b49d8bfeea9d6f9d19056635a2"
             },
             "malt/run": {
-                "git_sha": "72b96f4e504eef673f2b5c13560a9d90b669129b"
+                "git_sha": "be8d7b3293cac26cc63e4dbfb364deb8ed6ec7e5"
             },
             "megan/rma2info": {
                 "git_sha": "2d38566eca4cc15142b2ffa7c11837569b39aece"

@@ -21,7 +21,8 @@ workflow PROFILING {
     main:
     ch_versions             = Channel.empty()
     ch_multiqc_files        = Channel.empty()
-    ch_raw_profiles    = Channel.empty()
+    ch_raw_classifications  = Channel.empty()
+    ch_raw_profiles         = Channel.empty()
 
 /*
         COMBINE READS WITH POSSIBLE DATABASES
@@ -62,14 +63,29 @@ workflow PROFILING {
 
         // MALT: We groupTuple to have all samples in one channel for MALT as database
         // loading takes a long time, so we only want to run it once per database
-        // TODO document somewhere we only accept illumina short reads for MALT?
         ch_input_for_malt =  ch_input_for_profiling.malt
                                 .filter { it[0]['instrument_platform'] == 'ILLUMINA' }
                                 .map {
-                                    it ->
-                                        def temp_meta =  [ id: it[2]['db_name']]  + it[2]
-                                        def db = it[3]
-                                        [ temp_meta, it[1], db ]
+                                    meta, reads, db_meta, db ->
+
+                                        // Reset entire input meta for MALT to just database name,
+                                        // as we don't run run on a per-sample basis due to huge datbaases
+                                        // so all samples are in one run and so sample-specific metadata
+                                        // unnecessary. Set as database name to prevent `null` job ID and prefix.
+                                        def temp_meta = [ id: meta['db_name'] ]
+
+                                        // Extend database parameters to specify whether to save alignments or not
+                                        def new_db_meta = db_meta.clone()
+                                        def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
+                                        new_db_meta['db_params'] = db_meta['db_params'] + sam_format
+
+                                        // Combine reduced sample metadata with updated database parameters metadata,
+                                        // make sure id is db_name for publishing purposes.
+                                        def new_meta = temp_meta + new_db_meta
+                                        new_meta['id'] = new_meta['db_name']
+
+                                        [ new_meta, reads, db ]
+
                                 }
                                 .groupTuple(by: [0,2])
                                 .multiMap {
@@ -93,10 +109,11 @@ workflow PROFILING {
                                         [ meta_new, rma ]
                                 }
 
-        MEGAN_RMA2INFO (ch_maltrun_for_megan, params.malt_generatemegansummary )
-        ch_multiqc_files   = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
-        ch_versions        = ch_versions.mix( MALT_RUN.out.versions.first(), MEGAN_RMA2INFO.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( MEGAN_RMA2INFO.out.txt )
+        MEGAN_RMA2INFO (ch_maltrun_for_megan, params.malt_generate_megansummary )
+        ch_multiqc_files       = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
+        ch_versions            = ch_versions.mix( MALT_RUN.out.versions.first(), MEGAN_RMA2INFO.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( ch_maltrun_for_megan )
+        ch_raw_profiles        = ch_raw_profiles.mix( MEGAN_RMA2INFO.out.txt )
 
     }
 
@@ -109,10 +126,11 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db  )
-        ch_multiqc_files   = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.txt.collect{it[1]}.ifEmpty([])  )
-        ch_versions        = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.txt )
+        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassification )
+        ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report.collect{it[1]}.ifEmpty([])  )
+        ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
+        ch_raw_profiles        = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.report )
 
     }
 
@@ -129,10 +147,11 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-        CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_unaligned, params.centrifuge_save_aligned, params.centrifuge_sam_format  )
+        CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads, params.centrifuge_save_reads  )
         CENTRIFUGE_KREPORT (CENTRIFUGE_CENTRIFUGE.out.results, ch_input_for_centrifuge.db)
-        ch_versions        = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
+        ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
+        ch_raw_profiles        = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
 
     }
 
@@ -168,6 +187,7 @@ workflow PROFILING {
         KAIJU_KAIJU2TABLE (KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_name)
         ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary.collect{it[1]}.ifEmpty([])  )
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
         ch_raw_profiles = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE.out.summary )
 
     }
@@ -181,9 +201,13 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-        DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, params.diamond_output_format )
+        // diamond only accepts single output file specification, therefore
+        // this will replace output file!
+        ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format
+
+        DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format , [] )
         ch_versions        = ch_versions.mix( DIAMOND_BLASTX.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.output )
+        ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.tsv )
 
     }
 
@@ -207,7 +231,8 @@ workflow PROFILING {
     }
 
     emit:
-    profiles = ch_raw_profiles    // channel: [ val(meta), [ reads ] ] - should be text files or biom
-    versions = ch_versions          // channel: [ versions.yml ]
-    mqc      = ch_multiqc_files
+    classifications = ch_raw_classifications
+    profiles        = ch_raw_profiles    // channel: [ val(meta), [ reads ] ] - should be text files or biom
+    versions        = ch_versions          // channel: [ versions.yml ]
+    mqc             = ch_multiqc_files
 }

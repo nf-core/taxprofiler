@@ -48,7 +48,7 @@ workflow LONGREAD_PREPROCESSING {
 
     }
 
-    FASTQC_PROCESSED ( ch_processed_reads.dump(tag: "filtlong") )
+    FASTQC_PROCESSED ( ch_processed_reads )
     ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
 
     emit:

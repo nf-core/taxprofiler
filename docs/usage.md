@@ -12,6 +12,8 @@
 
 nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers).
 
+> ⚠️ Input FASTQ files _must_ be gzipped, while FASTA files may optionally be uncompressed (although this is not recommended)
+
 You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row as shown in the examples below. Furthermother, nf-core/taxprofiler also requires a second comma-separated file of 3 columns with a header row as in the examples below.
 
 This samplesheet is then specified on the command line as follows:
@@ -218,6 +220,12 @@ For more information how to set up your input samplesheet, see [Multiple runs of
 Activating this functionality will concatenate the FASTQ files with the same sample name _after_ the optional preprocessing steps and _before_ profiling. Note that libraries with runs of different pairing types will **not** be merged and this will be indicated on output files with a `_se` or `_pe` suffix to the sample name accordingly.
 
 You can optionally save the FASTQ output of the run merging with the `--save_runmerged_reads`.
+
+##### Profiling
+
+###### MALT
+
+nf-core/taxprofiler uses MALT 0.4.1, which is a compatively old version. However it has been found that the most recent version of MALT (0.5.\*), at the time of writing, is broken. [The the LCA step appears not to be executed](http://megan.informatik.uni-tuebingen.de/t/lca-placement-failure-with-malt-v-0-5-2-and-0-5-3/1996/3), pushing all hits to the leaves of the taxonomy. However, if you need to use a more recent taxonomy map file with your databases, the output of `malt-build` from MALT 0.5.3 should be still be compatible with `malt-run` of 0.4.1.
 
 ### Updating the pipeline
 

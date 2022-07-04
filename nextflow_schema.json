@@ -260,6 +260,8 @@
     "properties": {
         "databases": {
             "type": "string",
+            "mimetype": "text/csv",
+            "format": "file-path",
             "default": "None"
         },
         "shortread_qc_excludeunmerged": {
@@ -276,15 +278,6 @@
             "type": "boolean"
         },
         "run_centrifuge": {
-            "type": "boolean"
-        },
-        "centrifuge_save_unaligned": {
-            "type": "boolean"
-        },
-        "centrifuge_save_aligned": {
-            "type": "boolean"
-        },
-        "centrifuge_sam_format": {
             "type": "boolean"
         },
         "run_metaphlan3": {
@@ -386,7 +379,7 @@
         "run_kaiju": {
             "type": "boolean"
         },
-        "malt_generatemegansummary": {
+        "malt_generate_megansummary": {
             "type": "boolean"
         },
         "kaiju_taxon_name": {
@@ -429,6 +422,24 @@
             "default": 500000000
         },
         "run_motus": {
+            "type": "boolean"
+        },
+        "malt_save_reads": {
+            "type": "boolean"
+        },
+        "kraken2_save_reads": {
+            "type": "boolean"
+        },
+        "kraken2_save_readclassification": {
+            "type": "boolean"
+        },
+        "centrifuge_save_reads": {
+            "type": "boolean"
+        },
+        "diamond_save_reads": {
+            "type": "boolean"
+        },
+        "run_krona": {
             "type": "boolean"
         }
     }
