@@ -441,6 +441,10 @@
         },
         "run_krona": {
             "type": "boolean"
+        },
+        "krona_taxonomy_directory": {
+            "type": "string",
+            "default": null
         }
     }
 }

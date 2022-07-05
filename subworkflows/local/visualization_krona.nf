@@ -2,10 +2,13 @@
 // Create Krona visualizations
 //
 
+include { MEGAN_RMA2INFO            } from '../../modules/nf-core/modules/megan/rma2info/main'
 include { KAIJU_KAIJU2KRONA         } from '../../modules/nf-core/modules/kaiju/kaiju2krona/main'
 include { KRAKENTOOLS_KREPORT2KRONA } from '../../modules/nf-core/modules/krakentools/kreport2krona/main'
 include { KRONA_CLEANUP             } from '../../modules/local/krona_cleanup'
 include { KRONA_KTIMPORTTEXT        } from '../../modules/nf-core/modules/krona/ktimporttext/main'
+include { KRONA_KTIMPORTTAXONOMY    } from '../../modules/nf-core/modules/krona/ktimporttaxonomy/main'
+include { GUNZIP                    } from '../../modules/nf-core/modules/gunzip/main'
 
 workflow VISUALIZATION_KRONA {
     take:
@@ -30,6 +33,7 @@ workflow VISUALIZATION_KRONA {
     ch_input_classifications = classifications
         .branch {
             kaiju: it[0]['tool'] == 'kaiju'
+            malt: it[0]['tool'] == 'malt'
             unknown: true
         }
 
@@ -72,11 +76,28 @@ workflow VISUALIZATION_KRONA {
         Convert Krona text files into html Krona visualizations
     */
     ch_krona_text_for_import = ch_cleaned_krona_text
-        .map{[[id: it[0]['db_name']], it[1]]}
+        .map{[[id: it[0]['db_name'], tool: it[0]['tool']], it[1]]}
         .groupTuple()
+        .dump(tag: "text")
     KRONA_KTIMPORTTEXT( ch_krona_text_for_import )
     ch_krona_html = ch_krona_html.mix( KRONA_KTIMPORTTEXT.out.html )
     ch_versions = ch_versions.mix( KRONA_KTIMPORTTEXT.out.versions.first() )
+
+    /*
+        Convert MALT/MEGAN RMA2INFO files into html Krona visualisations
+    */
+    if ( params.krona_taxonomy_directory ) {
+        MEGAN_RMA2INFO ( ch_input_classifications.malt, false )
+        GUNZIP ( MEGAN_RMA2INFO.out.txt )
+        ch_krona_taxonomy_for_input = GUNZIP.out.gunzip
+            .map{[[id: it[0]['db_name'], tool: it[0]['tool']], it[1]]}
+            .groupTuple()
+            .dump(tag: "taxonomy")
+        KRONA_KTIMPORTTAXONOMY ( ch_krona_taxonomy_for_input, file(params.krona_taxonomy_directory, checkExists: true) )
+        ch_krona_html.mix( KRONA_KTIMPORTTAXONOMY.out.html )
+        ch_versions = ch_versions.mix( MEGAN_RMA2INFO.out.versions.first() )
+        ch_versions = ch_versions.mix( KRONA_KTIMPORTTAXONOMY.out.versions.first() )
+    }
 
     emit:
     html = ch_krona_html
