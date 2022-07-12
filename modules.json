@@ -78,8 +78,11 @@
             "minimap2/index": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
+            "motus/merge": {
+                "git_sha": "b02e648c221e1da17cb589eefe297e61ec9e9c49"
+            },
             "motus/profile": {
-                "git_sha": "6b960f0e75bbb4d5bd301cd3875fa078d0eab4d1"
+                "git_sha": "b02e648c221e1da17cb589eefe297e61ec9e9c49"
             },
             "multiqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
