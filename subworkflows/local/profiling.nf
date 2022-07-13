@@ -227,7 +227,7 @@ workflow PROFILING {
         MOTUS_PROFILE ( ch_input_for_motus.reads, ch_input_for_motus.db )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
-        ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
+        ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log.map{it[1]} )
 
     }
 
