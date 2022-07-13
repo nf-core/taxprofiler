@@ -227,13 +227,12 @@ workflow PROFILING {
         MOTUS_PROFILE ( ch_input_for_motus.reads, ch_input_for_motus.db )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
-
     }
 
     emit:
     classifications = ch_raw_classifications
     profiles        = ch_raw_profiles    // channel: [ val(meta), [ reads ] ] - should be text files or biom
     versions        = ch_versions          // channel: [ versions.yml ]
-    motu_version    = MOTUS_PROFILE.out.versions.first()
+    motu_version    = params.run_motus ? MOTUS_PROFILE.out.versions.first() : Channel.empty([])
     mqc             = ch_multiqc_files
 }
