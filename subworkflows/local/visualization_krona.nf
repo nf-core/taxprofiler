@@ -8,7 +8,9 @@ include { KRAKENTOOLS_KREPORT2KRONA } from '../../modules/nf-core/modules/kraken
 include { KRONA_CLEANUP             } from '../../modules/local/krona_cleanup'
 include { KRONA_KTIMPORTTEXT        } from '../../modules/nf-core/modules/krona/ktimporttext/main'
 include { KRONA_KTIMPORTTAXONOMY    } from '../../modules/nf-core/modules/krona/ktimporttaxonomy/main'
-include { GUNZIP                    } from '../../modules/nf-core/modules/gunzip/main'
+include { GUNZIP as GUNZIP_RMA2INFO } from '../../modules/nf-core/modules/gunzip/main'
+include { GUNZIP as GUNZIP_DAA2INFO } from '../../modules/nf-core/modules/gunzip/main'
+include { MEGAN_DAA2INFO            } from '../../modules/nf-core/modules/megan/daa2info/main'
 
 workflow VISUALIZATION_KRONA {
     take:
@@ -27,13 +29,14 @@ workflow VISUALIZATION_KRONA {
     ch_input_profiles = profiles
         .branch {
             centrifuge: it[0]['tool'] == 'centrifuge'
-            kraken2: it[0]['tool'] == 'kraken2'
-            unknown: true
+            kraken2:    it[0]['tool'] == 'kraken2'
+            unknown:    true
         }
     ch_input_classifications = classifications
         .branch {
-            kaiju: it[0]['tool'] == 'kaiju'
-            malt: it[0]['tool'] == 'malt'
+            kaiju:   it[0]['tool'] == 'kaiju'
+            malt:    it[0]['tool'] == 'malt'
+            diamond: it[0]['tool'] == 'diamond'
             unknown: true
         }
 
@@ -78,7 +81,6 @@ workflow VISUALIZATION_KRONA {
     ch_krona_text_for_import = ch_cleaned_krona_text
         .map{[[id: it[0]['db_name'], tool: it[0]['tool']], it[1]]}
         .groupTuple()
-        .dump(tag: "text")
     KRONA_KTIMPORTTEXT( ch_krona_text_for_import )
     ch_krona_html = ch_krona_html.mix( KRONA_KTIMPORTTEXT.out.html )
     ch_versions = ch_versions.mix( KRONA_KTIMPORTTEXT.out.versions.first() )
@@ -87,17 +89,29 @@ workflow VISUALIZATION_KRONA {
         Convert MALT/MEGAN RMA2INFO files into html Krona visualisations
     */
     if ( params.krona_taxonomy_directory ) {
+
+        ch_megantxt_for_gunzip = Channel.empty()
+
         MEGAN_RMA2INFO ( ch_input_classifications.malt, false )
-        GUNZIP ( MEGAN_RMA2INFO.out.txt )
-        ch_krona_taxonomy_for_input = GUNZIP.out.gunzip
+        GUNZIP_RMA2INFO ( MEGAN_RMA2INFO.out.txt )
+        ch_megantxt_for_gunzip =  ch_megantxt_for_gunzip.mix( GUNZIP_RMA2INFO.out.gunzip )
+
+        MEGAN_DAA2INFO ( ch_input_classifications.diamond, false )
+        GUNZIP_DAA2INFO ( MEGAN_DAA2INFO.out.txt_gz )
+        ch_megantxt_for_gunzip =  ch_megantxt_for_gunzip.mix( GUNZIP_DAA2INFO.out.gunzip )
+
+        ch_krona_taxonomy_for_input = ch_megantxt_for_gunzip
             .map{[[id: it[0]['db_name'], tool: it[0]['tool']], it[1]]}
             .groupTuple()
-            .dump(tag: "taxonomy")
+            .dump(tag: "what")
+
         KRONA_KTIMPORTTAXONOMY ( ch_krona_taxonomy_for_input, file(params.krona_taxonomy_directory, checkExists: true) )
         ch_krona_html.mix( KRONA_KTIMPORTTAXONOMY.out.html )
         ch_versions = ch_versions.mix( MEGAN_RMA2INFO.out.versions.first() )
         ch_versions = ch_versions.mix( KRONA_KTIMPORTTAXONOMY.out.versions.first() )
     }
+
+
 
     emit:
     html = ch_krona_html

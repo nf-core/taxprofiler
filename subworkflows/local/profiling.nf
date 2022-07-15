@@ -11,6 +11,7 @@ include { METAPHLAN3                  } from '../../modules/nf-core/modules/meta
 include { KAIJU_KAIJU                 } from '../../modules/nf-core/modules/kaiju/kaiju/main'
 include { KAIJU_KAIJU2TABLE           } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX              } from '../../modules/nf-core/modules/diamond/blastx/main'
+include { MEGAN_DAA2INFO              } from '../../modules/nf-core/modules/megan/daa2info/main'
 include { MOTUS_PROFILE               } from '../../modules/nf-core/modules/motus/profile/main'
 
 workflow PROFILING {
@@ -109,7 +110,7 @@ workflow PROFILING {
                                         [ meta_new, rma ]
                                 }
 
-        MEGAN_RMA2INFO (ch_maltrun_for_megan, params.malt_generate_megansummary )
+        MEGAN_RMA2INFO ( ch_maltrun_for_megan, params.malt_generate_megansummary )
         ch_multiqc_files       = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
         ch_versions            = ch_versions.mix( MALT_RUN.out.versions.first(), MEGAN_RMA2INFO.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( ch_maltrun_for_megan )
@@ -206,9 +207,18 @@ workflow PROFILING {
         ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format
 
         DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format , [] )
-        ch_versions        = ch_versions.mix( DIAMOND_BLASTX.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.tsv )
 
+        if ( params.diamond_output_format == 'daa' ) {
+            MEGAN_DAA2INFO ( DIAMOND_BLASTX.out.daa, params.malt_generate_megansummary )
+            ch_raw_classifications = ch_raw_classifications.mix( DIAMOND_BLASTX.out.daa )
+            ch_raw_profiles        = ch_raw_profiles.mix( MEGAN_DAA2INFO.out.txt_gz )
+            ch_versions            = ch_versions.mix( MEGAN_DAA2INFO.out.versions.first() )
+        } else {
+            // assuming default specified by params.diamond_output_format
+            ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.tsv )
+        }
+
+        ch_versions        = ch_versions.mix( DIAMOND_BLASTX.out.versions.first() )
     }
 
     if ( params.run_motus ) {

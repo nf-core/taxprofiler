@@ -66,6 +66,9 @@
             "malt/run": {
                 "git_sha": "be8d7b3293cac26cc63e4dbfb364deb8ed6ec7e5"
             },
+            "megan/daa2info": {
+                "git_sha": "6702d2e14555076a106f6d04081b35ab85e25210"
+            },
             "megan/rma2info": {
                 "git_sha": "2d38566eca4cc15142b2ffa7c11837569b39aece"
             },
