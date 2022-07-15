@@ -225,7 +225,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: PROFILING STANDARDISATION
     */
     if ( params.run_profile_standardisation ) {
-        STANDARDISATION_PROFILES ( PROFILING.out.classifications, PROFILING.out.profiles, DB_CHECK.out.dbs, PROFILING.out.motu_version )
+        STANDARDISATION_PROFILES ( PROFILING.out.classifications, PROFILING.out.profiles, DB_CHECK.out.dbs, PROFILING.out.motus_version )
         ch_versions = ch_versions.mix( STANDARDISATION_PROFILES.out.versions )
     }
 
