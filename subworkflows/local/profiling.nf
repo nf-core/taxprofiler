@@ -208,7 +208,7 @@ workflow PROFILING {
         DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format , [] )
         ch_versions        = ch_versions.mix( DIAMOND_BLASTX.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.tsv )
-        ch_multiqc_files   = ch_multiqc_files.mix( DIAMOND_BLASTX.out.log.collect{it[1]}.ifEmpty([]) ) 
+        ch_multiqc_files   = ch_multiqc_files.mix( DIAMOND_BLASTX.out.log ) 
 
     }
 
