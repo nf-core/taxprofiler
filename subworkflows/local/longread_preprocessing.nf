@@ -56,6 +56,6 @@ workflow LONGREAD_PREPROCESSING {
     emit:
     reads    = ch_processed_reads   // channel: [ val(meta), [ reads ] ]
     versions = ch_versions          // channel: [ versions.yml ]
-    mqc      =
+    mqc      = ch_multiqc_files
 }
 
