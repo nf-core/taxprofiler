@@ -51,7 +51,7 @@ workflow LONGREAD_PREPROCESSING {
     }
 
     FASTQC_PROCESSED ( ch_processed_reads )
-     = .mix( FASTQC_PROCESSED.out.zip )
+    ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
 
     emit:
     reads    = ch_processed_reads   // channel: [ val(meta), [ reads ] ]
