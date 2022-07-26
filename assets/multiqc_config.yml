@@ -13,3 +13,35 @@ export_plots: true
 custom_logo: "nf-core-taxprofiler_logo_custom_light.png"
 custom_logo_url: https://nf-co.re/taxprofiler
 custom_logo_title: "nf-core/taxprofiler"
+
+run_modules:
+    - fastqc
+    - adapterRemoval
+    - fastp
+    - bowtie2
+    - kraken
+    - malt
+
+#extra_fn_clean_exts:
+#    - '_fastp'
+#    - '.pe.settings'
+#    - '.se.settings'
+
+top_modules:
+  - 'fastqc':
+    name: "FastQC (pre-processing)"
+    path_filters:
+      - '*_raw.zip'
+  - 'fastp'
+  - 'fastqc':
+    name: "FastQC (post-processing)"
+    path_filters:
+      - '*_processed.zip'
+  - 'kraken':
+    name: "Kraken"
+    path_filters:
+      - '*kraken.report'
+  - 'kraken':
+    name: Centrifuge"
+    path_filters:
+      - '*centrifuge.kreport'

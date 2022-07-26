@@ -127,7 +127,7 @@ workflow PROFILING {
                                 }
 
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassification )
-        ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report.collect{it[1]}.ifEmpty([])  )
+        ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report  )
         ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
         ch_raw_profiles        = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.report )
@@ -152,6 +152,7 @@ workflow PROFILING {
         ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
         ch_raw_profiles        = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
+        ch_multiqc_files       = ch_multiqc_files.mix( CENTRIFUGE_KREPORT.out.kreport )
 
     }
 
