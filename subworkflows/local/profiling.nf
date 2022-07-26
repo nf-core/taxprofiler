@@ -127,7 +127,7 @@ workflow PROFILING {
                                 }
 
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassification )
-        ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report.dump(tag: "hello")  )
+        ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report )
         ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
         ch_raw_profiles        = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.report )
@@ -228,7 +228,7 @@ workflow PROFILING {
         MOTUS_PROFILE ( ch_input_for_motus.reads, ch_input_for_motus.db )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
-        ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log.map{it[1]} )
+        ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
     }
 
     emit:
