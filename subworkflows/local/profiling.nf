@@ -110,7 +110,7 @@ workflow PROFILING {
                                 }
 
         MEGAN_RMA2INFO (ch_maltrun_for_megan, params.malt_generate_megansummary )
-        ch_multiqc_files       = ch_multiqc_files.mix( MALT_RUN.out.log.collect{it[1]}.ifEmpty([])  )
+        ch_multiqc_files       = ch_multiqc_files.mix( MALT_RUN.out.log )
         ch_versions            = ch_versions.mix( MALT_RUN.out.versions.first(), MEGAN_RMA2INFO.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( ch_maltrun_for_megan )
         ch_raw_profiles        = ch_raw_profiles.mix( MEGAN_RMA2INFO.out.txt )
@@ -127,7 +127,7 @@ workflow PROFILING {
                                 }
 
         KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassification )
-        ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report.collect{it[1]}.ifEmpty([])  )
+        ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report )
         ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
         ch_raw_profiles        = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.report )
@@ -185,7 +185,7 @@ workflow PROFILING {
 
         KAIJU_KAIJU ( ch_input_for_kaiju.reads, ch_input_for_kaiju.db)
         KAIJU_KAIJU2TABLE (KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_name)
-        ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary.collect{it[1]}.ifEmpty([])  )
+        ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary  )
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
         ch_raw_profiles = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE.out.summary )
@@ -227,7 +227,7 @@ workflow PROFILING {
         MOTUS_PROFILE ( ch_input_for_motus.reads, ch_input_for_motus.db )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
-        ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log.map{it[1]} )
+        ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
     }
 
     emit:
