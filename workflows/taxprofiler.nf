@@ -266,7 +266,7 @@ workflow TAXPROFILER {
         ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
     }
 
-    ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc )
+    ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc.collect{it[1]}.ifEmpty([]) )
 
     // TODO create multiQC module for metaphlan
     MULTIQC (
