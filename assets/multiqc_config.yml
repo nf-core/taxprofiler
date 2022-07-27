@@ -47,6 +47,7 @@ top_modules:
       anchor: "centrifuge"
       target: "Centrifuge"
       doi: "10.1101/gr.210641.116"
-      info: "Centrifuge is a very rapid and memory-efficient system for the classification of DNA sequences from microbial samples. The system uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index."
+      info: "is a very rapid and memory-efficient system for the classification of DNA sequences from microbial samples. The system uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index. Note: Figure title"
+      extra: "Note: plot title will say Kraken2 due to Centrifuge producing the same output format as Kraken. If activated, see the actual Kraken2 results in the section above."
       path_filters:
         - "*.centrifuge.txt"
