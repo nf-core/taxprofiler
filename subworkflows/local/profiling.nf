@@ -148,7 +148,7 @@ workflow PROFILING {
                                 }
 
         CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads, params.centrifuge_save_reads  )
-        CENTRIFUGE_KREPORT (CENTRIFUGE_CENTRIFUGE.out.results, ch_input_for_centrifuge.db)
+        CENTRIFUGE_KREPORT (CENTRIFUGE_CENTRIFUGE.out.report, ch_input_for_centrifuge.db)
         ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
         ch_raw_profiles        = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
