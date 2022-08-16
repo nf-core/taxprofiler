@@ -41,6 +41,14 @@
                     "branch": "master",
                     "git_sha": "3531824af826c16cd252bc5aa82ae169b244ebaa"
                 },
+                "eido/convert": {
+                    "branch": "master",
+                    "git_sha": "c9b29c76869d9713130a13a418c1e8b5aecfb80d"
+                },
+                "eido/validate": {
+                    "branch": "master",
+                    "git_sha": "8c0127e071711cb0a2648a6bdf881637a9d7eadc"
+                },
                 "fastp": {
                     "branch": "master",
                     "git_sha": "2c70c1c1951aaf884d2e8d8d9c871db79f7b35aa"

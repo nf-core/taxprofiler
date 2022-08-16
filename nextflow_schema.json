@@ -10,8 +10,13 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "databases", "outdir"],
+            "required": ["outdir", "databases"],
             "properties": {
+                "pep": {
+                    "type": "string",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.yaml$"
+                },
                 "input": {
                     "type": "string",
                     "format": "file-path",

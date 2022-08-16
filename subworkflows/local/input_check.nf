@@ -3,13 +3,18 @@
 //
 
 include { SAMPLESHEET_CHECK } from '../../modules/local/samplesheet_check'
+include { EIDO_VALIDATE } from '../../modules/nf-core/modules/eido/validate/main'
+include { EIDO_CONVERT } from '../../modules/nf-core/modules/eido/convert/main'
 
 workflow INPUT_CHECK {
     take:
-    samplesheet // file: /path/to/samplesheet.csv
+    samplesheet_or_pep_config // file: /path/to/samplesheet.csv or /path/to/pep/config.yaml
+    base_dir // file: path to PEP directory
 
     main:
-    parsed_samplesheet = SAMPLESHEET_CHECK ( samplesheet )
+    EIDO_VALIDATE ( samplesheet_or_pep_config, file("$projectDir/assets/samplesheet_schema.yaml") )
+    converted_samplesheet = EIDO_CONVERT ( samplesheet_or_pep_config, "csv" )
+    parsed_samplesheet = SAMPLESHEET_CHECK ( converted_samplesheet.samplesheet_converted )
         .csv
         .splitCsv ( header:true, sep:',' )
         .branch {

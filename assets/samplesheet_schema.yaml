@@ -1,0 +1,55 @@
+description: A schema for validation of samplesheet.csv for taxprofiler pipeline.
+imports:
+  - https://schema.databio.org/pep/2.1.0.yaml
+properties:
+  samples:
+    type: array
+    items:
+      type: object
+      properties:
+        sample:
+          type: string
+          description: "Sample identifier."
+          pattern: "^\\S*$"
+        run_accession:
+          type: string
+          description: "Run accession number."
+        instrument_platform:
+          type: string
+          description: "Name of the platform that sequenced the samples."
+          enum:
+            [
+              "ABI_SOLID",
+              "BGISEQ",
+              "CAPILLARY",
+              "COMPLETE_GENOMICS",
+              "DNBSEQ",
+              "HELICOS",
+              "ILLUMINA",
+              "ION_TORRENT",
+              "LS454",
+              "OXFORD_NANOPORE",
+              "PACBIO_SMRT",
+            ]
+        fastq1:
+          type: ["string", "null"]
+          description: "FASTQ file for read 1."
+          pattern: "^[\\S]+.(fq\\.gz|fastq\\.gz)$"
+        fastq2:
+          type: ["string", "null"]
+          description: "FASTQ file for read 2."
+          pattern: "^[\\S]+.(fq\\.gz|fastq\\.gz)$"
+        fasta:
+          type: ["string", "null"]
+          description: "Path to FASTA file."
+          pattern: "^[\\S]+.(fa\\.gz|fasta\\.gz)$"
+      required:
+        - sample
+        - run_accession
+        - instrument_platform
+      files:
+        - fastq1
+        - fastq2
+        - fasta
+required:
+  - samples

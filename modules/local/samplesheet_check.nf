@@ -13,11 +13,9 @@ process SAMPLESHEET_CHECK {
     path '*.csv'       , emit: csv
     path "versions.yml", emit: versions
 
-    script: // This script is bundled with the pipeline, in nf-core/taxprofiler/bin/
+    script: // detect_reads.py script is bundled with the pipeline, in nf-core/taxprofiler/bin/
     """
-    check_samplesheet.py \\
-        $samplesheet \\
-        samplesheet.valid.csv
+    python3 $projectDir/bin/detect_reads.py $samplesheet samplesheet_validated.csv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
