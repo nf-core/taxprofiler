@@ -100,7 +100,7 @@ def check_samplesheet(file_in, file_out):
             sys.exit(1)
 
         ## Find locations of mandatory columns
-        header_locs = dict()
+        header_locs = {}
         for i in HEADER:
             header_locs[i] = header.index(i)
 
