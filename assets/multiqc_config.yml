@@ -21,6 +21,7 @@ run_modules:
   - bowtie2
   - kraken
   - malt
+  - custom_content
 
 #extra_fn_clean_exts:
 #    - '_fastp'
