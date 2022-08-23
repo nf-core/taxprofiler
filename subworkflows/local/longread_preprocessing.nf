@@ -23,13 +23,16 @@ workflow LONGREAD_PREPROCESSING {
                                                 def meta_new = meta.clone()
                                                 meta_new['single_end'] = 1
                                                 [ meta_new, reads ]
+                                        }
 
         ch_versions = ch_versions.mix(PORECHOP.out.versions.first())
-                                            }
+        ch_multiqc_files = ch_multiqc_files.mix( PORECHOP.out.log )
+
     } else if ( !params.longread_qc_run_clip && params.longread_qc_run_filter ) {
 
         ch_processed_reads = FILTLONG ( reads.map{ meta, reads -> [meta, [], reads ]} )
         ch_versions = ch_versions.mix(FILTLONG.out.versions.first())
+        ch_multiqc_files = ch_multiqc_files.mix( FILTLONG.out.log )
 
     } else {
         PORECHOP ( reads )
@@ -45,7 +48,8 @@ workflow LONGREAD_PREPROCESSING {
 
         ch_versions = ch_versions.mix(PORECHOP.out.versions.first())
         ch_versions = ch_versions.mix(FILTLONG.out.versions.first())
-
+        ch_multiqc_files = ch_multiqc_files.mix( PORECHOP.out.log )
+        ch_multiqc_files = ch_multiqc_files.mix( FILTLONG.out.log )
     }
 
     FASTQC_PROCESSED ( ch_processed_reads )

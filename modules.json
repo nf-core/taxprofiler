@@ -22,13 +22,13 @@
                 "git_sha": "d2726fcf75063960f06b36d2229a4c0966614108"
             },
             "centrifuge/kreport": {
-                "git_sha": "be4ae28c3c95b3c4047a7d9fb4cb0ed749631cea"
+                "git_sha": "734d0db6079a4aa43b6509b207e5d6feb35d4838"
             },
             "custom/dumpsoftwareversions": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "diamond/blastx": {
-                "git_sha": "bd3bfe0817246082525ab93707976676b1fe208b"
+                "git_sha": "3531824af826c16cd252bc5aa82ae169b244ebaa"
             },
             "fastp": {
                 "git_sha": "d0a1cbb703a130c19f6796c3fce24fbe7dfce789"
@@ -37,7 +37,7 @@
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "filtlong": {
-                "git_sha": "089f761f0bf79c4a486f1df9b6205f650196a2c1"
+                "git_sha": "957cb9b83668075f4af101fc99502908cca487e3"
             },
             "gunzip": {
                 "git_sha": "9aadd9a6d3f5964476582319b3a1c54a3e3fe7c9"
@@ -81,14 +81,17 @@
             "minimap2/index": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
+            "motus/merge": {
+                "git_sha": "b02e648c221e1da17cb589eefe297e61ec9e9c49"
+            },
             "motus/profile": {
-                "git_sha": "6b960f0e75bbb4d5bd301cd3875fa078d0eab4d1"
+                "git_sha": "b6ed584443ad68ac41e6975994139454a4f23c18"
             },
             "multiqc": {
                 "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
             },
             "porechop": {
-                "git_sha": "e20e57f90b6787ac9a010a980cf6ea98bd990046"
+                "git_sha": "b78e19b9dae3671db2c7d4346fe04452c1debfab"
             },
             "prinseqplusplus": {
                 "git_sha": "f1c5384c31e985591716afdd732cf8c2ae29d05b"

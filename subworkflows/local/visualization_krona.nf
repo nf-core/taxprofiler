@@ -81,6 +81,7 @@ workflow VISUALIZATION_KRONA {
     ch_krona_text_for_import = ch_cleaned_krona_text
         .map{[[id: it[0]['db_name'], tool: it[0]['tool']], it[1]]}
         .groupTuple()
+
     KRONA_KTIMPORTTEXT( ch_krona_text_for_import )
     ch_krona_html = ch_krona_html.mix( KRONA_KTIMPORTTEXT.out.html )
     ch_versions = ch_versions.mix( KRONA_KTIMPORTTEXT.out.versions.first() )
@@ -103,7 +104,6 @@ workflow VISUALIZATION_KRONA {
         ch_krona_taxonomy_for_input = ch_megantxt_for_gunzip
             .map{[[id: it[0]['db_name'], tool: it[0]['tool']], it[1]]}
             .groupTuple()
-            .dump(tag: "what")
 
         KRONA_KTIMPORTTAXONOMY ( ch_krona_taxonomy_for_input, file(params.krona_taxonomy_directory, checkExists: true) )
         ch_krona_html.mix( KRONA_KTIMPORTTAXONOMY.out.html )

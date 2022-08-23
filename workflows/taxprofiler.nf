@@ -65,6 +65,7 @@ include { LONGREAD_HOSTREMOVAL          } from '../subworkflows/local/longread_h
 include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_complexityfiltering'
 include { PROFILING                     } from '../subworkflows/local/profiling'
 include { VISUALIZATION_KRONA           } from '../subworkflows/local/visualization_krona'
+include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardisation_profiles'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -221,6 +222,14 @@ workflow TAXPROFILER {
     }
 
     /*
+        SUBWORKFLOW: PROFILING STANDARDISATION
+    */
+    if ( params.run_profile_standardisation ) {
+        STANDARDISATION_PROFILES ( PROFILING.out.classifications, PROFILING.out.profiles, DB_CHECK.out.dbs, PROFILING.out.motus_version )
+        ch_versions = ch_versions.mix( STANDARDISATION_PROFILES.out.versions )
+    }
+
+    /*
         MODULE: MultiQC
     */
 
@@ -257,7 +266,7 @@ workflow TAXPROFILER {
         ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
     }
 
-    ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc )
+    ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc.collect{it[1]}.ifEmpty([]) )
 
     // TODO create multiQC module for metaphlan
     MULTIQC (
