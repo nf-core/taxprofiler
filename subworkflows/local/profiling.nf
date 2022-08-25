@@ -185,7 +185,7 @@ workflow PROFILING {
                             }
 
         KAIJU_KAIJU ( ch_input_for_kaiju.reads, ch_input_for_kaiju.db)
-        KAIJU_KAIJU2TABLE (KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_name)
+        KAIJU_KAIJU2TABLE (KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_rank)
         ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary )
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
@@ -209,7 +209,7 @@ workflow PROFILING {
         DIAMOND_BLASTX ( ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format , [] )
         ch_versions        = ch_versions.mix( DIAMOND_BLASTX.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( DIAMOND_BLASTX.out.tsv )
-        ch_multiqc_files   = ch_multiqc_files.mix( DIAMOND_BLASTX.out.log ) 
+        ch_multiqc_files   = ch_multiqc_files.mix( DIAMOND_BLASTX.out.log )
 
     }
 

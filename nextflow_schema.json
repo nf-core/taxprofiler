@@ -12,6 +12,7 @@
             "description": "Define where the pipeline should find input data and save output data.",
             "required": [
                 "input",
+                "databases",
                 "outdir"
             ],
             "properties": {
@@ -21,15 +22,17 @@
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
                     "schema": "assets/schema_input.json",
-                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/usage#samplesheet-input).",
+                    "description": "Path to comma-separated file containing information about the samples and libraries/runs.",
+                    "help_text": "You will need to create a design file with information about the samples and libraries/runs you want to running in your pipeline run. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
                 "databases": {
                     "type": "string",
                     "mimetype": "text/csv",
                     "format": "file-path",
-                    "default": "None"
+                    "fa_icon": "fas fa-database",
+                    "description": "Path to comma-separated file containing information about databases and profiling parameters for each taxonomic profiler",
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 4 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/dev/usage#full-database-sheet).\n\nProfilers will only be executed if a corresponding  database are supplied. \n\nWe recommend storing this database sheet somewhere centrally and accessible by others members of your lab/institutions, as this file will likely be regularly reused."
                 },
                 "outdir": {
                     "type": "string",
@@ -51,35 +54,389 @@
                 }
             }
         },
-        "reference_genome_options": {
-            "title": "Reference genome options",
+        "preprocessing_general_qc_options": {
+            "title": "Preprocessing general QC options",
             "type": "object",
-            "fa_icon": "fas fa-dna",
-            "description": "Reference genome related files and options required for the workflow.",
+            "description": "Common options across both long and short read preprocessing QC steps",
+            "default": "",
             "properties": {
-                "genome": {
-                    "type": "string",
-                    "description": "Name of iGenomes reference.",
-                    "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details.",
-                    "hidden": true
-                },
-                "igenomes_base": {
-                    "type": "string",
-                    "format": "directory-path",
-                    "description": "Directory / URL base for iGenomes references.",
-                    "default": "s3://ngi-igenomes/igenomes",
-                    "fa_icon": "fas fa-cloud-download-alt",
-                    "hidden": true
-                },
-                "igenomes_ignore": {
+                "save_preprocessed_reads": {
                     "type": "boolean",
-                    "description": "Do not load the iGenomes reference config.",
-                    "fa_icon": "fas fa-ban",
-                    "hidden": true,
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
+                    "fa_icon": "fas fa-save",
+                    "description": "Save reads from adapter clipping/pair-merging, length filtering for both short and long reads",
+                    "help_text": "This saves the FASTQ output from the following tools:\n\n- FastP\n- AdapterRemoval\n- PoreChop\n- FiltLong\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
                 }
-            }
+            },
+            "fa_icon": "fas fa-users-cog"
+        },
+        "preprocessing_short_read_qc_options": {
+            "title": "Preprocessing short-read QC options",
+            "type": "object",
+            "description": "Options for adapter clipping, quality trimming, pair-merging, and complexity filtering",
+            "default": "",
+            "properties": {
+                "perform_shortread_qc": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turns on short read quality control steps (adapter clipping, complexity filtering etc.)"
+                },
+                "shortread_qc_tool": {
+                    "type": "string",
+                    "default": "fastp",
+                    "enum": [
+                        "fastp",
+                        "adapterremoval"
+                    ],
+                    "fa_icon": "fas fa-tools",
+                    "description": "Specify which tool to use for read QC"
+                },
+                "shortread_qc_skipadaptertrim": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-forward",
+                    "description": "Skip adapter trimming"
+                },
+                "shortread_qc_adapter1": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-grip-lines",
+                    "description": "Specify adapter 1 nucleotide sequence"
+                },
+                "shortread_qc_adapter2": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-grip-lines",
+                    "description": "Specify adapter 2 nucleotide sequence"
+                },
+                "shortread_qc_mergepairs": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on merging of read pairs for paired-end data"
+                },
+                "shortread_qc_excludeunmerged": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-times-circle",
+                    "description": "Discard unmerged reads from paired-end merging"
+                },
+                "shortread_qc_minlength": {
+                    "type": "integer",
+                    "default": 15,
+                    "fa_icon": "fas fa-ruler-horizontal",
+                    "description": "Specify the minimum length of reads"
+                },
+                "perform_shortread_complexityfilter": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turns on nucleotide sequence complexity filtering"
+                },
+                "shortread_complexityfilter_tool": {
+                    "type": "string",
+                    "default": "bbduk",
+                    "enum": [
+                        "bbduk",
+                        "prinseqplusplus",
+                        "fastp"
+                    ],
+                    "fa_icon": "fas fa-hammer",
+                    "description": "Specify which tool to use for complexity filtering"
+                },
+                "shortread_complexityfilter_entropy": {
+                    "type": "number",
+                    "default": 0.3,
+                    "fa_icon": "fas fa-random",
+                    "description": "Specify the minimum sequence entropy level for complexity filtering"
+                },
+                "shortread_complexityfilter_bbduk_windowsize": {
+                    "type": "integer",
+                    "default": 50,
+                    "fa_icon": "far fa-window-maximize",
+                    "description": "Specify the window size for BBDuk complexity filtering"
+                },
+                "shortread_complexityfilter_bbduk_mask": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-mask",
+                    "description": "Turn on masking rather than discarding of low complexity reads for BBduk"
+                },
+                "shortread_complexityfilter_fastp_threshold": {
+                    "type": "integer",
+                    "default": 30,
+                    "fa_icon": "fas fa-sort-numeric-down",
+                    "description": "Specify the minimum complexity filter threshold of Fastp"
+                },
+                "shortread_complexityfilter_prinseqplusplus_mode": {
+                    "type": "string",
+                    "default": "entropy",
+                    "enum": [
+                        "entropy",
+                        "dust"
+                    ],
+                    "fa_icon": "fas fa-check-square",
+                    "description": "Specify the complexity filter mode for PRINSEQ++"
+                },
+                "shortread_complexityfilter_prinseqplusplus_dustscore": {
+                    "type": "number",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-head-side-mask",
+                    "description": "Specify the minimum dust score for PRINTSEQ++ complexity filtering"
+                },
+                "save_complexityfiltered_reads": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save complexity filtered short-reads"
+                }
+            },
+            "fa_icon": "fas fa-compress-alt"
+        },
+        "preprocessing_long_read_qc_options": {
+            "title": "Preprocessing long-read QC options",
+            "type": "object",
+            "description": "Options for adapter clipping, quality trimming, and length filtering",
+            "default": "",
+            "properties": {
+                "perform_longread_qc": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turns on long read quality control steps (adapter clipping, length filtering etc.)"
+                },
+                "longread_qc_run_clip": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on long-read adapter clipping"
+                },
+                "longread_qc_run_filter": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on Filtlong long-read length filtering"
+                },
+                "longread_qc_keep_percent": {
+                    "type": "integer",
+                    "default": 90,
+                    "fa_icon": "fas fa-percent",
+                    "description": "Specify minimum percentage of high-quality reads to keep during filtering"
+                },
+                "longread_qc_target_bases": {
+                    "type": "integer",
+                    "default": 500000000,
+                    "fa_icon": "fas fa-bullseye",
+                    "description": "Specify the target number of high-quality bases to retain overall during filtering"
+                },
+                "longread_qc_minlength": {
+                    "type": "integer",
+                    "default": 1000,
+                    "fa_icon": "fas fa-ruler-horizontal",
+                    "description": "Specify the minimum length of long-reads to retain during filtering"
+                }
+            },
+            "fa_icon": "fas fa-expand-alt"
+        },
+        "preprocessing_host_removal_options": {
+            "title": "Preprocessing host removal options",
+            "type": "object",
+            "description": "Options for pre-profiling host read removal",
+            "default": "",
+            "properties": {
+                "perform_shortread_hostremoval": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on short-read host removal"
+                },
+                "perform_longread_hostremoval": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on long-read host removal"
+                },
+                "hostremoval_reference": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-file-alt",
+                    "description": "Specify path to single reference FASTA of host(s) genome(s)"
+                },
+                "shortread_hostremoval_index": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-address-book",
+                    "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference"
+                },
+                "longread_hostremoval_index": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-address-book",
+                    "description": "Specify path to the directory containing pre-made Minimap2 indexes of the host removal reference"
+                },
+                "save_hostremoval_index": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save mapping index of input reference when not already supplied by user"
+                },
+                "save_hostremoval_mapped": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save mapped reads in BAM format from host removal"
+                },
+                "save_hostremoval_unmapped": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save unmapped reads in FASTQ format from host removal"
+                }
+            },
+            "fa_icon": "fas fa-user-times"
+        },
+        "preprocessing_run_merging_options": {
+            "title": "Preprocessing run merging options",
+            "type": "object",
+            "description": "Options for per-sample run-merging",
+            "default": "",
+            "properties": {
+                "perform_runmerging": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on run merging"
+                },
+                "save_runmerged_reads": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save run-concatenated input FASTQ files for each sample"
+                }
+            },
+            "fa_icon": "fas fa-clipboard-check"
+        },
+        "profiling_options": {
+            "title": "Profiling options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "run_centrifuge": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with Centrifuge. Requires database to be present CSV file passed to --databases"
+                },
+                "centrifuge_save_reads": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of Centrifuge-aligned reads"
+                },
+                "run_diamond": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with DIAMOND. Requires database to be present CSV file passed to --databases"
+                },
+                "diamond_output_format": {
+                    "type": "string",
+                    "default": "tsv",
+                    "enum": [
+                        "blast",
+                        "xml",
+                        "txt",
+                        "daa",
+                        "sam",
+                        "tsv",
+                        "paf"
+                    ],
+                    "fa_icon": "fas fa-file",
+                    "description": "Specify output format from DIAMOND profiling."
+                },
+                "diamond_save_reads": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of DIAMOND-aligned reads. Will override --diamond_output_format and no taxon tables will be generated"
+                },
+                "run_kaiju": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with Kaiju. Requires database to be present CSV file passed to --databases"
+                },
+                "kaiju_taxon_rank": {
+                    "type": "string",
+                    "default": "species",
+                    "enum": [
+                        "phylum",
+                        "class",
+                        "order",
+                        "family",
+                        "genus",
+                        "species"
+                    ],
+                    "fa_icon": "fas fa-tag",
+                    "description": "Specify taxonomic rank to be displayed in Kaiju taxon table"
+                },
+                "run_kraken2": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with Kraken2. Requires database to be present CSV file passed to --databases"
+                },
+                "kraken2_save_reads": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of Kraken2-aligned reads"
+                },
+                "kraken2_save_readclassification": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of Kraken2 per-read taxonomic assignment file"
+                },
+                "run_malt": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with MALT. Requires database to be present CSV file passed to --databases"
+                },
+                "malt_mode": {
+                    "type": "string",
+                    "default": "BlastN",
+                    "fa_icon": "fas fa-check-square",
+                    "description": "Specify which MALT alignment mode to use"
+                },
+                "malt_save_reads": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of MALT-aligned reads"
+                },
+                "malt_generate_megansummary": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on generation of MEGAN summary file from MALT results"
+                },
+                "run_metaphlan3": {
+                    "type": "boolean",
+                    "description": "Turn on profiling with MetaPhlAn3. Requires database to be present CSV file passed to --databases",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "run_motus": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with mOTUs. Requires database to be present CSV file passed to --databases"
+                }
+            },
+            "fa_icon": "fas fa-align-center"
+        },
+        "postprocessing_and_visualisation_options": {
+            "title": "Postprocessing and visualisation options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "run_profile_standardisation": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on standardisation of taxon tables across profilers"
+                },
+                "generate_biom_output": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on generation of BIOM output (currently only applies to mOTUs)"
+                },
+                "run_krona": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on generation of Krona plots for supported profilers"
+                },
+                "krona_taxonomy_directory": {
+                    "type": "string",
+                    "default": "None",
+                    "fa_icon": "fas fa-folder-open",
+                    "description": "Specify path to krona taxonomy directories (required for MALT krona plots)"
+                }
+            },
+            "fa_icon": "fas fa-chart-line"
         },
         "institutional_config_options": {
             "title": "Institutional config options",
@@ -256,272 +613,33 @@
                 }
             }
         },
-        "preprocessing_short_read_qc": {
-            "title": "Preprocessing - Short Read QC",
+        "reference_genome_options": {
+            "title": "Reference genome options",
             "type": "object",
-            "description": "",
-            "default": "",
+            "fa_icon": "fas fa-dna",
+            "description": "Reference genome related files and options required for the workflow.",
             "properties": {
-                "perform_shortread_qc": {
-                    "type": "boolean"
-                },
-                "shortread_qc_tool": {
+                "genome": {
                     "type": "string",
-                    "default": "fastp",
-                    "enum": [
-                        "fastp",
-                        "adapterremoval"
-                    ]
+                    "description": "Name of iGenomes reference.",
+                    "fa_icon": "fas fa-book",
+                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details.",
+                    "hidden": true
                 },
-                "shortread_qc_skipadaptertrim": {
-                    "type": "boolean"
-                },
-                "shortread_qc_adapter1": {
+                "igenomes_base": {
                     "type": "string",
-                    "default": "None"
+                    "format": "directory-path",
+                    "description": "Directory / URL base for iGenomes references.",
+                    "default": "s3://ngi-igenomes/igenomes",
+                    "fa_icon": "fas fa-cloud-download-alt",
+                    "hidden": true
                 },
-                "shortread_qc_adapter2": {
-                    "type": "string",
-                    "default": "None"
-                },
-                "shortread_qc_mergepairs": {
-                    "type": "boolean"
-                },
-                "shortread_qc_excludeunmerged": {
-                    "type": "boolean"
-                },
-                "shortread_qc_minlength": {
-                    "type": "integer",
-                    "default": 15
-                },
-                "perform_shortread_complexityfilter": {
-                    "type": "boolean"
-                },
-                "shortread_complexityfilter_tool": {
-                    "type": "string",
-                    "default": "bbduk",
-                    "enum": [
-                        "bbduk",
-                        "prinseqplusplus",
-                        "fastp"
-                    ]
-                },
-                "shortread_complexityfilter_entropy": {
-                    "type": "number",
-                    "default": 0.3
-                },
-                "shortread_complexityfilter_bbduk_windowsize": {
-                    "type": "integer",
-                    "default": 50
-                },
-                "shortread_complexityfilter_bbduk_mask": {
-                    "type": "boolean"
-                },
-                "shortread_complexityfilter_fastp_threshold": {
-                    "type": "integer",
-                    "default": 30
-                },
-                "shortread_complexityfilter_prinseqplusplus_mode": {
-                    "type": "string",
-                    "default": "entropy",
-                    "enum": [
-                        "entropy",
-                        "dust"
-                    ]
-                },
-                "shortread_complexityfilter_prinseqplusplus_dustscore": {
-                    "type": "number",
-                    "default": 0.5
-                },
-                "save_complexityfiltered_reads": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "profiling": {
-            "title": "Profiling",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "properties": {
-                "run_malt": {
-                    "type": "boolean"
-                },
-                "run_diamond": {
-                    "type": "boolean"
-                },
-                "malt_mode": {
-                    "type": "string",
-                    "default": "BlastN"
-                },
-                "kaiju_taxon_name": {
-                    "type": "string",
-                    "default": "species",
-                    "enum": [
-                        "phylum",
-                        "class",
-                        "order",
-                        "family",
-                        "genus",
-                        "species"
-                    ]
-                },
-                "run_centrifuge": {
-                    "type": "boolean"
-                },
-                "diamond_output_format": {
-                    "type": "string",
-                    "default": "tsv",
-                    "enum": [
-                        "blast",
-                        "xml",
-                        "txt",
-                        "daa",
-                        "sam",
-                        "tsv",
-                        "paf"
-                    ]
-                },
-                "malt_generate_megansummary": {
-                    "type": "boolean"
-                },
-                "run_metaphlan3": {
+                "igenomes_ignore": {
                     "type": "boolean",
-                    "description": "Enable MetaPhlAn for taxonomic profiling"
-                },
-                "centrifuge_save_reads": {
-                    "type": "boolean"
-                },
-                "run_kaiju": {
-                    "type": "boolean"
-                },
-                "kraken2_save_reads": {
-                    "type": "boolean"
-                },
-                "diamond_save_reads": {
-                    "type": "boolean"
-                },
-                "malt_save_reads": {
-                    "type": "boolean"
-                },
-                "run_motus": {
-                    "type": "boolean"
-                },
-                "kraken2_save_readclassification": {
-                    "type": "boolean"
-                },
-                "run_kraken2": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "preprocessing_general_qc": {
-            "title": "Preprocessing - General QC",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "properties": {
-                "save_preprocessed_reads": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "preprocessing_long_read_qc": {
-            "title": "Preprocessing - Long Read QC",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "properties": {
-                "perform_longread_qc": {
-                    "type": "boolean"
-                },
-                "longread_qc_run_clip": {
-                    "type": "boolean"
-                },
-                "longread_qc_run_filter": {
-                    "type": "boolean"
-                },
-                "longread_qc_keep_percent": {
-                    "type": "integer",
-                    "default": 90
-                },
-                "longread_qc_target_bases": {
-                    "type": "integer",
-                    "default": 500000000
-                },
-                "longread_qc_minlength": {
-                    "type": "integer",
-                    "default": 1000
-                },
-                "longread_hostremoval_index": {
-                    "type": "string",
-                    "default": "None"
-                }
-            }
-        },
-        "preprocessing_host_removal": {
-            "title": "Preprocessing - Host Removal",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "properties": {
-                "perform_shortread_hostremoval": {
-                    "type": "boolean"
-                },
-                "hostremoval_reference": {
-                    "type": "string",
-                    "default": "None"
-                },
-                "perform_longread_hostremoval": {
-                    "type": "boolean"
-                },
-                "save_hostremoval_mapped": {
-                    "type": "boolean"
-                },
-                "save_hostremoval_index": {
-                    "type": "boolean"
-                },
-                "save_hostremoval_unmapped": {
-                    "type": "boolean"
-                },
-                "shortread_hostremoval_index": {
-                    "type": "string",
-                    "default": "None"
-                }
-            }
-        },
-        "preprocessing_run_merging": {
-            "title": "Preprocessing - Run Merging",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "properties": {
-                "perform_runmerging": {
-                    "type": "boolean"
-                },
-                "save_runmerged_reads": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "postprocessing_and_visualisation": {
-            "title": "Postprocessing and Visualisation",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "properties": {
-                "run_profile_standardisation": {
-                    "type": "boolean"
-                },
-                "krona_taxonomy_directory": {
-                    "type": "string",
-                    "default": "None"
-                },
-                "run_krona": {
-                    "type": "boolean"
-                },
-                "generate_biom_output": {
-                    "type": "boolean"
+                    "description": "Do not load the iGenomes reference config.",
+                    "fa_icon": "fas fa-ban",
+                    "hidden": true,
+                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
                 }
             }
         }
@@ -531,7 +649,25 @@
             "$ref": "#/definitions/input_output_options"
         },
         {
-            "$ref": "#/definitions/reference_genome_options"
+            "$ref": "#/definitions/preprocessing_general_qc_options"
+        },
+        {
+            "$ref": "#/definitions/preprocessing_short_read_qc_options"
+        },
+        {
+            "$ref": "#/definitions/preprocessing_long_read_qc_options"
+        },
+        {
+            "$ref": "#/definitions/preprocessing_host_removal_options"
+        },
+        {
+            "$ref": "#/definitions/preprocessing_run_merging_options"
+        },
+        {
+            "$ref": "#/definitions/profiling_options"
+        },
+        {
+            "$ref": "#/definitions/postprocessing_and_visualisation_options"
         },
         {
             "$ref": "#/definitions/institutional_config_options"
@@ -543,25 +679,7 @@
             "$ref": "#/definitions/generic_options"
         },
         {
-            "$ref": "#/definitions/preprocessing_short_read_qc"
-        },
-        {
-            "$ref": "#/definitions/profiling"
-        },
-        {
-            "$ref": "#/definitions/preprocessing_general_qc"
-        },
-        {
-            "$ref": "#/definitions/preprocessing_long_read_qc"
-        },
-        {
-            "$ref": "#/definitions/preprocessing_host_removal"
-        },
-        {
-            "$ref": "#/definitions/preprocessing_run_merging"
-        },
-        {
-            "$ref": "#/definitions/postprocessing_and_visualisation"
+            "$ref": "#/definitions/reference_genome_options"
         }
     ]
 }
