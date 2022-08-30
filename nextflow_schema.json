@@ -407,18 +407,18 @@
         "longread_qc_skipadaptertrim": {
             "type": "boolean"
         },
-        "longread_qc_qualityfilter": {
+        "longread_qc_skipqualityfilter": {
             "type": "boolean"
         },
-        "longread_qc_qualityfilter_minlength": {
+        "longread_qc_skipqualityfilter_minlength": {
             "type": "integer",
             "default": 1000
         },
-        "longread_qc_qualityfilter_keeppercent": {
+        "longread_qc_skipqualityfilter_keeppercent": {
             "type": "integer",
             "default": 90
         },
-        "longread_qc_qualityfilter_targetbases": {
+        "longread_qc_skipqualityfilter_targetbases": {
             "type": "integer",
             "default": 500000000
         },
