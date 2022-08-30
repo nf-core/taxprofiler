@@ -10,7 +10,11 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "databases", "outdir"],
+            "required": [
+                "input",
+                "databases",
+                "outdir"
+            ],
             "properties": {
                 "input": {
                     "type": "string",
@@ -60,7 +64,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from adapter clipping/pair-merging, length filtering for both short and long reads",
-                    "help_text": "This saves the FASTQ output from the following tools:\n\n- FastP\n- AdapterRemoval\n- PoreChop\n- FiltLong\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
+                    "help_text": "This saves the FASTQ output from the following tools:\n\n- fastp\n- AdapterRemoval\n- PoreChop\n- FiltLong\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
                 }
             },
             "fa_icon": "fas fa-users-cog"
@@ -75,57 +79,72 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turns on short read quality control steps (adapter clipping, complexity filtering etc.)",
-                    "help_text": ""
+                    "help_text": "Turns on short read quality control steps (adapter clipping, complexity filtering etc.)\n\nThis subworkflow can perform:\n\n- Adapter removal\n- Read quality trimming\n- Read pair merging\n- Length filtering\n- Complexity filtering\n\nEither with fastp or AdapterRemoval.\n\nRemoving adapters (if present) is recommend to reduce false-postive hits that may occur from 'dirty' or 'contaminated' reference genomes in a profiling database that contain accidentially incorporated adapter sequences. Note that some, but not all, tools support paired-end alignment (utilising information about the insert covered by the pairs). However read pair merging in some cases can be recommend to increase read length (such as in aDNA). Length filtering, and/or complexity can speed up alignment by reducing the number of short unspecific reads that need to be aligned."
                 },
                 "shortread_qc_tool": {
                     "type": "string",
                     "default": "fastp",
-                    "enum": ["fastp", "adapterremoval"],
+                    "enum": [
+                        "fastp",
+                        "adapterremoval"
+                    ],
                     "fa_icon": "fas fa-tools",
-                    "description": "Specify which tool to use for read QC"
+                    "description": "Specify which tool to use for short-read QC"
                 },
                 "shortread_qc_skipadaptertrim": {
                     "type": "boolean",
                     "fa_icon": "fas fa-forward",
-                    "description": "Skip adapter trimming"
+                    "description": "Skip adapter trimming",
+                    "help_text": "Skip the removal of sequencing adapters. \n\nThis often can be useful to speed up run-time of the pipeline when analysing data downloaded from public databases such as the ENA or SRA, as adapters should already be removed (however we recommend to check FastQC results to ensure this is the case)."
                 },
                 "shortread_qc_adapter1": {
                     "type": "string",
                     "default": "None",
                     "fa_icon": "fas fa-grip-lines",
-                    "description": "Specify adapter 1 nucleotide sequence"
+                    "description": "Specify adapter 1 nucleotide sequence",
+                    "help_text": "Specify a custom forward or R1 adapter sequence to be removed off of reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp parameter `--adapter_sequence`. fastp default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCA`\n> - AdapterRemoval `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG`"
                 },
                 "shortread_qc_adapter2": {
                     "type": "string",
                     "default": "None",
                     "fa_icon": "fas fa-grip-lines",
-                    "description": "Specify adapter 2 nucleotide sequence"
+                    "description": "Specify adapter 2 nucleotide sequence",
+                    "help_text": "Specify a custom reverse or R2 adapter sequence to be removed off of reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp parameter `--adapter_sequence`. fastp default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT`\n> - AdapterRemoval `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT`"
                 },
                 "shortread_qc_mergepairs": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turn on merging of read pairs for paired-end data"
+                    "description": "Turn on merging of read pairs for paired-end data",
+                    "default": true,
+                    "help_text": "Turn on the merging of read-pairs of paired-end short read sequencing data for AdapterRemoval (this is performed automatically with fastp).\n\n> Modifies tool parameter(s):\n> - AdapterRemoval: `--collapse`\n"
                 },
                 "shortread_qc_excludeunmerged": {
                     "type": "boolean",
                     "fa_icon": "far fa-times-circle",
-                    "description": "Discard unmerged reads from paired-end merging"
+                    "description": "Discard unmerged reads from paired-end merging",
+                    "help_text": "Turns off the inclusion of unmerged reads in resulting processing FASTQ file of paired-end sequencing data when using `fastp`.\n\nThis can be useful in cases where you prefer to have very short reads (e.g. aDNA), thus excluding longer-reads or possibly faulty reads where one of the pair was discarded.\n\n> Modifies tool parameter(s):\n> - fastp: `--include_unmerged`\n"
                 },
                 "shortread_qc_minlength": {
                     "type": "integer",
                     "default": 15,
                     "fa_icon": "fas fa-ruler-horizontal",
-                    "description": "Specify the minimum length of reads to be retained"
+                    "description": "Specify the minimum length of reads to be retained",
+                    "help_text": "Specifying a mimum read length filtering can speed up profiling by reducing the number of short unspecific reads that need to be match/aligned to the database.\n\n> Modifies tool parameter(s):\n> - fastp: `--length_required`\n> - AdapterRemoval: `--minlength`"
                 },
                 "perform_shortread_complexityfilter": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turns on nucleotide sequence complexity filtering"
+                    "description": "Turns on nucleotide sequence complexity filtering",
+                    "help_text": "Turns on sequencing complexity filtering. Complexity filtering can be useful to increase run-time by removing unspecific read sequences that do not provide any informative taxon ID."
                 },
                 "shortread_complexityfilter_tool": {
                     "type": "string",
                     "default": "bbduk",
-                    "enum": ["bbduk", "prinseqplusplus", "fastp"],
+                    "enum": [
+                        "bbduk",
+                        "prinseqplusplus",
+                        "fastp"
+                    ],
                     "fa_icon": "fas fa-hammer",
                     "description": "Specify which tool to use for complexity filtering"
                 },
@@ -133,29 +152,36 @@
                     "type": "number",
                     "default": 0.3,
                     "fa_icon": "fas fa-random",
-                    "description": "Specify the minimum sequence entropy level for complexity filtering"
+                    "description": "Specify the minimum sequence entropy level for complexity filtering",
+                    "help_text": "Specify the minimum 'entropy' value for complexity filtering for BBDuk or PRINSEQ++.\n\nNote that this value will only be used for PRINSEQ++ if `--shortread_complexityfilter_prinseqplusplus_mode` is set to `entropy`.\n\nEntropy here corresponds to the amount of sequence variation exists within the read. Higher values correspond to more variety, and thus will likely reslut in more specific matching to a taxon's reference genome. The trade off here is fewer reads (or abundance information) available for having a confident identification.\n\n\n> Modifies tool parameter(s):\n> - BBDuk: `entropy=`\n> - PRINSEQ++:  `-lc_entropy`\n\n"
                 },
                 "shortread_complexityfilter_bbduk_windowsize": {
                     "type": "integer",
                     "default": 50,
                     "fa_icon": "far fa-window-maximize",
-                    "description": "Specify the window size for BBDuk complexity filtering"
+                    "description": "Specify the window size for BBDuk complexity filtering",
+                    "help_text": "Specify the window size to calculate the level entropy within for BBDuk.\n\n> Modifies tool parameter(s):\n> - BBDuk: `entropywindow=`"
                 },
                 "shortread_complexityfilter_bbduk_mask": {
                     "type": "boolean",
                     "fa_icon": "fas fa-mask",
-                    "description": "Turn on masking rather than discarding of low complexity reads for BBduk"
+                    "description": "Turn on masking rather than discarding of low complexity reads for BBduk",
+                    "help_text": "Turn on masking of low-complexity reads (i.e., replacement with `N`) rather than removal.\n\n> Modfies:\n> - BBDuk: `entropymask=`"
                 },
                 "shortread_complexityfilter_fastp_threshold": {
                     "type": "integer",
                     "default": 30,
                     "fa_icon": "fas fa-sort-numeric-down",
-                    "description": "Specify the minimum complexity filter threshold of Fastp"
+                    "description": "Specify the minimum complexity filter threshold of fastp",
+                    "help_text": "Specify the minimum sequence complexity value for fastp. This value corresponds to the percentage of bases that is different from it's adjacent bases.\n\n> Modifies tool parameter(s):\n> - fastp: `--complexity_threshold`"
                 },
                 "shortread_complexityfilter_prinseqplusplus_mode": {
                     "type": "string",
                     "default": "entropy",
-                    "enum": ["entropy", "dust"],
+                    "enum": [
+                        "entropy",
+                        "dust"
+                    ],
                     "fa_icon": "fas fa-check-square",
                     "description": "Specify the complexity filter mode for PRINSEQ++"
                 },
@@ -163,12 +189,14 @@
                     "type": "number",
                     "default": 0.5,
                     "fa_icon": "fas fa-head-side-mask",
-                    "description": "Specify the minimum dust score for PRINTSEQ++ complexity filtering"
+                    "description": "Specify the minimum dust score for PRINTSEQ++ complexity filtering",
+                    "help_text": "Specify the minimum dust score below which low-complexity reads will be removed. A DUST score is based on how often different tri-nucleotides occur along a read.\n\n> Modifies tool parameter(s):\n> - PRINSEQ++: `--lc_dust`"
                 },
                 "save_complexityfiltered_reads": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save complexity filtered short-reads"
+                    "description": "Save complexity filtered short-reads",
+                    "help_text": "Specify whether to save the final complexity filtered reads in your results directory (`--outdir`)."
                 }
             },
             "fa_icon": "fas fa-compress-alt"
@@ -182,35 +210,41 @@
                 "perform_longread_qc": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turns on long read quality control steps (adapter clipping, length filtering etc.)"
+                    "description": "Turns on long read quality control steps (adapter clipping, length filtering etc.)",
+                    "help_text": "Turns on long read quality control steps (adapter clipping, length and/or quality filtering.)\n\nRemoving adapters (if present) is recommend to reduce false-postive hits that may occur from 'dirty' or 'contaminated' reference genomes in a profiling database that contain accidentially incorporated adapter sequences.\n\nLength filtering, and quality filtering can speed up alignment by reducing the number of unspecific reads that need to be aligned."
                 },
                 "longread_qc_skipadaptertrim": {
                     "type": "boolean",
                     "description": "Skip long-read trimming",
-                    "fa_icon": "fas fa-forward"
+                    "fa_icon": "fas fa-forward",
+                    "help_text": "Skip removal of adapters by Porechop. This can be useful in some cases to speed up run time - particularly when you are running data downloading from public databases such as the ENA/SRA that should already have adapters removed. We recommend that you check your FastQC results this is indeed the case."
                 },
                 "longread_qc_skipqualityfilter": {
                     "type": "boolean",
                     "description": "Skip long-read length and quality filtering",
-                    "fa_icon": "fas fa-forward"
+                    "fa_icon": "fas fa-forward",
+                    "help_text": "Skip removal of quality filtering with Filtlong. This will skip length, percent reads, and target bases filtering (see other `--longread_qc_qualityfilter_*` parameters)."
                 },
                 "longread_qc_qualityfilter_minlength": {
                     "type": "integer",
                     "default": 1000,
                     "description": "Specify the minimum length of reads to be retained",
-                    "fa_icon": "fas fa-ruler-horizontal"
+                    "fa_icon": "fas fa-ruler-horizontal",
+                    "help_text": "Specify the minimum of length of reads to be kept for downstream analysis.\n\n> Modifies tool parameter(s):\n> - Filtlong: `--min_length`"
                 },
                 "longread_qc_qualityfilter_keeppercent": {
                     "type": "integer",
                     "default": 90,
-                    "description": "Specify the percent of high-quality reads to be retained",
-                    "fa_icon": "fas fa-percentage"
+                    "description": "Specify the percent of high-quality bases to be retained",
+                    "fa_icon": "fas fa-percentage",
+                    "help_text": "Throw out the remaining percentage of reads outside the value. This is measured by bp, not by read count. So this option throws out the worst e.g. 10% of read bases if the parameter is set to `90`.  _Modified from [Filtlong documentation](https://github.com/rrwick/Filtlong)_\n\n> Modifies tool parameter(s):\n> - Filtlong: `--keep_percent`"
                 },
                 "longread_qc_qualityfilter_targetbases": {
                     "type": "integer",
                     "default": 500000000,
-                    "description": "Specify the minimum number of high-quality bases in the library to be retained",
-                    "fa_icon": "fas fa-bullseye"
+                    "description": "Specify the number of high-quality bases in the library to be retained",
+                    "fa_icon": "fas fa-bullseye",
+                    "help_text": "Removes the worst reads until only the specified value of bases remain, useful for very large read sets. If the input read set is less than the specified value, this setting will have no effect. _Modified from [Filtlong documentation](https://github.com/rrwick/Filtlong)_\n\n> Modifies tool parameter(s):\n> - Filtlong: `--keep_percent`"
                 }
             },
             "fa_icon": "fas fa-expand-alt"
@@ -224,45 +258,53 @@
                 "perform_shortread_hostremoval": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turn on short-read host removal"
+                    "description": "Turn on short-read host removal",
+                    "help_text": "Turns on the ability to remove short-reads from the that derived from a known organism, using Bowtie2 and samtools\n\nThis subworkflow is useful to remove reads that may come from a host, or a known contamination like the human reference genome. Human DNA contamination of (microbial) reference genomes is well known, so removal of these prior profiling both reduces the risks of false positives, and in _some cases_ a faster runtime (as less reads need to be profiled).\n\nAlternatively, you can include the reference genome within your profiling databases and can turn off this subworkflow, with the trade off of a larger taxonomic profiling database."
                 },
                 "perform_longread_hostremoval": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turn on long-read host removal"
+                    "description": "Turn on long-read host removal",
+                    "help_text": "Turns on the ability to remove long-reads from the that derived from a known organism, using minimap2 and samtools\n\nThis subworkflow is useful to remove reads that may come from a host, or a known contamination like the human reference genome. Human DNA contamination of (microbial) reference genomes is well known, so removal of these prior profiling both reduces the risks of false positives, and in _some cases_ a faster runtime (as less reads need to be profiled).\n\nAlternatively, you can include the reference genome within your profiling databases and can turn off this subworkflow, with the trade off of a larger taxonomic profiling database."
                 },
                 "hostremoval_reference": {
                     "type": "string",
                     "default": "None",
                     "fa_icon": "fas fa-file-alt",
-                    "description": "Specify path to single reference FASTA of host(s) genome(s)"
+                    "description": "Specify path to single reference FASTA of host(s) genome(s)",
+                    "help_text": "Specify a path to the FASTA file of the reference genome of the organism to be removed.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
                 },
                 "shortread_hostremoval_index": {
                     "type": "string",
                     "default": "None",
                     "fa_icon": "fas fa-address-book",
-                    "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference"
+                    "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference",
+                    "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.). These should sit in the same directory alongside the the reference file specified in `--hostremoval_reference` .\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you"
                 },
                 "longread_hostremoval_index": {
                     "type": "string",
                     "default": "None",
                     "fa_icon": "fas fa-address-book",
-                    "description": "Specify path to the directory containing pre-made Minimap2 indexes of the host removal reference"
+                    "description": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference",
+                    "help_text": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference file given to `--hostremoval_reference`.\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
                 },
                 "save_hostremoval_index": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save mapping index of input reference when not already supplied by user"
+                    "description": "Save mapping index of input reference when not already supplied by user",
+                    "help_text": "Save the output files of the in-built indexing of the host genome.\n\nThis is recommend to be turned of if you plan to use the same reference genome multiple times, as supplying the directory or file to `--shortread_hostremoval_index` or `--longread_hostremoval_index` respectively can speed up runtime of future runs. Once generated, we recommend you place this file _outside_ of your run results directory in a central 'cache' directory you and others using your machine can access and supply to the pipeline."
                 },
                 "save_hostremoval_mapped": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save mapped reads in BAM format from host removal"
+                    "description": "Save mapped reads in BAM format from host removal",
+                    "help_text": "Save the reads mapped to the reference genome in BAM format as output by the respective hostremoval alignment tool.\n\nThis can be useful if you wish to perform other analyses on the host organism (such as host-microbe interaction), however, you should consider whether the default mapping parameters of Bowtie2 (short-read) or minimap2 (long-read) are optimised to your context. "
                 },
                 "save_hostremoval_unmapped": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save unmapped reads in FASTQ format from host removal"
+                    "description": "Save unmapped reads in FASTQ format from host removal",
+                    "help_text": "Save the unreads mapped to the reference genome in FASTQ format (as exported from `samtools view`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
                 }
             },
             "fa_icon": "fas fa-user-times"
@@ -276,12 +318,14 @@
                 "perform_runmerging": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turn on run merging"
+                    "description": "Turn on run merging",
+                    "help_text": "Turns on the concatenation of sequencing runs or libraries with the same sample name.\n\nThis can be useful to ensure you get a single profile per sample, rather than one profile per run or library. Note that in some cases comparing profiles of independent _libraries_ maybe useful, so this parameter may not always be suitable.  "
                 },
                 "save_runmerged_reads": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save run-concatenated input FASTQ files for each sample"
+                    "description": "Save run-concatenated input FASTQ files for each sample",
+                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format."
                 }
             },
             "fa_icon": "fas fa-clipboard-check"
@@ -310,7 +354,15 @@
                 "diamond_output_format": {
                     "type": "string",
                     "default": "tsv",
-                    "enum": ["blast", "xml", "txt", "daa", "sam", "tsv", "paf"],
+                    "enum": [
+                        "blast",
+                        "xml",
+                        "txt",
+                        "daa",
+                        "sam",
+                        "tsv",
+                        "paf"
+                    ],
                     "fa_icon": "fas fa-file",
                     "description": "Specify output format from DIAMOND profiling."
                 },
@@ -327,7 +379,14 @@
                 "kaiju_taxon_rank": {
                     "type": "string",
                     "default": "species",
-                    "enum": ["phylum", "class", "order", "family", "genus", "species"],
+                    "enum": [
+                        "phylum",
+                        "class",
+                        "order",
+                        "family",
+                        "genus",
+                        "species"
+                    ],
                     "fa_icon": "fas fa-tag",
                     "description": "Specify taxonomic rank to be displayed in Kaiju taxon table"
                 },
@@ -512,7 +571,14 @@
                     "description": "Method used to save pipeline results to output directory.",
                     "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
                     "fa_icon": "fas fa-copy",
-                    "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"],
+                    "enum": [
+                        "symlink",
+                        "rellink",
+                        "link",
+                        "copy",
+                        "copyNoFollow",
+                        "move"
+                    ],
                     "hidden": true
                 },
                 "email_on_fail": {
