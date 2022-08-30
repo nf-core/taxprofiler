@@ -74,7 +74,8 @@
                 "perform_shortread_qc": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turns on short read quality control steps (adapter clipping, complexity filtering etc.)"
+                    "description": "Turns on short read quality control steps (adapter clipping, complexity filtering etc.)",
+                    "help_text": ""
                 },
                 "shortread_qc_tool": {
                     "type": "string",
@@ -114,7 +115,7 @@
                     "type": "integer",
                     "default": 15,
                     "fa_icon": "fas fa-ruler-horizontal",
-                    "description": "Specify the minimum length of reads"
+                    "description": "Specify the minimum length of reads to be retained"
                 },
                 "perform_shortread_complexityfilter": {
                     "type": "boolean",
@@ -183,33 +184,33 @@
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turns on long read quality control steps (adapter clipping, length filtering etc.)"
                 },
-                "longread_qc_run_clip": {
+                "longread_qc_skipadaptertrim": {
                     "type": "boolean",
-                    "fa_icon": "fas fa-toggle-on",
-                    "description": "Turn on long-read adapter clipping"
+                    "description": "Skip long-read trimming",
+                    "fa_icon": "fas fa-forward"
                 },
-                "longread_qc_run_filter": {
+                "longread_qc_skipqualityfilter": {
                     "type": "boolean",
-                    "fa_icon": "fas fa-toggle-on",
-                    "description": "Turn on Filtlong long-read length filtering"
+                    "description": "Skip long-read length and quality filtering",
+                    "fa_icon": "fas fa-forward"
                 },
-                "longread_qc_keep_percent": {
-                    "type": "integer",
-                    "default": 90,
-                    "fa_icon": "fas fa-percent",
-                    "description": "Specify minimum percentage of high-quality reads to keep during filtering"
-                },
-                "longread_qc_target_bases": {
-                    "type": "integer",
-                    "default": 500000000,
-                    "fa_icon": "fas fa-bullseye",
-                    "description": "Specify the target number of high-quality bases to retain overall during filtering"
-                },
-                "longread_qc_minlength": {
+                "longread_qc_qualityfilter_minlength": {
                     "type": "integer",
                     "default": 1000,
-                    "fa_icon": "fas fa-ruler-horizontal",
-                    "description": "Specify the minimum length of long-reads to retain during filtering"
+                    "description": "Specify the minimum length of reads to be retained",
+                    "fa_icon": "fas fa-ruler-horizontal"
+                },
+                "longread_qc_qualityfilter_keeppercent": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Specify the percent of high-quality reads to be retained",
+                    "fa_icon": "fas fa-percentage"
+                },
+                "longread_qc_qualityfilter_targetbases": {
+                    "type": "integer",
+                    "default": 500000000,
+                    "description": "Specify the minimum number of high-quality bases in the library to be retained",
+                    "fa_icon": "fas fa-bullseye"
                 }
             },
             "fa_icon": "fas fa-expand-alt"
