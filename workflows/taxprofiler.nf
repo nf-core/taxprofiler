@@ -22,7 +22,6 @@ if (params.databases) { ch_databases = file(params.databases) } else { exit 1, '
 
 if (params.shortread_qc_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
 if (params.shortread_qc_excludeunmerged && !params.shortread_qc_mergepairs) exit 1, "ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging not turned on. Please specify --shortread_qc_mergepairs"
-if ( (params.longread_qc_run_clip || params.longread_qc_run_filter) & !params.perform_longread_qc ) exit 1, "ERROR: [nf-core/taxprofiler] --longread_qc_run_clip or --longread_qc_run_filter requested but quality-control not turned on. Please specify --perform_long_qc"
 
 if (params.shortread_complexityfilter_tool == 'fastp' && ( params.perform_shortread_qc == false || params.shortread_qc_tool != 'fastp' ))  exit 1, "ERROR: [nf-core/taxprofiler] cannot use fastp complexity filtering if preprocessing not turned on and/or tool is not fastp. Please specify --perform_shortread_qc and/or --shortread_qc_tool 'fastp'"
 

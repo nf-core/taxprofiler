@@ -404,21 +404,21 @@
             "type": "integer",
             "default": 30
         },
-        "longread_qc_run_clip": {
+        "longread_qc_skipadaptertrim": {
             "type": "boolean"
         },
-        "longread_qc_run_filter": {
+        "longread_qc_skipqualityfilter": {
             "type": "boolean"
         },
-        "longread_qc_minlength": {
+        "longread_qc_qualityfilter_minlength": {
             "type": "integer",
             "default": 1000
         },
-        "longread_qc_keep_percent": {
+        "longread_qc_qualityfilter_keeppercent": {
             "type": "integer",
             "default": 90
         },
-        "longread_qc_target_bases": {
+        "longread_qc_qualityfilter_targetbases": {
             "type": "integer",
             "default": 500000000
         },

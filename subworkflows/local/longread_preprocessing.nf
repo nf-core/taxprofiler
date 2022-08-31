@@ -14,7 +14,7 @@ workflow LONGREAD_PREPROCESSING {
     ch_versions      = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    if ( params.longread_qc_run_clip && !params.longread_qc_run_filter ) {
+    if ( !params.longread_qc_skipadaptertrim && params.longread_qc_skipqualityfilter) {
         PORECHOP ( reads )
 
         ch_processed_reads = PORECHOP.out.reads
@@ -28,7 +28,7 @@ workflow LONGREAD_PREPROCESSING {
         ch_versions = ch_versions.mix(PORECHOP.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix( PORECHOP.out.log )
 
-    } else if ( !params.longread_qc_run_clip && params.longread_qc_run_filter ) {
+    } else if ( params.longread_qc_skipadaptertrim && !params.longread_qc_skipqualityfilter) {
 
         ch_processed_reads = FILTLONG ( reads.map{ meta, reads -> [meta, [], reads ]} )
         ch_versions = ch_versions.mix(FILTLONG.out.versions.first())
