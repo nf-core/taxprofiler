@@ -60,7 +60,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from adapter clipping/pair-merging, length filtering for both short and long reads",
-                    "help_text": "This saves the FASTQ output from the following tools:\n\n- fastp\n- AdapterRemoval\n- PoreChop\n- FiltLong\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
+                    "help_text": "This saves the FASTQ output from the following tools:\n\n- fastp\n- AdapterRemoval\n- Porechop\n- Filtlong\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
                 }
             },
             "fa_icon": "fas fa-users-cog"
@@ -95,14 +95,14 @@
                     "default": "None",
                     "fa_icon": "fas fa-grip-lines",
                     "description": "Specify adapter 1 nucleotide sequence",
-                    "help_text": "Specify a custom forward or R1 adapter sequence to be removed off of reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp parameter `--adapter_sequence`. fastp default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCA`\n> - AdapterRemoval `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG`"
+                    "help_text": "Specify a custom forward or R1 adapter sequence to be removed from reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCA`\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG`"
                 },
                 "shortread_qc_adapter2": {
                     "type": "string",
                     "default": "None",
                     "fa_icon": "fas fa-grip-lines",
                     "description": "Specify adapter 2 nucleotide sequence",
-                    "help_text": "Specify a custom reverse or R2 adapter sequence to be removed off of reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp parameter `--adapter_sequence`. fastp default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT`\n> - AdapterRemoval `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT`"
+                    "help_text": "Specify a custom reverse or R2 adapter sequence to be removed from reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT`\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT`"
                 },
                 "shortread_qc_mergepairs": {
                     "type": "boolean",
@@ -115,14 +115,14 @@
                     "type": "boolean",
                     "fa_icon": "far fa-times-circle",
                     "description": "Discard unmerged reads from paired-end merging",
-                    "help_text": "Turns off the inclusion of unmerged reads in resulting processing FASTQ file of paired-end sequencing data when using `fastp`.\n\nThis can be useful in cases where you prefer to have very short reads (e.g. aDNA), thus excluding longer-reads or possibly faulty reads where one of the pair was discarded.\n\n> Modifies tool parameter(s):\n> - fastp: `--include_unmerged`\n"
+                    "help_text": "Turns off the inclusion of unmerged reads in resulting processing FASTQ file of paired-end sequencing data when using `fastp`.\n\nThis can be useful in cases where you prefer to have very short reads (e.g. aDNA), thus excluding longer-reads or possibly faulty reads where one of the pair was discarded.\n\n> Modifies tool parameter(s):\n> - removed from reads `--include_unmerged`\n"
                 },
                 "shortread_qc_minlength": {
                     "type": "integer",
                     "default": 15,
                     "fa_icon": "fas fa-ruler-horizontal",
                     "description": "Specify the minimum length of reads to be retained",
-                    "help_text": "Specifying a mimum read length filtering can speed up profiling by reducing the number of short unspecific reads that need to be match/aligned to the database.\n\n> Modifies tool parameter(s):\n> - fastp: `--length_required`\n> - AdapterRemoval: `--minlength`"
+                    "help_text": "Specifying a mimum read length filtering can speed up profiling by reducing the number of short unspecific reads that need to be match/aligned to the database.\n\n> Modifies tool parameter(s):\n> - removed from reads `--length_required`\n> - AdapterRemoval: `--minlength`"
                 },
                 "perform_shortread_complexityfilter": {
                     "type": "boolean",
@@ -155,14 +155,14 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-mask",
                     "description": "Turn on masking rather than discarding of low complexity reads for BBduk",
-                    "help_text": "Turn on masking of low-complexity reads (i.e., replacement with `N`) rather than removal.\n\n> Modfies:\n> - BBDuk: `entropymask=`"
+                    "help_text": "Turn on masking of low-complexity reads (i.e., replacement with `N`) rather than removal.\n\n> Modifies tool parameter(s)\n> - BBDuk: `entropymask=`"
                 },
                 "shortread_complexityfilter_fastp_threshold": {
                     "type": "integer",
                     "default": 30,
                     "fa_icon": "fas fa-sort-numeric-down",
                     "description": "Specify the minimum complexity filter threshold of fastp",
-                    "help_text": "Specify the minimum sequence complexity value for fastp. This value corresponds to the percentage of bases that is different from it's adjacent bases.\n\n> Modifies tool parameter(s):\n> - fastp: `--complexity_threshold`"
+                    "help_text": "Specify the minimum sequence complexity value for fastp. This value corresponds to the percentage of bases that is different from it's adjacent bases.\n\n> Modifies tool parameter(s):\n> - removed from reads `--complexity_threshold`"
                 },
                 "shortread_complexityfilter_prinseqplusplus_mode": {
                     "type": "string",
@@ -258,14 +258,14 @@
                     "default": "None",
                     "fa_icon": "fas fa-file-alt",
                     "description": "Specify path to single reference FASTA of host(s) genome(s)",
-                    "help_text": "Specify a path to the FASTA file of the reference genome of the organism to be removed.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
+                    "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
                 },
                 "shortread_hostremoval_index": {
                     "type": "string",
                     "default": "None",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference",
-                    "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.). These should sit in the same directory alongside the the reference file specified in `--hostremoval_reference` .\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you"
+                    "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.). These should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
                 },
                 "longread_hostremoval_index": {
                     "type": "string",
@@ -278,7 +278,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save mapping index of input reference when not already supplied by user",
-                    "help_text": "Save the output files of the in-built indexing of the host genome.\n\nThis is recommend to be turned of if you plan to use the same reference genome multiple times, as supplying the directory or file to `--shortread_hostremoval_index` or `--longread_hostremoval_index` respectively can speed up runtime of future runs. Once generated, we recommend you place this file _outside_ of your run results directory in a central 'cache' directory you and others using your machine can access and supply to the pipeline."
+                    "help_text": "Save the output files of the in-built indexing of the host genome.\n\nThis is recommend to be turned on if you plan to use the same reference genome multiple times, as supplying the directory or file to `--shortread_hostremoval_index` or `--longread_hostremoval_index` respectively can speed up runtime of future runs. Once generated, we recommend you place this file _outside_ of your run results directory in a central 'cache' directory you and others using your machine can access and supply to the pipeline."
                 },
                 "save_hostremoval_mapped": {
                     "type": "boolean",
@@ -305,7 +305,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on run merging",
-                    "help_text": "Turns on the concatenation of sequencing runs or libraries with the same sample name.\n\nThis can be useful to ensure you get a single profile per sample, rather than one profile per run or library. Note that in some cases comparing profiles of independent _libraries_ maybe useful, so this parameter may not always be suitable.  "
+                    "help_text": "Turns on the concatenation of sequencing runs or libraries with the same sample name.\n\nThis can be useful to ensure you get a single profile per sample, rather than one profile per run or library. Note that in some cases comparing profiles of independent _libraries_ may be useful, so this parameter may not always be suitable.  "
                 },
                 "save_runmerged_reads": {
                     "type": "boolean",
@@ -331,7 +331,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Turn on saving of Centrifuge-aligned reads",
-                    "help_text": "Save mapped (SAM, FASTQ) and unmapped (FASTQ) reads from alignment step of centrifuge in your output results directory.\n\n> Modifies  tool parameter(s):\n> centrifuge: `--un-gz`, `--al-gz`, `--un-conc-gz`, `--al-conc-gz`, `--out-fmt`"
+                    "help_text": "Save mapped (SAM, FASTQ) and unmapped (FASTQ) reads from alignment step of centrifuge in your output results directory.\n\n> Modifies tool parameter(s):\n> - centrifuge: `--un-gz`, `--al-gz`, `--un-conc-gz`, `--al-conc-gz`, `--out-fmt`"
                 },
                 "run_diamond": {
                     "type": "boolean",
@@ -344,7 +344,7 @@
                     "enum": ["blast", "xml", "txt", "daa", "sam", "tsv", "paf"],
                     "fa_icon": "fas fa-file",
                     "description": "Specify output format from DIAMOND profiling.",
-                    "help_text": "DIAMOND can produce output in a number of different formats, you can specify here which to produce.\n\nNote that DIAMOND can only produce one format at a time, and depending on which you pick, some downstream steps may not be executed. For example, selecting `daa` or `sam` will mean you will not get a tabular taxonomic profile as with the other tools.\n\n> Modifies tool parameter(s):\n> - diamond blastx: `--outfmt`"
+                    "help_text": "DIAMOND can produce output in a number of different formats, you can specify here which to produce.\n\nNote that DIAMOND can only produce one format at a time, and depending on which you pick, some downstream steps may not be executed. For example, selecting `daa` or `sam` will mean you will not get a tabular taxonomic profile as with the other tools.\n\nWill be overriden by `--diamond_save_reads.`\n\n> Modifies tool parameter(s):\n> - diamond blastx: `--outfmt`"
                 },
                 "diamond_save_reads": {
                     "type": "boolean",
@@ -363,7 +363,7 @@
                     "enum": ["phylum", "class", "order", "family", "genus", "species"],
                     "fa_icon": "fas fa-tag",
                     "description": "Specify taxonomic rank to be displayed in Kaiju taxon table",
-                    "help_text": "Specify the taxonomic level(s) to be displayed in the resulting Kaiju taxon table, as generated by the kaiju2table helper tool.\n\nThis can be either a single level (e.g. `species`), or a comma separated list to display the full taxonomic path (e.g. `-l superkingdom,phylum,class,order,family,genus,species.`).\n\n> Modifies tool parameter(s):\n> - kaiju2table: `-l`"
+                    "help_text": "Specify the taxonomic level(s) to be displayed in the resulting Kaiju taxon table, as generated by the kaiju2table helper tool.\n\nThis can be either a single level (e.g. `species`), or a comma separated list to display the full taxonomic path (e.g. `superkingdom,phylum,class,order,family,genus,species.`).\n\n> Modifies tool parameter(s):\n> - kaiju2table: `-l`"
                 },
                 "run_kraken2": {
                     "type": "boolean",
@@ -398,13 +398,13 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Turn on saving of MALT-aligned reads",
-                    "help_text": "Turns on saving of MALT aligned reads in SAM format.\n\nRequires `-a` to be specified in your database arguments (see `--databases`).\n\nNote the SAM format produce by MALT is not completely valid, and may not work with downstream tools."
+                    "help_text": "Turns on saving of MALT aligned reads in SAM format.\n\nNote that the SAM format produce by MALT is not completely valid, and may not work with downstream tools.\n\n> Modifies tool parameter(s):\n> - malt-run: `--alignments`, `-za`"
                 },
                 "malt_generate_megansummary": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Turn on generation of MEGAN summary file from MALT results",
-                    "help_text": "Turns on saving of MALT output in an additional MEGAN summary file (`.megan`) that can be loaded into the MEGAN metagenomic exploration tool.\n\nNote this file is generated not directly from MALT but rather then MEGAN utility script `rma2info`.\n\n> Modifies tool parameter(s):\n> - rma2info: `-es`"
+                    "help_text": "Turns on saving of MALT output in an additional MEGAN summary file (`.megan`) that can be loaded into the MEGAN metagenomic exploration tool.\n\nNote: this file is generated not directly from MALT but rather then MEGAN utility script `rma2info`.\n\n> Modifies tool parameter(s):\n> - rma2info: `-es`"
                 },
                 "run_metaphlan3": {
                     "type": "boolean",
@@ -429,7 +429,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on standardisation of taxon tables across profilers",
-                    "help_text": "Turns on standardisation of output OTU tables across all tools, each into a TSV format following the following scheme:\n\n|TAXON   | SAMPLE_A | SAMPLE_B |\n|-------------|----------------|-----------------|\n| taxon_a | 32               | 123             |\n| taxon_b | 1                 | 5                 |\n\nThis currently only is generated for mOTUs."
+                    "help_text": "Turns on standardisation of output OTU tables across all tools; each into a TSV format following the following scheme:\n\n|TAXON   | SAMPLE_A | SAMPLE_B |\n|-------------|----------------|-----------------|\n| taxon_a | 32               | 123             |\n| taxon_b | 1                 | 5                 |\n\nThis currently only is generated for mOTUs."
                 },
                 "generate_biom_output": {
                     "type": "boolean",
