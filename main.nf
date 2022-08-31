@@ -4,7 +4,7 @@
     nf-core/taxprofiler
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Github : https://github.com/nf-core/taxprofiler
-    Website: https://nf-co.re/taxprofiler
+Website: https://nf-co.re/taxprofiler
     Slack  : https://nfcore.slack.com/channels/taxprofiler
 ----------------------------------------------------------------------------------------
 */
