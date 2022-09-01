@@ -1,4 +1,4 @@
-# ![nf-core/taxprofiler](docs/images/nf-core-taxprofiler_logo_light.png#gh-light-mode-only) ![nf-core/taxprofiler](docs/images/nf-core-taxprofiler_logo_dark.png#gh-dark-mode-only)
+# ![nf-core/taxprofiler](docs/images/nf-core-taxprofiler_logo_custom_light.png#gh-light-mode-only) ![nf-core/taxprofiler](docs/images/nf-core-taxprofiler_logo_custom_dark.png#gh-dark-mode-only)
 
 [![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/taxprofiler/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
 
@@ -14,7 +14,7 @@
 
 <!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
 
-**nf-core/taxprofiler** is a bioinformatics best-practice analysis pipeline for Taxonomic profiling of shotgun metagenomic data.
+**nf-core/taxprofiler** is a bioinformatics best-practice analysis pipeline for taxonomic profiling of shotgun metagenomic data. It allows for in-parallel profiling with multiple profiling tools against multiple databases, produces standardised output tables.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
@@ -27,7 +27,24 @@ On release, automated continuous integration tests run the pipeline on a full-si
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+2. Performs optional read pre-processing
+   - Adapter clipping and merging (short read: [fastp](https://github.com/OpenGene/fastp), [AdapterRemoval2](https://github.com/MikkelSchubert/adapterremoval); long read: [porechop](https://github.com/rrwick/Porechop))
+   - Low complexity filtering ([bbduk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/), [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus))
+   - Host read removal ([BowTie2](http://bowtie-bio.sourceforge.net/bowtie2/))
+   - Run merging
+3. Performs taxonomic profiling using one or more of:
+   - [Kraken2](https://ccb.jhu.edu/software/kraken2/)
+   - [MetaPhlAn3](https://huttenhower.sph.harvard.edu/metaphlan/)
+   - [MALT](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/malt/)
+   - [DIAMOND](https://github.com/bbuchfink/diamond)
+   - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/)
+   - [Kaiju](https://kaiju.binf.ku.dk/)
+   - [mOTUs](https://motu-tool.org/)
+   - [MetaMaps](https://github.com/DiltheyLab/MetaMaps)
+4. Perform optional post-processing with:
+   - [bracken](https://ccb.jhu.edu/software/bracken/)
+5. Standardises output tables
+6. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 
 ## Quick Start
 
@@ -50,10 +67,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 4. Start running your own analysis!
 
-   <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
-
-   ```bash
-   nextflow run nf-core/taxprofiler --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   ```console
+   nextflow run nf-core/taxprofiler --input samplesheet.csv --databases database.csv --outdir <OUTDIR> --run_<TOOL1> --run_<TOOL1> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
    ```
 
 ## Documentation
@@ -66,7 +81,7 @@ nf-core/taxprofiler was originally written by nf-core community.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+[James A. Fellows Yates](https://github.com/jfy133), [Moritz Beber](https://github.com/Midnighter), [Lauri Mesilaakso](https://github.com/ljmesi), [Sofia Stamouli](https://github.com/sofsam), [Maxime Borry](https://github.com/maxibor).
 
 ## Contributions and Support
 
