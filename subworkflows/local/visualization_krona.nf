@@ -2,7 +2,7 @@
 // Create Krona visualizations
 //
 
-include { MEGAN_RMA2INFO_KRONA      } from '../../modules/nf-core/modules/megan/rma2info/main'
+include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_KRONA      } from '../../modules/nf-core/modules/megan/rma2info/main'
 include { KAIJU_KAIJU2KRONA         } from '../../modules/nf-core/modules/kaiju/kaiju2krona/main'
 include { KRAKENTOOLS_KREPORT2KRONA } from '../../modules/nf-core/modules/krakentools/kreport2krona/main'
 include { KRONA_CLEANUP             } from '../../modules/local/krona_cleanup'
