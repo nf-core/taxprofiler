@@ -6,10 +6,9 @@ import sys
 import errno
 import argparse
 
+
 def parse_args(args=None):
-    Description = (
-        "Reformat nf-core/taxprofiler samplesheet file and check its contents."
-    )
+    Description = "Reformat nf-core/taxprofiler samplesheet file and check its contents."
 
     Epilog = "Example usage: python check_samplesheet.py <FILE_IN> <FILE_OUT>"
 
@@ -17,6 +16,7 @@ def parse_args(args=None):
     parser.add_argument("FILE_IN", help="Input samplesheet file.")
     parser.add_argument("FILE_OUT", help="Output file.")
     return parser.parse_args(args)
+
 
 def make_dir(path):
     if len(path) > 0:
@@ -26,6 +26,7 @@ def make_dir(path):
             if exception.errno != errno.EEXIST:
                 raise exception
 
+
 def print_error(error, context="Line", context_str=""):
     error_str = "ERROR: Please check samplesheet -> {}".format(error)
     if context != "" and context_str != "":
@@ -34,6 +35,7 @@ def print_error(error, context="Line", context_str=""):
         )
     print(error_str)
     sys.exit(1)
+
 
 def check_samplesheet(file_in, file_out):
     """
@@ -118,9 +120,7 @@ def check_samplesheet(file_in, file_out):
             num_cols = len([x for x in lspl if x])
             if num_cols < MIN_COLS:
                 print_error(
-                    "Invalid number of populated columns (minimum = {})!".format(
-                        MIN_COLS
-                    ),
+                    "Invalid number of populated columns (minimum = {})!".format(MIN_COLS),
                     "Line",
                     line,
                 )
@@ -183,13 +183,9 @@ def check_samplesheet(file_in, file_out):
             ## Auto-detect paired-end/single-end
             if sample and fastq_1 and fastq_2:  ## Paired-end short reads
                 sample_info.extend(["0", fastq_1, fastq_2, fasta])
-            elif (
-                sample and fastq_1 and not fastq_2
-            ):  ## Single-end short/long fastq reads
+            elif sample and fastq_1 and not fastq_2:  ## Single-end short/long fastq reads
                 sample_info.extend(["1", fastq_1, fastq_2, fasta])
-            elif (
-                sample and fasta and not fastq_1 and not fastq_2
-            ):  ## Single-end long reads
+            elif sample and fasta and not fastq_1 and not fastq_2:  ## Single-end long reads
                 sample_info.extend(["1", fastq_1, fastq_2, fasta])
             elif fasta and (fastq_1 or fastq_2):
                 print_error(
