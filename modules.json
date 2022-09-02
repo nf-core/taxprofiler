@@ -3,140 +3,104 @@
     "homePage": "https://github.com/nf-core/taxprofiler",
     "repos": {
         "nf-core/modules": {
-            "git_url": "https://github.com/nf-core/modules.git",
-            "modules": {
-                "adapterremoval": {
-                    "branch": "master",
-                    "git_sha": "879d42c5e28661fe0a5e744c9e2c515868f9e08a"
-                },
-                "bbmap/bbduk": {
-                    "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
-                "bowtie2/align": {
-                    "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
-                "bowtie2/build": {
-                    "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
-                "cat/fastq": {
-                    "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
-                "centrifuge/centrifuge": {
-                    "branch": "master",
-                    "git_sha": "d2726fcf75063960f06b36d2229a4c0966614108"
-                },
-                "centrifuge/kreport": {
-                    "branch": "master",
-                    "git_sha": "734d0db6079a4aa43b6509b207e5d6feb35d4838"
-                },
-                "custom/dumpsoftwareversions": {
-                    "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
-                "diamond/blastx": {
-                    "branch": "master",
-                    "git_sha": "3531824af826c16cd252bc5aa82ae169b244ebaa"
-                },
-                "fastp": {
-                    "branch": "master",
-                    "git_sha": "d0a1cbb703a130c19f6796c3fce24fbe7dfce789"
-                },
-                "fastqc": {
-                    "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
-                "filtlong": {
-                    "branch": "master",
-                    "git_sha": "957cb9b83668075f4af101fc99502908cca487e3"
-                },
-                "gunzip": {
-                    "branch": "master",
-                    "git_sha": "9aadd9a6d3f5964476582319b3a1c54a3e3fe7c9"
-                },
-                "kaiju/kaiju": {
-                    "branch": "master",
-                    "git_sha": "8856f127c58f6af479128be8b8df4d42e442ddbe"
-                },
-                "kaiju/kaiju2krona": {
-                    "branch": "master",
-                    "git_sha": "2f0b19240430de6807b1232e6d9d0e8084e8a28f"
-                },
-                "kaiju/kaiju2table": {
-                    "branch": "master",
-                    "git_sha": "538dbac98ba9c8f799536cd5a617195501439457"
-                },
-                "kraken2/kraken2": {
-                    "branch": "master",
-                    "git_sha": "abe025677cdd805cc93032341ab19885473c1a07"
-                },
-                "krakentools/kreport2krona": {
-                    "branch": "master",
-                    "git_sha": "8b2a473f586bed003e72d2b183acc43fc0ddc422"
-                },
-                "krona/ktimporttaxonomy": {
-                    "branch": "master",
-                    "git_sha": "0e9fd9370ad1845870b8a9c63fcc47d999a1739e"
-                },
-                "krona/ktimporttext": {
-                    "branch": "master",
-                    "git_sha": "cdefbec66999c0b49d8bfeea9d6f9d19056635a2"
-                },
-                "malt/run": {
-                    "branch": "master",
-                    "git_sha": "be8d7b3293cac26cc63e4dbfb364deb8ed6ec7e5"
-                },
-                "megan/rma2info": {
-                    "branch": "master",
-                    "git_sha": "2d38566eca4cc15142b2ffa7c11837569b39aece"
-                },
-                "metaphlan3": {
-                    "branch": "master",
-                    "git_sha": "ed4dd1a928ebf4308efb720de878045f7773f8e2"
-                },
-                "minimap2/align": {
-                    "branch": "master",
-                    "git_sha": "1a5a9e7b4009dcf34e6867dd1a5a1d9a718b027b"
-                },
-                "minimap2/index": {
-                    "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
-                "motus/merge": {
-                    "branch": "master",
-                    "git_sha": "b02e648c221e1da17cb589eefe297e61ec9e9c49"
-                },
-                "motus/profile": {
-                    "branch": "master",
-                    "git_sha": "b6ed584443ad68ac41e6975994139454a4f23c18"
-                },
-                "multiqc": {
-                    "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
-                },
-                "porechop": {
-                    "branch": "master",
-                    "git_sha": "b78e19b9dae3671db2c7d4346fe04452c1debfab"
-                },
-                "prinseqplusplus": {
-                    "branch": "master",
-                    "git_sha": "f1c5384c31e985591716afdd732cf8c2ae29d05b"
-                },
-                "samtools/bam2fq": {
-                    "branch": "master",
-                    "git_sha": "5510ea39fe638594bc26ac34cadf4a84bf27d159"
-                },
-                "samtools/view": {
-                    "branch": "master",
-                    "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
-                },
-                "untar": {
-                    "branch": "master",
-                    "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"
-                }
+            "adapterremoval": {
+                "git_sha": "879d42c5e28661fe0a5e744c9e2c515868f9e08a"
+            },
+            "bbmap/bbduk": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "bowtie2/align": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "bowtie2/build": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "cat/fastq": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "centrifuge/centrifuge": {
+                "git_sha": "d2726fcf75063960f06b36d2229a4c0966614108"
+            },
+            "centrifuge/kreport": {
+                "git_sha": "734d0db6079a4aa43b6509b207e5d6feb35d4838"
+            },
+            "custom/dumpsoftwareversions": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "diamond/blastx": {
+                "git_sha": "3531824af826c16cd252bc5aa82ae169b244ebaa"
+            },
+            "fastp": {
+                "git_sha": "d0a1cbb703a130c19f6796c3fce24fbe7dfce789"
+            },
+            "fastqc": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "filtlong": {
+                "git_sha": "957cb9b83668075f4af101fc99502908cca487e3"
+            },
+            "gunzip": {
+                "git_sha": "9aadd9a6d3f5964476582319b3a1c54a3e3fe7c9"
+            },
+            "kaiju/kaiju": {
+                "git_sha": "8856f127c58f6af479128be8b8df4d42e442ddbe"
+            },
+            "kaiju/kaiju2krona": {
+                "git_sha": "2f0b19240430de6807b1232e6d9d0e8084e8a28f"
+            },
+            "kaiju/kaiju2table": {
+                "git_sha": "538dbac98ba9c8f799536cd5a617195501439457"
+            },
+            "kraken2/kraken2": {
+                "git_sha": "abe025677cdd805cc93032341ab19885473c1a07"
+            },
+            "krakentools/kreport2krona": {
+                "git_sha": "8b2a473f586bed003e72d2b183acc43fc0ddc422"
+            },
+            "krona/ktimporttaxonomy": {
+                "git_sha": "0e9fd9370ad1845870b8a9c63fcc47d999a1739e"
+            },
+            "krona/ktimporttext": {
+                "git_sha": "cdefbec66999c0b49d8bfeea9d6f9d19056635a2"
+            },
+            "malt/run": {
+                "git_sha": "be8d7b3293cac26cc63e4dbfb364deb8ed6ec7e5"
+            },
+            "megan/rma2info": {
+                "git_sha": "2d38566eca4cc15142b2ffa7c11837569b39aece"
+            },
+            "metaphlan3": {
+                "git_sha": "ed4dd1a928ebf4308efb720de878045f7773f8e2"
+            },
+            "minimap2/align": {
+                "git_sha": "1a5a9e7b4009dcf34e6867dd1a5a1d9a718b027b"
+            },
+            "minimap2/index": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "motus/merge": {
+                "git_sha": "b02e648c221e1da17cb589eefe297e61ec9e9c49"
+            },
+            "motus/profile": {
+                "git_sha": "b6ed584443ad68ac41e6975994139454a4f23c18"
+            },
+            "multiqc": {
+                "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+            },
+            "porechop": {
+                "git_sha": "b78e19b9dae3671db2c7d4346fe04452c1debfab"
+            },
+            "prinseqplusplus": {
+                "git_sha": "f1c5384c31e985591716afdd732cf8c2ae29d05b"
+            },
+            "samtools/bam2fq": {
+                "git_sha": "5510ea39fe638594bc26ac34cadf4a84bf27d159"
+            },
+            "samtools/view": {
+                "git_sha": "6b64f9cb6c3dd3577931cc3cd032d6fb730000ce"
+            },
+            "untar": {
+                "git_sha": "e080f4c8acf5760039ed12ec1f206170f3f9a918"
             }
         }
     }
