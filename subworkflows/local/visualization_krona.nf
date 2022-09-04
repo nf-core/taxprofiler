@@ -2,7 +2,7 @@
 // Create Krona visualizations
 //
 
-include { MEGAN_RMA2INFO            } from '../../modules/nf-core/modules/megan/rma2info/main'
+include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_KRONA      } from '../../modules/nf-core/modules/megan/rma2info/main'
 include { KAIJU_KAIJU2KRONA         } from '../../modules/nf-core/modules/kaiju/kaiju2krona/main'
 include { KRAKENTOOLS_KREPORT2KRONA } from '../../modules/nf-core/modules/krakentools/kreport2krona/main'
 include { KRONA_CLEANUP             } from '../../modules/local/krona_cleanup'
@@ -87,15 +87,15 @@ workflow VISUALIZATION_KRONA {
         Convert MALT/MEGAN RMA2INFO files into html Krona visualisations
     */
     if ( params.krona_taxonomy_directory ) {
-        MEGAN_RMA2INFO ( ch_input_classifications.malt, false )
-        GUNZIP ( MEGAN_RMA2INFO.out.txt )
+        MEGAN_RMA2INFO_KRONA ( ch_input_classifications.malt, false )
+        GUNZIP ( MEGAN_RMA2INFO_KRONA.out.txt )
         ch_krona_taxonomy_for_input = GUNZIP.out.gunzip
             .map{[[id: it[0]['db_name'], tool: it[0]['tool']], it[1]]}
             .groupTuple()
 
         KRONA_KTIMPORTTAXONOMY ( ch_krona_taxonomy_for_input, file(params.krona_taxonomy_directory, checkExists: true) )
         ch_krona_html.mix( KRONA_KTIMPORTTAXONOMY.out.html )
-        ch_versions = ch_versions.mix( MEGAN_RMA2INFO.out.versions.first() )
+        ch_versions = ch_versions.mix( MEGAN_RMA2INFO_KRONA.out.versions.first() )
         ch_versions = ch_versions.mix( KRONA_KTIMPORTTAXONOMY.out.versions.first() )
     }
 
