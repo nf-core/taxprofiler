@@ -9,7 +9,6 @@ include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/mo
 include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/modules/centrifuge/kreport/main'
 include { METAPHLAN3                            } from '../../modules/nf-core/modules/metaphlan3/metaphlan3/main'
 include { KAIJU_KAIJU                           } from '../../modules/nf-core/modules/kaiju/kaiju/main'
-include { KAIJU_KAIJU2TABLE                     } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX                        } from '../../modules/nf-core/modules/diamond/blastx/main'
 include { MOTUS_PROFILE                         } from '../../modules/nf-core/modules/motus/profile/main'
 
@@ -185,11 +184,8 @@ workflow PROFILING {
                             }
 
         KAIJU_KAIJU ( ch_input_for_kaiju.reads, ch_input_for_kaiju.db)
-        KAIJU_KAIJU2TABLE (KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_rank)
-        ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary )
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
-        ch_raw_profiles = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE.out.summary )
 
     }
 
