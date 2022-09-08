@@ -42,8 +42,7 @@ if (params.run_malt && params.run_krona && !params.krona_taxonomy_directory) log
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-ch_multiqc_config        = file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multiqc_config) : Channel.empty()
+ch_multiqc_config   = params.multiqc_config ? file( params.multiqc_config, checkIfExists: true ) : file("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,7 +92,7 @@ def multiqc_report = []
 workflow TAXPROFILER {
 
     ch_versions = Channel.empty()
-    ch_taxprofiler_logo = Channel.fromPath("$projectDir/docs/images/nf-core-taxprofiler_logo_custom_light.png")
+    ch_multiqc_logo= Channel.fromPath("$projectDir/docs/images/nf-core-taxprofiler_logo_custom_light.png")
 
     /*
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -241,13 +240,10 @@ workflow TAXPROFILER {
     ch_workflow_summary = Channel.value(workflow_summary)
 
     ch_multiqc_files = Channel.empty()
-    ch_multiqc_files = ch_multiqc_files.mix(Channel.from(ch_multiqc_config))
-    ch_multiqc_files = ch_multiqc_files.mix(ch_multiqc_custom_config.collect().ifEmpty([]))
+
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
-
-    ch_multiqc_files = ch_multiqc_files.mix(ch_taxprofiler_logo.ifEmpty([]))
 
     if (params.perform_shortread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
@@ -269,7 +265,9 @@ workflow TAXPROFILER {
 
     // TODO create multiQC module for metaphlan
     MULTIQC (
-        ch_multiqc_files.collect(), [[], []]
+        ch_multiqc_files.collect(),
+        ch_multiqc_config,
+        ch_multiqc_logo
     )
     multiqc_report = MULTIQC.out.report.toList()
     ch_versions    = ch_versions.mix(MULTIQC.out.versions)
