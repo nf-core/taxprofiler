@@ -269,7 +269,7 @@ workflow TAXPROFILER {
 
     // TODO create multiQC module for metaphlan
     MULTIQC (
-        ch_multiqc_files.collect()
+        ch_multiqc_files.collect(), [[], []]
     )
     multiqc_report = MULTIQC.out.report.toList()
     ch_versions    = ch_versions.mix(MULTIQC.out.versions)

@@ -7,7 +7,7 @@ include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV  } from '../../modules/nf-core/mo
 include { KRAKEN2_KRAKEN2                       } from '../../modules/nf-core/modules/kraken2/kraken2/main'
 include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/modules/centrifuge/centrifuge/main'
 include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/modules/centrifuge/kreport/main'
-include { METAPHLAN3                            } from '../../modules/nf-core/modules/metaphlan3/main'
+include { METAPHLAN3                            } from '../../modules/nf-core/modules/metaphlan3/metaphlan3/main'
 include { KAIJU_KAIJU                           } from '../../modules/nf-core/modules/kaiju/kaiju/main'
 include { KAIJU_KAIJU2TABLE                     } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX                        } from '../../modules/nf-core/modules/diamond/blastx/main'
