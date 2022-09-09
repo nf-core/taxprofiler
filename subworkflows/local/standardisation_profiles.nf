@@ -2,8 +2,9 @@
 // Standardise output files e.g. aggregation
 //
 
-include { KAIJU_KAIJU2TABLE                     } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
-include { MOTUS_MERGE } from '../../modules/nf-core/modules/motus/merge/main'
+include { KAIJU_KAIJU2TABLE               } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
+include { MOTUS_MERGE                     } from '../../modules/nf-core/modules/motus/merge/main'
+include { METAPHLAN3_MERGEMETAPHLANTABLES } from '../../modules/nf-core/modules/metaphlan3/mergemetaphlantables/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -23,6 +24,7 @@ workflow STANDARDISATION_PROFILES {
     ch_input_profiles = profiles
         .branch {
             motus: it[0]['tool'] == 'motus'
+            metaphlan3: it[0]['tool'] == 'metaphlan3'
             unknown: true
         }
 
@@ -57,6 +59,21 @@ workflow STANDARDISATION_PROFILES {
     ch_standardised_tables = ch_standardised_tables.mix( KAIJU_KAIJU2TABLE.out.summary )
     ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary )
     ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE.out.versions )
+
+    // MetaPhlAn3
+    ch_profiles_for_metaphlan3 = ch_input_profiles.metaphlan3
+                            .map { [it[0]['db_name'], it[1]] }
+                            .groupTuple()
+                            .map {
+                                [it[1]]
+                            }
+
+    METAPHLAN3_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan3 )
+    ch_standardised_tables = ch_standardised_tables.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
+    ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
+    ch_versions = ch_versions.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.versions )
+
+    // mOTUs
 
     // mOTUs has a 'single' database, and cannot create custom ones.
     // Therefore removing db info here, and publish merged at root mOTUs results

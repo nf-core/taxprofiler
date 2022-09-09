@@ -94,6 +94,10 @@
                     "branch": "master",
                     "git_sha": "2d38566eca4cc15142b2ffa7c11837569b39aece"
                 },
+                "metaphlan3/mergemetaphlantables": {
+                    "branch": "master",
+                    "git_sha": "940d7fe9d63962e0e2ba0987e2893fb0aff832e3"
+                },
                 "metaphlan3/metaphlan3": {
                     "branch": "master",
                     "git_sha": "940d7fe9d63962e0e2ba0987e2893fb0aff832e3"
