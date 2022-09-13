@@ -3,7 +3,8 @@
 //
 
 include { KAIJU_KAIJU2TABLE                     } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
-include { MOTUS_MERGE } from '../../modules/nf-core/modules/motus/merge/main'
+include { KRAKENTOOLS_COMBINEKREPORTS           } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
+include { MOTUS_MERGE                           } from '../../modules/nf-core/modules/motus/merge/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -23,6 +24,7 @@ workflow STANDARDISATION_PROFILES {
     ch_input_profiles = profiles
         .branch {
             motus: it[0]['tool'] == 'motus'
+            kraken2: it[0]['tool'] == 'kraken2'
             unknown: true
         }
 
@@ -57,6 +59,21 @@ workflow STANDARDISATION_PROFILES {
     ch_standardised_tables = ch_standardised_tables.mix( KAIJU_KAIJU2TABLE.out.summary )
     ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary )
     ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE.out.versions )
+
+    // Kraken2
+
+    // Collect and replace id for db_name for prefix
+    ch_profiles_for_kraken2 = ch_input_profiles.kraken2
+                                .map { [it[0]['db_name'], it[1]] }
+                                .groupTuple(sort: {-it.size()} )
+                                .map {
+                                    [[id:it[0]], it[1]]
+                                }
+
+    KRAKENTOOLS_COMBINEKREPORTS ( ch_profiles_for_kraken2 )
+    ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS.out.txt )
+    ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS.out.txt )
+    ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS.out.versions )
 
     // mOTUs has a 'single' database, and cannot create custom ones.
     // Therefore removing db info here, and publish merged at root mOTUs results
