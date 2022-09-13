@@ -413,6 +413,6 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ## Troubleshooting and FAQs
 
-### I get a warning during centrifuge_kreport process when running taxprofiler on a minimal dataset.
+### I get a warning during centrifuge_kreport process with exit status 255.
 
 When a sample has no hits, `centrifuge` classifier exits with exit code `255`. The pipeline does not fail and this is provided as a `WARN`.
