@@ -415,4 +415,8 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ### I get a warning during centrifuge_kreport process with exit status 255.
 
-When a sample has no hits, `centrifuge` classifier exits with exit code `255`. The pipeline does not fail and this is provided as a `WARN`.
+When a sample has insufficient hits for abundance estimation, the resulting `report.txt` file will be empty.
+
+When trying to convert this to a kraken-style report, the conversion tool will exit with a status code `255`, and provide a `WARN`.
+
+This is **not** an error nor a failure of the pipeline, just your sample has no hits to the provided database when using centrifuge.
