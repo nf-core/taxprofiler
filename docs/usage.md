@@ -410,3 +410,9 @@ We recommend adding the following line to your environment to limit this (typica
 ```bash
 NXF_OPTS='-Xms1g -Xmx4g'
 ```
+
+## Troubleshooting and FAQs
+
+### I get a warning during centrifuge_kreport process when running taxprofiler on a minimal dataset.
+
+When a sample has no hits, `centrifuge` classifier exits with exit code `255`. The pipeline does not fail and this is provided as a `WARN`.
