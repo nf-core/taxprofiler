@@ -2,9 +2,10 @@
 // Standardise output files e.g. aggregation
 //
 
-include { KAIJU_KAIJU2TABLE                     } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
-include { KRAKENTOOLS_COMBINEKREPORTS           } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
-include { MOTUS_MERGE                           } from '../../modules/nf-core/modules/motus/merge/main'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
+include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
+include { KRAKENTOOLS_COMBINEKREPORTS                                           } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
+include { MOTUS_MERGE                                                           } from '../../modules/nf-core/modules/motus/merge/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -25,6 +26,7 @@ workflow STANDARDISATION_PROFILES {
         .branch {
             motus: it[0]['tool'] == 'motus'
             kraken2: it[0]['tool'] == 'kraken2'
+            centrifuge: it[0]['tool'] == 'centrifuge'
             unknown: true
         }
 
@@ -45,6 +47,23 @@ workflow STANDARDISATION_PROFILES {
         Standardise and aggregate
     */
 
+        // CENTRIFUGE
+
+    // Collect and replace id for db_name for prefix
+    // Have to sort by size to ensure first file actually has hits otherwise
+    // the script fails
+    ch_profiles_for_centrifuge = ch_input_profiles.centrifuge
+                                .map { [it[0]['db_name'], it[1]] }
+                                .groupTuple(sort: {-it.size()} )
+                                .map {
+                                    [[id:it[0]], it[1]]
+                                }
+
+    KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE ( ch_profiles_for_centrifuge )
+    ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
+    ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
+    ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.versions )
+
     // Kaiju
 
     // Collect and replace id for db_name for prefix
@@ -63,6 +82,8 @@ workflow STANDARDISATION_PROFILES {
     // Kraken2
 
     // Collect and replace id for db_name for prefix
+    // Have to sort by size to ensure first file actually has hits otherwise
+    // the script fails
     ch_profiles_for_kraken2 = ch_input_profiles.kraken2
                                 .map { [it[0]['db_name'], it[1]] }
                                 .groupTuple(sort: {-it.size()} )
