@@ -107,7 +107,7 @@
                 },
                 "minimap2/index": {
                     "branch": "master",
-                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
+                    "git_sha": "73e062cf5e0ef346f65d73009b1b656299359fc5"
                 },
                 "motus/merge": {
                     "branch": "master",
@@ -119,7 +119,7 @@
                 },
                 "multiqc": {
                     "branch": "master",
-                    "git_sha": "16eee433b87b303bda650131ac5a0b1ad725e166"
+                    "git_sha": "5587389874dac9c9953a2ab6f01d49af81969492"
                 },
                 "porechop": {
                     "branch": "master",
@@ -139,7 +139,7 @@
                 },
                 "untar": {
                     "branch": "master",
-                    "git_sha": "5e7b1ef9a5a2d9258635bcbf70fcf37dacd1b247"
+                    "git_sha": "393dbd6ddafe3f18eac02893dd4a21e4d45de679"
                 }
             }
         }
