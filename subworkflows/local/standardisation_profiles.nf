@@ -65,7 +65,7 @@ workflow STANDARDISATION_PROFILES {
                             .map { [it[0]['db_name'], it[1]] }
                             .groupTuple()
                             .map {
-                                [it[1]]
+                                [[id:it[0]], it[1]]
                             }
 
     METAPHLAN3_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan3 )

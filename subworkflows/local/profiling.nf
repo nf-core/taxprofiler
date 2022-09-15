@@ -7,7 +7,7 @@ include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV  } from '../../modules/nf-core/mo
 include { KRAKEN2_KRAKEN2                       } from '../../modules/nf-core/modules/kraken2/kraken2/main'
 include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/modules/centrifuge/centrifuge/main'
 include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/modules/centrifuge/kreport/main'
-include { METAPHLAN3                            } from '../../modules/nf-core/modules/metaphlan3/metaphlan3/main'
+include { METAPHLAN3_METAPHLAN3                 } from '../../modules/nf-core/modules/metaphlan3/metaphlan3/main'
 include { KAIJU_KAIJU                           } from '../../modules/nf-core/modules/kaiju/kaiju/main'
 include { DIAMOND_BLASTX                        } from '../../modules/nf-core/modules/diamond/blastx/main'
 include { MOTUS_PROFILE                         } from '../../modules/nf-core/modules/motus/profile/main'
@@ -168,9 +168,9 @@ workflow PROFILING {
                                     db: it[3]
                             }
 
-        METAPHLAN3 ( ch_input_for_metaphlan3.reads, ch_input_for_metaphlan3.db )
-        ch_versions        = ch_versions.mix( METAPHLAN3.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN3.out.biom )
+        METAPHLAN3_METAPHLAN3 ( ch_input_for_metaphlan3.reads, ch_input_for_metaphlan3.db )
+        ch_versions        = ch_versions.mix( METAPHLAN3_METAPHLAN3.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN3_METAPHLAN3.out.profile )
 
     }
 
