@@ -9,11 +9,11 @@ include { EIDO_CONVERT } from '../../modules/nf-core/modules/eido/convert/main'
 workflow INPUT_CHECK {
     take:
     samplesheet_or_pep_config // file: /path/to/samplesheet.csv or /path/to/pep/config.yaml
-    base_dir // file: path to PEP directory
+    ch_pep_input_base_dir
 
     main:
-    EIDO_VALIDATE ( samplesheet_or_pep_config, file("$projectDir/assets/samplesheet_schema.yaml") )
-    converted_samplesheet = EIDO_CONVERT ( samplesheet_or_pep_config, "csv" )
+    EIDO_VALIDATE ( samplesheet_or_pep_config, file("$projectDir/assets/samplesheet_schema.yaml"), ch_pep_input_base_dir )
+    converted_samplesheet = EIDO_CONVERT ( samplesheet_or_pep_config, "csv", ch_pep_input_base_dir )
     parsed_samplesheet = SAMPLESHEET_CHECK ( converted_samplesheet.samplesheet_converted )
         .csv
         .splitCsv ( header:true, sep:',' )

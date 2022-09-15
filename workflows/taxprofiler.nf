@@ -19,18 +19,18 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if (params.input) {
     ch_input = file(params.input)
-    ch_input_basedir = []
+    ch_pep_input_base_dir = []
 
 } else if (params.pep) {
 
     if ( params.pep.startsWith("http://") || params.pep.startsWith("https://") ) {
         ch_input = file(params.pep)
-        ch_input_basedir = []
+        ch_pep_input_base_dir = []
     }
 
     else {
         ch_input = file(params.pep)
-        ch_input_basedir = new File(params.pep).getParent()
+        ch_pep_input_base_dir = new File(params.pep).getParent()
     }
 
 }  else {
@@ -117,7 +117,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
     */
     INPUT_CHECK (
-        ch_input, ch_input_basedir
+        ch_input, ch_pep_input_base_dir
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
