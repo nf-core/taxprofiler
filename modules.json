@@ -43,8 +43,7 @@
                 },
                 "fastp": {
                     "branch": "master",
-                    "git_sha": "7e8ad566883449e7939062b5e2bcf53fc1e0002f",
-                    "patch": "modules/nf-core/modules/fastp/fastp.diff"
+                    "git_sha": "2c70c1c1951aaf884d2e8d8d9c871db79f7b35aa"
                 },
                 "fastqc": {
                     "branch": "master",
@@ -73,6 +72,10 @@
                 "kraken2/kraken2": {
                     "branch": "master",
                     "git_sha": "409a308ba46284d8ebb48c2c1befd6f6433db3f7"
+                },
+                "krakentools/combinekreports": {
+                    "branch": "master",
+                    "git_sha": "ee0346b4d14ffdc15ce7e093ca1363cd07c9bd78"
                 },
                 "krakentools/kreport2krona": {
                     "branch": "master",
@@ -140,7 +143,7 @@
                 },
                 "untar": {
                     "branch": "master",
-                    "git_sha": "5e7b1ef9a5a2d9258635bcbf70fcf37dacd1b247"
+                    "git_sha": "393dbd6ddafe3f18eac02893dd4a21e4d45de679"
                 }
             }
         }
