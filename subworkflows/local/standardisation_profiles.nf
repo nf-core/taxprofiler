@@ -109,7 +109,7 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version, [] )
+    MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
 
     if ( params.generate_biom_output ) {
         ch_standardised_tables = ch_standardised_tables.mix ( MOTUS_MERGE.out.biom )

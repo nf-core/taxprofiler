@@ -111,7 +111,7 @@
                 },
                 "motus/merge": {
                     "branch": "master",
-                    "git_sha": "8372df6fb2a7638adacae070860685373be61e1f"
+                    "git_sha": "54ff289487244bf15543ecfa62bd4df49be72b73"
                 },
                 "motus/profile": {
                     "branch": "master",
