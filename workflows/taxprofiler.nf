@@ -17,23 +17,22 @@ def checkPathParamList = [ params.input, params.databases, params.hostremoval_re
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.input) {
+if ( params.input.endsWith(".yaml") ) {
+
+    if ( params.input.startsWith("http://") || params.input.startsWith("https://") ) {
+        ch_input = file(params.input)
+        ch_pep_input_base_dir = []
+    }
+    else {
+        ch_input = file(params.input)
+        ch_pep_input_base_dir = new File(params.input).getParent()
+    }
+
+} else if ( params.input.endsWith(".csv") ) {
     ch_input = file(params.input)
     ch_pep_input_base_dir = []
 
-} else if (params.pep) {
-
-    if ( params.pep.startsWith("http://") || params.pep.startsWith("https://") ) {
-        ch_input = file(params.pep)
-        ch_pep_input_base_dir = []
-    }
-
-    else {
-        ch_input = file(params.pep)
-        ch_pep_input_base_dir = new File(params.pep).getParent()
-    }
-
-}  else {
+} else {
     exit 1, 'Input samplesheet or PEP config not specified!'
 }
 
