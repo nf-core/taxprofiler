@@ -99,7 +99,7 @@
                 },
                 "metaphlan3/metaphlan3": {
                     "branch": "master",
-                    "git_sha": "978087354eb72ac1f6e18a3f790fad9bc4d05840"
+                    "git_sha": "940d7fe9d63962e0e2ba0987e2893fb0aff832e3"
                 },
                 "minimap2/align": {
                     "branch": "master",
@@ -107,7 +107,7 @@
                 },
                 "minimap2/index": {
                     "branch": "master",
-                    "git_sha": "73e062cf5e0ef346f65d73009b1b656299359fc5"
+                    "git_sha": "e745e167c1020928ef20ea1397b6b4d230681b4d"
                 },
                 "motus/merge": {
                     "branch": "master",
