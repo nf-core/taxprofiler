@@ -5,7 +5,7 @@
 include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
 include { KRAKENTOOLS_COMBINEKREPORTS                                           } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
-include { METAPHLAN3_MERGEMETAPHLANTABLES } from '../../modules/nf-core/modules/metaphlan3/mergemetaphlantables/main'
+include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/modules/metaphlan3/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/modules/motus/merge/main'
 
 workflow STANDARDISATION_PROFILES {
