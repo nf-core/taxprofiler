@@ -117,7 +117,16 @@ workflow STANDARDISATION_PROFILES {
     // mOTUs has a 'single' database, and cannot create custom ones.
     // Therefore removing db info here, and publish merged at root mOTUs results
     // directory
-    MOTUS_MERGE ( ch_input_profiles.motus.map{it[1]}.collect(), ch_input_databases.motus.map{it[1]}, motu_version, params.generate_biom_output )
+
+    ch_profiles_for_motus = ch_input_profiles.motus
+                                .map { [it[0]['db_name'], it[1]] }
+                                .groupTuple()
+                                .map {
+                                    [[id:it[0]], it[1]]
+                                }
+
+    MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
+
     if ( params.generate_biom_output ) {
         ch_standardised_tables = ch_standardised_tables.mix ( MOTUS_MERGE.out.biom )
     } else {
