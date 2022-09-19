@@ -15,7 +15,9 @@ process SAMPLESHEET_CHECK {
 
     script: // detect_reads.py script is bundled with the pipeline, in nf-core/taxprofiler/bin/
     """
-    python3 $projectDir/bin/detect_reads.py $samplesheet samplesheet_validated.csv
+    python3 $projectDir/bin/detect_reads.py \\
+        $samplesheet \\
+        samplesheet_validated.csv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
