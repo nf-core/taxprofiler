@@ -2,9 +2,10 @@
 // Standardise output files e.g. aggregation
 //
 
-include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
 include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
 include { KRAKENTOOLS_COMBINEKREPORTS                                           } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
+include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/modules/metaphlan3/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/modules/motus/merge/main'
 
 workflow STANDARDISATION_PROFILES {
@@ -27,6 +28,7 @@ workflow STANDARDISATION_PROFILES {
             motus: it[0]['tool'] == 'motus'
             kraken2: it[0]['tool'] == 'kraken2'
             centrifuge: it[0]['tool'] == 'centrifuge'
+            metaphlan3: it[0]['tool'] == 'metaphlan3'
             unknown: true
         }
 
@@ -95,6 +97,20 @@ workflow STANDARDISATION_PROFILES {
     ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS.out.versions )
+
+    // MetaPhlAn3
+    
+    ch_profiles_for_metaphlan3 = ch_input_profiles.metaphlan3
+                            .map { [it[0]['db_name'], it[1]] }
+                            .groupTuple()
+                            .map {
+                                [[id:it[0]], it[1]]
+                            }
+
+    METAPHLAN3_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan3 )
+    ch_standardised_tables = ch_standardised_tables.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
+    ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
+    ch_versions = ch_versions.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.versions )
 
     // mOTUs
 
