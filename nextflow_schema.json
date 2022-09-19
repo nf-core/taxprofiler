@@ -10,13 +10,13 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": [ "input", "outdir", "databases"],
+            "required": ["input", "outdir", "databases"],
             "properties": {
                 "input": {
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.(csv|yaml)$",
+                    "pattern": "^\\S+\\.(csv|yaml|yml)$",
                     "schema": "assets/schema_input.json",
                     "description": "Path to comma-separated file containing information about the samples and libraries/runs.",
                     "help_text": "You will need to create a design file with information about the samples and libraries/runs you want to running in your pipeline run. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/usage#samplesheet-input).",
