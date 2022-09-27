@@ -21,18 +21,7 @@ workflow INPUT_CHECK {
 
     ch_parsed_samplesheet = EIDO_CONVERT.out.samplesheet_converted
         .splitCsv ( header:true, sep:',' )
-        .map{
-
-            // Checks not supported by EIDO(?)
-            if ( ( it['fastq_1'] != "" || it['fastq_2'] != "" ) && it['fasta'] != "" ) { exit 1, "[nf-core/taxprofiler] ERROR: FastQ and FastA files cannot be specified together in the same library. Check input samplesheet! Check sample: ${it['sample']}" }
-            if ( it['fastq_1'] == "" && it['fastq_2'] != "" )                          { exit 1, "[nf-core/taxprofiler] ERROR: Input samplesheet has a missing fastq_1 when fastq_2 is specified. Check sample: ${it['sample']}" }
-
-            single_end = it['fastq_2'] == "" ? true : false
-            it['single_end'] = single_end
-
-            [ it ]
-        }
-        .flatten()
+        .map { check_missing_and_singleend_autodetect(it) }
         .branch {
             fasta: it['fasta'] != ''
             nanopore: it['instrument_platform'] == 'OXFORD_NANOPORE'
@@ -56,6 +45,19 @@ workflow INPUT_CHECK {
     nanopore = nanopore ?: []                 // channel: [ val(meta), [ reads ] ]
     fasta = fasta ?: []                       // channel: [ val(meta), fasta ]
     versions = ch_versions                    // channel: [ versions.yml ]
+}
+
+// Function to validate input sheet and auto-detect R1/R2
+def check_missing_and_singleend_autodetect(LinkedHashMap row) {
+
+            // Checks not supported by EIDO(?)
+            if ( ( row['fastq_1'] != "" || row['fastq_2'] != "" ) && row['fasta'] != "" ) { exit 1, "[nf-core/taxprofiler] ERROR: FastQ and FastA files cannot be specified together in the same library. Check input samplesheet! Check sample: ${row['sample']}" }
+            if ( row['fastq_1'] == "" && row['fastq_2'] != "" )                            { exit 1, "[nf-core/taxprofiler] ERROR: Input samplesheet has a missing fastq_1 when fastq_2 is specified. Check sample: ${row['sample']}" }
+
+            single_end = row['fastq_2'] == "" ? true : false
+            row['single_end'] = single_end
+
+            return row
 }
 
 // Function to get list of [ meta, [ fastq_1, fastq_2 ] ]
@@ -90,6 +92,7 @@ def create_fastq_channel(LinkedHashMap row) {
 
     }
     return fastq_meta
+
 }// Function to get list of [ meta, fasta ]
 def create_fasta_channel(LinkedHashMap row) {
     def meta = [:]
