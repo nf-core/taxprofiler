@@ -53,3 +53,5 @@ properties:
         - fasta
 required:
   - samples
+  - run_accession
+  - instrument_platform

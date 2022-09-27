@@ -2,7 +2,6 @@
 // Check input samplesheet and get read channels
 //
 
-include { SAMPLESHEET_CHECK } from '../../modules/local/samplesheet_check'
 include { EIDO_VALIDATE } from '../../modules/nf-core/modules/eido/validate/main'
 include { EIDO_CONVERT } from '../../modules/nf-core/modules/eido/convert/main'
 
@@ -12,26 +11,43 @@ workflow INPUT_CHECK {
     pep_input_base_dir
 
     main:
+    ch_versions = Channel.empty()
+
     EIDO_VALIDATE ( samplesheet_or_pep_config, file("$projectDir/assets/samplesheet_schema.yaml"), pep_input_base_dir )
-    converted_samplesheet = EIDO_CONVERT ( samplesheet_or_pep_config, "csv", pep_input_base_dir )
-    parsed_samplesheet = SAMPLESHEET_CHECK ( converted_samplesheet.samplesheet_converted )
-        .csv
+    ch_versions = ch_versions.mix(EIDO_VALIDATE.out.versions)
+
+    EIDO_CONVERT ( samplesheet_or_pep_config, "csv", pep_input_base_dir )
+    ch_versions = ch_versions.mix(EIDO_CONVERT.out.versions)
+
+    ch_parsed_samplesheet = EIDO_CONVERT.out.samplesheet_converted
         .splitCsv ( header:true, sep:',' )
+        .map{
+
+            // Checks not supported by EIDO(?)
+            if ( ( it['fastq_1'] != "" || it['fastq_2'] != "" ) && it['fasta'] != "" ) { exit 1, "[nf-core/taxprofiler] ERROR: FastQ and FastA files cannot be specified together in the same library. Check input samplesheet! Check sample: ${it['sample']}" }
+            if ( it['fastq_1'] == "" && it['fastq_2'] != "" )                          { exit 1, "[nf-core/taxprofiler] ERROR: Input samplesheet has a missing fastq_1 when fastq_2 is specified. Check sample: ${it['sample']}" }
+
+            single_end = it['fastq_2'] == "" ? true : false
+            it['single_end'] = single_end
+
+            [ it ]
+        }
+        .flatten()
         .branch {
             fasta: it['fasta'] != ''
             nanopore: it['instrument_platform'] == 'OXFORD_NANOPORE'
             fastq: true
         }
 
-    parsed_samplesheet.fastq
+    ch_parsed_samplesheet.fastq
         .map { create_fastq_channel(it) }
         .set { fastq }
 
-    parsed_samplesheet.nanopore
+    ch_parsed_samplesheet.nanopore
         .map { create_fastq_channel(it) }
         .set { nanopore }
 
-    parsed_samplesheet.fasta
+    ch_parsed_samplesheet.fasta
         .map { create_fasta_channel(it) }
         .set { fasta }
 
@@ -39,7 +55,7 @@ workflow INPUT_CHECK {
     fastq = fastq ?: []                       // channel: [ val(meta), [ reads ] ]
     nanopore = nanopore ?: []                 // channel: [ val(meta), [ reads ] ]
     fasta = fasta ?: []                       // channel: [ val(meta), fasta ]
-    versions = SAMPLESHEET_CHECK.out.versions // channel: [ versions.yml ]
+    versions = ch_versions                    // channel: [ versions.yml ]
 }
 
 // Function to get list of [ meta, [ fastq_1, fastq_2 ] ]
@@ -69,7 +85,7 @@ def create_fastq_channel(LinkedHashMap row) {
             if (!file(row.fastq_2).exists()) {
                 exit 1, "ERROR: Please check input samplesheet -> Read 2 FastQ file does not exist!\n${row.fastq_2}"
             }
-         fastq_meta = [ meta, [ file(row.fastq_1), file(row.fastq_2) ] ]
+            fastq_meta = [ meta, [ file(row.fastq_1), file(row.fastq_2) ] ]
         }
 
     }
