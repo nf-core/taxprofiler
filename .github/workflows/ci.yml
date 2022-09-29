@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "21.10.3"
+          - "21.10.6" ## TODO temporarily pinning later version that does work
           - "latest-everything"
         parameters:
           - "--perform_longread_qc false"
@@ -67,7 +67,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "21.10.3"
+          - "21.10.6" ## TODO temporarily pinning later version that does work
           - "latest-everything"
 
     steps:
