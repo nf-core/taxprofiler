@@ -75,6 +75,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
    nextflow run nf-core/taxprofiler --input samplesheet.csv --databases database.csv --outdir <OUTDIR> --run_<TOOL1> --run_<TOOL1> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
    ```
 
+Note pipeline supports both CSV and PEP input sample sheets. Find out more [here](http://pep.databio.org/en/2.1.0/specification/).
+
 ## Documentation
 
 The nf-core/taxprofiler pipeline comes with documentation about the pipeline [usage](https://nf-co.re/taxprofiler/usage), [parameters](https://nf-co.re/taxprofiler/parameters) and [output](https://nf-co.re/taxprofiler/output).

@@ -17,7 +17,13 @@ def checkPathParamList = [ params.input, params.databases, params.hostremoval_re
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.input    ) { ch_input     = file(params.input)     } else { exit 1, 'Input samplesheet not specified!' }
+if ( params.input ) {
+    ch_input              = file(params.input, checkIfExists: true)
+    pep_input_base_dir    = file(params.input).extension.matches("yaml|yml") ? file(file(params.input).getParent(), checkIfExists: true) :  []
+} else {
+    exit 1, "Input samplesheet, or PEP config and base directory not specified"
+}
+
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
 
 if (params.shortread_qc_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
@@ -98,7 +104,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
     */
     INPUT_CHECK (
-        ch_input
+        ch_input, pep_input_base_dir
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 

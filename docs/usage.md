@@ -22,6 +22,10 @@ This samplesheet is then specified on the command line as follows:
 --input '[path to samplesheet file]' --databases '[path to database sheet file]'
 ```
 
+Note pipeline supports both CSV and PEP input sample sheets. Find out more [here](http://pep.databio.org/en/2.1.0/specification/).
+When using PEP as an input, the `samplesheet.csv` must be placed in the same folder
+as `config.yaml` file. A path to `samplesheet.csv` within the config must be absolute.
+
 ### Multiple runs of the same sample
 
 The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate different runs FASTQ files of the same sample before performing profiling, when `--perform_runmerging` is supplied. Below is an example for the same sample sequenced across 3 lanes:
@@ -276,6 +280,9 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter or Charliecloud.
 - `test`
   - A profile with a complete configuration for automated testing
+  - Includes links to test data so needs no other parameters
+- `test_pep`
+  - A profile with a complete configuration for running a pipeline with PEP as input
   - Includes links to test data so needs no other parameters
 
 ### `-resume`
