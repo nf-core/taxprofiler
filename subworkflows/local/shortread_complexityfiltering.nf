@@ -2,8 +2,8 @@
 // Check input samplesheet and get read channels
 //
 
-include { BBMAP_BBDUK     } from '../../modules/nf-core/modules/bbmap/bbduk/main'
-include { PRINSEQPLUSPLUS } from '../../modules/nf-core/modules/prinseqplusplus/main'
+include { BBMAP_BBDUK     } from '../../modules/nf-core/bbmap/bbduk/main'
+include { PRINSEQPLUSPLUS } from '../../modules/nf-core/prinseqplusplus/main'
 
 workflow SHORTREAD_COMPLEXITYFILTERING {
     take:

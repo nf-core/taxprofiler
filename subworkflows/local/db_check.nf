@@ -3,7 +3,7 @@
 //
 
 include { DATABASE_CHECK   } from '../../modules/local/database_check'
-include { UNTAR            } from '../../modules/nf-core/modules/untar/main'
+include { UNTAR            } from '../../modules/nf-core/untar/main'
 
 workflow DB_CHECK {
     take:

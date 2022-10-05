@@ -2,11 +2,11 @@
 // Standardise output files e.g. aggregation
 //
 
-include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/modules/kaiju/kaiju2table/main'
-include { KRAKENTOOLS_COMBINEKREPORTS                                           } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
-include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/modules/krakentools/combinekreports/main'
-include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/modules/metaphlan3/mergemetaphlantables/main'
-include { MOTUS_MERGE                                                           } from '../../modules/nf-core/modules/motus/merge/main'
+include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/kaiju/kaiju2table/main'
+include { KRAKENTOOLS_COMBINEKREPORTS                                           } from '../../modules/nf-core/krakentools/combinekreports/main'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
+include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
+include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -99,7 +99,7 @@ workflow STANDARDISATION_PROFILES {
     ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS.out.versions )
 
     // MetaPhlAn3
-    
+
     ch_profiles_for_metaphlan3 = ch_input_profiles.metaphlan3
                             .map { [it[0]['db_name'], it[1]] }
                             .groupTuple()

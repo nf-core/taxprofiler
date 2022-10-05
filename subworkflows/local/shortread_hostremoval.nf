@@ -2,8 +2,8 @@
 // Remove host reads via alignment and export off-target reads
 //
 
-include { BOWTIE2_BUILD             } from '../../modules/nf-core/modules/bowtie2/build/main'
-include { BOWTIE2_ALIGN             } from '../../modules/nf-core/modules/bowtie2/align/main'
+include { BOWTIE2_BUILD             } from '../../modules/nf-core/bowtie2/build/main'
+include { BOWTIE2_ALIGN             } from '../../modules/nf-core/bowtie2/align/main'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:

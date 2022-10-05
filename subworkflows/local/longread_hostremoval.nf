@@ -2,10 +2,10 @@
 // Remove host reads via alignment and export off-target reads
 //
 
-include { MINIMAP2_INDEX             } from '../../modules/nf-core/modules/minimap2/index/main'
-include { MINIMAP2_ALIGN             } from '../../modules/nf-core/modules/minimap2/align/main'
-include { SAMTOOLS_VIEW              } from '../../modules/nf-core/modules/samtools/view/main'
-include { SAMTOOLS_BAM2FQ            } from '../../modules/nf-core/modules/samtools/bam2fq/main'
+include { MINIMAP2_INDEX             } from '../../modules/nf-core/minimap2/index/main'
+include { MINIMAP2_ALIGN             } from '../../modules/nf-core/minimap2/align/main'
+include { SAMTOOLS_VIEW              } from '../../modules/nf-core/samtools/view/main'
+include { SAMTOOLS_BAM2FQ            } from '../../modules/nf-core/samtools/bam2fq/main'
 
 workflow LONGREAD_HOSTREMOVAL {
     take:

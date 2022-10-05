@@ -2,9 +2,9 @@
 // Process long raw reads with porechop
 //
 
-include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/modules/fastqc/main'
-include { PORECHOP                   } from '../../modules/nf-core/modules/porechop/main'
-include { FILTLONG                   } from '../../modules/nf-core/modules/filtlong/main'
+include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/fastqc/main'
+include { PORECHOP                   } from '../../modules/nf-core/porechop/main'
+include { FILTLONG                   } from '../../modules/nf-core/filtlong/main'
 
 workflow LONGREAD_PREPROCESSING {
     take:

@@ -2,15 +2,15 @@
 // Run profiling
 //
 
-include { MALT_RUN                              } from '../../modules/nf-core/modules/malt/run/main'
-include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV  } from '../../modules/nf-core/modules/megan/rma2info/main'
-include { KRAKEN2_KRAKEN2                       } from '../../modules/nf-core/modules/kraken2/kraken2/main'
-include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/modules/centrifuge/centrifuge/main'
-include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/modules/centrifuge/kreport/main'
-include { METAPHLAN3_METAPHLAN3                 } from '../../modules/nf-core/modules/metaphlan3/metaphlan3/main'
-include { KAIJU_KAIJU                           } from '../../modules/nf-core/modules/kaiju/kaiju/main'
-include { DIAMOND_BLASTX                        } from '../../modules/nf-core/modules/diamond/blastx/main'
-include { MOTUS_PROFILE                         } from '../../modules/nf-core/modules/motus/profile/main'
+include { MALT_RUN                              } from '../../modules/nf-core/malt/run/main'
+include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV  } from '../../modules/nf-core/megan/rma2info/main'
+include { KRAKEN2_KRAKEN2                       } from '../../modules/nf-core/kraken2/kraken2/main'
+include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/centrifuge/centrifuge/main'
+include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/centrifuge/kreport/main'
+include { METAPHLAN3_METAPHLAN3                 } from '../../modules/nf-core/metaphlan3/metaphlan3/main'
+include { KAIJU_KAIJU                           } from '../../modules/nf-core/kaiju/kaiju/main'
+include { DIAMOND_BLASTX                        } from '../../modules/nf-core/diamond/blastx/main'
+include { MOTUS_PROFILE                         } from '../../modules/nf-core/motus/profile/main'
 
 workflow PROFILING {
     take:
