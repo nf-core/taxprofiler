@@ -7,11 +7,11 @@ process MINIMAP2_INDEX {
         'quay.io/biocontainers/minimap2:2.21--h5bf99c6_0' }"
 
     input:
-    tuple val(meta), path(fasta)
+    path fasta
 
     output:
-    tuple val(meta), path("*.mmi"), emit: index
-    path "versions.yml"           , emit: versions
+    path "*.mmi"        , emit: index
+    path "versions.yml" , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
