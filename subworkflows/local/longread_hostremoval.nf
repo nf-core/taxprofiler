@@ -33,7 +33,7 @@ workflow LONGREAD_HOSTREMOVAL {
         }
 
 
-    SAMTOOLS_VIEW ( ch_minimap2_mapped , [] )
+    SAMTOOLS_VIEW ( ch_minimap2_mapped , [], [] )
     ch_versions      = ch_versions.mix( SAMTOOLS_VIEW.out.versions.first() )
 
     SAMTOOLS_BAM2FQ ( SAMTOOLS_VIEW.out.bam, false )
