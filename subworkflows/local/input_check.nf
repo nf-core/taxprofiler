@@ -2,8 +2,8 @@
 // Check input samplesheet and get read channels
 //
 
-include { EIDO_VALIDATE } from '../../modules/nf-core/modules/eido/validate/main'
-include { EIDO_CONVERT } from '../../modules/nf-core/modules/eido/convert/main'
+include { EIDO_VALIDATE } from '../../modules/nf-core/eido/validate/main'
+include { EIDO_CONVERT } from '../../modules/nf-core/eido/convert/main'
 
 workflow INPUT_CHECK {
     take:

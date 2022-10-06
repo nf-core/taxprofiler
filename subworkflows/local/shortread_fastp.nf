@@ -2,8 +2,8 @@
 // Process short raw reads with FastP
 //
 
-include { FASTP as FASTP_SINGLE       } from '../../modules/nf-core/modules/fastp/main'
-include { FASTP as FASTP_PAIRED       } from '../../modules/nf-core/modules/fastp/main'
+include { FASTP as FASTP_SINGLE       } from '../../modules/nf-core/fastp/main'
+include { FASTP as FASTP_PAIRED       } from '../../modules/nf-core/fastp/main'
 
 workflow SHORTREAD_FASTP {
     take:
