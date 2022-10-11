@@ -32,8 +32,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Performs optional read pre-processing
-   - Adapter clipping and merging (short read: [fastp](https://github.com/OpenGene/fastp), [AdapterRemoval2](https://github.com/MikkelSchubert/adapterremoval); long read: [porechop](https://github.com/rrwick/Porechop))
-   - Low complexity filtering ([bbduk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/), [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus))
+   - Adapter clipping and merging (short-read: [fastp](https://github.com/OpenGene/fastp), [AdapterRemoval2](https://github.com/MikkelSchubert/adapterremoval); long-read: [porechop](https://github.com/rrwick/Porechop))
+   - Low complexity filtering (short-read: [bbduk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/), [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus); long-read: [Filtlong](https://github.com/rrwick/Filtlong))
    - Host read removal ([BowTie2](http://bowtie-bio.sourceforge.net/bowtie2/))
    - Run merging
 3. Performs taxonomic profiling using one or more of:
@@ -44,7 +44,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
    - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/)
    - [Kaiju](https://kaiju.binf.ku.dk/)
    - [mOTUs](https://motu-tool.org/)
-   - [MetaMaps](https://github.com/DiltheyLab/MetaMaps)
+   - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
 4. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
 5. Standardises output tables
