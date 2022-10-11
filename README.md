@@ -49,6 +49,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
    - [bracken](https://ccb.jhu.edu/software/bracken/)
 5. Standardises output tables
 6. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+7. Plotting Kraken2, Centrifuge, Kaiju and MALT results ([`Krona`](https://hpc.nih.gov/apps/kronatools.html))
 
 ## Quick Start
 
