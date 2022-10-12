@@ -228,7 +228,7 @@ Activating this functionality will concatenate the FASTQ files with the same sam
 
 You can optionally save the FASTQ output of the run merging with the `--save_runmerged_reads`.
 
-##### Profiling
+#### Profiling
 
 ###### MALT
 
@@ -428,6 +428,20 @@ We recommend adding the following line to your environment to limit this (typica
 ```bash
 NXF_OPTS='-Xms1g -Xmx4g'
 ```
+
+## Tutorials
+
+### Tutorial - How to create your custom database
+
+#### Kraken2
+Kraken2 allows the user to build custom databases. You can follow Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases).
+
+#### Centrifuge
+Centrifuge is similar to Kraken2 in that it enables to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). 
+
+#### Kaiju
+WIP
+
 
 ## Troubleshooting and FAQs
 
