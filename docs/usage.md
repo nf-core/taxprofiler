@@ -440,8 +440,24 @@ Kraken2 allows the user to build custom databases. You can follow Kraken2 [tutor
 Centrifuge is similar to Kraken2 in that it enables to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). 
 
 #### Kaiju
-WIP
+It is possible to [create custom databases](https://github.com/bioinformatics-centre/kaiju#custom-database) with Kaiju.
 
+#### MALT
+To create a custom database for MALT, the user should download and unzip the following database which lists all NCBI records. The input files are specified using -i and the index is specified using -d. A detailed description for each argument can be found [here](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf)
+
+```bash
+wget https://software-ab.informatik.uni-tuebingen.de/download/megan6/megan-nucl-Feb2022.db.zip
+unzip megan-nucl-Feb2022.db
+malt-build -i path/to/fasta/files/*.{fna,fa} -s DNA -d index -t 8 -st 4 -a2t megan-nucl-Feb2022.db
+```
+
+#### Bracken
+
+#### KrakenUniq
+
+#### DIAMOND
+
+#### mOTUs
 
 ## Troubleshooting and FAQs
 
