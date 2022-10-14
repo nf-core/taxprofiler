@@ -1,4 +1,4 @@
-process KRAKEN_STANDARD_REPORT {
+process KRAKEN2_STANDARD_REPORT {
     tag "$meta.id"
     label 'process_single'
 
