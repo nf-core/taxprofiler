@@ -5,6 +5,7 @@
 include { MALT_RUN                              } from '../../modules/nf-core/malt/run/main'
 include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV  } from '../../modules/nf-core/megan/rma2info/main'
 include { KRAKEN2_KRAKEN2                       } from '../../modules/nf-core/kraken2/kraken2/main'
+include { BRACKEN_BRACKEN                       } from '../../modules/nf-core/bracken/bracken/main'
 include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/centrifuge/centrifuge/main'
 include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/centrifuge/kreport/main'
 include { METAPHLAN3_METAPHLAN3                 } from '../../modules/nf-core/metaphlan3/metaphlan3/main'
@@ -130,6 +131,33 @@ workflow PROFILING {
         ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
         ch_raw_profiles        = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.report )
+
+    }
+
+    if ( params.run_kraken2 && params.run_bracken ) {
+
+        def ch_input_for_bracken
+
+        if (params.kraken2_save_minimizers) {
+            ch_input_for_bracken = KRAKEN_STANDARD_REPORT(KRAKEN2_KRAKEN2.out.report).report
+        } else {
+            ch_input_for_bracken = KRAKEN2_KRAKEN2.out.report
+        }
+
+        ch_input_for_bracken = ch_input_for_bracken
+            .combine(
+                databases.filter { meta, db ->
+                    meta['tool'] == 'bracken'
+                }
+            )
+            .multiMap { meta, report, db_meta, db ->
+                report: [meta + db_meta, report]
+                db: db
+            }
+
+        BRACKEN_BRACKEN(ch_input_for_bracken.report, ch_input_for_bracken.db)
+        ch_versions     = ch_versions.mix(BRACKEN_BRACKEN.out.versions.first())
+        ch_raw_profiles = ch_raw_profiles.mix(BRACKEN_BRACKEN.out.reports)
 
     }
 
