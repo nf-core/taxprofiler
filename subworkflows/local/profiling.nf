@@ -5,6 +5,7 @@
 include { MALT_RUN                              } from '../../modules/nf-core/malt/run/main'
 include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV  } from '../../modules/nf-core/megan/rma2info/main'
 include { KRAKEN2_KRAKEN2                       } from '../../modules/nf-core/kraken2/kraken2/main'
+include { KRAKEN_STANDARD_REPORT                } from '../../modules/local/kraken_standard_report'
 include { BRACKEN_BRACKEN                       } from '../../modules/nf-core/bracken/bracken/main'
 include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/centrifuge/centrifuge/main'
 include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/centrifuge/kreport/main'
