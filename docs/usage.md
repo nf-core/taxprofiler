@@ -165,9 +165,11 @@ work                # Directory containing the nextflow working files
 .nextflow_log       # Log file from Nextflow
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
+
 ### Sequencing quality control
 
 nf-core taxprofiler offers [`Falco`](https://github.com/smithlabcode/falco] as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+
 ### Preprocessing Steps
 
 nf-core/taxprofiler offers four main preprocessing steps
