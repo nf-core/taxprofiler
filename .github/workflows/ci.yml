@@ -22,20 +22,8 @@ jobs:
         NXF_VER:
           - "21.10.3"
           - "latest-everything"
-        parameters:
-          - "--perform_longread_qc false"
-          - "--perform_shortread_qc false"
-          - "--shortread_qc_tool fastp"
-          - "--shortread_qc_tool fastp --shortread_qc_mergepairs --shortread_qc_excludeunmerged"
-          - "--shortread_qc_tool fastp --shortread_qc_mergepairs"
-          - "--shortread_qc_tool adapterremoval"
-          - "--shortread_qc_tool adapterremoval --shortread_qc_mergepairs --shortread_qc_excludeunmerged"
-          - "--shortread_qc_tool adapterremoval --shortread_qc_mergepairs"
-          - "--shortread_complexityfilter_tool bbduk"
-          - "--shortread_complexityfilter_tool prinseqplusplus"
-          - "--perform_runmerging"
-          - "--perform_runmerging --shortread_qc_mergepairs"
-          - "--shortread_complexityfilter false --perform_shortread_hostremoval"
+        profiles:
+          - "test_nothing"
 
     steps:
       - name: Check out pipeline code
@@ -45,6 +33,11 @@ jobs:
         uses: nf-core/setup-nextflow@v1
         with:
           version: "${{ matrix.NXF_VER }}"
+
+      - name: Install nf-test
+        run: |
+          sudo bash; mkdir /opt/nf-test; cd /opt/nf-test; wget https://github.com/askimed/nf-test/releases/download/v0.6.2/nf-test-0.6.2.tar.gz; tar xvfz nf-test-0.6.2.tar.gz; chmod +x nf-test;
+          echo "/opt/nf-test" >> $GITHUB_PATH;
 
       - name: Show current locale
         run: locale
@@ -57,7 +50,7 @@ jobs:
       - name: Run pipeline with test data
         uses: Wandalen/wretry.action@v1.0.11
         with:
-          command: nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}
+          command: nf-test ${GITHUB_WORKSPACE}/tests/${{ matrix.profiles }}.test --profile ${{ matrix.profiles }},docker
           attempt_limit: 3
 
   motus:
