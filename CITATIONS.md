@@ -62,6 +62,10 @@
 
 - [FILTLONG](https://github.com/rrwick/Filtlong)
 
+- [Falco](https://doi.org/10.12688/f1000research.21142.2)
+
+> de Sena Brandine G and Smith AD. Falco: high-speed FastQC emulation for quality control of sequencing data. F1000Research 2021, 8:1874
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)

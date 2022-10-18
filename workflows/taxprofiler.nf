@@ -84,6 +84,7 @@ include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardis
 // MODULE: Installed directly from nf-core/modules
 //
 include { FASTQC                      } from '../modules/nf-core/fastqc/main'
+include { FALCO                       } from '../modules/nf-core/falco/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { CAT_FASTQ                   } from '../modules/nf-core/cat/fastq/main'
@@ -120,12 +121,13 @@ workflow TAXPROFILER {
     */
     ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
 
-    FASTQC (
-        ch_input_for_fastqc
-    )
-
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
-
+    if ( params.perform_fastqc_alternative ) {
+        FALCO ( ch_input_for_fastqc )
+        ch_versions = ch_versions.mix(FALCO.out.versions.first())
+    } else {
+        FASTQC ( ch_input_for_fastqc )
+        ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    }
     /*
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
@@ -254,7 +256,10 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+
+    if (!params.perform_fastqc_alternative) {
+        ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    }
 
     if (params.perform_shortread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
