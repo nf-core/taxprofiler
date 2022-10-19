@@ -3,11 +3,8 @@
 //
 
 include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/kaiju/kaiju2table/main'
-include {
-    KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE;
-    KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_BRACKEN;
-    KRAKENTOOLS_COMBINEKREPORTS
-} from '../../modules/nf-core/krakentools/combinekreports/main'
+include { KRAKENTOOLS_COMBINEKREPORTS                                           } from '../../modules/nf-core/krakentools/combinekreports/main'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
 
@@ -30,7 +27,6 @@ workflow STANDARDISATION_PROFILES {
         .branch {
             motus: it[0]['tool'] == 'motus'
             kraken2: it[0]['tool'] == 'kraken2'
-            bracken: it[0]['tool'] == 'bracken'
             centrifuge: it[0]['tool'] == 'centrifuge'
             metaphlan3: it[0]['tool'] == 'metaphlan3'
             unknown: true
@@ -101,23 +97,6 @@ workflow STANDARDISATION_PROFILES {
     ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS.out.versions )
-
-    // Bracken
-
-    // Collect and replace id for db_name for prefix
-    // Have to sort by size to ensure first file actually has hits otherwise
-    // the script fails
-    ch_profiles_for_bracken = ch_input_profiles.bracken
-                                .map { [it[0]['db_name'], it[1]] }
-                                .groupTuple(sort: {-it.size()} )
-                                .map {
-                                    [[id:it[0]], it[1]]
-                                }
-
-    KRAKENTOOLS_COMBINEKREPORTS_BRACKEN ( ch_profiles_for_bracken )
-    ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS_BRACKEN.out.txt )
-    ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_BRACKEN.out.txt )
-    ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS_BRACKEN.out.versions )
 
     // MetaPhlAn3
 
