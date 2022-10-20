@@ -23,7 +23,8 @@ jobs:
           - "21.10.3"
           - "latest-everything"
         parameters:
-          - "--perform_fastqc_alternative false"
+          - "--preprocessing_qc_tool fastqc"
+          - "--preprocessing_qc_tool falco"
           - "--perform_longread_qc false"
           - "--perform_shortread_qc false"
           - "--shortread_qc_tool fastp"

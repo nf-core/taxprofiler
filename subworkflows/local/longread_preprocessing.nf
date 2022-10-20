@@ -54,13 +54,13 @@ workflow LONGREAD_PREPROCESSING {
         ch_multiqc_files = ch_multiqc_files.mix( FILTLONG.out.log )
     }
 
-    if (params.perform_fastqc_alternative) {
-        FALCO_PROCESSED ( ch_processed_reads )
-        ch_multiqc_files = ch_multiqc_files.mix( FALCO_PROCESSED.out.txt )
-
-    } else {
+    if (params.preprocessing_qc_tool == 'fastqc') {
         FASTQC_PROCESSED ( ch_processed_reads )
         ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
+
+    } else if (params.preprocessing_qc_tool == 'falco') {
+        FALCO_PROCESSED ( ch_processed_reads )
+        ch_multiqc_files = ch_multiqc_files.mix( FALCO_PROCESSED.out.txt )
     }
 
     emit:

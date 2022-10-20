@@ -121,7 +121,7 @@ workflow TAXPROFILER {
     */
     ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
 
-    if ( params.perform_fastqc_alternative ) {
+    if ( params.preprocessing_qc_tool == 'falco' ) {
         FALCO ( ch_input_for_fastqc )
         ch_versions = ch_versions.mix(FALCO.out.versions.first())
     } else {
@@ -257,8 +257,11 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
-    if (!params.perform_fastqc_alternative) {
+    if (!params.preprocessing_qc_tool == 'falco') {
         ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    }
+    else {
+        ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt.collect{it[1]}.ifEmpty([]))
     }
 
     if (params.perform_shortread_qc) {
