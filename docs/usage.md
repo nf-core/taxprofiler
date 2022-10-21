@@ -74,13 +74,13 @@ The pipeline takes the locations and specific profiling parameters of the tool o
 
 > ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
 
-An example database sheet can look as follows, where 4 tools are being used, and `malt` and `kraken2` will be used against two databases each.
+An example database sheet can look as follows, where 4 tools are being used, and `malt` and `kraken2` will be used against two databases each. This is because specifying `bracken` implies first running `kraken2` on the same database.
 
 ```console
 tool,db_name,db_params,db_path
 malt,malt85,-id 85,/<path>/<to>/malt/testdb-malt/
 malt,malt95,-id 90,/<path>/<to>/malt/testdb-malt.tar.gz
-kraken2,db1,,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
+bracken,db1,,/<path>/<to>/bracken/testdb-bracken.tar.gz
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
 metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
@@ -91,8 +91,8 @@ Column specifications are as follows:
 
 | Column      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tool`      | Taxonomic profiling tool (supported by nf-core/taxprofiler) that the database has been indexed for [required].                                                                                                                                                                                                                                                                                                                                                 |
-| `db_name`   | A unique name of the particular database [required].                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `tool`      | Taxonomic profiling tool (supported by nf-core/taxprofiler) that the database has been indexed for [required]. Please note that `bracken` also implies running `kraken2` on the same database.                                                                                                                                                                                                                                                                 |
+| `db_name`   | A unique name per tool for the particular database [required]. Please note that names need to be unique across both `kraken2` and `bracken` as well.                                                                                                                                                                                                                                                                                                           |
 | `db_params` | Any parameters of the given taxonomic profiler that you wish to specify that the taxonomic profiling tool should use when profiling against this specific. Can be empty to use taxonomic profiler defaults. Must not be surrounded by quotes [required]. We generally do not recommend specifying parameters here that turn on/off saving of output files or specifying particular file extensions - this should be already addressed via pipeline parameters. |
 | `db_path`   | Path to the database. Can either be a path to a directory containing the database index files or a `.tar.gz` file which contains the compressed database directory with the same name as the tar archive, minus `.tar.gz` [required].                                                                                                                                                                                                                          |
 
@@ -116,6 +116,15 @@ Expected (uncompressed) database files for each tool are as follows:
   - `opts.k2d`
   - `hash.k2d`
   - `taxo.k2d`
+- **Bracken** output of a combined `kraken2-` and `bracken-build` process. Please see the [documentation on Bracken](https://github.com/jenniferlu717/Bracken#running-bracken-easy-version) for details. The output is a directory containing files per expected sequencing read length similarly to:
+  - `hash.k2d`
+  - `opts.k2d`
+  - `taxo.k2d`
+  - `database.kraken`
+  - `database100mers.kmer_distrib`
+  - `database100mers.kraken`
+  - `database150mers.kmer_distrib`
+  - `database150mers.kraken`
 - **Centrifuge** output of `centrifuge-build`. A directory containing:
   - `<database_name>.<number>.cf`
   - `<database_name>.<number>.cf`
