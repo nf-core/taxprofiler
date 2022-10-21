@@ -41,7 +41,7 @@ workflow PROFILING {
             .combine(databases)
             .branch {
                 malt:    it[2]['tool'] == 'malt'
-                kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken'
+                kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken' // to reuse the kraken module to produce the input data for bracken
                 metaphlan3: it[2]['tool'] == 'metaphlan3'
                 centrifuge: it[2]['tool'] == 'centrifuge'
                 kaiju: it[2]['tool'] == 'kaiju'
@@ -134,6 +134,7 @@ workflow PROFILING {
         ch_raw_profiles        = ch_raw_profiles.mix(
             KRAKEN2_KRAKEN2.out.report
                 // Set the tool to be strictly 'kraken2' instead of potentially 'bracken' for downstream use.
+                // Will remain distinct from 'pure' Kraken2 results due to distinct database names in file names.
                 .map { meta, report -> [meta + [tool: 'kraken2'], report]}
         )
 
@@ -141,6 +142,7 @@ workflow PROFILING {
 
     if ( params.run_kraken2 && params.run_bracken ) {
 
+        // remove files from 'pure' kraken2 runs, so only those aligned against bracken2 kraken database are taken for brakcen
         def ch_input_for_bracken = KRAKEN2_KRAKEN2.out.report
             .filter { meta, report -> meta['tool'] == 'bracken' }
 
