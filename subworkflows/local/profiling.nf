@@ -41,7 +41,7 @@ workflow PROFILING {
             .combine(databases)
             .branch {
                 malt:    it[2]['tool'] == 'malt'
-                kraken2: it[2]['tool'].contains('kraken2')
+                kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken'
                 metaphlan3: it[2]['tool'] == 'metaphlan3'
                 centrifuge: it[2]['tool'] == 'centrifuge'
                 kaiju: it[2]['tool'] == 'kaiju'
@@ -133,7 +133,7 @@ workflow PROFILING {
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
         ch_raw_profiles        = ch_raw_profiles.mix(
             KRAKEN2_KRAKEN2.out.report
-                // Set the tool to be strictly 'kraken2' instead of potentially 'kraken2+bracken' for downstream use.
+                // Set the tool to be strictly 'kraken2' instead of potentially 'bracken' for downstream use.
                 .map { meta, report -> [meta + [tool: 'kraken2'], report]}
         )
 
@@ -142,7 +142,7 @@ workflow PROFILING {
     if ( params.run_kraken2 && params.run_bracken ) {
 
         def ch_input_for_bracken = KRAKEN2_KRAKEN2.out.report
-            .filter { meta, report -> meta['tool'].contains('bracken') }
+            .filter { meta, report -> meta['tool'] == 'bracken' }
 
         if (params.kraken2_save_minimizers) {
             ch_input_for_bracken = KRAKEN2_STANDARD_REPORT(ch_input_for_bracken).report
@@ -151,21 +151,17 @@ workflow PROFILING {
         ch_input_for_bracken = ch_input_for_bracken
             .combine(
                 databases.filter { meta, db ->
-                    meta['tool'].contains('bracken')
+                    meta['tool'] == 'bracken'
                 }
             )
             .multiMap { meta, report, db_meta, db ->
-                report: [meta, report]
+                report: [meta + db_meta, report]
                 db: db
             }
 
         BRACKEN_BRACKEN(ch_input_for_bracken.report, ch_input_for_bracken.db)
         ch_versions     = ch_versions.mix(BRACKEN_BRACKEN.out.versions.first())
-        ch_raw_profiles = ch_raw_profiles.mix(
-            BRACKEN_BRACKEN.out.reports
-                // Set the tool to be strictly 'bracken' instead of potentially 'kraken2+bracken' for downstream use.
-                .map { meta, report -> [meta + [tool: 'bracken'], report]}
-        )
+        ch_raw_profiles = ch_raw_profiles.mix(BRACKEN_BRACKEN.out.reports)
 
     }
 
