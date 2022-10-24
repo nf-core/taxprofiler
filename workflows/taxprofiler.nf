@@ -257,12 +257,12 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
-    if (!params.preprocessing_qc_tool == 'falco') {
+    if ( params.preprocessing_qc_tool == 'falco' ) {
+        ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt.collect{it[1]}.ifEmpty([]))
+    } else {
         ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
     }
-    else {
-        ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt.collect{it[1]}.ifEmpty([]))
-    }
+
 
     if (params.perform_shortread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
