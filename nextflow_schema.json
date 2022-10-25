@@ -713,7 +713,7 @@
             "type": "string",
             "default": "fastqc",
             "enum": ["fastqc", "falco"],
-            "help_text": "Falco is aimed at being a drop-in replacement for FastQC but written in C++ for faster computation. We particularly recommend using falco when using long reads (due to reduced memory constraints), however is also applicable for short reads.",
+            "help_text": "Falco is designed as a drop-in replacement for FastQC but written in C++ for faster computation. We particularly recommend using falco when using long reads (due to reduced memory constraints), however is also applicable for short reads.",
             "description": "By default, the pipeline utilizes FastQC tool for quality control of raw sequencing reads"
         }
     }
