@@ -11,6 +11,7 @@ include { METAPHLAN3_METAPHLAN3                 } from '../../modules/nf-core/me
 include { KAIJU_KAIJU                           } from '../../modules/nf-core/kaiju/kaiju/main'
 include { DIAMOND_BLASTX                        } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                         } from '../../modules/nf-core/motus/profile/main'
+include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ        } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
 
 workflow PROFILING {
     take:
@@ -45,6 +46,7 @@ workflow PROFILING {
                 kaiju: it[2]['tool'] == 'kaiju'
                 diamond: it[2]['tool'] == 'diamond'
                 motus: it[2]['tool'] == 'motus'
+                krakenuniq: it[2]['tool'] == 'krakenuniq'
                 unknown: true
             }
 
@@ -226,6 +228,22 @@ workflow PROFILING {
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
         ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
+    }
+
+    if ( params.run_krakenuniq ) {
+        ch_input_for_krakenuniq =  ch_input_for_profiling.krakenuniq
+                                    .multiMap {
+                                        it ->
+                                            reads: [ it[0] + it[2], it[1] ]
+                                            db: it[3]
+                                }
+
+        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.db, params.krakenuniq_save_reads, params.krakenuniq_save_readclassification )
+        ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
+        ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment )
+        ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
+
     }
 
     emit:
