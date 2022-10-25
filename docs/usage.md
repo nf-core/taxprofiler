@@ -166,6 +166,10 @@ work                # Directory containing the nextflow working files
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
 
+### Sequencing quality control
+
+nf-core taxprofiler offers [`falco`](https://github.com/smithlabcode/falco] as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+
 ### Preprocessing Steps
 
 nf-core/taxprofiler offers four main preprocessing steps
@@ -179,7 +183,7 @@ nf-core/taxprofiler offers four main preprocessing steps
 
 Raw sequencing read processing in the form of adapter clipping and paired-end read merging can be activated via the `--perform_shortread_qc` or `--perform_longread_qc` flags.
 
-It is highly recommended to run this on raw reads to remove artefacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles.
+It is highly recommended to run this on raw reads to remove artifacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles.
 
 There are currently two options for short-read preprocessing: `fastp` or `adapterremoval`.
 
