@@ -56,10 +56,12 @@ workflow LONGREAD_PREPROCESSING {
 
     if (params.preprocessing_qc_tool == 'fastqc') {
         FASTQC_PROCESSED ( ch_processed_reads )
+        ch_versions = ch_versions.mix( FASTQC_PROCESSED.out.versions )
         ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
 
     } else if (params.preprocessing_qc_tool == 'falco') {
         FALCO_PROCESSED ( ch_processed_reads )
+        ch_versions = ch_versions.mix( FALCO_PROCESSED.out.versions )
         ch_multiqc_files = ch_multiqc_files.mix( FALCO_PROCESSED.out.txt )
     }
 

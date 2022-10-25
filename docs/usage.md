@@ -168,7 +168,7 @@ work                # Directory containing the nextflow working files
 
 ### Sequencing quality control
 
-nf-core taxprofiler offers [`Falco`](https://github.com/smithlabcode/falco] as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+nf-core taxprofiler offers [`falco`](https://github.com/smithlabcode/falco] as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 
 ### Preprocessing Steps
 
