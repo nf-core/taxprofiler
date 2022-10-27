@@ -151,12 +151,12 @@ workflow PROFILING {
         }
 
         // Extract the database name to combine by.
-        def ch_bracken_databases = databases
+        ch_bracken_databases = databases
             .filter { meta, db -> meta['tool'] == 'bracken' }
             .map { meta, db -> [meta['db_name'], meta, db] }
 
         // Extract the database name to combine by.
-        def ch_input_for_bracken = ch_kraken2_output
+        ch_input_for_bracken = ch_kraken2_output
             .map { meta, report -> [meta['db_name'], meta, report] }
             .combine(ch_bracken_databases, by: 0)
             .multiMap { key, meta, report, db_meta, db ->
