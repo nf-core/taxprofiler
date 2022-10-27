@@ -36,6 +36,10 @@
 
   > Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. Improved Metagenomic Analysis with Kraken 2. Genome Biology 20 (1): 257. doi: 10.1186/s13059-019-1891-0.
 
+- [Bracken](https://doi.org/10.7717/peerj-cs.104)
+
+  > Lu, J., Breitwieser, F. P., Thielen, P., & Salzberg, S. L. (2017). Bracken: Estimating species abundance in metagenomics data. PeerJ Computer Science, 3, e104. doi: 10.7717/peerj-cs.104
+
 - [Krona](https://doi.org/10.1186/1471-2105-12-385)
 
   > Ondov, Brian D., Nicholas H. Bergman, and Adam M. Phillippy. 2011. Interactive metagenomic visualization in a Web browser. BMC Bioinformatics 12 (1): 385. doi: 10.1186/1471-2105-12-385.
