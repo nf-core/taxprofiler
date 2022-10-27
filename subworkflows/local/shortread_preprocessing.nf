@@ -11,6 +11,7 @@ include { FALCO as FALCO_PROCESSED    } from '../../modules/nf-core/falco/main'
 workflow SHORTREAD_PREPROCESSING {
     take:
     reads //  [ [ meta ], [ reads ] ]
+    adapterlist // file
 
     main:
     ch_versions       = Channel.empty()
