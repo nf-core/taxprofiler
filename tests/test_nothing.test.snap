@@ -1,0 +1,8 @@
+{
+    "Should run without failures": {
+        "content": [
+            "2612_ERR5766176_B_raw_1_fastqc.html:md5,da77f755624291c33dedae9ae1a34009"
+        ],
+        "timestamp": "2022-10-27T11:36:31+0000"
+    }
+}
