@@ -10,7 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir", "databases"],
+            "required": ["input", "databases", "outdir"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -381,6 +381,17 @@
                     "fa_icon": "fas fa-save",
                     "description": "Turn on saving of Kraken2 per-read taxonomic assignment file",
                     "help_text": "Save a text file that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic taxonomic assignment that that read recieved.\n\n> Modifies tool parameter(s):\n> - kraken2: `--output`"
+                },
+                "kraken2_save_minimizers": {
+                    "type": "boolean",
+                    "description": "Turn on saving minimizer information in the kraken2 report thus increasing to an eight column layout.",
+                    "fa_icon": "fas fa-save",
+                    "help_text": "Turn on saving minimizer information in the kraken2 report thus increasing to an eight column layout.\n\nAdds `--report-minimizer-data` to the kraken2 command."
+                },
+                "run_bracken": {
+                    "type": "boolean",
+                    "description": "Post-process kraken2 reports with Bracken.",
+                    "fa_icon": "fas fa-toggle-on"
                 },
                 "run_malt": {
                     "type": "boolean",
