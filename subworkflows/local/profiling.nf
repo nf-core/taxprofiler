@@ -141,22 +141,25 @@ workflow PROFILING {
     }
 
     if ( params.run_kraken2 && params.run_bracken ) {
-
-        // remove files from 'pure' kraken2 runs, so only those aligned against bracken2 kraken database are taken for brakcen
-        def ch_input_for_bracken = KRAKEN2_KRAKEN2.out.report
+        // Remove files from 'pure' kraken2 runs, so only those aligned against Bracken & kraken2 database are used.
+        def ch_kraken2_output = KRAKEN2_KRAKEN2.out.report
             .filter { meta, report -> meta['tool'] == 'bracken' }
 
+        // If necessary, convert the eight column output to six column output.
         if (params.kraken2_save_minimizers) {
-            ch_input_for_bracken = KRAKEN2_STANDARD_REPORT(ch_input_for_bracken).report
+            ch_kraken2_output = KRAKEN2_STANDARD_REPORT(ch_kraken2_output).report
         }
 
-        ch_input_for_bracken = ch_input_for_bracken
-            .combine(
-                databases.filter { meta, db ->
-                    meta['tool'] == 'bracken'
-                }
-            )
-            .multiMap { meta, report, db_meta, db ->
+        // Extract the database name to combine by.
+        def ch_bracken_databases = databases
+            .filter { meta, db -> meta['tool'] == 'bracken' }
+            .map { meta, db -> [meta['db_name'], meta, db] }
+
+        // Extract the database name to combine by.
+        def ch_input_for_bracken = ch_kraken2_output
+            .map { meta, report -> [meta['db_name'], meta, report] }
+            .combine(ch_bracken_databases, by: 0)
+            .multiMap { key, meta, report, db_meta, db ->
                 report: [meta + db_meta, report]
                 db: db
             }
