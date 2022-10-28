@@ -4,6 +4,8 @@
 
 include { BOWTIE2_BUILD             } from '../../modules/nf-core/bowtie2/build/main'
 include { BOWTIE2_ALIGN             } from '../../modules/nf-core/bowtie2/align/main'
+include { SAMTOOLS_INDEX             } from '../../modules/nf-core/samtools/index/main'
+include { SAMTOOLS_STATS             } from '../../modules/nf-core/samtools/stats/main'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:
@@ -26,7 +28,17 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_versions      = ch_versions.mix( BOWTIE2_ALIGN.out.versions.first() )
     ch_multiqc_files = ch_multiqc_files.mix( BOWTIE2_ALIGN.out.log )
 
+    SAMTOOLS_INDEX ( BOWTIE2_ALIGN.out.bam )
+
+    bam_bai = BOWTIE2_ALIGN.out.bam
+        .join(SAMTOOLS_INDEX.out.bai, remainder: true)
+
+    SAMTOOLS_STATS ( bam_bai, reference )
+    ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
+    ch_multiqc_files = ch_multiqc_files.mix( SAMTOOLS_STATS.out.stats )
+
     emit:
+    stats    = SAMTOOLS_STATS.out.stats 
     reads    = BOWTIE2_ALIGN.out.fastq   // channel: [ val(meta), [ reads ] ]
     versions = ch_versions               // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
