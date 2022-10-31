@@ -3,6 +3,8 @@
 //
 
 include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/fastqc/main'
+include { FALCO as FALCO_PROCESSED   } from '../../modules/nf-core/falco/main'
+
 include { PORECHOP                   } from '../../modules/nf-core/porechop/main'
 include { FILTLONG                   } from '../../modules/nf-core/filtlong/main'
 
@@ -52,8 +54,16 @@ workflow LONGREAD_PREPROCESSING {
         ch_multiqc_files = ch_multiqc_files.mix( FILTLONG.out.log )
     }
 
-    FASTQC_PROCESSED ( ch_processed_reads )
-    ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
+    if (params.preprocessing_qc_tool == 'fastqc') {
+        FASTQC_PROCESSED ( ch_processed_reads )
+        ch_versions = ch_versions.mix( FASTQC_PROCESSED.out.versions )
+        ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
+
+    } else if (params.preprocessing_qc_tool == 'falco') {
+        FALCO_PROCESSED ( ch_processed_reads )
+        ch_versions = ch_versions.mix( FALCO_PROCESSED.out.versions )
+        ch_multiqc_files = ch_multiqc_files.mix( FALCO_PROCESSED.out.txt )
+    }
 
     emit:
     reads    = ch_processed_reads   // channel: [ val(meta), [ reads ] ]

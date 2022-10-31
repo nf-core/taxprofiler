@@ -5,7 +5,8 @@
 
 include { SHORTREAD_FASTP             } from './shortread_fastp'
 include { SHORTREAD_ADAPTERREMOVAL    } from './shortread_adapterremoval'
-include { FASTQC as FASTQC_PROCESSED       } from '../../modules/nf-core/fastqc/main'
+include { FASTQC as FASTQC_PROCESSED  } from '../../modules/nf-core/fastqc/main'
+include { FALCO as FALCO_PROCESSED    } from '../../modules/nf-core/falco/main'
 
 workflow SHORTREAD_PREPROCESSING {
     take:
@@ -27,9 +28,15 @@ workflow SHORTREAD_PREPROCESSING {
         ch_processed_reads = reads
     }
 
-    FASTQC_PROCESSED ( ch_processed_reads )
-    ch_versions = ch_versions.mix( FASTQC_PROCESSED.out.versions )
-    ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
+    if (params.preprocessing_qc_tool == 'fastqc') {
+        FASTQC_PROCESSED ( ch_processed_reads )
+        ch_versions = ch_versions.mix( FASTQC_PROCESSED.out.versions )
+        ch_multiqc_files = ch_multiqc_files.mix( FASTQC_PROCESSED.out.zip )
+    } else if  (params.preprocessing_qc_tool == 'falco') {
+        FALCO_PROCESSED ( ch_processed_reads )
+        ch_versions = ch_versions.mix( FALCO_PROCESSED.out.versions )
+        ch_multiqc_files = ch_multiqc_files.mix( FALCO_PROCESSED.out.txt )
+    }
 
     emit:
     reads    = ch_processed_reads   // channel: [ val(meta), [ reads ] ]

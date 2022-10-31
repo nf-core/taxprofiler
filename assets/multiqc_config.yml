@@ -21,6 +21,7 @@ run_modules:
   - adapterRemoval
   - fastp
   - bowtie2
+  - samtools
   - kraken
   - malt
   - custom_content
