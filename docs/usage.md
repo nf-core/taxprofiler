@@ -74,7 +74,7 @@ The pipeline takes the locations and specific profiling parameters of the tool o
 
 > ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
 
-An example database sheet can look as follows, where 4 tools are being used, and `malt` and `kraken2` will be used against two databases each. This is because specifying `bracken` implies first running `kraken2` on the same database.
+An example database sheet can look as follows, where 5 tools are being used, and `malt` and `kraken2` will be used against two databases each. This is because specifying `bracken` implies first running `kraken2` on the same database.
 
 ```console
 tool,db_name,db_params,db_path
@@ -82,6 +82,7 @@ malt,malt85,-id 85,/<path>/<to>/malt/testdb-malt/
 malt,malt95,-id 90,/<path>/<to>/malt/testdb-malt.tar.gz
 bracken,db1,,/<path>/<to>/bracken/testdb-bracken.tar.gz
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
+krakenuniq,db3,,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
 centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
 metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
@@ -125,6 +126,20 @@ Expected (uncompressed) database files for each tool are as follows:
   - `database100mers.kraken`
   - `database150mers.kmer_distrib`
   - `database150mers.kraken`
+- **KrakenUniq** output of `krakenuniq-build` command(s) A directory containing:
+  - `opts.k2d`
+  - `hash.k2d`
+  - `taxo.k2d`
+  - `database.idx`
+  - `database.kdb.counts`
+  - `database50mers.kmer_distrib`
+  - `database75mers.kmer_distrib`
+  - `database100mers.kmer_distrib`
+  - `database150mers.kmer_distrib`
+  - `database200mers.kmer_distrib`
+  - `database300mers.kmer_distrib`
+  - `seqid2taxid.map`
+  - `taxDB`
 - **Centrifuge** output of `centrifuge-build`. A directory containing:
   - `<database_name>.<number>.cf`
   - `<database_name>.<number>.cf`
