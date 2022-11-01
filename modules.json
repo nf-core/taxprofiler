@@ -7,7 +7,7 @@
                 "nf-core": {
                     "adapterremoval": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "ce7cf27e377fdacf7ebe8e75903ec70405ea1659"
                     },
                     "bbmap/bbduk": {
                         "branch": "master",
@@ -15,11 +15,11 @@
                     },
                     "bowtie2/align": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "e797efb47b0d3b2124753beb55dc83ab9512bceb"
                     },
                     "bowtie2/build": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "e797efb47b0d3b2124753beb55dc83ab9512bceb"
                     },
                     "bracken/bracken": {
                         "branch": "master",
@@ -39,7 +39,7 @@
                     },
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "8022c68e7403eecbd8ba9c49496f69f8c49d50f0"
                     },
                     "diamond/blastx": {
                         "branch": "master",
@@ -59,11 +59,11 @@
                     },
                     "fastp": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "1e49f31e93c56a3832833eef90a02d3cde5a3f7e"
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "f6a11408536fbee6cbea1f5977605011873de3ca"
                     },
                     "filtlong": {
                         "branch": "master",
@@ -123,7 +123,7 @@
                     },
                     "minimap2/align": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "5850432aab24a1924389b660adfee3809d3e60a9"
                     },
                     "minimap2/index": {
                         "branch": "master",
@@ -141,9 +141,9 @@
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
-                    "porechop": {
+                    "porechop/porechop": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "2a4e85eb81875a572bb58133e37f84ba3cc484d7"
                     },
                     "prinseqplusplus": {
                         "branch": "master",
@@ -163,7 +163,7 @@
                     },
                     "samtools/view": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "202683bfc98ddecdd456ea73268e330bca2e5c5a"
                     },
                     "untar": {
                         "branch": "master",
