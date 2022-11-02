@@ -107,8 +107,8 @@
                 "shortread_qc_adapterlist": {
                     "type": "string",
                     "default": "None",
-                    "fa_icon": "fas fa-list-ul",
-                    "help_text": "This affects AdapterRemoval. It will replace default adapters or whatever is supplied in `--shortread_qc_adapter{1,2}`.\n\nThis allows you to mix libraries built with different adapters into one run.\n\n> Modifies tool parameter(s):\n> - AdapterRemoval: `--adapter-list`."
+                    "description": "Specify a list of all possible adapters to trim. Overrides --shortread_qc_adapter1/2. Formats: .txt (AdapterRemoval) or .fasta. (fastp).",
+                    "help_text": "Allows to supply a file with a list of adapter (combinations) to remove from all files. \n\nOverrides the --shortread_qc_adapter1/--shortread_qc_adapter2 parameters . \n\nFor AdapterRemoval this consists of a two column table with a `.txt` extension: first column represents forward strand, second column for reverse strand. You must supply all possibly combinations, one per line, and this list is applied to all files. See AdapterRemoval documentation for more information.\n\nFor fastp this consists of a standard FASTA format with a `.fasta`/`.fa`/`.fna`/`.fas` extension. The adapter sequence in this file should be at least 6bp long, otherwise it will be skipped. fastp trims the adapters present in the FASTA file one by one.\n\n> Modifies AdapterRemoval parameter: --adapter-list\n> Modifies fastp parameter: --adapter_fasta"
                 },
                 "shortread_qc_mergepairs": {
                     "type": "boolean",

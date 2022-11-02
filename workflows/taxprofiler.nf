@@ -103,7 +103,12 @@ workflow TAXPROFILER {
 
     ch_versions = Channel.empty()
     ch_multiqc_logo= Channel.fromPath("$projectDir/docs/images/nf-core-taxprofiler_logo_custom_light.png")
-    ch_adapterlist_for_shortreadqc = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
+    adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
+
+    if ( params.shortread_qc_adapterlist ) {
+        if ( params.shortread_qc_tool == 'adapterremoval' && !(adapterlist.extension == 'txt') ) error "[nf-core/taxprofiler] ERROR: AdapterRemoval2 adapter list requires a `.txt` format and extension. Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
+        if ( params.shortread_qc_tool == 'fastp' && !adapterlist.extension.matches(".*(fa|fasta|fna|fas)") ) error "[nf-core/taxprofiler] ERROR: fastp adapter list requires a `.fasta` format and extension (or fa, fas, fna). Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
+    }
 
     /*
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -134,10 +139,8 @@ workflow TAXPROFILER {
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
 
-    ch_adapterlist_for_shortreadqc
-
     if ( params.perform_shortread_qc ) {
-        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq, ch_adapterlist_for_shortreadqc ).reads
+        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq, adapterlist ).reads
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     } else {
         ch_shortreads_preprocessed = INPUT_CHECK.out.fastq
