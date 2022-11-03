@@ -399,7 +399,7 @@
                     "description": "Turn on saving of KrakenUniq-aligned reads",
                     "help_text": "Save reads that do and do not have a taxonomic classification in your output results directory in FASTQ format.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--classified-out` and `--unclassified-out`"
                 },
-                "krakenuniq_ram_run_size": {
+                "krakenuniq_ram_chunk_size": {
                     "type": "string",
                     "default": "16G",
                     "description": "Specify how large to chunk database when loading into memory for KrakenUniq",
