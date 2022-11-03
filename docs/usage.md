@@ -131,14 +131,6 @@ Expected (uncompressed) database files for each tool are as follows:
   - `hash.k2d`
   - `taxo.k2d`
   - `database.idx`
-  - `database.kdb.counts`
-  - `database50mers.kmer_distrib`
-  - `database75mers.kmer_distrib`
-  - `database100mers.kmer_distrib`
-  - `database150mers.kmer_distrib`
-  - `database200mers.kmer_distrib`
-  - `database300mers.kmer_distrib`
-  - `seqid2taxid.map`
   - `taxDB`
 - **Centrifuge** output of `centrifuge-build`. A directory containing:
   - `<database_name>.<number>.cf`
@@ -192,7 +184,7 @@ work                # Directory containing the nextflow working files
 
 ### Sequencing quality control
 
-nf-core taxprofiler offers [`falco`](https://github.com/smithlabcode/falco] as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+nf-core taxprofiler offers [`falco`][https://github.com/smithlabcode/falco] as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 
 ### Preprocessing Steps
 
@@ -457,7 +449,7 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ## Troubleshooting and FAQs
 
-### I get a warning during centrifuge_kreport process with exit status 255.
+### I get a warning during centrifuge_kreport process with exit status 255
 
 When a sample has insufficient hits for abundance estimation, the resulting `report.txt` file will be empty.
 

@@ -418,18 +418,18 @@
                     "help_text": "Turn on saving minimizer information in the kraken2 report thus increasing to an eight column layout.\n\nAdds `--report-minimizer-data` to the kraken2 command."
                 },
                 "run_krakenuniq": {
-                    "type": "string",
+                    "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on profiling with KrakenUniq. Requires database to be present CSV file passed to --databases"
                 },
                 "krakenuniq_save_reads": {
-                    "type": "string",
+                    "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Turn on saving of KrakenUniq-aligned reads",
                     "help_text": "Save reads that do and do not have a taxonomic classification in your output results directory in FASTQ format.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--classified-out` and `--unclassified-out`"
                 },
                 "krakenuniq_save_readclassifications": {
-                    "type": "string",
+                    "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Turn on saving of KrakenUniq per-read taxonomic assignment file",
                     "help_text": "Save a text file that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic taxonomic assignment that that read recieved.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--output`"
