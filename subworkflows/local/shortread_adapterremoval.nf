@@ -10,6 +10,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
 
     take:
     reads // [[meta], [reads]]
+    adapterlist // file
 
     main:
     ch_versions = Channel.empty()
@@ -21,8 +22,8 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                                         paired: !it[0].single_end
                                     }
 
-    ADAPTERREMOVAL_SINGLE ( ch_input_for_adapterremoval.single, [] )
-    ADAPTERREMOVAL_PAIRED ( ch_input_for_adapterremoval.paired, [] )
+    ADAPTERREMOVAL_SINGLE ( ch_input_for_adapterremoval.single, adapterlist )
+    ADAPTERREMOVAL_PAIRED ( ch_input_for_adapterremoval.paired, adapterlist )
 
     /*
      * Due to the ~slightly~ very ugly output implementation of the current AdapterRemoval2 version, each file
