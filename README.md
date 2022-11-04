@@ -34,9 +34,10 @@ On release, automated continuous integration tests run the pipeline on a full-si
 2. Performs optional read pre-processing
    - Adapter clipping and merging (short-read: [fastp](https://github.com/OpenGene/fastp), [AdapterRemoval2](https://github.com/MikkelSchubert/adapterremoval); long-read: [porechop](https://github.com/rrwick/Porechop))
    - Low complexity and quality filtering (short-read: [bbduk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/), [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus); long-read: [Filtlong](https://github.com/rrwick/Filtlong))
-   - Host read removal (short-read: [BowTie2](http://bowtie-bio.sourceforge.net/bowtie2/); long-read: [Minimap2](https://github.com/lh3/minimap2))
+   - Host-read removal (short-read: [BowTie2](http://bowtie-bio.sourceforge.net/bowtie2/); long-read: [Minimap2](https://github.com/lh3/minimap2))
    - Run merging
-3. Performs taxonomic profiling using one or more of:
+3. Supports statistics for host-read removal ([Samtools](http://www.htslib.org/))
+4. Performs taxonomic profiling using one or more of:
    - [Kraken2](https://ccb.jhu.edu/software/kraken2/)
    - [MetaPhlAn3](https://huttenhower.sph.harvard.edu/metaphlan/)
    - [MALT](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/malt/)
@@ -45,11 +46,11 @@ On release, automated continuous integration tests run the pipeline on a full-si
    - [Kaiju](https://kaiju.binf.ku.dk/)
    - [mOTUs](https://motu-tool.org/)
    - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
-4. Perform optional post-processing with:
+5. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
-5. Standardises output tables
-6. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
-7. Plotting Kraken2, Centrifuge, Kaiju and MALT results ([`Krona`](https://hpc.nih.gov/apps/kronatools.html))
+6. Standardises output tables
+7. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+8. Plotting Kraken2, Centrifuge, Kaiju and MALT results ([`Krona`](https://hpc.nih.gov/apps/kronatools.html))
 
 ## Quick Start
 
