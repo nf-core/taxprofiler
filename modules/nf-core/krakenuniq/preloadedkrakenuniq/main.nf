@@ -1,5 +1,4 @@
 process KRAKENUNIQ_PRELOADEDKRAKENUNIQ {
-    tag "$meta.id"
     label 'process_high'
 
     conda (params.enable_conda ? "bioconda::krakenuniq=1.0.0" : null)
