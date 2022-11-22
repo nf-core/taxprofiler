@@ -25,7 +25,7 @@ workflow SHORTREAD_HOSTREMOVAL {
         ch_bowtie2_index = index.first()
     }
 
-    BOWTIE2_ALIGN ( reads, ch_bowtie2_index, true, false )
+    BOWTIE2_ALIGN ( reads, ch_bowtie2_index, true, true)
     ch_versions      = ch_versions.mix( BOWTIE2_ALIGN.out.versions.first() )
     ch_multiqc_files = ch_multiqc_files.mix( BOWTIE2_ALIGN.out.log )
 
@@ -41,8 +41,8 @@ workflow SHORTREAD_HOSTREMOVAL {
     SAMTOOLS_INDEX ( SAMTOOLS_VIEW.out.bam )
     ch_versions      = ch_versions.mix( SAMTOOLS_INDEX.out.versions.first() )
 
-    bam_bai = SAMTOOLS_VIEW.out.bam
-        .join(SAMTOOLS_INDEX.out.bai, remainder: true)
+    bam_bai = BOWTIE2_ALIGN.out.bam
+        .join(SAMTOOLS_INDEX.out.bai, by:[0], remainder: true)
 
     SAMTOOLS_STATS ( bam_bai, reference )
     ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
