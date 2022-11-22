@@ -269,6 +269,16 @@ workflow PROFILING {
 
     if ( params.run_krakenuniq ) {
         ch_input_for_krakenuniq =  ch_input_for_profiling.krakenuniq
+                                    .map {
+                                        meta, reads, db_meta, db ->
+                                            def meta_new = [:]
+                                            meta_new['tool'] = meta['tool']
+                                            meta_new['single_end'] = meta['single_end']
+
+                                            [meta_new, reads, db_meta, db]
+                                    }
+                                    .groupTuple(by: [0,2,3])
+                                    .dump(tag: "krakenuniq_premultimap")
                                     .multiMap {
                                         it ->
                                             reads: [ it[0] + it[2], it[1] ]
