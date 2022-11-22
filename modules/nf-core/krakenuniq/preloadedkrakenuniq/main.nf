@@ -45,7 +45,7 @@ process KRAKENUNIQ_PRELOADEDKRAKENUNIQ {
         --preload $ram_chunk_size \\
         --threads $task.cpus
 
-    for fastq in ${fastqs.join(' ')}; do \\
+    for fastq in "${fastqs.join('\" \"')}"; do \\
         PREFIX=\$(echo \$fastq)
         krakenuniq \\
             --db $db \\
