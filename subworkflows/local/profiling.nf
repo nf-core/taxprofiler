@@ -272,7 +272,7 @@ workflow PROFILING {
                                     .map {
                                         meta, reads, db_meta, db ->
                                             def meta_new = [:]
-                                            meta['id'] = db_meta['db_name']
+                                            meta_new['id'] = db_meta['db_name']
                                             meta_new['single_end'] = meta['single_end']
 
                                             [meta_new, reads, db_meta, db]
