@@ -280,7 +280,7 @@ workflow PROFILING {
                                     .dump(tag: "krakenuniq_premultimap")
                                     .multiMap {
                                         it ->
-                                            reads: [ it[0] + it[2], it[1].flatten() ]
+                                            reads: [ it[0] + it[2], it[1] ]
                                             db: it[3]
                                 }
         // Hardcode to _always_ produce the report file (which is our basic otput, and goes into)
