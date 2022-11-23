@@ -45,7 +45,7 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_versions      = ch_versions.mix( SAMTOOLS_INDEX.out.versions.first() )
 
     bam_bai = MINIMAP2_ALIGN.out.bam
-        .join(SAMTOOLS_INDEX.out.bai,by:[0], remainder: true)
+        .join(SAMTOOLS_INDEX.out.bai, remainder: true)
 
     SAMTOOLS_STATS ( bam_bai, reference )
     ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
