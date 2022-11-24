@@ -95,7 +95,7 @@ workflow PROFILING {
                                         db: it[2]
                                 }
 
-        MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
+        MALT_RUN ( ch_input_for_malt.reads, ch_input_for_malt.db )
 
         ch_maltrun_for_megan = MALT_RUN.out.rma6
                                 .transpose()
