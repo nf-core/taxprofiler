@@ -63,7 +63,10 @@
                 "preprocessing_qc_tool": {
                     "type": "string",
                     "default": "fastqc",
-                    "enum": ["fastqc", "falco"],
+                    "enum": [
+                        "fastqc",
+                        "falco"
+                    ],
                     "help_text": "Falco is designed as a drop-in replacement for FastQC but written in C++ for faster computation. We particularly recommend using falco when using long reads (due to reduced memory constraints), however is also applicable for short reads.",
                     "description": "Specify the tool used for quality control of raw sequencing reads",
                     "fa_icon": "fas fa-tools"
@@ -470,17 +473,17 @@
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on profiling with mOTUs. Requires database to be present CSV file passed to --databases"
                 },
-                "save_mgc_counts": {
+                "motus_mgc_counts": {
                     "type": "boolean",
-                    "description": "Save the mgc reads count for mOTUs."
+                    "description": "Save the mgc reads count."
                 },
-                "save_read_counts": {
+                "motus_ncbi_id": {
                     "type": "boolean",
-                    "description": "Print mOTUs result as counts instead of relative abundances."
+                    "description": "Print NCBI id."
                 },
-                "save_ncbi_id": {
+                "motus_read_counts": {
                     "type": "boolean",
-                    "description": "Print NCBI taxonomic id for mOTUs."
+                    "description": "Print result as counts instead of relative abundances."
                 }
             },
             "fa_icon": "fas fa-align-center"
@@ -652,16 +655,6 @@
                     "default": "25.MB",
                     "fa_icon": "fas fa-file-upload",
                     "hidden": true
-                },
-                "preprocessing_qc_tool": {
-                    "type": "string",
-                    "default": "fastqc",
-                    "enum": [
-                        "fastqc",
-                        "falco"
-                    ],
-                    "help_text": "Falco is designed as a drop-in replacement for FastQC but written in C++ for faster computation. We particularly recommend using falco when using long reads (due to reduced memory constraints), however is also applicable for short reads.",
-                    "description": "Specify the tool used for quality control of raw sequencing reads"
                 },
                 "monochrome_logs": {
                     "type": "boolean",
