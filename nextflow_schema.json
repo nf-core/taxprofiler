@@ -742,15 +742,15 @@
     },
     "save_mgc_counts": {
       "type": "boolean",
-      "description": "Save the mgc reads count in mOTUs."
+      "description": "Save the mgc reads count for mOTUs."
     },
     "save_ncbi_id": {
       "type": "boolean",
-      "description": "Print NCBI id in mOTUs."
+      "description": "Print NCBI taxonomic id for mOTUs."
     },
     "save_read_counts": {
       "type": "boolean",
-      "description": "Print result as counts instead of relative abundances in mOTUs."
+      "description": "Print mOTUs result as counts instead of relative abundances.."
     }
   }
 }
