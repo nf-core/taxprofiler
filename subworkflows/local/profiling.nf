@@ -271,7 +271,7 @@ workflow PROFILING {
         ch_input_for_krakenuniq =  ch_input_for_profiling.krakenuniq
                                     .map {
                                         meta, reads, db_meta, db ->
-                                            [[single_end: meta.single_end], reads, db_meta, db]
+                                            [[id: db_meta.db_name, single_end: meta.single_end], reads, db_meta, db]
                                     }
                                     .groupTuple(by: [0,2,3])
                                     .dump(tag: "krakenuniq_premultimap")
