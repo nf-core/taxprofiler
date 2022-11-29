@@ -743,7 +743,7 @@
         },
         "save_read_counts": {
             "type": "boolean",
-            "description": "Print mOTUs result as counts instead of relative abundances.."
+            "description": "Print mOTUs result as counts instead of relative abundances."
         }
     }
 }
