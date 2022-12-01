@@ -103,7 +103,7 @@ jobs:
           attempt_limit: 3
 
   krakenuniq:
-    name: Test mOTUs with workflow parameters
+    name: Test KrakenUniq with workflow parameters
     if: ${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}
     runs-on: ubuntu-latest
     strategy:
