@@ -472,18 +472,6 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on profiling with mOTUs. Requires database to be present CSV file passed to --databases"
-                },
-                "motus_use_ncbi_ids": {
-                    "type": "boolean",
-                    "description": "Turn on printing ncbi taxonomic ids."
-                },
-                "motus_save_mgcreadcounts": {
-                    "type": "boolean",
-                    "description": "Turn on saving the mgc reads count to a separate file."
-                },
-                "motus_output_type": {
-                    "type": "boolean",
-                    "description": "Turn on printing result as counts instead of relative abundances."
                 }
             },
             "fa_icon": "fas fa-align-center"
@@ -783,5 +771,19 @@
         {
             "$ref": "#/definitions/reference_genome_options"
         }
-    ]
+    ],
+    "properties": {
+        "motus_use_relative_abundance": {
+            "type": "string",
+            "default": "false"
+        },
+        "motus_remove_ncbi_ids": {
+            "type": "string",
+            "default": "false"
+        },
+        "motus_save_mgc_read_counts": {
+            "type": "string",
+            "default": "false"
+        }
+    }
 }
