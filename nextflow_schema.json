@@ -474,16 +474,16 @@
                     "description": "Turn on profiling with mOTUs. Requires database to be present CSV file passed to --databases"
                 },
                 "motus_use_ncbi_ids": {
-                    "type": "string",
-                    "default": "false"
+                    "type": "boolean",
+                    "description": "Turn on printing ncbi taxonomic ids."
                 },
                 "motus_save_mgcreadcounts": {
-                    "type": "string",
-                    "default": "false"
+                    "type": "boolean",
+                    "description": "Turn on saving the mgc reads count to a separate file."
                 },
                 "motus_output_type": {
-                    "type": "string",
-                    "default": "false"
+                    "type": "boolean",
+                    "description": "Turn on printing result as counts instead of relative abundances."
                 }
             },
             "fa_icon": "fas fa-align-center"
