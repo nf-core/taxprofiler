@@ -13,6 +13,7 @@ include { METAPHLAN3_METAPHLAN3                 } from '../../modules/nf-core/me
 include { KAIJU_KAIJU                           } from '../../modules/nf-core/kaiju/kaiju/main'
 include { DIAMOND_BLASTX                        } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                         } from '../../modules/nf-core/motus/profile/main'
+include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ        } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
 
 workflow PROFILING {
     take:
@@ -47,6 +48,7 @@ workflow PROFILING {
                 kaiju: it[2]['tool'] == 'kaiju'
                 diamond: it[2]['tool'] == 'diamond'
                 motus: it[2]['tool'] == 'motus'
+                krakenuniq: it[2]['tool'] == 'krakenuniq'
                 unknown: true
             }
 
@@ -95,7 +97,7 @@ workflow PROFILING {
                                         db: it[2]
                                 }
 
-        MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
+        MALT_RUN ( ch_input_for_malt.reads, ch_input_for_malt.db )
 
         ch_maltrun_for_megan = MALT_RUN.out.rma6
                                 .transpose()
@@ -263,6 +265,28 @@ workflow PROFILING {
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
         ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
+    }
+
+    if ( params.run_krakenuniq ) {
+        ch_input_for_krakenuniq =  ch_input_for_profiling.krakenuniq
+                                    .map {
+                                        meta, reads, db_meta, db ->
+                                            [[id: db_meta.db_name, single_end: meta.single_end], reads, db_meta, db]
+                                    }
+                                    .groupTuple(by: [0,2,3])
+                                    .dump(tag: "krakenuniq_premultimap")
+                                    .multiMap {
+                                        single_meta, reads, db_meta, db ->
+                                            reads: [ single_meta + db_meta, reads.flatten() ]
+                                            db: db
+                                }
+        // Hardcode to _always_ produce the report file (which is our basic otput, and goes into)
+        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads.dump(tag: "krakenuniq_input"), ch_input_for_krakenuniq.db.dump(tag: "krakenuniq_db"), params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
+        ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
+        ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment )
+        ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
+
     }
 
     emit:

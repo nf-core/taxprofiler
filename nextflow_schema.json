@@ -402,6 +402,30 @@
                     "fa_icon": "fas fa-save",
                     "help_text": "Turn on saving minimizer information in the kraken2 report thus increasing to an eight column layout.\n\nAdds `--report-minimizer-data` to the kraken2 command."
                 },
+                "run_krakenuniq": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with KrakenUniq. Requires database to be present CSV file passed to --databases"
+                },
+                "krakenuniq_save_reads": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of KrakenUniq-aligned reads",
+                    "help_text": "Save reads that do and do not have a taxonomic classification in your output results directory in FASTQ format.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--classified-out` and `--unclassified-out`"
+                },
+                "krakenuniq_ram_chunk_size": {
+                    "type": "string",
+                    "default": "16G",
+                    "description": "Specify how large to chunk database when loading into memory for KrakenUniq",
+                    "fa_icon": "fas fa-database",
+                    "help_text": "nf-core/taxprofiler utilises a 'low memory' option for KrakenUniq that can reduce the amount of RAM the process requires using the `--preloaded` option.\n\nA further extension to this option is that you can specify how large each chunk of the database should be that gets loaded into memory at any one time. You can specify the amount of RAM to chunk the database to with this parameter, and is particularly useful for people with limited computational resources.\n\nMore information about this parameter can be seen [here](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#new-release-v07).\n\n> Modifies KrakenUniq parameter: --preload\n\n> \n\n"
+                },
+                "krakenuniq_save_readclassifications": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of KrakenUniq per-read taxonomic assignment file",
+                    "help_text": "Save a text file that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic taxonomic assignment that that read recieved.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--output`"
+                },
                 "run_bracken": {
                     "type": "boolean",
                     "description": "Post-process kraken2 reports with Bracken.",

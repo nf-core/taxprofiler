@@ -36,6 +36,10 @@
 
   > Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. Improved Metagenomic Analysis with Kraken 2. Genome Biology 20 (1): 257. doi: 10.1186/s13059-019-1891-0.
 
+- [KrakenUniq](https://doi.org/10.1186/s13059-018-1568-0)
+
+  > Breitwieser, Florian P., Daniel N. Baker, and Steven L. Salzberg. 2018. KrakenUniq: confident and fast metagenomics classification using unique k-mer counts. Genome Biology 19 (1): 198. doi: 10.1186/s13059-018-1568-0
+
 - [Bracken](https://doi.org/10.7717/peerj-cs.104)
 
   > Lu, J., Breitwieser, F. P., Thielen, P., & Salzberg, S. L. (2017). Bracken: Estimating species abundance in metagenomics data. PeerJ Computer Science, 3, e104. doi: 10.7717/peerj-cs.104
