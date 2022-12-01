@@ -204,7 +204,7 @@ It is highly recommended to run this on raw reads to remove artifacts from seque
 There are currently two options for short-read preprocessing: `fastp` or `adapterremoval`.
 
 For adapter clipping, you can either rely on tool default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
-By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to exclude unmerged reads in the reads sent for profiling (`--shortread_qc_mergepairs` and `--shortread_qc_excludeunmerged`).
+By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to include unmerged reads in the reads sent for profiling (`--shortread_qc_mergepairs` and `--shortread_qc_includeunmerged`).
 You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
 Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during profiling, with minimal gain.
 
