@@ -145,7 +145,15 @@ workflow PROFILING {
     if ( params.run_kraken2 && params.run_bracken ) {
         // Remove files from 'pure' kraken2 runs, so only those aligned against Bracken & kraken2 database are used.
         def ch_kraken2_output = KRAKEN2_KRAKEN2.out.report
-            .filter { meta, report -> meta['tool'] == 'bracken' }
+            .filter {
+                meta, report ->
+                    if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Bracken has not been evaluated for long-read data. Skipping Bracken for sample ${meta.id}."
+                    meta['tool'] == 'bracken' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+
+
+            }
+
+
 
         // If necessary, convert the eight column output to six column output.
         if (params.kraken2_save_minimizers) {
