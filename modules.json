@@ -111,7 +111,7 @@
                     },
                     "malt/run": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "6d9712f03ec2de8264a50ee4541a617e1e063b51"
                     },
                     "megan/rma2info": {
                         "branch": "master",
