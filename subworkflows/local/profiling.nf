@@ -147,13 +147,9 @@ workflow PROFILING {
         def ch_kraken2_output = KRAKEN2_KRAKEN2.out.report
             .filter {
                 meta, report ->
-                    meta['tool'] == 'bracken' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
                     if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Bracken has not been evaluated for Nanopore data. Skipping Bracken for sample ${meta.id}."
-
-
+                    meta['tool'] == 'bracken' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
             }
-
-
 
         // If necessary, convert the eight column output to six column output.
         if (params.kraken2_save_minimizers) {
