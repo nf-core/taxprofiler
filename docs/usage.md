@@ -248,9 +248,31 @@ You can optionally save the FASTQ output of the run merging with the `--save_run
 
 ##### Profiling
 
+###### Bracken
+
+It is unclear whether Bracken is suitable for running long reads, as it makes certain assumptions about read lengths. Furthemore, during testing we found issues where Bracken would fail on the long-read test data. Therefore nf-core/taxprofiler does not run Bracken on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet. If you believe this to be wrong, please contact us on the nf-core slack and we can discuss this.
+
+###### Centrifuge
+
+Centrifuge currently does not accept FASTA files as input, therefore no output will be produced for these input files.
+
+###### DIAMOND
+
+DIAMOND only allows output of a single format at a time, therefore parameters such --diamond_save_reads supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending n your particular use case.
+
 ###### MALT
 
-nf-core/taxprofiler uses MALT 0.4.1, which is a compatively old version. However it has been found that the most recent version of MALT (0.5.\*), at the time of writing, is broken. [The LCA step appears not to be executed](http://megan.informatik.uni-tuebingen.de/t/lca-placement-failure-with-malt-v-0-5-2-and-0-5-3/1996/3), pushing all hits to the leaves of the taxonomy. However, if you need to use a more recent taxonomy map file with your databases, the output of `malt-build` from MALT 0.5.3 should be still be compatible with `malt-run` of 0.4.1.
+MALT does not support paired-end reads alignment (unlike other tools), therefore nf-core/taxprofiler aligns these as indepenent files if read-merging is skipped. If you skip merging, you can sum or average the results of the counts of the pairs.
+
+Krona can only be run on MALT output if path to Krona taxonomy database supplied to `--krona_taxonomy_directory`. Therefore if you do not supply the a KRona directory, Krona plots will not be produced for MALT.
+
+###### MetaPhlAn3
+
+MetaPhlAn3 currently does not accept FASTA files as input, therefore no output will be produced for these input files.
+
+###### mOTUs
+
+mOTUs currently does not accept FASTA files as input, therefore no output will be produced for these input files.
 
 ### Updating the pipeline
 
