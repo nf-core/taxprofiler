@@ -30,7 +30,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
      * has to be exported in a separate channel and we must manually recombine when necessary.
      */
 
-    if ( params.shortread_qc_mergepairs && !params.shortread_qc_excludeunmerged ) {
+    if ( params.shortread_qc_mergepairs && params.shortread_qc_includeunmerged ) {
 
         ch_concat_fastq = Channel.empty()
             .mix(
@@ -40,9 +40,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                 ADAPTERREMOVAL_PAIRED.out.paired_truncated
             )
             .map { meta, reads ->
-                def meta_new = meta.clone()
-                meta_new.single_end = true
-                [meta_new, reads]
+                [meta + [single_end: true], reads]
             }
             .groupTuple()
             // Paired-end reads cause a nested tuple during grouping.
@@ -55,7 +53,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
         ch_adapterremoval_reads_prepped = CAT_FASTQ.out.reads
             .mix(ADAPTERREMOVAL_SINGLE.out.singles_truncated)
 
-    } else if ( params.shortread_qc_mergepairs && params.shortread_qc_excludeunmerged ) {
+    } else if ( params.shortread_qc_mergepairs && !params.shortread_qc_includeunmerged ) {
 
         ch_concat_fastq = Channel.empty()
             .mix(
@@ -63,9 +61,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                 ADAPTERREMOVAL_PAIRED.out.collapsed_truncated
             )
             .map { meta, reads ->
-                def meta_new = meta.clone()
-                meta_new.single_end = true
-                [meta_new, reads]
+                [meta + [single_end: true], reads]
             }
             .groupTuple()
             .map { meta, fastq -> [meta, fastq.flatten()] }

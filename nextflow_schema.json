@@ -125,11 +125,11 @@
                     "default": true,
                     "help_text": "Turn on the merging of read-pairs of paired-end short read sequencing data for AdapterRemoval (this is performed automatically with fastp).\n\n> Modifies tool parameter(s):\n> - AdapterRemoval: `--collapse`\n"
                 },
-                "shortread_qc_excludeunmerged": {
+                "shortread_qc_includeunmerged": {
                     "type": "boolean",
                     "fa_icon": "far fa-times-circle",
-                    "description": "Discard unmerged reads from paired-end merging",
-                    "help_text": "Turns off the inclusion of unmerged reads in resulting processing FASTQ file of paired-end sequencing data when using `fastp`.\n\nThis can be useful in cases where you prefer to have very short reads (e.g. aDNA), thus excluding longer-reads or possibly faulty reads where one of the pair was discarded.\n\n> Modifies tool parameter(s):\n> - removed from reads `--include_unmerged`\n"
+                    "description": "Include unmerged reads from paired-end merging in the downstream analysis",
+                    "help_text": "Turns on the inclusion of unmerged reads in resulting FASTQ file from merging paired-end sequencing data when using `fastp` and/or `AdapterRemoval`. For `fastp` this means the unmerged read pairs are directly included in the output FASTQ file. For `AdapterRemoval`, additional output files containing unmerged reads are all concatenated into one file by the workflow.\n\nExcluding unmerged reads can be useful in cases where you prefer to have very short reads (e.g. aDNA), thus excluding longer-reads or possibly faulty reads where one of the pair was discarded.\n\n> Adds `fastp` option: `--include_unmerged`\n"
                 },
                 "shortread_qc_minlength": {
                     "type": "integer",
