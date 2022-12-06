@@ -7,7 +7,7 @@
                 "nf-core": {
                     "adapterremoval": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "ce7cf27e377fdacf7ebe8e75903ec70405ea1659"
                     },
                     "bbmap/bbduk": {
                         "branch": "master",
@@ -18,6 +18,10 @@
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
                     "bowtie2/build": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "bracken/bracken": {
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
@@ -49,9 +53,13 @@
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
+                    "falco": {
+                        "branch": "master",
+                        "git_sha": "fc959214036403ad83efe7a41d43d0606c445cda"
+                    },
                     "fastp": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "1e49f31e93c56a3832833eef90a02d3cde5a3f7e"
                     },
                     "fastqc": {
                         "branch": "master",
@@ -89,6 +97,10 @@
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
+                    "krakenuniq/preloadedkrakenuniq": {
+                        "branch": "master",
+                        "git_sha": "05649975c6611c6e007537a7984e186e12ae03af"
+                    },
                     "krona/ktimporttaxonomy": {
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
@@ -99,7 +111,7 @@
                     },
                     "malt/run": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "6d9712f03ec2de8264a50ee4541a617e1e063b51"
                     },
                     "megan/rma2info": {
                         "branch": "master",
@@ -133,15 +145,23 @@
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
-                    "porechop": {
+                    "porechop/porechop": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                        "git_sha": "2a4e85eb81875a572bb58133e37f84ba3cc484d7"
                     },
                     "prinseqplusplus": {
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
                     "samtools/bam2fq": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "samtools/index": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
+                    "samtools/stats": {
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },

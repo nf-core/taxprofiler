@@ -12,7 +12,8 @@ WorkflowTaxprofiler.initialise(params, log)
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
 def checkPathParamList = [ params.input, params.databases, params.hostremoval_reference,
-                            params.shortread_hostremoval_index, params.multiqc_config
+                            params.shortread_hostremoval_index, params.multiqc_config,
+                            params.shortread_qc_adapterlist
                         ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
@@ -27,7 +28,7 @@ if ( params.input ) {
 if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
 
 if (params.shortread_qc_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
-if (params.shortread_qc_excludeunmerged && !params.shortread_qc_mergepairs) exit 1, "ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging not turned on. Please specify --shortread_qc_mergepairs"
+if (params.shortread_qc_includeunmerged && !params.shortread_qc_mergepairs) exit 1, "ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging is not turned on. Please specify --shortread_qc_mergepairs"
 
 if (params.shortread_complexityfilter_tool == 'fastp' && ( params.perform_shortread_qc == false || params.shortread_qc_tool != 'fastp' ))  exit 1, "ERROR: [nf-core/taxprofiler] cannot use fastp complexity filtering if preprocessing not turned on and/or tool is not fastp. Please specify --perform_shortread_qc and/or --shortread_qc_tool 'fastp'"
 
@@ -41,6 +42,7 @@ if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = fi
 if (params.diamond_save_reads              ) log.warn "[nf-core/taxprofiler] DIAMOND only allows output of a single format. As --diamond_save_reads supplied, only aligned reads in SAM format will be produced, no taxonomic profiles will be available."
 
 if (params.run_malt && params.run_krona && !params.krona_taxonomy_directory) log.warn "[nf-core/taxprofiler] Krona can only be run on MALT output if path to Krona taxonomy database supplied to --krona_taxonomy_directory. Krona will not be executed in this run for MALT."
+if (params.run_bracken && !params.run_kraken2) exit 1, 'ERROR: [nf-core/taxprofiler] You are attempting to run Bracken without running kraken2. This is not possible! Please set --run_kraken2 as well.'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,6 +86,7 @@ include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardis
 // MODULE: Installed directly from nf-core/modules
 //
 include { FASTQC                      } from '../modules/nf-core/fastqc/main'
+include { FALCO                       } from '../modules/nf-core/falco/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { CAT_FASTQ                   } from '../modules/nf-core/cat/fastq/main'
@@ -101,6 +104,12 @@ workflow TAXPROFILER {
 
     ch_versions = Channel.empty()
     ch_multiqc_logo= Channel.fromPath("$projectDir/docs/images/nf-core-taxprofiler_logo_custom_light.png")
+    adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
+
+    if ( params.shortread_qc_adapterlist ) {
+        if ( params.shortread_qc_tool == 'adapterremoval' && !(adapterlist.extension == 'txt') ) error "[nf-core/taxprofiler] ERROR: AdapterRemoval2 adapter list requires a `.txt` format and extension. Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
+        if ( params.shortread_qc_tool == 'fastp' && !adapterlist.extension.matches(".*(fa|fasta|fna|fas)") ) error "[nf-core/taxprofiler] ERROR: fastp adapter list requires a `.fasta` format and extension (or fa, fas, fna). Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
+    }
 
     /*
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
@@ -120,17 +129,19 @@ workflow TAXPROFILER {
     */
     ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
 
-    FASTQC (
-        ch_input_for_fastqc
-    )
-
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
-
+    if ( params.preprocessing_qc_tool == 'falco' ) {
+        FALCO ( ch_input_for_fastqc )
+        ch_versions = ch_versions.mix(FALCO.out.versions.first())
+    } else {
+        FASTQC ( ch_input_for_fastqc )
+        ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    }
     /*
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
+
     if ( params.perform_shortread_qc ) {
-        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq ).reads
+        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq, adapterlist ).reads
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     } else {
         ch_shortreads_preprocessed = INPUT_CHECK.out.fastq
@@ -254,7 +265,13 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+
+    if ( params.preprocessing_qc_tool == 'falco' ) {
+        ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt.collect{it[1]}.ifEmpty([]))
+    } else {
+        ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    }
+
 
     if (params.perform_shortread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
@@ -270,6 +287,10 @@ workflow TAXPROFILER {
 
     if (params.perform_shortread_hostremoval) {
         ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
+    }
+
+     if (params.perform_longread_hostremoval) {
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
     }
 
     ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc.collect{it[1]}.ifEmpty([]) )

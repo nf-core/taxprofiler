@@ -3,7 +3,7 @@
 //
 
 include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/kaiju/kaiju2table/main'
-include { KRAKENTOOLS_COMBINEKREPORTS                                           } from '../../modules/nf-core/krakentools/combinekreports/main'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
@@ -93,10 +93,10 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    KRAKENTOOLS_COMBINEKREPORTS ( ch_profiles_for_kraken2 )
-    ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS.out.txt )
-    ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS.out.txt )
-    ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS.out.versions )
+    KRAKENTOOLS_COMBINEKREPORTS_KRAKEN ( ch_profiles_for_kraken2 )
+    ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
+    ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
+    ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.versions )
 
     // MetaPhlAn3
 
