@@ -122,8 +122,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on merging of read pairs for paired-end data",
-                    "default": true,
-                    "help_text": "Turn on the merging of read-pairs of paired-end short read sequencing data for AdapterRemoval (this is performed automatically with fastp).\n\n> Modifies tool parameter(s):\n> - AdapterRemoval: `--collapse`\n"
+                    "help_text": "Turn on the merging of read-pairs of paired-end short read sequencing data. \n\n> Modifies tool parameter(s):\n> - AdapterRemoval: `--collapse`\n> - fastp: `-m --merged_out`\n"
                 },
                 "shortread_qc_includeunmerged": {
                     "type": "boolean",
