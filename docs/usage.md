@@ -484,15 +484,19 @@ NXF_OPTS='-Xms1g -Xmx4g'
 ### Tutorial - How to create your custom database
 
 #### Kraken2
+
 Kraken2 allows the user to build custom databases. You can follow Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases).
 
 #### Centrifuge
+
 Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database).
 
 #### Kaiju
+
 It is possible to [create custom databases](https://github.com/bioinformatics-centre/kaiju#custom-database) with Kaiju.
 
 #### MALT
+
 To create a custom database for MALT, the user should download and unzip the following database which lists all NCBI records. The input files are specified using -i and the index is specified using -d. A detailed description for each argument can be found [here](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf)
 
 ```bash
@@ -502,12 +506,15 @@ malt-build -i path/to/fasta/files/*.{fna,fa} -s DNA -d index -t 8 -st 4 -a2t meg
 ```
 
 #### Bracken
+
 You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) to build a custom database. Alternatively, you can use one of the indexes that can be found [here](https://benlangmead.github.io/aws-indexes/k2).
 
 #### KrakenUniq
+
 For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2)
 
 #### DIAMOND
+
 To create a custom database for DIAMOND, the user should download and unzip the NCBI's taxonomy files. The `makedb` needs to be executed afterwards. A detailed description can be found [here](https://gensoft.pasteur.fr/docs/diamond/0.8.22/diamond_manual.pdf)
 
 ```bash
@@ -524,6 +531,7 @@ rm *dmp *txt *gz *prt *zip
 ```
 
 #### mOTUs
+
 A detailed description on how to download mOTUs database can be found [here](https://github.com/motu-tool/mOTUs)
 
 ## Troubleshooting and FAQs
