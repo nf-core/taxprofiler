@@ -13,6 +13,13 @@ The directories listed below will be created in the results directory after the 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
 - [FastQC](#fastqc) - Raw read QC
+- [falco](#falco) - Alternative to FastQC for raw read QC
+- [fastp](#fastp) - Adapter trimming for Illumina data
+- [AdapterRemoval](#adapterremoval) - Adapter trimming for Illumina data
+- [Porechop](#porechop) - Adapter removal for Oxford Nanopore data
+- [BBDuk](#bbduk) - Quality trimming and filtering for Illumina data
+- [PRINSEQ++](#prinseq++) - Quality trimming and filtering for Illunina data
+- [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -36,6 +43,69 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 ![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
 
 > **NB:** The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
+
+### fastp
+
+fastp can automatically detect adapter sequences for Illumina data.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `fastp`
+
+</details>
+
+### AdapterRemoval
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `adapterremoval`
+
+</details>
+
+### Porechop
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `porechop`
+  - `<sample_id>.fastq.gz`
+
+</details>
+
+### BBDuk
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `bbduk`
+  - `<sample_id>.bbduk.log`
+  - `<sample_id>.fastq.gz`
+
+</details>
+
+### PRINSEQ++
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `prinseq++`
+
+</details>
+
+### Filtlong
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `filtlong`
+  - `<sample_id>_filtered.fastq.g`
+  - `<sample_id>_filtered.log`
+
+</details>
+
+
 
 ### MultiQC
 
