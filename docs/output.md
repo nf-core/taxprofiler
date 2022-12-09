@@ -105,8 +105,6 @@ fastp can automatically detect adapter sequences for Illumina data.
 
 </details>
 
-
-
 ### MultiQC
 
 <details markdown="1">
