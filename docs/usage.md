@@ -185,7 +185,7 @@ work                # Directory containing the nextflow working files
 
 ### Sequencing quality control
 
-nf-core taxprofiler offers [`falco`][https://github.com/smithlabcode/falco] as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+nf-core taxprofiler offers [`falco`](https://github.com/smithlabcode/falco) as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 
 ### Preprocessing Steps
 
@@ -202,14 +202,14 @@ Raw sequencing read processing in the form of adapter clipping and paired-end re
 
 It is highly recommended to run this on raw reads to remove artifacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles.
 
-There are currently two options for short-read preprocessing: `fastp` or `adapterremoval`.
+There are currently two options for short-read preprocessing: [`fastp`](https://github.com/OpenGene/fastp) or [`adapterremoval`](https://github.com/MikkelSchubert/adapterremoval).
 
 For adapter clipping, you can either rely on tool default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
 By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to include unmerged reads in the reads sent for profiling (`--shortread_qc_mergepairs` and `--shortread_qc_includeunmerged`).
 You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
 Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during profiling, with minimal gain.
 
-There is currently one option for long-read Oxford Nanopore processing: `porechop`.
+There is currently one option for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop).
 
 For both short-read and long-read preprocessing, you can optionally save the resulting processed reads with `--save_preprocessed_reads`.
 
@@ -226,6 +226,8 @@ There is one option for long-read quality filtering: [`Filtlong`](https://github
 The tools offer different algorithms and parameters for removing low complexity reads and quality filtering. We therefore recommend reviewing the pipeline's [parameter documentation](https://nf-co.re/taxprofiler/parameters) and the documentation of the tools (see links above) to decide on optimal methods and parameters for your dataset.
 
 You can optionally save the FASTQ output of the run merging with the `--save_complexityfiltered_reads`. If running with `fastp`, complexity filtering happens inclusively within the earlier shortread preprocessing step. Therefore there will not be an independent pipeline step for complexity filtering, and no independent FASTQ file (i.e. `--save_complexityfiltered_reads` will be ignored) - your complexity filtered reads will also be in the `fastp/` folder in the same file(s) as the preprocessed read.
+
+**We do not any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.**
 
 #### Host Removal
 
@@ -480,7 +482,7 @@ NXF_OPTS='-Xms1g -Xmx4g'
 Kraken2 allows the user to build custom databases. You can follow Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases).
 
 #### Centrifuge
-Centrifuge is similar to Kraken2 in that it enables to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). 
+Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database).
 
 #### Kaiju
 It is possible to [create custom databases](https://github.com/bioinformatics-centre/kaiju#custom-database) with Kaiju.
@@ -495,12 +497,29 @@ malt-build -i path/to/fasta/files/*.{fna,fa} -s DNA -d index -t 8 -st 4 -a2t meg
 ```
 
 #### Bracken
+You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) to build a custom database. Alternatively, you can use one of the indexes that can be found [here](https://benlangmead.github.io/aws-indexes/k2).
 
 #### KrakenUniq
+For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2)
 
 #### DIAMOND
+To create a custom database for DIAMOND, the user should download and unzip the NCBI's taxonomy files. The `makedb` needs to be executed afterwards. A detailed description can be found [here](https://gensoft.pasteur.fr/docs/diamond/0.8.22/diamond_manual.pdf)
+
+```bash
+wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip
+unzip taxdmp.zip
+
+## warning: large file!
+wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.FULL.gz
+
+## warning: takes a long time!
+cat ../raw/*.faa | diamond makedb -d testdb-diamond --taxonmap prot.accession2taxid.FULL.gz --taxonnodes nodes.dmp --taxonnames names.dmp
+
+rm *dmp *txt *gz *prt *zip
+```
 
 #### mOTUs
+A detailed description on how to download mOTUs database can be found [here](https://github.com/motu-tool/mOTUs)
 
 ## Troubleshooting and FAQs
 
