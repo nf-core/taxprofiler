@@ -20,6 +20,13 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [BBDuk](#bbduk) - Quality trimming and filtering for Illumina data
 - [PRINSEQ++](#prinseq++) - Quality trimming and filtering for Illunina data
 - [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
+- [Bowtie2](#bowtie2) - Host removal for Illumina reads
+- [minimap2](#minimap2) - Host removal for Nanopore reads
+- [samtoolsstats](#samtoolsstats) - Statistics from host removal
+- [cat] - **WIP**
+- [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
+- [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
+- [Bracken](#bracken) -
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -105,6 +112,74 @@ fastp can automatically detect adapter sequences for Illumina data.
 
 </details>
 
+### Bowtie2
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `bowtie2`
+  - `<sample_id>.bam`
+  - `<sample_id>.bowtie2.log`
+  - `<sample_id>.unmapped.fastq.gz`
+
+</details>
+
+### minimap2
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `minimap2`
+  - `<sample_id>.bam`
+
+</details>
+
+### Samtools stats
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `samtoolsstats`
+  - `<sample_id>.stats`
+
+</details>
+
+### cat
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `cat`
+
+</details>
+
+### Kraken2
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `kraken2`
+  - `<sample_id>.classified.fastq.gz`
+  - `<sample_id>.unclassified.fastq.gz`
+  - `<sample_id>.report.txt`
+  - `<sample_id>.classifiedreads.txt`
+
+</details>
+
+### KrakenUniq
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `krakenuniq`
+  - `<sample_id>.classified.fastq.gz`
+  - `<sample_id>.krakenuniq.classified.txt`
+  - `<sample_id>.krakenuniq.report.txt`
+  - `<sample_id>.unclassified.fastq.gz`
+
+  ## interleaved?
+
+</details>
 
 
 ### MultiQC
