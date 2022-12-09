@@ -5,12 +5,15 @@
 include { MALT_RUN                              } from '../../modules/nf-core/malt/run/main'
 include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV  } from '../../modules/nf-core/megan/rma2info/main'
 include { KRAKEN2_KRAKEN2                       } from '../../modules/nf-core/kraken2/kraken2/main'
+include { KRAKEN2_STANDARD_REPORT                } from '../../modules/local/kraken2_standard_report'
+include { BRACKEN_BRACKEN                       } from '../../modules/nf-core/bracken/bracken/main'
 include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/centrifuge/centrifuge/main'
 include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/centrifuge/kreport/main'
 include { METAPHLAN3_METAPHLAN3                 } from '../../modules/nf-core/metaphlan3/metaphlan3/main'
 include { KAIJU_KAIJU                           } from '../../modules/nf-core/kaiju/kaiju/main'
 include { DIAMOND_BLASTX                        } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                         } from '../../modules/nf-core/motus/profile/main'
+include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ        } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
 
 workflow PROFILING {
     take:
@@ -39,12 +42,13 @@ workflow PROFILING {
             .combine(databases)
             .branch {
                 malt:    it[2]['tool'] == 'malt'
-                kraken2: it[2]['tool'] == 'kraken2'
+                kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken' // to reuse the kraken module to produce the input data for bracken
                 metaphlan3: it[2]['tool'] == 'metaphlan3'
                 centrifuge: it[2]['tool'] == 'centrifuge'
                 kaiju: it[2]['tool'] == 'kaiju'
                 diamond: it[2]['tool'] == 'diamond'
                 motus: it[2]['tool'] == 'motus'
+                krakenuniq: it[2]['tool'] == 'krakenuniq'
                 unknown: true
             }
 
@@ -93,7 +97,7 @@ workflow PROFILING {
                                         db: it[2]
                                 }
 
-        MALT_RUN ( ch_input_for_malt.reads, params.malt_mode, ch_input_for_malt.db )
+        MALT_RUN ( ch_input_for_malt.reads, ch_input_for_malt.db )
 
         ch_maltrun_for_megan = MALT_RUN.out.rma6
                                 .transpose()
@@ -129,7 +133,46 @@ workflow PROFILING {
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report )
         ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
-        ch_raw_profiles        = ch_raw_profiles.mix( KRAKEN2_KRAKEN2.out.report )
+        ch_raw_profiles        = ch_raw_profiles.mix(
+            KRAKEN2_KRAKEN2.out.report
+                // Set the tool to be strictly 'kraken2' instead of potentially 'bracken' for downstream use.
+                // Will remain distinct from 'pure' Kraken2 results due to distinct database names in file names.
+                .map { meta, report -> [meta + [tool: 'kraken2'], report]}
+        )
+
+    }
+
+    if ( params.run_kraken2 && params.run_bracken ) {
+        // Remove files from 'pure' kraken2 runs, so only those aligned against Bracken & kraken2 database are used.
+        def ch_kraken2_output = KRAKEN2_KRAKEN2.out.report
+            .filter {
+                meta, report ->
+                    if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Bracken has not been evaluated for Nanopore data. Skipping Bracken for sample ${meta.id}."
+                    meta['tool'] == 'bracken' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+            }
+
+        // If necessary, convert the eight column output to six column output.
+        if (params.kraken2_save_minimizers) {
+            ch_kraken2_output = KRAKEN2_STANDARD_REPORT(ch_kraken2_output).report
+        }
+
+        // Extract the database name to combine by.
+        ch_bracken_databases = databases
+            .filter { meta, db -> meta['tool'] == 'bracken' }
+            .map { meta, db -> [meta['db_name'], meta, db] }
+
+        // Extract the database name to combine by.
+        ch_input_for_bracken = ch_kraken2_output
+            .map { meta, report -> [meta['db_name'], meta, report] }
+            .combine(ch_bracken_databases, by: 0)
+            .multiMap { key, meta, report, db_meta, db ->
+                report: [meta + db_meta, report]
+                db: db
+            }
+
+        BRACKEN_BRACKEN(ch_input_for_bracken.report, ch_input_for_bracken.db)
+        ch_versions     = ch_versions.mix(BRACKEN_BRACKEN.out.versions.first())
+        ch_raw_profiles = ch_raw_profiles.mix(BRACKEN_BRACKEN.out.reports)
 
     }
 
@@ -226,6 +269,28 @@ workflow PROFILING {
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
         ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
+    }
+
+    if ( params.run_krakenuniq ) {
+        ch_input_for_krakenuniq =  ch_input_for_profiling.krakenuniq
+                                    .map {
+                                        meta, reads, db_meta, db ->
+                                            [[id: db_meta.db_name, single_end: meta.single_end], reads, db_meta, db]
+                                    }
+                                    .groupTuple(by: [0,2,3])
+                                    .dump(tag: "krakenuniq_premultimap")
+                                    .multiMap {
+                                        single_meta, reads, db_meta, db ->
+                                            reads: [ single_meta + db_meta, reads.flatten() ]
+                                            db: db
+                                }
+        // Hardcode to _always_ produce the report file (which is our basic otput, and goes into)
+        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads.dump(tag: "krakenuniq_input"), ch_input_for_krakenuniq.db.dump(tag: "krakenuniq_db"), params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
+        ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
+        ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment )
+        ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
+
     }
 
     emit:

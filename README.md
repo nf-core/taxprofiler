@@ -30,13 +30,14 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ![](docs/images/taxprofiler_tube.png)
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
+1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) or [`falco`](https://github.com/smithlabcode/falco) as an alternative option)
 2. Performs optional read pre-processing
-   - Adapter clipping and merging (short read: [fastp](https://github.com/OpenGene/fastp), [AdapterRemoval2](https://github.com/MikkelSchubert/adapterremoval); long read: [porechop](https://github.com/rrwick/Porechop))
-   - Low complexity filtering ([bbduk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/), [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus))
-   - Host read removal ([BowTie2](http://bowtie-bio.sourceforge.net/bowtie2/))
+   - Adapter clipping and merging (short-read: [fastp](https://github.com/OpenGene/fastp), [AdapterRemoval2](https://github.com/MikkelSchubert/adapterremoval); long-read: [porechop](https://github.com/rrwick/Porechop))
+   - Low complexity and quality filtering (short-read: [bbduk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/), [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus); long-read: [Filtlong](https://github.com/rrwick/Filtlong))
+   - Host-read removal (short-read: [BowTie2](http://bowtie-bio.sourceforge.net/bowtie2/); long-read: [Minimap2](https://github.com/lh3/minimap2))
    - Run merging
-3. Performs taxonomic profiling using one or more of:
+3. Supports statistics for host-read removal ([Samtools](http://www.htslib.org/))
+4. Performs taxonomic profiling using one or more of:
    - [Kraken2](https://ccb.jhu.edu/software/kraken2/)
    - [MetaPhlAn3](https://huttenhower.sph.harvard.edu/metaphlan/)
    - [MALT](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/malt/)
@@ -44,15 +45,16 @@ On release, automated continuous integration tests run the pipeline on a full-si
    - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/)
    - [Kaiju](https://kaiju.binf.ku.dk/)
    - [mOTUs](https://motu-tool.org/)
-   - [MetaMaps](https://github.com/DiltheyLab/MetaMaps)
-4. Perform optional post-processing with:
+   - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
+5. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
-5. Standardises output tables
-6. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+6. Standardises output tables
+7. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+8. Plotting Kraken2, Centrifuge, Kaiju and MALT results ([`Krona`](https://hpc.nih.gov/apps/kronatools.html))
 
 ## Quick Start
 
-1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=21.10.3`)
+1. Install [`Nextflow`](https://www.nextflow.io/docs/latest/getstarted.html#installation) (`>=21.10.3`).
 
 2. Install any of [`Docker`](https://docs.docker.com/engine/installation/), [`Singularity`](https://www.sylabs.io/guides/3.0/user-guide/) (you can follow [this tutorial](https://singularity-tutorial.github.io/01-installation/)), [`Podman`](https://podman.io/), [`Shifter`](https://nersc.gitlab.io/development/shifter/how-to-use/) or [`Charliecloud`](https://hpc.github.io/charliecloud/) for full pipeline reproducibility _(you can use [`Conda`](https://conda.io/miniconda.html) both to install Nextflow itself and also to manage software within pipelines. Please only use it within pipelines as a last resort; see [docs](https://nf-co.re/usage/configuration#basic-configuration-profiles))_.
 
@@ -87,7 +89,7 @@ nf-core/taxprofiler was originally written by nf-core community.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-[James A. Fellows Yates](https://github.com/jfy133), [Moritz Beber](https://github.com/Midnighter), [Lauri Mesilaakso](https://github.com/ljmesi), [Sofia Stamouli](https://github.com/sofsam), [Maxime Borry](https://github.com/maxibor).
+[James A. Fellows Yates](https://github.com/jfy133), [Moritz Beber](https://github.com/Midnighter), [Lauri Mesilaakso](https://github.com/ljmesi), [Sofia Stamouli](https://github.com/sofsam), [Maxime Borry](https://github.com/maxibor),[Thomas A. Christensen II](https://github.com/MillironX), [Jianhong Ou](https://github.com/jianhong), [Rafal Stepien](https://github.com/rafalstepien), [Mahwash Jamy](https://github.com/mjamy).
 
 ## Contributions and Support
 

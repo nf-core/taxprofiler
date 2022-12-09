@@ -47,6 +47,7 @@ The pipeline will auto-detect whether a sample is single- or paired-end using th
 A final samplesheet file consisting of both single- and paired-end data, as well as long-read FASTA files may look something like the one below. This is for 6 samples, where `2612` has been sequenced twice.
 
 ```console
+sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 2611,ERR5766174,ILLUMINA,,,/<path>/<to>/fasta/ERX5474930_ERR5766174_1.fa.gz
 2612,ERR5766176,ILLUMINA,/<path>/<to>/fastq/ERX5474932_ERR5766176_1.fastq.gz,/<path>/<to>/fastq/ERX5474932_ERR5766176_2.fastq.gz,
 2612,ERR5766180,ILLUMINA,/<path>/<to>/fastq/ERX5474936_ERR5766180_1.fastq.gz,,
@@ -73,14 +74,15 @@ The pipeline takes the locations and specific profiling parameters of the tool o
 
 > ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
 
-An example database sheet can look as follows, where 4 tools are being used, and `malt` and `kraken2` will be used against two databases each.
+An example database sheet can look as follows, where 5 tools are being used, and `malt` and `kraken2` will be used against two databases each. This is because specifying `bracken` implies first running `kraken2` on the same database.
 
 ```console
 tool,db_name,db_params,db_path
 malt,malt85,-id 85,/<path>/<to>/malt/testdb-malt/
 malt,malt95,-id 90,/<path>/<to>/malt/testdb-malt.tar.gz
-kraken2,db1,,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
+bracken,db1,,/<path>/<to>/bracken/testdb-bracken.tar.gz
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
+krakenuniq,db3,,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
 centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
 metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
@@ -90,8 +92,8 @@ Column specifications are as follows:
 
 | Column      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tool`      | Taxonomic profiling tool (supported by nf-core/taxprofiler) that the database has been indexed for [required].                                                                                                                                                                                                                                                                                                                                                 |
-| `db_name`   | A unique name of the particular database [required].                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `tool`      | Taxonomic profiling tool (supported by nf-core/taxprofiler) that the database has been indexed for [required]. Please note that `bracken` also implies running `kraken2` on the same database.                                                                                                                                                                                                                                                                 |
+| `db_name`   | A unique name per tool for the particular database [required]. Please note that names need to be unique across both `kraken2` and `bracken` as well, even if re-using the same database.                                                                                                                                                                                                                                                                       |
 | `db_params` | Any parameters of the given taxonomic profiler that you wish to specify that the taxonomic profiling tool should use when profiling against this specific. Can be empty to use taxonomic profiler defaults. Must not be surrounded by quotes [required]. We generally do not recommend specifying parameters here that turn on/off saving of output files or specifying particular file extensions - this should be already addressed via pipeline parameters. |
 | `db_path`   | Path to the database. Can either be a path to a directory containing the database index files or a `.tar.gz` file which contains the compressed database directory with the same name as the tar archive, minus `.tar.gz` [required].                                                                                                                                                                                                                          |
 
@@ -115,6 +117,21 @@ Expected (uncompressed) database files for each tool are as follows:
   - `opts.k2d`
   - `hash.k2d`
   - `taxo.k2d`
+- **Bracken** output of a combined `kraken2-` and `bracken-build` process. Please see the [documentation on Bracken](https://github.com/jenniferlu717/Bracken#running-bracken-easy-version) for details. The output is a directory containing files per expected sequencing read length similarly to:
+  - `hash.k2d`
+  - `opts.k2d`
+  - `taxo.k2d`
+  - `database.kraken`
+  - `database100mers.kmer_distrib`
+  - `database100mers.kraken`
+  - `database150mers.kmer_distrib`
+  - `database150mers.kraken`
+- **KrakenUniq** output of `krakenuniq-build` command(s) A directory containing:
+  - `opts.k2d`
+  - `hash.k2d`
+  - `taxo.k2d`
+  - `database.idx`
+  - `taxDB`
 - **Centrifuge** output of `centrifuge-build`. A directory containing:
   - `<database_name>.<number>.cf`
   - `<database_name>.<number>.cf`
@@ -166,6 +183,10 @@ work                # Directory containing the nextflow working files
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
 
+### Sequencing quality control
+
+nf-core taxprofiler offers [`falco`][https://github.com/smithlabcode/falco] as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+
 ### Preprocessing Steps
 
 nf-core/taxprofiler offers four main preprocessing steps
@@ -179,12 +200,12 @@ nf-core/taxprofiler offers four main preprocessing steps
 
 Raw sequencing read processing in the form of adapter clipping and paired-end read merging can be activated via the `--perform_shortread_qc` or `--perform_longread_qc` flags.
 
-It is highly recommended to run this on raw reads to remove artefacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles.
+It is highly recommended to run this on raw reads to remove artifacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles.
 
 There are currently two options for short-read preprocessing: `fastp` or `adapterremoval`.
 
 For adapter clipping, you can either rely on tool default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
-By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to exclude unmerged reads in the reads sent for profiling (`--shortread_qc_mergepairs` and `--shortread_qc_excludeunmerged`).
+By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to include unmerged reads in the reads sent for profiling (`--shortread_qc_mergepairs` and `--shortread_qc_includeunmerged`).
 You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
 Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during profiling, with minimal gain.
 
@@ -230,9 +251,31 @@ You can optionally save the FASTQ output of the run merging with the `--save_run
 
 #### Profiling
 
+###### Bracken
+
+It is unclear whether Bracken is suitable for running long reads, as it makes certain assumptions about read lengths. Furthemore, during testing we found issues where Bracken would fail on the long-read test data. Therefore nf-core/taxprofiler does not run Bracken on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet. If you believe this to be wrong, please contact us on the nf-core slack and we can discuss this.
+
+###### Centrifuge
+
+Centrifuge currently does not accept FASTA files as input, therefore no output will be produced for these input files.
+
+###### DIAMOND
+
+DIAMOND only allows output of a single format at a time, therefore parameters such --diamond_save_reads supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending n your particular use case.
+
 ###### MALT
 
-nf-core/taxprofiler uses MALT 0.4.1, which is a compatively old version. However it has been found that the most recent version of MALT (0.5.\*), at the time of writing, is broken. [The the LCA step appears not to be executed](http://megan.informatik.uni-tuebingen.de/t/lca-placement-failure-with-malt-v-0-5-2-and-0-5-3/1996/3), pushing all hits to the leaves of the taxonomy. However, if you need to use a more recent taxonomy map file with your databases, the output of `malt-build` from MALT 0.5.3 should be still be compatible with `malt-run` of 0.4.1.
+MALT does not support paired-end reads alignment (unlike other tools), therefore nf-core/taxprofiler aligns these as indepenent files if read-merging is skipped. If you skip merging, you can sum or average the results of the counts of the pairs.
+
+Krona can only be run on MALT output if path to Krona taxonomy database supplied to `--krona_taxonomy_directory`. Therefore if you do not supply the a KRona directory, Krona plots will not be produced for MALT.
+
+###### MetaPhlAn3
+
+MetaPhlAn3 currently does not accept FASTA files as input, therefore no output will be produced for these input files.
+
+###### mOTUs
+
+mOTUs currently does not accept FASTA files as input, therefore no output will be produced for these input files.
 
 ### Updating the pipeline
 
@@ -461,7 +504,7 @@ malt-build -i path/to/fasta/files/*.{fna,fa} -s DNA -d index -t 8 -st 4 -a2t meg
 
 ## Troubleshooting and FAQs
 
-### I get a warning during centrifuge_kreport process with exit status 255.
+### I get a warning during centrifuge_kreport process with exit status 255
 
 When a sample has insufficient hits for abundance estimation, the resulting `report.txt` file will be empty.
 

@@ -36,6 +36,14 @@
 
   > Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. Improved Metagenomic Analysis with Kraken 2. Genome Biology 20 (1): 257. doi: 10.1186/s13059-019-1891-0.
 
+- [KrakenUniq](https://doi.org/10.1186/s13059-018-1568-0)
+
+  > Breitwieser, Florian P., Daniel N. Baker, and Steven L. Salzberg. 2018. KrakenUniq: confident and fast metagenomics classification using unique k-mer counts. Genome Biology 19 (1): 198. doi: 10.1186/s13059-018-1568-0
+
+- [Bracken](https://doi.org/10.7717/peerj-cs.104)
+
+  > Lu, J., Breitwieser, F. P., Thielen, P., & Salzberg, S. L. (2017). Bracken: Estimating species abundance in metagenomics data. PeerJ Computer Science, 3, e104. doi: 10.7717/peerj-cs.104
+
 - [Krona](https://doi.org/10.1186/1471-2105-12-385)
 
   > Ondov, Brian D., Nicholas H. Bergman, and Adam M. Phillippy. 2011. Interactive metagenomic visualization in a Web browser. BMC Bioinformatics 12 (1): 385. doi: 10.1186/1471-2105-12-385.
@@ -61,6 +69,10 @@
 > Buchfink, Benjamin, Chao Xie, and Daniel H. Huson. 2015. “Fast and Sensitive Protein Alignment Using DIAMOND.” Nature Methods 12 (1): 59-60. doi: 10.1038/nmeth.3176.
 
 - [FILTLONG](https://github.com/rrwick/Filtlong)
+
+- [falco](https://doi.org/10.12688/f1000research.21142.2)
+
+> de Sena Brandine G and Smith AD. Falco: high-speed FastQC emulation for quality control of sequencing data. F1000Research 2021, 8:1874
 
 ## Software packaging/containerisation tools
 
