@@ -162,7 +162,6 @@ Expected (uncompressed) database files for each tool are as follows:
   with same release version of the mOTUs tools. The database for same version tools
   can be thus reused for multiple runs. Users can download the database once using the script above and
   specify the path the database to the TSV table provided to `--databases`.
-- **KrakenUniq** WIP
 
 ## Running the pipeline
 
