@@ -11,3 +11,47 @@ report_section_order:
     order: -1002
 
 export_plots: true
+
+custom_logo: "nf-core-taxprofiler_logo_custom_light.png"
+custom_logo_url: https://nf-co.re/taxprofiler
+custom_logo_title: "nf-core/taxprofiler"
+
+run_modules:
+  - fastqc
+  - adapterRemoval
+  - fastp
+  - bowtie2
+  - samtools
+  - kraken
+  - malt
+  - custom_content
+
+#extra_fn_clean_exts:
+#    - '_fastp'
+#    - '.pe.settings'
+#    - '.se.settings'
+
+top_modules:
+  - "fastqc":
+      name: "FastQC (pre-Trimming)"
+      path_filters:
+        - "*raw_*fastqc.zip"
+  - "fastp"
+  - "adapterRemoval"
+  - "fastqc":
+      name: "FastQC (post-Trimming)"
+      path_filters:
+        - "*raw_*processed.zip"
+  - "kraken":
+      name: "Kraken"
+      path_filters:
+        - "*.kraken2.report.txt"
+  - "kraken":
+      name: "Centrifuge"
+      anchor: "centrifuge"
+      target: "Centrifuge"
+      doi: "10.1101/gr.210641.116"
+      info: "is a very rapid and memory-efficient system for the classification of DNA sequences from microbial samples. The system uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index. Note: Figure title"
+      extra: "Note: plot title will say Kraken2 due to Centrifuge producing the same output format as Kraken. If activated, see the actual Kraken2 results in the section above."
+      path_filters:
+        - "*.centrifuge.txt"

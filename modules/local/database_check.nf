@@ -1,5 +1,5 @@
-process SAMPLESHEET_CHECK {
-    tag "$samplesheet"
+process DATABASE_CHECK {
+    tag "$databasesheet"
     label 'process_single'
 
     conda (params.enable_conda ? "conda-forge::python=3.8.3" : null)
@@ -8,7 +8,7 @@ process SAMPLESHEET_CHECK {
         'quay.io/biocontainers/python:3.8.3' }"
 
     input:
-    path samplesheet
+    path databasesheet
 
     output:
     path '*.csv'       , emit: csv
@@ -19,9 +19,7 @@ process SAMPLESHEET_CHECK {
 
     script: // This script is bundled with the pipeline, in nf-core/taxprofiler/bin/
     """
-    check_samplesheet.py \\
-        $samplesheet \\
-        samplesheet.valid.csv
+    cat $databasesheet >> database_sheet.valid.csv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
