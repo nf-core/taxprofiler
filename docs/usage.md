@@ -162,6 +162,7 @@ Expected (uncompressed) database files for each tool are as follows:
   with same release version of the mOTUs tools. The database for same version tools
   can be thus reused for multiple runs. Users can download the database once using the script above and
   specify the path the database to the TSV table provided to `--databases`.
+- **KrakenUniq** WIP
 
 ## Running the pipeline
 
@@ -184,7 +185,7 @@ work                # Directory containing the nextflow working files
 
 ### Sequencing quality control
 
-nf-core taxprofiler offers [`falco`](https://github.com/smithlabcode/falco) as an alternative option to [`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+[`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. nf-core taxprofiler offers [`falco`](https://github.com/smithlabcode/falco) as an alternative option.
 
 ### Preprocessing Steps
 
@@ -226,7 +227,7 @@ The tools offer different algorithms and parameters for removing low complexity 
 
 You can optionally save the FASTQ output of the run merging with the `--save_complexityfiltered_reads`. If running with `fastp`, complexity filtering happens inclusively within the earlier shortread preprocessing step. Therefore there will not be an independent pipeline step for complexity filtering, and no independent FASTQ file (i.e. `--save_complexityfiltered_reads` will be ignored) - your complexity filtered reads will also be in the `fastp/` folder in the same file(s) as the preprocessed read.
 
-**We do not any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.**
+**We do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.**
 
 #### Host Removal
 
@@ -484,19 +485,56 @@ NXF_OPTS='-Xms1g -Xmx4g'
 ### Tutorial - How to create your custom database
 
 #### Kraken2
+Kraken2 allows the user to build custom databases.
 
-Kraken2 allows the user to build custom databases. You can follow Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases).
+To install a taxonomy:
+
+```bash
+kraken2-build --download-taxonomy --db $DBNAME
+```
+
+To install one or more reference libraries:
+
+```bash
+--download-library bacteria --db $DBNAME
+--download-library viral --db $DBNAME
+--download-library archaea --db $DBNAME
+```
+
+To add more genomes:
+
+```bash
+kraken2-build --add-to-library genome.fa --db $DBNAME
+```
+
+You can follow Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases) for a more detailed description.
+
 
 #### Centrifuge
+Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). The user should download taxonomy files, make custom `seqid2taxid.map` and combine the fasta files together.
 
-Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database).
+```bash
+centrifuge-download -o taxonomy taxonomy
+
+## custom seqid2taxid.map
+NC_001133.9    4392
+NC_012920.1    9606
+NC_001134.8    4392
+NC_001135.5    4392
+
+cat *.{fa,fna} > input-sequences.fna
+centrifuge-build -p 4 --conversion-table seqid2taxid.map --taxonomy-tree taxonomy/nodes.dmp --name-table taxonomy/names.dmp input-sequences.fna taxprofiler_cf
+```
 
 #### Kaiju
-
 It is possible to [create custom databases](https://github.com/bioinformatics-centre/kaiju#custom-database) with Kaiju.
 
-#### MALT
+```bash
+kaiju-mkbwt -n 5 -a ACDEFGHIKLMNPQRSTVWY -o proteins proteins.faa
+kaiju-mkfmi proteins
+```
 
+#### MALT
 To create a custom database for MALT, the user should download and unzip the following database which lists all NCBI records. The input files are specified using -i and the index is specified using -d. A detailed description for each argument can be found [here](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf)
 
 ```bash
@@ -506,16 +544,13 @@ malt-build -i path/to/fasta/files/*.{fna,fa} -s DNA -d index -t 8 -st 4 -a2t meg
 ```
 
 #### Bracken
-
 You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) to build a custom database. Alternatively, you can use one of the indexes that can be found [here](https://benlangmead.github.io/aws-indexes/k2).
 
 #### KrakenUniq
-
-For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2)
+For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2). But if you wish to build your own, please see the [documentation](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#custom-databases-with-ncbi-taxonomy).
 
 #### DIAMOND
-
-To create a custom database for DIAMOND, the user should download and unzip the NCBI's taxonomy files. The `makedb` needs to be executed afterwards. A detailed description can be found [here](https://gensoft.pasteur.fr/docs/diamond/0.8.22/diamond_manual.pdf)
+To create a custom database for DIAMOND, the user should download and unzip the NCBI's taxonomy files. The `makedb` needs to be executed afterwards. A detailed description can be found [here](https://github.com/bbuchfink/diamond/wiki/1.-Tutorial)
 
 ```bash
 wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip
@@ -531,7 +566,6 @@ rm *dmp *txt *gz *prt *zip
 ```
 
 #### mOTUs
-
 A detailed description on how to download mOTUs database can be found [here](https://github.com/motu-tool/mOTUs)
 
 ## Troubleshooting and FAQs
