@@ -485,6 +485,7 @@ NXF_OPTS='-Xms1g -Xmx4g'
 ### Tutorial - How to create your custom database
 
 #### Kraken2
+
 Kraken2 allows the user to build custom databases.
 
 To install a taxonomy:
@@ -509,8 +510,8 @@ kraken2-build --add-to-library genome.fa --db $DBNAME
 
 You can follow Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases) for a more detailed description.
 
-
 #### Centrifuge
+
 Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). The user should download taxonomy files, make custom `seqid2taxid.map` and combine the fasta files together.
 
 ```bash
@@ -527,6 +528,7 @@ centrifuge-build -p 4 --conversion-table seqid2taxid.map --taxonomy-tree taxonom
 ```
 
 #### Kaiju
+
 It is possible to [create custom databases](https://github.com/bioinformatics-centre/kaiju#custom-database) with Kaiju.
 
 ```bash
@@ -535,6 +537,7 @@ kaiju-mkfmi proteins
 ```
 
 #### MALT
+
 To create a custom database for MALT, the user should download and unzip the following database which lists all NCBI records. The input files are specified using -i and the index is specified using -d. A detailed description for each argument can be found [here](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf)
 
 ```bash
@@ -544,12 +547,15 @@ malt-build -i path/to/fasta/files/*.{fna,fa} -s DNA -d index -t 8 -st 4 -a2t meg
 ```
 
 #### Bracken
+
 You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) to build a custom database. Alternatively, you can use one of the indexes that can be found [here](https://benlangmead.github.io/aws-indexes/k2).
 
 #### KrakenUniq
+
 For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2). But if you wish to build your own, please see the [documentation](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#custom-databases-with-ncbi-taxonomy).
 
 #### DIAMOND
+
 To create a custom database for DIAMOND, the user should download and unzip the NCBI's taxonomy files. The `makedb` needs to be executed afterwards. A detailed description can be found [here](https://github.com/bbuchfink/diamond/wiki/1.-Tutorial)
 
 ```bash
@@ -566,6 +572,7 @@ rm *dmp *txt *gz *prt *zip
 ```
 
 #### mOTUs
+
 A detailed description on how to download mOTUs database can be found [here](https://github.com/motu-tool/mOTUs)
 
 ## Troubleshooting and FAQs
