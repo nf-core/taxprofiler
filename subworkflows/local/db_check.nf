@@ -12,6 +12,7 @@ workflow DB_CHECK {
     ch_versions = Channel.empty()
 
     // special check to check _between_ rows, for which we must group rows together
+    // note: this will run in parallel to within-row validity, but we can assume this will run faster thus will fail first
     Channel.fromPath(dbsheet)
             .splitCsv ( header:true, sep:',' )
             .map {[it.tool, it.db_name] }
