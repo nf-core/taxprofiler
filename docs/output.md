@@ -112,6 +112,7 @@ fastp can automatically detect adapter sequences for Illumina data.
 
 </details>
 
+<<<<<<< HEAD
 ### Bowtie2
 
 <details markdown="1">
@@ -182,6 +183,8 @@ fastp can automatically detect adapter sequences for Illumina data.
 </details>
 
 
+=======
+>>>>>>> 6d0b5d0a58d92fabfc239818f272bb06cfeb1e66
 ### MultiQC
 
 <details markdown="1">
