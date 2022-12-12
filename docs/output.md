@@ -115,7 +115,6 @@ fastp can automatically detect adapter sequences for Illumina data.
 
 </details>
 
-<<<<<<< HEAD
 ### Bowtie2
 
 <details markdown="1">
