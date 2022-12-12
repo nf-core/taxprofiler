@@ -23,10 +23,13 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [samtoolsstats](#samtoolsstats) - Statistics from host removal
-- [cat] - **WIP**
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
 - [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
 - [Bracken](#bracken) -
+- [Centrifuge](#centrifuge) - Taxonomic classifier that uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index.
+- [Kaiju](#kaiju) - Taxonomic classifier that finds maximum (in-)exact matches on the protein-level.
+- [Diamond](#diamond) - Sequence aligner for protein and translated DNA searches.
+- [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -145,15 +148,6 @@ fastp can automatically detect adapter sequences for Illumina data.
 
 </details>
 
-### cat
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `cat`
-
-</details>
-
 ### Kraken2
 
 <details markdown="1">
@@ -182,9 +176,51 @@ fastp can automatically detect adapter sequences for Illumina data.
 
 </details>
 
+### Centrifuge
 
-=======
->>>>>>> 6d0b5d0a58d92fabfc239818f272bb06cfeb1e66
+<details markdown="1">
+<summary>Output files</summary>
+
+- `centrifuge`
+  - `<sample_id>.centrifuge.mapped.fastq.gz`
+  - `<sample_id>.centrifuge.report.txt`
+  - `<sample_id>.centrifuge.results.txt`
+  - `<sample_id>.centrifuge.unmapped.fastq.gz`
+
+</details>
+
+### Kaiju
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `kaiju`
+  - `<sample_id>.tsv`
+
+</details>
+
+### Diamond
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `diamond`
+  - `<sample_id>.log`
+  - `<sample_id>.sam`
+
+</details>
+
+### mOTUs
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `motus`
+  - `<sample_id>.log`
+  - `<sample_id>.out`
+
+</details>
+
 ### MultiQC
 
 <details markdown="1">
