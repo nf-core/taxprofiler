@@ -2,6 +2,7 @@
 // Standardise output files e.g. aggregation
 //
 
+include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../modules/nf-core/bracken/combinebrackenoutputs/main'
 include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
@@ -25,10 +26,11 @@ workflow STANDARDISATION_PROFILES {
     */
     ch_input_profiles = profiles
         .branch {
-            motus: it[0]['tool'] == 'motus'
-            kraken2: it[0]['tool'] == 'kraken2'
+            bracken: it[0]['tool'] == 'bracken'
             centrifuge: it[0]['tool'] == 'centrifuge'
+            kraken2: it[0]['tool'] == 'kraken2'
             metaphlan3: it[0]['tool'] == 'metaphlan3'
+            motus: it[0]['tool'] == 'motus'
             unknown: true
         }
 
@@ -49,7 +51,18 @@ workflow STANDARDISATION_PROFILES {
         Standardise and aggregate
     */
 
-        // CENTRIFUGE
+    // Bracken
+
+    ch_profiles_for_bracken = ch_input_profiles.bracken
+                            .map { [it[0]['db_name'], it[1]] }
+                            .groupTuple()
+                            .map {
+                                [[id:it[0]], it[1]]
+                            }
+
+    BRACKEN_COMBINEBRACKENOUTPUTS ( ch_profiles_for_bracken )
+
+    // CENTRIFUGE
 
     // Collect and replace id for db_name for prefix
     // Have to sort by size to ensure first file actually has hits otherwise
