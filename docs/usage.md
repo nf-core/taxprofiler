@@ -227,7 +227,7 @@ The tools offer different algorithms and parameters for removing low complexity 
 
 You can optionally save the FASTQ output of the run merging with the `--save_complexityfiltered_reads`. If running with `fastp`, complexity filtering happens inclusively within the earlier shortread preprocessing step. Therefore there will not be an independent pipeline step for complexity filtering, and no independent FASTQ file (i.e. `--save_complexityfiltered_reads` will be ignored) - your complexity filtered reads will also be in the `fastp/` folder in the same file(s) as the preprocessed read.
 
-**We do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.**
+> ⚠️ For nanopore data: we do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.
 
 #### Host Removal
 
@@ -484,31 +484,43 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ### Tutorial - How to create your custom database
 
+Here we will give brief guidance on how to build databases for each supported taxonomic profiler. You should always consult the documentation of each toolfor more information, how we provide these as quick reference guides.
+The following tutorial assumes you already have the tool available (e.g. installed locally, or via conda, docker etc.), and you have already downloaded the FASTA files you wish to build into a database.
+
 #### Kraken2
 
-Kraken2 allows the user to build custom databases.
-
-To install a taxonomy:
-
-```bash
-kraken2-build --download-taxonomy --db $DBNAME
-```
-
-To install one or more reference libraries:
+> These are instructions are based on Kraken 2.1.2
+> To build a Kraken2 database you need two components: a taxonomy (consisting of `names.dmp`, `nodes.dmp`, and `*accession2taxid`) files, and the FASTA files you wish to include.
+> To install pull the NCBI taxonomy you can run the following:
 
 ```bash
---download-library bacteria --db $DBNAME
---download-library viral --db $DBNAME
---download-library archaea --db $DBNAME
+kraken2-build --download-taxonomy --db <YOUR_DB_NAME>
 ```
 
-To add more genomes:
+You can then add your FASTA files with the following build command.
 
 ```bash
-kraken2-build --add-to-library genome.fa --db $DBNAME
+kraken2-build --add-to-library *.fna --db <YOUR_DB_NAME>
 ```
 
-You can follow Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases) for a more detailed description.
+You can repeat this step multiple times to iteratively add more genomes prior building.
+
+You can also automatical download and add 'standard' libraries provided by Kraken2 (e.g. bacteria on RefSeq)
+
+```bash
+kraken2-build --download-library bacteria --db <YOUR_DB_NAME>
+```
+
+Once all genomes are added to the library, you can build the database (and optionally clean it up):
+
+```bash
+kraken2-build --build --db <YOUR_DB_NAME>
+kraken2-build --clean--db <YOUR_DB_NAME>
+```
+
+You can then add the <YOUR_DB_NAME>/ path to your nf-core/taxprofiler database input sheet.
+
+You can follow the Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases) for a more detailed description.
 
 #### Centrifuge
 
@@ -538,13 +550,21 @@ kaiju-mkfmi proteins
 
 #### MALT
 
-To create a custom database for MALT, the user should download and unzip the following database which lists all NCBI records. The input files are specified using -i and the index is specified using -d. A detailed description for each argument can be found [here](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf)
+MALT does not provide any default databases for profiling, therefore you must build your own.
+You need FASTA files to include, and an (unzipped) [MEGAN mapping 'db' file](https://software-ab.informatik.uni-tuebingen.de/download/megan6/) for your FASTA type.
+In addition to the input directory, output directory, and the mapping file database, you also need to specify the sequence type (DNA or Protein) with the `-s` flag.
 
 ```bash
-wget https://software-ab.informatik.uni-tuebingen.de/download/megan6/megan-nucl-Feb2022.db.zip
-unzip megan-nucl-Feb2022.db
-malt-build -i path/to/fasta/files/*.{fna,fa} -s DNA -d index -t 8 -st 4 -a2t megan-nucl-Feb2022.db
+malt-build -i <path>/<to>/<fasta>/*.{fna,fa,fasta} -a2t <path>/<to>/<map>.db -d <YOUR_DB_NAME>/  -s DNA
 ```
+
+You can then add the <YOUR_DB_NAME>/ path to your nf-core/taxprofiler database input sheet.
+
+⚠️ MALT generates very large database files and requires large amounts of RAM. You can reduce both by increasing the step size `-st` (with a reduction in sensitivity).
+
+MALT-build can be multi-threaded with `-t` to speed up building.
+
+See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf) for more information.
 
 #### Bracken
 
