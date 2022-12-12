@@ -172,12 +172,12 @@
                     },
                     "motus/merge": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "3fce766123e71e82fb384db7d07b59180baa9ee9",
                         "installed_by": ["modules"]
                     },
                     "motus/profile": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "3fce766123e71e82fb384db7d07b59180baa9ee9",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
