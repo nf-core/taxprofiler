@@ -174,6 +174,8 @@ nextflow run nf-core/taxprofiler --input samplesheet.csv --databases databases.c
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
 
+When running nf-core/taxprofiler, every step and tool is 'opt in'. To run a given profiler you must make sure to supply both a database in your `<database>.csv` and supply `--run_<profiler>` flag to your command. Omitting either will result in the profiling tool not executing. If you wish to perform pre-processing (adapter clipping, merge running etc.) or post-processing (visualisation) steps, these are also opt in `--perform_<step>` and in some cases may also require additional files. Please check the parameters tab of this documentation for more information.
+
 Note that the pipeline will create the following files in your working directory:
 
 ```bash
@@ -574,6 +576,14 @@ In addition to a Kraken2 database, you also need to have the (average) read leng
 
 ```bash
 bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
+```
+
+> 🛈 You can speed up database construction by supplying the threads parameter (`-t`).
+
+> 🛈 If you do not have Kraken2 in your `$PATH` you can point to the binary with `-x /<path>/<to>/kraken2`.
+
+You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) for more information. Alternatively, you can use one of the indexes that can be found [here](https://benlangmead.github.io/aws-indexes/k2).
+
 #### KrakenUniq
 
 For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2). But if you wish to build your own, please see the [documentation](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#custom-databases-with-ncbi-taxonomy).
