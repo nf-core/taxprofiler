@@ -609,7 +609,6 @@ You can follow the Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blo
 
 For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2). But if you wish to build your own, please see the [documentation](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#custom-databases-with-ncbi-taxonomy).
 
-
 #### MALT
 
 <details markdown="1">
@@ -643,7 +642,6 @@ You can then add the <YOUR_DB_NAME>/ path to your nf-core/taxprofiler database i
 MALT-build can be multi-threaded with `-t` to speed up building.
 
 See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf) for more information.
-
 
 #### MetaPhlAn3
 
