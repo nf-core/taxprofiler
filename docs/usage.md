@@ -440,7 +440,7 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ## Tutorials
 
-### Tutorial - How to create your custom database
+### Retrieving databases or building custom databases
 
 Here we will give brief guidance on how to build databases for each supported taxonomic profiler. You should always consult the documentation of each toolfor more information, how we provide these as quick reference guides.
 The following tutorial assumes you already have the tool available (e.g. installed locally, or via conda, docker etc.), and you have already downloaded the FASTA files you wish to build into a database.
@@ -448,7 +448,7 @@ The following tutorial assumes you already have the tool available (e.g. install
 #### Bracken
 
 <details markdown="1">
-<summary>Output files</summary>
+<summary>Expected files in database directory</summary>
 
 - `bracken`
   - `hash.k2d`
@@ -479,7 +479,7 @@ You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.sht
 #### Centrifuge
 
 <details markdown="1">
-<summary>Output files</summary>
+<summary>Expected files in database directory</summary>
 
 - `centrifuge`
   - `<database_name>.<number>.cf`
@@ -507,7 +507,7 @@ centrifuge-build -p 4 --conversion-table seqid2taxid.map --taxonomy-tree taxonom
 #### DIAMOND
 
 <details markdown="1">
-<summary>Output files</summary>
+<summary>Expected files in database directory</summary>
 
 - `diamond`
   - `<database_name>.dmnd`
@@ -532,7 +532,7 @@ rm *dmp *txt *gz *prt *zip
 #### Kaiju
 
 <details markdown="1">
-<summary>Output files</summary>
+<summary>Expected files in database directory</summary>
 
 - `kaiju`
   - `kaiju_db_*.fmi`
@@ -551,7 +551,7 @@ kaiju-mkfmi proteins
 #### Kraken2
 
 <details markdown="1">
-<summary>Output files</summary>
+<summary>Expected files in database directory</summary>
 
 - `kraken2`
   - `opts.k2d`
@@ -596,7 +596,7 @@ You can follow the Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blo
 #### KrakenUniq
 
 <details markdown="1">
-<summary>Output files</summary>
+<summary>Expected files in database directory</summary>
 
 - `krakenuniq`
   - `opts.k2d`
@@ -612,7 +612,7 @@ For KrakenUniq, we recommend using one of the available databases [here](https:/
 #### MALT
 
 <details markdown="1">
-<summary>Output files</summary>
+<summary>Expected files in database directory</summary>
 
 - `malt`
   - `ref.idx`
@@ -645,8 +645,19 @@ See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/m
 
 #### MetaPhlAn3
 
+MetaPhlAn3 provides a prebuilt database of marker genes.
+This must be downloaded by the user. To do this you need to have `MetaPhlAn3` installed on your machine.
+
+```bash
+metaphlan --install --bowtie2db <YOUR_DB_NAME>/
+```
+
+You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
+
+> 🛈 It is generally not recommended to modify this database yourself, thus this is currently not supported in the pipeline. However, it is possible to customise the existing database by adding your own marker genomes following the instructions [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.1#customizing-the-database). If using your own database is relevant for you, please contact the nf-core/taxprofiler developers on the [nf-core slack](https://nf-co.re/join) and we will investigate supporting this.
+
 <details markdown="1">
-<summary>Output files</summary>
+<summary>Expected files in database directory</summary>
 
 - `metaphlan3`
   - `mpa_v30_CHOCOPhlAn_201901.pkl`
@@ -662,9 +673,25 @@ See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/m
 
 </details>
 
+More information on the MetaPhlAn3 database can be found [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.1#installation).
+
 #### mOTUs
 
-A detailed description on how to download mOTUs database can be found [here](https://github.com/motu-tool/mOTUs)
+mOTUs provides a prebuilt database of marker genes.
+
+This must be downloaded by the user. To do this you need to have `mOTUs` installed on your machine.
+
+```bash
+motus downloadDB
+```
+
+Then supply the `db_mOTU/` path to your nf-core/taxprofiler database input sheet.
+
+> ⚠️ The `db_mOTU/` directory may be downloaded to somewhere in your Python's `site-package` directory. You will have to find this yourself as the exact location varies depends on installation method.
+
+It is not possible to create a custom mOTUs database.
+
+More information on the mOTUs database can be found [here](https://motu-tool.org/installation.html).
 
 ## Troubleshooting and FAQs
 
