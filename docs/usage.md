@@ -103,66 +103,22 @@ nf-core/taxprofiler will automatically decompress and extract any compressed arc
 
 Expected (uncompressed) database files for each tool are as follows:
 
-- **MALT** output of `malt-build`. A directory containing:
-  - `ref.idx`
-  - `taxonomy.idx`
-  - `taxonomy.map`
-  - `index0.idx`
-  - `table0.idx`
-  - `table0.db`
-  - `ref.inf`
-  - `ref.db`
-  - `taxonomy.tre`
-- **Kraken2** output of `kraken2-build` command(s) A directory containing:
-  - `opts.k2d`
-  - `hash.k2d`
-  - `taxo.k2d`
-- **Bracken** output of a combined `kraken2-` and `bracken-build` process. Please see the [documentation on Bracken](https://github.com/jenniferlu717/Bracken#running-bracken-easy-version) for details. The output is a directory containing files per expected sequencing read length similarly to:
-  - `hash.k2d`
-  - `opts.k2d`
-  - `taxo.k2d`
-  - `database.kraken`
-  - `database100mers.kmer_distrib`
-  - `database100mers.kraken`
-  - `database150mers.kmer_distrib`
-  - `database150mers.kraken`
-- **KrakenUniq** output of `krakenuniq-build` command(s) A directory containing:
-  - `opts.k2d`
-  - `hash.k2d`
-  - `taxo.k2d`
-  - `database.idx`
-  - `taxDB`
-- **Centrifuge** output of `centrifuge-build`. A directory containing:
-  - `<database_name>.<number>.cf`
-  - `<database_name>.<number>.cf`
-  - `<database_name>.<number>.cf`
-  - `<database_name>.<number>.cf`
-- **MetaPhlAn3** generated with `metaphlan --install` or downloaded from links on the [MetaPhlAn3 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0#customizing-the-database). A directory containing:
-  - `mpa_v30_CHOCOPhlAn_201901.pkl`
-  - `mpa_v30_CHOCOPhlAn_201901.pkl`
-  - `mpa_v30_CHOCOPhlAn_201901.fasta`
-  - `mpa_v30_CHOCOPhlAn_201901.3.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.4.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.1.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.2.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.rev.1.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.rev.2.bt2`
-  - `mpa_latest`
-- **Kaiju** output of `kaiju-makedb`. A directory containing:
-  - `kaiju_db_*.fmi`
-  - `nodes.dmp`
-  - `names.dmp`
-- **DIAMOND** output of `diamond makedb`. Note: requires building with taxonomy files
-  to generate taxonomic profile. See [DIAMOND documentation](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options#makedb-options). A file named:
-  - `<database_name>.dmnd`
-- **mOTUs** is composed of code and database together. The mOTUs tools
+- [**Bracken** output](#bracken) of a combined `kraken2-` and `bracken-build` process. Please see the [documentation on Bracken](https://github.com/jenniferlu717/Bracken#running-bracken-easy-version) for details. The output is a directory containing files per expected sequencing read length.
+- [**Centrifuge** output](#centrifuge) of `centrifuge-build`.
+- [**DIAMOND** output](#diamond) of `diamond makedb`. Note: requires building with taxonomy files
+  to generate taxonomic profile. See [DIAMOND documentation](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options#makedb-options).
+- [**Kaiju** output](#kaiju) of `kaiju-makedb`.
+- [**Kraken2** output](#kraken2) of `kraken2-build` command(s).
+- [**KrakenUniq** output](#krakenuniq) of `krakenuniq-build` command(s).
+- [**MALT** output](#malt) of `malt-build`.
+- [**MetaPhlAn3**](#metaphlan3) generated with `metaphlan --install` or downloaded from links on the [MetaPhlAn3 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0#customizing-the-database).
+- [**mOTUs**](#motus) is composed of code and database together. The mOTUs tools
   [`downloadDB`](https://github.com/motu-tool/mOTUs/blob/master/motus/downloadDB.py)
   is used to prepare the mOTUs database and create a file with the version information.
   The database download step can be time consuming and the database will be consisting
   with same release version of the mOTUs tools. The database for same version tools
   can be thus reused for multiple runs. Users can download the database once using the script above and
   specify the path the database to the TSV table provided to `--databases`.
-- **KrakenUniq** WIP
 
 ## Running the pipeline
 
@@ -489,7 +445,120 @@ NXF_OPTS='-Xms1g -Xmx4g'
 Here we will give brief guidance on how to build databases for each supported taxonomic profiler. You should always consult the documentation of each toolfor more information, how we provide these as quick reference guides.
 The following tutorial assumes you already have the tool available (e.g. installed locally, or via conda, docker etc.), and you have already downloaded the FASTA files you wish to build into a database.
 
+#### Bracken
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `bracken`
+  - `hash.k2d`
+  - `opts.k2d`
+  - `taxo.k2d`
+  - `database.kraken`
+  - `database100mers.kmer_distrib`
+  - `database100mers.kraken`
+  - `database150mers.kmer_distrib`
+  - `database150mers.kraken`
+
+</details>
+
+Bracken does not provide any default databases for profiling, but rather building upon Kraken2 databases. See [Kraken2](#kraken2) for more information on how to build these.
+
+In addition to a Kraken2 database, you also need to have the (average) read lengths (in bp) of your sequencing experiment, the K-mer size used to build the Kraken2 database, and Kraken2 available on your machine.
+
+```bash
+bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
+```
+
+> 🛈 You can speed up database construction by supplying the threads parameter (`-t`).
+
+> 🛈 If you do not have Kraken2 in your `$PATH` you can point to the binary with `-x /<path>/<to>/kraken2`.
+
+You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) for more information. Alternatively, you can use one of the indexes that can be found [here](https://benlangmead.github.io/aws-indexes/k2).
+
+#### Centrifuge
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `centrifuge`
+  - `<database_name>.<number>.cf`
+  - `<database_name>.<number>.cf`
+  - `<database_name>.<number>.cf`
+  - `<database_name>.<number>.cf`
+
+</details>
+
+Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). The user should download taxonomy files, make custom `seqid2taxid.map` and combine the fasta files together.
+
+```bash
+centrifuge-download -o taxonomy taxonomy
+
+## custom seqid2taxid.map
+NC_001133.9    4392
+NC_012920.1    9606
+NC_001134.8    4392
+NC_001135.5    4392
+
+cat *.{fa,fna} > input-sequences.fna
+centrifuge-build -p 4 --conversion-table seqid2taxid.map --taxonomy-tree taxonomy/nodes.dmp --name-table taxonomy/names.dmp input-sequences.fna taxprofiler_cf
+```
+
+#### DIAMOND
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `diamond`
+  - `<database_name>.dmnd`
+
+</details>
+
+To create a custom database for DIAMOND, the user should download and unzip the NCBI's taxonomy files. The `makedb` needs to be executed afterwards. A detailed description can be found [here](https://github.com/bbuchfink/diamond/wiki/1.-Tutorial)
+
+```bash
+wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip
+unzip taxdmp.zip
+
+## warning: large file!
+wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.FULL.gz
+
+## warning: takes a long time!
+cat ../raw/*.faa | diamond makedb -d testdb-diamond --taxonmap prot.accession2taxid.FULL.gz --taxonnodes nodes.dmp --taxonnames names.dmp
+
+rm *dmp *txt *gz *prt *zip
+```
+
+#### Kaiju
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `kaiju`
+  - `kaiju_db_*.fmi`
+  - `nodes.dmp`
+  - `names.dmp`
+
+</details>
+
+It is possible to [create custom databases](https://github.com/bioinformatics-centre/kaiju#custom-database) with Kaiju.
+
+```bash
+kaiju-mkbwt -n 5 -a ACDEFGHIKLMNPQRSTVWY -o proteins proteins.faa
+kaiju-mkfmi proteins
+```
+
 #### Kraken2
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `kraken2`
+  - `opts.k2d`
+  - `hash.k2d`
+  - `taxo.k2d`
+
+</details>
 
 > These are instructions are based on Kraken 2.1.2
 > To build a Kraken2 database you need two components: a taxonomy (consisting of `names.dmp`, `nodes.dmp`, and `*accession2taxid`) files, and the FASTA files you wish to include.
@@ -524,33 +593,40 @@ You can then add the <YOUR_DB_NAME>/ path to your nf-core/taxprofiler database i
 
 You can follow the Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases) for a more detailed description.
 
-#### Centrifuge
+#### KrakenUniq
 
-Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). The user should download taxonomy files, make custom `seqid2taxid.map` and combine the fasta files together.
+<details markdown="1">
+<summary>Output files</summary>
 
-```bash
-centrifuge-download -o taxonomy taxonomy
+- `krakenuniq`
+  - `opts.k2d`
+  - `hash.k2d`
+  - `taxo.k2d`
+  - `database.idx`
+  - `taxDB`
 
-## custom seqid2taxid.map
-NC_001133.9    4392
-NC_012920.1    9606
-NC_001134.8    4392
-NC_001135.5    4392
+</details>
 
-cat *.{fa,fna} > input-sequences.fna
-centrifuge-build -p 4 --conversion-table seqid2taxid.map --taxonomy-tree taxonomy/nodes.dmp --name-table taxonomy/names.dmp input-sequences.fna taxprofiler_cf
-```
+For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2). But if you wish to build your own, please see the [documentation](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#custom-databases-with-ncbi-taxonomy).
 
-#### Kaiju
-
-It is possible to [create custom databases](https://github.com/bioinformatics-centre/kaiju#custom-database) with Kaiju.
-
-```bash
-kaiju-mkbwt -n 5 -a ACDEFGHIKLMNPQRSTVWY -o proteins proteins.faa
-kaiju-mkfmi proteins
-```
 
 #### MALT
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `malt`
+  - `ref.idx`
+  - `taxonomy.idx`
+  - `taxonomy.map`
+  - `index0.idx`
+  - `table0.idx`
+  - `table0.db`
+  - `ref.inf`
+  - `ref.db`
+  - `taxonomy.tre`
+
+</details>
 
 MALT does not provide any default databases for profiling, therefore you must build your own.
 You need FASTA files to include, and an (unzipped) [MEGAN mapping 'db' file](https://software-ab.informatik.uni-tuebingen.de/download/megan6/) for your FASTA type.
@@ -568,42 +644,25 @@ MALT-build can be multi-threaded with `-t` to speed up building.
 
 See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf) for more information.
 
-#### Bracken
 
-Bracken does not provide any default databases for profiling, but rather building upon Kraken2 databases. See [Kraken2](#kraken2) for more information on how to build these.
+#### MetaPhlAn3
 
-In addition to a Kraken2 database, you also need to have the (average) read lengths (in bp) of your sequencing experiment, the K-mer size used to build the Kraken2 database, and Kraken2 available on your machine.
+<details markdown="1">
+<summary>Output files</summary>
 
-```bash
-bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
-```
+- `metaphlan3`
+  - `mpa_v30_CHOCOPhlAn_201901.pkl`
+  - `mpa_v30_CHOCOPhlAn_201901.pkl`
+  - `mpa_v30_CHOCOPhlAn_201901.fasta`
+  - `mpa_v30_CHOCOPhlAn_201901.3.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.4.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.1.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.2.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.rev.1.bt2`
+  - `mpa_v30_CHOCOPhlAn_201901.rev.2.bt2`
+  - `mpa_latest`
 
-> 🛈 You can speed up database construction by supplying the threads parameter (`-t`).
-
-> 🛈 If you do not have Kraken2 in your `$PATH` you can point to the binary with `-x /<path>/<to>/kraken2`.
-
-You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) for more information. Alternatively, you can use one of the indexes that can be found [here](https://benlangmead.github.io/aws-indexes/k2).
-
-#### KrakenUniq
-
-For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2). But if you wish to build your own, please see the [documentation](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#custom-databases-with-ncbi-taxonomy).
-
-#### DIAMOND
-
-To create a custom database for DIAMOND, the user should download and unzip the NCBI's taxonomy files. The `makedb` needs to be executed afterwards. A detailed description can be found [here](https://github.com/bbuchfink/diamond/wiki/1.-Tutorial)
-
-```bash
-wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip
-unzip taxdmp.zip
-
-## warning: large file!
-wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.FULL.gz
-
-## warning: takes a long time!
-cat ../raw/*.faa | diamond makedb -d testdb-diamond --taxonmap prot.accession2taxid.FULL.gz --taxonnodes nodes.dmp --taxonnames names.dmp
-
-rm *dmp *txt *gz *prt *zip
-```
+</details>
 
 #### mOTUs
 
