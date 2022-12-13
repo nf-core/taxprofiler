@@ -166,6 +166,7 @@ fastp can automatically detect adapter sequences for Illumina data.
 <summary>Output files</summary>
 
 - `krakenuniq`
+
   - `<sample_id>.classified.fastq.gz`
   - `<sample_id>.krakenuniq.classified.txt`
   - `<sample_id>.krakenuniq.report.txt`
