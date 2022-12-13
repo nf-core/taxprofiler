@@ -568,8 +568,12 @@ See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/m
 
 #### Bracken
 
-You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) to build a custom database. Alternatively, you can use one of the indexes that can be found [here](https://benlangmead.github.io/aws-indexes/k2).
+Bracken does not provide any default databases for profiling, but rather building upon Kraken2 databases. See [Kraken2](#kraken2) for more information on how to build these.
 
+In addition to a Kraken2 database, you also need to have the (average) read lengths (in bp) of your sequencing experiment, the K-mer size used to build the Kraken2 database, and Kraken2 available on your machine.
+
+```bash
+bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
 #### KrakenUniq
 
 For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2). But if you wish to build your own, please see the [documentation](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#custom-databases-with-ncbi-taxonomy).
