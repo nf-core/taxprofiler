@@ -246,7 +246,7 @@ table_columns_name:
     avg_sequence_length: "Length Processed Reads"
     percent_gc: "% GC Processed Reads"
     percent_duplicates: "% Dups Processed Reads"
-    percent_fails: "%Failed Processed Reads"
+    percent_fails: "% Failed Processed Reads"
   Samtools Stats:
     raw_total_sequences: "Nr. Reads Into Mapping"
     reads_mapped: "Nr. Mapped Reads"
