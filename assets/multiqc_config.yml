@@ -251,10 +251,9 @@ table_columns_name:
     raw_total_sequences: "Nr. Reads Into Mapping"
     reads_mapped: "Nr. Mapped Reads"
     reads_mapped_percent: "% Mapped Reads"
-  
 
 extra_fn_clean_exts:
-    - ".kraken2.kraken2.report.txt"
-    - ".centrifuge.txt"
-    - ".bracken.kraken2.report.txt"
-    - ".settings"
+  - ".kraken2.kraken2.report.txt"
+  - ".centrifuge.txt"
+  - ".bracken.kraken2.report.txt"
+  - ".settings"
