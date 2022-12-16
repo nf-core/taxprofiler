@@ -240,7 +240,7 @@ table_columns_name:
     avg_sequence_length: "Length Processed Reads"
     percent_gc: "% GC Processed Reads"
     percent_duplicates: "% Dups Processed Reads"
-    percent_fails: "%Failed Processed Reads"
+    percent_fails: "% Failed Processed Reads"
   Falco (post-Trimming):
     total_sequences: "Nr. Processed Reads"
     avg_sequence_length: "Length Processed Reads"
