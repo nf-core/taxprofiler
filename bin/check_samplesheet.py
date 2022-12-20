@@ -119,7 +119,7 @@ def check_samplesheet(file_in, file_out):
                     "Line",
                     line,
                 )
-                
+
             lspl = [line_parsed[i] for i in header_locs.values()]
 
             ## Check sample name entries
