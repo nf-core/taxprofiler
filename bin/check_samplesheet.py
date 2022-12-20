@@ -104,22 +104,23 @@ def check_samplesheet(file_in, file_out):
 
             ## Pull out only relevant columns for downstream checking
             line_parsed = [x.strip().strip('"') for x in line.strip().split(",")]
-            lspl = [line_parsed[i] for i in header_locs.values()]
 
             # Check valid number of columns per row
-            if len(lspl) < len(HEADER):
+            if len(line_parsed) < len(HEADER):
                 print_error(
                     "Invalid number of columns (minimum = {})!".format(len(HEADER)),
                     "Line",
                     line,
                 )
-            num_cols = len([x for x in lspl if x])
+            num_cols = len([x for x in line_parsed if x])
             if num_cols < MIN_COLS:
                 print_error(
                     "Invalid number of populated columns (minimum = {})!".format(MIN_COLS),
                     "Line",
                     line,
                 )
+                
+            lspl = [line_parsed[i] for i in header_locs.values()]
 
             ## Check sample name entries
 
@@ -169,7 +170,7 @@ def check_samplesheet(file_in, file_out):
             else:
                 if instrument_platform not in INSTRUMENT_PLATFORMS:
                     print_error(
-                        f"Instrument platform {instrument_platform} is not supported!",
+                        f"Instrument platform {instrument_platform} is not supported! "
                         f"List of supported platforms {', '.join(INSTRUMENT_PLATFORMS)}",
                         "Line",
                         line,
