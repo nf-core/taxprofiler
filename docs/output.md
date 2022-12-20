@@ -209,19 +209,26 @@ You will only recieve the FASTQs and `*classifiedreads.txt` file if you supply `
 
 ### KrakenUniq
 
+[KrakenUniq](https://github.com/fbreitwieser/krakenuniq) (formerly KrakenHLL) is an extenson to the fast k-mer-based classification [Kraken](https://github.com/DerrickWood/kraken) with an efficient algorithm for additionally assessing the coverage of unique k-mers found in each species in a dataset.
+
 <details markdown="1">
 <summary>Output files</summary>
 
-- `krakenuniq`
-
-  - `<sample_id>.classified.fastq.gz`
-  - `<sample_id>.krakenuniq.classified.txt`
-  - `<sample_id>.krakenuniq.report.txt`
-  - `<sample_id>.unclassified.fastq.gz`
-
-  ## interleaved?
+- `krakenuniq/`
+  - <db_name>/
+    - `<sample_id>_<db_name>.classified.fastq.gz`: FASTQ file containing all reads that had a hit against a reference in the database for a given sample
+    - `<sample_id>_<db_name>.unclassified.fastq.gz`: FASTQ file containing all reads that did not have a hit in the database for a given sample
+    - `<sample_id>_<db_name>.report.txt`: A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of Kmers, taxonomic path of all the hits, with an additional column for k-mer coverage, that allows for more accurate distinguishing between false-positive/true-postitive hits
+    - `<sample_id>_<db_name>.classifiedreads.txt`: A list of read IDs and the hits each read had against each database for a given sample
 
 </details>
+
+The main taxonomic profiling file from KrakenUniq is the `*report.txt` file. This is an extension of the Kraken2 report with the additional k-mer coverage information that provides more information about the accuracy of hits.
+
+> ⚠️ The output system of KrakenUniq can result in other `stdout` or `stderr` logging information being saved in the report file, therefore you must check your report files before downstream use!
+
+You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `--krakenuniq_save_reads` and/or `--krakenuniq_save_readclassification` parameters to the pipeline.
+
 
 ### Centrifuge
 
