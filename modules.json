@@ -30,6 +30,11 @@
                         "git_sha": "8cab56516076b23c6f8eb1ac20ba4ce9692c85e1",
                         "installed_by": ["modules"]
                     },
+                    "bracken/combinebrackenoutputs": {
+                        "branch": "master",
+                        "git_sha": "9c87d5fdad182590a370ea43a4ecebd200a6f6fb",
+                        "installed_by": ["modules"]
+                    },
                     "cat/fastq": {
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
@@ -68,7 +73,8 @@
                     "falco": {
                         "branch": "master",
                         "git_sha": "fc959214036403ad83efe7a41d43d0606c445cda",
-                        "installed_by": ["modules"]
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/falco/falco.diff"
                     },
                     "fastp": {
                         "branch": "master",
@@ -167,12 +173,12 @@
                     },
                     "motus/merge": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "3fce766123e71e82fb384db7d07b59180baa9ee9",
                         "installed_by": ["modules"]
                     },
                     "motus/profile": {
                         "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
+                        "git_sha": "3fce766123e71e82fb384db7d07b59180baa9ee9",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
