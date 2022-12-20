@@ -26,7 +26,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Bracken](#bracken) - Taxonomic classifier using k-mers and abundance estimations
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
 - [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
-- [Bracken](#bracken) -
 - [Centrifuge](#centrifuge) - Taxonomic classifier that uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index.
 - [Kaiju](#kaiju) - Taxonomic classifier that finds maximum (in-)exact matches on the protein-level.
 - [Diamond](#diamond) - Sequence aligner for protein and translated DNA searches.
