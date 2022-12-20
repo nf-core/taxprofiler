@@ -118,12 +118,22 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 
 ### PRINSEQ++
 
+[PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus) is a C++ implementation of the [prinseq-lite.pl](https://prinseq.sourceforge.net/) program. It can be used to filter, reformat or trim genomic and metagenomic sequence data.
+
+It is used in nf-core/taxprofiler for complexity filtering using different algorithms. This means that it will remove reads with low sequence diversity (e.g. mono- or dinucleotide repeats).
+
 <details markdown="1">
 <summary>Output files</summary>
 
-- `prinseq++`
+- `prinseqplusplus/`
+  - `<sample_id>.log`: log file containing number of reads. Row IDs correspond to: `min_len, max_len, min_gc, max_gc, min_qual_score, min_qual_mean, ns_max_n, noiupac, derep, lc_entropy, lc_dust, trim_tail_left, trim_tail_right, trim_qual_left, trim_qual_right, trim_left, trim_right`
+  - `<sample_id>_good_out.fastq.gz`:  resulting FASTQ file without low-complexity reads
 
 </details>
+
+By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is selected as the complexity filtering tool. You will only find the complexity filtered FASTQ files in your results directory if you supply ` --save_complexityfiltered_reads` .
+
+Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
 
 ### Filtlong
 
