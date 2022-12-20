@@ -60,16 +60,6 @@
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
                         "installed_by": ["modules"]
                     },
-                    "eido/convert": {
-                        "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
-                        "installed_by": ["modules"]
-                    },
-                    "eido/validate": {
-                        "branch": "master",
-                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905",
-                        "installed_by": ["modules"]
-                    },
                     "falco": {
                         "branch": "master",
                         "git_sha": "fc959214036403ad83efe7a41d43d0606c445cda",
