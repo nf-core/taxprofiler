@@ -148,15 +148,23 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 
 ### Bowtie2
 
+[Bowtie 2](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml) is an ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences. It is particularly good at aligning reads of about 50 up to 100s or 1,000s of characters, and particularly good at aligning to relatively long (e.g. mammalian) genomes.
+
+It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or other possible contaminant reads (e.g. Phi X) from the FASTQ files prior to profiling.
+
 <details markdown="1">
 <summary>Output files</summary>
 
-- `bowtie2`
-  - `<sample_id>.bam`
-  - `<sample_id>.bowtie2.log`
-  - `<sample_id>.unmapped.fastq.gz`
+- `bowtie2/`
+  - `<sample_id>.bam`: reads that aligned against the user-supplied reference genome
+  - `<sample_id>.bowtie2.log`: log file about the mapped reads
+  - `<sample_id>.unmapped.fastq.gz`: the off-target reads from the mapping that is used in downstream steps.
 
 </details>
+
+By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only see the mapped (host) reads BAM file or the off-target reads in FASTQ format in your results directory if you provide `--save_hostremoval_mapped`  and ` --save_hostremoval_unmapped` respectively.
+
+Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
 
 ### minimap2
 
