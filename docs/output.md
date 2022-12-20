@@ -253,7 +253,7 @@ You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `
 
 </details>
 
-### Diamond
+### DIAMOND
 
 <details markdown="1">
 <summary>Output files</summary>
