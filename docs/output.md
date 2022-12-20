@@ -99,14 +99,22 @@ Note that the FASTQ files may _not_ always be the 'final' reads that go into tax
 
 ### BBDuk
 
+[BBDuk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/) stands for Decontamination Using Kmers. BBDuk was developed to combine most common data-quality-related trimming, filtering, and masking operations into a single high-performance tool.
+
+It is used in nf-core/taxprofiler for complexity filtering using different algorithms. This means that it will remove reads with low sequence diversity (e.g. mono- or dinucleotide repeats).
+
 <details markdown="1">
 <summary>Output files</summary>
 
-- `bbduk`
-  - `<sample_id>.bbduk.log`
-  - `<sample_id>.fastq.gz`
+- `bbduk/`
+  - `<sample_id>.bbduk.log`: log file containing filtering statistics
+  - `<sample_id>.fastq.gz`: resulting FASTQ file without low-complexity reads
 
 </details>
+
+By default nf-core/taxprofiler will only provide the `.log` file if BBDuk is selected as the complexity filtering tool. You will only find the complexity filtered reads in your results directory if you provide ` --save_complexityfiltered_reads` .
+
+Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
 
 ### PRINSEQ++
 
