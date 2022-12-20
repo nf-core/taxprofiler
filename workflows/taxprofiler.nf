@@ -20,12 +20,11 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if ( params.input ) {
     ch_input              = file(params.input, checkIfExists: true)
-    pep_input_base_dir    = file(params.input).extension.matches("yaml|yml") ? file(file(params.input).getParent(), checkIfExists: true) :  []
 } else {
-    exit 1, "Input samplesheet, or PEP config and base directory not specified"
+    exit 1, "Input samplesheet not specified"
 }
 
-if (params.databases) { ch_databases = file(params.databases) } else { exit 1, 'Input database sheet not specified!' }
+if (params.databases) { ch_databases = file(params.databases, checkIfExists: true) } else { exit 1, 'Input database sheet not specified!' }
 
 if (params.shortread_qc_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
 if (params.shortread_qc_includeunmerged && !params.shortread_qc_mergepairs) exit 1, "ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging is not turned on. Please specify --shortread_qc_mergepairs"
@@ -115,7 +114,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
     */
     INPUT_CHECK (
-        ch_input, pep_input_base_dir
+        ch_input
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 

@@ -41,14 +41,14 @@ workflow PROFILING {
             }
             .combine(databases)
             .branch {
-                malt:    it[2]['tool'] == 'malt'
-                kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken' // to reuse the kraken module to produce the input data for bracken
-                metaphlan3: it[2]['tool'] == 'metaphlan3'
                 centrifuge: it[2]['tool'] == 'centrifuge'
-                kaiju: it[2]['tool'] == 'kaiju'
                 diamond: it[2]['tool'] == 'diamond'
-                motus: it[2]['tool'] == 'motus'
+                kaiju: it[2]['tool'] == 'kaiju'
+                kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken' // to reuse the kraken module to produce the input data for bracken
                 krakenuniq: it[2]['tool'] == 'krakenuniq'
+                malt:    it[2]['tool'] == 'malt'
+                metaphlan3: it[2]['tool'] == 'metaphlan3'
+                motus: it[2]['tool'] == 'motus'
                 unknown: true
             }
 

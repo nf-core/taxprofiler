@@ -19,11 +19,20 @@ custom_logo_title: "nf-core/taxprofiler"
 run_modules:
   - fastqc
   - adapterRemoval
+  - bbduk
+  - prinseqplusplus
   - fastp
+  - filtlong
   - bowtie2
+  - minimap2
   - samtools
   - kraken
+  - kaiju
+  - metaphlan
+  - diamond
   - malt
+  - motus
+  - porechop
   - custom_content
 
 #extra_fn_clean_exts:
@@ -36,16 +45,41 @@ top_modules:
       name: "FastQC (pre-Trimming)"
       path_filters:
         - "*raw_*fastqc.zip"
+  - "fastqc":
+      name: "Falco (pre-Trimming)"
+      path_filters:
+        - "*_raw_falco_*_report.html"
   - "fastp"
   - "adapterRemoval"
+  - "porechop"
   - "fastqc":
       name: "FastQC (post-Trimming)"
       path_filters:
-        - "*raw_*processed.zip"
+        - "*_processed_*fastqc.zip"
+  - "fastqc":
+      name: "Falco (post-Trimming)"
+      path_filters:
+        - "*_processed_falco_*_report.html"
+  - "bbduk"
+  - "prinseqplusplus"
+  - "filtlong"
+  - "bowtie2":
+      name: "bowtie2"
+  - "samtools":
+      name: "Samtools Stats"
   - "kraken":
       name: "Kraken"
       path_filters:
-        - "*.kraken2.report.txt"
+        - "*.kraken2.kraken2.report.txt"
+  - "kraken":
+      name: "Bracken"
+      anchor: "bracken"
+      target: "Bracken"
+      doi: "10.7717/peerj-cs.104"
+      info: "Estimates species abundances in metagenomics samples by probabilistically re-distributing reads in the taxonomic tree."
+      extra: "Note: plot title will say Kraken2 due to the first step of bracken producing the same output format as Kraken. Abundance information is currently not supported in MultiQC."
+      path_filters:
+        - "*.bracken.kraken2.report.txt"
   - "kraken":
       name: "Centrifuge"
       anchor: "centrifuge"
@@ -55,3 +89,171 @@ top_modules:
       extra: "Note: plot title will say Kraken2 due to Centrifuge producing the same output format as Kraken. If activated, see the actual Kraken2 results in the section above."
       path_filters:
         - "*.centrifuge.txt"
+  - "malt":
+      name: "MALT"
+  - "diamond"
+  - "kaiju":
+      name: "Kaiju"
+  - "motus"
+
+#It is not possible to set placement for custom kraken and centrifuge columns.
+
+table_columns_placement:
+  FastQC (pre-Trimming):
+    total_sequences: 100
+    avg_sequence_length: 110
+    percent_duplicates: 120
+    percent_gc: 130
+    percent_fails: 140
+  Falco (pre-Trimming):
+    total_sequences: 200
+    avg_sequence_length: 210
+    percent_duplicates: 220
+    percent_gc: 230
+    percent_fails: 240
+  fastp:
+    pct_adapter: 300
+    pct_surviving: 310
+    pct_duplication: 320
+    after_filtering_gc_content: 330
+    after_filtering_q30_rate: 340
+    after_filtering_q30_bases: 350
+  Adapter Removal:
+    aligned_total: 360
+    percent_aligned: 370
+    percent_collapsed: 380
+    percent_discarded: 390
+  FastQC (post-Trimming):
+    total_sequences: 400
+    avg_sequence_length: 410
+    percent_duplicates: 420
+    percent_gc: 430
+    percent_fails: 440
+  Falco (post-Trimming):
+    total_sequences: 500
+    avg_sequence_length: 510
+    percent_duplicates: 520
+    percent_gc: 530
+    percent_fails: 540
+  bowtie2:
+    overall_alignment_rate: 600
+  Samtools Stats:
+    raw_total_sequences: 700
+    reads_mapped: 710
+    reads_mapped_percent: 720
+    reads_properly_paired_percent: 730
+    non-primary_alignments: 740
+    reads_MQ0_percent: 750
+    error_rate: 760
+  MALT:
+    Num. of queries: 1000
+    Total reads: 1100
+    Mappability: 1200
+    Assig. Taxonomy: 1300
+    Taxonomic assignment success: 1400
+  Kaiju:
+    assigned: 2000
+    "% Assigned": 2100
+    "% Unclassified": 2200
+
+table_columns_visible:
+  FastQC (pre-Trimming):
+    total_sequences: True
+    avg_sequence_length: True
+    percent_duplicates: True
+    percent_gc: True
+    percent_fails: False
+  Falco (pre-Trimming):
+    total_sequences: True
+    avg_sequence_length: True
+    percent_duplicates: True
+    percent_gc: True
+    percent_fails: False
+  fastp:
+    pct_adapter: True
+    pct_surviving: True
+    pct_duplication: False
+    after_filtering_gc_content: False
+    after_filtering_q30_rate: False
+    after_filtering_q30_bases: False
+  Adapter Removal:
+    aligned_total: True
+    percent_aligned: True
+    percent_collapsed: True
+    percent_discarded: False
+  FastQC (post-Trimming):
+    total_sequences: True
+    avg_sequence_length: True
+    percent_duplicates: False
+    percent_gc: False
+    percent_fails: False
+  Falco (post-Trimming):
+    total_sequences: True
+    avg_sequence_length: True
+    percent_duplicates: False
+    percent_gc: False
+    percent_fails: False
+  bowtie2:
+    overall_alignment_rate: True
+  Samtools Stats:
+    raw_total_sequences: True
+    reads_mapped: True
+    reads_mapped_percent: True
+    reads_properly_paired_percent: False
+    non-primary_alignments: False
+    reads_MQ0_percent: False
+    error_rate: False
+  Kraken:
+    "% Unclassified": True
+    "% Top 5": False
+  Bracken:
+    "% Unclassified": True
+    "% Top 5": False
+  Centrifuge:
+    "% Unclassified": True
+    "% Top 5": False
+  MALT:
+    Num. of queries: True
+    Total reads: True
+    Mappability: True
+    Assig. Taxonomy: False
+    Taxonomic assignment success: True
+  Kaiju:
+    assigned: False
+    "% Assigned": False
+    "% Unclassified": True
+table_columns_name:
+  FastQC (pre-Trimming):
+    total_sequences: "Nr. Input Reads"
+    avg_sequence_length: "Length Input Reads"
+    percent_gc: "% GC Input Reads"
+    percent_duplicates: "% Dups Input Reads"
+    percent_fails: "% Failed Input Reads"
+  Falco (pre-Trimming):
+    total_sequences: "Nr. Input Reads"
+    avg_sequence_length: "Length Input Reads"
+    percent_gc: "% GC Input Reads"
+    percent_duplicates: "% Dups Input Reads"
+    percent_fails: "% Failed Input Reads"
+  FastQC (post-Trimming):
+    total_sequences: "Nr. Processed Reads"
+    avg_sequence_length: "Length Processed Reads"
+    percent_gc: "% GC Processed Reads"
+    percent_duplicates: "% Dups Processed Reads"
+    percent_fails: "% Failed Processed Reads"
+  Falco (post-Trimming):
+    total_sequences: "Nr. Processed Reads"
+    avg_sequence_length: "Length Processed Reads"
+    percent_gc: "% GC Processed Reads"
+    percent_duplicates: "% Dups Processed Reads"
+    percent_fails: "% Failed Processed Reads"
+  Samtools Stats:
+    raw_total_sequences: "Nr. Reads Into Mapping"
+    reads_mapped: "Nr. Mapped Reads"
+    reads_mapped_percent: "% Mapped Reads"
+
+extra_fn_clean_exts:
+  - ".kraken2.kraken2.report.txt"
+  - ".centrifuge.txt"
+  - ".bracken.kraken2.report.txt"
+  - ".settings"

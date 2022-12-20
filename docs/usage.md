@@ -12,7 +12,7 @@
 
 nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers).
 
-> ⚠️ Input FASTQ files _must_ be gzipped, while FASTA files may optionally be uncompressed (although this is not recommended)
+> ⚠️ Input FASTQ and FASTA files _must_ be gzipped
 
 You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row as shown in the examples below. Furthermother, nf-core/taxprofiler also requires a second comma-separated file of 3 columns with a header row as in the examples below.
 
@@ -21,10 +21,6 @@ This samplesheet is then specified on the command line as follows:
 ```console
 --input '[path to samplesheet file]' --databases '[path to database sheet file]'
 ```
-
-Note pipeline supports both CSV and PEP input sample sheets. Find out more [here](http://pep.databio.org/en/2.1.0/specification/).
-When using PEP as an input, the `samplesheet.csv` must be placed in the same folder
-as `config.yaml` file. A path to `samplesheet.csv` within the config must be absolute.
 
 ### Multiple runs of the same sample
 
@@ -311,9 +307,6 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 
 - `test`
   - A profile with a complete configuration for automated testing
-  - Includes links to test data so needs no other parameters
-- `test_pep`
-  - A profile with a complete configuration for running a pipeline with PEP as input
   - Includes links to test data so needs no other parameters
 - `docker`
   - A generic configuration profile to be used with [Docker](https://docker.com/)
