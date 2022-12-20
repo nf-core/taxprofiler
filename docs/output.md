@@ -187,6 +187,24 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 
 </details>
 
+### Bracken
+
+[Bracken](https://ccb.jhu.edu/software/bracken/) (Bayesian Reestimation of Abundance with KrakEN) is a highly accurate statistical method that computes the abundance of species in DNA sequences from a metagenomics sample. Braken uses the taxonomy labels assigned by Kraken, a highly accurate metagenomics classification algorithm, to estimate the number of reads originating from each species present in a sample.
+
+> 🛈 The first step of using Bracken requires running Kraken2, therefore the initial results before abundance estimation will be found in `<your_results>/kraken2/<your_bracken_db_name>`.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `kraken2/`
+  - `bracken_<db_name>_combined_reports.txt`: combined bracken results as output from Bracken's `combine_bracken_outputs.py` script
+  - `<db_name>/`
+    - `<sample>_<db_name>.tsv: TSV file containing per-sample summary of Bracken results with abundance information
+
+</details>
+
+The main taxonomic profiling file from KrakenUniq is the `*.tsv` file. This provides the basic results from Kraken2 but with the corrected abundance information. 
+
 ### Kraken2
 
 [Kraken](https://ccb.jhu.edu/software/kraken2/) is a taxonomic sequence classifier that assigns taxonomic labels to DNA sequences. Kraken examines the k-mers within a query sequence and uses the information within those k-mers to query a database. That database maps -mers to the lowest common ancestor (LCA) of all genomes known to contain a given k-mer.
