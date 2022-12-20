@@ -103,22 +103,16 @@ nf-core/taxprofiler will automatically decompress and extract any compressed arc
 
 Expected (uncompressed) database files for each tool are as follows:
 
-- [**Bracken** output](#bracken) of a combined `kraken2-` and `bracken-build` process. Please see the [documentation on Bracken](https://github.com/jenniferlu717/Bracken#running-bracken-easy-version) for details. The output is a directory containing files per expected sequencing read length.
-- [**Centrifuge** output](#centrifuge) of `centrifuge-build`.
-- [**DIAMOND** output](#diamond) of `diamond makedb`. Note: requires building with taxonomy files
+- [**Bracken** output](#bracken-custom-database) of a combined `kraken2-` and `bracken-build` process.
+- [**Centrifuge** output](#centrifuge-custom-database) of `centrifuge-build`.
+- [**DIAMOND** output](#diamond-custom-database) of `diamond makedb`.
   to generate taxonomic profile. See [DIAMOND documentation](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options#makedb-options).
-- [**Kaiju** output](#kaiju) of `kaiju-makedb`.
-- [**Kraken2** output](#kraken2) of `kraken2-build` command(s).
-- [**KrakenUniq** output](#krakenuniq) of `krakenuniq-build` command(s).
-- [**MALT** output](#malt) of `malt-build`.
-- [**MetaPhlAn3**](#metaphlan3) generated with `metaphlan --install` or downloaded from links on the [MetaPhlAn3 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0#customizing-the-database).
-- [**mOTUs**](#motus) is composed of code and database together. The mOTUs tools
-  [`downloadDB`](https://github.com/motu-tool/mOTUs/blob/master/motus/downloadDB.py)
-  is used to prepare the mOTUs database and create a file with the version information.
-  The database download step can be time consuming and the database will be consisting
-  with same release version of the mOTUs tools. The database for same version tools
-  can be thus reused for multiple runs. Users can download the database once using the script above and
-  specify the path the database to the TSV table provided to `--databases`.
+- [**Kaiju** output](#kaiju-custom-database) of `kaiju-makedb`.
+- [**Kraken2** output](#kraken2-custom-database) of `kraken2-build` command(s).
+- [**KrakenUniq** output](#krakenuniq-custom-database) of `krakenuniq-build` command(s).
+- [**MALT** output](#malt-custom-database) of `malt-build`.
+- [**MetaPhlAn3**](#metaphlan3-custom-database) generated with `metaphlan --install` or downloaded from links on the [MetaPhlAn3 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0#customizing-the-database).
+- [**mOTUs**](#motus-custom-database) is composed of code and database together.
 
 ## Running the pipeline
 
@@ -130,7 +124,7 @@ nextflow run nf-core/taxprofiler --input samplesheet.csv --databases databases.c
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
 
-When running nf-core/taxprofiler, every step and tool is 'opt in'. To run a given profiler you must make sure to supply both a database in your `<database>.csv` and supply `--run_<profiler>` flag to your command. Omitting either will result in the profiling tool not executing. If you wish to perform pre-processing (adapter clipping, merge running etc.) or post-processing (visualisation) steps, these are also opt in `--perform_<step>` and in some cases may also require additional files. Please check the parameters tab of this documentation for more information.
+When running nf-core/taxprofiler, every step and tool is 'opt in'. To run a given profiler you must make sure to supply both a database in your `<database>.csv` and supply `--run_<profiler>` flag to your command. Omitting either will result in the profiling tool not executing. If you wish to perform pre-processing (adapter clipping, merge running etc.) or post-processing (visualisation) steps, these are also opt in with a `--perform_<step>` flag. In some cases, the pre- and post-processing steps may also require additional files. Please check the parameters tab of this documentation for more information.
 
 Note that the pipeline will create the following files in your working directory:
 
@@ -158,12 +152,12 @@ nf-core/taxprofiler offers four main preprocessing steps
 
 Raw sequencing read processing in the form of adapter clipping and paired-end read merging can be activated via the `--perform_shortread_qc` or `--perform_longread_qc` flags.
 
-It is highly recommended to run this on raw reads to remove artifacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles.
+It is highly recommended to run this on raw reads to remove artifacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles. If you have public data, normally these should have been corrected for however you should still check this is the case.
 
 There are currently two options for short-read preprocessing: [`fastp`](https://github.com/OpenGene/fastp) or [`adapterremoval`](https://github.com/MikkelSchubert/adapterremoval).
 
-For adapter clipping, you can either rely on tool default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
-By default, paired-end merging is not activated and paired-end profiling is performed where supported otherwise pairs will be independently profiled. If paired-end merging is activated you can also specify whether to include unmerged reads in the reads sent for profiling (`--shortread_qc_mergepairs` and `--shortread_qc_includeunmerged`).
+For adapter clipping, you can either rely on the tool's default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
+By default, paired-end merging is not activated. In this case paired-end 'alignment' against the reference databases is performed where supported, and if not, supported pairs will be independently profiled. If paired-end merging is activated you can also specify whether to include unmerged reads in the reads sent for profiling (`--shortread_qc_mergepairs` and `--shortread_qc_includeunmerged`).
 You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
 Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during profiling, with minimal gain.
 
@@ -211,9 +205,11 @@ You can optionally save the FASTQ output of the run merging with the `--save_run
 
 #### Profiling
 
+The following suggestion gives you some tips and suggestions regarding running some of the different tools specifically _within the pipeline_. For advice as to which tool to run in your context, please see the documentation of each tool.
+
 ###### Bracken
 
-It is unclear whether Bracken is suitable for running long reads, as it makes certain assumptions about read lengths. Furthemore, during testing we found issues where Bracken would fail on the long-read test data. Therefore nf-core/taxprofiler does not run Bracken on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet. If you believe this to be wrong, please contact us on the nf-core slack and we can discuss this.
+It is unclear whether Bracken is suitable for running long reads, as it makes certain assumptions about read lengths. Furthemore, during testing we found issues where Bracken would fail on the long-read test data. Therefore nf-core/taxprofiler does not run Bracken on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet. If you would like to change this behaviour, please contact us on the nf-core slack and we can discuss this.
 
 ###### Centrifuge
 
@@ -221,13 +217,13 @@ Centrifuge currently does not accept FASTA files as input, therefore no output w
 
 ###### DIAMOND
 
-DIAMOND only allows output of a single format at a time, therefore parameters such --diamond_save_reads supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending n your particular use case.
+DIAMOND only allows output of a single format at a time, therefore parameters such --diamond_save_reads supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending on your particular use case.
 
 ###### MALT
 
 MALT does not support paired-end reads alignment (unlike other tools), therefore nf-core/taxprofiler aligns these as indepenent files if read-merging is skipped. If you skip merging, you can sum or average the results of the counts of the pairs.
 
-Krona can only be run on MALT output if path to Krona taxonomy database supplied to `--krona_taxonomy_directory`. Therefore if you do not supply the a KRona directory, Krona plots will not be produced for MALT.
+Krona can only be run on MALT output if path to Krona taxonomy database supplied to `--krona_taxonomy_directory`. Therefore if you do not supply the a Krona directory, Krona plots will not be produced for MALT.
 
 ###### MetaPhlAn3
 
@@ -443,9 +439,21 @@ NXF_OPTS='-Xms1g -Xmx4g'
 ### Retrieving databases or building custom databases
 
 Here we will give brief guidance on how to build databases for each supported taxonomic profiler. You should always consult the documentation of each toolfor more information, how we provide these as quick reference guides.
-The following tutorial assumes you already have the tool available (e.g. installed locally, or via conda, docker etc.), and you have already downloaded the FASTA files you wish to build into a database.
+The following tutorials assumes you already have the tool available (e.g. installed locally, or via conda, docker etc.), and you have already downloaded the FASTA files you wish to build into a database.
 
-#### Bracken
+#### Bracken custom database
+
+Bracken does not provide any default databases for profiling, but rather building upon Kraken2 databases. See [Kraken2](#kraken2-custom-database) for more information on how to build these.
+
+In addition to a Kraken2 database, you also need to have the (average) read lengths (in bp) of your sequencing experiment, the K-mer size used to build the Kraken2 database, and Kraken2 available on your machine.
+
+```bash
+bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
+```
+
+> 🛈 You can speed up database construction by supplying the threads parameter (`-t`).
+
+> 🛈 If you do not have Kraken2 in your `$PATH` you can point to the binary with `-x /<path>/<to>/kraken2`.
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
@@ -462,32 +470,9 @@ The following tutorial assumes you already have the tool available (e.g. install
 
 </details>
 
-Bracken does not provide any default databases for profiling, but rather building upon Kraken2 databases. See [Kraken2](#kraken2) for more information on how to build these.
-
-In addition to a Kraken2 database, you also need to have the (average) read lengths (in bp) of your sequencing experiment, the K-mer size used to build the Kraken2 database, and Kraken2 available on your machine.
-
-```bash
-bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
-```
-
-> 🛈 You can speed up database construction by supplying the threads parameter (`-t`).
-
-> 🛈 If you do not have Kraken2 in your `$PATH` you can point to the binary with `-x /<path>/<to>/kraken2`.
-
 You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual) for more information. Alternatively, you can use one of the indexes that can be found [here](https://benlangmead.github.io/aws-indexes/k2).
 
-#### Centrifuge
-
-<details markdown="1">
-<summary>Expected files in database directory</summary>
-
-- `centrifuge`
-  - `<database_name>.<number>.cf`
-  - `<database_name>.<number>.cf`
-  - `<database_name>.<number>.cf`
-  - `<database_name>.<number>.cf`
-
-</details>
+#### Centrifuge custom database
 
 Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). The user should download taxonomy files, make custom `seqid2taxid.map` and combine the fasta files together.
 
@@ -504,15 +489,18 @@ cat *.{fa,fna} > input-sequences.fna
 centrifuge-build -p 4 --conversion-table seqid2taxid.map --taxonomy-tree taxonomy/nodes.dmp --name-table taxonomy/names.dmp input-sequences.fna taxprofiler_cf
 ```
 
-#### DIAMOND
-
 <details markdown="1">
 <summary>Expected files in database directory</summary>
 
-- `diamond`
-  - `<database_name>.dmnd`
+- `centrifuge`
+  - `<database_name>.<number>.cf`
+  - `<database_name>.<number>.cf`
+  - `<database_name>.<number>.cf`
+  - `<database_name>.<number>.cf`
 
 </details>
+
+#### DIAMOND custom database
 
 To create a custom database for DIAMOND, the user should download and unzip the NCBI's taxonomy files. The `makedb` needs to be executed afterwards. A detailed description can be found [here](https://github.com/bbuchfink/diamond/wiki/1.-Tutorial)
 
@@ -529,7 +517,22 @@ cat ../raw/*.faa | diamond makedb -d testdb-diamond --taxonmap prot.accession2ta
 rm *dmp *txt *gz *prt *zip
 ```
 
-#### Kaiju
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `diamond`
+  - `<database_name>.dmnd`
+
+</details>
+
+#### Kaiju custom database
+
+It is possible to [create custom databases](https://github.com/bioinformatics-centre/kaiju#custom-database) with Kaiju. To build a kaiju database, you need three components: a FASTA file with the protein sequences (the headers are the numeric NCBI taxon identifiers of the protein sequences), number of threads and you need to define the uppercase characters of the standard 20 amino acids.
+
+```bash
+kaiju-mkbwt -n 5 -a ACDEFGHIKLMNPQRSTVWY -o proteins proteins.faa
+kaiju-mkfmi proteins
+```
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
@@ -541,28 +544,11 @@ rm *dmp *txt *gz *prt *zip
 
 </details>
 
-It is possible to [create custom databases](https://github.com/bioinformatics-centre/kaiju#custom-database) with Kaiju.
+#### Kraken2 custom database
 
-```bash
-kaiju-mkbwt -n 5 -a ACDEFGHIKLMNPQRSTVWY -o proteins proteins.faa
-kaiju-mkfmi proteins
-```
+To build a Kraken2 database you need two components: a taxonomy (consisting of `names.dmp`, `nodes.dmp`, and `*accession2taxid`) files, and the FASTA files you wish to include.
 
-#### Kraken2
-
-<details markdown="1">
-<summary>Expected files in database directory</summary>
-
-- `kraken2`
-  - `opts.k2d`
-  - `hash.k2d`
-  - `taxo.k2d`
-
-</details>
-
-> These are instructions are based on Kraken 2.1.2
-> To build a Kraken2 database you need two components: a taxonomy (consisting of `names.dmp`, `nodes.dmp`, and `*accession2taxid`) files, and the FASTA files you wish to include.
-> To install pull the NCBI taxonomy you can run the following:
+To install pulling the NCBI taxonomy, you can run the following:
 
 ```bash
 kraken2-build --download-taxonomy --db <YOUR_DB_NAME>
@@ -591,9 +577,50 @@ kraken2-build --clean--db <YOUR_DB_NAME>
 
 You can then add the <YOUR_DB_NAME>/ path to your nf-core/taxprofiler database input sheet.
 
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `kraken2`
+  - `opts.k2d`
+  - `hash.k2d`
+  - `taxo.k2d`
+
+</details>
+
 You can follow the Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown#custom-databases) for a more detailed description.
 
-#### KrakenUniq
+#### KrakenUniq custom database
+
+KrakenUniq allows to re-use Kraken(2) databases ([see above](#kraken2)) however with some restrictions. KrakenUniq also provides you with the ability to auto-download and build 'standard' NCBI reference datasets.
+
+For any KrakenUniq databases, you require: taxonomy files, the FASTA files you wish to include, a `seqid2mapid` file, and a k-mer length.
+
+To auto-download and build a 'standard' database of Bacteria and Archaea genomes from RefSeq, you can run something like:
+
+```bash
+krakenuniq-download --db <DB_DIR_NAME> taxonomy
+krakenuniq-download --db <DB_DIR_NAME> --threads 10 --dust refseq/bacteria refseq/archaea
+krakenuniq-build --db <DB_DIR_NAME> --kmer-len 31 --threads 10 --taxids-for-genomes --taxids-for-sequences
+```
+
+This will download all the required files for you and build the database.
+
+Alternatively, if you want to build your own you first must make a `seqid2taxid.map` file which is a two column text file containing the FASTA sequence header and the NCBI taxonomy ID for each sequence:
+
+```
+MT192765.1  2697049
+```
+
+Then make a directory (`<DB_DIR_NAME>/`), containing the `seqid2taxid.map` file and your FASTA files in a subdirectory called `library/`. You must then run the `taxonomy` command on the `<DB_DIR_NAME>/` directory, and then build it.
+
+```
+mkdir -p <DB_DIR_NAME>/library
+mv `seqid2taxid.map` <DB_DIR_NAME>/
+mv *.fna  <DB_DIR_NAME>/library
+krakenuniq-build --db <DB_DIR_NAME> --kmer-len 31
+```
+
+> 🛈 You can speed up database construction by supplying the threads parameter (`--threads`).
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
@@ -607,9 +634,25 @@ You can follow the Kraken2 [tutorial](https://github.com/DerrickWood/kraken2/blo
 
 </details>
 
-For KrakenUniq, we recommend using one of the available databases [here](https://benlangmead.github.io/aws-indexes/k2). But if you wish to build your own, please see the [documentation](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#custom-databases-with-ncbi-taxonomy).
+Please see the [KrakenUniq documentation](https://github.com/fbreitwieser/krakenuniq#database-building) for more information.
 
-#### MALT
+````
+
+#### MALT custom database
+
+MALT does not provide any default databases for profiling, therefore you must build your own.
+You need FASTA files to include, and an (unzipped) [MEGAN mapping 'db' file](https://software-ab.informatik.uni-tuebingen.de/download/megan6/) for your FASTA type.
+In addition to the input directory, output directory, and the mapping file database, you also need to specify the sequence type (DNA or Protein) with the `-s` flag.
+
+```bash
+malt-build -i <path>/<to>/<fasta>/*.{fna,fa,fasta} -a2t <path>/<to>/<map>.db -d <YOUR_DB_NAME>/  -s DNA
+````
+
+You can then add the <YOUR_DB_NAME>/ path to your nf-core/taxprofiler database input sheet.
+
+⚠️ MALT generates very large database files and requires large amounts of RAM. You can reduce both by increasing the step size `-st` (with a reduction in sensitivity).
+
+> 🛈 MALT-build can be multi-threaded with `-t` to speed up building.
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
@@ -627,23 +670,9 @@ For KrakenUniq, we recommend using one of the available databases [here](https:/
 
 </details>
 
-MALT does not provide any default databases for profiling, therefore you must build your own.
-You need FASTA files to include, and an (unzipped) [MEGAN mapping 'db' file](https://software-ab.informatik.uni-tuebingen.de/download/megan6/) for your FASTA type.
-In addition to the input directory, output directory, and the mapping file database, you also need to specify the sequence type (DNA or Protein) with the `-s` flag.
-
-```bash
-malt-build -i <path>/<to>/<fasta>/*.{fna,fa,fasta} -a2t <path>/<to>/<map>.db -d <YOUR_DB_NAME>/  -s DNA
-```
-
-You can then add the <YOUR_DB_NAME>/ path to your nf-core/taxprofiler database input sheet.
-
-⚠️ MALT generates very large database files and requires large amounts of RAM. You can reduce both by increasing the step size `-st` (with a reduction in sensitivity).
-
-MALT-build can be multi-threaded with `-t` to speed up building.
-
 See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf) for more information.
 
-#### MetaPhlAn3
+#### MetaPhlAn3 custom database
 
 MetaPhlAn3 provides a prebuilt database of marker genes.
 This must be downloaded by the user. To do this you need to have `MetaPhlAn3` installed on your machine.
@@ -675,7 +704,7 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 
 More information on the MetaPhlAn3 database can be found [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.1#installation).
 
-#### mOTUs
+#### mOTUs custom database
 
 mOTUs provides a prebuilt database of marker genes.
 
