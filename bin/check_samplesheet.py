@@ -50,13 +50,9 @@ def check_samplesheet(file_in, file_out):
 
     FQ_EXTENSIONS = (".fq.gz", ".fastq.gz")
     FA_EXTENSIONS = (
-        ".fa",
         ".fa.gz",
-        ".fasta",
         ".fasta.gz",
-        ".fna",
         ".fna.gz",
-        ".fas",
         ".fas.gz",
     )
     INSTRUMENT_PLATFORMS = [

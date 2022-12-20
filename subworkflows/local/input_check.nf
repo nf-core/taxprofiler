@@ -18,23 +18,20 @@ workflow INPUT_CHECK {
             fastq: true
         }
 
-    parsed_samplesheet.fastq
+    fastq = parsed_samplesheet.fastq
         .map { create_fastq_channel(it) }
-        .set { fastq }
 
-    parsed_samplesheet.nanopore
+    nanopore = parsed_samplesheet.nanopore
         .map { create_fastq_channel(it) }
-        .set { nanopore }
 
-    parsed_samplesheet.fasta
+    fasta = parsed_samplesheet.fasta
         .map { create_fasta_channel(it) }
-        .set { fasta }
 
     emit:
     fastq = fastq ?: []                       // channel: [ val(meta), [ reads ] ]
     nanopore = nanopore ?: []                 // channel: [ val(meta), [ reads ] ]
     fasta = fasta ?: []                       // channel: [ val(meta), fasta ]
-    versions = SAMPLESHEET_CHECK.out.versions.first()  // channel: [ versions.yml ]
+    versions = SAMPLESHEET_CHECK.out.versions.first() // channel: [ versions.yml ]
 }
 
 // Function to get list of [ meta, [ fastq_1, fastq_2 ] ]
