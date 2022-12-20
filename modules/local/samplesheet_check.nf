@@ -1,6 +1,5 @@
 process SAMPLESHEET_CHECK {
     tag "$samplesheet"
-    label 'process_single'
 
     conda "conda-forge::python=3.8.3"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -13,9 +12,6 @@ process SAMPLESHEET_CHECK {
     output:
     path '*.csv'       , emit: csv
     path "versions.yml", emit: versions
-
-    when:
-    task.ext.when == null || task.ext.when
 
     script: // This script is bundled with the pipeline, in nf-core/taxprofiler/bin/
     """
