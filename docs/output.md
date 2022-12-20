@@ -67,12 +67,25 @@ fastp can automatically detect adapter sequences for Illumina data.
 
 ### AdapterRemoval
 
+[AdapterRemoval](https://adapterremoval.readthedocs.io/en/stable/) searches for and removes remnant adapter sequences from High-Throughput Sequencing (HTS) data and (optionally) trims low quality bases from the 3' end of reads following adapter removal. It is popular in the field of palaeogenomics. The output logs are stored in the results folder, and as a part of the MultiQC report.
+
 <details markdown="1">
 <summary>Output files</summary>
 
-- `adapterremoval`
+- `adapterremoval/`
+  - `<sample_id>.settings`: AdapterRemoval log file containing general adapter removal, read trimming and merging statistics
+  - `<sample_id>.collapsed.fastq.gz` - read-pairs that merged and did not undergo trimming (only when  `--shortread_qc_mergepairs` supplied)
+  - `<sample_id>.collapsed.truncated.fastq.gz`  - read-pairs that merged underwent quality trimming  (only when  `--shortread_qc_mergepairs` supplied)
+  - `<sample_id>.pair1.truncated.fastq.gz`  - read 1 of pairs that underwent quality trimming
+  - `<sample_id>.pair2.truncated.fastq.gz`  - read 2 of pairs that underwent quality trimming  (and could not merge if  `--shortread_qc_mergepairs` supplied)
+  - `<sample_id>.singleton.truncated.fastq.gz` - orphaned read pairs where one of the pair was discarded
+  - `<sample_id>.discard.fastq.gz` - reads that were discarded due to length or quality filtering
 
 </details>
+
+By default nf-core/taxprofiler will only provide the `.settings` file if AdapterRemoval is selected. You will only find the FASTQ files in the results directory if you provide ` --save_preprocessed_reads` . If this is selected, you may recieve different combinations of FASTQ files for each sample depending on the input types - e.g. whether you have merged or not, or if you're supplying both single- and paired-end reads.
+
+Note that the FASTQ files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
 
 ### Porechop
 
