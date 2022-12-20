@@ -23,6 +23,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [samtoolsstats](#samtoolsstats) - Statistics from host removal
+- [Bracken](#bracken) - Taxonomic classifier using k-mers and abundance estimations
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
 - [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
 - [Bracken](#bracken) -
