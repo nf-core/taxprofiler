@@ -719,7 +719,7 @@
                     "pattern": "^\\\\S+\\\\.fn?a(sta)?(\\\\.gz)?$",
                     "format": "file-path",
                     "mimetype": "text/plain",
-		    "fa_icon": "far fa-file-code"
+                    "fa_icon": "far fa-file-code"
                 },
                 "igenomes_base": {
                     "type": "string",
