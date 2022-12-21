@@ -617,6 +617,7 @@ Then make a directory (`<DB_DIR_NAME>/`), containing the `seqid2taxid.map` file 
 mkdir -p <DB_DIR_NAME>/library
 mv `seqid2taxid.map` <DB_DIR_NAME>/
 mv *.fna  <DB_DIR_NAME>/library
+krakenuniq-download --db <DB_DIR_NAME>  taxonomy
 krakenuniq-build --db <DB_DIR_NAME> --kmer-len 31
 ```
 
