@@ -20,9 +20,8 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 // Check mandatory parameters
 if ( params.input ) {
     ch_input              = file(params.input, checkIfExists: true)
-    pep_input_base_dir    = file(params.input).extension.matches("yaml|yml") ? file(file(params.input).getParent(), checkIfExists: true) :  []
 } else {
-    exit 1, "Input samplesheet, or PEP config and base directory not specified"
+    exit 1, "Input samplesheet not specified"
 }
 
 if (params.databases) { ch_databases = file(params.databases, checkIfExists: true) } else { exit 1, 'Input database sheet not specified!' }
@@ -115,7 +114,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
     */
     INPUT_CHECK (
-        ch_input, pep_input_base_dir
+        ch_input
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
 
@@ -251,7 +250,7 @@ workflow TAXPROFILER {
     */
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.unique{ it.text }.collectFile(name: 'collated_versions.yml')
+        ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
 
 
