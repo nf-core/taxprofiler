@@ -438,7 +438,7 @@ NXF_OPTS='-Xms1g -Xmx4g'
 
 ### Retrieving databases or building custom databases
 
-Here we will give brief guidance on how to build databases for each supported taxonomic profiler. You should always consult the documentation of each toolfor more information, how we provide these as quick reference guides.
+Here we will give brief guidance on how to build databases for each supported taxonomic profiler. You should always consult the documentation of each tool for more information, here we provide these as quick reference guides (with no guarantee they are up to date).
 The following tutorials assumes you already have the tool available (e.g. installed locally, or via conda, docker etc.), and you have already downloaded the FASTA files you wish to build into a database.
 
 #### Bracken custom database
