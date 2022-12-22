@@ -471,10 +471,10 @@ Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/softw
 
 An example of custom `seqid2taxid.map`:
 
-NC_001133.9    4392
-NC_012920.1    9606
-NC_001134.8    4392
-NC_001135.5    4392
+NC_001133.9 4392
+NC_012920.1 9606
+NC_001134.8 4392
+NC_001135.5 4392
 
 ```bash
 centrifuge-download -o taxonomy taxonomy
