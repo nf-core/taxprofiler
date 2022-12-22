@@ -474,18 +474,17 @@ You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.sht
 
 #### Centrifuge custom database
 
-Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). You need four file: a tab-separated file mapping sequence IDs to taxonomy IDs (`--conversion-table`), a \t|\t-separated file mapping taxonomy IDs to their parents and rank, up to the root of the tree (`--taxonomy-tree`), a '|'-separated file mapping taxonomy IDs to a name (`--name-table`) and the reference sequences.
+Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). The user should download taxonomy files, make custom `seqid2taxid.map` and combine the fasta files together. You need four components: a tab-separated file mapping sequence IDs to taxonomy IDs (`--conversion-table`), a \t|\t-separated file mapping taxonomy IDs to their parents and rank, up to the root of the tree (`--taxonomy-tree`), a '|'-separated file mapping taxonomy IDs to a name (`--name-table`) and the reference sequences.
 
- The user should download taxonomy files, make custom `seqid2taxid.map` and combine the fasta files together.
+An example of custom `seqid2taxid.map`:
 
-```bash
-centrifuge-download -o taxonomy taxonomy
-
-## custom seqid2taxid.map
 NC_001133.9    4392
 NC_012920.1    9606
 NC_001134.8    4392
 NC_001135.5    4392
+
+```bash
+centrifuge-download -o taxonomy taxonomy
 
 cat *.{fa,fna} > input-sequences.fna
 centrifuge-build -p 4 --conversion-table seqid2taxid.map --taxonomy-tree taxonomy/nodes.dmp --name-table taxonomy/names.dmp input-sequences.fna taxprofiler_cf
