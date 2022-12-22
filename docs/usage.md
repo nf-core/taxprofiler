@@ -474,7 +474,9 @@ You can follow Bracken [tutorial](https://ccb.jhu.edu/software/bracken/index.sht
 
 #### Centrifuge custom database
 
-Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). The user should download taxonomy files, make custom `seqid2taxid.map` and combine the fasta files together.
+Centrifuge allows the user to [build custom databases](https://ccb.jhu.edu/software/centrifuge/manual.shtml#custom-database). You need four file: a tab-separated file mapping sequence IDs to taxonomy IDs (`--conversion-table`), a \t|\t-separated file mapping taxonomy IDs to their parents and rank, up to the root of the tree (`--taxonomy-tree`), a '|'-separated file mapping taxonomy IDs to a name (`--name-table`) and the reference sequences.
+
+ The user should download taxonomy files, make custom `seqid2taxid.map` and combine the fasta files together.
 
 ```bash
 centrifuge-download -o taxonomy taxonomy
