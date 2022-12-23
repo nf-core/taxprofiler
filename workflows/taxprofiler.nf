@@ -11,9 +11,11 @@ WorkflowTaxprofiler.initialise(params, log)
 
 // TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.databases, params.hostremoval_reference,
-                            params.shortread_hostremoval_index, params.multiqc_config,
-                            params.shortread_qc_adapterlist
+def checkPathParamList = [ params.input, params.genome, params.databases,
+                            params.outdir, params.longread_hostremoval_index
+                            params.hostremoval_reference, params.shortread_hostremoval_index,
+                            params.multiqc_config, params.shortread_qc_adapterlist,
+                            params.krona_taxonomy_directory
                         ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
