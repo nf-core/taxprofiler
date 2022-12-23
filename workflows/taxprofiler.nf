@@ -15,7 +15,8 @@ def checkPathParamList = [ params.input, params.genome, params.databases,
                             params.outdir, params.longread_hostremoval_index,
                             params.hostremoval_reference, params.shortread_hostremoval_index,
                             params.multiqc_config, params.shortread_qc_adapterlist,
-                            params.krona_taxonomy_directory
+                            params.krona_taxonomy_directory,
+                            params.multiqc_logo, params.multiqc_methods_description
                         ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
