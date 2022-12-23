@@ -2,7 +2,7 @@
 // Check input samplesheet and get read channels
 //
 
-include { UNTAR                  } from '../../modules/nf-core/untar/main'
+include { UNTAR } from '../../modules/nf-core/untar/main'
 
 workflow DB_CHECK {
     take:
