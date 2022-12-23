@@ -2,7 +2,7 @@
 // Check input samplesheet and get read channels
 //
 
-include { UNTAR            } from '../../modules/nf-core/untar/main'
+include { UNTAR } from '../../modules/nf-core/untar/main'
 
 workflow DB_CHECK {
     take:
@@ -10,6 +10,8 @@ workflow DB_CHECK {
 
     main:
     ch_versions = Channel.empty()
+    ch_dbs_for_untar = Channel.empty()
+    ch_final_dbs = Channel.empty()
 
     // special check to check _between_ rows, for which we must group rows together
     // note: this will run in parallel to within-row validity, but we can assume this will run faster thus will fail first
@@ -37,11 +39,11 @@ workflow DB_CHECK {
             skip: true
         }
 
-    // TODO Filter to only run UNTAR on DBs of tools actually using?
-    // TODO make optional whether to save
-    UNTAR ( ch_dbs_for_untar.untar )
+    //Filter the channel to run untar on DBs of tools actually using
+    ch_input_untar = ch_dbs_for_untar.untar.dump()
+                    .filter {  params.run_kraken2 && it[0]['tool'] == 'kraken2' || params.run_centrifuge && it[0]['tool'] == 'centrifuge' || params.run_bracken && it[0]['tool'] == 'bracken' || params.run_kaiju && it[0]['tool'] == 'kaiju' || params.run_krakenuniq && it [0]['tool'] == 'krakenuniq' || params.run_malt && it[0]['tool'] == 'malt' || params.run_metaphlan3 && it[0]['tool'] == 'metaphlan3' }
+    UNTAR (ch_input_untar)
     ch_versions = ch_versions.mix(UNTAR.out.versions.first())
-
     ch_final_dbs = ch_dbs_for_untar.skip.mix( UNTAR.out.untar )
 
     emit:
