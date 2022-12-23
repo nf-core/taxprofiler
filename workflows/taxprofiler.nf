@@ -291,7 +291,7 @@ workflow TAXPROFILER {
         ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
     }
 
-     if (params.perform_longread_hostremoval) {
+    if (params.perform_longread_hostremoval) {
         ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_HOSTREMOVAL.out.mqc.collect{it[1]}.ifEmpty([]))
     }
 
