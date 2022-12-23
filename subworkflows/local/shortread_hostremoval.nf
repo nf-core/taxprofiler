@@ -19,7 +19,7 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_multiqc_files  = Channel.empty()
 
     if ( !params.shortread_hostremoval_index ) {
-        ch_bowtie2_index = BOWTIE2_BUILD ( reference ).index
+        ch_bowtie2_index = BOWTIE2_BUILD ( [ [], reference ] ).index
         ch_versions      = ch_versions.mix( BOWTIE2_BUILD.out.versions )
     } else {
         ch_bowtie2_index = index.first()
