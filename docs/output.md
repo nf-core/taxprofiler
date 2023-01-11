@@ -29,6 +29,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Centrifuge](#centrifuge) - Taxonomic classifier that uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index.
 - [Kaiju](#kaiju) - Taxonomic classifier that finds maximum (in-)exact matches on the protein-level.
 - [Diamond](#diamond) - Sequence aligner for protein and translated DNA searches.
+- [MALT](#malt)  - Sequence alignment and analysis tool designed for processing high-throughput sequencing data, especially in the context of metagenomics
+- [MetaPhlAn3](#metaphlan3) - Genome-level marker gene based taxonomic classifier
 - [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
