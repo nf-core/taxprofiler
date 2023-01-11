@@ -235,7 +235,7 @@ You will only recieve the FASTQs and `*classifiedreads.txt` file if you supply `
 <summary>Output files</summary>
 
 - `krakenuniq/`
-  - <db_name>/
+  - `<db_name>/`
     - `<sample_id>_<db_name>.classified.fastq.gz`: FASTQ file containing all reads that had a hit against a reference in the database for a given sample
     - `<sample_id>_<db_name>.unclassified.fastq.gz`: FASTQ file containing all reads that did not have a hit in the database for a given sample
     - `<sample_id>_<db_name>.report.txt`: A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of Kmers, taxonomic path of all the hits, with an additional column for k-mer coverage, that allows for more accurate distinguishing between false-positive/true-postitive hits
