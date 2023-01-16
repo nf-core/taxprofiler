@@ -199,7 +199,7 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 <details markdown="1">
 <summary>Output files</summary>
 
-- `kraken2/`
+- `bracken/`
   - `bracken_<db_name>_combined_reports.txt`: combined bracken results as output from Bracken's `combine_bracken_outputs.py` script
   - `<db_name>/`
     - `<sample>_<db_name>.tsv`: TSV file containing per-sample summary of Bracken results with abundance information
