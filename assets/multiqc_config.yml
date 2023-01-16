@@ -171,16 +171,37 @@ table_columns_placement:
     non-primary_alignments: 1140
     reads_MQ0_percent: 1150
     error_rate: 1160
-  MALT:
-    "Num. of queries": 1200
-    Total reads: 1210
-    Mappability: 1220
-    Assig. Taxonomy: 1230
-    Taxonomic assignment success: 1240
+  Bracken:
+    "% Unclassified": 1200
+    "% Top 5": 1210
+  Centrifuge:
+    "% Unclassified": 1300
+    "% Top 5": 1310
+  diamond:
+    queries_aligned: 1400
   Kaiju:
-    assigned: 1300
-    "% Assigned": 1310
-    "% Unclassified": 1320
+    assigned: 1500
+    "% Assigned": 1510
+    "% Unclassified": 1520
+  Kraken:
+    "% Unclassified": 1600
+    "% Top 5": 1610
+  MALT:
+    "Num. of queries": 1700
+    Total reads: 1710
+    Mappability: 1720
+    Assig. Taxonomy: 1730
+    Taxonomic assignment success: 1740
+  motus:
+    Total number of reads: 1800
+    Number of reads after filtering: 1810
+    Total number of inserts: 1820
+    Unique mappers: 1830
+    Multiple mappers: 1840
+    Ignored multiple mapper without unique hit: 1850
+    "Number of ref-mOTUs": 1860
+    "Number of meta-mOTUs": 1870
+    "Number of ext-mOTUs": 1880
 
 table_columns_visible:
   FastQC (pre-Trimming):
@@ -256,7 +277,7 @@ table_columns_visible:
   Centrifuge:
     "% Unclassified": True
     "% Top 5": False
-  DIAMOND:
+  diamond:
     queries_aligned: True
   Kaiju:
     assigned: False
@@ -268,6 +289,16 @@ table_columns_visible:
     Mappability: True
     Assig. Taxonomy: False
     Taxonomic assignment success: True
+  motus:
+    Total number of reads: False
+    Number of reads after filtering: True
+    Total number of inserts: False
+    Unique mappers: True
+    Multiple mappers: True
+    Ignored multiple mapper without unique hit: False
+    "Number of ref-mOTUs": False
+    "Number of meta-mOTUs": False
+    "Number of ext-mOTUs": False
 
 table_columns_name:
   FastQC (pre-Trimming):
