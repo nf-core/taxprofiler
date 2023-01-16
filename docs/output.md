@@ -206,7 +206,7 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 
 </details>
 
-The main taxonomic profiling file from KrakenUniq is the `*.tsv` file. This provides the basic results from Kraken2 but with the corrected abundance information.
+The main taxonomic profiling file from Bracken is the `*.tsv` file. This provides the basic results from Kraken2 but with the corrected abundance information.
 
 ### Kraken2
 
