@@ -177,7 +177,7 @@ table_columns_placement:
   Centrifuge:
     "% Unclassified": 1300
     "% Top 5": 1310
-  diamond:
+  DIAMOND:
     queries_aligned: 1400
   Kaiju:
     assigned: 1500
@@ -269,32 +269,30 @@ table_columns_visible:
     reads_MQ0_percent: False
     error_rate: False
   Kraken:
-    "% Unclassified": True
+    "% Unclassified": False
     "% Top 5": False
   Bracken:
-    "% Unclassified": True
+    "% Unclassified": False
     "% Top 5": False
-  Centrifuge:
-    "% Unclassified": True
-    "% Top 5": False
-  diamond:
-    queries_aligned: True
+  Centrifuge: False
+  DIAMOND:
+    queries_aligned: False
   Kaiju:
     assigned: False
     "% Assigned": False
-    "% Unclassified": True
+    "% Unclassified": False
   MALT:
-    "Num. of queries": True
-    Total reads: True
-    Mappability: True
+    "Num. of queries": False
+    Total reads: False
+    Mappability: False
     Assig. Taxonomy: False
-    Taxonomic assignment success: True
+    Taxonomic assignment success: False
   motus:
     Total number of reads: False
-    Number of reads after filtering: True
+    Number of reads after filtering: False
     Total number of inserts: False
-    Unique mappers: True
-    Multiple mappers: True
+    Unique mappers: False
+    Multiple mappers: False
     Ignored multiple mapper without unique hit: False
     "Number of ref-mOTUs": False
     "Number of meta-mOTUs": False
