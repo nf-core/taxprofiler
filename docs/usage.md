@@ -201,7 +201,13 @@ You can optionally save the FASTQ output of the run merging with the `--save_run
 
 #### Classification and Profiling
 
-The following suggestion gives you some tips and suggestions regarding running some of the different tools specifically _within the pipeline_. For advice as to which tool to run in your context, please see the documentation of each tool.
+The following suggestion gives you some tips and suggestions regarding running some of the different tools specifically _within the pipeline_.
+
+An important distinction between the different tools in included in the pipeline is classification versus profiling. Taxonomic _classification_ is concerned with simply detecting the presence of species in a given sample. Taxonomic _profiling_ involves additionally estimating the _abundance_ of each species.
+
+Note that not all taxonomic classification tools (e.g. Kraken, MALT, Kaiju) performs _profiling_, but all taxonomic profilers (e.g. MetaPhlAn, mOTUs, Bracken) must perform some form of _classification_ prior to profiling.
+
+For advice as to which tool to run in your context, please see the documentation of each tool.
 
 ###### Bracken
 
