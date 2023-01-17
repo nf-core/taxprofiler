@@ -29,7 +29,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Centrifuge](#centrifuge) - Taxonomic classifier that uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index.
 - [Kaiju](#kaiju) - Taxonomic classifier that finds maximum (in-)exact matches on the protein-level.
 - [Diamond](#diamond) - Sequence aligner for protein and translated DNA searches.
-- [MALT](#malt)  - Sequence alignment and analysis tool designed for processing high-throughput sequencing data, especially in the context of metagenomics
+- [MALT](#malt) - Sequence alignment and analysis tool designed for processing high-throughput sequencing data, especially in the context of metagenomics
 - [MetaPhlAn3](#metaphlan3) - Genome-level marker gene based taxonomic classifier
 - [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
@@ -80,10 +80,10 @@ It is used in nf-core/taxprofiler for adapter trimming of short-reads.
 
 - `adapterremoval/`
   - `<sample_id>.settings`: AdapterRemoval log file containing general adapter removal, read trimming and merging statistics
-  - `<sample_id>.collapsed.fastq.gz` - read-pairs that merged and did not undergo trimming (only when  `--shortread_qc_mergepairs` supplied)
-  - `<sample_id>.collapsed.truncated.fastq.gz`  - read-pairs that merged underwent quality trimming  (only when  `--shortread_qc_mergepairs` supplied)
-  - `<sample_id>.pair1.truncated.fastq.gz`  - read 1 of pairs that underwent quality trimming
-  - `<sample_id>.pair2.truncated.fastq.gz`  - read 2 of pairs that underwent quality trimming  (and could not merge if  `--shortread_qc_mergepairs` supplied)
+  - `<sample_id>.collapsed.fastq.gz` - read-pairs that merged and did not undergo trimming (only when `--shortread_qc_mergepairs` supplied)
+  - `<sample_id>.collapsed.truncated.fastq.gz` - read-pairs that merged underwent quality trimming (only when `--shortread_qc_mergepairs` supplied)
+  - `<sample_id>.pair1.truncated.fastq.gz` - read 1 of pairs that underwent quality trimming
+  - `<sample_id>.pair2.truncated.fastq.gz` - read 2 of pairs that underwent quality trimming (and could not merge if `--shortread_qc_mergepairs` supplied)
   - `<sample_id>.singleton.truncated.fastq.gz` - orphaned read pairs where one of the pair was discarded
   - `<sample_id>.discard.fastq.gz` - reads that were discarded due to length or quality filtering
 
@@ -133,7 +133,7 @@ It is used in nf-core/taxprofiler for complexity filtering using different algor
 
 - `prinseqplusplus/`
   - `<sample_id>.log`: log file containing number of reads. Row IDs correspond to: `min_len, max_len, min_gc, max_gc, min_qual_score, min_qual_mean, ns_max_n, noiupac, derep, lc_entropy, lc_dust, trim_tail_left, trim_tail_right, trim_qual_left, trim_qual_right, trim_left, trim_right`
-  - `<sample_id>_good_out.fastq.gz`:  resulting FASTQ file without low-complexity reads
+  - `<sample_id>_good_out.fastq.gz`: resulting FASTQ file without low-complexity reads
 
 </details>
 
@@ -170,7 +170,7 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only see the mapped (host) reads BAM file or the off-target reads in FASTQ format in your results directory if you provide `--save_hostremoval_mapped`  and ` --save_hostremoval_unmapped` respectively.
+By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only see the mapped (host) reads BAM file or the off-target reads in FASTQ format in your results directory if you provide `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped` respectively.
 
 Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
 
@@ -235,7 +235,7 @@ The main taxonomic profiling file from Bracken is the `*.tsv` file. This provide
 
 </details>
 
-The main taxonomic profiling file from Kraken2 is the `_combined_reports.txt` or `*report.txt` file. The former provides you the broadest over view of the taxonomic profiling results across all samples against a single databse, where you get two columns for each sample e.g. `2_all` and `2_lvl`, as well as a summarised column summing up across all samples `tot_all` and `tot_lvl`. The latter gives you the most information for a single sample.  The report file is also used for the taxpasta step.
+The main taxonomic profiling file from Kraken2 is the `_combined_reports.txt` or `*report.txt` file. The former provides you the broadest over view of the taxonomic profiling results across all samples against a single databse, where you get two columns for each sample e.g. `2_all` and `2_lvl`, as well as a summarised column summing up across all samples `tot_all` and `tot_lvl`. The latter gives you the most information for a single sample. The report file is also used for the taxpasta step.
 
 You will only recieve the FASTQs and `*classifiedreads.txt` file if you supply `--kraken2_save_reads` and/or `--kraken2_save_readclassification` parameters to the pipeline.
 
@@ -260,7 +260,6 @@ The main taxonomic profiling file from KrakenUniq is the `*report.txt` file. Thi
 > ⚠️ The output system of KrakenUniq can result in other `stdout` or `stderr` logging information being saved in the report file, therefore you must check your report files before downstream use!
 
 You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `--krakenuniq_save_reads` and/or `--krakenuniq_save_readclassification` parameters to the pipeline.
-
 
 ### Centrifuge
 
@@ -312,7 +311,7 @@ You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `
 - `malt/`
   - `<db_name>/`
   - `<sample_id>.blastn.sam`: sparse SAM file containing alignments of each hit
-  - `<sample_id>.megan`:  summary file that can be loaded into the [MEGAN6](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/megan6/) interactive viewer. Generated by MEGAN6 companion tool `rma2info`
+  - `<sample_id>.megan`: summary file that can be loaded into the [MEGAN6](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/megan6/) interactive viewer. Generated by MEGAN6 companion tool `rma2info`
   - `<sample_id>.rma6`: binary file containing all alignments and taxonomic information of hits that can be loaded into the [MEGAN6](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/megan6/) interactive viewer
   - `<sample_id>.txt.gz`: text file containing taxonomic IDs and read counts against each taxon. Generated by MEGAN6 companion tool `rma2info`
 
@@ -321,7 +320,6 @@ You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `
 The main output of MALT is the `.rma6` file format, which can be only loaded into MEGAN and it's related tools. We provide the `rma2info` text files for improved compatibility with spreadsheet programs and other programmtic data manipulation tools, however this has only limited information compared to the 'binary' RMA6 file format (the `txt` file only contains taxonomic ID and count, whereas RMA6 has taxonomic lineage information).
 
 You will only recieve the `.sam` and `.megan` files if you supply `--malt_save_reads` and/or `--malt_generate_megansummary` parameters to the pipeline.
-
 
 ### MetaPhlAn3
 
@@ -334,12 +332,13 @@ You will only recieve the `.sam` and `.megan` files if you supply `--malt_save_r
   - `metaphlan3_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `metaphlan_merge_tables`)
   - `<db_name>/`
     - `<sample_id>.biom`: taxonomic profile in BIOM format
-    - `<sample_id>.bowtie2out.txt`:  BowTie2 alignment information (can be re-used for skipping alignment when re-running MetaPhlAn3 with different parameters)
+    - `<sample_id>.bowtie2out.txt`: BowTie2 alignment information (can be re-used for skipping alignment when re-running MetaPhlAn3 with different parameters)
     - `<sample_id>_profile.txt`: MetaPhlAn3 taxonomic profile including abundance estimates
 
 </details>
 
 The main taxonomic profiling file from MetaPhlAn3 is the `*_profile.txt` file. This provides the abundance estimates from MetaPhlAn3 however does not include raw counts by default.
+
 ### mOTUs
 
 [mOTUS](https://github.com/motu-tool/mOTUs) maps reads to a unique marker specific database and estimates the relative abundance of known and unknown species.

@@ -631,7 +631,6 @@ krakenuniq-build --db <DB_DIR_NAME> --kmer-len 31
 
 Please see the [KrakenUniq documentation](https://github.com/fbreitwieser/krakenuniq#database-building) for more information.
 
-
 #### MALT custom database
 
 MALT does not provide any default databases for profiling, therefore you must build your own.
@@ -640,7 +639,7 @@ In addition to the input directory, output directory, and the mapping file datab
 
 ```bash
 malt-build -i <path>/<to>/<fasta>/*.{fna,fa,fasta} -a2t <path>/<to>/<map>.db -d <YOUR_DB_NAME>/  -s DNA
-````
+```
 
 You can then add the <YOUR_DB_NAME>/ path to your nf-core/taxprofiler database input sheet.
 
