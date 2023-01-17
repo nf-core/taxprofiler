@@ -58,7 +58,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### fastp
 
-fastp can automatically detect adapter sequences for Illumina data.
+[fastp](https://github.com/OpenGene/fastp) is a FASTQ pre-processing tool for quality control, trimmming of adapters, quality filtering and other features.
+
+It is used in nf-core/taxprofiler for adapter trimming of short-reads.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -141,6 +143,8 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 
 ### Filtlong
 
+[Filtlong](https://github.com/rrwick/Filtlong) is a quality filtering tool for long reads.
+
 <details markdown="1">
 <summary>Output files</summary>
 
@@ -172,6 +176,10 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 
 ### minimap2
 
+[minimap2](https://github.com/lh3/minimap2) is an alignment tool suited to mapping long reads to reference sequences.
+
+It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or other possible contaminant reads from the FASTQ files prior to taxonomic classification/profiling.
+
 <details markdown="1">
 <summary>Output files</summary>
 
@@ -181,6 +189,8 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 </details>
 
 ### Samtools stats
+
+[Samtools stats](http://www.htslib.org/doc/samtools-stats.html) collects statistics from an alignment file and outputs in a text format.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -254,6 +264,8 @@ You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `
 
 ### Centrifuge
 
+[Centrifuge](https://github.com/DaehwanKimLab/centrifuge) is a taxonomic sequence classifier that uses a Burrows-Wheeler transform and Ferragina-Manzina index for storing and mapping sequences.
+
 <details markdown="1">
 <summary>Output files</summary>
 
@@ -278,6 +290,8 @@ You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `
 </details>
 
 ### DIAMOND
+
+[DIAMOND](https://github.com/bbuchfink/diamond) is a sequence aligner for translated DNA searches or protein sequences against a protein reference database such as NR. It is a replacement for the NCBI BLAST software tools.It has many key features and it is used as taxonomic classifier in nf-core/taxprofiler.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -327,6 +341,8 @@ You will only recieve the `.sam` and `.megan` files if you supply `--malt_save_r
 
 The main taxonomic profiling file from MetaPhlAn3 is the `*_profile.txt` file. This provides the abundance estimates from MetaPhlAn3 however does not include raw counts by default.
 ### mOTUs
+
+[mOTUS](https://github.com/motu-tool/mOTUs) maps reads to a unique marker specific database and estimates the relative abundance of known and unknown species.
 
 <details markdown="1">
 <summary>Output files</summary>

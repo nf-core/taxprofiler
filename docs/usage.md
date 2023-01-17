@@ -631,7 +631,6 @@ krakenuniq-build --db <DB_DIR_NAME> --kmer-len 31
 
 Please see the [KrakenUniq documentation](https://github.com/fbreitwieser/krakenuniq#database-building) for more information.
 
-````
 
 #### MALT custom database
 
