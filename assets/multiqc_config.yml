@@ -336,3 +336,6 @@ extra_fn_clean_exts:
   - ".unmapped"
   - "_filtered"
   - "_processed"
+
+section_comments:
+  general_stats: "By default, all read count columns are displayed as millions (M) of reads."
