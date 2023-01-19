@@ -64,9 +64,9 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 
 ### Full database sheet
 
-nf-core/taxprofiler supports multiple databases being profiled in parallel for each tool.
+nf-core/taxprofiler supports multiple databases being classified/profiled against in parallel for each tool.
 Databases can be supplied either in the form of a compressed `.tar.gz` archive of a directory containing all relevant database files or the path to a directory on the filesystem.
-The pipeline takes the locations and specific profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
+The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
 
 > ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
 
@@ -86,14 +86,14 @@ motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 
 Column specifications are as follows:
 
-| Column      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tool`      | Taxonomic profiling tool (supported by nf-core/taxprofiler) that the database has been indexed for [required]. Please note that `bracken` also implies running `kraken2` on the same database.                                                                                                                                                                                                                                                                 |
-| `db_name`   | A unique name per tool for the particular database [required]. Please note that names need to be unique across both `kraken2` and `bracken` as well, even if re-using the same database.                                                                                                                                                                                                                                                                       |
-| `db_params` | Any parameters of the given taxonomic profiler that you wish to specify that the taxonomic profiling tool should use when profiling against this specific. Can be empty to use taxonomic profiler defaults. Must not be surrounded by quotes [required]. We generally do not recommend specifying parameters here that turn on/off saving of output files or specifying particular file extensions - this should be already addressed via pipeline parameters. |
-| `db_path`   | Path to the database. Can either be a path to a directory containing the database index files or a `.tar.gz` file which contains the compressed database directory with the same name as the tar archive, minus `.tar.gz` [required].                                                                                                                                                                                                                          |
+| Column      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tool`      | Taxonomic profiling tool (supported by nf-core/taxprofiler) that the database has been indexed for [required]. Please note that `bracken` also implies running `kraken2` on the same database.                                                                                                                                                                                                                                                                                                           |
+| `db_name`   | A unique name per tool for the particular database [required]. Please note that names need to be unique across both `kraken2` and `bracken` as well, even if re-using the same database.                                                                                                                                                                                                                                                                                                                 |
+| `db_params` | Any parameters of the given taxonomic classifier/profiler that you wish to specify that the taxonomic classifier/profiling tool should use when profiling against this specific database. Can be empty to use taxonomic classifier/profiler defaults. Must not be surrounded by quotes [required]. We generally do not recommend specifying parameters here that turn on/off saving of output files or specifying particular file extensions - this should be already addressed via pipeline parameters. |
+| `db_path`   | Path to the database. Can either be a path to a directory containing the database index files or a `.tar.gz` file which contains the compressed database directory with the same name as the tar archive, minus `.tar.gz` [required].                                                                                                                                                                                                                                                                    |
 
-> 💡 You can also specify the same database directory/file twice (ensuring unique `db_name`s) and specify different parameters for each database to compare the effect of different parameters during profiling.
+> 💡 You can also specify the same database directory/file twice (ensuring unique `db_name`s) and specify different parameters for each database to compare the effect of different parameters during classification/profiling.
 
 nf-core/taxprofiler will automatically decompress and extract any compressed archives for you.
 
@@ -120,7 +120,7 @@ nextflow run nf-core/taxprofiler --input samplesheet.csv --databases databases.c
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
 
-When running nf-core/taxprofiler, every step and tool is 'opt in'. To run a given profiler you must make sure to supply both a database in your `<database>.csv` and supply `--run_<profiler>` flag to your command. Omitting either will result in the profiling tool not executing. If you wish to perform pre-processing (adapter clipping, merge running etc.) or post-processing (visualisation) steps, these are also opt in with a `--perform_<step>` flag. In some cases, the pre- and post-processing steps may also require additional files. Please check the parameters tab of this documentation for more information.
+When running nf-core/taxprofiler, every step and tool is 'opt in'. To run a given classifier/profiler you must make sure to supply both a database in your `<database>.csv` and supply `--run_<profiler>` flag to your command. Omitting either will result in the classification/profiling tool not executing. If you wish to perform pre-processing (adapter clipping, merge running etc.) or post-processing (visualisation) steps, these are also opt in with a `--perform_<step>` flag. In some cases, the pre- and post-processing steps may also require additional files. Please check the parameters tab of this documentation for more information.
 
 Note that the pipeline will create the following files in your working directory:
 
@@ -153,9 +153,9 @@ It is highly recommended to run this on raw reads to remove artifacts from seque
 There are currently two options for short-read preprocessing: [`fastp`](https://github.com/OpenGene/fastp) or [`adapterremoval`](https://github.com/MikkelSchubert/adapterremoval).
 
 For adapter clipping, you can either rely on the tool's default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
-By default, paired-end merging is not activated. In this case paired-end 'alignment' against the reference databases is performed where supported, and if not, supported pairs will be independently profiled. If paired-end merging is activated you can also specify whether to include unmerged reads in the reads sent for profiling (`--shortread_qc_mergepairs` and `--shortread_qc_includeunmerged`).
+By default, paired-end merging is not activated. In this case paired-end 'alignment' against the reference databases is performed where supported, and if not, supported pairs will be independently classified/profiled. If paired-end merging is activated you can also specify whether to include unmerged reads in the reads sent for classification/profiling (`--shortread_qc_mergepairs` and `--shortread_qc_includeunmerged`).
 You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
-Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during profiling, with minimal gain.
+Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during classification/profiling, with minimal gain.
 
 There is currently one option for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop).
 
@@ -165,7 +165,7 @@ For both short-read and long-read preprocessing, you can optionally save the res
 
 Complexity filtering can be activated via the `--perform_shortread_complexityfilter` flag.
 
-Complexity filtering is primarily a run-time optimisation step. It is not necessary for accurate taxonomic profiling, however it can speed up run-time of each tool by removing reads with low-diversity of nucleotides (e.g. with mono-nucleotide - `AAAAAAAA`, or di-nucleotide repeats `GAGAGAGAGAGAGAG`) that have a low-chance of giving an informative taxonomic ID as they can be associated with many different taxa. Removing these reads therefore saves computational time and resources.
+Complexity filtering is primarily a run-time optimisation step. It is not necessary for accurate taxonomic classification/profiling, however it can speed up run-time of each tool by removing reads with low-diversity of nucleotides (e.g. with mono-nucleotide - `AAAAAAAA`, or di-nucleotide repeats `GAGAGAGAGAGAGAG`) that have a low-chance of giving an informative taxonomic ID as they can be associated with many different taxa. Removing these reads therefore saves computational time and resources.
 
 There are currently three options for short-read complexity filtering: [`bbduk`](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/), [`prinseq++`](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus), and [`fastp`](https://github.com/OpenGene/fastp#low-complexity-filter).
 
@@ -179,11 +179,11 @@ You can optionally save the FASTQ output of the run merging with the `--save_com
 
 #### Host Removal
 
-Removal of possible-host reads from FASTQ files prior profiling can be activated with `--perform_shortread_hostremoval` or `--perform_longread_hostremoval`.
+Removal of possible-host reads from FASTQ files prior classification/profiling can be activated with `--perform_shortread_hostremoval` or `--perform_longread_hostremoval`.
 
-Similarly to complexity filtering, host-removal can be useful for runtime optimisation and reduction in misclassified reads. It is not always necessary to report classification of reads from a host when you already know the host of the sample, therefore you can gain a run-time and computational advantage by removing these prior typically resource-heavy profiling with more efficient methods. Furthermore, particularly with human samples, you can reduce the number of false positives during profiling that occur due to host-sequence contamination in reference genomes on public databases.
+Similarly to complexity filtering, host-removal can be useful for runtime optimisation and reduction in misclassified reads. It is not always necessary to report classification of reads from a host when you already know the host of the sample, therefore you can gain a run-time and computational advantage by removing these prior typically resource-heavy classification/profiling with more efficient methods. Furthermore, particularly with human samples, you can reduce the number of false positives during classification/profiling that occur due to host-sequence contamination in reference genomes on public databases.
 
-nf-core/taxprofiler currently offers host-removal via alignment against a reference genome with Bowtie2, and the use of the unaligned reads for downstream profiling.
+nf-core/taxprofiler currently offers host-removal via alignment against a reference genome with Bowtie2 for short reads and minimap2 for long reads, and the use of the unaligned reads for downstream classification/profiling.
 
 You can supply your reference genome in FASTA format with `--hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index` or a minimap2 `.mmi` file for `--longread_hostremoval_index`, however nf-core/taxprofiler will generate these for you if necessary. Pre-supplying the index directory or files can greatly speed up the process, and these can be re-used.
 
@@ -195,13 +195,19 @@ For samples that may have been sequenced over multiple runs, or for FASTQ files 
 
 For more information how to set up your input samplesheet, see [Multiple runs of the same sample](#multiple-runs-of-the-same-sample).
 
-Activating this functionality will concatenate the FASTQ files with the same sample name _after_ the optional preprocessing steps and _before_ profiling. Note that libraries with runs of different pairing types will **not** be merged and this will be indicated on output files with a `_se` or `_pe` suffix to the sample name accordingly.
+Activating this functionality will concatenate the FASTQ files with the same sample name _after_ the optional preprocessing steps and _before_ classification/profiling. Note that libraries with runs of different pairing types will **not** be merged and this will be indicated on output files with a `_se` or `_pe` suffix to the sample name accordingly.
 
 You can optionally save the FASTQ output of the run merging with the `--save_runmerged_reads`.
 
-#### Profiling
+#### Classification and Profiling
 
-The following suggestion gives you some tips and suggestions regarding running some of the different tools specifically _within the pipeline_. For advice as to which tool to run in your context, please see the documentation of each tool.
+The following sections gives you some tips and suggestions regarding running some of the different tools specifically _within the pipeline_.
+
+An important distinction between the different tools in included in the pipeline is classification versus profiling. Taxonomic _classification_ is concerned with simply detecting the presence of species in a given sample. Taxonomic _profiling_ involves additionally estimating the _abundance_ of each species.
+
+Note that not all taxonomic classification tools (e.g. Kraken, MALT, Kaiju) performs _profiling_, but all taxonomic profilers (e.g. MetaPhlAn, mOTUs, Bracken) must perform some form of _classification_ prior to profiling.
+
+For advice as to which tool to run in your context, please see the documentation of each tool.
 
 ###### Bracken
 
@@ -436,7 +442,7 @@ The following tutorials assumes you already have the tool available (e.g. instal
 
 #### Bracken custom database
 
-Bracken does not provide any default databases for profiling, but rather building upon Kraken2 databases. See [Kraken2](#kraken2-custom-database) for more information on how to build these.
+Bracken does not provide any default databases for classification/profiling, but rather building upon Kraken2 databases. See [Kraken2](#kraken2-custom-database) for more information on how to build these.
 
 In addition to a Kraken2 database, you also need to have the (average) read lengths (in bp) of your sequencing experiment, the K-mer size used to build the Kraken2 database, and Kraken2 available on your machine.
 
@@ -635,7 +641,7 @@ Please see the [KrakenUniq documentation](https://github.com/fbreitwieser/kraken
 
 #### MALT custom database
 
-MALT does not provide any default databases for profiling, therefore you must build your own.
+MALT does not provide any default databases for classification/profiling, therefore you must build your own.
 You need FASTA files to include, and an (unzipped) [MEGAN mapping 'db' file](https://software-ab.informatik.uni-tuebingen.de/download/megan6/) for your FASTA type.
 In addition to the input directory, output directory, and the mapping file database, you also need to specify the sequence type (DNA or Protein) with the `-s` flag.
 
