@@ -2,7 +2,7 @@ process ENSURE_FASTQ_EXTENSION {
     tag "$meta.id"
     label 'process_low'
 
-    conda (params.enable_conda ? "conda-forge::bash=5.0" : null)
+    conda "conda-forge::bash=5.0
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://containers.biocontainers.pro/s3/SingImgsRepo/biocontainers/v1.2.0_cv2/biocontainers_v1.2.0_cv2.img' :
         'biocontainers/biocontainers:v1.2.0_cv2' }"
