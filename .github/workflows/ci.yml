@@ -169,5 +169,5 @@ jobs:
       - name: Run pipeline with test data
         uses: Wandalen/wretry.action@v1.0.11
         with:
-          command: nextflow run ${GITHUB_WORKSPACE} -profile test_nothing,docker --run_malt --outdir ./results
+          command: nextflow run ${GITHUB_WORKSPACE} -profile test_nothing,docker --run_malt --input 'https://github.com/nf-core/test-datasets/raw/taxprofiler/samplesheet_shortreadsonly.csv' --outdir ./results
           attempt_limit: 3
