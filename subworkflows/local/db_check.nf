@@ -40,7 +40,7 @@ workflow DB_CHECK {
         }
 
     //Filter the channel to run untar on DBs of tools actually using
-    ch_input_untar = ch_dbs_for_untar.untar.dump()
+    ch_input_untar = ch_dbs_for_untar.untar
                     .filter {  params.run_kraken2 && it[0]['tool'] == 'kraken2' || params.run_centrifuge && it[0]['tool'] == 'centrifuge' || params.run_bracken && it[0]['tool'] == 'bracken' || params.run_kaiju && it[0]['tool'] == 'kaiju' || params.run_krakenuniq && it [0]['tool'] == 'krakenuniq' || params.run_malt && it[0]['tool'] == 'malt' || params.run_metaphlan3 && it[0]['tool'] == 'metaphlan3' }
     UNTAR (ch_input_untar)
     ch_versions = ch_versions.mix(UNTAR.out.versions.first())
