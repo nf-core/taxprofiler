@@ -64,6 +64,8 @@ ERR3201952,ERR3201952,OXFORD_NANOPORE,/<path>/<to>/fastq/ERR3201952.fastq.gz,,
 
 > ⚠️ Input FASTQ and FASTA files _must_ be gzipped
 
+> ⚠️ While one can include both short-read and long-read data in one run, we recommend that you split these across _two_ pipeline runs and database sheets (see below). This will allow classification optmisation for each data type, and make MultiQC run-reports more readable (due to run statististics having vary large number differences).
+
 | Column                | Description                                                                                                                                                                                              |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `sample`              | Unique sample name [required].                                                                                                                                                                           |
