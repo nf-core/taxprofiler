@@ -268,12 +268,8 @@ table_columns_visible:
     non-primary_alignments: False
     reads_MQ0_percent: False
     error_rate: False
-  Kraken:
-    "% Unclassified": False
-    "% Top 5": False
-  Bracken:
-    "% Unclassified": False
-    "% Top 5": False
+  Kraken: False
+  Bracken: False
   Centrifuge: False
   DIAMOND:
     queries_aligned: False

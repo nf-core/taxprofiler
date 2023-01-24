@@ -1,0 +1,23 @@
+Changes in module 'nf-core/porechop/porechop'
+--- modules/nf-core/porechop/porechop/main.nf
++++ modules/nf-core/porechop/porechop/main.nf
+@@ -22,12 +22,16 @@
+     def args = task.ext.args ?: ''
+     def prefix = task.ext.prefix ?: "${meta.id}"
+     """
++    ## To ensure ID matches rest of pipeline based on meta.id rather than input file name
++    mv $reads ${prefix}.fastq.gz
++
+     porechop \\
+         -i $reads \\
+         -t $task.cpus \\
+         $args \\
+-        -o ${prefix}.fastq.gz \\
++        -o ${prefix}_porechopped.fastq.gz \\
+         > ${prefix}.log
++
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+         porechop: \$( porechop --version )
+
+************************************************************
