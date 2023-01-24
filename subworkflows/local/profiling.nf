@@ -202,8 +202,11 @@ workflow PROFILING {
 
         ch_input_for_metaphlan3 = ch_input_for_profiling.metaphlan3
                             .filter{
-                                if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] MetaPhlAn3 currently does not accept FASTA files as input. Skipping MetaPhlAn3 for sample ${it[0].id}."
-                                !it[0].is_fasta
+                                meta, report ->
+                                    if (meta.is_fasta) log.warn "[nf-core/taxprofiler] MetaPhlAn3 currently does not accept FASTA files as input. Skipping MetaPhlAn3 for sample ${meta.id}."
+                                    !meta.is_fasta
+                                    if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] MetaPhlAn3 has not been evaluated for Nanopore data. Skipping MetaPhlAn3 for sample ${meta.id}."
+                                    meta['tool'] == 'metaphlan3' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
                             }
                             .multiMap {
                                 it ->
