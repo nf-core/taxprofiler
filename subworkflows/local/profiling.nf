@@ -203,6 +203,8 @@ workflow PROFILING {
                             .filter{
                                 if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] MetaPhlAn3 currently does not accept FASTA files as input. Skipping MetaPhlAn3 for sample ${it[0].id}."
                                 !it[0].is_fasta
+                                if (it[0].instrument_platform == 'OXFORD_NANOPORE') log.warn "[nf-core/taxprofiler] MetaPhlAn3 has not been evaluated for Nanopore data. Skipping MetaPhlAn3 for sample ${it[0].id}."
+                                !it[0].instrument_platform == 'OXFORD_NANOPORE'
                             }
                             .multiMap {
                                 it ->
@@ -277,14 +279,13 @@ workflow PROFILING {
                                             [[id: db_meta.db_name, single_end: meta.single_end], reads, db_meta, db]
                                     }
                                     .groupTuple(by: [0,2,3])
-                                    .dump(tag: "krakenuniq_premultimap")
                                     .multiMap {
                                         single_meta, reads, db_meta, db ->
                                             reads: [ single_meta + db_meta, reads.flatten() ]
                                             db: db
                                 }
         // Hardcode to _always_ produce the report file (which is our basic otput, and goes into)
-        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads.dump(tag: "krakenuniq_input"), ch_input_for_krakenuniq.db.dump(tag: "krakenuniq_db"), params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
+        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.db, params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
         ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment )
