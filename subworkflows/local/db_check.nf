@@ -44,6 +44,7 @@ workflow DB_CHECK {
                         .filter {
                           params["run_${it[0]['tool']}"]
                         }
+
     UNTAR (ch_input_untar)
     ch_versions = ch_versions.mix(UNTAR.out.versions.first())
     ch_final_dbs = ch_dbs_for_untar.skip.mix( UNTAR.out.untar )
