@@ -67,7 +67,6 @@ workflow PROFILING {
         // MALT: We groupTuple to have all samples in one channel for MALT as database
         // loading takes a long time, so we only want to run it once per database
         ch_input_for_malt =  ch_input_for_profiling.malt
-                                .filter { it[0]['instrument_platform'] == 'ILLUMINA' }
                                 .map {
                                     meta, reads, db_meta, db ->
 
