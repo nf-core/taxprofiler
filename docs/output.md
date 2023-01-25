@@ -107,7 +107,7 @@ Note that the FASTQ files may _not_ always be the 'final' reads that go into tax
 
 </details>
 
-The output logs are saved in the output folder and are part of MultiQC report.
+The output logs are saved in the output folder and are part of MultiQC report.You do not normally need to check these manually.
 We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
 
 ### BBDuk
@@ -161,6 +161,8 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 
 </details>
 
+You can use the filtered FASTQ for other downstream analyses to reduce repeated preprocessing of files.
+
 We do **not** recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
 
 ### Bowtie2
@@ -197,8 +199,8 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 
 </details>
 
-By default, nf-core taxprofiler will provide the `.bam` file if host removal for long reads is turned on.
-minimap2 is not yet supported as a module in MultiQC and therefore the alignment to host genome is reported via samtools stats in MultiQC report.
+By default, nf-core taxprofiler will only provide the `.bam` file if host removal for long reads is turned on.
+Note: minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
 
 ### Samtools stats
 
@@ -212,7 +214,7 @@ minimap2 is not yet supported as a module in MultiQC and therefore the alignment
 
 </details>
 
-Samtools output file is part of the MultiQC report and gives statistics about the mapped/unmapped reads to host reference genome.
+In most cases you do not need to check this file, as it is rendered in the MultiQC run report.
 
 ### Bracken
 
@@ -306,7 +308,7 @@ The main taxonomic classification files from Centrifuge are the `_combined_repor
 
 </details>
 
-The default taxonomic rank is `species`. You can provide a different one by updating the argument `--kaiju_taxon_rank`.
+The most summary file is the `*combined_reports` file which summarises results across all samples. However if you wish to look at more precise information about each assignment, check the per-sample file. The default taxonomic rank is `species`. You can provide a different one by updating the argument `--kaiju_taxon_rank`.
 
 ### DIAMOND
 
@@ -321,7 +323,7 @@ The default taxonomic rank is `species`. You can provide a different one by upda
 
 </details>
 
-You will receive the `*.sam` file if you provide the parameter `--diamond_save_reads` but in this case no taxonomic classification will be available, only the aligned reads in sam format.
+By default you will receive a TSV output. Alternatively, you will receive a `*.sam` file if you provide the parameter `--diamond_save_reads` but in this case no taxonomic classification will be available(!), only the aligned reads in sam format. Note that DIAMOND has many output formats, so depending on your [choice](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options) with ` --diamond_output_format` you will receive the taxonomic information in a different format.
 
 ### MALT
 
@@ -375,7 +377,7 @@ The main taxonomic profiling file from MetaPhlAn3 is the `*_profile.txt` file. T
 
 </details>
 
-By default, nf-core/taxprofiler is providing a column describing NCBI taxonomic ID as this is used in the taxpasta step. You can disable this column by activating the argument `--motus_remove_ncbi_ids`.
+Normally `*_combined_reports.txt` is the most useful file for downstream analyses, but the per sample `.out` file can provide additional more specific information. By default, nf-core/taxprofiler is providing a column describing NCBI taxonomic ID as this is used in the taxpasta step. You can disable this column by activating the argument `--motus_remove_ncbi_ids`.
 You will receive the relative abundance instead of read counts if you provide the argument `--motus_use_relative_abundance`.
 
 ### Krona
