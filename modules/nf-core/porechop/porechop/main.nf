@@ -11,7 +11,7 @@ process PORECHOP_PORECHOP {
     tuple val(meta), path(reads)
 
     output:
-    tuple val(meta), path("*.fastq.gz"), emit: reads
+    tuple val(meta), path("*_porechopped.fastq.gz"), emit: reads
     tuple val(meta), path("*.log")     , emit: log
     path "versions.yml"                , emit: versions
 
