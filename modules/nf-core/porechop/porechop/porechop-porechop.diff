@@ -1,6 +1,15 @@
 Changes in module 'nf-core/porechop/porechop'
 --- modules/nf-core/porechop/porechop/main.nf
 +++ modules/nf-core/porechop/porechop/main.nf
+@@ -11,7 +11,7 @@
+     tuple val(meta), path(reads)
+ 
+     output:
+-    tuple val(meta), path("*.fastq.gz"), emit: reads
++    tuple val(meta), path("*_porechopped.fastq.gz"), emit: reads
+     tuple val(meta), path("*.log")     , emit: log
+     path "versions.yml"                , emit: versions
+ 
 @@ -22,12 +22,16 @@
      def args = task.ext.args ?: ''
      def prefix = task.ext.prefix ?: "${meta.id}"
