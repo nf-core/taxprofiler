@@ -71,6 +71,8 @@ It is used in nf-core/taxprofiler for adapter trimming of short-reads.
 
 </details>
 
+By default nf-core/taxprofiler will only provide the `<sample_id>.fastp.fastq.gz` file if fastp is selected. The file `<sample_id>.merged.fastq.gz` will be available in the output folder if you provide the argument `--shortread_qc_includeunmerged`. You can change the default value for low complexity filtering by using the argument `--shortread_complexityfilter_fastp_threshold`.
+
 ### AdapterRemoval
 
 [AdapterRemoval](https://adapterremoval.readthedocs.io/en/stable/) searches for and removes remnant adapter sequences from High-Throughput Sequencing (HTS) data and (optionally) trims low quality bases from the 3' end of reads following adapter removal. It is popular in the field of palaeogenomics. The output logs are stored in the results folder, and as a part of the MultiQC report.
@@ -89,11 +91,13 @@ It is used in nf-core/taxprofiler for adapter trimming of short-reads.
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `.settings` file if AdapterRemoval is selected. You will only find the FASTQ files in the results directory if you provide ` --save_preprocessed_reads` . If this is selected, you may recieve different combinations of FASTQ files for each sample depending on the input types - e.g. whether you have merged or not, or if you're supplying both single- and paired-end reads.
+By default nf-core/taxprofiler will only provide the `.settings` file if AdapterRemoval is selected. You will only find the FASTQ files in the results directory if you provide ` --save_preprocessed_reads` . If this is selected, you may receive different combinations of FASTQ files for each sample depending on the input types - e.g. whether you have merged or not, or if you're supplying both single- and paired-end reads.
 
 Note that the FASTQ files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
 
 ### Porechop
+
+[Porechop](https://github.com/rrwick/Porechop) is a tool for finding and removing adapters from Oxford Nanopore reads. Adapters on the ends of reads are trimmed and if a read has an adapter in its middle, it is considered a chimeric and it chopped into separate reads.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -102,6 +106,9 @@ Note that the FASTQ files may _not_ always be the 'final' reads that go into tax
   - `<sample_id>.fastq.gz`: Adapter-trimmed file
 
 </details>
+
+The output logs are saved in the output folder and are part of MultiQC report.
+We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
 
 ### BBDuk
 
@@ -143,7 +150,7 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
 
 ### Filtlong
 
-[Filtlong](https://github.com/rrwick/Filtlong) is a quality filtering tool for long reads.
+[Filtlong](https://github.com/rrwick/Filtlong) is a quality filtering tool for long reads. It can take a set of small reads and produce a smaller, better subset.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -153,6 +160,8 @@ Note that the FASTQ file(s) may _not_ always be the 'final' reads that go into t
   - `<sample_id>_filtered.log`: log file containing summary statistics
 
 </details>
+
+We do **not** recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
 
 ### Bowtie2
 
@@ -188,6 +197,9 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 
 </details>
 
+By default, nf-core taxprofiler will provide the `.bam` file if host removal for long reads is turned on.
+minimap2 is not yet supported as a module in MultiQC and therefore the alignment to host genome is reported via samtools stats in MultiQC report.
+
 ### Samtools stats
 
 [Samtools stats](http://www.htslib.org/doc/samtools-stats.html) collects statistics from an alignment file and outputs in a text format.
@@ -200,9 +212,11 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 
 </details>
 
+Samtools output file is part of the MultiQC report and gives statistics about the mapped/unmapped reads to host reference genome.
+
 ### Bracken
 
-[Bracken](https://ccb.jhu.edu/software/bracken/) (Bayesian Reestimation of Abundance with KrakEN) is a highly accurate statistical method that computes the abundance of species in DNA sequences from a metagenomics sample. Braken uses the taxonomy labels assigned by Kraken, a highly accurate metagenomics classification algorithm, to estimate the number of reads originating from each species present in a sample.
+[Bracken](https://ccb.jhu.edu/software/bracken/) (Bayesian Reestimation of Abundance with Kraken) is a highly accurate statistical method that computes the abundance of species in DNA sequences from a metagenomics sample. Braken uses the taxonomy labels assigned by Kraken, a highly accurate metagenomics classification algorithm, to estimate the number of reads originating from each species present in a sample.
 
 > 🛈 The first step of using Bracken requires running Kraken2, therefore the initial results before abundance estimation will be found in `<your_results>/kraken2/<your_bracken_db_name>`.
 
@@ -235,9 +249,9 @@ The main taxonomic profiling file from Bracken is the `*.tsv` file. This provide
 
 </details>
 
-The main taxonomic profiling file from Kraken2 is the `_combined_reports.txt` or `*report.txt` file. The former provides you the broadest over view of the taxonomic profiling results across all samples against a single databse, where you get two columns for each sample e.g. `2_all` and `2_lvl`, as well as a summarised column summing up across all samples `tot_all` and `tot_lvl`. The latter gives you the most information for a single sample. The report file is also used for the taxpasta step.
+The main taxonomic classification file from Kraken2 is the `_combined_reports.txt` or `*report.txt` file. The former provides you the broadest over view of the taxonomic classification results across all samples against a single databse, where you get two columns for each sample e.g. `2_all` and `2_lvl`, as well as a summarised column summing up across all samples `tot_all` and `tot_lvl`. The latter gives you the most information for a single sample. The report file is also used for the taxpasta step.
 
-You will only recieve the FASTQs and `*classifiedreads.txt` file if you supply `--kraken2_save_reads` and/or `--kraken2_save_readclassification` parameters to the pipeline.
+You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `--kraken2_save_reads` and/or `--kraken2_save_readclassification` parameters to the pipeline.
 
 ### KrakenUniq
 
@@ -255,7 +269,7 @@ You will only recieve the FASTQs and `*classifiedreads.txt` file if you supply `
 
 </details>
 
-The main taxonomic profiling file from KrakenUniq is the `*report.txt` file. This is an extension of the Kraken2 report with the additional k-mer coverage information that provides more information about the accuracy of hits.
+The main taxonomic classification file from KrakenUniq is the `*report.txt` file. This is an extension of the Kraken2 report with the additional k-mer coverage information that provides more information about the accuracy of hits.
 
 > ⚠️ The output system of KrakenUniq can result in other `stdout` or `stderr` logging information being saved in the report file, therefore you must check your report files before downstream use!
 
@@ -277,7 +291,11 @@ You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `
 
 </details>
 
+The main taxonomic classification files from Centrifuge are the `_combined_reports.txt`, `*report.txt`, `*results.txt` and the `*centrifuge.txt`. The latter is used by the taxpasta step. You will receive the FASTQ files if you supply `--centrifuge_save_reads`.
+
 ### Kaiju
+
+[Kaiju](https://github.com/bioinformatics-centre/kaiju) is a taxonomic classifier that finds maximum exact matches on the protein-level using the Burrows–Wheeler transform.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -287,6 +305,8 @@ You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `
   - `kaiju_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `kaiju2table`)
 
 </details>
+
+The default taxonomic rank is `species`. You can provide a different one by updating the argument `--kaiju_taxon_rank`.
 
 ### DIAMOND
 
@@ -300,6 +320,8 @@ You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `
   - `<sample_id>.sam`: A file in SAM format that contains the aligned reads
 
 </details>
+
+You will receive the `*.sam` file if you provide the parameter `--diamond_save_reads` but in this case no taxonomic classification will be available, only the aligned reads in sam format.
 
 ### MALT
 
@@ -319,7 +341,7 @@ You will only receive the FASTQs and `*classifiedreads.txt` file if you supply `
 
 The main output of MALT is the `.rma6` file format, which can be only loaded into MEGAN and it's related tools. We provide the `rma2info` text files for improved compatibility with spreadsheet programs and other programmtic data manipulation tools, however this has only limited information compared to the 'binary' RMA6 file format (the `txt` file only contains taxonomic ID and count, whereas RMA6 has taxonomic lineage information).
 
-You will only recieve the `.sam` and `.megan` files if you supply `--malt_save_reads` and/or `--malt_generate_megansummary` parameters to the pipeline.
+You will only receive the `.sam` and `.megan` files if you supply `--malt_save_reads` and/or `--malt_generate_megansummary` parameters to the pipeline.
 
 ### MetaPhlAn3
 
@@ -341,7 +363,7 @@ The main taxonomic profiling file from MetaPhlAn3 is the `*_profile.txt` file. T
 
 ### mOTUs
 
-[mOTUS](https://github.com/motu-tool/mOTUs) maps reads to a unique marker specific database and estimates the relative abundance of known and unknown species.
+[mOTUS](https://github.com/motu-tool/mOTUs) is a taxonomic profiler that maps reads to a unique marker specific database and estimates the relative abundance of known and unknown species.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -352,9 +374,13 @@ The main taxonomic profiling file from MetaPhlAn3 is the `*_profile.txt` file. T
   - `motus_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `motus_merge`)
 
 </details>
+
+By default, nf-core/taxprofiler is providing a column describing NCBI taxonomic ID as this is used in the taxpasta step. You can disable this column by activating the argument `--motus_remove_ncbi_ids`.
+You will receive the relative abundance instead of read counts if you provide the argument `--motus_use_relative_abundance`.
+
 ### Krona
 
-[Krona](https://github.com/marbl/Krona) is Krona allows the exploration of (metagenomic) hierarchical data with interactive zooming, multi-layered pie charts.
+[Krona](https://github.com/marbl/Krona) allows the exploration of (metagenomic) hierarchical data with interactive zooming, multi-layered pie charts.
 
 Krona charts will be generated by the pipeline for supported tools (Kraken2, Centrifuge, Kaiju, and MALT)
 
