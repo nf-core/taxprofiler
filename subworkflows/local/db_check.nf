@@ -39,9 +39,12 @@ workflow DB_CHECK {
             skip: true
         }
 
-    //Filter the channel to run untar on DBs of tools actually using
-    ch_input_untar = ch_dbs_for_untar.untar
-                    .filter {  params.run_kraken2 && it[0]['tool'] == 'kraken2' || params.run_centrifuge && it[0]['tool'] == 'centrifuge' || params.run_bracken && it[0]['tool'] == 'bracken' || params.run_kaiju && it[0]['tool'] == 'kaiju' || params.run_krakenuniq && it [0]['tool'] == 'krakenuniq' || params.run_malt && it[0]['tool'] == 'malt' || params.run_metaphlan3 && it[0]['tool'] == 'metaphlan3' }
+    // Filter the channel to untar only those databases for tools that are selected to be run by the user.
+    ch_input_untar = ch_dbs_for_untar.untar.dump()
+                        .filter {
+                          params["run_${it[0]['tool']}"]
+                        }
+
     UNTAR (ch_input_untar)
     ch_versions = ch_versions.mix(UNTAR.out.versions.first())
     ch_final_dbs = ch_dbs_for_untar.skip.mix( UNTAR.out.untar )
