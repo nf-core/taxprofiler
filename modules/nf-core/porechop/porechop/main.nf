@@ -11,7 +11,7 @@ process PORECHOP_PORECHOP {
     tuple val(meta), path(reads)
 
     output:
-    tuple val(meta), path("*.fastq.gz"), emit: reads
+    tuple val(meta), path("*_porechopped.fastq.gz"), emit: reads
     tuple val(meta), path("*.log")     , emit: log
     path "versions.yml"                , emit: versions
 
@@ -22,12 +22,17 @@ process PORECHOP_PORECHOP {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
+    ## To ensure ID matches rest of pipeline based on meta.id rather than input file name
+    
+    [[ -f ${prefix}.fastq.gz   ]] || ln -s $reads ${prefix}.fastq.gz
+
     porechop \\
-        -i $reads \\
+        -i ${prefix}.fastq.gz \\
         -t $task.cpus \\
         $args \\
-        -o ${prefix}.fastq.gz \\
+        -o ${prefix}_porechopped.fastq.gz \\
         > ${prefix}.log
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         porechop: \$( porechop --version )

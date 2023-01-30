@@ -268,35 +268,13 @@ table_columns_visible:
     non-primary_alignments: False
     reads_MQ0_percent: False
     error_rate: False
-  Kraken:
-    "% Unclassified": False
-    "% Top 5": False
-  Bracken:
-    "% Unclassified": False
-    "% Top 5": False
+  Kraken: False
+  Bracken: False
   Centrifuge: False
-  DIAMOND:
-    queries_aligned: False
-  Kaiju:
-    assigned: False
-    "% Assigned": False
-    "% Unclassified": False
-  MALT:
-    "Num. of queries": False
-    Total reads: False
-    Mappability: False
-    Assig. Taxonomy: False
-    Taxonomic assignment success: False
-  motus:
-    Total number of reads: False
-    Number of reads after filtering: False
-    Total number of inserts: False
-    Unique mappers: False
-    Multiple mappers: False
-    Ignored multiple mapper without unique hit: False
-    "Number of ref-mOTUs": False
-    "Number of meta-mOTUs": False
-    "Number of ext-mOTUs": False
+  DIAMOND: False
+  Kaiju: False
+  MALT: False
+  motus: False
 
 table_columns_name:
   FastQC (pre-Trimming):
