@@ -38,7 +38,7 @@ if (params.perform_shortread_hostremoval && !params.hostremoval_reference) { exi
 if (!params.hostremoval_reference && params.hostremoval_reference_index) { exit 1, "ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input." }
 
 if (params.hostremoval_reference           ) { ch_reference = file(params.hostremoval_reference) }
-if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = file(params.shortread_hostremoval_index    ) } else { ch_shortread_reference_index = [] }
+if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = Channel.fromPath(params.shortread_hostremoval_index).map{[[], it]} } else { ch_shortread_reference_index = [] }
 if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
 
 if (params.diamond_save_reads              ) log.warn "[nf-core/taxprofiler] DIAMOND only allows output of a single format. As --diamond_save_reads supplied, only aligned reads in SAM format will be produced, no taxonomic profiles will be available."
