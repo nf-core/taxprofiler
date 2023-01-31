@@ -195,7 +195,7 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 <summary>Output files</summary>
 
 - `minimap2`
-  - `<sample_id>.bam`: Alignment file in bam format
+  - `<sample_id>.bam`: Alignment file in BAM format
 
 </details>
 
@@ -204,7 +204,7 @@ Note: minimap2 is not yet supported as a module in MultiQC and therefore there i
 
 ### Samtools stats
 
-[Samtools stats](http://www.htslib.org/doc/samtools-stats.html) collects statistics from a SAM, `.bam`, or CRAM alignment file and outputs in a text format.
+[Samtools stats](http://www.htslib.org/doc/samtools-stats.html) collects statistics from a `.sam`, `.bam`, or `.cram` alignment file and outputs in a text format.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -285,11 +285,11 @@ You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply
 <summary>Output files</summary>
 
 - `centrifuge`
-  - `<sample_id>.centrifuge.mapped.fastq.gz`: Fastq files containing all mapped reads
+  - `<sample_id>.centrifuge.mapped.fastq.gz`: `FASTQ` files containing all mapped reads
   - `<sample_id>.centrifuge.report.txt`: A classification report that summarises the taxonomic ID, the taxonomic rank, length of genome sequence, number of classified and uniquely classified reads
   - `<sample_id>.centrifuge.results.txt`: A file that summarises the classification assignment for a read, i.e read ID, sequence ID, score for the classification, score for the next best classification, number of classifications for this read
   - `<sample_id>.centrifuge.txt`: A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of k-mers, taxonomic path of all the hits in the centrifuge run for a given sample
-  - `<sample_id>.centrifuge.unmapped.fastq.gz`: Fastq file containing all unmapped reads
+  - `<sample_id>.centrifuge.unmapped.fastq.gz`: FASTQ file containing all unmapped reads
 
 </details>
 
@@ -341,7 +341,7 @@ By default you will receive a TSV output. Alternatively, you will receive a `*.s
 
 </details>
 
-The main output of MALT is the `.rma6` file format, which can be only loaded into MEGAN and it's related tools. We provide the `rma2info` text files for improved compatibility with spreadsheet programs and other programmtic data manipulation tools, however this has only limited information compared to the 'binary' RMA6 file format (the `txt` file only contains taxonomic ID and count, whereas RMA6 has taxonomic lineage information).
+The main output of MALT is the `.rma6` file format, which can be only loaded into MEGAN and it's related tools. We provide the `rma2info` text files for improved compatibility with spreadsheet programs and other programmtic data manipulation tools, however this has only limited information compared to the 'binary' RMA6 file format (the `.txt` file only contains taxonomic ID and count, whereas RMA6 has taxonomic lineage information).
 
 You will only receive the `.sam` and `.megan` files if you supply `--malt_save_reads` and/or `--malt_generate_megansummary` parameters to the pipeline.
 
