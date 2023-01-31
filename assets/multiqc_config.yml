@@ -56,7 +56,8 @@ top_modules:
         - "*_raw_falco_*_report.html"
   - "fastp"
   - "adapterRemoval"
-  - "porechop"
+  - "porechop":
+      extra: "ℹ️: if you get the error message 'Error - was not able to plot data.' this means that porechop did not detect any adapters and therefore no statistics generated."
   - "fastqc":
       name: "FastQC (post-Trimming)"
       path_filters:
@@ -82,7 +83,7 @@ top_modules:
       target: "Bracken"
       doi: "10.7717/peerj-cs.104"
       info: "Estimates species abundances in metagenomics samples by probabilistically re-distributing reads in the taxonomic tree."
-      extra: "Note: plot title will say Kraken2 due to the first step of bracken producing the same output format as Kraken. Abundance information is currently not supported in MultiQC."
+      extra: "ℹ️: plot title will say Kraken2 due to the first step of bracken producing the same output format as Kraken. Abundance information is currently not supported in MultiQC."
       path_filters:
         - "*.bracken.kraken2.report.txt"
   - "kraken":
@@ -91,7 +92,7 @@ top_modules:
       target: "Centrifuge"
       doi: "10.1101/gr.210641.116"
       info: "is a very rapid and memory-efficient system for the classification of DNA sequences from microbial samples. The system uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index. Note: Figure title"
-      extra: "Note: plot title will say Kraken2 due to Centrifuge producing the same output format as Kraken. If activated, see the actual Kraken2 results in the section above."
+      extra: "ℹ️: plot title will say Kraken2 due to Centrifuge producing the same output format as Kraken. If activated, see the actual Kraken2 results in the section above."
       path_filters:
         - "*.centrifuge.txt"
   - "malt":
