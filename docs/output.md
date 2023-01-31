@@ -71,7 +71,9 @@ It is used in nf-core/taxprofiler for adapter trimming of short-reads.
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `<sample_id>.fastp.fastq.gz` file if fastp is selected. The file `<sample_id>.merged.fastq.gz` will be available in the output folder if you provide the argument ` --shortread_qc_mergepairs` (optionally retaining un-merged pairs when in combination with `--shortread_qc_includeunmerged`). You can change the default value for low complexity filtering by using the argument `--shortread_complexityfilter_fastp_threshold`.
+By default nf-core/taxprofiler will only provide the `<sample_id>.fastp.fastq.gz` file if fastp is selected. The file `<sample_id>.merged.fastq.gz` will be available in the output folder if you provide the argument ` --shortread_qc_mergepairs` (optionally retaining un-merged pairs when in combination with `--shortread_qc_includeunmerged`).
+
+You can change the default value for low complexity filtering by using the argument `--shortread_complexityfilter_fastp_threshold`.
 
 ### AdapterRemoval
 
@@ -91,9 +93,11 @@ By default nf-core/taxprofiler will only provide the `<sample_id>.fastp.fastq.gz
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `.settings` file if AdapterRemoval is selected. You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads` . If this is selected, you may receive different combinations of `.fastq` files for each sample depending on the input types - e.g. whether you have merged or not, or if you're supplying both single- and paired-end reads.
+By default nf-core/taxprofiler will only provide the `.settings` file if AdapterRemoval is selected.
 
-Note that the `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. If this is selected, you may receive different combinations of `.fastq` files for each sample depending on the input types - e.g. whether you have merged or not, or if you're supplying both single- and paired-end reads.
+
+> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
 
 ### Porechop
 
@@ -103,12 +107,16 @@ Note that the `.fastq` files may _not_ always be the 'final' reads that go into 
 <summary>Output files</summary>
 
 - `porechop`
+  - `<sample_id>.log`: Log file containing trimming statistics
   - `<sample_id>.fastq.gz`: Adapter-trimmed file
 
 </details>
 
 The output logs are saved in the output folder and are part of MultiQC report.You do not normally need to check these manually.
-We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
+
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`.
+
+> ⚠️ We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
 
 ### BBDuk
 
@@ -127,7 +135,7 @@ It is used in nf-core/taxprofiler for complexity filtering using different algor
 
 By default nf-core/taxprofiler will only provide the `.log` file if BBDuk is selected as the complexity filtering tool. You will only find the complexity filtered reads in your results directory if you provide ` --save_complexityfiltered_reads` .
 
-Note that the `.fastq` file(s) may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
 
 ### PRINSEQ++
 
@@ -146,7 +154,7 @@ It is used in nf-core/taxprofiler for complexity filtering using different algor
 
 By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is selected as the complexity filtering tool. You will only find the complexity filtered `.fastq` files in your results directory if you supply ` --save_complexityfiltered_reads` .
 
-Note that the `.fastq` file(s) may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
 
 ### Filtlong
 
@@ -161,15 +169,15 @@ Note that the `.fastq` file(s) may _not_ always be the 'final' reads that go int
 
 </details>
 
-You can use the filtered `.fastq` for other downstream analyses to reduce repeated preprocessing of files.
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`.
 
-We do **not** recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
+> ⚠️ We do **not** recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
 
 ### Bowtie2
 
 [Bowtie 2](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml) is an ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences. It is particularly good at aligning reads of about 50 up to 100s or 1,000s of characters, and particularly good at aligning to relatively long (e.g. mammalian) genomes.
 
-It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or other possible contaminant reads (e.g. Phi X) from short-read `.fastq` files prior to profiling.
+It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/or other possible contaminant reads (e.g. Phi X) from short-read `.fastq` files prior to profiling.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -183,7 +191,9 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 
 By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only see the mapped (host) reads `.bam` file or the off-target reads in `.fastq` format in your results directory if you provide `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped` respectively.
 
-Note that the `.fastq` file(s) may _not_ always be the 'final' reads that go into taxonomic classification, if you also run other steps such as host removal, run merging etc.. Furthermore, while there is a dedicated section in the MultiQC HTML for Bowtie2, these values are not displayed by default in the General Stats table. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report for direct comparison with minimap2 (see below).
+> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as run merging etc..
+
+> ℹ️ While there is a dedicated section in the MultiQC HTML for Bowtie2, these values are not displayed by default in the General Stats table. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report for direct comparison with minimap2 (see below).
 
 ### minimap2
 
@@ -199,8 +209,9 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 
 </details>
 
-By default, nf-core taxprofiler will only provide the `.bam` file if host removal for long reads is turned on.
-Note: minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
+By default, nf-core taxprofiler will only provide the `.bam` file if host removal for long reads is turned on (i.e., `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped`).
+
+> ℹ️ minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
 
 ### Samtools stats
 
@@ -273,9 +284,9 @@ You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply
 
 The main taxonomic classification file from KrakenUniq is the `*report.txt` file. This is an extension of the Kraken2 report with the additional k-mer coverage information that provides more information about the accuracy of hits.
 
-> ⚠️ The output system of KrakenUniq can result in other `stdout` or `stderr` logging information being saved in the report file, therefore you must check your report files before downstream use!
-
 You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply `--krakenuniq_save_reads` and/or `--krakenuniq_save_readclassification` parameters to the pipeline.
+
+> ⚠️ The output system of KrakenUniq can result in other `stdout` or `stderr` logging information being saved in the report file, therefore you must check your report files before downstream use!
 
 ### Centrifuge
 
@@ -323,7 +334,9 @@ The most summary file is the `*combined_reports.txt` file which summarises resul
 
 </details>
 
-By default you will receive a TSV output. Alternatively, you will receive a `*.sam` file if you provide the parameter `--diamond_save_reads` but in this case no taxonomic classification will be available(!), only the aligned reads in sam format. Note that DIAMOND has many output formats, so depending on your [choice](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options) with ` --diamond_output_format` you will receive the taxonomic information in a different format.
+By default you will receive a TSV output. Alternatively, you will receive a `*.sam` file if you provide the parameter `--diamond_save_reads` but in this case no taxonomic classification will be available(!), only the aligned reads in sam format.
+
+> ℹ️ DIAMOND has many output formats, so depending on your [choice](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options) with ` --diamond_output_format` you will receive the taxonomic information in a different format.
 
 ### MALT
 
@@ -412,7 +425,30 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 
 Results generated by MultiQC collate pipeline QC from supported tools e.g. FastQC. The pipeline has special steps which also allow the software versions to be reported in the MultiQC output for future traceability. For more information about how to use MultiQC reports, see <http://multiqc.info>.
 
-All tools in taxprofiler supported by MultiQC will have a dedicated section showing summary statistics of each tool based on information stored in log files. Note that the 'General Stats' table by default will only show statistics referring to pre-processing steps, and will not display possible values from each classifier/profiler, unless turned on by the user within the 'Configure Columns' menu or via a custom MultiQC config file (`--multiqc_config`)
+All tools in taxprofiler supported by MultiQC will have a dedicated section showing summary statistics of each tool based on information stored in log files.
+
+You can expect in the MultiQC reports either sections and/or general stats columns for the following tools:
+
+- fastqc
+- adapterRemoval
+- fastp
+- bbduk
+- prinseqplusplus
+- porechop
+- filtlong
+- bowtie2
+- minimap2
+- samtools (stats)
+- kraken
+- bracken
+- centrifuge
+- kaiju
+- metaphlan
+- diamond
+- malt
+- motus
+
+> ℹ️ The 'General Stats' table by default will only show statistics referring to pre-processing steps, and will not display possible values from each classifier/profiler, unless turned on by the user within the 'Configure Columns' menu or via a custom MultiQC config file (`--multiqc_config`)
 
 ### Pipeline information
 
