@@ -71,7 +71,6 @@ def check_samplesheet(file_in, file_out):
 
     sample_mapping_dict = {}
     with open(file_in, "r") as fin:
-
         ## Check header
         MIN_COLS = 4
         HEADER = [
@@ -101,7 +100,6 @@ def check_samplesheet(file_in, file_out):
 
         ## Check sample entries
         for line in fin:
-
             ## Pull out only relevant columns for downstream checking
             line_parsed = [x.strip().strip('"') for x in line.strip().split(",")]
 
