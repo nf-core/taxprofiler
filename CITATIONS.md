@@ -92,3 +92,13 @@
 
 - [Singularity](https://pubmed.ncbi.nlm.nih.gov/28494014/)
   > Kurtzer GM, Sochat V, Bauer MW. Singularity: Scientific containers for mobility of compute. PLoS One. 2017 May 11;12(5):e0177459. doi: 10.1371/journal.pone.0177459. eCollection 2017. PubMed PMID: 28494014; PubMed Central PMCID: PMC5426675.
+
+## Data
+
+- [Maixner (2021)](https://doi.org/10.1016/j.cub.2021.09.031) (CI Test Data)
+
+  > Maixner, Frank, Mohamed S. Sarhan, Kun D. Huang, Adrian Tett, Alexander Schoenafinger, Stefania Zingale, Aitor Blanco-Míguez, et al. 2021. “Hallstatt Miners Consumed Blue Cheese and Beer during the Iron Age and Retained a Non-Westernized Gut Microbiome until the Baroque Period.” Current Biology: CB 31 (23): 5149–62.e6. doi: 10.1016/j.cub.2021.09.031.
+
+- [Meslier (2022)](https://doi.org/10.1038/s41597-022-01762-z) (AWS Full Test data)
+
+  > Meslier, Victoria, Benoit Quinquis, Kévin Da Silva, Florian Plaza Oñate, Nicolas Pons, Hugo Roume, Mircea Podar, and Mathieu Almeida. 2022. “Benchmarking Second and Third-Generation Sequencing Platforms for Microbial Metagenomics.” Scientific Data 9 (1): 694. doi: 10.1038/s41597-022-01762-z.
