@@ -13,7 +13,7 @@ The directories listed below will be created in the results directory after the 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
 - [FastQC](#fastqc) - Raw read QC
-- [falco](#falco) - Alternative to FastQC for raw read QC
+- [falco](#fastqc) - Alternative to FastQC for raw read QC
 - [fastp](#fastp) - Adapter trimming for Illumina data
 - [AdapterRemoval](#adapterremoval) - Adapter trimming for Illumina data
 - [Porechop](#porechop) - Adapter removal for Oxford Nanopore data
@@ -22,7 +22,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
-- [samtoolsstats](#samtoolsstats) - Statistics from host removal
+- [SAMtools stats](#samtoolsstats) - Statistics from host removal
+- [SAMtools view](#samtoolsview) - Views and converts the alignment file
+- [SAMtools bam2fq](#samtoolsbam2fq) - Converts the alignment file in fastq format
 - [Bracken](#bracken) - Taxonomic classifier using k-mers and abundance estimations
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
 - [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
@@ -35,7 +37,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-### FastQC
+### FastQC or falco
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -47,6 +49,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 </details>
 
 [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
+
+> ℹ️ Falco produces identical output to FastQC but in the `falco/` directory.
 
 ![MultiQC - FastQC sequence counts plot](images/mqc_fastqc_counts.png)
 
@@ -68,6 +72,7 @@ It is used in nf-core/taxprofiler for adapter trimming of short-reads.
 - `fastp`
   - `<sample_id>.fastp.fastq.gz`: File with the trimmed unmerged fastq reads.
   - `<sample_id>.merged.fastq.gz`: File with the reads that were successfully merged.
+  - `<sample_id>.*{log,html,json}`: Log files in different formats.
 
 </details>
 
@@ -213,15 +218,39 @@ By default, nf-core taxprofiler will only provide the `.bam` file if host remova
 
 > ℹ️ minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
 
-### Samtools stats
+### SAMtools view
 
-[Samtools stats](http://www.htslib.org/doc/samtools-stats.html) collects statistics from a `.sam`, `.bam`, or `.cram` alignment file and outputs in a text format.
+[SAMtools view](http://www.htslib.org/doc/samtools-view.html) views and comverts a `.sam`, `.bam`, or `.cram` alignment file.
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `samtoolsstats`
-  - `<sample_id>.stats`: File containing samtools stats output
+  - `<sample_id>.bam`: Alignment file in BAM format
+
+</details>
+
+### SAMtools bam2fq
+
+[SAMtools bam2fq](http://www.htslib.org/doc/1.1/samtools.html) converts a `.sam`, `.bam`, or `.cram` alignment file to FASTQ format
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `samtoolsstats`
+  - `<sample_id>.fq.zg`: Alignment file in FASTQ gzip format.
+
+</details>
+
+### SAMtools stats
+
+[SAMtools stats](http://www.htslib.org/doc/samtools-stats.html) collects statistics from a `.sam`, `.bam`, or `.cram` alignment file and outputs in a text format.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `samtoolsstats`
+  - `<sample_id>.stats`: File containing samtools stats output.
 
 </details>
 
@@ -330,7 +359,7 @@ The most summary file is the `*combined_reports.txt` file which summarises resul
 
 - `diamond`
   - `<sample_id>.log`: A log file containing stdout information
-  - `<sample_id>.sam`: A file in SAM format that contains the aligned reads
+  - `<sample_id>*.{blast,xml,txt,daa,sam,tsv,paf,log}`: A file containing alignment information in various formats, or taxonomic information in a text-based format. Exact output depends on user choice.
 
 </details>
 
