@@ -193,7 +193,7 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only see the mapped (host) and unmapped reads in `.bam` format or the off-target reads in .fastq format in your results directory if you provide `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped` respectively.
+By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only see the mapped (host) and unmapped reads in `.bam` format or the off-target reads in `.fastq` format in your results directory if you provide `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped` respectively.
 
 > ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as run merging etc..
 
@@ -229,7 +229,7 @@ By default, nf-core taxprofiler will only provide the `.bam` file containing map
 
 </details>
 
-This directory will be present and contain the unmapped reads from the FASTQ format from long-read minimap2 host removal (for short-read unmapped reads, see [bowtie2](#bowtie2), if `--save_hostremoval_unmapped` is supplied.
+This directory will be present and contain the unmapped reads from the `.fastq` format from long-read minimap2 host removal (for short-read unmapped reads, see [bowtie2](#bowtie2)), if `--save_hostremoval_unmapped` is supplied.
 
 ### SAMtools stats
 
