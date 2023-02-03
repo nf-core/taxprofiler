@@ -80,10 +80,14 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 ### Full database sheet
 
 nf-core/taxprofiler supports multiple databases being classified/profiled against in parallel for each tool.
+
 Databases can be supplied either in the form of a compressed `.tar.gz` archive of a directory containing all relevant database files or the path to a directory on the filesystem.
-The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
 
 > ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
+
+The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
+
+> ⚠️ To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters) before submitting the database sheet!
 
 An example database sheet can look as follows, where 5 tools are being used, and `malt` and `kraken2` will be used against two databases each. This is because specifying `bracken` implies first running `kraken2` on the same database.
 
