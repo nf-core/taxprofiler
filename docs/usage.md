@@ -610,7 +610,18 @@ A detailed description can be found [here](https://github.com/bbuchfink/diamond/
 
 #### Kaiju custom database
 
-To build a kaiju database, you need two components: a FASTA file with the protein sequences (the headers are the numeric NCBI taxon identifiers of the protein sequences), and you need to define the uppercase characters of the standard 20 amino acids you wish to include.
+To build a kaiju database, you need three components: a FASTA file with the protein sequences ,the NCBI taxonomy dump files, and you need to define the uppercase characters of the standard 20 amino acids you wish to include.
+
+> ⚠️ The headers of the protein fasta file must be numeric NCBI taxon identifiers of the protein sequences.
+
+To download the NCBI taxonomy files, please run the following commands:
+
+```bash
+wget https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.zip
+unzip new_taxdump.zip
+```
+
+To build the database, run the following command (the contents of taxdump must be in the same location where you run the command):
 
 ```bash
 kaiju-mkbwt -a ACDEFGHIKLMNPQRSTVWY -o proteins proteins.faa

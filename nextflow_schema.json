@@ -296,8 +296,8 @@
                 "save_hostremoval_mapped": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save mapped reads in BAM format from host removal",
-                    "help_text": "Save the reads mapped to the reference genome in BAM format as output by the respective hostremoval alignment tool.\n\nThis can be useful if you wish to perform other analyses on the host organism (such as host-microbe interaction), however, you should consider whether the default mapping parameters of Bowtie2 (short-read) or minimap2 (long-read) are optimised to your context. "
+                    "description": "Saved mapped and unmapped reads in BAM format from host removal",
+                    "help_text": "Save the reads mapped to the reference genome and off-target reads in BAM format as output by the respective hostremoval alignment tool.\n\nThis can be useful if you wish to perform other analyses on the host organism (such as host-microbe interaction), however, you should consider whether the default mapping parameters of Bowtie2 (short-read) or minimap2 (long-read) are optimised to your context."
                 },
                 "save_hostremoval_unmapped": {
                     "type": "boolean",
