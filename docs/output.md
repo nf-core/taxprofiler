@@ -23,8 +23,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [SAMtools stats](#samtoolsstats) - Statistics from host removal
-- [SAMtools view](#samtoolsview) - Views and converts the alignment file
-- [SAMtools bam2fq](#samtoolsbam2fq) - Converts the alignment file in fastq format
+- [SAMtools fastq](#samtoolsfastq) - Converts the alignment file in fastq format
 - [Bracken](#bracken) - Taxonomic classifier using k-mers and abundance estimations
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
 - [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
@@ -194,7 +193,7 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only see the mapped (host) reads `.bam` file or the off-target reads in `.fastq` format in your results directory if you provide `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped` respectively.
+By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only see the mapped (host) and unmapped reads in `.bam` format or the off-target reads in .fastq format in your results directory if you provide `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped` respectively.
 
 > ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as run merging etc..
 
@@ -214,33 +213,23 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 
 </details>
 
-By default, nf-core taxprofiler will only provide the `.bam` file if host removal for long reads is turned on (i.e., `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped`).
+By default, nf-core taxprofiler will only provide the `.bam` file containing mapped and unmapped if host removal for long reads is turned on (i.e., `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped`).
 
 > ℹ️ minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
 
-### SAMtools view
+### SAMtools fastq
 
-[SAMtools view](http://www.htslib.org/doc/samtools-view.html) views and comverts a `.sam`, `.bam`, or `.cram` alignment file.
-
-<details markdown="1">
-<summary>Output files</summary>
-
-- `samtoolsstats`
-  - `<sample_id>.bam`: Alignment file in BAM format
-
-</details>
-
-### SAMtools bam2fq
-
-[SAMtools bam2fq](http://www.htslib.org/doc/1.1/samtools.html) converts a `.sam`, `.bam`, or `.cram` alignment file to FASTQ format
+[SAMtools fastq](http://www.htslib.org/doc/1.1/samtools.html) converts a `.sam`, `.bam`, or `.cram` alignment file to FASTQ format
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `samtoolsstats`
-  - `<sample_id>.fq.zg`: Alignment file in FASTQ gzip format.
+  - `<sample_id>.fq.gz`: Alignment file in FASTQ gzip format.
 
 </details>
+
+This directory will be present and contain the unmapped reads from the FASTQ format from long-read minimap2 host removal (for short-read unmapped reads, see [bowtie2](#bowtie2), if `--save_hostremoval_unmapped` is supplied.
 
 ### SAMtools stats
 
@@ -359,7 +348,7 @@ The most summary file is the `*combined_reports.txt` file which summarises resul
 
 - `diamond`
   - `<sample_id>.log`: A log file containing stdout information
-  - `<sample_id>*.{blast,xml,txt,daa,sam,tsv,paf,log}`: A file containing alignment information in various formats, or taxonomic information in a text-based format. Exact output depends on user choice.
+  - `<sample_id>*.{blast,xml,txt,daa,sam,tsv,paf}`: A file containing alignment information in various formats, or taxonomic information in a text-based format. Exact output depends on user choice.
 
 </details>
 
