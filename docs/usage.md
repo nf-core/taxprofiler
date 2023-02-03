@@ -87,7 +87,7 @@ Databases can be supplied either in the form of a compressed `.tar.gz` archive o
 
 The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
 
-> ⚠️ To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters) before submitting the database sheet!
+> ⚠️ To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters, and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
 
 An example database sheet can look as follows, where 5 tools are being used, and `malt` and `kraken2` will be used against two databases each. This is because specifying `bracken` implies first running `kraken2` on the same database.
 
