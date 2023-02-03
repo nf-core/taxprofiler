@@ -6,7 +6,6 @@ include { BOWTIE2_BUILD             } from '../../modules/nf-core/bowtie2/build/
 include { BOWTIE2_ALIGN             } from '../../modules/nf-core/bowtie2/align/main'
 include { SAMTOOLS_INDEX            } from '../../modules/nf-core/samtools/index/main'
 include { SAMTOOLS_STATS            } from '../../modules/nf-core/samtools/stats/main'
-include { SAMTOOLS_VIEW             } from '../../modules/nf-core/samtools/view/main'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:
@@ -35,10 +34,7 @@ workflow SHORTREAD_HOSTREMOVAL {
                 [ meta, reads, [] ]
         }
 
-    SAMTOOLS_VIEW ( ch_bowtie2_mapped, [], [] )
-    ch_versions      = ch_versions.mix( SAMTOOLS_VIEW.out.versions.first() )
-
-    SAMTOOLS_INDEX ( SAMTOOLS_VIEW.out.bam )
+    SAMTOOLS_INDEX ( BOWTIE2_ALIGN.out.bam )
     ch_versions      = ch_versions.mix( SAMTOOLS_INDEX.out.versions.first() )
 
     bam_bai = BOWTIE2_ALIGN.out.bam
