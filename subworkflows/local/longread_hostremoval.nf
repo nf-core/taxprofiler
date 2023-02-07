@@ -34,14 +34,15 @@ workflow LONGREAD_HOSTREMOVAL {
                 [ meta, reads, [] ]
         }
 
-
+    // Generate unmapped reads FASTQ for downstream taxprofiling
     SAMTOOLS_VIEW ( ch_minimap2_mapped , [], [] )
     ch_versions      = ch_versions.mix( SAMTOOLS_VIEW.out.versions.first() )
 
     SAMTOOLS_BAM2FQ ( SAMTOOLS_VIEW.out.bam, false )
     ch_versions      = ch_versions.mix( SAMTOOLS_BAM2FQ.out.versions.first() )
 
-    SAMTOOLS_INDEX ( SAMTOOLS_VIEW.out.bam )
+    // Indexing whole BAM for host removal statistics
+    SAMTOOLS_INDEX ( MINIMAP2_ALIGN.out.bam )
     ch_versions      = ch_versions.mix( SAMTOOLS_INDEX.out.versions.first() )
 
     bam_bai = MINIMAP2_ALIGN.out.bam
@@ -50,7 +51,6 @@ workflow LONGREAD_HOSTREMOVAL {
     SAMTOOLS_STATS ( bam_bai, reference )
     ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
     ch_multiqc_files = ch_multiqc_files.mix( SAMTOOLS_STATS.out.stats )
-
 
     emit:
     stats    = SAMTOOLS_STATS.out.stats     //channel: [val(meta), [reads  ] ]
