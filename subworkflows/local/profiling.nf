@@ -122,6 +122,15 @@ workflow PROFILING {
     if ( params.run_kraken2 ) {
 
         ch_input_for_kraken2 =  ch_input_for_profiling.kraken2
+                                .dump(tag: "ch_input_for_kraken2")
+                                .map {
+                                    // Have to pick first element if using bracken,
+                                    // as db sheet for bracken must have ; sep list to
+                                    meta, reads, db_meta, db ->
+                                        def db_meta_new = db_meta.clone()
+                                        db_meta_new['db_params'] = db_meta['tool'] == 'bracken' ? db_meta_new['db_params'].split(;)[0] : db_meta_new['db_params']
+                                    [ meta, reads, db_meta_new, db ]
+                                }
                                 .multiMap {
                                     it ->
                                         reads: [ it[0] + it[2], it[1] ]
@@ -155,15 +164,19 @@ workflow PROFILING {
             ch_kraken2_output = KRAKEN2_STANDARD_REPORT(ch_kraken2_output).report
         }
 
+        // TODO UPDATE BRACKEN TO TAKE SECOND ELEMENT OF LIST
+        // NEED TO DO CHECKS WHEN ONE OR THE OTHER IS EMPTY AS WELL
+
         // Extract the database name to combine by.
         ch_bracken_databases = databases
             .filter { meta, db -> meta['tool'] == 'bracken' }
             .map { meta, db -> [meta['db_name'], meta, db] }
 
-        // Extract the database name to combine by.
+        // Combine back with the reads
         ch_input_for_bracken = ch_kraken2_output
             .map { meta, report -> [meta['db_name'], meta, report] }
             .combine(ch_bracken_databases, by: 0)
+            .dump(tag: "ch_input_for_bracken")
             .multiMap { key, meta, report, db_meta, db ->
                 report: [meta + db_meta, report]
                 db: db

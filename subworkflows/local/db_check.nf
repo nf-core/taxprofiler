@@ -13,8 +13,8 @@ workflow DB_CHECK {
     ch_dbs_for_untar = Channel.empty()
     ch_final_dbs = Channel.empty()
 
-    // special check to check _between_ rows, for which we must group rows together
-    // note: this will run in parallel to within-row validity, but we can assume this will run faster thus will fail first
+    // Special check to check _between_ rows, for which we must group rows together
+    // Note: this will run in parallel to within-row validity, but we can assume this will run faster thus will fail first
     Channel.fromPath(dbsheet)
             .splitCsv ( header:true, sep:',' )
             .map {[it.tool, it.db_name] }
@@ -25,13 +25,14 @@ workflow DB_CHECK {
                     if ( unique_names.size() < db_name.size() ) exit 1, "[nf-core/taxprofiler] ERROR: Each database for a tool must have a unique name, duplicated detected. Tool: ${tool}, Database name: ${unique_names}"
             }
 
-    // normal checks for within-row validity, so can be moved to separate functions
+    // Normal checks for within-row validity, so can be moved to separate functions
     parsed_samplesheet = Channel.fromPath(dbsheet)
         .splitCsv ( header:true, sep:',' )
         .map {
             validate_db_rows(it)
             create_db_channels(it)
         }
+        .dump(tag: "blah")
 
     ch_dbs_for_untar = parsed_samplesheet
         .branch {
@@ -40,7 +41,7 @@ workflow DB_CHECK {
         }
 
     // Filter the channel to untar only those databases for tools that are selected to be run by the user.
-    ch_input_untar = ch_dbs_for_untar.untar.dump()
+    ch_input_untar = ch_dbs_for_untar.untar
                         .filter {
                           params["run_${it[0]['tool']}"]
                         }
@@ -70,6 +71,8 @@ def validate_db_rows(LinkedHashMap row){
         // detect quotes in params
         if ( row.db_params.contains('"') ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. No quotes allowed. Error in: ${row}"
         if ( row.db_params.contains("'") ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. No quotes allowed. Error in: ${row}"
+
+        if ( row.tool == 'bracken' && !row.db_params.contains(";") )  exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. Bracken requires a semi-colon. Error in: ${row}"
 
 }
 
