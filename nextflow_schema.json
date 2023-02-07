@@ -293,7 +293,7 @@
                     "description": "Save mapping index of input reference when not already supplied by user",
                     "help_text": "Save the output files of the in-built indexing of the host genome.\n\nThis is recommend to be turned on if you plan to use the same reference genome multiple times, as supplying the directory or file to `--shortread_hostremoval_index` or `--longread_hostremoval_index` respectively can speed up runtime of future runs. Once generated, we recommend you place this file _outside_ of your run results directory in a central 'cache' directory you and others using your machine can access and supply to the pipeline."
                 },
-                "save_hostremoval_mapped": {
+                "save_hostremoval_bam": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Saved mapped and unmapped reads in BAM format from host removal",
@@ -303,7 +303,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save unmapped reads in FASTQ format from host removal",
-                    "help_text": "Save the unreads mapped to the reference genome in FASTQ format (as exported from `samtools view`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
+                    "help_text": "Save only the reads NOT mapped to the reference genome in FASTQ format (as exported from `samtools view` and `bam2fq`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
                 }
             },
             "fa_icon": "fas fa-user-times"

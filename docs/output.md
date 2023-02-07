@@ -23,7 +23,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [SAMtools stats](#samtoolsstats) - Statistics from host removal
-- [SAMtools fastq](#samtoolsfastq) - Converts the alignment file in fastq format
+- [SAMtools bam2fq](#samtoolsfastq) - Converts unmapped BAM file to fastq format (minimap2 only)
 - [Bracken](#bracken) - Taxonomic classifier using k-mers and abundance estimations
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
 - [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
@@ -179,7 +179,7 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 
 ### Bowtie2
 
-[Bowtie 2](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml) is an ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences. It is particularly good at aligning reads of about 50 up to 100s or 1,000s of characters, and particularly good at aligning to relatively long (e.g. mammalian) genomes.
+[Bowtie 2](https://bowtie-bio.sourceforge.net/bowtie2/index.shtml) is an ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences. It is particularly good at aligning reads of about 50 up to 100s or 1,000s of characters, and particularly good at aligning to relatively long (e.g. mammalian) genomes.
 
 It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/or other possible contaminant reads (e.g. Phi X) from short-read `.fastq` files prior to profiling.
 
@@ -187,13 +187,15 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/
 <summary>Output files</summary>
 
 - `bowtie2/`
-  - `<sample_id>.bam`: reads that aligned against the user-supplied reference genome
+  - `<sample_id>.bam`: BAM file containing reads that aligned against the user-supplied reference genome as well as unmapped reads
   - `<sample_id>.bowtie2.log`: log file about the mapped reads
   - `<sample_id>.unmapped.fastq.gz`: the off-target reads from the mapping that is used in downstream steps.
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only see the mapped (host) and unmapped reads in `.bam` format or the off-target reads in `.fastq` format in your results directory if you provide `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped` respectively.
+By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only have a `.bam` file if you specify `--save_hostremoval_bam`. This will contain _both_ mapped and unmapped reads. You will only get FASTQ files if you specify to save `--save_hostremoval_unmapped` - these contain only unmapped reads.
+
+> ℹ️ Unmapped reads in FASTQ are only found in this directory for short-reads, for long-reads see [`samtools/bam2fq/`](#samtools-bam2fq)
 
 > ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as run merging etc..
 
@@ -209,27 +211,31 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 <summary>Output files</summary>
 
 - `minimap2`
-  - `<sample_id>.bam`: Alignment file in BAM format
+  - `<sample_id>.bam`: Alignment file in BAM format containing both mapped and unmapped reads.
 
 </details>
 
-By default, nf-core taxprofiler will only provide the `.bam` file containing mapped and unmapped if host removal for long reads is turned on (i.e., `--save_hostremoval_mapped` and ` --save_hostremoval_unmapped`).
+By default, nf-core/taxprofiler will only provide the `.bam` file containing mapped and unmapped reads if saving of host removal for long reads is turned on via `--save_hostremoval_bam`.
 
 > ℹ️ minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
 
-### SAMtools fastq
+> ℹ️ Unlike Bowtie2, minimap2 does not produce an unmapped FASTQ file by itself. See [`samtools/bam2fq`](#samtools-bam2fq)
 
-[SAMtools fastq](http://www.htslib.org/doc/1.1/samtools.html) converts a `.sam`, `.bam`, or `.cram` alignment file to FASTQ format
+### SAMtools bam2fq
+
+[SAMtools bam2fq](http://www.htslib.org/doc/1.1/samtools.html) converts a `.sam`, `.bam`, or `.cram` alignment file to FASTQ format
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `samtoolsstats`
-  - `<sample_id>.fq.gz`: Alignment file in FASTQ gzip format.
+  - `<sample_id>_interleaved.fq.gz`: Unmapped reads only in FASTQ gzip format
 
 </details>
 
-This directory will be present and contain the unmapped reads from the `.fastq` format from long-read minimap2 host removal (for short-read unmapped reads, see [bowtie2](#bowtie2)), if `--save_hostremoval_unmapped` is supplied.
+This directory will be present and contain the unmapped reads from the `.fastq` format from long-read minimap2 host removal, if `--save_hostremoval_unmapped` is supplied
+
+> ℹ️ For short-read unmapped reads, see [bowtie2](#bowtie2).
 
 ### SAMtools stats
 
