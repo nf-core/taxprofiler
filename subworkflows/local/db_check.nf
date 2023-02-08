@@ -32,7 +32,6 @@ workflow DB_CHECK {
             validate_db_rows(it)
             create_db_channels(it)
         }
-        .dump(tag: "blah")
 
     ch_dbs_for_untar = parsed_samplesheet
         .branch {
