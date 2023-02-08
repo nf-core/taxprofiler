@@ -71,7 +71,8 @@ def validate_db_rows(LinkedHashMap row){
         if ( row.db_params.contains('"') ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. No quotes allowed. Error in: ${row}"
         if ( row.db_params.contains("'") ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. No quotes allowed. Error in: ${row}"
 
-        if ( row.tool == 'bracken' && !row.db_params.contains(";") )  exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. Bracken requires a semi-colon. Error in: ${row}"
+        // check if any form of bracken params, that it must have `;`
+        if ( row.tool == 'bracken' && row.db_params && !row.db_params.contains(";") )  exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. Bracken requires a semi-colon if passing parameter. Error in: ${row}"
 
 }
 

@@ -103,7 +103,7 @@ metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ```
 
-Bracken **must** have a _semi-colon_ `;` list as in `db_params`, regardless of whether you have parameters or not. This is to allow to specify the Kraken2 parameters before, and Bracken parameters after the `;` as Bracken is a two step process. This is particularly important if you supply a Bracken database with a non-default read length parameter.
+For Bracken, if you wish to supply amy parameters to either the Kraken or Bracken step you **must** have a _semi-colon_ `;` list as in `db_params`. This is to allow to specify the Kraken2 parameters before, and Bracken parameters after the `;` as Bracken is a two step process. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this as empty.
 
 Column specifications are as follows:
 
