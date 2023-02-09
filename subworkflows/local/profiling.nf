@@ -141,7 +141,6 @@ workflow PROFILING {
 
                                     [ meta, reads, db_meta_new, db ]
                                 }
-                                .dump(tag: "ch_input_for_kraken2_after")
                                 .multiMap {
                                     it ->
                                         reads: [ it[0] + it[2], it[1] ]
@@ -184,7 +183,6 @@ workflow PROFILING {
         ch_input_for_bracken = ch_kraken2_output
             .map { meta, report -> [meta['db_name'], meta, report] }
             .combine(ch_bracken_databases, by: 0)
-            .dump(tag: "ch_input_for_bracken_b4")
             .map {
 
                 key, meta, reads, db_meta, db ->
@@ -208,7 +206,6 @@ workflow PROFILING {
 
                 [ key, meta, reads, db_meta_new, db ]
             }
-            .dump(tag: "ch_input_for_bracken_after")
             .multiMap { key, meta, report, db_meta, db ->
                 report: [meta + db_meta, report]
                 db: db
