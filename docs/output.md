@@ -344,7 +344,7 @@ The main taxonomic classification files from Centrifuge are the `_combined_repor
 
 </details>
 
-The most useful summary file is the `*kaijutable.txt` file which summarises hits across all treads. However if you wish to look at more precise information on a per-read bases `*tsv` file. The default taxonomic rank is `species`. You can provide a different one by updating the argument `--kaiju_taxon_rank`.
+The most useful summary file is the `*kaijutable.txt` file which summarises hits across all reads. However if you wish to look at more precise information on a per-read basis, see the `*tsv` file. The default taxonomic rank is `species`. You can provide a different one by updating the argument `--kaiju_taxon_rank`.
 
 ### DIAMOND
 
