@@ -3,6 +3,7 @@
 //
 
 include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../modules/nf-core/bracken/combinebrackenoutputs/main'
+include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
@@ -77,6 +78,21 @@ workflow STANDARDISATION_PROFILES {
     ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.versions )
+
+    // Kaiju
+
+    // Collect and replace id for db_name for prefix
+    ch_profiles_for_kaiju = ch_input_classifications.kaiju
+                                .map { [it[0]['db_name'], it[1]] }
+                                .groupTuple()
+                                .map {
+                                    [[id:it[0]], it[1]]
+                                }
+
+    KAIJU_KAIJU2TABLE ( ch_profiles_for_kaiju, ch_input_databases.kaiju.map{it[1]}, params.kaiju_taxon_rank)
+    ch_standardised_tables = ch_standardised_tables.mix( KAIJU_KAIJU2TABLE.out.summary )
+    ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary )
+    ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE.out.versions )
 
     // Kraken2
 
