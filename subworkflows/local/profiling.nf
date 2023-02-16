@@ -5,12 +5,13 @@
 include { MALT_RUN                              } from '../../modules/nf-core/malt/run/main'
 include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV  } from '../../modules/nf-core/megan/rma2info/main'
 include { KRAKEN2_KRAKEN2                       } from '../../modules/nf-core/kraken2/kraken2/main'
-include { KRAKEN2_STANDARD_REPORT                } from '../../modules/local/kraken2_standard_report'
+include { KRAKEN2_STANDARD_REPORT               } from '../../modules/local/kraken2_standard_report'
 include { BRACKEN_BRACKEN                       } from '../../modules/nf-core/bracken/bracken/main'
 include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/centrifuge/centrifuge/main'
 include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/centrifuge/kreport/main'
 include { METAPHLAN3_METAPHLAN3                 } from '../../modules/nf-core/metaphlan3/metaphlan3/main'
 include { KAIJU_KAIJU                           } from '../../modules/nf-core/kaiju/kaiju/main'
+include { KAIJU_KAIJU2TABLE                     } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX                        } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                         } from '../../modules/nf-core/motus/profile/main'
 include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ        } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
@@ -271,6 +272,10 @@ workflow PROFILING {
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
 
+        KAIJU_KAIJU2TABLE ( KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_rank)
+        ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE.out.versions )
+        ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary )
+        ch_raw_profiles    = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE.out.summary )
     }
 
     if ( params.run_diamond ) {
