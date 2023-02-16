@@ -33,7 +33,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [MALT](#malt) - Sequence alignment and analysis tool designed for processing high-throughput sequencing data, especially in the context of metagenomics
 - [MetaPhlAn3](#metaphlan3) - Genome-level marker gene based taxonomic classifier
 - [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
-- [TAXPASTA](#taxpasta) -  Tool to standardise taxonomic profiles as well as merge profiles across samples for the same classifier/profiler.
+- [TAXPASTA](#taxpasta) - Tool to standardise taxonomic profiles as well as merge profiles across samples for the same classifier/profiler.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -445,7 +445,7 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 
 - `taxpasta`
   - `<db_name>.<sample_id>*.{tsv,csv,arrow,parquet,biom}`: A list of taxonomic profiler output files. The standard format is the `tsv`. The first column describes the taxonomy ID and the rest of the columns describe the read counts for each sample.
-</details>
+  </details>
 
 The following report files are used for the taxpasta step:
 
