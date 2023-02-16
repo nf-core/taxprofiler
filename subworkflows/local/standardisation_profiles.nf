@@ -8,6 +8,7 @@ include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
+include { TAXPASTA_MERGE                                                        } from '../../modules/nf-core/taxpasta/merge/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -20,6 +21,20 @@ workflow STANDARDISATION_PROFILES {
     ch_standardised_tables = Channel.empty()
     ch_versions            = Channel.empty()
     ch_multiqc_files       = Channel.empty()
+
+    //Taxpasta standardisation
+    ch_input_for_taxpasta = profiles
+                            .map {
+                                meta, profile ->
+                                    def meta_new = [:]
+                                    meta_new.id = meta.db_name
+                                    meta_new.tool = meta.tool == 'metaphlan3' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
+                                    [meta_new, profile]
+                                }
+                                .groupTuple ()
+
+    TAXPASTA_MERGE (ch_input_for_taxpasta, [], [])
+
 
     /*
         Split profile results based on tool they come from
@@ -74,6 +89,8 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
+
+
     KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE ( ch_profiles_for_centrifuge )
     ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
@@ -125,6 +142,8 @@ workflow STANDARDISATION_PROFILES {
     ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
     ch_versions = ch_versions.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.versions )
 
+    ch_standardised_tables.dump (tag: 'standardised')
+
     // mOTUs
 
     // mOTUs has a 'single' database, and cannot create custom ones.
@@ -149,6 +168,7 @@ workflow STANDARDISATION_PROFILES {
 
     emit:
     tables   = ch_standardised_tables
+    taxpasta = TAXPASTA_MERGE.out.merged_profiles
     versions = ch_versions
     mqc      = ch_multiqc_files
 }

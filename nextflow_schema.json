@@ -767,5 +767,19 @@
         {
             "$ref": "#/definitions/reference_genome_options"
         }
-    ]
+    ],
+    "properties": {
+        "add_taxonomy": {
+            "type": "string",
+            "default": "false"
+        },
+        "add_samplesheet": {
+            "type": "string",
+            "default": "false"
+        },
+        "standardisation_taxpasta_format": {
+            "type": "string",
+            "default": "tsv"
+        }
+    }
 }
