@@ -509,6 +509,21 @@
                     "fa_icon": "fas fa-folder-open",
                     "description": "Specify path to krona taxonomy directories (required for MALT krona plots)",
                     "help_text": "Specify a path to a Krona taxonomy database directory (i.e. a directory containing a krona generated `.tab` file).\n\nThis is only required for generating Krona plots of MALT output.\n\nNote this taxonomy database must be downloaded and generated with the `updateTaxonomy.sh` script from the krona-tools package."
+                },
+                "taxpasta_add_taxonomy": {
+                    "type": "boolean",
+                    "description": "The path to a directory  containing taxdump files.",
+                    "help_text": "At least nodes.dmp and names.dmp are required. A merged.dmp file is optional."
+                },
+                "taxpasta_add_samplesheet": {
+                    "type": "boolean",
+                    "description": "A table with with two columns, one for the sample and one for  the taxonomic profile.",
+                    "help_text": "If this option is provided, any arguments are ignored."
+                },
+                "taxpasta_standardisation_format": {
+                    "type": "string",
+                    "default": "tsv",
+                    "description": "The desired output format."
                 }
             },
             "fa_icon": "fas fa-chart-line"
@@ -767,19 +782,5 @@
         {
             "$ref": "#/definitions/reference_genome_options"
         }
-    ],
-    "properties": {
-        "add_taxonomy": {
-            "type": "string",
-            "default": "false"
-        },
-        "add_samplesheet": {
-            "type": "string",
-            "default": "false"
-        },
-        "standardisation_taxpasta_format": {
-            "type": "string",
-            "default": "tsv"
-        }
-    }
+    ]
 }
