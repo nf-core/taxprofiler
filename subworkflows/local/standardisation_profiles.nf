@@ -141,7 +141,6 @@ workflow STANDARDISATION_PROFILES {
     ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
     ch_versions = ch_versions.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.versions )
 
-
     // mOTUs
 
     // mOTUs has a 'single' database, and cannot create custom ones.
