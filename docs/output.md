@@ -444,8 +444,12 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 <summary>Output files</summary>
 
 - `taxpasta`
-  - `<db_name>.<sample_id>*.{tsv,csv,arrow,parquet,biom}`: A list of taxonomic profiler output files. The standard format is the `tsv`. The first column describes the taxonomy ID and the rest of the columns describe the read counts for each sample.
+
+  - `<tool>_<database>*.{tsv,csv,arrow,parquet,biom}`: Standardised taxon table containing multiple samples. The standard format is the `tsv`. The first column describes the taxonomy ID and the rest of the columns describe the read counts for each sample.
+
   </details>
+
+These files will likely be the most useful files for the comparison of differences in classification between different tools or building consensuses, with the caveat they have slightly less information than the actual output from each tool (which may have non-standard information e.g. taxonomic rank, percentage of hits, abundance estimations).
 
 The following report files are used for the taxpasta step:
 
