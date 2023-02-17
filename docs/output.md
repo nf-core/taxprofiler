@@ -449,15 +449,15 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 
 The following report files are used for the taxpasta step:
 
-- Bracken: `<sample>_<db_name>.tsv`
-- Centrifuge: `<sample_id>.centrifuge.txt`
-- Diamond: `<sample_id>`
-- Kaiju: `<sample_id>_<db_name>.kaijutable.txt`
-- KrakenUniq: `<sample_id>_<db_name>.report.txt`
-- Kraken2: `<sample_id>_<db_name>.report.txt`
-- MALT: `<sample_id>.txt.gz`
-- MetaPhlAn3: `<sample_id>_profile.txt`
-- mOTUs: `<sample_id>.out`
+- Bracken: `<sample>_<db_name>.tsv` Taxpasta used the `new_est_reads` column for the standardised profile.
+- Centrifuge: `<sample_id>.centrifuge.txt` Taxpasta uses the `direct_assigned_reads` column for the standardised profile.
+- Diamond: `<sample_id>` Taxpasta summarises number of reads per NCBI taxonomy ID standardised profile.
+- Kaiju: `<sample_id>_<db_name>.kaijutable.txt` Taxpasta uses the `reads` column from kaiju2table standardised profile.
+- KrakenUniq: `<sample_id>_<db_name>.report.txt` Taxpasta uses the `reads` column for the standardised profile.
+- Kraken2: `<sample_id>_<db_name>.report.txt` Taxpasta uses the `direct_assigned_reads` column for the standardised profile.
+- MALT: `<sample_id>.txt.gz` Taxpasta uses the `count` (second) column from the output of MEGAN6's rma2info for the standardised profile.
+- MetaPhlAn3: `<sample_id>_profile.txt` Taxpasta uses the `relative_abundance` column multiplied with a fixed number to yield an integer for the standardised profile.
+- mOTUs: `<sample_id>.out` Taxpasta uses the `read_count` column for the standardised profile.
 
 ### MultiQC
 
