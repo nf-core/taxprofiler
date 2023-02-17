@@ -90,7 +90,6 @@ workflow STANDARDISATION_PROFILES {
                                 }
 
 
-
     KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE ( ch_profiles_for_centrifuge )
     ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
@@ -142,7 +141,6 @@ workflow STANDARDISATION_PROFILES {
     ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
     ch_versions = ch_versions.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.versions )
 
-    ch_standardised_tables.dump (tag: 'standardised')
 
     // mOTUs
 

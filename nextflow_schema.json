@@ -523,7 +523,8 @@
                 "taxpasta_standardisation_format": {
                     "type": "string",
                     "default": "tsv",
-                    "description": "The desired output format."
+                    "description": "The desired output format.",
+                    "enum": ["tsv", "csv", "arrow", "parquet", "biom"]
                 }
             },
             "fa_icon": "fas fa-chart-line"
