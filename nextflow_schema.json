@@ -524,7 +524,8 @@
                     "type": "string",
                     "default": "tsv",
                     "description": "The desired output format.",
-                    "enum": ["tsv", "csv", "arrow", "parquet", "biom"]
+                    "enum": ["tsv", "csv", "arrow", "parquet", "biom"],
+                    "fa_icon": "fas fa-file"
                 }
             },
             "fa_icon": "fas fa-chart-line"
