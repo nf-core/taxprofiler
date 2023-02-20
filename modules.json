@@ -207,6 +207,11 @@
                         "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
+                    "taxpasta/merge": {
+                        "branch": "master",
+                        "git_sha": "74ab450ed05e034d049c00f6e2853de2c31594b4",
+                        "installed_by": ["modules"]
+                    },
                     "untar": {
                         "branch": "master",
                         "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
