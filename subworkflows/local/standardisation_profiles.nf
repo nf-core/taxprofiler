@@ -150,7 +150,8 @@ workflow STANDARDISATION_PROFILES {
                                 }
 
     MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
-
+    ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
+    
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles
     versions = ch_versions
