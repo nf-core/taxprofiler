@@ -438,7 +438,7 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 
 ### TAXPASTA
 
-[TAXPASTA](https://github.com/taxprofiler/taxpasta) that standardises and merge two or more taxonomic profiles across samples into one single table. It supports multiple different classifiers simplifying taxonomic classification results between tools and databases.
+[TAXPASTA](https://github.com/taxprofiler/taxpasta) standardises and merges two or more taxonomic profiles across samples into one single table. It supports multiple different classifiers simplifying comparison of taxonomic classification results between tools and databases.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -463,7 +463,7 @@ The following report files are used for the taxpasta step:
 - MetaPhlAn3: `<sample_id>_profile.txt` Taxpasta uses the `relative_abundance` column multiplied with a fixed number to yield an integer for the standardised profile.
 - mOTUs: `<sample_id>.out` Taxpasta uses the `read_count` column for the standardised profile.
 
-Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
+> ⚠️ Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
 
 ### MultiQC
 
