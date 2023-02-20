@@ -18,7 +18,6 @@ workflow STANDARDISATION_PROFILES {
     motu_version
 
     main:
-    ch_standardised_tables = Channel.empty()
     ch_versions            = Channel.empty()
     ch_multiqc_files       = Channel.empty()
 
@@ -91,7 +90,6 @@ workflow STANDARDISATION_PROFILES {
 
 
     KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE ( ch_profiles_for_centrifuge )
-    ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.versions )
 
@@ -106,7 +104,6 @@ workflow STANDARDISATION_PROFILES {
                                 }
 
     KAIJU_KAIJU2TABLE ( ch_profiles_for_kaiju, ch_input_databases.kaiju.map{it[1]}, params.kaiju_taxon_rank)
-    ch_standardised_tables = ch_standardised_tables.mix( KAIJU_KAIJU2TABLE.out.summary )
     ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary )
     ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE.out.versions )
 
@@ -123,7 +120,6 @@ workflow STANDARDISATION_PROFILES {
                                 }
 
     KRAKENTOOLS_COMBINEKREPORTS_KRAKEN ( ch_profiles_for_kraken2 )
-    ch_standardised_tables = ch_standardised_tables.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.versions )
 
@@ -137,7 +133,6 @@ workflow STANDARDISATION_PROFILES {
                             }
 
     METAPHLAN3_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan3 )
-    ch_standardised_tables = ch_standardised_tables.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
     ch_versions = ch_versions.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.versions )
 
@@ -156,15 +151,7 @@ workflow STANDARDISATION_PROFILES {
 
     MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
 
-    if ( params.generate_biom_output ) {
-        ch_standardised_tables = ch_standardised_tables.mix ( MOTUS_MERGE.out.biom )
-    } else {
-        ch_standardised_tables = ch_standardised_tables.mix ( MOTUS_MERGE.out.txt )
-    }
-    ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
-
     emit:
-    tables   = ch_standardised_tables
     taxpasta = TAXPASTA_MERGE.out.merged_profiles
     versions = ch_versions
     mqc      = ch_multiqc_files
