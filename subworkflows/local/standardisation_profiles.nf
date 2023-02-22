@@ -24,16 +24,16 @@ workflow STANDARDISATION_PROFILES {
     //Taxpasta standardisation
     ch_input_for_taxpasta = profiles
                             .map {
-                                meta, profile ->
-                                    def meta_new = [:]
-                                    meta_new.id = meta.db_name
-                                    meta_new.tool = meta.tool == 'metaphlan3' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
-                                    [meta_new, profile]
-                                }
-                                .groupTuple ()
+                                    meta, profile ->
+                                        def meta_new = [:]
+                                        meta_new.id = meta.db_name
+                                        meta_new.tool = meta.tool == 'metaphlan3' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
+                                        [meta_new, profile]
+                            }
+                            .groupTuple ()
+                            .map { [ it[0], it[1].flatten() ] }
 
     TAXPASTA_MERGE (ch_input_for_taxpasta, [], [])
-
 
     /*
         Split profile results based on tool they come from
