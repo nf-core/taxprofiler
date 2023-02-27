@@ -449,6 +449,8 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 
   </details>
 
+By providing the path to a directory containing taxdump files to `--taxpasta_taxonomy_dir`, the taxon name, the taxon rank, the taxon's entire lineage including taxon names and/or the taxon's entire lineage including taxon identifiers can also be added in the output in addition to just the taxon ID. Addition of this extra information can be turned by using the parameters `--taxpasta_add_name`, `--taxpasta_add_rank`, `--taxpasta_add_lineage` and `--taxpasta_add_idlineage` respectively.
+
 These files will likely be the most useful files for the comparison of differences in classification between different tools or building consensuses, with the caveat they have slightly less information than the actual output from each tool (which may have non-standard information e.g. taxonomic rank, percentage of hits, abundance estimations).
 
 The following report files are used for the taxpasta step:
