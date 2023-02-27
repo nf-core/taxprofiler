@@ -540,7 +540,7 @@
                 "taxpasta_add_idlineage": {
                     "type": "boolean",
                     "description": "Add the taxon's entire lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `taxpasta_add_idlineage`\n"
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_idlineage`\n"
                 }
             },
             "fa_icon": "fas fa-chart-line"
