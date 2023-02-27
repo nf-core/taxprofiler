@@ -520,25 +520,27 @@
                 "taxpasta_taxonomy_dir": {
                     "type": "string",
                     "description": "The path to a directory containing taxdump files.",
-                    "help_text": "At least nodes.dmp and names.dmp are required. A merged.dmp file is optional."
+                    "help_text": "This arguments provides the path to the directory containing taxdump files. At least nodes.dmp and names.dmp are required. A merged.dmp file is optional. \n\nModifies tool parameter(s):\n-taxpasta: `--taxpasta_taxonomy_dir`"
                 },
                 "taxpasta_add_name": {
                     "type": "boolean",
-                    "description": "Add the taxon name to the output."
+                    "description": "Add the taxon name to the output.",
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon name can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `taxpasta_add_name`"
                 },
                 "taxpasta_add_rank": {
                     "type": "boolean",
-                    "description": "Add the taxon rank to the output."
+                    "description": "Add the taxon rank to the output.",
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `taxpasta_add_rank`"
                 },
                 "taxpasta_add_lineage": {
                     "type": "boolean",
                     "description": "Add the taxon's entire lineage to the output.",
-                    "help_text": "These are taxon names separated by semi-colons.   "
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon names separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `taxpasta_add_lineage`\n"
                 },
                 "taxpasta_add_idlineage": {
                     "type": "boolean",
                     "description": "Add the taxon's entire lineage to the output.",
-                    "help_text": "These are taxon identifiers separated by semi-colons. "
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `taxpasta_add_idlineage`\n"
                 }
             },
             "fa_icon": "fas fa-chart-line"
