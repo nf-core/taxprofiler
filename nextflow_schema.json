@@ -530,7 +530,7 @@
                 "taxpasta_add_rank": {
                     "type": "boolean",
                     "description": "Add the taxon rank to the output.",
-                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `taxpasta_add_rank`"
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_rank`"
                 },
                 "taxpasta_add_lineage": {
                     "type": "boolean",
