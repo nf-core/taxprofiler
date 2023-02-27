@@ -518,7 +518,7 @@
                     "enum": ["tsv", "csv", "arrow", "parquet", "biom"]
                 },
                 "taxpasta_taxonomy_dir": {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "The path to a directory containing taxdump files.",
                     "help_text": "At least nodes.dmp and names.dmp are required. A merged.dmp file is optional."
                 },
