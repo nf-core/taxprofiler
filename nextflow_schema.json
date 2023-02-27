@@ -521,6 +521,28 @@
                     "type": "boolean",
                     "description": "The path to a directory containing taxdump files.",
                     "help_text": "At least nodes.dmp and names.dmp are required. A merged.dmp file is optional."
+                },
+                "taxpasta_add_name": {
+                    "type": "string",
+                    "default": "false",
+                    "description": "Add the taxon name to the output."
+                },
+                "taxpasta_add_rank": {
+                    "type": "string",
+                    "default": "false",
+                    "description": "Add the taxon rank to the output."
+                },
+                "taxpasta_add_lineage": {
+                    "type": "string",
+                    "default": "false",
+                    "description": "Add the taxon's entire lineage to the output.",
+                    "help_text": "These are taxon names separated by semi-colons.   "
+                },
+                "taxpasta_add_idlineage": {
+                    "type": "string",
+                    "default": "false",
+                    "description": "Add the taxon's entire lineage to the output.",
+                    "help_text": "These are taxon identifiers separated by semi-colons. "
                 }
             },
             "fa_icon": "fas fa-chart-line"

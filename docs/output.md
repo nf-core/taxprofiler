@@ -449,7 +449,7 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 
   </details>
 
-By enabling the parameter `--taxonomy` and giving the path to a directory containing taxdump files, the taxon name, the taxon rank and the taxon's entire lineage can be added in the output. Those should be configured through `ext.args` by respectively using the parameters `--add-name`, `--add-rank` and `--add-lineage`.
+By enabling the parameter `--taxonomy` and giving the path to a directory containing taxdump files, the taxon name, the taxon rank, the taxon's entire lineage including taxon names and the taxon's entire lineage including taxon identifiers can be added in the output. Those should be configured through `ext.args` by respectively using the parameters `--add-name`, `--add-rank`, `--add-lineage` and `--add-id-lineage`.
 
 These files will likely be the most useful files for the comparison of differences in classification between different tools or building consensuses, with the caveat they have slightly less information than the actual output from each tool (which may have non-standard information e.g. taxonomic rank, percentage of hits, abundance estimations).
 
