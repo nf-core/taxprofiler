@@ -9,13 +9,13 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 // Validate input parameters
 WorkflowTaxprofiler.initialise(params, log)
 
-// TODO nf-core: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
 def checkPathParamList = [ params.input, params.genome, params.databases,
                             params.outdir, params.longread_hostremoval_index,
                             params.hostremoval_reference, params.shortread_hostremoval_index,
                             params.multiqc_config, params.shortread_qc_adapterlist,
                             params.krona_taxonomy_directory,
+                            params.taxpasta_taxonomy_dir,
                             params.multiqc_logo, params.multiqc_methods_description
                         ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
@@ -301,7 +301,6 @@ workflow TAXPROFILER {
         ch_multiqc_files = ch_multiqc_files.mix( STANDARDISATION_PROFILES.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
 
-    // TODO create multiQC module for metaphlan
     MULTIQC (
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),
