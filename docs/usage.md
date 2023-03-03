@@ -199,7 +199,7 @@ You can optionally save the FASTQ output of the run merging with the `--save_com
 
 > ⚠️ For nanopore data: we do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.
 
-#### Host Removal
+#### Host-Read Removal
 
 Removal of possible-host reads from FASTQ files prior classification/profiling can be activated with `--perform_shortread_hostremoval` or `--perform_longread_hostremoval`.
 

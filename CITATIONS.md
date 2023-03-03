@@ -62,7 +62,7 @@
 
   > Breitwieser, Florian P., Daniel N. Baker, and Steven L. Salzberg. 2018. KrakenUniq: confident and fast metagenomics classification using unique k-mer counts. Genome Biology 19 (1): 198. doi: 10.1186/s13059-018-1568-0
 
-  - [MetaPhlAn3](https://doi.org/10.7554/eLife.65088)
+- [MetaPhlAn3](https://doi.org/10.7554/eLife.65088)
 
   > Beghini, Francesco, Lauren J McIver, Aitor Blanco-Míguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, et al. 2021. “Integrating Taxonomic, Functional, and Strain-Level Profiling of Diverse Microbial Communities with BioBakery 3.” Edited by Peter Turnbaugh, Eduardo Franco, and C Titus Brown. ELife 10 (May): e65088. doi: 10.7554/eLife.65088
 
@@ -76,7 +76,7 @@
 
 - [DIAMOND](https://doi.org/10.1038/nmeth.3176)
 
-> Buchfink, Benjamin, Chao Xie, and Daniel H. Huson. 2015. “Fast and Sensitive Protein Alignment Using DIAMOND.” Nature Methods 12 (1): 59-60. doi: 10.1038/nmeth.3176.
+  > Buchfink, Benjamin, Chao Xie, and Daniel H. Huson. 2015. “Fast and Sensitive Protein Alignment Using DIAMOND.” Nature Methods 12 (1): 59-60. doi: 10.1038/nmeth.3176.
 
 - [Centrifuge](https://doi.org/10.1101/gr.210641.116)
 
