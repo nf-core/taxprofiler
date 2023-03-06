@@ -3,7 +3,7 @@
 //
 
 include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../modules/nf-core/bracken/combinebrackenoutputs/main'
-include { KAIJU_KAIJU2TABLE                                                     } from '../../modules/nf-core/kaiju/kaiju2table/main'
+include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
@@ -103,9 +103,9 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    KAIJU_KAIJU2TABLE ( ch_profiles_for_kaiju, ch_input_databases.kaiju.map{it[1]}, params.kaiju_taxon_rank)
-    ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary )
-    ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE.out.versions )
+    KAIJU_KAIJU2TABLE_COMBINED ( ch_profiles_for_kaiju, ch_input_databases.kaiju.map{it[1]}, params.kaiju_taxon_rank)
+    ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE_COMBINED.out.summary )
+    ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_COMBINED.out.versions )
 
     // Kraken2
 
@@ -151,7 +151,7 @@ workflow STANDARDISATION_PROFILES {
 
     MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
     ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
-    
+
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles
     versions = ch_versions

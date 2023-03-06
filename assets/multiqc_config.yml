@@ -39,6 +39,10 @@ sp:
   diamond:
     contents: "diamond v"
     num_lines: 10
+  fastqc/data:
+    fn_re: ".*(fastqc|falco)_data.txt$"
+  fastqc/zip:
+    fn: "*_fastqc.zip"
 
 #extra_fn_clean_exts:
 #    - '_fastp'
@@ -47,25 +51,23 @@ sp:
 
 top_modules:
   - "fastqc":
-      name: "FastQC (pre-Trimming)"
+      name: "FastQC / Falco (pre-Trimming)"
       path_filters:
-        - "*raw_*fastqc.zip"
+        - "*raw*"
+      path_filters_exclude:
+        - "*processed*"
+      extra: "If used in this run, Falco is a drop-in replacement for FastQC producing the same output, written by Guilherme de Sena Brandine and Andrew D. Smith."
   - "fastqc":
-      name: "Falco (pre-Trimming)"
+      name: "FastQC / Falco (post-Trimming)"
       path_filters:
-        - "*_raw_falco_*_report.html"
+        - "*processed*"
+      path_filters_exclude:
+        - "*raw*"
+      extra: "If used in this run, Falco is a drop-in replacement for FastQC producing the same output, written by Guilherme de Sena Brandine and Andrew D. Smith."
   - "fastp"
   - "adapterRemoval"
   - "porechop":
       extra: "ℹ️: if you get the error message 'Error - was not able to plot data.' this means that porechop did not detect any adapters and therefore no statistics generated."
-  - "fastqc":
-      name: "FastQC (post-Trimming)"
-      path_filters:
-        - "*_processed_*fastqc.zip"
-  - "fastqc":
-      name: "Falco (post-Trimming)"
-      path_filters:
-        - "*_processed_falco_*_report.html"
   - "bbduk"
   - "prinseqplusplus"
   - "filtlong"
@@ -105,19 +107,20 @@ top_modules:
 #It is not possible to set placement for custom kraken and centrifuge columns.
 
 table_columns_placement:
-  FastQC (pre-Trimming):
+  FastQC / Falco (pre-Trimming):
     total_sequences: 100
     avg_sequence_length: 110
     median_sequence_length: 120
     percent_duplicates: 130
     percent_gc: 140
     percent_fails: 150
-  Falco (pre-Trimming):
+  FastQC / Falco (post-Trimming):
     total_sequences: 200
     avg_sequence_length: 210
-    percent_duplicates: 220
-    percent_gc: 230
-    percent_fails: 240
+    median_sequence_length: 220
+    percent_duplicates: 230
+    percent_gc: 240
+    percent_fails: 250
   fastp:
     pct_adapter: 300
     pct_surviving: 310
@@ -141,19 +144,6 @@ table_columns_placement:
     Middle Split Percent: 460
   Filtlong:
     Target bases: 500
-  FastQC (post-Trimming):
-    total_sequences: 600
-    avg_sequence_length: 610
-    median_sequence_length: 620
-    percent_duplicates: 630
-    percent_gc: 640
-    percent_fails: 650
-  Falco (post-Trimming):
-    total_sequences: 700
-    avg_sequence_length: 710
-    percent_duplicates: 720
-    percent_gc: 730
-    percent_fails: 740
   BBDuk:
     Input reads: 800
     Total Removed bases percent: 810
@@ -205,25 +195,18 @@ table_columns_placement:
     "Number of ext-mOTUs": 1880
 
 table_columns_visible:
-  FastQC (pre-Trimming):
+  FastQC / Falco (pre-Trimming):
     total_sequences: True
     avg_sequence_length: True
     percent_duplicates: True
     percent_gc: True
     percent_fails: False
-  Falco (pre-Trimming):
+  FastQC / Falco (post-Trimming):
     total_sequences: True
     avg_sequence_length: True
-    percent_duplicates: True
-    percent_gc: True
+    percent_duplicates: False
+    percent_gc: False
     percent_fails: False
-  fastp:
-    pct_adapter: True
-    pct_surviving: True
-    pct_duplication: False
-    after_filtering_gc_content: False
-    after_filtering_q30_rate: False
-    after_filtering_q30_bases: False
   porechop:
     Input reads: False
     Start Trimmed:
@@ -232,6 +215,13 @@ table_columns_visible:
     End Trimmed Percent: True
     Middle Split: False
     Middle Split Percent: True
+  fastp:
+    pct_adapter: True
+    pct_surviving: True
+    pct_duplication: False
+    after_filtering_gc_content: False
+    after_filtering_q30_rate: False
+    after_filtering_q30_bases: False
   Filtlong:
     Target bases: True
   Adapter Removal:
@@ -239,18 +229,6 @@ table_columns_visible:
     percent_aligned: True
     percent_collapsed: True
     percent_discarded: False
-  FastQC (post-Trimming):
-    total_sequences: True
-    avg_sequence_length: True
-    percent_duplicates: False
-    percent_gc: False
-    percent_fails: False
-  Falco (post-Trimming):
-    total_sequences: True
-    avg_sequence_length: True
-    percent_duplicates: False
-    percent_gc: False
-    percent_fails: False
   BBDuk:
     Input reads: False
     Total Removed bases Percent: False
@@ -278,25 +256,13 @@ table_columns_visible:
   motus: False
 
 table_columns_name:
-  FastQC (pre-Trimming):
+  FastQC / Falco (pre-Trimming):
     total_sequences: "Nr. Input Reads"
     avg_sequence_length: "Length Input Reads"
     percent_gc: "% GC Input Reads"
     percent_duplicates: "% Dups Input Reads"
     percent_fails: "% Failed Input Reads"
-  Falco (pre-Trimming):
-    total_sequences: "Nr. Input Reads"
-    avg_sequence_length: "Length Input Reads"
-    percent_gc: "% GC Input Reads"
-    percent_duplicates: "% Dups Input Reads"
-    percent_fails: "% Failed Input Reads"
-  FastQC (post-Trimming):
-    total_sequences: "Nr. Processed Reads"
-    avg_sequence_length: "Length Processed Reads"
-    percent_gc: "% GC Processed Reads"
-    percent_duplicates: "% Dups Processed Reads"
-    percent_fails: "% Failed Processed Reads"
-  Falco (post-Trimming):
+  FastQC / Falco (post-Trimming):
     total_sequences: "Nr. Processed Reads"
     avg_sequence_length: "Length Processed Reads"
     percent_gc: "% GC Processed Reads"
@@ -314,7 +280,8 @@ extra_fn_clean_exts:
   - ".bbduk"
   - ".unmapped"
   - "_filtered"
-  - "_processed"
+  - type: remove
+    pattern: "_falco"
 
 section_comments:
   general_stats: "By default, all read count columns are displayed as millions (M) of reads."
