@@ -272,7 +272,7 @@ workflow PROFILING {
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
 
-        KAIJU_KAIJU2TABLE_SINGLE ( KAIJU_KAIJU_SINGLE.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_rank)
+        KAIJU_KAIJU2TABLE_SINGLE ( KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_rank)
         ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_SINGLE.out.versions )
         ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
         ch_raw_profiles    = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
