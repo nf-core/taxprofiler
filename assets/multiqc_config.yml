@@ -40,7 +40,7 @@ sp:
     contents: "diamond v"
     num_lines: 10
   fastqc/data:
-    fn_re: ".*[fastqc|falco]_data.txt"
+    fn_re: ".*(fastqc|falco)_data.txt$"
   fastqc/zip:
     fn: "*_fastqc.zip"
 
