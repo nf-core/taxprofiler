@@ -35,18 +35,20 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
-### FastQC or falco
+### FastQC or Falco
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `fastqc/`
-  - `*_fastqc.html`: FastQC report containing quality metrics.
-  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images.
+  - `*_fastqc.html`: FastQC or Falco report containing quality metrics.
+  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images (FastQC only).
 
 </details>
 
 [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your sequenced reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. For further reading and documentation see the [FastQC help pages](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
+
+If preprocessing is turned on, nf-core/taxprofiler runs FastQC/Falco twice -once before and once after adapter removal/read merging, to allow evaluation of the performance of these preprocessing steps. Note in the General Stats table, the columns of these two instances of FastQC/Falco are placed next to each other to make it easier to evaluate. However, the columns of the actual preprocessing steps (e.g., fastp or AdapterRemoval) will be displayed _after_ the two FastQC/Falco columns, even if they were run 'between' the two FastQC/Falco jobs in the pipeline itself.
 
 > ℹ️ Falco produces identical output to FastQC but in the `falco/` directory.
 
@@ -55,8 +57,6 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 ![MultiQC - FastQC mean quality scores plot](images/mqc_fastqc_quality.png)
 
 ![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
-
-> **NB:** The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
 
 ### fastp
 
