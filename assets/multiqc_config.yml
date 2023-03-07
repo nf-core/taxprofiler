@@ -44,11 +44,6 @@ sp:
   fastqc/zip:
     fn: "*_fastqc.zip"
 
-#extra_fn_clean_exts:
-#    - '_fastp'
-#    - '.pe.settings'
-#    - '.se.settings'
-
 top_modules:
   - "fastqc":
       name: "FastQC / Falco (pre-Trimming)"
