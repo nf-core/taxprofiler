@@ -34,8 +34,8 @@ workflow DB_CHECK {
         }
 
     ch_dbs_for_untar = parsed_samplesheet
-        .branch {
-            untar: it[1].toString().endsWith(".tar.gz")
+        .branch { db_meta, db ->
+            untar: db.name.endsWith(".tar.gz")
             skip: true
         }
 
