@@ -45,6 +45,8 @@ workflow LONGREAD_HOSTREMOVAL {
     SAMTOOLS_INDEX ( MINIMAP2_ALIGN.out.bam )
     ch_versions      = ch_versions.mix( SAMTOOLS_INDEX.out.versions.first() )
 
+    // FIXME: This join is performed using entire maps as keys.
+    //  Please replace with joining on specific keys instead.
     bam_bai = MINIMAP2_ALIGN.out.bam
         .join(SAMTOOLS_INDEX.out.bai)
 
