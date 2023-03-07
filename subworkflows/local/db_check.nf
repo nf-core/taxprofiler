@@ -28,9 +28,9 @@ workflow DB_CHECK {
     // Normal checks for within-row validity, so can be moved to separate functions
     parsed_samplesheet = Channel.fromPath(dbsheet)
         .splitCsv ( header:true, sep:',' )
-        .map {
-            validate_db_rows(it)
-            create_db_channels(it)
+        .map { row ->
+            validate_db_rows(row)
+            return [ row.subMap(['tool', 'db_name', 'db_params']), file(row.db_path) ]
         }
 
     ch_dbs_for_untar = parsed_samplesheet
@@ -54,41 +54,27 @@ workflow DB_CHECK {
     versions = ch_versions                   // channel: [ versions.yml ]
 }
 
-def validate_db_rows(LinkedHashMap row){
+def validate_db_rows(LinkedHashMap row) {
 
-        // check minimum number of columns
-        if (row.size() < 4) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database input sheet - malformed row (e.g. missing column). See documentation for more information. Error in: ${row}"
+    // check minimum number of columns
+    if (row.size() < 4) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database input sheet - malformed row (e.g. missing column). See documentation for more information. Error in: ${row}"
 
-        // all columns there
-        def expected_headers = ['tool', 'db_name', 'db_params', 'db_path']
-        if ( !row.keySet().containsAll(expected_headers) ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database input sheet - malformed column names. Please check input TSV. Column names should be: ${expected_keys.join(", ")}"
+    // all columns there
+    def expected_headers = ['tool', 'db_name', 'db_params', 'db_path']
+    if ( !row.keySet().containsAll(expected_headers) ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database input sheet - malformed column names. Please check input TSV. Column names should be: ${expected_keys.join(", ")}"
 
-        // valid tools specified
-        def expected_tools = [ "bracken", "centrifuge", "diamond", "kaiju", "kraken2", "krakenuniq", "malt", "metaphlan3", "motus" ]
-        if ( !expected_tools.contains(row.tool) ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid tool name. Please see documentation for all supported profilers. Error in: ${row}"
+    // valid tools specified
+    def expected_tools = [ "bracken", "centrifuge", "diamond", "kaiju",  "kraken2", "krakenuniq", "malt", "metaphlan3", "motus" ]
+    if ( !expected_tools.contains(row.tool) ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid tool name. Please see documentation for all supported profilers. Error in: ${row}"
 
-        // detect quotes in params
-        if ( row.db_params.contains('"') ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. No quotes allowed. Error in: ${row}"
-        if ( row.db_params.contains("'") ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. No quotes allowed. Error in: ${row}"
+    // detect quotes in params
+    if ( row.db_params.contains('"') ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. No quotes allowed. Error in: ${row}"
+    if ( row.db_params.contains("'") ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. No quotes allowed. Error in: ${row}"
 
-        // check if any form of bracken params, that it must have `;`
-        if ( row.tool == 'bracken' && row.db_params && !row.db_params.contains(";") )  exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. Bracken requires a semi-colon if passing parameter. Error in: ${row}"
+    // check if any form of bracken params, that it must have `;`
+    if ( row.tool == 'bracken' && row.db_params && !row.db_params.contains(";") )  exit 1, "[nf-core/taxprofiler] ERROR: Invalid database db_params entry. Bracken requires a semi-colon if passing parameter. Error in: ${row}"
+
+    // ensure that the database directory exists
+    if (!file(row.db_path, type: 'dir').exists()) exit 1, "ERROR: Please check input samplesheet -> database path could not be found!\n${row.db_path}"
 
 }
-
-def create_db_channels(LinkedHashMap row) {
-    def meta = [:]
-    meta.tool             = row.tool
-    meta.db_name          = row.db_name
-    meta.db_params        = row.db_params
-
-    def array = []
-    if (!file(row.db_path, type: 'dir').exists()) {
-        exit 1, "ERROR: Please check input samplesheet -> database path could not be found!\n${row.db_path}"
-    }
-    array = [ meta, file(row.db_path) ]
-
-    return array
-}
-
-
