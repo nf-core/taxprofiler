@@ -12,9 +12,9 @@ workflow INPUT_CHECK {
     parsed_samplesheet = SAMPLESHEET_CHECK ( samplesheet )
         .csv
         .splitCsv ( header:true, sep:',' )
-        .branch {
-            fasta: it['fasta'] != ''
-            nanopore: it['instrument_platform'] == 'OXFORD_NANOPORE'
+        .branch { row ->
+            fasta: row.fasta != ''
+            nanopore: row.instrument_platform == 'OXFORD_NANOPORE'
             fastq: true
         }
 
