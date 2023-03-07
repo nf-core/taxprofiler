@@ -41,9 +41,7 @@ workflow DB_CHECK {
 
     // Filter the channel to untar only those databases for tools that are selected to be run by the user.
     ch_input_untar = ch_dbs_for_untar.untar
-                        .filter {
-                          params["run_${it[0]['tool']}"]
-                        }
+        .filter { db_meta, db -> params["run_${db_meta.tool}"] }
 
     UNTAR (ch_input_untar)
     ch_versions = ch_versions.mix(UNTAR.out.versions.first())
