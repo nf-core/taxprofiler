@@ -29,8 +29,6 @@ jobs:
           - "latest-everything"
         parameters:
           - "--preprocessing_qc_tool falco"
-          - "--perform_longread_qc false"
-          - "--perform_shortread_qc false"
           - "--shortread_qc_tool fastp"
           - "--shortread_qc_tool adapterremoval"
           - "--shortread_complexityfilter_tool bbduk"
