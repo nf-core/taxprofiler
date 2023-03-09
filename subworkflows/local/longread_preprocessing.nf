@@ -36,7 +36,7 @@ workflow LONGREAD_PREPROCESSING {
         ch_clipped_reads = PORECHOP_PORECHOP.out.reads
             .map { meta, reads -> [ meta + [single_end: 1], reads ] }
 
-        ch_processed_reads = FILTLONG ( ch_clipped_reads.map { meta, reads -> [meta, [], reads ] } ).reads
+        ch_processed_reads = FILTLONG ( ch_clipped_reads.map { meta, reads -> [ meta, [], reads ] } ).reads
 
         ch_versions = ch_versions.mix(PORECHOP_PORECHOP.out.versions.first())
         ch_versions = ch_versions.mix(FILTLONG.out.versions.first())
