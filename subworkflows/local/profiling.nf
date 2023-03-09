@@ -87,7 +87,6 @@ workflow PROFILING {
                     [ new_meta, reads, db ]
 
             }
-            // FIXME: Groups elements in the channel using the meta map as key. Replace with grouping on specific keys.
             .groupTuple(by: [0,2])
             .multiMap {
                 meta, reads, db ->
@@ -321,7 +320,6 @@ workflow PROFILING {
                                         meta, reads, db_meta, db ->
                                             [[id: db_meta.db_name, single_end: meta.single_end], reads, db_meta, db]
                                     }
-                                    // FIXME: Groups elements in the channel using the meta map as key. Replace with grouping on specific keys.
                                     .groupTuple(by: [0,2,3])
                                     .multiMap {
                                         single_meta, reads, db_meta, db ->

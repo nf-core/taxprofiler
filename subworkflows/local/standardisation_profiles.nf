@@ -30,7 +30,6 @@ workflow STANDARDISATION_PROFILES {
                                         meta_new.tool = meta.tool == 'metaphlan3' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
                                         [meta_new, profile]
                             }
-                            // FIXME: Groups elements in the channel using the meta map as key. Replace with grouping on specific keys.
                             .groupTuple ()
                             .map { [ it[0], it[1].flatten() ] }
 

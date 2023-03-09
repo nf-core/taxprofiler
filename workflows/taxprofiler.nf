@@ -197,7 +197,6 @@ workflow TAXPROFILER {
                     meta_new.remove('run_accession')
                     [ meta_new, reads ]
             }
-            // FIXME: Groups elements in the channel using the meta map as key. Replace with grouping on specific keys.
             .groupTuple()
             .map {
                 meta, reads ->
