@@ -65,9 +65,10 @@ def create_fastq_channel(LinkedHashMap row) {
 
 // Function to get list of [ meta, fasta ]
 def create_fasta_channel(LinkedHashMap row) {
-    def meta = row.subMap(['sample', 'run_accession', 'instrument_platform'])
-    meta.single_end             = true
-    meta.is_fasta               = true
+    def meta        = row.subMap(['sample', 'run_accession', 'instrument_platform'])
+    meta.id         = meta.sample
+    meta.single_end = true
+    meta.is_fasta   = true
 
     if (!file(row.fasta).exists()) {
         exit 1, "ERROR: Please check input samplesheet -> FastA file does not exist!\n${row.fasta}"
