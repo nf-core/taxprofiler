@@ -18,7 +18,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources.The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/taxprofiler/results).
 
-The nf-core/taxprofiler CI test dataset uses sequencing data from [Maixer et al. (2021) Curr. Bio.](https://doi.org/10.1016/j.cub.2021.09.031). The AWS full test dataset uses sequencing data and reference genomes from [Meslier (2022) _Sci. Data_](https://doi.org/10.1038/s41597-022-01762-z)
+The nf-core/taxprofiler CI test dataset uses sequencing data from [Maixner et al. (2021) Curr. Bio.](https://doi.org/10.1016/j.cub.2021.09.031). The AWS full test dataset uses sequencing data and reference genomes from [Meslier (2022) _Sci. Data_](https://doi.org/10.1038/s41597-022-01762-z)
 
 ## Pipeline summary
 
