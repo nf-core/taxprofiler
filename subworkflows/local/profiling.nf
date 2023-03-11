@@ -35,10 +35,7 @@ workflow PROFILING {
     ch_input_for_profiling = reads
             .map {
                 meta, reads ->
-                    def meta_new = meta.clone()
-                        pairtype = meta_new['single_end'] ? '_se' : '_pe'
-                        meta_new['id'] =  meta_new['id'] + pairtype
-                    [meta_new, reads]
+                    [meta + [id: "${meta.id}${meta.single_end ? '_se' : '_pe'}"], reads]
             }
             .combine(databases)
             .branch {
@@ -68,34 +65,34 @@ workflow PROFILING {
         // MALT: We groupTuple to have all samples in one channel for MALT as database
         // loading takes a long time, so we only want to run it once per database
         ch_input_for_malt =  ch_input_for_profiling.malt
-                                .map {
-                                    meta, reads, db_meta, db ->
+            .map {
+                meta, reads, db_meta, db ->
 
-                                        // Reset entire input meta for MALT to just database name,
-                                        // as we don't run run on a per-sample basis due to huge datbaases
-                                        // so all samples are in one run and so sample-specific metadata
-                                        // unnecessary. Set as database name to prevent `null` job ID and prefix.
-                                        def temp_meta = [ id: meta['db_name'] ]
+                    // Reset entire input meta for MALT to just database name,
+                    // as we don't run run on a per-sample basis due to huge datbaases
+                    // so all samples are in one run and so sample-specific metadata
+                    // unnecessary. Set as database name to prevent `null` job ID and prefix.
+                    def temp_meta = [ id: meta['db_name'] ]
 
-                                        // Extend database parameters to specify whether to save alignments or not
-                                        def new_db_meta = db_meta.clone()
-                                        def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
-                                        new_db_meta['db_params'] = db_meta['db_params'] + sam_format
+                    // Extend database parameters to specify whether to save alignments or not
+                    def new_db_meta = db_meta.clone()
+                    def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
+                    new_db_meta['db_params'] = db_meta['db_params'] + sam_format
 
-                                        // Combine reduced sample metadata with updated database parameters metadata,
-                                        // make sure id is db_name for publishing purposes.
-                                        def new_meta = temp_meta + new_db_meta
-                                        new_meta['id'] = new_meta['db_name']
+                    // Combine reduced sample metadata with updated database parameters metadata,
+                    // make sure id is db_name for publishing purposes.
+                    def new_meta = temp_meta + new_db_meta
+                    new_meta['id'] = new_meta['db_name']
 
-                                        [ new_meta, reads, db ]
+                    [ new_meta, reads, db ]
 
-                                }
-                                .groupTuple(by: [0,2])
-                                .multiMap {
-                                    it ->
-                                        reads: [ it[0], it[1].flatten() ]
-                                        db: it[2]
-                                }
+            }
+            .groupTuple(by: [0,2])
+            .multiMap {
+                meta, reads, db ->
+                    reads: [ meta, reads.flatten() ]
+                    db: db
+            }
 
         MALT_RUN ( ch_input_for_malt.reads, ch_input_for_malt.db )
 
