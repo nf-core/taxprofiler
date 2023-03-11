@@ -38,6 +38,7 @@ workflow INPUT_CHECK {
 def create_fastq_channel(LinkedHashMap row) {
     // create meta map
     def meta = row.subMap(['sample', 'run_accession', 'instrument_platform'])
+    meta.id         = meta.sample
     meta.single_end = row.single_end.toBoolean()
     meta.is_fasta   = false
 
