@@ -86,7 +86,7 @@ We thank the following people for their contributions to the development of this
 We also are grateful for the feedback and comments from:
 
 - [Alex Hübner](https://github.com/alexhbnr)
-- Lili Andersson-Li
+- [LilyAnderssonLee](https://github.com/LilyAnderssonLee)
 
 ## Contributions and Support
 
