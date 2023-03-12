@@ -35,14 +35,18 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
+![](images/taxprofiler_tube.png)
+
 ### FastQC or Falco
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `fastqc/`
-  - `*_fastqc.html`: FastQC or Falco report containing quality metrics.
-  - `*_fastqc.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images (FastQC only).
+- `{fastqc,falco}/`
+  - {raw,preprocessed}
+    - `*html`: FastQC or Falco report containing quality metrics in HTML format.
+    - `*.txt`: FastQC or Falco report containing quality metrics in TXT format.
+    - `*.zip`: Zip archive containing the FastQC report, tab-delimited data file and plot images (FastQC only).
 
 </details>
 
@@ -186,9 +190,12 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/
 <summary>Output files</summary>
 
 - `bowtie2/`
-  - `<sample_id>.bam`: BAM file containing reads that aligned against the user-supplied reference genome as well as unmapped reads
-  - `<sample_id>.bowtie2.log`: log file about the mapped reads
-  - `<sample_id>.unmapped.fastq.gz`: the off-target reads from the mapping that is used in downstream steps.
+  - `build/`
+    - `*.bt2`: Bowtie2 indicies of reference genome, only if `--save_hostremoval_index` supplied.
+  - `align/`
+    - `<sample_id>.bam`: BAM file containing reads that aligned against the user-supplied reference genome as well as unmapped reads
+    - `<sample_id>.bowtie2.log`: log file about the mapped reads
+    - `<sample_id>.unmapped.fastq.gz`: the off-target reads from the mapping that is used in downstream steps.
 
 </details>
 
@@ -210,7 +217,10 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 <summary>Output files</summary>
 
 - `minimap2`
-  - `<sample_id>.bam`: Alignment file in BAM format containing both mapped and unmapped reads.
+  - `build/`
+    - `*.mmi2`: minimap2 indices of reference genome, only if `--save_hostremoval_index` supplied.
+  - `align/`
+    - `<sample_id>.bam`: Alignment file in BAM format containing both mapped and unmapped reads.
 
 </details>
 
@@ -243,12 +253,30 @@ This directory will be present and contain the unmapped reads from the `.fastq` 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `samtoolsstats`
+- `samtools/stats`
   - `<sample_id>.stats`: File containing samtools stats output.
 
 </details>
 
 In most cases you do not need to check this file, as it is rendered in the MultiQC run report.
+
+### Run Merging
+
+nf-core/taxprofiler offers the option to merge FASTQ files of multiple sequencing runs or libraries that derive from the same sample, as specified in the input samplesheet.
+
+This is the last preprocessing step, so if you have multiple runs or libraries (and run merging turned on), this will represent the final reads that will go into classification/profiling steps.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `run_merging/`
+  - `*.fastq.gz`: Concatenated FASTQ files on a per-sample basis
+
+</details>
+
+Note that you will only find samples that went through the run merging step in this directory. For samples that had a single run or library will not go through this step of the pipeline and thus will not be present in this directory.
+
+⚠️ You must make sure to turn on the saving of the reads from the previous preprocessing step you may have turned on, if you have single-run or library reads in your pipeline run, and wish to save the final reads that go into classification/profiling!
 
 ### Bracken
 

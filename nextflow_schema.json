@@ -67,7 +67,7 @@
                 "save_preprocessed_reads": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save reads from adapter clipping/pair-merging, length filtering for both short and long reads",
+                    "description": "Save reads from samples that went through the adapter clipping, pair-merging, and length filtering steps for both short and long reads",
                     "help_text": "This saves the FASTQ output from the following tools:\n\n- fastp\n- AdapterRemoval\n- Porechop\n- Filtlong\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
                 }
             },
@@ -116,7 +116,8 @@
                     "type": "string",
                     "default": "None",
                     "description": "Specify a list of all possible adapters to trim. Overrides --shortread_qc_adapter1/2. Formats: .txt (AdapterRemoval) or .fasta. (fastp).",
-                    "help_text": "Allows to supply a file with a list of adapter (combinations) to remove from all files. \n\nOverrides the --shortread_qc_adapter1/--shortread_qc_adapter2 parameters . \n\nFor AdapterRemoval this consists of a two column table with a `.txt` extension: first column represents forward strand, second column for reverse strand. You must supply all possible combinations, one per line, and this list is applied to all files. See AdapterRemoval documentation for more information.\n\nFor fastp this consists of a standard FASTA format with a `.fasta`/`.fa`/`.fna`/`.fas` extension. The adapter sequence in this file should be at least 6bp long, otherwise it will be skipped. fastp trims the adapters present in the FASTA file one by one.\n\n> Modifies AdapterRemoval parameter: --adapter-list\n> Modifies fastp parameter: --adapter_fasta"
+                    "help_text": "Allows to supply a file with a list of adapter (combinations) to remove from all files. \n\nOverrides the --shortread_qc_adapter1/--shortread_qc_adapter2 parameters . \n\nFor AdapterRemoval this consists of a two column table with a `.txt` extension: first column represents forward strand, second column for reverse strand. You must supply all possible combinations, one per line, and this list is applied to all files. See AdapterRemoval documentation for more information.\n\nFor fastp this consists of a standard FASTA format with a `.fasta`/`.fa`/`.fna`/`.fas` extension. The adapter sequence in this file should be at least 6bp long, otherwise it will be skipped. fastp trims the adapters present in the FASTA file one by one.\n\n> Modifies AdapterRemoval parameter: --adapter-list\n> Modifies fastp parameter: --adapter_fasta",
+                    "fa_icon": "fas fa-th-list"
                 },
                 "shortread_qc_mergepairs": {
                     "type": "boolean",
@@ -194,7 +195,7 @@
                 "save_complexityfiltered_reads": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save complexity filtered short-reads",
+                    "description": "Save reads from samples that went through the complexity filtering step",
                     "help_text": "Specify whether to save the final complexity filtered reads in your results directory (`--outdir`)."
                 }
             },
@@ -302,7 +303,7 @@
                 "save_hostremoval_unmapped": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save unmapped reads in FASTQ format from host removal",
+                    "description": "Save reads from samples that went through the host-removal step",
                     "help_text": "Save only the reads NOT mapped to the reference genome in FASTQ format (as exported from `samtools view` and `bam2fq`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
                 }
             },
@@ -323,8 +324,8 @@
                 "save_runmerged_reads": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Save run-concatenated input FASTQ files for each sample",
-                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format."
+                    "description": "Save reads from samples that went through the run-merging step",
+                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> \u26a0\ufe0f Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
                 }
             },
             "fa_icon": "fas fa-clipboard-check"
@@ -427,7 +428,7 @@
                 },
                 "run_bracken": {
                     "type": "boolean",
-                    "description": "Post-process kraken2 reports with Bracken.",
+                    "description": "Turn on Bracken (and the required Kraken2 prerequisite step).",
                     "fa_icon": "fas fa-toggle-on"
                 },
                 "run_malt": {
@@ -513,34 +514,39 @@
                 "standardisation_taxpasta_format": {
                     "type": "string",
                     "default": "tsv",
-                    "fa_icon": "fas fa-file",
+                    "fa_icon": "fas fa-pastafarianism",
                     "description": "The desired output format.",
                     "enum": ["tsv", "csv", "arrow", "parquet", "biom"]
                 },
                 "taxpasta_taxonomy_dir": {
                     "type": "string",
                     "description": "The path to a directory containing taxdump files.",
-                    "help_text": "This arguments provides the path to the directory containing taxdump files. At least nodes.dmp and names.dmp are required. A merged.dmp file is optional. \n\nModifies tool parameter(s):\n-taxpasta: `--taxpasta_taxonomy_dir`"
+                    "help_text": "This arguments provides the path to the directory containing taxdump files. At least nodes.dmp and names.dmp are required. A merged.dmp file is optional. \n\nModifies tool parameter(s):\n-taxpasta: `--taxpasta_taxonomy_dir`",
+                    "fa_icon": "fas fa-tree"
                 },
                 "taxpasta_add_name": {
                     "type": "boolean",
                     "description": "Add the taxon name to the output.",
-                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon name can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_name`"
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon name can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_name`",
+                    "fa_icon": "fas fa-tag"
                 },
                 "taxpasta_add_rank": {
                     "type": "boolean",
                     "description": "Add the taxon rank to the output.",
-                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_rank`"
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_rank`",
+                    "fa_icon": "fas fa-sort-amount-down-alt"
                 },
                 "taxpasta_add_lineage": {
                     "type": "boolean",
-                    "description": "Add the taxon's entire lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon names separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_lineage`\n"
+                    "description": "Add the taxon's entire name lineage to the output.",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon names separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_lineage`\n",
+                    "fa_icon": "fas fa-link"
                 },
                 "taxpasta_add_idlineage": {
                     "type": "boolean",
-                    "description": "Add the taxon's entire lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_idlineage`\n"
+                    "description": "Add the taxon's entire ID lineage to the output.",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_idlineage`\n",
+                    "fa_icon": "fas fa-link"
                 }
             },
             "fa_icon": "fas fa-chart-line"
