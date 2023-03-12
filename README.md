@@ -77,11 +77,16 @@ The nf-core/taxprofiler pipeline comes with documentation about the pipeline [us
 
 ## Credits
 
-nf-core/taxprofiler was originally written by nf-core community.
+nf-core/taxprofiler was originally written by [James A. Fellows Yates](https://github.com/jfy133), [Moritz Beber](https://github.com/Midnighter), and [Sofia Stamouli](https://github.com/sofsam).
 
-We thank the following people for their extensive assistance in the development of this pipeline:
+We thank the following people for their contributions to the development of this pipeline:
 
-[James A. Fellows Yates](https://github.com/jfy133), [Moritz Beber](https://github.com/Midnighter), [Lauri Mesilaakso](https://github.com/ljmesi), [Sofia Stamouli](https://github.com/sofsam), [Maxime Borry](https://github.com/maxibor),[Thomas A. Christensen II](https://github.com/MillironX), [Jianhong Ou](https://github.com/jianhong), [Rafal Stepien](https://github.com/rafalstepien), [Mahwash Jamy](https://github.com/mjamy).
+[Lauri Mesilaakso](https://github.com/ljmesi), [Tanja Normark](https://github.com/talnor), [Maxime Borry](https://github.com/maxibor),[Thomas A. Christensen II](https://github.com/MillironX), [Jianhong Ou](https://github.com/jianhong), [Rafal Stepien](https://github.com/rafalstepien), [Mahwash Jamy](https://github.com/mjamy), and the [nf-core/community](https://nf-co.re/community).
+
+We also are grateful for the feedback and comments from:
+
+- [Alex Hübner](https://github.com/alexhbnr)
+- Lili Andersson-Li
 
 ## Contributions and Support
 
