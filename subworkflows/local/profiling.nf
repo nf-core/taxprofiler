@@ -117,12 +117,11 @@ workflow PROFILING {
 
     }
 
-    if ( params.run_kraken2 ) {
+    if ( params.run_kraken2 || params.run_bracken ) {
         // Have to pick first element of db_params if using bracken,
         // as db sheet for bracken must have ; sep list to
         // distinguish between kraken and bracken parameters
         ch_input_for_kraken2 = ch_input_for_profiling.kraken2
-                                .dump(tag: "ch_input_for_kraken2_b4")
                                 .map {
                                     meta, reads, db_meta, db ->
                                         def db_meta_new = db_meta.clone()
