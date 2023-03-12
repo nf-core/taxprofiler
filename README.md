@@ -88,6 +88,8 @@ We also are grateful for the feedback and comments from:
 - [Alex Hübner](https://github.com/alexhbnr)
 - [LilyAnderssonLee](https://github.com/LilyAnderssonLee)
 
+Credit and thanks also goes to [Zandra Fagernäs](https://github.com/ZandraFagernas) for the logo.
+
 ## Contributions and Support
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
