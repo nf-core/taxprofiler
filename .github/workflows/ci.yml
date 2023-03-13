@@ -10,41 +10,155 @@ on:
 
 env:
   NXF_ANSI_LOG: false
-  CAPSULE_LOG: none
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
+  cancel-in-progress: true
 
 jobs:
   test:
-    name: Run workflow tests
+    name: Run pipeline with test data
     # Only run on push if this is the nf-core dev branch (merged PRs)
+    if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        NXF_VER:
+          - "22.10.1"
+          - "latest-everything"
+        parameters:
+          - "--preprocessing_qc_tool falco"
+          - "--shortread_qc_tool fastp"
+          - "--shortread_qc_tool adapterremoval"
+          - "--shortread_complexityfilter_tool bbduk"
+          - "--shortread_complexityfilter_tool prinseqplusplus"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v3
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Show current locale
+        run: locale
+
+      - name: Set UTF-8 enabled locale
+        run: |
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+
+      - name: Run pipeline with test data
+        uses: Wandalen/wretry.action@v1.0.11
+        with:
+          command: nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results ${{ matrix.parameters }}
+          attempt_limit: 3
+
+  motus:
+    name: Test mOTUs with workflow parameters
     if: ${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Nextflow versions
-        include:
-          # Test pipeline minimum Nextflow version
-          - NXF_VER: '21.10.3'
-            NXF_EDGE: ''
-          # Test latest edge release of Nextflow
-          - NXF_VER: ''
-            NXF_EDGE: '1'
+        NXF_VER:
+          - "22.10.1"
+          - "latest-everything"
+
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v2
 
       - name: Install Nextflow
-        env:
-          NXF_VER: ${{ matrix.NXF_VER }}
-          # Uncomment only if the edge release is more recent than the latest stable release
-          # See https://github.com/nextflow-io/nextflow/issues/2467
-          # NXF_EDGE: ${{ matrix.NXF_EDGE }}
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Show current locale
+        run: locale
+
+      - name: Set UTF-8 enabled locale
         run: |
-          wget -qO- get.nextflow.io | bash
-          sudo mv nextflow /usr/local/bin/
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+
+      - name: Prepare the database
+        run: |
+          wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
+          python downloadDB.py > download_db_log.txt
+          echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
+          echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
 
       - name: Run pipeline with test data
-        # TODO nf-core: You can customise CI pipeline run tests as required
-        # For example: adding multiple test runs with different parameters
-        # Remember that you can parallelise this by using strategy.matrix
+        uses: Wandalen/wretry.action@v1.0.11
+        with:
+          command: nextflow run ${GITHUB_WORKSPACE} -profile test_motus,docker --outdir ./results --databases ./database_motus.csv
+          attempt_limit: 3
+
+  krakenuniq:
+    name: Test KrakenUniq with workflow parameters
+    if: ${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER:
+          - "22.10.1"
+          - "latest-everything"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Show current locale
+        run: locale
+
+      - name: Set UTF-8 enabled locale
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+
+      - name: Run pipeline with test data
+        uses: Wandalen/wretry.action@v1.0.11
+        with:
+          command: nextflow run ${GITHUB_WORKSPACE} -profile test_krakenuniq,docker --outdir ./results
+          attempt_limit: 3
+
+  malt:
+    name: Test MALT with workflow parameters
+    if: ${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER:
+          - "22.10.1"
+          - "latest-everything"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Show current locale
+        run: locale
+
+      - name: Set UTF-8 enabled locale
+        run: |
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+
+      - name: Run pipeline with test data
+        uses: Wandalen/wretry.action@v1.0.11
+        with:
+          command: nextflow run ${GITHUB_WORKSPACE} -profile test_nothing,docker --run_malt --input 'https://github.com/nf-core/test-datasets/raw/taxprofiler/samplesheet_shortreadsonly.csv' --outdir ./results
+          attempt_limit: 3
