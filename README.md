@@ -12,19 +12,15 @@
 
 ## Introduction
 
-> ⚠️ This pipeline is still under development! While the pipeline is usable, not all functionality will be available!
-
 **nf-core/taxprofiler** is a bioinformatics best-practice analysis pipeline for taxonomic classification and profiling of shotgun metagenomic data. It allows for in-parallel taxonomic identification of reads or taxonomic abundance estimation with multiple classification and profiling tools against multiple databases, produces standardised output tables.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources.The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/taxprofiler/results).
 
-The nf-core/taxprofiler CI test dataset uses sequencing data from [Maixer et al. (2021) Curr. Bio.](https://doi.org/10.1016/j.cub.2021.09.031). The AWS full test dataset uses sequencing data and reference genomes from [Meslier (2022) _Sci. Data_](https://doi.org/10.1038/s41597-022-01762-z)
+The nf-core/taxprofiler CI test dataset uses sequencing data from [Maixner et al. (2021) Curr. Bio.](https://doi.org/10.1016/j.cub.2021.09.031). The AWS full test dataset uses sequencing data and reference genomes from [Meslier (2022) _Sci. Data_](https://doi.org/10.1038/s41597-022-01762-z)
 
 ## Pipeline summary
-
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
 ![](docs/images/taxprofiler_tube.png)
 
@@ -46,7 +42,7 @@ The nf-core/taxprofiler CI test dataset uses sequencing data from [Maixer et al.
    - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
 5. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
-6. Standardises output tables
+6. Standardises output tables ([`Taxpasta`](https://taxpasta.readthedocs.io))
 7. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 8. Plotting Kraken2, Centrifuge, Kaiju and MALT results ([`Krona`](https://hpc.nih.gov/apps/kronatools.html))
 
@@ -81,11 +77,18 @@ The nf-core/taxprofiler pipeline comes with documentation about the pipeline [us
 
 ## Credits
 
-nf-core/taxprofiler was originally written by nf-core community.
+nf-core/taxprofiler was originally written by [James A. Fellows Yates](https://github.com/jfy133), [Moritz Beber](https://github.com/Midnighter), and [Sofia Stamouli](https://github.com/sofsam).
 
-We thank the following people for their extensive assistance in the development of this pipeline:
+We thank the following people for their contributions to the development of this pipeline:
 
-[James A. Fellows Yates](https://github.com/jfy133), [Moritz Beber](https://github.com/Midnighter), [Lauri Mesilaakso](https://github.com/ljmesi), [Sofia Stamouli](https://github.com/sofsam), [Maxime Borry](https://github.com/maxibor),[Thomas A. Christensen II](https://github.com/MillironX), [Jianhong Ou](https://github.com/jianhong), [Rafal Stepien](https://github.com/rafalstepien), [Mahwash Jamy](https://github.com/mjamy).
+[Lauri Mesilaakso](https://github.com/ljmesi), [Tanja Normark](https://github.com/talnor), [Maxime Borry](https://github.com/maxibor),[Thomas A. Christensen II](https://github.com/MillironX), [Jianhong Ou](https://github.com/jianhong), [Rafal Stepien](https://github.com/rafalstepien), [Mahwash Jamy](https://github.com/mjamy), and the [nf-core/community](https://nf-co.re/community).
+
+We also are grateful for the feedback and comments from:
+
+- [Alex Hübner](https://github.com/alexhbnr)
+- [LilyAnderssonLee](https://github.com/LilyAnderssonLee)
+
+Credit and thanks also goes to [Zandra Fagernäs](https://github.com/ZandraFagernas) for the logo.
 
 ## Contributions and Support
 
@@ -97,8 +100,6 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use  nf-core/taxprofiler for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

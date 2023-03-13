@@ -17,7 +17,7 @@ Both contain metadata and paths to the data of your input samples and databases.
 
 When running nf-core/taxprofiler, every step and tool is 'opt in'. To run a given classifier or profiler you must make sure to supply both a database in your `<database>.csv` and supply `--run_<profiler>` flag to your command. Omitting either will result in the profiling tool not executing.
 
-nf-core/profiler also includes optional pre-processing (adapter clipping, merge running etc.) or post-processing (visualisation) steps. These are also opt in with a `--perform_<step>` flag. In some cases, the pre- and post-processing steps may also require additional files. Please check the parameters tab of this documentation for more information.
+nf-core/taxprofiler also includes optional pre-processing (adapter clipping, merge running etc.) or post-processing (visualisation) steps. These are also opt in with a `--perform_<step>` flag. In some cases, the pre- and post-processing steps may also require additional files. Please check the parameters tab of this documentation for more information.
 
 Please see the rest of this page for information about how to prepare input samplesheets and databases and how to run Nextflow pipelines. See the [parameters](https://nf-co.re/taxprofiler/parameters) documentation for more information about specific options the pipeline also offers.
 
@@ -89,7 +89,9 @@ The pipeline takes the paths and specific classification/profiling parameters of
 
 > ⚠️ To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters, and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
 
-An example database sheet can look as follows, where 5 tools are being used, and `malt` and `kraken2` will be used against two databases each. This is because specifying `bracken` implies first running `kraken2` on the same database.
+An example database sheet can look as follows, where 7 tools are being used, and `malt` and `kraken2` will be used against two databases each.
+
+`kraken2` will be run twice even though only having a single 'dedicated' database because specifying `bracken` implies first running `kraken2` on the `bracken` database, as required by `bracken`.
 
 ```console
 tool,db_name,db_params,db_path
@@ -199,7 +201,7 @@ You can optionally save the FASTQ output of the run merging with the `--save_com
 
 > ⚠️ For nanopore data: we do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.
 
-#### Host Removal
+#### Host-Read Removal
 
 Removal of possible-host reads from FASTQ files prior classification/profiling can be activated with `--perform_shortread_hostremoval` or `--perform_longread_hostremoval`.
 

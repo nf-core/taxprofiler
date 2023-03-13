@@ -2,19 +2,19 @@
 // Run profiling
 //
 
-include { MALT_RUN                              } from '../../modules/nf-core/malt/run/main'
-include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV  } from '../../modules/nf-core/megan/rma2info/main'
-include { KRAKEN2_KRAKEN2                       } from '../../modules/nf-core/kraken2/kraken2/main'
-include { KRAKEN2_STANDARD_REPORT               } from '../../modules/local/kraken2_standard_report'
-include { BRACKEN_BRACKEN                       } from '../../modules/nf-core/bracken/bracken/main'
-include { CENTRIFUGE_CENTRIFUGE                 } from '../../modules/nf-core/centrifuge/centrifuge/main'
-include { CENTRIFUGE_KREPORT                    } from '../../modules/nf-core/centrifuge/kreport/main'
-include { METAPHLAN3_METAPHLAN3                 } from '../../modules/nf-core/metaphlan3/metaphlan3/main'
-include { KAIJU_KAIJU                           } from '../../modules/nf-core/kaiju/kaiju/main'
-include { KAIJU_KAIJU2TABLE                     } from '../../modules/nf-core/kaiju/kaiju2table/main'
-include { DIAMOND_BLASTX                        } from '../../modules/nf-core/diamond/blastx/main'
-include { MOTUS_PROFILE                         } from '../../modules/nf-core/motus/profile/main'
-include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ        } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
+include { MALT_RUN                                      } from '../../modules/nf-core/malt/run/main'
+include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV          } from '../../modules/nf-core/megan/rma2info/main'
+include { KRAKEN2_KRAKEN2                               } from '../../modules/nf-core/kraken2/kraken2/main'
+include { KRAKEN2_STANDARD_REPORT                       } from '../../modules/local/kraken2_standard_report'
+include { BRACKEN_BRACKEN                               } from '../../modules/nf-core/bracken/bracken/main'
+include { CENTRIFUGE_CENTRIFUGE                         } from '../../modules/nf-core/centrifuge/centrifuge/main'
+include { CENTRIFUGE_KREPORT                            } from '../../modules/nf-core/centrifuge/kreport/main'
+include { METAPHLAN3_METAPHLAN3                         } from '../../modules/nf-core/metaphlan3/metaphlan3/main'
+include { KAIJU_KAIJU                                   } from '../../modules/nf-core/kaiju/kaiju/main'
+include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf-core/kaiju/kaiju2table/main'
+include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
+include { MOTUS_PROFILE                                 } from '../../modules/nf-core/motus/profile/main'
+include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
 
 workflow PROFILING {
     take:
@@ -35,10 +35,7 @@ workflow PROFILING {
     ch_input_for_profiling = reads
             .map {
                 meta, reads ->
-                    def meta_new = meta.clone()
-                        pairtype = meta_new['single_end'] ? '_se' : '_pe'
-                        meta_new['id'] =  meta_new['id'] + pairtype
-                    [meta_new, reads]
+                    [meta + [id: "${meta.id}${meta.single_end ? '_se' : '_pe'}"], reads]
             }
             .combine(databases)
             .branch {
@@ -68,34 +65,34 @@ workflow PROFILING {
         // MALT: We groupTuple to have all samples in one channel for MALT as database
         // loading takes a long time, so we only want to run it once per database
         ch_input_for_malt =  ch_input_for_profiling.malt
-                                .map {
-                                    meta, reads, db_meta, db ->
+            .map {
+                meta, reads, db_meta, db ->
 
-                                        // Reset entire input meta for MALT to just database name,
-                                        // as we don't run run on a per-sample basis due to huge datbaases
-                                        // so all samples are in one run and so sample-specific metadata
-                                        // unnecessary. Set as database name to prevent `null` job ID and prefix.
-                                        def temp_meta = [ id: meta['db_name'] ]
+                    // Reset entire input meta for MALT to just database name,
+                    // as we don't run run on a per-sample basis due to huge datbaases
+                    // so all samples are in one run and so sample-specific metadata
+                    // unnecessary. Set as database name to prevent `null` job ID and prefix.
+                    def temp_meta = [ id: meta['db_name'] ]
 
-                                        // Extend database parameters to specify whether to save alignments or not
-                                        def new_db_meta = db_meta.clone()
-                                        def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
-                                        new_db_meta['db_params'] = db_meta['db_params'] + sam_format
+                    // Extend database parameters to specify whether to save alignments or not
+                    def new_db_meta = db_meta.clone()
+                    def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
+                    new_db_meta['db_params'] = db_meta['db_params'] + sam_format
 
-                                        // Combine reduced sample metadata with updated database parameters metadata,
-                                        // make sure id is db_name for publishing purposes.
-                                        def new_meta = temp_meta + new_db_meta
-                                        new_meta['id'] = new_meta['db_name']
+                    // Combine reduced sample metadata with updated database parameters metadata,
+                    // make sure id is db_name for publishing purposes.
+                    def new_meta = temp_meta + new_db_meta
+                    new_meta['id'] = new_meta['db_name']
 
-                                        [ new_meta, reads, db ]
+                    [ new_meta, reads, db ]
 
-                                }
-                                .groupTuple(by: [0,2])
-                                .multiMap {
-                                    it ->
-                                        reads: [ it[0], it[1].flatten() ]
-                                        db: it[2]
-                                }
+            }
+            .groupTuple(by: [0,2])
+            .multiMap {
+                meta, reads, db ->
+                    reads: [ meta, reads.flatten() ]
+                    db: db
+            }
 
         MALT_RUN ( ch_input_for_malt.reads, ch_input_for_malt.db )
 
@@ -120,12 +117,11 @@ workflow PROFILING {
 
     }
 
-    if ( params.run_kraken2 ) {
+    if ( params.run_kraken2 || params.run_bracken ) {
         // Have to pick first element of db_params if using bracken,
         // as db sheet for bracken must have ; sep list to
         // distinguish between kraken and bracken parameters
         ch_input_for_kraken2 = ch_input_for_profiling.kraken2
-                                .dump(tag: "ch_input_for_kraken2_b4")
                                 .map {
                                     meta, reads, db_meta, db ->
                                         def db_meta_new = db_meta.clone()
@@ -272,10 +268,10 @@ workflow PROFILING {
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
 
-        KAIJU_KAIJU2TABLE ( KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_rank)
-        ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE.out.versions )
-        ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE.out.summary )
-        ch_raw_profiles    = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE.out.summary )
+        KAIJU_KAIJU2TABLE_SINGLE ( KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_rank)
+        ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_SINGLE.out.versions )
+        ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
+        ch_raw_profiles    = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
     }
 
     if ( params.run_diamond ) {
@@ -329,7 +325,7 @@ workflow PROFILING {
                                             reads: [ single_meta + db_meta, reads.flatten() ]
                                             db: db
                                 }
-        // Hardcode to _always_ produce the report file (which is our basic otput, and goes into)
+        // Hardcode to _always_ produce the report file (which is our basic output, and goes into)
         KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.db, params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
         ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
