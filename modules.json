@@ -209,7 +209,7 @@
                     },
                     "taxpasta/merge": {
                         "branch": "master",
-                        "git_sha": "23ff77e576b3930923229e7430dcdd0b51012c1d",
+                        "git_sha": "ffa9641ee18f88aff974257cb50ba3cf8f7d143c",
                         "installed_by": ["modules"]
                     },
                     "untar": {
