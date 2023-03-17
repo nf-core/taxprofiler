@@ -23,16 +23,16 @@ workflow INPUT_CHECK {
         .map {
             sample, rows ->
                 def is_multirun = rows.size() > 1
-            [ is_multirun, rows ]
+            [ rows, is_multirun ]
         }
-        .transpose(by: 1)
+        .transpose(by: 0)
         .map {
-            is_multirun, row ->
+            row, is_multirun ->
                 row['is_multirun'] = is_multirun
             return row
         }
 
-
+    // Split for context-dependent channel generation
     ch_parsed_samplesheet = ch_split_samplesheet
         .branch { row ->
             fasta: row.fasta != ''
@@ -40,8 +40,10 @@ workflow INPUT_CHECK {
             fastq: true
         }
 
+    // Channel generation
     ch_fastq = ch_parsed_samplesheet.fastq
         .map { create_fastq_channel(it) }
+        .dump(tag: "boop") 
 
     ch_nanopore = ch_parsed_samplesheet.nanopore
         .map { create_fastq_channel(it) }
