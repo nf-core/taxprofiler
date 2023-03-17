@@ -48,7 +48,6 @@ workflow INPUT_CHECK {
 
     ch_fasta = ch_parsed_samplesheet.fasta
         .map { create_fasta_channel(it) }
-        .dump(tag: "boop")
 
     emit:
     fastq    = ch_fastq ?: []                    // channel: [ val(meta), [ reads ] ]
