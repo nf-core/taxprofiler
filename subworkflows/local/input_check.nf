@@ -10,7 +10,7 @@ workflow INPUT_CHECK {
 
     main:
 
-    // Table to list, group per sample, detect if sample has multi-run, 
+    // Table to list, group per sample, detect if sample has multi-run,
     // then spread back to per-run rows but with multi-run info added to meta
     ch_split_samplesheet = SAMPLESHEET_CHECK ( samplesheet )
         .csv
@@ -43,7 +43,6 @@ workflow INPUT_CHECK {
     // Channel generation
     ch_fastq = ch_parsed_samplesheet.fastq
         .map { create_fastq_channel(it) }
-        .dump(tag: "boop") 
 
     ch_nanopore = ch_parsed_samplesheet.nanopore
         .map { create_fastq_channel(it) }
