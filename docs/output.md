@@ -102,7 +102,7 @@ You can change the default value for low complexity filtering by using the argum
 
 By default nf-core/taxprofiler will only provide the `.settings` file if AdapterRemoval is selected.
 
-You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. If this is selected, you may receive different combinations of `.fastq` files for each sample depending on the input types - e.g. whether you have merged or not, or if you're supplying both single- and paired-end reads.
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. If this is selected, you may receive different combinations of `.fastq` files for each sample depending on the input types - e.g. whether you have merged or not, or if you're supplying both single- and paired-end reads. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`
 
 > ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
 
@@ -121,7 +121,7 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 
 The output logs are saved in the output folder and are part of MultiQC report.You do not normally need to check these manually.
 
-You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`.
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`
 
 > ⚠️ We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
 
@@ -140,7 +140,7 @@ It is used in nf-core/taxprofiler for complexity filtering using different algor
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `.log` file if BBDuk is selected as the complexity filtering tool. You will only find the complexity filtered reads in your results directory if you provide ` --save_complexityfiltered_reads` .
+By default nf-core/taxprofiler will only provide the `.log` file if BBDuk is selected as the complexity filtering tool. You will only find the complexity filtered reads in your results directory if you provide ` --save_complexityfiltered_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`
 
 > ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
 
@@ -159,7 +159,7 @@ It is used in nf-core/taxprofiler for complexity filtering using different algor
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is selected as the complexity filtering tool. You will only find the complexity filtered `.fastq` files in your results directory if you supply ` --save_complexityfiltered_reads` .
+By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is selected as the complexity filtering tool. You will only find the complexity filtered `.fastq` files in your results directory if you supply ` --save_complexityfiltered_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`
 
 > ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
 
@@ -176,7 +176,7 @@ By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is
 
 </details>
 
-You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`.
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`
 
 > ⚠️ We do **not** recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
 
@@ -199,7 +199,7 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/
 
 </details>
 
-By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only have a `.bam` file if you specify `--save_hostremoval_bam`. This will contain _both_ mapped and unmapped reads. You will only get FASTQ files if you specify to save `--save_hostremoval_unmapped` - these contain only unmapped reads.
+By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only have a `.bam` file if you specify `--save_hostremoval_bam`. This will contain _both_ mapped and unmapped reads. You will only get FASTQ files if you specify to save `--save_hostremoval_unmapped` - these contain only unmapped reads. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`
 
 > ℹ️ Unmapped reads in FASTQ are only found in this directory for short-reads, for long-reads see [`samtools/bam2fq/`](#samtools-bam2fq)
 
@@ -242,7 +242,7 @@ By default, nf-core/taxprofiler will only provide the `.bam` file containing map
 
 </details>
 
-This directory will be present and contain the unmapped reads from the `.fastq` format from long-read minimap2 host removal, if `--save_hostremoval_unmapped` is supplied
+This directory will be present and contain the unmapped reads from the `.fastq` format from long-read minimap2 host removal, if `--save_hostremoval_unmapped` is supplied. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`
 
 > ℹ️ For short-read unmapped reads, see [bowtie2](#bowtie2).
 
@@ -264,7 +264,7 @@ In most cases you do not need to check this file, as it is rendered in the Multi
 
 nf-core/taxprofiler offers the option to merge FASTQ files of multiple sequencing runs or libraries that derive from the same sample, as specified in the input samplesheet.
 
-This is the last preprocessing step, so if you have multiple runs or libraries (and run merging turned on), this will represent the final reads that will go into classification/profiling steps.
+This is the last possible preprocessing step, so if you have multiple runs or libraries (and run merging turned on), this will represent the final reads that will go into classification/profiling steps.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -274,9 +274,10 @@ This is the last preprocessing step, so if you have multiple runs or libraries (
 
 </details>
 
+
 Note that you will only find samples that went through the run merging step in this directory. For samples that had a single run or library will not go through this step of the pipeline and thus will not be present in this directory.
 
-⚠️ You must make sure to turn on the saving of the reads from the previous preprocessing step you may have turned on, if you have single-run or library reads in your pipeline run, and wish to save the final reads that go into classification/profiling!
+This directory and it's FASTQ files will only be present if you supply `--save_runmerged_reads`.Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`
 
 ### Bracken
 

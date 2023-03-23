@@ -91,7 +91,7 @@ include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { FALCO                       } from '../modules/nf-core/falco/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
-include { CAT_FASTQ                   } from '../modules/nf-core/cat/fastq/main'
+include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -120,6 +120,9 @@ workflow TAXPROFILER {
         ch_input
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
+
+    // Save final FASTA reads if requested, as otherwise no processing occurs on FASTA
+
 
     DB_CHECK (
         ch_databases
@@ -210,7 +213,7 @@ workflow TAXPROFILER {
                 skip: true
             }
 
-        ch_reads_runmerged = CAT_FASTQ ( ch_reads_for_cat_branch.cat ).reads
+        ch_reads_runmerged = MERGE_RUNS ( ch_reads_for_cat_branch.cat ).reads
             .mix( ch_reads_for_cat_branch.skip )
             .map {
                 meta, reads ->
@@ -218,7 +221,7 @@ workflow TAXPROFILER {
             }
             .mix( INPUT_CHECK.out.fasta )
 
-        ch_versions = ch_versions.mix(CAT_FASTQ.out.versions)
+        ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
 
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
