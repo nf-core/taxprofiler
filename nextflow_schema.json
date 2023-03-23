@@ -304,7 +304,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the host-removal step",
-                    "help_text": "Save only the reads NOT mapped to the reference genome in FASTQ format (as exported from `samtools view` and `bam2fq`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
+                    "help_text": "Save only the reads NOT mapped to the reference genome in FASTQ format (as exported from `samtools view` and `fastq`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
                 }
             },
             "fa_icon": "fas fa-user-times"
