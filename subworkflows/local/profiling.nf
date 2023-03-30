@@ -322,7 +322,7 @@ workflow PROFILING {
             .groupTuple(by: [0,2,3])
             .flatMap { single_meta, reads, db_meta, db ->
                 def batches = reads.collate(params.krakenuniq_batch_size)
-                return batches.colect { batch -> [ single_meta + db_meta, batch.flatten(), db ]}
+                return batches.collect { batch -> [ single_meta + db_meta, batch.flatten(), db ]}
             }
             .multiMap {
                 meta, reads, db ->
