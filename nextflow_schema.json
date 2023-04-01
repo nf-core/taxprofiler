@@ -432,6 +432,13 @@
                     "description": "Turn on saving of KrakenUniq per-read taxonomic assignment file",
                     "help_text": "Save a text file that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic taxonomic assignment that that read recieved.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--output`"
                 },
+                "krakenuniq_batch_size": {
+                    "type": "integer",
+                    "default": 20,
+                    "fa_icon": "far fa-window-restore",
+                    "description": "Set the batch size for KrakenUniq",
+                    "help_text": "Specify the batch size for KrakenUniq. The reference database for KrakenUniq is loaded into memory once in a process and then used to classify many samples. This parameter determines for how many samples at a time."
+                },
                 "run_bracken": {
                     "type": "boolean",
                     "description": "Turn on Bracken (and the required Kraken2 prerequisite step).",
