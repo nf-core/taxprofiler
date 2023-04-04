@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#276](https://github.com/nf-core/taxprofiler/pull/276) Implemented batching in the KrakenUniq samples processing.
 - [#272](https://github.com/nf-core/taxprofiler/pull/272) - Add saving of final 'analysis-ready-reads' to dedicated directory. (❤️ to @alexhbnr for reporting, added by @jfy133)
 
 ### `Fixed`
