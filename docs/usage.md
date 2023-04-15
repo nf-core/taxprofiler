@@ -168,6 +168,8 @@ nf-core/taxprofiler offers four main preprocessing steps for preprocessing raw s
 - [**Host read-removal**](#host-read-removal): removal of reads aligning to reference genome(s) of a host.
 - [**Run merging**](#run-merging): concatenation of multiple FASTQ chunks/sequencing runs/libraries of a sample.
 
+> ℹ️ You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_reads`.
+
 #### Read Processing
 
 Raw sequencing read processing in the form of adapter clipping and paired-end read merging can be activated via the `--perform_shortread_qc` or `--perform_longread_qc` flags.

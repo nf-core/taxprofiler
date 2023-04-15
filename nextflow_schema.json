@@ -69,6 +69,12 @@
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the adapter clipping, pair-merging, and length filtering steps for both short and long reads",
                     "help_text": "This saves the FASTQ output from the following tools:\n\n- fastp\n- AdapterRemoval\n- Porechop\n- Filtlong\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
+                },
+                "save_analysis_ready_fastqs": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save only the final reads from all read processing steps (that are sent to classification/profiling) in results directory.",
+                    "help_text": "This flag will generate the directory `results/analysis_read_reads` that contains the reads from the last preprocessing (QC, host removal, run merging etc.) step of the pipeline run. \n\nThis can be useful if you wish to re-use the final cleaned-up and prepared reads - the data actually used for the actual classification/profiling steps of the pipeline - for other analyses or purposes (e.g., to reduce redundant preprocessing between different pipelines, e.g. [nf-core/mag](https://nf-co.re/mag)).\n\nIn most cases this will be preferred over similar parameters e.g. ` --save_preprocessed_reads` or ` --save_complexityfiltered_reads`, unless you wish to explore in more detail the output of each specific preprocessing step independently.\n\nNote if you do no preprocessing of any kind, nothing will be present in this directory. "
                 }
             },
             "fa_icon": "fas fa-users-cog"

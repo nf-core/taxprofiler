@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#272](https://github.com/nf-core/taxprofiler/pull/272) - Add saving of final 'analysis-ready-reads' to dedicated directory. (❤️ to @alexhbnr for reporting, added by @jfy133)
+
 ### `Fixed`
 
 ### `Dependencies`
