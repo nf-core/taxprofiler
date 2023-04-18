@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#271](https://github.com/nf-core/taxprofiler/pull/271/files) Improved standardised table generation documentation nd mOTUs manual database download tutorial (♥ to @prototaxites for reporting, fix by @jfy133)
 - [#269](https://github.com/nf-core/taxprofiler/pull/269/files) Reduced output files in AWS full test output due to very large files
 - [#270](https://github.com/nf-core/taxprofiler/pull/270/files) Fixed warning for host removal index parameter, and improved index checks (♥ to @prototaxites for reporting, fix by @jfy133)
+- [#274](https://github.com/nf-core/taxprofiler/pull/274/files) Substituted the samtools/bam2fq module with samtools/fastq module (fix by @sofstam)
 
 ### `Dependencies`
 
