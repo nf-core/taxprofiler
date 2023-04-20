@@ -21,7 +21,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [SAMtools stats](#samtools-stats) - Statistics from host removal
-- [SAMtools bam2fq](#samtools-bam2fq) - Converts unmapped BAM file to fastq format (minimap2 only)
+- [SAMtools fastq](#samtools-fastq) - Converts unmapped BAM file to fastq format (minimap2 only)
 - [Analysis Ready Reads](#analysis-read-reads) - Optional results directory containing the final processed reads used as input for classification/profiling.
 - [Bracken](#bracken) - Taxonomic classifier using k-mers and abundance estimations
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
@@ -202,7 +202,7 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/
 
 By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only have a `.bam` file if you specify `--save_hostremoval_bam`. This will contain _both_ mapped and unmapped reads. You will only get FASTQ files if you specify to save `--save_hostremoval_unmapped` - these contain only unmapped reads. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ℹ️ Unmapped reads in FASTQ are only found in this directory for short-reads, for long-reads see [`samtools/bam2fq/`](#samtools-bam2fq)
+> ℹ️ Unmapped reads in FASTQ are only found in this directory for short-reads, for long-reads see [`samtools/fastq/`](#samtools-fastq)
 
 > ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as run merging etc..
 
@@ -229,11 +229,11 @@ By default, nf-core/taxprofiler will only provide the `.bam` file containing map
 
 > ℹ️ minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
 
-> ℹ️ Unlike Bowtie2, minimap2 does not produce an unmapped FASTQ file by itself. See [`samtools/bam2fq`](#samtools-bam2fq)
+> ℹ️ Unlike Bowtie2, minimap2 does not produce an unmapped FASTQ file by itself. See [`samtools/fastq`](#samtools-fastq)
 
-### SAMtools bam2fq
+### SAMtools fastq
 
-[SAMtools bam2fq](http://www.htslib.org/doc/1.1/samtools.html) converts a `.sam`, `.bam`, or `.cram` alignment file to FASTQ format
+[SAMtools fastq](http://www.htslib.org/doc/1.1/samtools.html) converts a `.sam`, `.bam`, or `.cram` alignment file to FASTQ format
 
 <details markdown="1">
 <summary>Output files</summary>

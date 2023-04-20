@@ -310,7 +310,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the host-removal step",
-                    "help_text": "Save only the reads NOT mapped to the reference genome in FASTQ format (as exported from `samtools view` and `bam2fq`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
+                    "help_text": "Save only the reads NOT mapped to the reference genome in FASTQ format (as exported from `samtools view` and `fastq`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
                 }
             },
             "fa_icon": "fas fa-user-times"
@@ -473,15 +473,18 @@
                 },
                 "motus_use_relative_abundance": {
                     "type": "boolean",
-                    "description": "Turn on printing relative abundance instead of counts."
+                    "description": "Turn on printing relative abundance instead of counts.",
+                    "fa_icon": "fas fa-percent"
                 },
                 "motus_save_mgc_read_counts": {
                     "type": "boolean",
-                    "description": "Turn on saving the mgc reads count."
+                    "description": "Turn on saving the mgc reads count.",
+                    "fa_icon": "fas fa-save"
                 },
                 "motus_remove_ncbi_ids": {
                     "type": "boolean",
-                    "description": "Turn on removing NCBI taxonomic IDs."
+                    "description": "Turn on removing NCBI taxonomic IDs.",
+                    "fa_icon": "fas fa-address-card"
                 }
             },
             "fa_icon": "fas fa-align-center"
@@ -496,7 +499,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on standardisation of taxon tables across profilers",
-                    "help_text": "Turns on standardisation of output OTU tables across all tools; each into a TSV format following the following scheme:\n\n|TAXON   | SAMPLE_A | SAMPLE_B |\n|-------------|----------------|-----------------|\n| taxon_a | 32               | 123             |\n| taxon_b | 1                 | 5                 |\n\nThis currently only is generated for mOTUs."
+                    "help_text": "Turns on standardisation of output OTU tables across all tools.\n\nThis happens in two forms, firstly - if available - by a given classifiers/profilers 'native' profile merger and standardisation (for Bracken, Kaiju, Kraken, Centrifuge, MetaPhlAn3, mOTUs), and secondly for _all_ classifier/profilers in the pipeline using [`taxpasta`](https://taxpasta.readthedocs.io).\n\nIn the latter case, taxpasta generates a standardised output as follows:\n\n|TAXON   | SAMPLE_A | SAMPLE_B |\n|-------------|----------------|-----------------|\n| taxon_a | 32               | 123             |\n| taxon_b | 1                 | 5                 |\n\nwhereas all other 'native' tools have varying format outputs. See pipeline [output](https://nf-co.re/taxprofiler) documentation for more information."
                 },
                 "standardisation_motus_generatebiom": {
                     "type": "boolean",
