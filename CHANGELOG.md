@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#274](https://github.com/nf-core/taxprofiler/pull/274/files) Substituted the samtools/bam2fq module with samtools/fastq module (fix by @sofstam)
 - [#275](https://github.com/nf-core/taxprofiler/pull/275/files) Replaced function used for error reporting to more Nextflow friendly method (fix by @jfy133)
 
-
 ### `Dependencies`
 
 ### `Deprecated`
