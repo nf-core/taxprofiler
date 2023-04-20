@@ -259,7 +259,7 @@ This directory will be present and contain the unmapped reads from the `.fastq` 
 
 </details>
 
-The results directory will contain the 'final' processed reads used as input for classification/profiling. It will _only_ include the output of the \_last step of any combinations of preprocessing steps that may have been specified in the run configuration. For example, if you perform the read QC and host-removal preprocessing steps, the final reads that are sent to classification/profiling are the host-removed FASTQ files - those will be the ones present in this directory.
+The results directory will contain the 'final' processed reads used as input for classification/profiling. It will _only_ include the output of the _last_ step of any combinations of preprocessing steps that may have been specified in the run configuration. For example, if you perform the read QC and host-removal preprocessing steps, the final reads that are sent to classification/profiling are the host-removed FASTQ files - those will be the ones present in this directory.
 
 > ⚠️ If you turn off all preprocessing steps, then no results will be present in this directory. This happens independently for short- and long-reads. I.e. you will only have FASTQ files for short reads in this directory if you skip all long-read preprocessing.
 
