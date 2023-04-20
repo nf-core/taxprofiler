@@ -80,15 +80,29 @@ The nf-core/taxprofiler pipeline comes with documentation about the pipeline [us
 nf-core/taxprofiler was originally written by [James A. Fellows Yates](https://github.com/jfy133), [Moritz Beber](https://github.com/Midnighter), and [Sofia Stamouli](https://github.com/sofsam).
 
 We thank the following people for their contributions to the development of this pipeline:
+ 
+### Team
 
-[Lauri Mesilaakso](https://github.com/ljmesi), [Tanja Normark](https://github.com/talnor), [Maxime Borry](https://github.com/maxibor),[Thomas A. Christensen II](https://github.com/MillironX), [Jianhong Ou](https://github.com/jianhong), [Rafal Stepien](https://github.com/rafalstepien), [Mahwash Jamy](https://github.com/mjamy), and the [nf-core/community](https://nf-co.re/community).
+- [Lauri Mesilaakso](https://github.com/ljmesi)
+- [Tanja Normark](https://github.com/talnor)
+- [Maxime Borry](https://github.com/maxibor)
+- [Thomas A. Christensen II](https://github.com/MillironX)
+- [Jianhong Ou](https://github.com/jianhong)
+- [Rafal Stepien](https://github.com/rafalstepien)
+- [Mahwash Jamy](https://github.com/mjamy).
+
+### Acknowledgments
 
 We also are grateful for the feedback and comments from:
 
-- [Alex Hübner](https://github.com/alexhbnr)
-- [LilyAnderssonLee](https://github.com/LilyAnderssonLee)
+- The general [nf-core/community](https://nf-co.re/community)
 
-Credit and thanks also goes to [Zandra Fagernäs](https://github.com/ZandraFagernas) for the logo.
+And specifically to
+
+- [Alex Hübner](https://github.com/alexhbnr)
+- [Lily Andersson Lee](https://github.com/LilyAnderssonLee)
+
+❤️ also goes to [Zandra Fagernäs](https://github.com/ZandraFagernas) for the logo.
 
 ## Contributions and Support
 
