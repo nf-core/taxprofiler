@@ -80,7 +80,7 @@ The nf-core/taxprofiler pipeline comes with documentation about the pipeline [us
 nf-core/taxprofiler was originally written by [James A. Fellows Yates](https://github.com/jfy133), [Moritz Beber](https://github.com/Midnighter), and [Sofia Stamouli](https://github.com/sofsam).
 
 We thank the following people for their contributions to the development of this pipeline:
- 
+
 ### Team
 
 - [Lauri Mesilaakso](https://github.com/ljmesi)
