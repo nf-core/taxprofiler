@@ -103,7 +103,7 @@
                     },
                     "kraken2/kraken2": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "7c695e0147df1157413e06246d9b0094617d3e6b",
                         "installed_by": ["modules"]
                     },
                     "krakentools/combinekreports": {
