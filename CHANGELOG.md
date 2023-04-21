@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#269](https://github.com/nf-core/taxprofiler/pull/269/files) Reduced output files in AWS full test output due to very large files
 - [#270](https://github.com/nf-core/taxprofiler/pull/270/files) Fixed warning for host removal index parameter, and improved index checks (♥ to @prototaxites for reporting, fix by @jfy133)
 - [#274](https://github.com/nf-core/taxprofiler/pull/274/files) Substituted the samtools/bam2fq module with samtools/fastq module (fix by @sofstam)
+- [#275](https://github.com/nf-core/taxprofiler/pull/275/files) Replaced function used for error reporting to more Nextflow friendly method (fix by @jfy133)
 - [#286](https://github.com/nf-core/taxprofiler/pull/286/files) Runtime optimisation of MultiQC step via improved log file processing (fix by @Midnighter & @jfy133)
 
 ### `Dependencies`
