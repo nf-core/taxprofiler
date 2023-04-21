@@ -89,7 +89,7 @@ We thank the following people for their contributions to the development of this
 - [Thomas A. Christensen II](https://github.com/MillironX)
 - [Jianhong Ou](https://github.com/jianhong)
 - [Rafal Stepien](https://github.com/rafalstepien)
-- [Mahwash Jamy](https://github.com/mjamy).
+- [Mahwash Jamy](https://github.com/mjamy)
 
 ### Acknowledgments
 
