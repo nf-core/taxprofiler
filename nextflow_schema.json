@@ -432,6 +432,13 @@
                     "description": "Turn on saving of KrakenUniq per-read taxonomic assignment file",
                     "help_text": "Save a text file that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic taxonomic assignment that that read recieved.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--output`"
                 },
+                "krakenuniq_batch_size": {
+                    "type": "integer",
+                    "default": 20,
+                    "fa_icon": "far fa-window-restore",
+                    "description": "Specify the number of samples for each KrakenUniq run",
+                    "help_text": "Specify the batch size for KrakenUniq. The reference database for KrakenUniq is loaded into memory once per nextflow process and then used to classify many samples. When you have many samples, a single KrakenUniq run can be rather slow. Alternatively, we can split up KrakenUniq runs for a 'batch' of samples, allowing a balance between shared use of database for multiple samples, but also faster parallelised KrakenUniq runs. This parameter determines for how many samples at a time."
+                },
                 "run_bracken": {
                     "type": "boolean",
                     "description": "Turn on Bracken (and the required Kraken2 prerequisite step).",

@@ -315,16 +315,20 @@ workflow PROFILING {
 
     if ( params.run_krakenuniq ) {
         ch_input_for_krakenuniq =  ch_input_for_profiling.krakenuniq
-                                    .map {
-                                        meta, reads, db_meta, db ->
-                                            [[id: db_meta.db_name, single_end: meta.single_end], reads, db_meta, db]
-                                    }
-                                    .groupTuple(by: [0,2,3])
-                                    .multiMap {
-                                        single_meta, reads, db_meta, db ->
-                                            reads: [ single_meta + db_meta, reads.flatten() ]
-                                            db: db
-                                }
+            .map {
+                meta, reads, db_meta, db ->
+                    [[id: db_meta.db_name, single_end: meta.single_end], reads, db_meta, db]
+            }
+            .groupTuple(by: [0,2,3])
+            .flatMap { single_meta, reads, db_meta, db ->
+                def batches = reads.collate(params.krakenuniq_batch_size)
+                return batches.collect { batch -> [ single_meta + db_meta, batch.flatten(), db ]}
+            }
+            .multiMap {
+                meta, reads, db ->
+                    reads: [ meta, reads ]
+                    db: db
+            }
         // Hardcode to _always_ produce the report file (which is our basic output, and goes into)
         KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.db, params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
