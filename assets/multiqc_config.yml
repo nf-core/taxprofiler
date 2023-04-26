@@ -37,8 +37,7 @@ run_modules:
 
 sp:
   diamond:
-    contents: "diamond v"
-    num_lines: 10
+    fn_re: ".*.diamond.log$"
   fastqc/data:
     fn_re: ".*(fastqc|falco)_data.txt$"
   fastqc/zip:
