@@ -102,7 +102,7 @@ nf-core/taxprofiler was originally written by James A. Fellows Yates, Sofia Stam
 
 ### Team
 
-- [James A. Fellows Yates](https://github.com/jfy133) 
+- [James A. Fellows Yates](https://github.com/jfy133)
 - [Sofia Stamouli](https://github.com/sofstam)
 - [Moritz E. Beber](https://github.com/Midnighter)
 
@@ -137,7 +137,7 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
-If you use  nf-core/taxprofiler for your analysis, please cite it using the following doi: [10.5281/zenodo.7728364](https://doi.org/10.5281/zenodo.7728364)
+If you use nf-core/taxprofiler for your analysis, please cite it using the following doi: [10.5281/zenodo.7728364](https://doi.org/10.5281/zenodo.7728364)
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
