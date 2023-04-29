@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#275](https://github.com/nf-core/taxprofiler/pull/275/files) Replaced function used for error reporting to more Nextflow friendly method (fix by @jfy133)
 - [#285](https://github.com/nf-core/taxprofiler/pull/285/files) Fixed overly large log files in Kraken2 output (♥ to @prototaxites for reporting, fix by @Midnighter & @jfy133)
 - [#286](https://github.com/nf-core/taxprofiler/pull/286/files) Runtime optimisation of MultiQC step via improved log file processing (fix by @Midnighter & @jfy133)
+- [#290](https://github.com/nf-core/taxprofiler/pull/286/files) Minor database input documentation improvements (♥ to @alneberg for reporting, fix by @jfy133)
 
 ### `Dependencies`
 
