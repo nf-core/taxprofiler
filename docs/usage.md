@@ -120,7 +120,7 @@ Column specifications are as follows:
 
 nf-core/taxprofiler will automatically decompress and extract any compressed archives for you.
 
-The (uncompressed) database paths (`db_path`) for each tool are expected to contain the contents of:
+The (uncompressed) database paths (`db_path`) for each tool are expected to contain:
 
 - [**Bracken**:](#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
 - [**Centrifuge**:](#centrifuge-custom-database) output of `centrifuge-build`.
@@ -130,9 +130,9 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**KrakenUniq**:](#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
 - [**MALT**](#malt-custom-database) output of `malt-build`.
 - [**MetaPhlAn3**:](#metaphlan3-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn3 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0#customizing-the-database).
-- [**mOTUs**:](#motus-custom-database) is composed of code and database together.
+- [**mOTUs**:](#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
 
-Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
+> ℹ️ Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
 
 ## Running the pipeline
 
