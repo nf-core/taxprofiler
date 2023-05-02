@@ -173,7 +173,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "ee80d14721e76e2e079103b8dcd5d57129e584ba",
+                        "git_sha": "f2d63bd5b68925f98f572eed70993d205cc694b7",
                         "installed_by": ["modules"]
                     },
                     "porechop/porechop": {
@@ -214,7 +214,7 @@
                     },
                     "untar": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "b9829e1064382745d8dff7f1d74d2138d2864f71",
                         "installed_by": ["modules"]
                     }
                 }
