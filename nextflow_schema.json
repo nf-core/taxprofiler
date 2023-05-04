@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/master/nextflow_schema.json",
     "title": "nf-core/taxprofiler pipeline parameters",
-    "description": "Taxonomic profiling of shotgun metagenomic data",
+    "description": "Taxonomic classification and profiling of shotgun metagenomic data",
     "type": "object",
     "definitions": {
         "input_output_options": {
