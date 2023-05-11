@@ -33,7 +33,7 @@ workflow STANDARDISATION_PROFILES {
                             .groupTuple ()
                             .map { [ it[0], it[1].flatten() ] }
 
-    TAXPASTA_MERGE (ch_input_for_taxpasta, [], [])
+    TAXPASTA_MERGE (ch_input_for_taxpasta, params.taxpasta_taxonomy_dir ? params.taxpasta_taxonomy_dir : [], [])
 
     /*
         Split profile results based on tool they come from
