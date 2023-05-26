@@ -15,6 +15,8 @@ include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                                 } from '../../modules/nf-core/motus/profile/main'
 include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
+include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
+include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
 
 workflow PROFILING {
     take:
@@ -47,6 +49,7 @@ workflow PROFILING {
                 malt:    it[2]['tool'] == 'malt'
                 metaphlan3: it[2]['tool'] == 'metaphlan3'
                 motus: it[2]['tool'] == 'motus'
+                ganon: it[2]['tool'] == 'ganon'
                 unknown: true
             }
 
@@ -336,6 +339,25 @@ workflow PROFILING {
         ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment )
         ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
 
+    }
+
+    if ( params.run_ganon ) {
+
+        ch_input_for_ganonclassify =  ch_input_for_profiling.ganon
+                                .multiMap {
+                                    it ->
+                                        reads: [ it[0] + it[2], it[1] ]
+                                        db: it[3]
+                                }
+
+        ch_input_for_ganonclassify.reads
+            .dump(tag: 'ganonclassify_reads')
+
+        GANON_CLASSIFY( ch_input_for_ganonclassify.reads, ch_input_for_ganonclassify.db )
+
+        // TODO: combine output from classify with correct database for GANON_REPORT report-database multimap
+
+        // GANON_REPORT()
     }
 
     emit:

@@ -81,6 +81,21 @@
                         "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
+                    "ganon/classify": {
+                        "branch": "master",
+                        "git_sha": "f61e38c82ca2bbb8dfa740822df6f2b75f2d8a86",
+                        "installed_by": ["modules"]
+                    },
+                    "ganon/report": {
+                        "branch": "master",
+                        "git_sha": "f61e38c82ca2bbb8dfa740822df6f2b75f2d8a86",
+                        "installed_by": ["modules"]
+                    },
+                    "ganon/table": {
+                        "branch": "master",
+                        "git_sha": "c02373677641897c9744c0f55f0c12fd79232c71",
+                        "installed_by": ["modules"]
+                    },
                     "gunzip": {
                         "branch": "master",
                         "git_sha": "b9829e1064382745d8dff7f1d74d2138d2864f71",
