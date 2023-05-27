@@ -344,6 +344,11 @@ workflow PROFILING {
     if ( params.run_ganon ) {
 
         ch_input_for_ganonclassify =  ch_input_for_profiling.ganon
+                                .filter {
+                                    meta, reads, meta_db, db ->
+                                        if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Ganon has not been evaluated for Nanopore data. Skipping Ganon for sample ${meta.id}."
+                                        meta['tool'] == 'ganon' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+                                }
                                 .multiMap {
                                     it ->
                                         reads: [ it[0] + it[2], it[1] ]
