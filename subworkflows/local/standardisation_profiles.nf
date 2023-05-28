@@ -23,6 +23,11 @@ workflow STANDARDISATION_PROFILES {
 
     //Taxpasta standardisation
     ch_input_for_taxpasta = profiles
+                            .filter {
+                                meta, report ->
+                                    if ( meta['tool'] == 'ganon' ) log.warn "[nf-core/taxprofiler] ganon not yet supported in Taxpasta. Skipping ganon profile for sample ${meta.id}."
+                                    meta['tool'] != 'ganon'
+                            }
                             .map {
                                     meta, profile ->
                                         def meta_new = [:]

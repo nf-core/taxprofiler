@@ -343,11 +343,11 @@ workflow PROFILING {
 
     if ( params.run_ganon ) {
 
-        ch_input_for_ganonclassify =  ch_input_for_profiling.ganon
+        ch_input_for_ganonclassify = ch_input_for_profiling.ganon
                                 .filter {
                                     meta, reads, meta_db, db ->
                                         if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Ganon has not been evaluated for Nanopore data. Skipping Ganon for sample ${meta.id}."
-                                        meta['tool'] == 'ganon' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+                                        meta_db['tool'] == 'ganon' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
                                 }
                                 .multiMap {
                                     it ->
@@ -356,13 +356,43 @@ workflow PROFILING {
                                 }
 
         ch_input_for_ganonclassify.reads
-            .dump(tag: 'ganonclassify_reads')
 
         GANON_CLASSIFY( ch_input_for_ganonclassify.reads, ch_input_for_ganonclassify.db )
+        ch_versions = ch_versions.mix( GANON_CLASSIFY.out.versions.first() )
 
-        // TODO: combine output from classify with correct database for GANON_REPORT report-database multimap
+        ch_report_for_ganonreport = GANON_CLASSIFY.out.report
+                                        .map{
+                                            meta, report ->
+                                                def meta_db = [ meta['db_name'] ]
 
-        // GANON_REPORT()
+                                            [ meta_db, meta, report ]
+
+                                        }
+
+        ch_database_for_ganonreport = databases
+                                        .map{
+                                            meta, database ->
+                                                def meta_db = [ meta['db_name'] ]
+
+                                        [ meta_db, meta, database ]
+
+                                        }
+
+        ch_report_for_ganonreport = ch_report_for_ganonreport
+                                        .join(ch_database_for_ganonreport)
+                                        .multiMap{
+                                            meta_key, meta, report, meta_db, database ->
+                                                report: [ meta, report ]
+                                                database: [ database ]
+                                        }
+
+        GANON_REPORT(ch_report_for_ganonreport.report, ch_report_for_ganonreport.database)
+        ch_versions            = ch_versions.mix( GANON_REPORT.out.versions.first() )
+
+        // Might be flipped -check what is a profile vs raw classification
+        ch_raw_profiles        = ch_raw_profiles.mix( GANON_CLASSIFY.out.report )
+        ch_raw_classifications = ch_raw_classifications.mix( GANON_REPORT.out.tre )
+
     }
 
     emit:
