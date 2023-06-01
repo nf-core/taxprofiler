@@ -26,8 +26,8 @@ workflow PROFILING {
     main:
     ch_versions             = Channel.empty()
     ch_multiqc_files        = Channel.empty()
-    ch_raw_classifications  = Channel.empty()
-    ch_raw_profiles         = Channel.empty()
+    ch_raw_classifications  = Channel.empty() // These per-read ID taxonomic assingment
+    ch_raw_profiles         = Channel.empty() // These are count tables
 
 /*
         COMBINE READS WITH POSSIBLE DATABASES
@@ -147,7 +147,7 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassification )
+        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report )
         ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
@@ -389,9 +389,9 @@ workflow PROFILING {
         GANON_REPORT(ch_report_for_ganonreport.report, ch_report_for_ganonreport.database)
         ch_versions            = ch_versions.mix( GANON_REPORT.out.versions.first() )
 
-        // Might be flipped -check what is a profile vs raw classification
-        ch_raw_profiles        = ch_raw_profiles.mix( GANON_CLASSIFY.out.report )
-        ch_raw_classifications = ch_raw_classifications.mix( GANON_REPORT.out.tre )
+        // Might be flipped - check/define what is a profile vs raw classification
+        ch_raw_profiles        = ch_raw_profiles.mix( GANON_REPORT.out.tre )
+        ch_raw_classifications = ch_raw_classifications.mix( GANON_CLASSIFY.out.all )
 
     }
 
