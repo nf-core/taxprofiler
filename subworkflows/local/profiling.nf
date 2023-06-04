@@ -228,7 +228,23 @@ workflow PROFILING {
                                 }
 
         CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads, params.centrifuge_save_reads  )
-        CENTRIFUGE_KREPORT (CENTRIFUGE_CENTRIFUGE.out.report, ch_input_for_centrifuge.db)
+
+        // Ensure the correct database goes with the generated report for KREPORT
+        ch_database_for_centrifugekreport = databases
+                                                .filter { meta, db -> meta['tool'] == 'centrifuge' }
+                                                .map { meta, db -> [meta['db_name'], meta, db] }
+
+        ch_input_for_centrifuge_kreport = CENTRIFUGE_CENTRIFUGE.out.report
+                                            .map { meta, profile -> [meta['db_name'], meta, profile] }
+                                            .join(ch_database_for_centrifugekreport)
+                                            .multiMap {
+                                                key, meta, profile, db_meta, db ->
+                                                    profile: [meta, profile]
+                                                    db: db
+                                            }
+
+        CENTRIFUGE_KREPORT (ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)
+
         ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
         ch_raw_profiles        = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
