@@ -2,13 +2,15 @@
 // Standardise output files e.g. aggregation
 //
 
+include { TAXPASTA_MERGE                                                        } from '../../modules/nf-core/taxpasta/merge/main'
+include { TAXPASTA_STANDARDISE                                                  } from '../../modules/nf-core/taxpasta/standardise/main'
 include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../modules/nf-core/bracken/combinebrackenoutputs/main'
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
-include { TAXPASTA_MERGE                                                        } from '../../modules/nf-core/taxpasta/merge/main'
+
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -22,7 +24,7 @@ workflow STANDARDISATION_PROFILES {
     ch_multiqc_files       = Channel.empty()
 
     //Taxpasta standardisation
-    ch_input_for_taxpasta = profiles
+    ch_prepare_for_taxpasta = profiles
                             .map {
                                     meta, profile ->
                                         def meta_new = [:]
@@ -35,7 +37,17 @@ workflow STANDARDISATION_PROFILES {
 
     ch_taxpasta_tax_dir = params.taxpasta_taxonomy_dir ? Channel.fromPath(params.taxpasta_taxonomy_dir, checkIfExists: true).collect() : []
 
-    TAXPASTA_MERGE (ch_input_for_taxpasta, ch_taxpasta_tax_dir, [])
+    ch_input_for_taxpasta = ch_prepare_for_taxpasta
+                        .dump(tag: "pre-branch")
+                        .branch {
+                            meta, profile ->
+                                merge:      profile.size() > 1
+                                standardise: true
+                        }
+
+
+    TAXPASTA_MERGE       (ch_input_for_taxpasta.merge      , ch_taxpasta_tax_dir, [])
+    TAXPASTA_STANDARDISE (ch_input_for_taxpasta.standardise, ch_taxpasta_tax_dir    )
 
     /*
         Split profile results based on tool they come from
