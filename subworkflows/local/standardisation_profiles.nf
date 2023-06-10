@@ -38,7 +38,6 @@ workflow STANDARDISATION_PROFILES {
     ch_taxpasta_tax_dir = params.taxpasta_taxonomy_dir ? Channel.fromPath(params.taxpasta_taxonomy_dir, checkIfExists: true).collect() : []
 
     ch_input_for_taxpasta = ch_prepare_for_taxpasta
-                        .dump(tag: "pre-branch")
                         .branch {
                             meta, profile ->
                                 merge:      profile.size() > 1
