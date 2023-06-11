@@ -481,14 +481,16 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 
 ### TAXPASTA
 
-[TAXPASTA](https://github.com/taxprofiler/taxpasta) standardises and merges two or more taxonomic profiles across samples into one single table. It supports multiple different classifiers simplifying comparison of taxonomic classification results between tools and databases.
+[TAXPASTA](https://github.com/taxprofiler/taxpasta) standardises and optionally merges two or more taxonomic profiles across samples into one single table. It supports multiple different classifiers simplifying comparison of taxonomic classification results between tools and databases.
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `taxpasta`
 
-  - `<tool>_<database>*.{tsv,csv,arrow,parquet,biom}`: Standardised taxon table containing multiple samples. The standard format is the `tsv`. The first column describes the taxonomy ID and the rest of the columns describe the read counts for each sample.
+  - `<tool>_<database>*.{tsv,csv,arrow,parquet,biom}`: Standardised taxon table containing multiple samples. The standard format is the `tsv`.
+    - The first column describes the taxonomy ID and the rest of the columns describe the read counts for each sample.
+    - Note that the file naming scheme will apply regardless of whether `TAXPASTA_MERGE` (multiple sample run) or `TAXPASTA_STANDARDISE` (single sample run) are executed.
 
   </details>
 
