@@ -227,6 +227,11 @@
                         "git_sha": "ffa9641ee18f88aff974257cb50ba3cf8f7d143c",
                         "installed_by": ["modules"]
                     },
+                    "taxpasta/standardise": {
+                        "branch": "master",
+                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "installed_by": ["modules"]
+                    },
                     "untar": {
                         "branch": "master",
                         "git_sha": "b9829e1064382745d8dff7f1d74d2138d2864f71",
