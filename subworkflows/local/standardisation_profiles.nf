@@ -24,7 +24,7 @@ workflow STANDARDISATION_PROFILES {
     ch_multiqc_files       = Channel.empty()
 
     //Taxpasta standardisation
-    ch_input_for_taxpasta = profiles
+    ch_prepare_for_taxpasta = profiles
                             .filter {
                                 meta, report ->
                                 // TODO: add tool to taxpasta!

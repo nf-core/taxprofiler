@@ -509,7 +509,7 @@
                 },
                 "ganon_report_type": {
                     "type": "string",
-                    "default": "abundance",
+                    "default": "reads",
                     "description": "Specify the type of ganon report to save.",
                     "help_text": "Specify the type of taxonomic report to produce from ganon report. This mainly refers to which form of 'value' to print: raw read counts, abundance estimates, genome-size normalised etc. \n\nSee the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/#ganon-report) for more information of each option.\n\n> Modifies tool parameter(s):\n- ganon report: `--report-type`\n",
                     "enum": ["abundance", "reads", "matches", "dist", "corr"],
