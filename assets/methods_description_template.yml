@@ -15,6 +15,7 @@ data: |
   <ul>
     <li>Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. Nature Biotechnology, 35(4), 316-319. <a href="https://doi.org/10.1038/nbt.3820">https://doi.org/10.1038/nbt.3820</a></li>
     <li>Ewels, P. A., Peltzer, A., Fillinger, S., Patel, H., Alneberg, J., Wilm, A., Garcia, M. U., Di Tommaso, P., & Nahnsen, S. (2020). The nf-core framework for community-curated bioinformatics pipelines. Nature Biotechnology, 38(3), 276-278. <a href="https://doi.org/10.1038/s41587-020-0439-x">https://doi.org/10.1038/s41587-020-0439-x</a></li>
+    ${tool_bibliography}
   </ul>
   <div class="alert alert-info">
     <h5>Notes:</h5>
