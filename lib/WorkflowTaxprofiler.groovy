@@ -46,14 +46,40 @@ class WorkflowTaxprofiler {
         return yaml_file_text
     }
 
-    public static String methodsDescriptionText(run_workflow, mqc_methods_yaml) {
+    ///
+    /// Automatic publication methods text generation
+    ///
+
+    public static String toolCitationText(params) {
+
+        // TODO consider how to do the same for the references themselves, include in the same if/else statements somehow?
+        def citation_text = [
+                "Tools used in the workflow included:",
+                "FastQC (Andrews 2010),",
+                params["perform_shortread_complexityfilter"] ? "Complexity filtering was performed using:" : "",
+                params['run_kraken2'] ? 'Kraken2 (Wood et al. 2019),' : "",
+                params['run_malt'] ? "MALT (Herbig et al. 2016)," : "",
+                "MultiQC (Ewels et al. 2016),"
+            ].join(' ').trim()
+
+        return citation_text
+    }
+
+    public static String methodsDescriptionText(run_workflow, mqc_methods_yaml, params) {
         // Convert  to a named map so can be used as with familar NXF ${workflow} variable syntax in the MultiQC YML file
         def meta = [:]
+
         meta.workflow = run_workflow.toMap()
         meta["manifest_map"] = run_workflow.manifest.toMap()
 
         meta["doi_text"] = meta.manifest_map.doi ? "(doi: <a href=\'https://doi.org/${meta.manifest_map.doi}\'>${meta.manifest_map.doi}</a>)" : ""
         meta["nodoi_text"] = meta.manifest_map.doi ? "": "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
+
+        meta["tool_citations"] = ""
+        /*
+        TODO Only uncomment below if logic in toolCitationText has been written!
+        */
+        meta["tool_citations"] = toolCitationText(params)
 
         def methods_text = mqc_methods_yaml.text
 
