@@ -52,8 +52,6 @@ class WorkflowTaxprofiler {
 
     public static String toolCitationText(params) {
 
-        // TODO consider how to do the same for the references themselves, include in the same if/else statements somehow?
-        // TODO add biocontainers/bioconda/singularity to default HTML text!
         def citation_text = [
                 "Tools used in the workflow included",
                 params["preprocessing_qc_tool"] == "falco" ? "Falco (de Sena Brandine and Smith 2021)." : "FastQC (Andrews 2010).", // TODO OR FALCO
@@ -98,7 +96,7 @@ class WorkflowTaxprofiler {
 
         // TODO consider how to do the same for the references themselves, include in the same if/else statements somehow?
         def reference_text = [
-                params["preprocessing_qc_tool"] == "falco" ? "<li>de Sena Brandine G and Smith AD. Falco: high-speed FastQC emulation for quality control of sequencing data. F1000Research 2021, 8:1874</li>" : "Andrews S, (2010) FastQC, URL: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).", // TODO OR FALCO
+                params["preprocessing_qc_tool"] == "falco" ? "<li>de Sena Brandine G and Smith AD. Falco: high-speed FastQC emulation for quality control of sequencing data. F1000Research 2021, 8:1874</li>" : "<li>Andrews S, (2010) FastQC, URL: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).</li>", // TODO OR FALCO
 
                 params["perform_shortread_qc"] && params["shortread_qc_tool"] == "adapterremoval" ? "<li>Schubert, Mikkel, Stinus Lindgreen, and Ludovic Orlando. 2016. AdapterRemoval v2: Rapid Adapter Trimming, Identification, and Read Merging. BMC Research Notes 9 (February): 88. doi:10.1186/s13104-016-1900-2.</li>" : "",
                 params["perform_shortread_qc"] && params["shortread_qc_tool"] == "fastp" ? "<li>Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. Fastp: An Ultra-Fast All-in-One FASTQ Preprocessor. Bioinformatics 34 (17): i884-90. 10.1093/bioinformatics/bty560.</li>" : "",
