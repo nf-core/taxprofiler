@@ -1,7 +1,7 @@
 // Helper functions for pipeline tests
 
 class UTILS {
-    
+
     // Function to remove Nextflow version from software_versions.yml
     public static String removeNextflowVersion(outputDir) {
         def softwareVersions = path("$outputDir/pipeline_info/software_versions.yml").yaml
@@ -11,7 +11,7 @@ class UTILS {
         return softwareVersions
     }
 
-    // Function to filter lines from a file and return a new file  
+    // Function to filter lines from a file and return a new file
     public static File filterLines(String inFile, int linesToSkip) {
         def inputFile = new File(inFile)
         def outputFile = new File(inFile + ".filtered")
