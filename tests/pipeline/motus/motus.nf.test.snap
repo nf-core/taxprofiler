@@ -1,0 +1,28 @@
+{
+    "motus": {
+        "content": [
+            "motus_db_mOTU_combined_reports.txt.filtered:md5,3af6c8c08111279db63524e4972cafbf"
+        ],
+        "timestamp": "2023-06-19T20:20:15+0000"
+    },
+    "software_versions": {
+        "content": [
+            "{CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.0, yaml=6.0}, FASTQC={fastqc=0.11.9}, MOTUS_MERGE={motus=3.1.0}, MOTUS_PROFILE={motus=3.1.0}, SAMPLESHEET_CHECK={python=3.8.3}, Workflow={nf-core/taxprofiler=1.1.0dev}}"
+        ],
+        "timestamp": "2023-06-19T20:20:15+0000"
+    },
+    "taxpasta": {
+        "content": [
+            "motus_db_mOTU.tsv:md5,477f9f2c3899f97552754389638c5ab9"
+        ],
+        "timestamp": "2023-06-19T20:20:15+0000"
+    },
+    "multiqc": {
+        "content": [
+            "motus.txt:md5,0ce62a9d532449c291c0cb84d3df1f38",
+            "multiqc_fastqc.txt:md5,4e145ddc71fb1b37b62df907fa452200",
+            "multiqc_general_stats.txt:md5,d67a2b6304c3e9cbda3e8b936c35a877"
+        ],
+        "timestamp": "2023-06-19T20:20:15+0000"
+    }
+}

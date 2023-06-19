@@ -1,0 +1,74 @@
+{
+    "filtlong": {
+        "content": [
+            "ERR3201952_ERR3201952_filtered.log:md5,513650c6b058af60a824f98e6a632e2d"
+        ],
+        "timestamp": "2023-06-19T19:09:56+0000"
+    },
+    "software_versions": {
+        "content": [
+            "{BBMAP_BBDUK={bbmap=39.01}, BOWTIE2_ALIGN={bowtie2=2.4.4, pigz=2.6, samtools=1.16.1}, BOWTIE2_BUILD={bowtie2=2.4.4}, CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.0, yaml=6.0}, FASTP_PAIRED={fastp=0.23.2}, FASTP_SINGLE={fastp=0.23.2}, FASTQC={fastqc=0.11.9}, FASTQC_PROCESSED={fastqc=0.11.9}, FILTLONG={filtlong=0.2.1}, KRAKENUNIQ_PRELOADEDKRAKENUNIQ={krakenuniq=1.0.2}, MERGE_RUNS={cat=8.30}, MINIMAP2_ALIGN={minimap2=2.24-r1122}, MINIMAP2_INDEX={minimap2=2.24-r1122}, PORECHOP_PORECHOP={porechop=0.2.4}, SAMPLESHEET_CHECK={python=3.8.3}, SAMTOOLS_FASTQ={samtools=1.16.1}, SAMTOOLS_INDEX={samtools=1.16.1}, SAMTOOLS_STATS={samtools=1.16.1}, SAMTOOLS_VIEW={samtools=1.16.1}, UNTAR={untar=1.30}, Workflow={nf-core/taxprofiler=1.1.0dev}}"
+        ],
+        "timestamp": "2023-06-19T19:09:56+0000"
+    },
+    "porechop": {
+        "content": [
+            "ERR3201952_ERR3201952.log:md5,c0d64bc4899a70c68ea23b737efb687f"
+        ],
+        "timestamp": "2023-06-19T19:09:56+0000"
+    },
+    "taxpasta": {
+        "content": [
+            "krakenuniq_db6.tsv:md5,9d1b3065bf509b8be6b5d5fa56b7e90a"
+        ],
+        "timestamp": "2023-06-19T19:09:56+0000"
+    },
+    "multiqc": {
+        "content": [
+            "bbduk.txt:md5,d609874f85386aeee5241cf7cbedee99",
+            "filtlong.txt:md5,69cd258c3883ba2acfb1b72cf3b743de",
+            "multiqc_bowtie2.txt:md5,554215fc040f48daec70cd89c39daa77",
+            "multiqc_fastp.txt:md5,d755cf8d8b9bb535ce10bacbc06b60a5",
+            "multiqc_fastqc_1.txt:md5,c3a7e1a86e753f246c1b99574e4dec37",
+            "multiqc_fastqc.txt:md5,4e145ddc71fb1b37b62df907fa452200",
+            "multiqc_general_stats.txt:md5,fcf5293c89f5431411593335790b4f9c",
+            "multiqc_samtools_stats.txt:md5,8083ccec64e3a46b7cea712e8f734ac0",
+            "porechop.txt:md5,5cadfceb7d9bc6b4da7bbb981a90d8ed"
+        ],
+        "timestamp": "2023-06-19T19:09:56+0000"
+    },
+    "krakenuniq": {
+        "content": [
+            "2612.krakenuniq.report.txt.filtered:md5,06beb20116aa60938fe8b6214ca8ef15"
+        ],
+        "timestamp": "2023-06-19T19:09:56+0000"
+    },
+    "bowtie2/align/": {
+        "content": [
+            "2612_ERR5766176.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
+            "2612_ERR5766176_B.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
+            "2612_ERR5766180.bowtie2.log:md5,a7487ce9c549a7f8fb5694fd0889f929",
+            "2613_ERR5766181.bowtie2.log:md5,6cb148fdf3840de7a8a1f5315847817b"
+        ],
+        "timestamp": "2023-06-19T19:09:56+0000"
+    },
+    "samtools/stats/": {
+        "content": [
+            "2612_ERR5766176.stats:md5,22c22b8550ae64ca1bd84a3b5426258f",
+            "2612_ERR5766176_B.stats:md5,62424e4e81a1cb1efebeeb32fe393473",
+            "2612_ERR5766180.stats:md5,c8e54671319515471f1738105c661c19",
+            "2613_ERR5766181.stats:md5,a6734b56f0d0c7389c9a4972b0733d19",
+            "ERR3201952_ERR3201952.stats:md5,06a195adabd47f0d5eec9b15558a47cd"
+        ],
+        "timestamp": "2023-06-19T19:09:56+0000"
+    },
+    "fastp": {
+        "content": [
+            "2612_ERR5766176_B.fastp.json:md5,11ab617fa60858c5ff252a036db1787b",
+            "2612_ERR5766176.fastp.json:md5,78cfc49753d310c0b66f736f285f0533",
+            "2612_ERR5766180.fastp.json:md5,c47589fcbc4e0db8d9f98269fa6b1986",
+            "2613_ERR5766181.fastp.json:md5,5d967bbc748347f8ceff03b1fb1659a6"
+        ],
+        "timestamp": "2023-06-19T19:09:56+0000"
+    }
+}
