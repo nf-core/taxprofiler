@@ -35,8 +35,8 @@ jobs:
             echo matrix='["latest-everything", "22.10.1"]' | tee -a $GITHUB_OUTPUT
           fi
 
-  test:
-    name: Run pipeline with test data
+  test_default:
+    name: Run pipeline with default test profile
     needs: define_nxf_versions
     runs-on: ubuntu-latest
     strategy:
@@ -63,9 +63,81 @@ jobs:
         run: |
           nf-test test tests/pipeline/default --profile "test,${{ matrix.profile }}" --junitxml=test_default.xml
 
+      - name: Output log on failure
+        if: failure()
+        run: |
+          sudo apt install bat > /dev/null
+          batcat --decorations=always --color=always ${{ github.workspace }}/.nf-test/tests/*/output/pipeline_info/software_versions.yml
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always() # always run even if the previous step fails
+        with:
+          report_paths: "*.xml"
+
+  test_krakenuniq:
+    name: Run pipeline with test_krakenuniq profile
+    needs: define_nxf_versions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
+        profile:
+          - "docker"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v3
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://code.askimed.com/install/nf-test | bash -s $NFTEST_VER
+          sudo mv nf-test /usr/local/bin/
+
       - name: Run nf-test krakenuniq
         run: |
           nf-test test tests/pipeline/krakenuniq --profile "test_krakenuniq,${{ matrix.profile }}" --junitxml=test_krakenuniq.xml
+
+      - name: Output log on failure
+        if: failure()
+        run: |
+          sudo apt install bat > /dev/null
+          batcat --decorations=always --color=always ${{ github.workspace }}/.nf-test/tests/*/output/pipeline_info/software_versions.yml
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always() # always run even if the previous step fails
+        with:
+          report_paths: "*.xml"
+
+  test_malt:
+    name: Run pipeline with test_malt profile
+    needs: define_nxf_versions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
+        profile:
+          - "docker"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v3
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://code.askimed.com/install/nf-test | bash -s $NFTEST_VER
+          sudo mv nf-test /usr/local/bin/
 
       - name: Run nf-test malt
         run: |
