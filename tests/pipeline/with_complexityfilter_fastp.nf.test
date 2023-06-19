@@ -1,0 +1,55 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "test"
+    tag "pipeline"
+
+    test("Short Read Complexity Filter Tool - Fastp") {
+
+        when {
+            params {
+                outdir                          = "$outputDir"
+                shortread_complexityfilter_tool = "fastp"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(UTILS.removeNextflowVersion("$outputDir")).match("software_versions") },
+                { assert snapshot(path("$outputDir/bowtie2/align/").list()).match("bowtie2/align/") },
+                { assert snapshot(path("$outputDir/bracken/").list()).match("bracken") },
+                { assert snapshot(path("$outputDir/centrifuge/").list()).match("centrifuge") },
+                { assert snapshot(path("$outputDir/diamond/").list()).match("diamond") },
+                { assert snapshot(path("$outputDir/fastp/2612_ERR5766176_B.fastp.json"),
+                                path("$outputDir/fastp/2612_ERR5766176.fastp.json"),
+                                path("$outputDir/fastp/2612_ERR5766180.fastp.json"),
+                                path("$outputDir/fastp/2613_ERR5766181.fastp.json")).match("fastp") },
+                { assert snapshot(path("$outputDir/filtlong/").list()).match("filtlong") },
+                { assert snapshot(path("$outputDir/kaiju/").list()).match("kaiju") },
+                { assert snapshot(path("$outputDir/kraken2/").list()).match("kraken2") },
+                { assert new File("$outputDir/krona/centrifuge_db3.html").exists() },
+                { assert new File("$outputDir/krona/kaiju_db5.html").exists() },
+                { assert new File("$outputDir/krona/kraken2_db1.html").exists() },
+                { assert new File("$outputDir/krona/kraken2_db2.html").exists() },
+                { assert snapshot(path("$outputDir/metaphlan3/").list()).match("metaphlan3") },
+                { assert snapshot(path("$outputDir/multiqc/multiqc_data/diamond.txt"),
+                                path("$outputDir/multiqc/multiqc_data/filtlong.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_bowtie2.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_fastp.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_fastqc_1.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_general_stats.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_kaiju_species.txt"),
+                                path("$outputDir/multiqc/multiqc_data/multiqc_samtools_stats.txt"),
+                                path("$outputDir/multiqc/multiqc_data/porechop.txt")).match("multiqc") },
+                { assert snapshot(path("$outputDir/porechop/").list()).match("porechop") },
+                { assert snapshot(path("$outputDir/samtools/stats/").list()).match("samtools/stats/") },
+                { assert snapshot(path("$outputDir/taxpasta/").list()).match("taxpasta") },
+            )
+        }
+
+    }
+
+}
