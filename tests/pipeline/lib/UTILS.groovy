@@ -12,16 +12,30 @@ class UTILS {
     }
 
     // Function to filter lines from a file and return a new file
-    public static File filterLines(String inFile, int linesToSkip) {
-        def inputFile = new File(inFile)
-        def outputFile = new File(inFile + ".filtered")
-        def lineCount = 0
-        inputFile.eachLine { line ->
-            lineCount++
-            if (lineCount > linesToSkip) {
+    public static File filterLines(String inFilePath, int linesToSkip) {
+        if (linesToSkip >= 0) {
+            File inputFile = new File(inFilePath)
+            File outputFile = new File(inFilePath + ".filtered")
+            def lineCount = 0
+            inputFile.eachLine { line ->
+                lineCount++
+                if (lineCount > linesToSkip) {
+                    outputFile.append(line + '\n')
+                }
+            }
+            return outputFile
+        } else {
+            File inputFile = new File(inFilePath)
+            File outputFile = new File(inFilePath + ".filtered")
+            def lines = inputFile.readLines()
+            def totalLines = lines.size()
+            lines.take(totalLines + linesToSkip).each { line ->
                 outputFile.append(line + '\n')
             }
+            return outputFile
         }
-        return outputFile
     }
 }
+
+
+
