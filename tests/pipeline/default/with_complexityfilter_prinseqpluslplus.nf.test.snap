@@ -3,148 +3,71 @@
         "content": [
             "ERR3201952_ERR3201952_filtered.log:md5,513650c6b058af60a824f98e6a632e2d"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "metaphlan3": {
         "content": [
-            [
-                "2612_se_db4.metaphlan3.biom:md5,c33e6d6b02d97375785a78c138cbdb4c",
-                "2612_se_db4.metaphlan3.bowtie2out.txt:md5,862135aa16db93f6be7aba9db57e6308",
-                "2612_se_db4.metaphlan3_profile.txt:md5,4086ea413a8fc2c2ac5a5b3080da2ec9",
-                "2613_se_db4.metaphlan3.biom:md5,7633fc2a0ded1793d126bfd7e030b1e9",
-                "2613_se_db4.metaphlan3.bowtie2out.txt:md5,3fd49f8824d90e97596097c4853dee4f",
-                "2613_se_db4.metaphlan3_profile.txt:md5,462377a7b31e33478cab46f5d3123667",
-                "ERR3201952_se_db4.metaphlan3.biom:md5,d08f0d676a525d33d86a01f2a228138a",
-                "ERR3201952_se_db4.metaphlan3.bowtie2out.txt:md5,746d6a153a475fcf54fc1983c84900c4",
-                "ERR3201952_se_db4.metaphlan3_profile.txt:md5,3c2e27e7197485f0e913594db715323b"
-            ],
-            "metaphlan3_db4_combined_reports.txt:md5,ceb88c02370a2c3bccdd3ff4ee7c23a9"
+            "metaphlan3_db4_combined_reports.txt:md5,c73796201f8b1874a75abb05bd9c2c5f"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "software_versions": {
         "content": [
             "{BOWTIE2_ALIGN={bowtie2=2.4.4, pigz=2.6, samtools=1.16.1}, BOWTIE2_BUILD={bowtie2=2.4.4}, BRACKEN_BRACKEN={bracken=2.7}, CENTRIFUGE_CENTRIFUGE={centrifuge=1.0.4}, CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.0, yaml=6.0}, DIAMOND_BLASTX={diamond=2.0.15}, FASTP_PAIRED={fastp=0.23.2}, FASTP_SINGLE={fastp=0.23.2}, FASTQC={fastqc=0.11.9}, FASTQC_PROCESSED={fastqc=0.11.9}, FILTLONG={filtlong=0.2.1}, KAIJU_KAIJU={kaiju=1.8.2}, KAIJU_KAIJU2KRONA={kaiju=1.8.2}, KAIJU_KAIJU2TABLE_COMBINED={kaiju=1.8.2}, KAIJU_KAIJU2TABLE_SINGLE={kaiju=1.8.2}, KRAKEN2_KRAKEN2={kraken2=2.1.2, pigz=2.6}, KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE={combine_kreports.py=1.2}, KRAKENTOOLS_COMBINEKREPORTS_KRAKEN={combine_kreports.py=1.2}, KRAKENTOOLS_KREPORT2KRONA={kreport2krona.py=1.2}, KRONA_CLEANUP={sed=4.7}, KRONA_KTIMPORTTEXT={krona=2.8.1}, MERGE_RUNS={cat=8.30}, METAPHLAN3_MERGEMETAPHLANTABLES={metaphlan3=3.0.12}, METAPHLAN3_METAPHLAN3={metaphlan3=3.0.12}, MINIMAP2_ALIGN={minimap2=2.24-r1122}, MINIMAP2_INDEX={minimap2=2.24-r1122}, PORECHOP_PORECHOP={porechop=0.2.4}, PRINSEQPLUSPLUS={prinseqplusplus=1.2}, SAMPLESHEET_CHECK={python=3.8.3}, SAMTOOLS_FASTQ={samtools=1.16.1}, SAMTOOLS_INDEX={samtools=1.16.1}, SAMTOOLS_STATS={samtools=1.16.1}, SAMTOOLS_VIEW={samtools=1.16.1}, UNTAR={untar=1.30}, Workflow={nf-core/taxprofiler=1.1.0dev}}"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "porechop": {
         "content": [
-            "ERR3201952_ERR3201952.log:md5,f25991e4cabc95c4bfba37578b9c5ca6"
+            "ERR3201952_ERR3201952.log.filtered:md5,92a485cb081b6e40e1bc3360e73f69a9"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "taxpasta": {
         "content": [
             "bracken_db1.tsv:md5,7b08da8d785d1938a5ee054c5db9bf97",
-            "centrifuge_db3.tsv:md5,e863ece410193be03940cd6e106071a3",
-            "diamond_db1.tsv:md5,3d4754dd5552c09cea8def4d22804110",
-            "kaiju_db5.tsv:md5,775fa2212f1179ea255a6815259f88c4",
-            "kraken2_db1.tsv:md5,be009f42f91dad1144011824d4d319ba",
-            "kraken2_db2.tsv:md5,d5cf9f3f6378f94275f33ba92d907d86",
-            "metaphlan_db4.tsv:md5,2e19ca1dd3904d18a53637d173ff9017"
+            "centrifuge_db3.tsv:md5,82a06a277a398c3d413400c4e0ab76aa",
+            "diamond_db1.tsv:md5,c9caeea7bf35f28178718d5c752bc63f",
+            "kaiju_db5.tsv:md5,d0fee4fe21d127feb3da25635e8e28f3",
+            "kraken2_db1.tsv:md5,9ccb53850cec6b64df019be8a3d64755",
+            "kraken2_db2.tsv:md5,293b995af65ed91f5e7bd9073a6de84b",
+            "metaphlan_db4.tsv:md5,e1c908b5c7dfa42c7e405f4e20802ab1"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "kaiju": {
         "content": [
-            [
-                "2611_se_db5.kaiju.tsv:md5,35c4399eebd7792e1ece8e0643e746a2",
-                "2611_se_db5.kaijutable.txt:md5,e7c183e2e8976307885307f0b375fac5",
-                "2612_se_db5.kaiju.tsv:md5,c85c3ffdde580624c1bf6c2dfb741acf",
-                "2612_se_db5.kaijutable.txt:md5,e701ac1946b8b9b38b3b1adc337c700e",
-                "2613_se_db5.kaiju.tsv:md5,0ca9228d659ee4868b7e1461eb014cc1",
-                "2613_se_db5.kaijutable.txt:md5,22c169acd9667e4aaded76c4c4b50a4a",
-                "ERR3201952_se_db5.kaiju.tsv:md5,64f5422f12ce9f80f5b831045e5461be",
-                "ERR3201952_se_db5.kaijutable.txt:md5,569b49c5f490b1f293a1012289504d3e"
-            ],
-            "kaiju_db5_combined_reports.txt:md5,1df28b6da8f8c8ce7817b775360c9605"
+            "kaiju_db5_combined_reports.txt:md5,80e99f87e2a5a52f0a592b986cba74f3"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "bracken": {
         "content": [
-            "bracken_db1_combined_reports.txt:md5,9435227d5ac9d7ee78dbb7e1ff3348ce",
-            [
-                "2611_se_db1.bracken.tsv:md5,74af1e5c159628b9d746fc53be5409bf",
-                "2612_se_db1.bracken.tsv:md5,330c1d6f98cbc6d44dec3e83d9eeccd7",
-                "2613_se_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b"
-            ]
+            "bracken_db1_combined_reports.txt:md5,9435227d5ac9d7ee78dbb7e1ff3348ce"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "diamond": {
         "content": [
-            [
-                "2611_se_db1.diamond.log:md5,392b21a6830b6eef529d1151df1cebeb",
-                "2611_se_db1.diamond.tsv:md5,4d3baec82aeed53c6fa8803171edd212",
-                "2612_se_db1.diamond.log:md5,461a8f3f70a000a8b7a8a978f6bbd872",
-                "2612_se_db1.diamond.tsv:md5,36e0b198850c936770160e047653a151",
-                "2613_se_db1.diamond.log:md5,b20f9e71b999b58227d2986d691fa7ad",
-                "2613_se_db1.diamond.tsv:md5,ea8f566e09388c7e1a69c12ec2a9c8c0",
-                "ERR3201952_se_db1.diamond.log:md5,559685e902f34b08e436021c72ae6619",
-                "ERR3201952_se_db1.diamond.tsv:md5,3c3d1a901abe0a097469423d217c13db"
-            ]
+            "2611_se_db1.diamond.tsv:md5,4d3baec82aeed53c6fa8803171edd212",
+            "2612_se_db1.diamond.tsv:md5,65254add18c57945ce0e81747415c82a",
+            "2613_se_db1.diamond.tsv:md5,6f2baa670c91c5003f94449fc2861bb3",
+            "ERR3201952_se_db1.diamond.tsv:md5,3c3d1a901abe0a097469423d217c13db"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "kraken2": {
         "content": [
-            [
-                "2611_se_db1.bracken.classified.fastq.gz:md5,d37489186a61d9b502f2ce9373edceb5",
-                "2611_se_db1.bracken.kraken2.report.txt:md5,6f4f889a483776922a0deede33260277",
-                "2611_se_db1.bracken.unclassified.fastq.gz:md5,bf6fdefb6b56bff2d0736ac66860405d",
-                "2612_se_db1.bracken.classified.fastq.gz:md5,62165595b3350ecb50858b6e02dfc559",
-                "2612_se_db1.bracken.kraken2.report.txt:md5,32d445d5e345a67ea438972fb4cc00c3",
-                "2612_se_db1.bracken.unclassified.fastq.gz:md5,218ca0e5a034ad0db7264d0fedb0660c",
-                "2613_se_db1.bracken.classified.fastq.gz:md5,6b9b67de18fda7fa71fd9cb43701e4dc",
-                "2613_se_db1.bracken.kraken2.report.txt:md5,edf493aa415c81e13869fc92b04a01da",
-                "2613_se_db1.bracken.unclassified.fastq.gz:md5,e68d73f4bbaf54cac3fe613bf995457f",
-                "ERR3201952_se_db1.bracken.classified.fastq.gz:md5,405b5e1c5722f3c4f584a3e1585e3c44",
-                "ERR3201952_se_db1.bracken.kraken2.report.txt:md5,b38901d7c146823d61cad8bf15128095",
-                "ERR3201952_se_db1.bracken.unclassified.fastq.gz:md5,f834068c9d8a32df33b9e584fb46ec82"
-            ],
-            [
-                "2611_se_db2.kraken2.classified.fastq.gz:md5,b3f24dcf01afcc2be75b7978691554fc",
-                "2611_se_db2.kraken2.kraken2.report.txt:md5,6f4f889a483776922a0deede33260277",
-                "2611_se_db2.kraken2.unclassified.fastq.gz:md5,26f275925a567b4e79397e725a3a0c98",
-                "2612_se_db2.kraken2.classified.fastq.gz:md5,3a3d860ec908b6b7896b26fa12cc43e6",
-                "2612_se_db2.kraken2.kraken2.report.txt:md5,32d445d5e345a67ea438972fb4cc00c3",
-                "2612_se_db2.kraken2.unclassified.fastq.gz:md5,1eb87815b22c1f3a26815805e590dbbb",
-                "2613_se_db2.kraken2.classified.fastq.gz:md5,4443dcf54bde2d1382bd2ca7631a35d8",
-                "2613_se_db2.kraken2.kraken2.report.txt:md5,edf493aa415c81e13869fc92b04a01da",
-                "2613_se_db2.kraken2.unclassified.fastq.gz:md5,2dc5b27413c8be9ed4d9a9440869b771",
-                "ERR3201952_se_db2.kraken2.classified.fastq.gz:md5,4fa77fcdf84c709d4af1bd4cb310b999",
-                "ERR3201952_se_db2.kraken2.kraken2.report.txt:md5,b38901d7c146823d61cad8bf15128095",
-                "ERR3201952_se_db2.kraken2.unclassified.fastq.gz:md5,83a0de8199c64ef6ab12a50352d23839"
-            ],
             "kraken2_db1_combined_reports.txt:md5,208014d194c6dd57d1aa4455b162d439",
             "kraken2_db2_combined_reports.txt:md5,5fa6850e00dc47829c634128c90f1bb2"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "centrifuge": {
         "content": [
-            "centrifuge_db3_combined_reports.txt:md5,5d64a6ba245b269d2c501d614ac302f6",
-            [
-                "2612_se_db3.centrifuge.mapped.fastq.gz:md5,8a6c25229d66a047427010b42fcedd81",
-                "2612_se_db3.centrifuge.report.txt:md5,3a8ea345b024b1cf510a91dada063b23",
-                "2612_se_db3.centrifuge.results.txt:md5,0405d1da5c383e18fa4ee5cf83a2ca3b",
-                "2612_se_db3.centrifuge.txt:md5,f442705a340df5dad2b662f910222299",
-                "2612_se_db3.centrifuge.unmapped.fastq.gz:md5,f2f6156f90007aaded7a97a2797e9e63",
-                "2613_se_db3.centrifuge.mapped.fastq.gz:md5,33f49c1d5171db25cbc45097a29e832b",
-                "2613_se_db3.centrifuge.report.txt:md5,b791f6b25b0b9a9b70ebd2541bc23dd0",
-                "2613_se_db3.centrifuge.results.txt:md5,1e813d3f0025c28fede769beb29a114c",
-                "2613_se_db3.centrifuge.txt:md5,f442705a340df5dad2b662f910222299",
-                "2613_se_db3.centrifuge.unmapped.fastq.gz:md5,c6726024e322e9019d53d06fa239570a",
-                "ERR3201952_se_db3.centrifuge.mapped.fastq.gz:md5,635164f5e7c5e5931365037f2731190f",
-                "ERR3201952_se_db3.centrifuge.report.txt:md5,f049db610cedf6bed24c72c9d0584068",
-                "ERR3201952_se_db3.centrifuge.results.txt:md5,378bf90d1c84a8b7659fa8144da10306",
-                "ERR3201952_se_db3.centrifuge.txt:md5,be1b9c0f68925b54541c46ed203fba6d",
-                "ERR3201952_se_db3.centrifuge.unmapped.fastq.gz:md5,5fa75c2c46b04a662e87f5528763008a"
-            ]
+            "centrifuge_db3_combined_reports.txt:md5,5d64a6ba245b269d2c501d614ac302f6"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "prinseqplusplus": {
         "content": [
@@ -153,22 +76,22 @@
             "2612_ERR5766180.log:md5,711e2ebaaad829125a167964708d0d40",
             "2613_ERR5766181.log:md5,2b1aa5958166f287ba7578712c1424a4"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "multiqc": {
         "content": [
-            "diamond.txt:md5,98858c7887e86e66718d6c7bedbd4868",
+            "diamond.txt:md5,a34b51bac8d30b4b126e2e506951a2fa",
             "filtlong.txt:md5,69cd258c3883ba2acfb1b72cf3b743de",
             "multiqc_bowtie2.txt:md5,36ee313c5889c536cb1120239fcb7c00",
             "multiqc_fastp.txt:md5,d755cf8d8b9bb535ce10bacbc06b60a5",
             "multiqc_fastqc_1.txt:md5,c3a7e1a86e753f246c1b99574e4dec37",
             "multiqc_fastqc.txt:md5,4e145ddc71fb1b37b62df907fa452200",
-            "multiqc_general_stats.txt:md5,7e83690e1cf80d43e09d4d575602dc13",
+            "multiqc_general_stats.txt:md5,94d756237592c48b259817de707175ca",
             "multiqc_kaiju_species.txt:md5,d93c2ebac061c166ba8a62baf2d4d96b",
             "multiqc_samtools_stats.txt:md5,e5535c69cefdcd574d61fb008df50be5",
             "porechop.txt:md5,5cadfceb7d9bc6b4da7bbb981a90d8ed"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "bowtie2/align/": {
         "content": [
@@ -177,7 +100,7 @@
             "2612_ERR5766180.bowtie2.log:md5,ad8b28d71de796acb0090e66218dc4c6",
             "2613_ERR5766181.bowtie2.log:md5,59573fec0a20156f2b71bf3d7f83becf"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "samtools/stats/": {
         "content": [
@@ -187,7 +110,7 @@
             "2613_ERR5766181.stats:md5,a571b049e70bbe22850c6a745d50abf0",
             "ERR3201952_ERR3201952.stats:md5,06a195adabd47f0d5eec9b15558a47cd"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     },
     "fastp": {
         "content": [
@@ -196,6 +119,6 @@
             "2612_ERR5766180.fastp.json:md5,c47589fcbc4e0db8d9f98269fa6b1986",
             "2613_ERR5766181.fastp.json:md5,5d967bbc748347f8ceff03b1fb1659a6"
         ],
-        "timestamp": "2023-06-19T01:40:23+0000"
+        "timestamp": "2023-06-20T03:28:37+0000"
     }
 }

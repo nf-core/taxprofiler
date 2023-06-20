@@ -23,15 +23,6 @@
         ],
         "timestamp": "2023-06-19T22:24:55+0000"
     },
-    "bbduk": {
-        "content": [
-            "2612_ERR5766176_B.bbduk.log.filtered:md5,27e47706cbcba4bd581b2554c44c4248",
-            "2612_ERR5766176.bbduk.log.filtered:md5,a217b74af5ba5a2f02347b9531b70dfe",
-            "2612_ERR5766180.bbduk.log.filtered:md5,6fa0af93a8df8c1fdf7b3a912261345b",
-            "2613_ERR5766181.bbduk.log.filtered:md5,7a8b8e921bc10c7301c47e3c66f4b09e"
-        ],
-        "timestamp": "2023-06-19T22:24:55+0000"
-    },
     "multiqc": {
         "content": [
             "bbduk.txt:md5,d609874f85386aeee5241cf7cbedee99",
