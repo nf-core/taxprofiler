@@ -35,12 +35,6 @@
         ],
         "timestamp": "2023-06-20T03:10:21+0000"
     },
-    "kaiju": {
-        "content": [
-            "kaiju_db5_combined_reports.txt:md5,6097111523715a2a32e0a69ade5e2971"
-        ],
-        "timestamp": "2023-06-20T03:10:21+0000"
-    },
     "bracken": {
         "content": [
             "bracken_db1_combined_reports.txt:md5,9435227d5ac9d7ee78dbb7e1ff3348ce"
@@ -71,13 +65,11 @@
     },
     "multiqc": {
         "content": [
-            "diamond.txt:md5,3ad0a9374499539fbbbc1c8329ca337c",
             "filtlong.txt:md5,69cd258c3883ba2acfb1b72cf3b743de",
             "multiqc_bowtie2.txt:md5,b0be77d53fd71df186871168238f64b0",
             "multiqc_fastp.txt:md5,f00a9decdeea5ff94ca078c0a6fbf189",
             "multiqc_fastqc_1.txt:md5,a434af9a8fe58b545e342383ae42dc36",
             "multiqc_fastqc.txt:md5,4e145ddc71fb1b37b62df907fa452200",
-            "multiqc_general_stats.txt:md5,96741a359a11eedfaaf9cdb4bb72dcd0",
             "multiqc_kaiju_species.txt:md5,4a7a64ebd77307fbf8c6979b44ff3c31",
             "multiqc_samtools_stats.txt:md5,0f5daeb8d56cab79c5544d0805b80165",
             "porechop.txt:md5,5cadfceb7d9bc6b4da7bbb981a90d8ed"

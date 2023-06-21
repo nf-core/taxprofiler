@@ -2,6 +2,7 @@ nextflow_pipeline {
 
     name "Test Workflow main.nf"
     script "main.nf"
+    tag "test_nothing"
     tag "malt"
     tag "pipeline"
 

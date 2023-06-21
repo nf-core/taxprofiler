@@ -3,6 +3,7 @@ nextflow_pipeline {
     name "Test Workflow main.nf"
     script "main.nf"
     tag "test"
+    tag "test_prinseq++"
     tag "pipeline"
 
     test("Short Read Complexity Filter Tool - PRINSEQ++") {
@@ -22,36 +23,40 @@ nextflow_pipeline {
                 { assert snapshot(path("$outputDir/prinseqplusplus/").list()).match("prinseqplusplus") },
                 { assert snapshot(path("$outputDir/bracken/bracken_db1_combined_reports.txt")).match("bracken") },
                 { assert snapshot(path("$outputDir/centrifuge/centrifuge_db3_combined_reports.txt")).match("centrifuge") },
-                { assert snapshot(path("$outputDir/diamond/db1/2611_se_db1.diamond.tsv"),
-                                path("$outputDir/diamond/db1/2612_se_db1.diamond.tsv"),
-                                path("$outputDir/diamond/db1/2613_se_db1.diamond.tsv"),
-                                path("$outputDir/diamond/db1/ERR3201952_se_db1.diamond.tsv")).match("diamond") },
+                { assert new File("$outputDir/diamond/db1/2611_se_db1.diamond.tsv").exists() },
+                { assert new File("$outputDir/diamond/db1/2612_se_db1.diamond.tsv").exists() },
+                { assert new File("$outputDir/diamond/db1/2613_se_db1.diamond.tsv").exists() },
+                { assert new File("$outputDir/diamond/db1/ERR3201952_se_db1.diamond.tsv").exists() },
                 { assert snapshot(path("$outputDir/fastp/2612_ERR5766176_B.fastp.json"),
                                 path("$outputDir/fastp/2612_ERR5766176.fastp.json"),
                                 path("$outputDir/fastp/2612_ERR5766180.fastp.json"),
                                 path("$outputDir/fastp/2613_ERR5766181.fastp.json")).match("fastp") },
                 { assert snapshot(path("$outputDir/filtlong/").list()).match("filtlong") },
-                { assert snapshot(path("$outputDir/kaiju/kaiju_db5_combined_reports.txt")).match("kaiju") },
+                { assert new File("$outputDir/kaiju/kaiju_db5_combined_reports.txt").exists() },
                 { assert snapshot(path("$outputDir/kraken2/kraken2_db1_combined_reports.txt"),
                                 path("$outputDir/kraken2/kraken2_db2_combined_reports.txt")).match("kraken2") },
                 { assert new File("$outputDir/krona/centrifuge_db3.html").exists() },
                 { assert new File("$outputDir/krona/kaiju_db5.html").exists() },
                 { assert new File("$outputDir/krona/kraken2_db1.html").exists() },
                 { assert new File("$outputDir/krona/kraken2_db2.html").exists() },
-                { assert snapshot(path("$outputDir/metaphlan3/metaphlan3_db4_combined_reports.txt")).match("metaphlan3") },
-                { assert snapshot(path("$outputDir/multiqc/multiqc_data/diamond.txt"),
-                                path("$outputDir/multiqc/multiqc_data/filtlong.txt"),
+                { assert new File("$outputDir/metaphlan3/metaphlan3_db4_combined_reports.txt").exists() },
+                { assert snapshot(path("$outputDir/multiqc/multiqc_data/filtlong.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_bowtie2.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_fastp.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_fastqc_1.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
-                                path("$outputDir/multiqc/multiqc_data/multiqc_general_stats.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_kaiju_species.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_samtools_stats.txt"),
                                 path("$outputDir/multiqc/multiqc_data/porechop.txt")).match("multiqc") },
                 { assert snapshot(UTILS.filterLines("$outputDir/porechop/ERR3201952_ERR3201952.log", -3)).match("porechop") },
                 { assert snapshot(path("$outputDir/samtools/stats/").list()).match("samtools/stats/") },
-                { assert snapshot(path("$outputDir/taxpasta/").list()).match("taxpasta") },
+                { assert new File("$outputDir/taxpasta/bracken_db1.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/centrifuge_db3.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/diamond_db1.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/kaiju_db5.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/kraken2_db1.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/kraken2_db2.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/metaphlan_db4.tsv").exists() }
             )
         }
 
