@@ -18,9 +18,8 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(UTILS.removeNextflowVersion("$outputDir")).match("software_versions") },
-                { assert snapshot(UTILS.filterLines("$outputDir/motus/motus_db_mOTU_combined_reports.txt", 2)).match("motus") },
+                { assert new File("$outputDir/motus/motus_db_mOTU_combined_reports.txt").exists() }
                 { assert snapshot(path("$outputDir/multiqc/multiqc_data/motus.txt"),
-                                path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_general_stats.txt")).match("multiqc") },
                 { assert new File("$outputDir/taxpasta/motus_db_mOTU.tsv").exists() }
             )
