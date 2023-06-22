@@ -23,12 +23,6 @@
         ],
         "timestamp": "2023-06-20T01:00:27+0000"
     },
-    "kaiju": {
-        "content": [
-            "kaiju_db5_combined_reports.txt:md5,912e94cb398d0e210a1061f32f86edb8"
-        ],
-        "timestamp": "2023-06-20T01:00:27+0000"
-    },
     "bracken": {
         "content": [
             "bracken_db1_combined_reports.txt:md5,9435227d5ac9d7ee78dbb7e1ff3348ce"

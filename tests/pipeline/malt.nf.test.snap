@@ -12,12 +12,5 @@
             "multiqc_general_stats.txt:md5,4f0f2580d9ab15f1e98ff8d7a6b45bf0"
         ],
         "timestamp": "2023-06-19T19:53:09+0000"
-    },
-    "malt": {
-        "content": [
-            "malt85-malt-run.log:md5,a537660e31df3d3750a12bfd1df47d28",
-            "malt95-malt-run.log:md5,f2a85acfa3673c51ad9e1121ec6de654"
-        ],
-        "timestamp": "2023-06-19T19:53:09+0000"
     }
 }

@@ -3,6 +3,7 @@ nextflow_pipeline {
     name "Test Workflow main.nf"
     script "main.nf"
     tag "test_krakenuniq"
+    tag "krakenuniq"
     tag "pipeline"
 
     test("Kraken Uniq") {
@@ -42,13 +43,7 @@ nextflow_pipeline {
                                 path("$outputDir/multiqc/multiqc_data/porechop.txt")).match("multiqc") },
                 { assert snapshot(UTILS.filterLines("$outputDir/porechop/ERR3201952_ERR3201952.log", -3)).match("porechop") },
                 { assert snapshot(path("$outputDir/samtools/stats/").list()).match("samtools/stats/") },
-                { assert new File("$outputDir/taxpasta/bracken_db1.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/centrifuge_db3.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/diamond_db1.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/kaiju_db5.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/kraken2_db1.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/kraken2_db2.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/metaphlan_db4.tsv").exists() }
+                { assert new File("$outputDir/taxpasta/krakenuniq_db6.tsv").exists() }
             )
         }
 

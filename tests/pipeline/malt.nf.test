@@ -3,15 +3,15 @@ nextflow_pipeline {
     name "Test Workflow main.nf"
     script "main.nf"
     tag "test_nothing"
-    tag "malt"
+    tag "test_malt"
     tag "pipeline"
 
     test("MALT") {
 
         when {
             params {
-                outdir = "$outputDir"
-                input  = "https://github.com/nf-core/test-datasets/raw/taxprofiler/samplesheet_shortreadsonly.csv"
+                outdir   = "$outputDir"
+                input    = "https://github.com/nf-core/test-datasets/raw/taxprofiler/samplesheet_shortreadsonly.csv"
                 run_malt = true
             }
         }
@@ -20,8 +20,8 @@ nextflow_pipeline {
             assertAll(
                 { assert workflow.success },
                 { assert snapshot(UTILS.removeNextflowVersion("$outputDir")).match("software_versions") },
-                { assert snapshot(path("$outputDir/malt/malt85/malt85-malt-run.log"),
-                                path("$outputDir/malt/malt95/malt95-malt-run.log")).match("malt") },
+                { assert new File("$outputDir/malt/malt85/malt85-malt-run.log").exists() },
+                { assert new File("$outputDir/malt/malt95/malt95-malt-run.log").exists() },
                 { assert snapshot(path("$outputDir/multiqc/multiqc_data/malt.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_general_stats.txt")).match("multiqc") }

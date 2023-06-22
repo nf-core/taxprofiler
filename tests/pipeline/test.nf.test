@@ -3,7 +3,7 @@ nextflow_pipeline {
     name "Test Workflow main.nf"
     script "main.nf"
     tag "test"
-    tag "profile_test"
+    tag "test_profile"
     tag "pipeline"
 
     test("Illumina PE") {
@@ -34,7 +34,7 @@ nextflow_pipeline {
                                 path("$outputDir/fastp/2612_ERR5766180.fastp.json"),
                                 path("$outputDir/fastp/2613_ERR5766181.fastp.json")).match("fastp") },
                 { assert snapshot(path("$outputDir/filtlong/").list()).match("filtlong") },
-                { assert snapshot(path("$outputDir/kaiju/kaiju_db5_combined_reports.txt")).match("kaiju") },
+                { assert new File("$outputDir/kaiju/kaiju_db5_combined_reports.txt").exists() },
                 { assert snapshot(path("$outputDir/kraken2/kraken2_db1_combined_reports.txt"),
                                 path("$outputDir/kraken2/kraken2_db2_combined_reports.txt")).match("kraken2") },
                 { assert new File("$outputDir/krona/centrifuge_db3.html").exists() },

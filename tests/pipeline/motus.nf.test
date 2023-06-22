@@ -22,13 +22,7 @@ nextflow_pipeline {
                 { assert snapshot(path("$outputDir/multiqc/multiqc_data/motus.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_general_stats.txt")).match("multiqc") },
-                { assert new File("$outputDir/taxpasta/bracken_db1.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/centrifuge_db3.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/diamond_db1.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/kaiju_db5.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/kraken2_db1.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/kraken2_db2.tsv").exists() },
-                { assert new File("$outputDir/taxpasta/metaphlan_db4.tsv").exists() }
+                { assert new File("$outputDir/taxpasta/motus_db_mOTU.tsv").exists() }
             )
         }
 

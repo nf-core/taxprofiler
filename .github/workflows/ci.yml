@@ -36,7 +36,7 @@ jobs:
           fi
 
   test:
-    name: Run pipeline with default test profile
+    name: nf-test
     needs: define_nxf_versions
     runs-on: ubuntu-latest
     strategy:
@@ -46,8 +46,7 @@ jobs:
         tags:
           - "test"
           - "test_krakenuniq"
-          # - "test_nothing"
-          # - "test_motus"
+          - "test_nothing"
         profile:
           - "docker"
 
@@ -74,6 +73,47 @@ jobs:
         run: |
           sudo apt install bat > /dev/null
           batcat --decorations=always --color=always ${{ github.workspace }}/.nf-test/tests/*/output/pipeline_info/software_versions.yml
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always() # always run even if the previous step fails
+        with:
+          report_paths: "*.xml"
+
+  test_motus:
+    name: nf-test motus
+    needs: define_nxf_versions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER: ${{ fromJson(needs.define_nxf_versions.outputs.matrix) }}
+        profile:
+          - "docker"
+
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v3
+
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://code.askimed.com/install/nf-test | bash -s $NFTEST_VER
+          sudo mv nf-test /usr/local/bin/
+
+      - name: Prepare the database
+        run: |
+          wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
+          python downloadDB.py > download_db_log.txt
+          echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
+          echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
+
+      - name: Run nf-test motus
+        run: |
+          nf-test test --tag test_motus --profile test_motus,${{ matrix.profile }} --junitxml=test.xml
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3

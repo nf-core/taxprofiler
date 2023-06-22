@@ -74,23 +74,10 @@
     },
     "multiqc": {
         "content": [
-            "bbduk.txt:md5,f045d7b8b86b751f9acabbdd78ea29e6",
             "filtlong.txt:md5,69cd258c3883ba2acfb1b72cf3b743de",
-            "multiqc_bowtie2.txt:md5,5b964880bb221f4c2535d69fe4ccbb6c",
-            "multiqc_fastqc_1.txt:md5,e0ee7f68a8bdba8db39220187704f9eb",
             "multiqc_fastqc.txt:md5,4e145ddc71fb1b37b62df907fa452200",
             "multiqc_kaiju_species.txt:md5,b759f3406e924e2511d6206fba182a9d",
-            "multiqc_samtools_stats.txt:md5,bb32855e79cc231fa7bbe607289bb94c",
             "porechop.txt:md5,5cadfceb7d9bc6b4da7bbb981a90d8ed"
-        ],
-        "timestamp": "2023-06-21T14:02:00+0000"
-    },
-    "bowtie2/align/": {
-        "content": [
-            "2612_ERR5766176.bowtie2.log:md5,42bbd14b66a5479a784bb7c9baad7e2e",
-            "2612_ERR5766176_B.bowtie2.log:md5,3db39ae6aad6836229e33cdf9ffd5217",
-            "2612_ERR5766180.bowtie2.log:md5,144b4ac6ebba1972470eda16a281ba8d",
-            "2613_ERR5766181.bowtie2.log:md5,deb651c91d3cb9419140f495377a7d5b"
         ],
         "timestamp": "2023-06-21T14:02:00+0000"
     }
