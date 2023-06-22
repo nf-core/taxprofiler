@@ -5,12 +5,6 @@
         ],
         "timestamp": "2023-06-19T20:20:15+0000"
     },
-    "taxpasta": {
-        "content": [
-            "motus_db_mOTU.tsv:md5,477f9f2c3899f97552754389638c5ab9"
-        ],
-        "timestamp": "2023-06-19T20:20:15+0000"
-    },
     "multiqc": {
         "content": [
             "motus.txt:md5,0ce62a9d532449c291c0cb84d3df1f38",

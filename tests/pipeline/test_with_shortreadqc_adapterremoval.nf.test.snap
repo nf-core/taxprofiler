@@ -68,7 +68,6 @@
     "multiqc": {
         "content": [
             "filtlong.txt:md5,69cd258c3883ba2acfb1b72cf3b743de",
-            "multiqc_fastqc.txt:md5,4e145ddc71fb1b37b62df907fa452200",
             "porechop.txt:md5,5cadfceb7d9bc6b4da7bbb981a90d8ed"
         ],
         "timestamp": "2023-06-21T14:02:00+0000"

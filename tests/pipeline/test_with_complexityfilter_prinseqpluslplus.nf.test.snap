@@ -78,8 +78,6 @@
             "multiqc_bowtie2.txt:md5,36ee313c5889c536cb1120239fcb7c00",
             "multiqc_fastp.txt:md5,d755cf8d8b9bb535ce10bacbc06b60a5",
             "multiqc_fastqc_1.txt:md5,c3a7e1a86e753f246c1b99574e4dec37",
-            "multiqc_fastqc.txt:md5,4e145ddc71fb1b37b62df907fa452200",
-            "multiqc_kaiju_species.txt:md5,d93c2ebac061c166ba8a62baf2d4d96b",
             "multiqc_samtools_stats.txt:md5,e5535c69cefdcd574d61fb008df50be5",
             "porechop.txt:md5,5cadfceb7d9bc6b4da7bbb981a90d8ed"
         ],

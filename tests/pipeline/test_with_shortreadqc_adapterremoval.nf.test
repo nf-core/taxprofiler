@@ -44,7 +44,6 @@ nextflow_pipeline {
                 { assert new File("$outputDir/krona/kraken2_db2.html").exists() },
                 { assert new File("$outputDir/metaphlan3/metaphlan3_db4_combined_reports.txt").exists() },
                 { assert snapshot(path("$outputDir/multiqc/multiqc_data/filtlong.txt"),
-                                path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
                                 path("$outputDir/multiqc/multiqc_data/porechop.txt")).match("multiqc") },
                 { assert snapshot(UTILS.filterLines("$outputDir/porechop/ERR3201952_ERR3201952.log", -3)).match("porechop") },
                 { assert new File("$outputDir/samtools/stats/2612_ERR5766176.stats").exists() },

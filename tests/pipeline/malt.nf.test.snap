@@ -4,13 +4,5 @@
             "{CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.0, yaml=6.0}, FASTQC={fastqc=0.11.9}, MALT_RUN={malt=0.6.1}, MEGAN_RMA2INFO_TSV={megan=6.21.7}, SAMPLESHEET_CHECK={python=3.8.3}, UNTAR={untar=1.30}, Workflow={nf-core/taxprofiler=1.1.0dev}}"
         ],
         "timestamp": "2023-06-19T19:53:09+0000"
-    },
-    "multiqc": {
-        "content": [
-            "malt.txt:md5,8918575585d4944cb5f50827c709ada6",
-            "multiqc_fastqc.txt:md5,cf61413381ea064a476a33f905c0536a",
-            "multiqc_general_stats.txt:md5,4f0f2580d9ab15f1e98ff8d7a6b45bf0"
-        ],
-        "timestamp": "2023-06-19T19:53:09+0000"
     }
 }

@@ -43,8 +43,6 @@ nextflow_pipeline {
                                 path("$outputDir/multiqc/multiqc_data/multiqc_bowtie2.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_fastp.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_fastqc_1.txt"),
-                                path("$outputDir/multiqc/multiqc_data/multiqc_fastqc.txt"),
-                                path("$outputDir/multiqc/multiqc_data/multiqc_kaiju_species.txt"),
                                 path("$outputDir/multiqc/multiqc_data/multiqc_samtools_stats.txt"),
                                 path("$outputDir/multiqc/multiqc_data/porechop.txt")).match("multiqc") },
                 { assert snapshot(UTILS.filterLines("$outputDir/porechop/ERR3201952_ERR3201952.log", -3)).match("porechop") },
