@@ -30,7 +30,7 @@
 
 - [Porechop](https://github.com/rrwick/Porechop)
 
-- [FILTLONG](https://github.com/rrwick/Filtlong)
+- [Filtlong](https://github.com/rrwick/Filtlong)
 
 - [BBTools](http://sourceforge.net/projects/bbmap/)
 
