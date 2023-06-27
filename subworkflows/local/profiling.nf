@@ -51,6 +51,7 @@ workflow PROFILING {
                 malt:    it[2]['tool'] == 'malt'
                 metaphlan3: it[2]['tool'] == 'metaphlan3'
                 motus: it[2]['tool'] == 'motus'
+                kmcp: it[2]['tool'] == 'kmcp'
                 unknown: true
             }
 
@@ -339,6 +340,31 @@ workflow PROFILING {
         ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment )
         ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
+
+    }
+
+    if (params.run_kmcp) {
+
+            ch_input_for_kmcpcompute = ch_input_for_profiling.kmcp
+                                .filter {
+                                    meta, reads, meta_db, db ->
+                                        if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Kmcp is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Skipping kmcp for sample ${meta.id}."
+                                        meta_db['tool'] == 'kmcp' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+                                }
+                                .multiMap {
+                                    it ->
+                                        reads: [ it[0] + it[2], it[1] ]
+                                        db: it[3]
+                                }
+            ch_input_for_kmcpcompute.db
+            KMCP_COMPUTE (ch_input_for_kmcpcompute.db)
+            KMCP_INDEX (KMCP_COMPUTE.out.outdir)
+            KMCP_SEARCH (KMCP_INDEX.out.result, ch_input_for_kmcpcompute.reads)
+            KMCP_PROFILE (KMCP_SEARCH.out.result,params.kmcp_taxdump, params.kmcp_taxid, params.kmcp_mode)
+
+            ch_versions = ch_versions.mix( KMCP_PROFILE.out.versions.first() )
+            ch_raw_profiles    = ch_raw_profiles.mix( KMCP_PROFILE.out.profile )
+
 
     }
 
