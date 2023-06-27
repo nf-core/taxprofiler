@@ -101,6 +101,31 @@
                         "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
+                    "kmcp/compute": {
+                        "branch": "master",
+                        "git_sha": "6a8df5472d224697a64502961291038fafc7ed08",
+                        "installed_by": ["modules"]
+                    },
+                    "kmcp/index": {
+                        "branch": "master",
+                        "git_sha": "1106a8046ead1562c57e1c969f8c66863cab338b",
+                        "installed_by": ["modules"]
+                    },
+                    "kmcp/merge": {
+                        "branch": "master",
+                        "git_sha": "0fbbd07d2430dd2adcbdd2900bd420e10263c94a",
+                        "installed_by": ["modules"]
+                    },
+                    "kmcp/profile": {
+                        "branch": "master",
+                        "git_sha": "ecdc4800454b78c03ed9b33cdf9235f271c09ba1",
+                        "installed_by": ["modules"]
+                    },
+                    "kmcp/search": {
+                        "branch": "master",
+                        "git_sha": "808a16b76a956154ce10bd64fb2b131518b509f4",
+                        "installed_by": ["modules"]
+                    },
                     "kraken2/kraken2": {
                         "branch": "master",
                         "git_sha": "7c695e0147df1157413e06246d9b0094617d3e6b",

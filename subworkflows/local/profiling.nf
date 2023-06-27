@@ -15,6 +15,10 @@ include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                                 } from '../../modules/nf-core/motus/profile/main'
 include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
+include { KMCP_COMPUTE                                  } from '../../modules/nf-core/kmcp/compute/main'
+include { KMCP_INDEX                                    } from '../../modules/nf-core/kmcp/index/main'
+include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
+include { KMCP_SEARCH                                   } from '../../modules/nf-core/kmcp/search/main'
 
 workflow PROFILING {
     take:
