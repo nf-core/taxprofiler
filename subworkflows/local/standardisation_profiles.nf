@@ -10,7 +10,7 @@ include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
-
+include { GANON_PROFILE                                                         } from '../../modules/nf-core/kmcp/profile/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -25,6 +25,12 @@ workflow STANDARDISATION_PROFILES {
 
     //Taxpasta standardisation
     ch_prepare_for_taxpasta = profiles
+                            .filter {
+                                meta, report ->
+                                // TODO: add tool to taxpasta
+                                    if ( meta['tool'] == 'kmcp' ) log.warn "[nf-core/taxprofiler] kmcp is not yet supported in Taxpasta. Skipping kmcp profile for sample ${meta.id}."
+                                    meta['tool'] != 'kmcp'
+                            }
                             .map {
                                     meta, profile ->
                                         def meta_new = [:]
@@ -58,6 +64,7 @@ workflow STANDARDISATION_PROFILES {
             kraken2: it[0]['tool'] == 'kraken2'
             metaphlan3: it[0]['tool'] == 'metaphlan3'
             motus: it[0]['tool'] == 'motus'
+            kmcp: it [0]['tool'] == 'kmcp'
             unknown: true
         }
 
@@ -164,6 +171,18 @@ workflow STANDARDISATION_PROFILES {
 
     MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
     ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
+
+
+    ch_profiles_for_kmcp = ch_input_profiles.kmcp
+                            .map { [it[0]['db_name'], it[1]] }
+                            .groupTuple()
+                            .map {
+                                [[id:it[0]], it[1]]
+                            }
+
+    KMCP_PROFILE ( ch_profiles_for_kmcp )
+    // ToDo: Add multiqc module!
+    ch_versions = ch_versions.mix( KMCP_PROFILE.out.versions )
 
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles
