@@ -228,6 +228,8 @@ workflow PROFILING {
                                 }
 
         CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads, params.centrifuge_save_reads  )
+        ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
+        ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
 
         // Ensure the correct database goes with the generated report for KREPORT
         ch_database_for_centrifugekreport = databases
@@ -243,10 +245,9 @@ workflow PROFILING {
                                                     db: db
                                             }
 
+        // Generate profile
         CENTRIFUGE_KREPORT (ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)
-
-        ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
-        ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
+        ch_versions            = ch_versions.mix( CENTRIFUGE_KREPORT.out.versions.first() )
         ch_raw_profiles        = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
         ch_multiqc_files       = ch_multiqc_files.mix( CENTRIFUGE_KREPORT.out.kreport )
 
@@ -284,10 +285,25 @@ workflow PROFILING {
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
 
-        KAIJU_KAIJU2TABLE_SINGLE ( KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_rank)
+        // Ensure the correct database goes with the generated report for KAIJU2TABLE
+        ch_database_for_kaiju2table = databases
+                                                .filter { meta, db -> meta['tool'] == 'kaiju' }
+                                                .map { meta, db -> [meta['db_name'], meta, db] }
+
+        ch_input_for_kaiju2table = KAIJU_KAIJU.out.results
+                                            .map { meta, profile -> [meta['db_name'], meta, profile] }
+                                            .join(ch_database_for_kaiju2table)
+                                            .multiMap {
+                                                key, meta, profile, db_meta, db ->
+                                                    profile: [meta, profile]
+                                                    db: db
+                                            }
+
+        // Generate profile
+        KAIJU_KAIJU2TABLE_SINGLE ( ch_input_for_kaiju2table.profile, ch_input_for_kaiju2table.db, params.kaiju_taxon_rank)
         ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_SINGLE.out.versions )
         ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
-        ch_raw_profiles    = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
+        ch_raw_profiles  = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
     }
 
     if ( params.run_diamond ) {
