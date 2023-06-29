@@ -10,7 +10,7 @@ include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
-include { KMCP_PROFILE                                                         } from '../../modules/nf-core/kmcp/profile/main'
+include { KMCP_PROFILE                                                          } from '../../modules/nf-core/kmcp/profile/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
