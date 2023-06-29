@@ -34,6 +34,7 @@
    - [Kaiju](https://kaiju.binf.ku.dk/)
    - [mOTUs](https://motu-tool.org/)
    - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
+   - [kmcp](https://github.com/shenwei356/kmcp)
 5. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
 6. Standardises output tables ([`Taxpasta`](https://taxpasta.readthedocs.io))
