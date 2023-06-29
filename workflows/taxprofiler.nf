@@ -273,7 +273,7 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
     if ( params.preprocessing_qc_tool == 'falco' ) {
-        // only mix in files acutally used by MultiQC
+        // only mix in files actually used by MultiQC
         ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt
                             .map { meta, reports -> reports }
                             .flatten()
