@@ -103,6 +103,7 @@ krakenuniq,db3,,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
 centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
 metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
+kmcp,db1,,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 ```
 
 For Bracken, if you wish to supply any parameters to either the Kraken or Bracken step you **must** have a _semi-colon_ `;` list as in `db_params`. This is to allow to specify the Kraken2 parameters before, and Bracken parameters after the `;` as Bracken is a two step process. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this as empty.
@@ -131,6 +132,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**MALT**](#malt-custom-database) output of `malt-build`.
 - [**MetaPhlAn3**:](#metaphlan3-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn3 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0#customizing-the-database).
 - [**mOTUs**:](#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
+- [**kmcp**:](#kmcp-custom-database) output of `kmcp compute` and `kmcp index`.
 
 > ℹ️ Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
 
@@ -755,6 +757,27 @@ Then supply the `db_mOTU/` path to your nf-core/taxprofiler database input sheet
 > ⚠️ The `db_mOTU/` directory may be downloaded to somewhere in your Python's `site-package` directory. You will have to find this yourself as the exact location varies depends on installation method.
 
 More information on the mOTUs database can be found [here](https://motu-tool.org/installation.html).
+
+#### kmcp custom database
+
+To build a kmcp ganon database you need three components: the FASTA files you wish to include in gzip-compressed format and one genome per file with the reference identifier in the file name, the taxid mapping file and the NCBI taxonomy dump files (names.dmp, nodes.dmp)
+
+> Step 1. You need to compute the k-mers with [`kmcp compute`](https://bioinf.shenwei.me/kmcp/usage/#compute) and by providing as input the FASTA files you wish to include.
+
+> Step 2. You need to build index for k-mers with [`kmcp index`](https://bioinf.shenwei.me/kmcp/usage/#index) by providing as input the output of `kmcp compute`
+
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `kmcp`
+  - `.unik`
+  - `_info.txt`
+  - `*.kmcp/`
+  - `__db.yml`
+
+</details>
+
+More information on custom kmcp database construction can be found [here](https://bioinf.shenwei.me/kmcp/database/#building-custom-databases).
 
 ## Troubleshooting and FAQs
 
