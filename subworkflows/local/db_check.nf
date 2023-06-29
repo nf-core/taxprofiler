@@ -45,8 +45,6 @@ workflow DB_CHECK {
                     if ( unique_names.size() < db_name.size() ) error("[nf-core/taxprofiler] ERROR: Each database for a tool must have a unique name, duplicated detected. Tool: ${tool}, Database name: ${unique_names}")
             }
 
-
-
     /*
         Preparation
     */
