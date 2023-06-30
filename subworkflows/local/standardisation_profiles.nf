@@ -173,17 +173,6 @@ workflow STANDARDISATION_PROFILES {
     ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
 
 
-    ch_profiles_for_kmcp = ch_input_profiles.kmcp
-                            .map { [it[0]['db_name'], it[1]] }
-                            .groupTuple()
-                            .map {
-                                [[id:it[0]], it[1]]
-                            }
-
-    KMCP_PROFILE ( ch_profiles_for_kmcp )
-    // ToDo: Add multiqc module!
-    ch_versions = ch_versions.mix( KMCP_PROFILE.out.versions )
-
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles
     versions = ch_versions
