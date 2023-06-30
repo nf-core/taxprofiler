@@ -19,6 +19,8 @@ include { KMCP_COMPUTE                                  } from '../../modules/nf
 include { KMCP_INDEX                                    } from '../../modules/nf-core/kmcp/index/main'
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { KMCP_SEARCH                                   } from '../../modules/nf-core/kmcp/search/main'
+include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
+include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
 
 workflow PROFILING {
     take:
@@ -28,8 +30,8 @@ workflow PROFILING {
     main:
     ch_versions             = Channel.empty()
     ch_multiqc_files        = Channel.empty()
-    ch_raw_classifications  = Channel.empty()
-    ch_raw_profiles         = Channel.empty()
+    ch_raw_classifications  = Channel.empty() // These per-read ID taxonomic assingment
+    ch_raw_profiles         = Channel.empty() // These are count tables
 
 /*
         COMBINE READS WITH POSSIBLE DATABASES
@@ -52,6 +54,7 @@ workflow PROFILING {
                 metaphlan3: it[2]['tool'] == 'metaphlan3'
                 motus: it[2]['tool'] == 'motus'
                 kmcp: it[2]['tool'] == 'kmcp'
+                ganon: it[2]['tool'] == 'ganon'
                 unknown: true
             }
 
@@ -149,7 +152,7 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassification )
+        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report )
         ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
@@ -350,12 +353,20 @@ workflow PROFILING {
                                     meta, reads, meta_db, db ->
                                         if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Kmcp is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Skipping kmcp for sample ${meta.id}."
                                         meta_db['tool'] == 'kmcp' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+    if ( params.run_ganon ) {
+
+        ch_input_for_ganonclassify = ch_input_for_profiling.ganon
+                                .filter {
+                                    meta, reads, meta_db, db ->
+                                        if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Ganon has not been evaluated for Nanopore data. Skipping Ganon for sample ${meta.id}."
+                                        meta_db['tool'] == 'ganon' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
                                 }
                                 .multiMap {
                                     it ->
                                         reads: [ it[0] + it[2], it[1] ]
                                         db: it[3]
                                 }
+                                
             ch_input_for_kmcpcompute.db
             KMCP_COMPUTE (ch_input_for_kmcpcompute.db)
             KMCP_INDEX (KMCP_COMPUTE.out.outdir)
@@ -366,6 +377,43 @@ workflow PROFILING {
             ch_raw_profiles    = ch_raw_profiles.mix( KMCP_PROFILE.out.profile )
             ch_multiqc_files   = ch_multiqc_files.mix( KMCP_PROFILE.out.profile )
 
+        ch_input_for_ganonclassify.reads
+
+        GANON_CLASSIFY( ch_input_for_ganonclassify.reads, ch_input_for_ganonclassify.db )
+        ch_versions = ch_versions.mix( GANON_CLASSIFY.out.versions.first() )
+
+        ch_report_for_ganonreport = GANON_CLASSIFY.out.report
+                                        .map{
+                                            meta, report ->
+                                                def meta_db = [ meta['db_name'] ]
+
+                                            [ meta_db, meta, report ]
+
+                                        }
+
+        ch_database_for_ganonreport = databases
+                                        .map{
+                                            meta, database ->
+                                                def meta_db = [ meta['db_name'] ]
+
+                                        [ meta_db, meta, database ]
+
+                                        }
+
+        ch_report_for_ganonreport = ch_report_for_ganonreport
+                                        .join(ch_database_for_ganonreport)
+                                        .multiMap{
+                                            meta_key, meta, report, meta_db, database ->
+                                                report: [ meta, report ]
+                                                database: [ database ]
+                                        }
+
+        GANON_REPORT(ch_report_for_ganonreport.report, ch_report_for_ganonreport.database)
+        ch_versions            = ch_versions.mix( GANON_REPORT.out.versions.first() )
+
+        // Might be flipped - check/define what is a profile vs raw classification
+        ch_raw_profiles        = ch_raw_profiles.mix( GANON_REPORT.out.tre )
+        ch_raw_classifications = ch_raw_classifications.mix( GANON_CLASSIFY.out.all )
 
     }
 

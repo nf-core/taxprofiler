@@ -87,7 +87,7 @@ Databases can be supplied either in the form of a compressed `.tar.gz` archive o
 
 The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
 
-> ⚠️ To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters, and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
+> ⚠️ To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters), and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
 
 An example database sheet can look as follows, where 7 tools are being used, and `malt` and `kraken2` will be used against two databases each.
 
@@ -104,6 +104,7 @@ centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
 metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 kmcp,db1,,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
+ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 ```
 
 For Bracken, if you wish to supply any parameters to either the Kraken or Bracken step you **must** have a _semi-colon_ `;` list as in `db_params`. This is to allow to specify the Kraken2 parameters before, and Bracken parameters after the `;` as Bracken is a two step process. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this as empty.
@@ -133,6 +134,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**MetaPhlAn3**:](#metaphlan3-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn3 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0#customizing-the-database).
 - [**mOTUs**:](#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
 - [**kmcp**:](#kmcp-custom-database) output of `kmcp compute` and `kmcp index`.
+- [**ganon**:](#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 
 > ℹ️ Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
 
@@ -306,6 +308,12 @@ MetaPhlAn3 currently does not accept FASTA files as input, therefore no output w
 
 mOTUs currently does not accept FASTA files as input, therefore no output will be produced for these input files.
 
+##### ganon
+
+It is unclear whether ganon is suitable for running long reads - during testing we found issues where ganon would fail on the long-read test data.
+
+Therefore currently nf-core/taxprofiler does not run ganon on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet.
+
 #### Post Processing
 
 ##### Visualisation
@@ -335,6 +343,7 @@ The following tools will produce multi-sample taxon tables:
 - **Kraken2** (via KrakenTools' `combine_kreports.py` script)
 - **MetaPhlAn3** (via MetaPhlAn's `merge_metaphlan_tables.py` script)
 - **mOTUs** (via the `motus merge` command)
+- **ganon** (via the `ganon table` command)
 
 Note that the multi-sample tables from the 'native' tools in each folders are [not inter-operable](https://taxpasta.readthedocs.io/en/latest/tutorials/getting-started/) with each other as they can have different formats and can contain additional and different data. In this case we refer you to use the standardised and merged output from Taxpasta, as described above.
 
@@ -766,6 +775,23 @@ To build a kmcp ganon database you need three components: the FASTA files you wi
 
 > Step 2. You need to build index for k-mers with [`kmcp index`](https://bioinf.shenwei.me/kmcp/usage/#index) by providing as input the output of `kmcp compute`
 
+#### ganon custom database
+
+To build a custom ganon database you need two components: the FASTA files you wish to include, and the file extension of those FASTA files.
+
+> 🛈 You can also use [`ganon build`](https://pirovc.github.io/ganon/default_databases/) to download and generate pre-defined databases for you.
+
+You can optionally include your own taxonomy files, however `ganon build-custom` will download these for you if not provided.
+
+```bash
+ganon build-custom --threads 4 --input *.fa --db-prefix <YOUR_DB_NAME>
+```
+
+You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
+
+> 🛈 `ganon build-custom` can be multi-threaded with `-t` to speed up building.
+
+
 <details markdown="1">
 <summary>Expected files in database directory</summary>
 
@@ -778,6 +804,14 @@ To build a kmcp ganon database you need three components: the FASTA files you wi
 </details>
 
 More information on custom kmcp database construction can be found [here](https://bioinf.shenwei.me/kmcp/database/#building-custom-databases).
+
+- `ganon`
+  - `*.ibf` or `.hibf`
+  - `*.tax`
+
+</details>
+
+More information on custom ganon database construction can be found [here](https://pirovc.github.io/ganon/custom_databases/).
 
 ## Troubleshooting and FAQs
 

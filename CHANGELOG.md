@@ -10,7 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#276](https://github.com/nf-core/taxprofiler/pull/276) Implemented batching in the KrakenUniq samples processing. (added by @Midnighter)
 - [#272](https://github.com/nf-core/taxprofiler/pull/272) Add saving of final 'analysis-ready-reads' to dedicated directory. (❤️ to @alexhbnr for reporting, added by @jfy133)
 - [#303](https://github.com/nf-core/taxprofiler/pull/303) Add support for taxpasta profile standardisation in single sample pipeline runs (❤️ to @artur-matysik for reporting, added by @jfy133)
-- [#312](https://github.com/nf-core/taxprofiler/pull/312) Add support fot kmcp taxonomic classifier (added by @sofstam)
+- New Classifers/Profilers
+  - [#298](https://github.com/nf-core/taxprofiler/pull/298) Added [ganon](https://pirovc.github.io/ganon/) (added by @jfy133)
+  - [#312](https://github.com/nf-core/taxprofiler/pull/312) Add support fot kmcp taxonomic classifier (added by @sofstam)
+- Additional functionality
+  - [#276](https://github.com/nf-core/taxprofiler/pull/276) Implemented batching in the KrakenUniq samples processing (added by @Midnighter)
+  - [#272](https://github.com/nf-core/taxprofiler/pull/272) Add saving of final 'analysis-ready-reads' to dedicated directory (❤️ to @alexhbnr for reporting, added by @jfy133)
+  - [#303](https://github.com/nf-core/taxprofiler/pull/303) Add support for taxpasta profile standardisation in single sample pipeline runs (❤️ to @artur-matysik for reporting, added by @jfy133)
 
 ### `Fixed`
 

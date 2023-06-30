@@ -11,6 +11,7 @@ include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE 
 include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
 include { KMCP_PROFILE                                                          } from '../../modules/nf-core/kmcp/profile/main'
+include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -30,6 +31,9 @@ workflow STANDARDISATION_PROFILES {
                                 // TODO: add tool to taxpasta
                                     if ( meta['tool'] == 'kmcp' ) log.warn "[nf-core/taxprofiler] kmcp is not yet supported in Taxpasta. Skipping kmcp profile for sample ${meta.id}."
                                     meta['tool'] != 'kmcp'
+                                // TODO: add tool to taxpasta!
+                                    if ( meta['tool'] == 'ganon' ) log.warn "[nf-core/taxprofiler] ganon not yet supported in Taxpasta. Skipping ganon profile for sample ${meta.id}."
+                                    meta['tool'] != 'ganon'
                             }
                             .map {
                                     meta, profile ->
@@ -65,6 +69,7 @@ workflow STANDARDISATION_PROFILES {
             metaphlan3: it[0]['tool'] == 'metaphlan3'
             motus: it[0]['tool'] == 'motus'
             kmcp: it [0]['tool'] == 'kmcp'
+            ganon: it[0]['tool'] == 'ganon'
             unknown: true
         }
 
@@ -172,6 +177,18 @@ workflow STANDARDISATION_PROFILES {
     MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
     ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
 
+    // Ganon
+
+    ch_profiles_for_ganon = ch_input_profiles.ganon
+                            .map { [it[0]['db_name'], it[1]] }
+                            .groupTuple()
+                            .map {
+                                [[id:it[0]], it[1]]
+                            }
+
+    GANON_TABLE ( ch_profiles_for_ganon )
+    ch_multiqc_files = ch_multiqc_files.mix( GANON_TABLE.out.txt )
+    ch_versions = ch_versions.mix( GANON_TABLE.out.versions )
 
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles
