@@ -493,7 +493,8 @@
                 "motus_remove_ncbi_ids": {
                     "type": "boolean",
                     "description": "Turn on removing NCBI taxonomic IDs.",
-                    "fa_icon": "fas fa-address-card"
+                    "fa_icon": "fas fa-address-card",
+                    "help_text": "By default mOTUs will report species names rather than NCBI Taxon IDs. In nf-core/taxprofiler we prefer taxon IDs due to interoperatbility and comparability with the output of other classifiers and profilers. If you prefer to have just species names, you can specify this to remove the IDs.\n\n> Modifies tool parameter(s):\n- mOTUs: `-p` (removed from the default nf-core/taxprofiler command)"
                 },
                 "run_kmcp": {
                     "type": "boolean",
@@ -519,8 +520,6 @@
                     "description": "Profiling mode.",
                     "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision)",
                     "fa_icon": "fas fa-check-square"
-                    "fa_icon": "fas fa-address-card",
-                    "help_text": "By default mOTUs will report species names rather than NCBI Taxon IDs. In nf-core/taxprofiler we prefer taxon IDs due to interoperatbility and comparability with the output of other classifiers and profilers. If you prefer to have just species names, you can specify this to remove the IDs.\n\n> Modifies tool parameter(s):\n- mOTUs: `-p` (removed from the default nf-core/taxprofiler command)"
                 },
                 "run_ganon": {
                     "type": "boolean",
