@@ -25,7 +25,7 @@ jobs:
       fail-fast: false
       matrix:
         NXF_VER:
-          - "22.10.1"
+          - "23.04.0"
           - "latest-everything"
         parameters:
           - "--preprocessing_qc_tool falco"
@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "22.10.1"
+          - "23.04.0"
           - "latest-everything"
 
     steps:
@@ -104,7 +104,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "22.10.1"
+          - "23.04.0"
           - "latest-everything"
 
     steps:
@@ -137,7 +137,7 @@ jobs:
     strategy:
       matrix:
         NXF_VER:
-          - "22.10.1"
+          - "23.04.0"
           - "latest-everything"
 
     steps:
