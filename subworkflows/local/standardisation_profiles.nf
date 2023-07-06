@@ -116,7 +116,19 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    KAIJU_KAIJU2TABLE_COMBINED ( ch_profiles_for_kaiju, ch_input_databases.kaiju.map{it[1]}, params.kaiju_taxon_rank)
+    ch_input_for_kaiju2tablecombine = ch_profiles_for_kaiju
+                                        .dump(tag: "B41")
+                                        .map { meta, profile -> [meta['id'], meta, profile] }
+                                        .dump(tag: "B42")
+                                        .combine(ch_input_databases.kaiju.map{meta, db -> [meta.db_name, meta, db]}, by: 0)
+                                        .dump(tag: "AFTER")
+                                        .multiMap {
+                                            key, meta, profile, db_meta, db ->
+                                                profile: [meta, profile]
+                                                db: db
+                                        }
+
+    KAIJU_KAIJU2TABLE_COMBINED ( ch_input_for_kaiju2tablecombine.profile, ch_input_for_kaiju2tablecombine.db, params.kaiju_taxon_rank)
     ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE_COMBINED.out.summary )
     ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_COMBINED.out.versions )
 
@@ -162,7 +174,19 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
+    ch_input_for_motus = ch_profiles_for_motus
+                                        .dump(tag: "B41")
+                                        .map { meta, profile -> [meta['id'], meta, profile] }
+                                        .dump(tag: "B42")
+                                        .combine(ch_input_databases.motus.map{meta, db -> [meta.db_name, meta, db]}, by: 0)
+                                        .dump(tag: "AFTER")
+                                        .multiMap {
+                                            key, meta, profile, db_meta, db ->
+                                                profile: [meta, profile]
+                                                db: db
+                                        }
+
+    MOTUS_MERGE ( ch_profiles_for_motus.profile, ch_profiles_for_motus.profile.db, motu_version )
     ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
 
     emit:

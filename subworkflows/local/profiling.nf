@@ -238,7 +238,7 @@ workflow PROFILING {
 
         ch_input_for_centrifuge_kreport = CENTRIFUGE_CENTRIFUGE.out.report
                                             .map { meta, profile -> [meta['db_name'], meta, profile] }
-                                            .join(ch_database_for_centrifugekreport)
+                                            .combine(ch_database_for_centrifugekreport, by: 0)
                                             .multiMap {
                                                 key, meta, profile, db_meta, db ->
                                                     profile: [meta, profile]
@@ -292,7 +292,7 @@ workflow PROFILING {
 
         ch_input_for_kaiju2table = KAIJU_KAIJU.out.results
                                             .map { meta, profile -> [meta['db_name'], meta, profile] }
-                                            .join(ch_database_for_kaiju2table)
+                                            .combine(ch_database_for_kaiju2table, by: 0)
                                             .multiMap {
                                                 key, meta, profile, db_meta, db ->
                                                     profile: [meta, profile]
