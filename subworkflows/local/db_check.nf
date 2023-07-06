@@ -62,7 +62,7 @@ def validate_db_rows(LinkedHashMap row) {
     if ( !row.keySet().containsAll(expected_headers) ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid database input sheet - malformed column names. Please check input TSV. Column names should be: ${expected_headers.join(", ")}"
 
     // valid tools specified
-    def expected_tools = [ "bracken", "centrifuge", "diamond", "kaiju", "kraken2", "krakenuniq", "malt", "metaphlan3", "motus" ]
+    def expected_tools = [ "bracken", "centrifuge", "diamond", "kaiju", "kraken2", "krakenuniq", "malt", "metaphlan", "motus", "ganon", "kmcp" ]
     if ( !expected_tools.contains(row.tool) ) exit 1, "[nf-core/taxprofiler] ERROR: Invalid tool name. Please see documentation for all supported profilers. Error in: ${row}"
 
     // detect quotes in params

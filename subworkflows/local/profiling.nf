@@ -9,7 +9,7 @@ include { KRAKEN2_STANDARD_REPORT                       } from '../../modules/lo
 include { BRACKEN_BRACKEN                               } from '../../modules/nf-core/bracken/bracken/main'
 include { CENTRIFUGE_CENTRIFUGE                         } from '../../modules/nf-core/centrifuge/centrifuge/main'
 include { CENTRIFUGE_KREPORT                            } from '../../modules/nf-core/centrifuge/kreport/main'
-include { METAPHLAN3_METAPHLAN3                         } from '../../modules/nf-core/metaphlan3/metaphlan3/main'
+include { METAPHLAN_METAPHLAN                           } from '../../modules/nf-core/metaphlan/metaphlan/main'
 include { KAIJU_KAIJU                                   } from '../../modules/nf-core/kaiju/kaiju/main'
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
@@ -45,7 +45,7 @@ workflow PROFILING {
                 kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken' // to reuse the kraken module to produce the input data for bracken
                 krakenuniq: it[2]['tool'] == 'krakenuniq'
                 malt:    it[2]['tool'] == 'malt'
-                metaphlan3: it[2]['tool'] == 'metaphlan3'
+                metaphlan: it[2]['tool'] == 'metaphlan'
                 motus: it[2]['tool'] == 'motus'
                 unknown: true
             }
@@ -236,22 +236,18 @@ workflow PROFILING {
 
     }
 
-    if ( params.run_metaphlan3 ) {
+    if ( params.run_metaphlan ) {
 
-        ch_input_for_metaphlan3 = ch_input_for_profiling.metaphlan3
-                            .filter{
-                                if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] MetaPhlAn3 currently does not accept FASTA files as input. Skipping MetaPhlAn3 for sample ${it[0].id}."
-                                !it[0].is_fasta
-                            }
+        ch_input_for_metaphlan = ch_input_for_profiling.metaphlan
                             .multiMap {
                                 it ->
                                     reads: [it[0] + it[2], it[1]]
                                     db: it[3]
                             }
 
-        METAPHLAN3_METAPHLAN3 ( ch_input_for_metaphlan3.reads, ch_input_for_metaphlan3.db )
-        ch_versions        = ch_versions.mix( METAPHLAN3_METAPHLAN3.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN3_METAPHLAN3.out.profile )
+        METAPHLAN_METAPHLAN ( ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db )
+        ch_versions        = ch_versions.mix( METAPHLAN_METAPHLAN.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN_METAPHLAN.out.profile )
 
     }
 
