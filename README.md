@@ -33,7 +33,7 @@ The nf-core/taxprofiler CI test dataset uses sequencing data from [Maixner et al
 3. Supports statistics for host-read removal ([Samtools](http://www.htslib.org/))
 4. Performs taxonomic classification and/or profiling using one or more of:
    - [Kraken2](https://ccb.jhu.edu/software/kraken2/)
-   - [MetaPhlAn3](https://huttenhower.sph.harvard.edu/metaphlan/)
+   - [MetaPhlAn](https://huttenhower.sph.harvard.edu/metaphlan/)
    - [MALT](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/malt/)
    - [DIAMOND](https://github.com/bbuchfink/diamond)
    - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/)
