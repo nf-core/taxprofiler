@@ -174,19 +174,16 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    ch_input_for_motus = ch_profiles_for_motus
-                                        .dump(tag: "B41")
+    ch_input_for_motusmerge = ch_profiles_for_motus
                                         .map { meta, profile -> [meta['id'], meta, profile] }
-                                        .dump(tag: "B42")
                                         .combine(ch_input_databases.motus.map{meta, db -> [meta.db_name, meta, db]}, by: 0)
-                                        .dump(tag: "AFTER")
                                         .multiMap {
                                             key, meta, profile, db_meta, db ->
                                                 profile: [meta, profile]
                                                 db: db
                                         }
 
-    MOTUS_MERGE ( ch_profiles_for_motus.profile, ch_profiles_for_motus.profile.db, motu_version )
+    MOTUS_MERGE ( ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, motu_version )
     ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
 
     emit:
