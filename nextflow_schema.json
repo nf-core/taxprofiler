@@ -455,9 +455,9 @@
                     "description": "Turn on generation of MEGAN summary file from MALT results",
                     "help_text": "Turns on saving of MALT output in an additional MEGAN summary file (`.megan`) that can be loaded into the MEGAN metagenomic exploration tool.\n\nNote: this file is generated not directly from MALT but rather then MEGAN utility script `rma2info`.\n\n> Modifies tool parameter(s):\n> - rma2info: `-es`"
                 },
-                "run_metaphlan3": {
+                "run_metaphlan": {
                     "type": "boolean",
-                    "description": "Turn on profiling with MetaPhlAn3. Requires database to be present CSV file passed to --databases",
+                    "description": "Turn on profiling with MetaPhlAn. Requires database to be present CSV file passed to --databases",
                     "fa_icon": "fas fa-toggle-on"
                 },
                 "run_motus": {
@@ -805,5 +805,15 @@
         {
             "$ref": "#/definitions/reference_genome_options"
         }
-    ]
+    ],
+    "properties": {
+        "schema_ignore_params": {
+            "type": "string",
+            "default": "genomes,fasta"
+        },
+        "fasta": {
+            "type": "string",
+            "default": "None"
+        }
+    }
 }
