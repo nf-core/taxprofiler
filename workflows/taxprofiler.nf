@@ -1,12 +1,18 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    VALIDATE INPUTS
+    PRINT PARAMS SUMMARY
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
+include { paramsSummaryLog; paramsSummaryMap } from 'plugin/nf-validation'
 
-// Validate input parameters
+def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
+def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
+def summary_params = paramsSummaryMap(workflow)
+
+// Print parameter summary log to screen
+log.info logo + paramsSummaryLog(workflow) + citation
+
 WorkflowTaxprofiler.initialise(params, log)
 
 // Check input path parameters to see if they exist
@@ -118,9 +124,12 @@ workflow TAXPROFILER {
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
     */
     INPUT_CHECK (
-        ch_input
+        file(params.input)
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
+    // TODO: OPTIONAL, you can use nf-validation plugin to create an input channel from the samplesheet with Channel.fromSamplesheet("input")
+    // See the documentation https://nextflow-io.github.io/nf-validation/samplesheets/fromSamplesheet/
+    // ! There is currently no tooling to help you write a sample sheet schema
 
     // Save final FASTA reads if requested, as otherwise no processing occurs on FASTA
 
@@ -273,7 +282,7 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
     if ( params.preprocessing_qc_tool == 'falco' ) {
-        // only mix in files acutally used by MultiQC
+        // only mix in files actually used by MultiQC
         ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt
                             .map { meta, reports -> reports }
                             .flatten()

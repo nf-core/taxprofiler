@@ -12,6 +12,7 @@ class WorkflowTaxprofiler {
     //
 
     public static void initialise(params, log) {
+
         genomeExistsError(params, log)
         //if (!params.fasta) {
         //    Nextflow.error "Genome fasta file not specified with e.g. '--fasta genome.fa' or via a detectable config file."
@@ -137,6 +138,7 @@ class WorkflowTaxprofiler {
         meta.workflow = run_workflow.toMap()
         meta["manifest_map"] = run_workflow.manifest.toMap()
 
+        // Pipeline DOI
         meta["doi_text"] = meta.manifest_map.doi ? "(doi: <a href=\'https://doi.org/${meta.manifest_map.doi}\'>${meta.manifest_map.doi}</a>)" : ""
         meta["nodoi_text"] = meta.manifest_map.doi ? "": "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
 
