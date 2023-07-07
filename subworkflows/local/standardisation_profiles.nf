@@ -8,7 +8,7 @@ include { BRACKEN_COMBINEBRACKENOUTPUTS                                         
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
-include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
+include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../modules/nf-core/metaphlan/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
 include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
 
@@ -35,7 +35,7 @@ workflow STANDARDISATION_PROFILES {
                                     meta, profile ->
                                         def meta_new = [:]
                                         meta_new.id = meta.db_name
-                                        meta_new.tool = meta.tool == 'metaphlan3' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
+                                        meta_new.tool = meta.tool == 'metaphlan' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
                                         [meta_new, profile]
                             }
                             .groupTuple ()
@@ -62,7 +62,7 @@ workflow STANDARDISATION_PROFILES {
             bracken: it[0]['tool'] == 'bracken'
             centrifuge: it[0]['tool'] == 'centrifuge'
             kraken2: it[0]['tool'] == 'kraken2'
-            metaphlan3: it[0]['tool'] == 'metaphlan3'
+            metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
             ganon: it[0]['tool'] == 'ganon'
             unknown: true
@@ -143,18 +143,18 @@ workflow STANDARDISATION_PROFILES {
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.versions )
 
-    // MetaPhlAn3
+    // MetaPhlAn
 
-    ch_profiles_for_metaphlan3 = ch_input_profiles.metaphlan3
+    ch_profiles_for_metaphlan = ch_input_profiles.metaphlan
                             .map { [it[0]['db_name'], it[1]] }
                             .groupTuple()
                             .map {
                                 [[id:it[0]], it[1]]
                             }
 
-    METAPHLAN3_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan3 )
-    ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
-    ch_versions = ch_versions.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.versions )
+    METAPHLAN_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan )
+    ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN_MERGEMETAPHLANTABLES.out.txt )
+    ch_versions = ch_versions.mix( METAPHLAN_MERGEMETAPHLANTABLES.out.versions )
 
     // mOTUs
 
