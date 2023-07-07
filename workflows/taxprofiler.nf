@@ -17,7 +17,7 @@ WorkflowTaxprofiler.initialise(params, log)
 
 // Check input path parameters to see if they exist
 def checkPathParamList = [ params.input, params.genome, params.databases,
-                            params.outdir, params.longread_hostremoval_index,
+                            params.longread_hostremoval_index,
                             params.hostremoval_reference, params.shortread_hostremoval_index,
                             params.multiqc_config, params.shortread_qc_adapterlist,
                             params.krona_taxonomy_directory,
