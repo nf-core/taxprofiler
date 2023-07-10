@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/master/nextflow_schema.json",
     "title": "nf-core/taxprofiler pipeline parameters",
-    "description": "Taxonomic classification and profiling of shotgun metagenomic data",
+    "description": "Taxonomic classification and profiling of shotgun and long-read metagenomic data",
     "type": "object",
     "definitions": {
         "input_output_options": {
@@ -15,9 +15,9 @@
                 "input": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": true,
                     "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.(csv)$",
-                    "schema": "assets/schema_input.json",
+                    "pattern": "^\\S+\\.csv$",
                     "description": "Path to comma-separated file containing information about the samples and libraries/runs.",
                     "help_text": "You will need to create a design file with information about the samples and libraries/runs you want to running in your pipeline run. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -159,7 +159,7 @@
                 },
                 "shortread_complexityfilter_entropy": {
                     "type": "number",
-                    "default": 0.299999999999999988897769753748434595763683319091796875,
+                    "default": 0.3,
                     "fa_icon": "fas fa-random",
                     "description": "Specify the minimum sequence entropy level for complexity filtering",
                     "help_text": "Specify the minimum 'entropy' value for complexity filtering for BBDuk or PRINSEQ++.\n\nNote that this value will only be used for PRINSEQ++ if `--shortread_complexityfilter_prinseqplusplus_mode` is set to `entropy`.\n\nEntropy here corresponds to the amount of sequence variation exists within the read. Higher values correspond to more variety, and thus will likely reslut in more specific matching to a taxon's reference genome. The trade off here is fewer reads (or abundance information) available for having a confident identification.\n\n\n> Modifies tool parameter(s):\n> - BBDuk: `entropy=`\n> - PRINSEQ++:  `-lc_entropy`\n\n"
@@ -555,7 +555,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on standardisation of taxon tables across profilers",
-                    "help_text": "Turns on standardisation of output OTU tables across all tools.\n\nThis happens in two forms, firstly - if available - by a given classifiers/profilers 'native' profile merger and standardisation (for Bracken, Kaiju, Kraken, Centrifuge, MetaPhlAn, mOTUs), and secondly for _all_ classifier/profilers in the pipeline using [`taxpasta`](https://taxpasta.readthedocs.io).\n\nIn the latter case, taxpasta generates a standardised output as follows:\n\n|TAXON   | SAMPLE_A | SAMPLE_B |\n|-------------|----------------|-----------------|\n| taxon_a | 32               | 123             |\n| taxon_b | 1                 | 5                 |\n\nwhereas all other 'native' tools have varying format outputs. See pipeline [output](https://nf-co.re/taxprofiler) documentation for more information."
+                    "help_text": "Turns on standardisation of output OTU tables across all tools.\n\nThis happens in two forms, firstly - if available - by a given classifiers/profilers 'native' profile merger and standardisation (for Bracken, Kaiju, Kraken, Centrifuge, MetaPhlAn3, mOTUs), and secondly for _all_ classifier/profilers in the pipeline using [`taxpasta`](https://taxpasta.readthedocs.io).\n\nIn the latter case, taxpasta generates a standardised output as follows:\n\n|TAXON   | SAMPLE_A | SAMPLE_B |\n|-------------|----------------|-----------------|\n| taxon_a | 32               | 123             |\n| taxon_b | 1                 | 5                 |\n\nwhereas all other 'native' tools have varying format outputs. See pipeline [output](https://nf-co.re/taxprofiler) documentation for more information."
                 },
                 "standardisation_motus_generatebiom": {
                     "type": "boolean",
@@ -693,7 +693,7 @@
                     "description": "Maximum amount of time that can be requested for any single job.",
                     "default": "240.h",
                     "fa_icon": "far fa-clock",
-                    "pattern": "^(\\d+\\.?\\s*(s|m|h|day)\\s*)+$",
+                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
                     "hidden": true,
                     "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '2.h'`"
                 }
@@ -710,12 +710,14 @@
                     "type": "boolean",
                     "description": "Display help text.",
                     "fa_icon": "fas fa-question-circle",
+                    "default": false,
                     "hidden": true
                 },
                 "version": {
                     "type": "boolean",
                     "description": "Display version and exit.",
                     "fa_icon": "fas fa-question-circle",
+                    "default": false,
                     "hidden": true
                 },
                 "publish_dir_mode": {
@@ -739,6 +741,7 @@
                     "type": "boolean",
                     "description": "Send plain-text email instead of HTML.",
                     "fa_icon": "fas fa-remove-format",
+                    "default": false,
                     "hidden": true
                 },
                 "max_multiqc_email_size": {
@@ -753,6 +756,7 @@
                     "type": "boolean",
                     "description": "Do not use coloured log outputs.",
                     "fa_icon": "fas fa-palette",
+                    "default": false,
                     "hidden": true
                 },
                 "hook_url": {
@@ -764,6 +768,7 @@
                 },
                 "multiqc_config": {
                     "type": "string",
+                    "format": "file-path",
                     "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
@@ -779,13 +784,6 @@
                     "description": "Custom MultiQC yaml file containing HTML including a methods description.",
                     "fa_icon": "fas fa-cog"
                 },
-                "tracedir": {
-                    "type": "string",
-                    "description": "Directory to keep pipeline Nextflow logs and reports.",
-                    "default": "${params.outdir}/pipeline_info",
-                    "fa_icon": "fas fa-cogs",
-                    "hidden": true
-                },
                 "validate_params": {
                     "type": "boolean",
                     "description": "Boolean whether to validate parameters against the schema at runtime",
@@ -793,12 +791,29 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
-                "show_hidden_params": {
+                "validationShowHiddenParams": {
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",
                     "description": "Show all params when using `--help`",
+                    "default": false,
                     "hidden": true,
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
+                },
+                "validationFailUnrecognisedParams": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters fails when an unrecognised parameter is found.",
+                    "default": false,
+                    "hidden": true,
+                    "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
+                },
+                "validationLenientMode": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters in lenient more.",
+                    "default": false,
+                    "hidden": true,
+                    "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
                 }
             }
         },
@@ -870,15 +885,5 @@
         {
             "$ref": "#/definitions/reference_genome_options"
         }
-    ],
-    "properties": {
-        "schema_ignore_params": {
-            "type": "string",
-            "default": "genomes,fasta"
-        },
-        "fasta": {
-            "type": "string",
-            "default": null
-        }
-    }
+    ]
 }
