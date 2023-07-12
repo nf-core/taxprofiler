@@ -88,7 +88,7 @@ class WorkflowTaxprofiler {
                 params["run_krona"] ? ". Results visualisation for some tools were displayed with Krona (Ondov et al. 2011)." : "",
 
                 ". Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
-            ].join(' ').trim()
+            ].join(' ').trim().replaceAll(", +\\.", ".")
 
         return citation_text
     }
@@ -147,7 +147,7 @@ class WorkflowTaxprofiler {
         /*
         TODO Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
         */
-        meta["tool_citations"] = toolCitationText(params).replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+        meta["tool_citations"] = toolCitationText(params)
         meta["tool_bibliography"] = toolBibliographyText(params)
 
         def methods_text = mqc_methods_yaml.text
