@@ -57,9 +57,13 @@ class WorkflowTaxprofiler {
                 "Tools used in the workflow included",
                 params["preprocessing_qc_tool"] == "falco" ? "Falco (de Sena Brandine and Smith 2021)." : "FastQC (Andrews 2010).", // TODO OR FALCO
 
-                params["perform_shortread_qc"] ? ". Short read preprocessing was carried out with" : "",
-                params["perform_shortread_qc"] && params["shortread_qc_tool"] == "adapterremoval" ? "AdapterRemoval (Schubert et al. 2016)." : "",
-                params["perform_shortread_qc"] && params["shortread_qc_tool"] == "fastp" ? "fastp (Chen et al. 2018)." : "",
+
+                def text_shortread_qc = [
+                    params["perform_shortread_qc"] ? ". Short read preprocessing was carried out with" : "",
+                    params["perform_shortread_qc"] && params["shortread_qc_tool"] == "adapterremoval" ? "AdapterRemoval (Schubert et al. 2016)." : "",
+                    params["perform_shortread_qc"] && params["shortread_qc_tool"] == "fastp" ? "fastp (Chen et al. 2018)." : "",
+                ].join(' ')
+
 
                 params["perform_longread_qc"] ? ". Long read preprocessing was carried out with" : "",
                 params["perform_longread_qc"] && !params["longread_qc_skipadaptertrim"] ? "Porechop (Wick 2018)," : "",
@@ -85,10 +89,19 @@ class WorkflowTaxprofiler {
                 params["run_kaiju"] ? "Kaiju (Menzel et al. 2016)," : "",
                 params["run_motus"] ? "mOTUs (Ruscheweyh et al. 2022)," : "",
 
+
                 params["run_krona"] ? ". Results visualisation for some tools were displayed with Krona (Ondov et al. 2011)." : "",
 
                 ". Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
-            ].join(' ').trim().replaceAll(", +\\.", ".")
+            ].join(' ').trim().replaceAll("[], +\\.", ".")
+
+        def citation_text = [
+            text_shortread_qc,
+            text_longread_qc,
+            text_shortreadcomplexity,
+            text_longreadhostremoval,
+            text_classification,
+        ].join()
 
         return citation_text
     }

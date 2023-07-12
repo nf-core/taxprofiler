@@ -100,6 +100,10 @@
 
   > Ondov, Brian D., Nicholas H. Bergman, and Adam M. Phillippy. 2011. Interactive metagenomic visualization in a Web browser. BMC Bioinformatics 12 (1): 385. doi: 10.1186/1471-2105-12-385.
 
+- [TAXPASTA](https://doi.org/10.21105/joss.05627)
+
+  > Beber, M. E., Borry, M., Stamouli, S., & Fellows Yates, J. A. (2023). TAXPASTA: TAXonomic Profile Aggregation and STAndardisation. Journal of Open Source Software, 8(87), 5627. https://doi.org/10.21105/joss.05627
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)
