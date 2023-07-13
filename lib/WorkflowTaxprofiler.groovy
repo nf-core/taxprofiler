@@ -54,26 +54,26 @@ class WorkflowTaxprofiler {
     public static String toolCitationText(params) {
 
             def text_seq_qc = [
-                "Sequencing quality control was carried out with",
+                "Sequencing quality control was carried out with:",
                 params.preprocessing_qc_tool == "falco" ? "Falco (de Sena Brandine and Smith 2021)." : "FastQC (Andrews 2010)."
             ].join(' ').trim()
 
 
             def text_shortread_qc = [
-                "Short read preprocessing was performed with",
-                params.shortread_qc_tool == "adapterremoval" ? "AdapterRemoval (Schubert et al. 2016)" : "",
-                params.shortread_qc_tool == "fastp" ? "fastp (Chen et al. 2018)" : "",
+                "Short read preprocessing was performed with:",
+                params.shortread_qc_tool == "adapterremoval" ? "AdapterRemoval (Schubert et al. 2016)." : "",
+                params.shortread_qc_tool == "fastp" ? "fastp (Chen et al. 2018)." : "",
             ].join(' ').trim()
 
             def text_longread_qc = [
-                "Long read preprocessing was performed with",
+                "Long read preprocessing was performed with:",
                 !params.longread_qc_skipadaptertrim ? "Porechop (Wick et al. 2017)," : "",
                 !params.longread_qc_skipqualityfilter ? "Filtlong (Wick 2021)," : "",
                 "."
             ].join(' ').trim()
 
             def text_shortreadcomplexity = [
-                "Low-complexity sequence filtering was carried out with",
+                "Low-complexity sequence filtering was carried out with:",
                 params.shortread_complexityfilter_tool == "bbduk" ? "BBDuk (Bushnell 2022)." : "",
                 params.shortread_complexityfilter_tool == "prinseqplusplus" ? "PRINSEQ++ (Cantu et al. 2019)." : "",
                 params.shortread_complexityfilter_tool == "fastp" ? "fastp (Chen et al. 2018)." : "",
@@ -99,26 +99,28 @@ class WorkflowTaxprofiler {
                 params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
                 params.run_kaiju ? "Kaiju (Menzel et al. 2016)," : "",
                 params.run_motus ? "mOTUs (Ruscheweyh et al. 2022)," : "",
+                params.run_ganon ? "ganon (Piro et al. 2020)" : "",
                 "."
-            ]
+            ].join(' ').trim()
 
             def text_visualisation = [
                 "Visualisation of results, where supported, was performed with Krona (Ondov et al. 2011)."
-            ]
+            ].join(' ').trim()
 
             def text_postprocessing = [
                 "Standardisation of taxonomic profiles was carried out with TAXPASTA (Beber et al. 2023).",
-            ]
+            ].join(' ').trim()
 
         def citation_text = [
             text_seq_qc,
-            params.perform_shortread_qc ? text_shortread_qc : "",
-            params.perform_longread_qc ? text_longread_qc : "",
+            params.perform_shortread_qc               ? text_shortread_qc : "",
+            params.perform_longread_qc                ? text_longread_qc : "",
             params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
-            params.perform_shortread_hostremoval ? text_shortreadhostremoval : "",
-            params.perform_longread_hostremoval ? text_longreadhostremoval : "",
-            params.run_krona ? "" : text_visualisation,
-            params.run_profile_standardisation ? "" : text_postprocessing,
+            params.perform_shortread_hostremoval      ? text_shortreadhostremoval : "",
+            params.perform_longread_hostremoval       ? text_longreadhostremoval : "",
+            text_classification,
+            params.run_krona                          ? text_visualisation : "",
+            params.run_profile_standardisation        ? text_postprocessing : "",
             "Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
         ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
 
@@ -127,101 +129,78 @@ class WorkflowTaxprofiler {
 
     public static String toolBibliographyText(params) {
 
-                    def text_seq_qc = [
-                params.preprocessing_qc_tool == "falco" "<li>de Sena Brandine G and Smith AD. Falco: high-speed FastQC emulation for quality control of sequencing data. F1000Research 2021, 8:1874</li>",
-                "FastQC (Andrews 2010)."
+            def text_seq_qc = [
+                params.preprocessing_qc_tool == "falco"  ? "<li>de Sena Brandine G and Smith AD. Falco: high-speed FastQC emulation for quality control of sequencing data. F1000Research 2021, 8:1874 doi:  <a href=\"https://doi.org/10.12688/f1000research.21142.2\">10.12688/f1000research.21142.2</li>" : "",
+                params.preprocessing_qc_tool == "fastqc" ? "<li>Andrews S, (2010) FastQC, URL: <a href=\"https://www.bioinformatics.babraham.ac.uk/projects/fastqc/\">https://www.bioinformatics.babraham.ac.uk/projects/fastqc/</a></li>" : "",
             ].join(' ').trim()
 
 
             def text_shortread_qc = [
-                params.shortread_qc_tool == "adapterremoval" ? "AdapterRemoval (Schubert et al. 2016)" : "",
-                params.shortread_qc_tool == "fastp" ? "fastp (Chen et al. 2018)" : "",
+                params.shortread_qc_tool == "adapterremoval" ? "<li>Schubert, Mikkel, Stinus Lindgreen, and Ludovic Orlando. 2016. AdapterRemoval v2: Rapid Adapter Trimming, Identification, and Read Merging. BMC Research Notes 9 (February): 88. doi:  <a href=\"https://doi.org/10.1186/s13104-016-1900-2\">10.1186/s13104-016-1900-2</a></li>" : "",
             ].join(' ').trim()
 
             def text_longread_qc = [
-                !params.longread_qc_skipadaptertrim ? "Porechop (Wick et al. 2017)," : "",
-                !params.longread_qc_skipqualityfilter ? "Filtlong (Wick 2021)," : "",
-                "."
+                !params.longread_qc_skipadaptertrim   ? "<li>Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. doi: <a href=\"https://doi.org/10.1099/mgen.0.000132\">10.1099/mgen.0.000132</a></li>" : "",
+                !params.longread_qc_skipqualityfilter ? "<li>Wick R (2021) Filtlong, URL:  <a href=\"https://github.com/rrwick/Filtlong\">https://github.com/rrwick/Filtlong</a></li>" : ""
             ].join(' ').trim()
 
+            // TODO FASTP DUPLCIATE
             def text_shortreadcomplexity = [
-                params.shortread_complexityfilter_tool == "bbduk" ? "BBDuk (Bushnell 2022)." : "",
-                params.shortread_complexityfilter_tool == "prinseqplusplus" ? "PRINSEQ++ (Cantu et al. 2019)." : "",
-                params.shortread_complexityfilter_tool == "fastp" ? "fastp (Chen et al. 2018)." : "",
+                params.shortread_complexityfilter_tool == "bbduk" ? "<li>Bushnell B (2022) BBMap, URL:  <a href=\"http://sourceforge.net/projects/bbmap/\">http://sourceforge.net/projects/bbmap/</a></li>" : "",
+                params.shortread_complexityfilter_tool == "prinseqplusplus" ? "<li>Cantu, Vito Adrian, Jeffrey Sadural, and Robert Edwards. 2019. PRINSEQ++, a Multi-Threaded Tool for Fast and Efficient Quality Control and Preprocessing of Sequencing Datasets. e27553v1. PeerJ Preprints. doi: <a href=\"https://doi.org/10.7287/peerj.preprints.27553v1\">10.7287/peerj.preprints.27553v1</a></li>" : "",
             ].join(' ').trim()
 
             def text_shortreadhostremoval = [
+                "<li>Langmead, B., & Salzberg, S. L. (2012). Fast gapped-read alignment with Bowtie 2. Nature Methods, 9(4), 357–359.  <a href=\"https://doi.org/10.1038/nmeth.1923\">10.1038/nmeth.1923</a></li>",
             ].join(' ').trim()
 
             def text_longreadhostremoval = [
+                "<li>Li, H. (2018). Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics , 34(18), 3094–3100. doi:  <a href=\"https://doi.org/10.1093/bioinformatics/bty191\">10.1093/bioinformatics/bty191</a></li>",
             ].join(' ').trim()
 
 
             def text_classification = [
-                params.run_bracken ? "Bracken (Lu et al. 2017)," : "",
-                params.run_kraken2 ? "Kraken2 (Wood et al. 2019)," : "",
-                params.run_krakenuniq ? "KrakenUniq (Breitwieser et al. 2018)," : "",
-                params.run_metaphlan3 ? "MetaPhlAn3 (Beghini et al. 2021)," : "",
-                params.run_malt ? "MALT (Vågene et al. 2018) and MEGAN6 CE (Huson et al. 2016)," : "",
-                params.run_diamond ? "DIAMOND (Buchfink et al. 2015)," : "",
-                params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
-                params.run_kaiju ? "Kaiju (Menzel et al. 2016)," : "",
-                params.run_motus ? "mOTUs (Ruscheweyh et al. 2022)," : "",
-                "."
-            ]
+                params.run_bracken    ? "<li>Lu, J., Breitwieser, F. P., Thielen, P., & Salzberg, S. L. (2017). Bracken: Estimating species abundance in metagenomics data. PeerJ Computer Science, 3, e104. doi:  <a href=\"https://doi.org/10.7717/peerj-cs.104\">10.7717/peerj-cs.104</a></li>" : "",
+                params.run_kraken2    ? "<li>Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. Improved Metagenomic Analysis with Kraken 2. Genome Biology 20 (1): 257. doi:  <a href=\"https://doi.org/10.1186/s13059-019-1891-0\">10.1186/s13059-019-1891-0</a></li>" : "",
+                params.run_krakenuniq ? "<li>Breitwieser, Florian P., Daniel N. Baker, and Steven L. Salzberg. 2018. KrakenUniq: confident and fast metagenomics classification using unique k-mer counts. Genome Biology 19 (1): 198. doi:  <a href=\"https://doi.org/10.1186/s13059-018-1568-0\">10.1186/s13059-018-1568-0</a></li>" : "",
+                params.run_metaphlan3 ? "<li>Beghini, Francesco, Lauren J McIver, Aitor Blanco-Míguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, et al. 2021. “Integrating Taxonomic, Functional, and Strain-Level Profiling of Diverse Microbial Communities with BioBakery 3.” ELife 10 (May): e65088. doi:  <a href=\"https://doi.org/10.7554/eLife.65088\">10.7554/eLife.65088</a></li>" : "",
+                params.run_malt       ? "<li>Vågene, Åshild J., Alexander Herbig, Michael G. Campana, Nelly M. Robles García, Christina Warinner, Susanna Sabin, Maria A. Spyrou, et al. 2018. Salmonella Enterica Genomes from Victims of a Major Sixteenth-Century Epidemic in Mexico. Nature Ecology & Evolution 2 (3): 520-28. doi:  <a href=\"https://doi.org/10.1038/s41559-017-0446-6\">10.1038/s41559-017-0446-6</a></li>" : "",
+                params.run_malt       ? "<li>Huson, Daniel H., Sina Beier, Isabell Flade, Anna Górska, Mohamed El-Hadidi, Suparna Mitra, Hans-Joachim Ruscheweyh, and Rewati Tappu. 2016. “MEGAN Community Edition - Interactive Exploration and Analysis of Large-Scale Microbiome Sequencing Data.” PLoS Computational Biology 12 (6): e1004957. doi:  <a href=\"https://doi.org/10.1371/journal.pcbi.1004957\">10.1371/journal.pcbi.1004957</a></li>" : "",
+                params.run_diamond    ? "<li>Buchfink, Benjamin, Chao Xie, and Daniel H. Huson. 2015. “Fast and Sensitive Protein Alignment Using DIAMOND.” Nature Methods 12 (1): 59-60. doi:  <a href=\"https://doi.org/10.1038/nmeth.3176\">10.1038/nmeth.3176</a></li>" : "",
+                params.run_centrifuge ? "<li>Kim, Daehwan, Li Song, Florian P. Breitwieser, and Steven L. Salzberg. 2016. “Centrifuge: Rapid and Sensitive Classification of Metagenomic Sequences.” Genome Research 26 (12): 1721-29. doi:  <a href=\"https://doi.org/10.1101/gr.210641.116\">10.1101/gr.210641.116</a></li>" : "",
+                params.run_kaiju      ? "<li>Menzel, P., Ng, K. L., & Krogh, A. (2016). Fast and sensitive taxonomic classification for metagenomics with Kaiju. Nature Communications, 7, 11257. doi:  <a href=\"https://doi.org/10.1038/ncomms11257\">10.1038/ncomms11257</a></li>" : "",
+                params.run_motus      ? "<li>Ruscheweyh, H.-J., Milanese, A., Paoli, L., Karcher, N., Clayssen, Q., Keller, M. I., Wirbel, J., Bork, P., Mende, D. R., Zeller, G., & Sunagawa, S. (2022). Cultivation-independent genomes greatly expand taxonomic-profiling capabilities of mOTUs across various environments. Microbiome, 10(1), 212. doi:  <a href=\"https://doi.org/10.1186/s40168-022-01410-z\">10.1186/s40168-022-01410-z</a></li>" : "",
+                params.run_ganon      ? "<li>Piro, V. C., Dadi, T. H., Seiler, E., Reinert, K., & Renard, B. Y. (2020). Ganon: Precise metagenomics classification against large and up-to-date sets of reference sequences. Bioinformatics (Oxford, England), 36(Suppl_1), i12–i20.  <a href=\"https://doi.org/10.1093/bioinformatics/btaa458\">10.1093/bioinformatics/btaa458</a></li>" : "",
+            ].join(' ').trim()
 
             def text_visualisation = [
-                "Visualisation of results, where supported, was performed with Krona (Ondov et al. 2011)."
-            ]
+                "<li>Ondov, Brian D., Nicholas H. Bergman, and Adam M. Phillippy. 2011. Interactive metagenomic visualization in a Web browser. BMC Bioinformatics 12 (1): 385. doi:  <a href=\"https://doi.org/10.1186/1471-2105-12-385\">10.1186/1471-2105-12-385</a></li>"
+            ].join(' ').trim()
 
             def text_postprocessing = [
-                "Standardisation of taxonomic profiles was carried out with TAXPASTA (Beber et al. 2023).",
-            ]
-
-        def citation_text = [
-            text_seq_qc,
-            params.perform_shortread_qc ? text_shortread_qc : "",
-            params.perform_longread_qc ? text_longread_qc : "",
-            params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
-            params.perform_shortread_hostremoval ? text_shortreadhostremoval : "",
-            params.perform_longread_hostremoval ? text_longreadhostremoval : "",
-            params.run_krona ? "" : text_visualisation,
-            params.run_profile_standardisation ? "" : text_postprocessing,
-            "Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
-        ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
-
-        // TODO consider how to do the same for the references themselves, include in the same if/else statements somehow?
-        def reference_text = [
-                params["preprocessing_qc_tool"] == "falco" ? "" : "<li>Andrews S, (2010) FastQC, URL: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).</li>", // TODO OR FALCO
-
-                params["perform_shortread_qc"] && params["shortread_qc_tool"] == "adapterremoval" ? "<li>Schubert, Mikkel, Stinus Lindgreen, and Ludovic Orlando. 2016. AdapterRemoval v2: Rapid Adapter Trimming, Identification, and Read Merging. BMC Research Notes 9 (February): 88. doi:10.1186/s13104-016-1900-2.</li>" : "",
-                params["perform_shortread_qc"] && params["shortread_qc_tool"] == "fastp" ? "<li>Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. Fastp: An Ultra-Fast All-in-One FASTQ Preprocessor. Bioinformatics 34 (17): i884-90. 10.1093/bioinformatics/bty560.</li>" : "",
-
-                params["perform_longread_qc"] && !params["longread_qc_skipadaptertrim"] ? "<li>Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. https://doi.org/10.1099/mgen.0.000132</li>" : "",
-                params["perform_longread_qc"] && !params["longread_qc_skipqualityfilter"] ? "<li>Wick R (2021) Filtlong, URL: https://github.com/rrwick/Filtlong</li>" : "",
-
-                params["perform_shortread_complexityfilter"] && params["shortread_complexityfilter_tool"] == "bbduk" ? "<li>Bushnell B (2022) BBMap, URL: http://sourceforge.net/projects/bbmap/</li>" : "",
-                params["perform_shortread_complexityfilter"] && params["shortread_complexityfilter_tool"] == "prinseqplusplus" ? "<li>Cantu, Vito Adrian, Jeffrey Sadural, and Robert Edwards. 2019. PRINSEQ++, a Multi-Threaded Tool for Fast and Efficient Quality Control and Preprocessing of Sequencing Datasets. e27553v1. PeerJ Preprints. doi: 10.7287/peerj.preprints.27553v1.</li>" : "",
-                params["perform_shortread_complexityfilter"] && params["shortread_complexityfilter_tool"] == "fastp" ? "<li>Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. Fastp: An Ultra-Fast All-in-One FASTQ Preprocessor. Bioinformatics 34 (17): i884-90. 10.1093/bioinformatics/bty560.</li>" : "",
-
-                params["perform_shortread_hostremoval"] ? "<li>Langmead, B., & Salzberg, S. L. (2012). Fast gapped-read alignment with Bowtie 2. Nature Methods, 9(4), 357–359. doi: 10.1038/nmeth.1923</li>" : "",
-                params["perform_longread_hostremoval"] ? "<li>Li, H. (2018). Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics , 34(18), 3094–3100. doi: 10.1093/bioinformatics/bty191</li>" : "",
-                params["perform_shortread_hostremoval"] || params["perform_longread_hostremoval"] ? "<li>Danecek, P., Bonfield, J. K., Liddle, J., Marshall, J., Ohan, V., Pollard, M. O., Whitwham, A., Keane, T., McCarthy, S. A., Davies, R. M., & Li, H. (2021). Twelve years of SAMtools and BCFtools. GigaScience, 10(2). doi: 10.1093/gigascience/giab008</li>" : "",
-
-                params["run_bracken"] ? "<li>Lu, J., Breitwieser, F. P., Thielen, P., & Salzberg, S. L. (2017). Bracken: Estimating species abundance in metagenomics data. PeerJ Computer Science, 3, e104. doi: 10.7717/peerj-cs.104</li>" : "",
-                params["run_kraken2"] ? "<li>Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. Improved Metagenomic Analysis with Kraken 2. Genome Biology 20 (1): 257. doi: 10.1186/s13059-019-1891-0.</li>" : "",
-                params["run_krakenuniq"] ? "<li>Breitwieser, Florian P., Daniel N. Baker, and Steven L. Salzberg. 2018. KrakenUniq: confident and fast metagenomics classification using unique k-mer counts. Genome Biology 19 (1): 198. doi: 10.1186/s13059-018-1568-0</li>" : "",
-                params["run_metaphlan3"] ? "<li>Beghini, Francesco, Lauren J McIver, Aitor Blanco-Míguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, et al. 2021. “Integrating Taxonomic, Functional, and Strain-Level Profiling of Diverse Microbial Communities with BioBakery 3.” Edited by Peter Turnbaugh, Eduardo Franco, and C Titus Brown. ELife 10 (May): e65088. doi: 10.7554/eLife.65088</li>" : "",
-                params["run_malt"] ? "<li>Vågene, Åshild J., Alexander Herbig, Michael G. Campana, Nelly M. Robles García, Christina Warinner, Susanna Sabin, Maria A. Spyrou, et al. 2018. Salmonella Enterica Genomes from Victims of a Major Sixteenth-Century Epidemic in Mexico. Nature Ecology & Evolution 2 (3): 520-28. doi: 10.1038/s41559-017-0446-6.</li>" : "",
-                params["run_malt"] ? "<li>Huson, Daniel H., Sina Beier, Isabell Flade, Anna Górska, Mohamed El-Hadidi, Suparna Mitra, Hans-Joachim Ruscheweyh, and Rewati Tappu. 2016. “MEGAN Community Edition - Interactive Exploration and Analysis of Large-Scale Microbiome Sequencing Data.” PLoS Computational Biology 12 (6): e1004957. doi: 10.1371/journal.pcbi.1004957.</li>" : "",
-                params["run_diamond"] ? "<li>Buchfink, Benjamin, Chao Xie, and Daniel H. Huson. 2015. “Fast and Sensitive Protein Alignment Using DIAMOND.” Nature Methods 12 (1): 59-60. doi: 10.1038/nmeth.3176.</li>" : "",
-                params["run_centrifuge"] ? "<li>Kim, Daehwan, Li Song, Florian P. Breitwieser, and Steven L. Salzberg. 2016. “Centrifuge: Rapid and Sensitive Classification of Metagenomic Sequences.” Genome Research 26 (12): 1721-29. doi: 10.1101/gr.210641.116.</li>" : "",
-                params["run_kaiju"] ? "<li>Menzel, P., Ng, K. L., & Krogh, A. (2016). Fast and sensitive taxonomic classification for metagenomics with Kaiju. Nature Communications, 7, 11257. doi: 10.1038/ncomms11257</li>" : "",
-                params["run_motus"] ? "<li>Ruscheweyh, H.-J., Milanese, A., Paoli, L., Karcher, N., Clayssen, Q., Keller, M. I., Wirbel, J., Bork, P., Mende, D. R., Zeller, G., & Sunagawa, S. (2022). Cultivation-independent genomes greatly expand taxonomic-profiling capabilities of mOTUs across various environments. Microbiome, 10(1), 212. doi: 10.1186/s40168-022-01410-z</li>" : "",
-                params["run_krona"] ? "<li>Ondov, Brian D., Nicholas H. Bergman, and Adam M. Phillippy. 2011. Interactive metagenomic visualization in a Web browser. BMC Bioinformatics 12 (1): 385. doi: 10.1186/1471-2105-12-385.</li>" : "",
-
-                "<li>Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.</li>"
+                "<li>Beber, M. E., Borry, M., Stamouli, S., & Fellows Yates, J. A. (2023). TAXPASTA: TAXonomic Profile Aggregation and STAndardisation. Journal of Open Source Software, 8(87), 5627.  <a href=\"https://doi.org/10.21105/joss.05627\">10.21105/joss.05627</a></li>",
             ].join(' ').trim()
+
+            def text_extras = [
+                // fastp shortread qc / complexity filtering
+                ( params.perform_shortread_qc && params.shortread_qc_tool == "fastp" ) || ( params.text_shortreadcomplexity && params.shortread_complexityfilter_tool == "fastp" ) ? "<li>Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. Fastp: An Ultra-Fast All-in-One FASTQ Preprocessor. Bioinformatics 34 (17): i884-90.  <a href=\"https://doi.org/10.1093/bioinformatics/bty560\">10.1093/bioinformatics/bty560</a></li>" : "",
+                // samtools long / short hostremoval
+                params.perform_shortread_hostremoval || params.perform_longread_hostremoval ? "<li>Danecek, P., Bonfield, J. K., Liddle, J., Marshall, J., Ohan, V., Pollard, M. O., Whitwham, A., Keane, T., McCarthy, S. A., Davies, R. M., & Li, H. (2021). Twelve years of SAMtools and BCFtools. GigaScience, 10(2).  <a href=\"https://doi.org/10.1093/gigascience/giab008\">10.1093/gigascience/giab008</a></li>" : "",
+            ].join(' ').trim()
+
+        def reference_text = [
+            text_seq_qc,
+            params.perform_shortread_qc               ? text_shortread_qc : "",
+            params.perform_longread_qc                ? text_longread_qc : "",
+            params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
+            params.perform_shortread_hostremoval      ? text_shortreadhostremoval : "",
+            params.perform_longread_hostremoval       ? text_longreadhostremoval : "",
+            text_extras,
+            text_classification,
+            params.run_krona                          ? text_visualisation : "",
+            params.run_profile_standardisation        ? text_postprocessing : "",
+            "<li>Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: <a href=\"https:/doi.org/10.1093/bioinformatics/btw354\">10.1093/bioinformatics/btw354.</li>"
+        ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
 
         return reference_text
     }
@@ -243,7 +222,7 @@ class WorkflowTaxprofiler {
         TODO Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
         */
         meta["tool_citations"] = toolCitationText(params)
-        //meta["tool_bibliography"] = toolBibliographyText(params)
+        meta["tool_bibliography"] = toolBibliographyText(params)
 
         def methods_text = mqc_methods_yaml.text
 
