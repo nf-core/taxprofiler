@@ -300,7 +300,7 @@ Krona can only be run on MALT output if path to Krona taxonomy database supplied
 
 ##### MetaPhlAn
 
-MetaPhlAn currently does not accept FASTA files as input, therefore no output will be produced for these input files.
+MetaPhlAn4 is compatible with the MetaPhlAn3 database by adding the `--mpa3` paramter to the MetaPhlAn process in the config file `module.config`.
 
 ##### mOTUs
 
