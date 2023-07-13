@@ -106,21 +106,18 @@
                 },
                 "shortread_qc_adapter1": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-grip-lines",
                     "description": "Specify adapter 1 nucleotide sequence",
                     "help_text": "Specify a custom forward or R1 adapter sequence to be removed from reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCA`\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG`"
                 },
                 "shortread_qc_adapter2": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-grip-lines",
                     "description": "Specify adapter 2 nucleotide sequence",
                     "help_text": "Specify a custom reverse or R2 adapter sequence to be removed from reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT`\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT`"
                 },
                 "shortread_qc_adapterlist": {
                     "type": "string",
-                    "default": "None",
                     "description": "Specify a list of all possible adapters to trim. Overrides --shortread_qc_adapter1/2. Formats: .txt (AdapterRemoval) or .fasta. (fastp).",
                     "help_text": "Allows to supply a file with a list of adapter (combinations) to remove from all files. \n\nOverrides the --shortread_qc_adapter1/--shortread_qc_adapter2 parameters . \n\nFor AdapterRemoval this consists of a two column table with a `.txt` extension: first column represents forward strand, second column for reverse strand. You must supply all possible combinations, one per line, and this list is applied to all files. See AdapterRemoval documentation for more information.\n\nFor fastp this consists of a standard FASTA format with a `.fasta`/`.fa`/`.fna`/`.fas` extension. The adapter sequence in this file should be at least 6bp long, otherwise it will be skipped. fastp trims the adapters present in the FASTA file one by one.\n\n> Modifies AdapterRemoval parameter: --adapter-list\n> Modifies fastp parameter: --adapter_fasta",
                     "fa_icon": "fas fa-th-list"
@@ -275,21 +272,18 @@
                 },
                 "hostremoval_reference": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-file-alt",
                     "description": "Specify path to single reference FASTA of host(s) genome(s)",
                     "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
                 },
                 "shortread_hostremoval_index": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference",
                     "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.). These should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
                 },
                 "longread_hostremoval_index": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference",
                     "help_text": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference file given to `--hostremoval_reference`.\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
@@ -376,6 +370,12 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on profiling with Kaiju. Requires database to be present CSV file passed to --databases"
+                },
+                "kaiju_expand_viruses": {
+                    "type": "boolean",
+                    "description": "Turn on expanding of virus hits to individual viruses rather than aggregating at a taxonomic level.",
+                    "help_text": "Turn on the reporting by Kaiju of viruses at specific virus levels, rather than aggregating at specific taxonomic levels as specified by `-- kaiju_taxon_rank` (i.e., read counts will not be summarised at higher taxonomic levels).\n\n> Modifies tool parameter(s):\n> - kaiju2table: `-e`",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "kaiju_taxon_rank": {
                     "type": "string",
@@ -571,7 +571,6 @@
                 },
                 "krona_taxonomy_directory": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-folder-open",
                     "description": "Specify path to krona taxonomy directories (required for MALT krona plots)",
                     "help_text": "Specify a path to a Krona taxonomy database directory (i.e. a directory containing a krona generated `.tab` file).\n\nThis is only required for generating Krona plots of MALT output.\n\nNote this taxonomy database must be downloaded and generated with the `updateTaxonomy.sh` script from the krona-tools package."
@@ -803,7 +802,6 @@
                     "type": "boolean",
                     "fa_icon": "far fa-check-circle",
                     "description": "Validation of parameters fails when an unrecognised parameter is found.",
-                    "default": false,
                     "hidden": true,
                     "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
                 },
@@ -811,7 +809,6 @@
                     "type": "boolean",
                     "fa_icon": "far fa-check-circle",
                     "description": "Validation of parameters in lenient more.",
-                    "default": false,
                     "hidden": true,
                     "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
                 }

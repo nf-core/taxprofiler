@@ -13,6 +13,26 @@ workflow DB_CHECK {
     ch_dbs_for_untar = Channel.empty()
     ch_final_dbs = Channel.empty()
 
+    /*
+        Validation
+    */
+
+    // Special check to header exists
+    Channel.fromPath(dbsheet)
+            .splitCsv ( header:false, sep:',' )
+            .first()
+            .map {
+                if ( it[0] != 'tool' && it[1] != 'db_name' && it[2] != 'db_params' && it[2] != 'db_path' ) error ("[nf-core/taxprofiler] ERROR: database sheet is missing header. Please see nf-core/taxprofiler documentation for database sheet specifications.")
+            }
+
+    // Normal checks for within-row validity, so can be moved to separate functions
+    parsed_samplesheet = Channel.fromPath(dbsheet)
+        .splitCsv ( header:true, sep:',' )
+        .map { row ->
+            validate_db_rows(row)
+            return [ row.subMap(['tool', 'db_name', 'db_params']), file(row.db_path) ]
+        }
+
     // Special check to check _between_ rows, for which we must group rows together
     // Note: this will run in parallel to within-row validity, but we can assume this will run faster thus will fail first
     Channel.fromPath(dbsheet)
@@ -25,14 +45,11 @@ workflow DB_CHECK {
                     if ( unique_names.size() < db_name.size() ) error("[nf-core/taxprofiler] ERROR: Each database for a tool must have a unique name, duplicated detected. Tool: ${tool}, Database name: ${unique_names}")
             }
 
-    // Normal checks for within-row validity, so can be moved to separate functions
-    parsed_samplesheet = Channel.fromPath(dbsheet)
-        .splitCsv ( header:true, sep:',' )
-        .map { row ->
-            validate_db_rows(row)
-            return [ row.subMap(['tool', 'db_name', 'db_params']), file(row.db_path) ]
-        }
+    /*
+        Preparation
+    */
 
+    // Decompress
     ch_dbs_for_untar = parsed_samplesheet
         .branch { db_meta, db ->
             untar: db.name.endsWith(".tar.gz")
