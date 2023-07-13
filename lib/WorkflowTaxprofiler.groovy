@@ -53,64 +53,146 @@ class WorkflowTaxprofiler {
 
     public static String toolCitationText(params) {
 
+            def text_seq_qc = [
+                "Sequencing quality control was carried out with",
+                params.preprocessing_qc_tool == "falco" ? "Falco (de Sena Brandine and Smith 2021)." : "FastQC (Andrews 2010)."
+            ].join(' ').trim()
+
+
+            def text_shortread_qc = [
+                "Short read preprocessing was performed with",
+                params.shortread_qc_tool == "adapterremoval" ? "AdapterRemoval (Schubert et al. 2016)" : "",
+                params.shortread_qc_tool == "fastp" ? "fastp (Chen et al. 2018)" : "",
+            ].join(' ').trim()
+
+            def text_longread_qc = [
+                "Long read preprocessing was performed with",
+                !params.longread_qc_skipadaptertrim ? "Porechop (Wick et al. 2017)," : "",
+                !params.longread_qc_skipqualityfilter ? "Filtlong (Wick 2021)," : "",
+                "."
+            ].join(' ').trim()
+
+            def text_shortreadcomplexity = [
+                "Low-complexity sequence filtering was carried out with",
+                params.shortread_complexityfilter_tool == "bbduk" ? "BBDuk (Bushnell 2022)." : "",
+                params.shortread_complexityfilter_tool == "prinseqplusplus" ? "PRINSEQ++ (Cantu et al. 2019)." : "",
+                params.shortread_complexityfilter_tool == "fastp" ? "fastp (Chen et al. 2018)." : "",
+            ].join(' ').trim()
+
+            def text_shortreadhostremoval = [
+                "Host read removal was performed for short reads with Bowtie2 (Langmead and Salzberg 2012) and SAMtools (Danecek et al. 2021)."
+            ].join(' ').trim()
+
+            def text_longreadhostremoval = [
+                "Host read removal was performed for long reads with minimap2 (Li et al. 2018) and SAMtools (Danecek et al. 2021)."
+            ].join(' ').trim()
+
+
+            def text_classification = [
+                "Taxonomic classification or profiling was carried out with:",
+                params.run_bracken ? "Bracken (Lu et al. 2017)," : "",
+                params.run_kraken2 ? "Kraken2 (Wood et al. 2019)," : "",
+                params.run_krakenuniq ? "KrakenUniq (Breitwieser et al. 2018)," : "",
+                params.run_metaphlan3 ? "MetaPhlAn3 (Beghini et al. 2021)," : "",
+                params.run_malt ? "MALT (Vågene et al. 2018) and MEGAN6 CE (Huson et al. 2016)," : "",
+                params.run_diamond ? "DIAMOND (Buchfink et al. 2015)," : "",
+                params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
+                params.run_kaiju ? "Kaiju (Menzel et al. 2016)," : "",
+                params.run_motus ? "mOTUs (Ruscheweyh et al. 2022)," : "",
+                "."
+            ]
+
+            def text_visualisation = [
+                "Visualisation of results, where supported, was performed with Krona (Ondov et al. 2011)."
+            ]
+
+            def text_postprocessing = [
+                "Standardisation of taxonomic profiles was carried out with TAXPASTA (Beber et al. 2023).",
+            ]
+
         def citation_text = [
-                "Tools used in the workflow included",
-                params["preprocessing_qc_tool"] == "falco" ? "Falco (de Sena Brandine and Smith 2021)." : "FastQC (Andrews 2010).", // TODO OR FALCO
-
-
-                def text_shortread_qc = [
-                    params["perform_shortread_qc"] ? ". Short read preprocessing was carried out with" : "",
-                    params["perform_shortread_qc"] && params["shortread_qc_tool"] == "adapterremoval" ? "AdapterRemoval (Schubert et al. 2016)." : "",
-                    params["perform_shortread_qc"] && params["shortread_qc_tool"] == "fastp" ? "fastp (Chen et al. 2018)." : "",
-                ].join(' ')
-
-
-                params["perform_longread_qc"] ? ". Long read preprocessing was carried out with" : "",
-                params["perform_longread_qc"] && !params["longread_qc_skipadaptertrim"] ? "Porechop (Wick et al. 2017)," : "",
-                params["perform_longread_qc"] && !params["longread_qc_skipqualityfilter"] ? "Filtlong (Wick 2021)," : "",
-
-                params["perform_shortread_complexityfilter"] ? ". Complexity filtering was performed using" : "",
-                params["perform_shortread_complexityfilter"] && params["shortread_complexityfilter_tool"] == "bbduk" ? "BBDuk (Bushnell 2022)," : "",
-                params["perform_shortread_complexityfilter"] && params["shortread_complexityfilter_tool"] == "prinseqplusplus" ? "PRINSEQ++ (Cantu et al. 2019)," : "",
-                params["perform_shortread_complexityfilter"] && params["shortread_complexityfilter_tool"] == "fastp" ? "fastp (Chen et al. 2018)," : "",
-
-                params["perform_shortread_hostremoval"] ? ". Host read removal was carried out for short reads with Bowtie2 (Langmead and Salzberg 2012)" : "",
-                params["perform_longread_hostremoval"] ? ". Host read removal was carried out for long reads with minimap2 (Li et al. 2018)" : "",
-                params["perform_shortread_hostremoval"] || params["perform_longread_hostremoval"] ? "and SAMtools (Danecek et al. 2021)." : "",
-
-                ". Taxonomic classification or profiling was performed with",
-                params["run_bracken"] ? "Bracken (Lu et al. 2017)," : "",
-                params["run_kraken2"] ? "Kraken2 (Wood et al. 2019)," : "",
-                params["run_krakenuniq"] ? "KrakenUniq (Breitwieser et al. 2018)," : "",
-                params["run_metaphlan3"] ? "MetaPhlAn3 (Beghini et al. 2021)," : "",
-                params["run_malt"] ? "MALT (Vågene et al. 2018) and MEGAN6 CE (Huson et al. 2016)," : "",
-                params["run_diamond"] ? "DIAMOND (Buchfink et al. 2015)," : "",
-                params["run_centrifuge"] ? "Centrifuge (Kim et al. 2016)," : "",
-                params["run_kaiju"] ? "Kaiju (Menzel et al. 2016)," : "",
-                params["run_motus"] ? "mOTUs (Ruscheweyh et al. 2022)," : "",
-
-
-                params["run_krona"] ? ". Results visualisation for some tools were displayed with Krona (Ondov et al. 2011)." : "",
-
-                ". Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
-            ].join(' ').trim().replaceAll("[], +\\.", ".")
-
-        def citation_text = [
-            text_shortread_qc,
-            text_longread_qc,
-            text_shortreadcomplexity,
-            text_longreadhostremoval,
-            text_classification,
-        ].join()
+            text_seq_qc,
+            params.perform_shortread_qc ? text_shortread_qc : "",
+            params.perform_longread_qc ? text_longread_qc : "",
+            params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
+            params.perform_shortread_hostremoval ? text_shortreadhostremoval : "",
+            params.perform_longread_hostremoval ? text_longreadhostremoval : "",
+            params.run_krona ? "" : text_visualisation,
+            params.run_profile_standardisation ? "" : text_postprocessing,
+            "Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
+        ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
 
         return citation_text
     }
 
     public static String toolBibliographyText(params) {
 
+                    def text_seq_qc = [
+                params.preprocessing_qc_tool == "falco" "<li>de Sena Brandine G and Smith AD. Falco: high-speed FastQC emulation for quality control of sequencing data. F1000Research 2021, 8:1874</li>",
+                "FastQC (Andrews 2010)."
+            ].join(' ').trim()
+
+
+            def text_shortread_qc = [
+                params.shortread_qc_tool == "adapterremoval" ? "AdapterRemoval (Schubert et al. 2016)" : "",
+                params.shortread_qc_tool == "fastp" ? "fastp (Chen et al. 2018)" : "",
+            ].join(' ').trim()
+
+            def text_longread_qc = [
+                !params.longread_qc_skipadaptertrim ? "Porechop (Wick et al. 2017)," : "",
+                !params.longread_qc_skipqualityfilter ? "Filtlong (Wick 2021)," : "",
+                "."
+            ].join(' ').trim()
+
+            def text_shortreadcomplexity = [
+                params.shortread_complexityfilter_tool == "bbduk" ? "BBDuk (Bushnell 2022)." : "",
+                params.shortread_complexityfilter_tool == "prinseqplusplus" ? "PRINSEQ++ (Cantu et al. 2019)." : "",
+                params.shortread_complexityfilter_tool == "fastp" ? "fastp (Chen et al. 2018)." : "",
+            ].join(' ').trim()
+
+            def text_shortreadhostremoval = [
+            ].join(' ').trim()
+
+            def text_longreadhostremoval = [
+            ].join(' ').trim()
+
+
+            def text_classification = [
+                params.run_bracken ? "Bracken (Lu et al. 2017)," : "",
+                params.run_kraken2 ? "Kraken2 (Wood et al. 2019)," : "",
+                params.run_krakenuniq ? "KrakenUniq (Breitwieser et al. 2018)," : "",
+                params.run_metaphlan3 ? "MetaPhlAn3 (Beghini et al. 2021)," : "",
+                params.run_malt ? "MALT (Vågene et al. 2018) and MEGAN6 CE (Huson et al. 2016)," : "",
+                params.run_diamond ? "DIAMOND (Buchfink et al. 2015)," : "",
+                params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
+                params.run_kaiju ? "Kaiju (Menzel et al. 2016)," : "",
+                params.run_motus ? "mOTUs (Ruscheweyh et al. 2022)," : "",
+                "."
+            ]
+
+            def text_visualisation = [
+                "Visualisation of results, where supported, was performed with Krona (Ondov et al. 2011)."
+            ]
+
+            def text_postprocessing = [
+                "Standardisation of taxonomic profiles was carried out with TAXPASTA (Beber et al. 2023).",
+            ]
+
+        def citation_text = [
+            text_seq_qc,
+            params.perform_shortread_qc ? text_shortread_qc : "",
+            params.perform_longread_qc ? text_longread_qc : "",
+            params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
+            params.perform_shortread_hostremoval ? text_shortreadhostremoval : "",
+            params.perform_longread_hostremoval ? text_longreadhostremoval : "",
+            params.run_krona ? "" : text_visualisation,
+            params.run_profile_standardisation ? "" : text_postprocessing,
+            "Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
+        ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
+
         // TODO consider how to do the same for the references themselves, include in the same if/else statements somehow?
         def reference_text = [
-                params["preprocessing_qc_tool"] == "falco" ? "<li>de Sena Brandine G and Smith AD. Falco: high-speed FastQC emulation for quality control of sequencing data. F1000Research 2021, 8:1874</li>" : "<li>Andrews S, (2010) FastQC, URL: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).</li>", // TODO OR FALCO
+                params["preprocessing_qc_tool"] == "falco" ? "" : "<li>Andrews S, (2010) FastQC, URL: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).</li>", // TODO OR FALCO
 
                 params["perform_shortread_qc"] && params["shortread_qc_tool"] == "adapterremoval" ? "<li>Schubert, Mikkel, Stinus Lindgreen, and Ludovic Orlando. 2016. AdapterRemoval v2: Rapid Adapter Trimming, Identification, and Read Merging. BMC Research Notes 9 (February): 88. doi:10.1186/s13104-016-1900-2.</li>" : "",
                 params["perform_shortread_qc"] && params["shortread_qc_tool"] == "fastp" ? "<li>Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. Fastp: An Ultra-Fast All-in-One FASTQ Preprocessor. Bioinformatics 34 (17): i884-90. 10.1093/bioinformatics/bty560.</li>" : "",
@@ -161,7 +243,7 @@ class WorkflowTaxprofiler {
         TODO Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
         */
         meta["tool_citations"] = toolCitationText(params)
-        meta["tool_bibliography"] = toolBibliographyText(params)
+        //meta["tool_bibliography"] = toolBibliographyText(params)
 
         def methods_text = mqc_methods_yaml.text
 
