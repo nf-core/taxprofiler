@@ -32,6 +32,8 @@
 
 - [Porechop](https://github.com/rrwick/Porechop)
 
+  > Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. https://doi.org/10.1099/mgen.0.000132
+
 - [Filtlong](https://github.com/rrwick/Filtlong)
 
 - [BBTools](http://sourceforge.net/projects/bbmap/)

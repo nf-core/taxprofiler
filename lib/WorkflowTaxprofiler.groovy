@@ -66,7 +66,7 @@ class WorkflowTaxprofiler {
 
 
                 params["perform_longread_qc"] ? ". Long read preprocessing was carried out with" : "",
-                params["perform_longread_qc"] && !params["longread_qc_skipadaptertrim"] ? "Porechop (Wick 2018)," : "",
+                params["perform_longread_qc"] && !params["longread_qc_skipadaptertrim"] ? "Porechop (Wick et al. 2017)," : "",
                 params["perform_longread_qc"] && !params["longread_qc_skipqualityfilter"] ? "Filtlong (Wick 2021)," : "",
 
                 params["perform_shortread_complexityfilter"] ? ". Complexity filtering was performed using" : "",
@@ -115,7 +115,7 @@ class WorkflowTaxprofiler {
                 params["perform_shortread_qc"] && params["shortread_qc_tool"] == "adapterremoval" ? "<li>Schubert, Mikkel, Stinus Lindgreen, and Ludovic Orlando. 2016. AdapterRemoval v2: Rapid Adapter Trimming, Identification, and Read Merging. BMC Research Notes 9 (February): 88. doi:10.1186/s13104-016-1900-2.</li>" : "",
                 params["perform_shortread_qc"] && params["shortread_qc_tool"] == "fastp" ? "<li>Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. Fastp: An Ultra-Fast All-in-One FASTQ Preprocessor. Bioinformatics 34 (17): i884-90. 10.1093/bioinformatics/bty560.</li>" : "",
 
-                params["perform_longread_qc"] && !params["longread_qc_skipadaptertrim"] ? "<li>Wick R (2018) Porechop, URL: https://github.com/rrwick/Porechop</li>" : "",
+                params["perform_longread_qc"] && !params["longread_qc_skipadaptertrim"] ? "<li>Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. https://doi.org/10.1099/mgen.0.000132</li>" : "",
                 params["perform_longread_qc"] && !params["longread_qc_skipqualityfilter"] ? "<li>Wick R (2021) Filtlong, URL: https://github.com/rrwick/Filtlong</li>" : "",
 
                 params["perform_shortread_complexityfilter"] && params["shortread_complexityfilter_tool"] == "bbduk" ? "<li>Bushnell B (2022) BBMap, URL: http://sourceforge.net/projects/bbmap/</li>" : "",
