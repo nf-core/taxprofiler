@@ -97,38 +97,38 @@ jobs:
           command: nextflow run ${GITHUB_WORKSPACE} -profile test_motus,docker --outdir ./results --databases ./database_motus.csv
           attempt_limit: 3
 
-  # krakenuniq:
-  #  name: Test KrakenUniq with workflow parameters
-  #  if: ${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}
-  #  runs-on: ubuntu-latest
-  #  strategy:
-  #    matrix:
-  #      NXF_VER:
-  #        - "23.04.0"
-  #        - "latest-everything"
-  #
-  #  steps:
-  #    - name: Check out pipeline code
-  #      uses: actions/checkout@v2
-  #
-  #    - name: Install Nextflow
-  #      uses: nf-core/setup-nextflow@v1
-  #      with:
-  #        version: "${{ matrix.NXF_VER }}"
-  #
-  #    - name: Show current locale
-  #      run: locale
-  #
-  #    - name: Set UTF-8 enabled locale
-  #      run: |
-  #        sudo locale-gen en_US.UTF-8
-  #        sudo update-locale LANG=en_US.UTF-8
-  #
-  #    - name: Run pipeline with test data
-  #      uses: Wandalen/wretry.action@v1.0.11
-  #      with:
-  #        command: nextflow run ${GITHUB_WORKSPACE} -profile test_krakenuniq,docker --outdir ./results
-  #        attempt_limit: 3
+   krakenuniq:
+    name: Test KrakenUniq with workflow parameters
+    if: ${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        NXF_VER:
+          - "23.04.0"
+          - "latest-everything"
+  
+    steps:
+      - name: Check out pipeline code
+        uses: actions/checkout@v2
+  
+      - name: Install Nextflow
+        uses: nf-core/setup-nextflow@v1
+        with:
+          version: "${{ matrix.NXF_VER }}"
+  
+      - name: Show current locale
+        run: locale
+  
+      - name: Set UTF-8 enabled locale
+        run: |
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+  
+      - name: Run pipeline with test data
+        uses: Wandalen/wretry.action@v1.0.11
+        with:
+          command: nextflow run ${GITHUB_WORKSPACE} -profile test_krakenuniq,docker --outdir ./results
+          attempt_limit: 3
 
   malt:
     name: Test MALT with workflow parameters
