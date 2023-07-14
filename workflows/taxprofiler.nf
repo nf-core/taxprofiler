@@ -144,13 +144,16 @@ workflow TAXPROFILER {
     */
     ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
 
-    if ( params.preprocessing_qc_tool == 'falco' ) {
-        FALCO ( ch_input_for_fastqc )
-        ch_versions = ch_versions.mix(FALCO.out.versions.first())
-    } else {
-        FASTQC ( ch_input_for_fastqc )
-        ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    if ( !params.skip_preprocessing_qc ) {
+        if ( params.preprocessing_qc_tool == 'falco' ) {
+            FALCO ( ch_input_for_fastqc )
+            ch_versions = ch_versions.mix(FALCO.out.versions.first())
+        } else {
+            FASTQC ( ch_input_for_fastqc )
+            ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+        }
     }
+
     /*
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
@@ -281,17 +284,18 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
-    if ( params.preprocessing_qc_tool == 'falco' ) {
-        // only mix in files actually used by MultiQC
-        ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt
-                            .map { meta, reports -> reports }
-                            .flatten()
-                            .filter { path -> path.name.endsWith('_data.txt')}
-                            .ifEmpty([]))
-    } else {
-        ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    if ( !params.skip_preprocessing_qc ) {
+        if ( params.preprocessing_qc_tool == 'falco' ) {
+            // only mix in files actually used by MultiQC
+            ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt
+                                .map { meta, reports -> reports }
+                                .flatten()
+                                .filter { path -> path.name.endsWith('_data.txt')}
+                                .ifEmpty([]))
+        } else {
+            ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+        }
     }
-
 
     if (params.perform_shortread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
