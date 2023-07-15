@@ -56,6 +56,12 @@
             "description": "Common options across both long and short read preprocessing QC steps",
             "default": "",
             "properties": {
+                "skip_preprocessing_qc": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-forward",
+                    "description": "Specify to skip sequencing quality control of raw sequencing reads",
+                    "help": "Skipping running of FastQC or Falco maybe useful in cases where you are already running with preprocessed data (e.g. you are also skipping short/long read qc steps) that you already know the quality of"
+                },
                 "preprocessing_qc_tool": {
                     "type": "string",
                     "default": "fastqc",
