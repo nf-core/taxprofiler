@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - [#315](https://github.com/nf-core/taxprofiler/pull/315) Updated to nf-core pipeline template v2.9 (added by @sofstam & @jfy133)
   - [#319](https://github.com/nf-core/taxprofiler/pull/319) Added support for virus hit expansion in Kaiju (❤️ to @dnlrxn for requesting, added by @jfy133)
   - [#323](https://github.com/nf-core/taxprofiler/pull/323) Add ability to skip sequencing quality control tools (❤️ to @vinisalazar for requesting, added by @jfy133)
-  - [#318](https://github.com/nf-core/taxprofiler/pull/318) Added the profiler MetaPhlAn4 and removed MetaPhlAn3 (added by@LilyAnderssonLee)
+  - [#318](https://github.com/nf-core/taxprofiler/pull/318) Added the profiler MetaPhlAn4 and removed MetaPhlAn3 (added by @LilyAnderssonLee)
 
 ### `Fixed`
 
