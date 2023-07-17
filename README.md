@@ -27,7 +27,7 @@
 3. Supports statistics for host-read removal ([Samtools](http://www.htslib.org/))
 4. Performs taxonomic classification and/or profiling using one or more of:
    - [Kraken2](https://ccb.jhu.edu/software/kraken2/)
-   - [MetaPhlAn3](https://huttenhower.sph.harvard.edu/metaphlan/)
+   - [MetaPhlAn](https://huttenhower.sph.harvard.edu/metaphlan/)
    - [MALT](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/malt/)
    - [DIAMOND](https://github.com/bbuchfink/diamond)
    - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/)
@@ -68,7 +68,7 @@ Additionally, you will need a database sheet that looks as follows:
 ```
 tool,db_name,db_params,db_path
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
-metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
+metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 ```
 
 That includes directories or `.tar.gz` archives containing databases for the tools you wish to run the pipeline against.
@@ -81,7 +81,7 @@ nextflow run nf-core/taxprofiler \
    --input samplesheet.csv \
    --databases databases.csv \
    --outdir <OUTDIR>  \
-   --run_kraken2 --run_metaphlan3
+   --run_kraken2 --run_metaphlan
 ```
 
 > **Warning:**
