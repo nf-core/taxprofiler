@@ -101,7 +101,7 @@ bracken,db1,;-r 150,/<path>/<to>/bracken/testdb-bracken.tar.gz
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 krakenuniq,db3,,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
 centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
-metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
+metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 ```
@@ -130,7 +130,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**Kraken2**:](#kraken2-custom-database) output of `kraken2-build` command(s).
 - [**KrakenUniq**:](#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
 - [**MALT**](#malt-custom-database) output of `malt-build`.
-- [**MetaPhlAn3**:](#metaphlan3-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn3 wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0#customizing-the-database).
+- [**MetaPhlAn**:](#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
 - [**mOTUs**:](#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
 - [**ganon**:](#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 
@@ -298,9 +298,9 @@ MALT does not support paired-end reads alignment (unlike other tools), therefore
 
 Krona can only be run on MALT output if path to Krona taxonomy database supplied to `--krona_taxonomy_directory`. Therefore if you do not supply the a Krona directory, Krona plots will not be produced for MALT.
 
-##### MetaPhlAn3
+##### MetaPhlAn
 
-MetaPhlAn3 currently does not accept FASTA files as input, therefore no output will be produced for these input files.
+MetaPhlAn4 is compatible with the MetaPhlAn3 database by adding the `--mpa3` paramter to the MetaPhlAn process in the config file `module.config`.
 
 ##### mOTUs
 
@@ -339,7 +339,7 @@ The following tools will produce multi-sample taxon tables:
 - **Centrifuge** (via KrakenTools' `combine_kreports.py` script)
 - **Kaiju** (via Kaiju's `kaiju2table` tool)
 - **Kraken2** (via KrakenTools' `combine_kreports.py` script)
-- **MetaPhlAn3** (via MetaPhlAn's `merge_metaphlan_tables.py` script)
+- **MetaPhlAn** (via MetaPhlAn's `merge_metaphlan_tables.py` script)
 - **mOTUs** (via the `motus merge` command)
 - **ganon** (via the `ganon table` command)
 
@@ -712,11 +712,11 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 
 See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/malt/manual.pdf) for more information.
 
-#### MetaPhlAn3 custom database
+#### MetaPhlAn custom database
 
-MetaPhlAn3 does not allow (easy) construction of custom databases. Therefore we recommend to use the prebuilt database of marker genes that is provided by the developers.
+MetaPhlAn does not allow (easy) construction of custom databases. Therefore we recommend to use the prebuilt database of marker genes that is provided by the developers.
 
-To do this you need to have `MetaPhlAn3` installed on your machine.
+To do this you need to have `MetaPhlAn` installed on your machine.
 
 ```bash
 metaphlan --install --bowtie2db <YOUR_DB_NAME>/
@@ -731,21 +731,20 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 <details markdown="1">
 <summary>Expected files in database directory</summary>
 
-- `metaphlan3`
-  - `mpa_v30_CHOCOPhlAn_201901.pkl`
-  - `mpa_v30_CHOCOPhlAn_201901.pkl`
-  - `mpa_v30_CHOCOPhlAn_201901.fasta`
-  - `mpa_v30_CHOCOPhlAn_201901.3.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.4.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.1.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.2.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.rev.1.bt2`
-  - `mpa_v30_CHOCOPhlAn_201901.rev.2.bt2`
+- `metaphlan`
+  - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.pkl`
+  - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.fna.bz2`
+  - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.1.bt2l`
+  - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.2.bt2l`
+  - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.3.bt2l`
+  - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.4.bt2l`
+  - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.rev.1.bt2l`
+  - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.rev.2.bt2l`
   - `mpa_latest`
 
 </details>
 
-More information on the MetaPhlAn3 database can be found [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.1#installation).
+More information on the MetaPhlAn database can be found [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#Pre-requisites).
 
 #### mOTUs custom database
 
