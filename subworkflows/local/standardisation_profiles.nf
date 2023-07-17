@@ -118,11 +118,8 @@ workflow STANDARDISATION_PROFILES {
                                 }
 
     ch_input_for_kaiju2tablecombine = ch_profiles_for_kaiju
-                                        .dump(tag: "B41")
                                         .map { meta, profile -> [meta['id'], meta, profile] }
-                                        .dump(tag: "B42")
                                         .combine(ch_input_databases.kaiju.map{meta, db -> [meta.db_name, meta, db]}, by: 0)
-                                        .dump(tag: "AFTER")
                                         .multiMap {
                                             key, meta, profile, db_meta, db ->
                                                 profile: [meta, profile]
