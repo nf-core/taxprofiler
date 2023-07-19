@@ -90,16 +90,16 @@ class WorkflowTaxprofiler {
 
             def text_classification = [
                 "Taxonomic classification or profiling was carried out with:",
-                params.run_bracken ? "Bracken (Lu et al. 2017)," : "",
-                params.run_kraken2 ? "Kraken2 (Wood et al. 2019)," : "",
+                params.run_bracken    ? "Bracken (Lu et al. 2017)," : "",
+                params.run_kraken2    ? "Kraken2 (Wood et al. 2019)," : "",
                 params.run_krakenuniq ? "KrakenUniq (Breitwieser et al. 2018)," : "",
-                params.run_metaphlan ? "MetaPhlAn3 (Beghini et al. 2021)," : "",
-                params.run_malt ? "MALT (Vågene et al. 2018) and MEGAN6 CE (Huson et al. 2016)," : "",
-                params.run_diamond ? "DIAMOND (Buchfink et al. 2015)," : "",
+                params.run_metaphlan  ? "MetaPhlAn (Blanco-Míguez et al. 2023)," : "",
+                params.run_malt       ? "MALT (Vågene et al. 2018) and MEGAN6 CE (Huson et al. 2016)," : "",
+                params.run_diamond    ? "DIAMOND (Buchfink et al. 2015)," : "",
                 params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
-                params.run_kaiju ? "Kaiju (Menzel et al. 2016)," : "",
-                params.run_motus ? "mOTUs (Ruscheweyh et al. 2022)," : "",
-                params.run_ganon ? "ganon (Piro et al. 2020)" : "",
+                params.run_kaiju      ? "Kaiju (Menzel et al. 2016)," : "",
+                params.run_motus      ? "mOTUs (Ruscheweyh et al. 2022)," : "",
+                params.run_ganon      ? "ganon (Piro et al. 2020)" : "",
                 "."
             ].join(' ').trim()
 
