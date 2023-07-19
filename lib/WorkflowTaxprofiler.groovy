@@ -93,7 +93,7 @@ class WorkflowTaxprofiler {
                 params.run_bracken ? "Bracken (Lu et al. 2017)," : "",
                 params.run_kraken2 ? "Kraken2 (Wood et al. 2019)," : "",
                 params.run_krakenuniq ? "KrakenUniq (Breitwieser et al. 2018)," : "",
-                params.run_metaphlan3 ? "MetaPhlAn3 (Beghini et al. 2021)," : "",
+                params.run_metaphlan ? "MetaPhlAn3 (Beghini et al. 2021)," : "",
                 params.run_malt ? "MALT (Vågene et al. 2018) and MEGAN6 CE (Huson et al. 2016)," : "",
                 params.run_diamond ? "DIAMOND (Buchfink et al. 2015)," : "",
                 params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
@@ -162,7 +162,7 @@ class WorkflowTaxprofiler {
                 params.run_bracken    ? "<li>Lu, J., Breitwieser, F. P., Thielen, P., & Salzberg, S. L. (2017). Bracken: estimating species abundance in metagenomics data. PeerJ. Computer Science, 3(e104), e104. <a href=\"https://doi.org/10.7717/peerj-cs.104\">10.7717/peerj-cs.104</a></li>" : "",
                 params.run_kraken2    ? "<li>Wood, D. E., Lu, J., & Langmead, B. (2019). Improved metagenomic analysis with Kraken 2. Genome Biology, 20(1), 257.  <a href=\"https://doi.org/10.1186/s13059-019-1891-0\">10.1186/s13059-019-1891-0</a></li>" : "",
                 params.run_krakenuniq ? "<li>Breitwieser, F. P., Baker, D. N., & Salzberg, S. L. (2018). KrakenUniq: confident and fast metagenomics classification using unique k-mer counts. Genome Biology, 19(1), 198.  <a href=\"https://doi.org/10.1186/s13059-018-1568-0\">10.1186/s13059-018-1568-0</a></li>" : "",
-                params.run_metaphlan3 ? "<li>Blanco-Míguez, A., Beghini, F., Cumbo, F., McIver, L. J., Thompson, K. N., Zolfo, M., Manghi, P., Dubois, L., Huang, K. D., Thomas, A. M., Nickols, W. A., Piccinno, G., Piperni, E., Punčochář, M., Valles-Colomer, M., Tett, A., Giordano, F., Davies, R., Wolf, J., … Segata, N. (2023). Extending and improving metagenomic taxonomic profiling with uncharacterized species using MetaPhlAn 4. Nature Biotechnology, 1–12. <a href=\"https://doi.org/10.1038/s41587-023-01688-w\">10.1038/s41587-023-01688-w</a></li>" : "",
+                params.run_metaphlan  ? "<li>Blanco-Míguez, A., Beghini, F., Cumbo, F., McIver, L. J., Thompson, K. N., Zolfo, M., Manghi, P., Dubois, L., Huang, K. D., Thomas, A. M., Nickols, W. A., Piccinno, G., Piperni, E., Punčochář, M., Valles-Colomer, M., Tett, A., Giordano, F., Davies, R., Wolf, J., … Segata, N. (2023). Extending and improving metagenomic taxonomic profiling with uncharacterized species using MetaPhlAn 4. Nature Biotechnology, 1–12. <a href=\"https://doi.org/10.1038/s41587-023-01688-w\">10.1038/s41587-023-01688-w</a></li>" : "",
                 params.run_malt       ? "<li>Vågene, Å. J., Herbig, A., Campana, M. G., Robles García, N. M., Warinner, C., Sabin, S., Spyrou, M. A., Andrades Valtueña, A., Huson, D., Tuross, N., Bos, K. I., & Krause, J. (2018). Salmonella enterica genomes from victims of a major sixteenth-century epidemic in Mexico. Nature Ecology & Evolution, 2(3), 520–528.  <a href=\"https://doi.org/10.1038/s41559-017-0446-6\">10.1038/s41559-017-0446-6</a></li>" : "",
                 params.run_malt       ? "<li>Huson, D. H., Beier, S., Flade, I., Górska, A., El-Hadidi, M., Mitra, S., Ruscheweyh, H.-J., & Tappu, R. (2016). MEGAN Community Edition - Interactive Exploration and Analysis of Large-Scale Microbiome Sequencing Data. PLoS Computational Biology, 12(6), e1004957. <a href=\"https://doi.org/10.1371/journal.pcbi.1004957\">10.1371/journal.pcbi.1004957</a></li>" : "",
                 params.run_diamond    ? "<li>Buchfink, B., Xie, C., & Huson, D. H. (2015). Fast and sensitive protein alignment using DIAMOND. Nature Methods, 12(1), 59–60. <a href=\"https://doi.org/10.1038/nmeth.3176\">10.1038/nmeth.3176</a></li>" : "",
@@ -182,7 +182,7 @@ class WorkflowTaxprofiler {
 
             def text_extras = [
                 // fastp shortread qc / complexity filtering
-                ( params.perform_shortread_qc && params.shortread_qc_tool == "fastp" ) || ( params.text_shortreadcomplexity && params.shortread_complexityfilter_tool == "fastp" ) ? "<li>Chen, S., Zhou, Y., Chen, Y., & Gu, J. (2018). fastp: an ultra-fast all-in-one FASTQ preprocessor. Bioinformatics , 34(17), i884–i890. <a href=\"https://doi.org/10.1093/bioinformatics/bty560\">10.1093/bioinformatics/bty560</a></li>" : "",
+                ( params.perform_shortread_qc && params.shortread_qc_tool == "fastp" ) || ( params.perform_shortread_complexityfilter && params.shortread_complexityfilter_tool == "fastp" ) ? "<li>Chen, S., Zhou, Y., Chen, Y., & Gu, J. (2018). fastp: an ultra-fast all-in-one FASTQ preprocessor. Bioinformatics , 34(17), i884–i890. <a href=\"https://doi.org/10.1093/bioinformatics/bty560\">10.1093/bioinformatics/bty560</a></li>" : "",
                 // samtools long / short hostremoval
                 params.perform_shortread_hostremoval || params.perform_longread_hostremoval ? "<li>Danecek, P., Bonfield, J. K., Liddle, J., Marshall, J., Ohan, V., Pollard, M. O., Whitwham, A., Keane, T., McCarthy, S. A., Davies, R. M., & Li, H. (2021). Twelve years of SAMtools and BCFtools. GigaScience, 10(2). <a href=\"https://doi.org/10.1093/gigascience/giab008\">10.1093/gigascience/giab008</a></li>" : "",
             ].join(' ').trim()
