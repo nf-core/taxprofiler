@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/master/nextflow_schema.json",
     "title": "nf-core/taxprofiler pipeline parameters",
-    "description": "Taxonomic classification and profiling of shotgun metagenomic data",
+    "description": "Taxonomic classification and profiling of shotgun and long-read metagenomic data",
     "type": "object",
     "definitions": {
         "input_output_options": {
@@ -15,9 +15,9 @@
                 "input": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": true,
                     "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.(csv)$",
-                    "schema": "assets/schema_input.json",
+                    "pattern": "^\\S+\\.csv$",
                     "description": "Path to comma-separated file containing information about the samples and libraries/runs.",
                     "help_text": "You will need to create a design file with information about the samples and libraries/runs you want to running in your pipeline run. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -56,6 +56,12 @@
             "description": "Common options across both long and short read preprocessing QC steps",
             "default": "",
             "properties": {
+                "skip_preprocessing_qc": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-forward",
+                    "description": "Specify to skip sequencing quality control of raw sequencing reads",
+                    "help": "Skipping running of FastQC or Falco maybe useful in cases where you are already running with preprocessed data (e.g. you are also skipping short/long read qc steps) that you already know the quality of"
+                },
                 "preprocessing_qc_tool": {
                     "type": "string",
                     "default": "fastqc",
@@ -106,21 +112,18 @@
                 },
                 "shortread_qc_adapter1": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-grip-lines",
                     "description": "Specify adapter 1 nucleotide sequence",
                     "help_text": "Specify a custom forward or R1 adapter sequence to be removed from reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCA`\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG`"
                 },
                 "shortread_qc_adapter2": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-grip-lines",
                     "description": "Specify adapter 2 nucleotide sequence",
                     "help_text": "Specify a custom reverse or R2 adapter sequence to be removed from reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT`\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT`"
                 },
                 "shortread_qc_adapterlist": {
                     "type": "string",
-                    "default": "None",
                     "description": "Specify a list of all possible adapters to trim. Overrides --shortread_qc_adapter1/2. Formats: .txt (AdapterRemoval) or .fasta. (fastp).",
                     "help_text": "Allows to supply a file with a list of adapter (combinations) to remove from all files. \n\nOverrides the --shortread_qc_adapter1/--shortread_qc_adapter2 parameters . \n\nFor AdapterRemoval this consists of a two column table with a `.txt` extension: first column represents forward strand, second column for reverse strand. You must supply all possible combinations, one per line, and this list is applied to all files. See AdapterRemoval documentation for more information.\n\nFor fastp this consists of a standard FASTA format with a `.fasta`/`.fa`/`.fna`/`.fas` extension. The adapter sequence in this file should be at least 6bp long, otherwise it will be skipped. fastp trims the adapters present in the FASTA file one by one.\n\n> Modifies AdapterRemoval parameter: --adapter-list\n> Modifies fastp parameter: --adapter_fasta",
                     "fa_icon": "fas fa-th-list"
@@ -275,21 +278,18 @@
                 },
                 "hostremoval_reference": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-file-alt",
                     "description": "Specify path to single reference FASTA of host(s) genome(s)",
                     "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
                 },
                 "shortread_hostremoval_index": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference",
                     "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.). These should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
                 },
                 "longread_hostremoval_index": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference",
                     "help_text": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference file given to `--hostremoval_reference`.\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
@@ -376,6 +376,12 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on profiling with Kaiju. Requires database to be present CSV file passed to --databases"
+                },
+                "kaiju_expand_viruses": {
+                    "type": "boolean",
+                    "description": "Turn on expanding of virus hits to individual viruses rather than aggregating at a taxonomic level.",
+                    "help_text": "Turn on the reporting by Kaiju of viruses at specific virus levels, rather than aggregating at specific taxonomic levels as specified by `-- kaiju_taxon_rank` (i.e., read counts will not be summarised at higher taxonomic levels).\n\n> Modifies tool parameter(s):\n> - kaiju2table: `-e`",
+                    "fa_icon": "fas fa-expand-arrows-alt"
                 },
                 "kaiju_taxon_rank": {
                     "type": "string",
@@ -468,9 +474,9 @@
                     "description": "Turn on generation of MEGAN summary file from MALT results",
                     "help_text": "Turns on saving of MALT output in an additional MEGAN summary file (`.megan`) that can be loaded into the MEGAN metagenomic exploration tool.\n\nNote: this file is generated not directly from MALT but rather then MEGAN utility script `rma2info`.\n\n> Modifies tool parameter(s):\n> - rma2info: `-es`"
                 },
-                "run_metaphlan3": {
+                "run_metaphlan": {
                     "type": "boolean",
-                    "description": "Turn on profiling with MetaPhlAn3. Requires database to be present CSV file passed to --databases",
+                    "description": "Turn on profiling with MetaPhlAn. Requires database to be present CSV file passed to --databases",
                     "fa_icon": "fas fa-toggle-on"
                 },
                 "run_motus": {
@@ -596,7 +602,6 @@
                 },
                 "krona_taxonomy_directory": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-folder-open",
                     "description": "Specify path to krona taxonomy directories (required for MALT krona plots)",
                     "help_text": "Specify a path to a Krona taxonomy database directory (i.e. a directory containing a krona generated `.tab` file).\n\nThis is only required for generating Krona plots of MALT output.\n\nNote this taxonomy database must be downloaded and generated with the `updateTaxonomy.sh` script from the krona-tools package."
@@ -718,7 +723,7 @@
                     "description": "Maximum amount of time that can be requested for any single job.",
                     "default": "240.h",
                     "fa_icon": "far fa-clock",
-                    "pattern": "^(\\d+\\.?\\s*(s|m|h|day)\\s*)+$",
+                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
                     "hidden": true,
                     "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '2.h'`"
                 }
@@ -735,12 +740,14 @@
                     "type": "boolean",
                     "description": "Display help text.",
                     "fa_icon": "fas fa-question-circle",
+                    "default": false,
                     "hidden": true
                 },
                 "version": {
                     "type": "boolean",
                     "description": "Display version and exit.",
                     "fa_icon": "fas fa-question-circle",
+                    "default": false,
                     "hidden": true
                 },
                 "publish_dir_mode": {
@@ -764,6 +771,7 @@
                     "type": "boolean",
                     "description": "Send plain-text email instead of HTML.",
                     "fa_icon": "fas fa-remove-format",
+                    "default": false,
                     "hidden": true
                 },
                 "max_multiqc_email_size": {
@@ -778,6 +786,7 @@
                     "type": "boolean",
                     "description": "Do not use coloured log outputs.",
                     "fa_icon": "fas fa-palette",
+                    "default": false,
                     "hidden": true
                 },
                 "hook_url": {
@@ -789,6 +798,7 @@
                 },
                 "multiqc_config": {
                     "type": "string",
+                    "format": "file-path",
                     "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
@@ -804,13 +814,6 @@
                     "description": "Custom MultiQC yaml file containing HTML including a methods description.",
                     "fa_icon": "fas fa-cog"
                 },
-                "tracedir": {
-                    "type": "string",
-                    "description": "Directory to keep pipeline Nextflow logs and reports.",
-                    "default": "${params.outdir}/pipeline_info",
-                    "fa_icon": "fas fa-cogs",
-                    "hidden": true
-                },
                 "validate_params": {
                     "type": "boolean",
                     "description": "Boolean whether to validate parameters against the schema at runtime",
@@ -818,12 +821,27 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
-                "show_hidden_params": {
+                "validationShowHiddenParams": {
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",
                     "description": "Show all params when using `--help`",
+                    "default": false,
                     "hidden": true,
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
+                },
+                "validationFailUnrecognisedParams": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters fails when an unrecognised parameter is found.",
+                    "hidden": true,
+                    "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
+                },
+                "validationLenientMode": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters in lenient more.",
+                    "hidden": true,
+                    "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
                 }
             }
         },

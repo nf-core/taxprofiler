@@ -9,7 +9,7 @@ include { KRAKEN2_STANDARD_REPORT                       } from '../../modules/lo
 include { BRACKEN_BRACKEN                               } from '../../modules/nf-core/bracken/bracken/main'
 include { CENTRIFUGE_CENTRIFUGE                         } from '../../modules/nf-core/centrifuge/centrifuge/main'
 include { CENTRIFUGE_KREPORT                            } from '../../modules/nf-core/centrifuge/kreport/main'
-include { METAPHLAN3_METAPHLAN3                         } from '../../modules/nf-core/metaphlan3/metaphlan3/main'
+include { METAPHLAN_METAPHLAN                           } from '../../modules/nf-core/metaphlan/metaphlan/main'
 include { KAIJU_KAIJU                                   } from '../../modules/nf-core/kaiju/kaiju/main'
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
@@ -51,7 +51,7 @@ workflow PROFILING {
                 kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken' // to reuse the kraken module to produce the input data for bracken
                 krakenuniq: it[2]['tool'] == 'krakenuniq'
                 malt:    it[2]['tool'] == 'malt'
-                metaphlan3: it[2]['tool'] == 'metaphlan3'
+                metaphlan: it[2]['tool'] == 'metaphlan'
                 motus: it[2]['tool'] == 'motus'
                 kmcp: it[2]['tool'] == 'kmcp'
                 ganon: it[2]['tool'] == 'ganon'
@@ -81,17 +81,17 @@ workflow PROFILING {
                     // as we don't run run on a per-sample basis due to huge datbaases
                     // so all samples are in one run and so sample-specific metadata
                     // unnecessary. Set as database name to prevent `null` job ID and prefix.
-                    def temp_meta = [ id: meta['db_name'] ]
+                    def temp_meta = [ id: meta.db_name ]
 
                     // Extend database parameters to specify whether to save alignments or not
                     def new_db_meta = db_meta.clone()
                     def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
-                    new_db_meta['db_params'] = db_meta['db_params'] + sam_format
+                    new_db_meta.db_params = db_meta.db_params + sam_format
 
                     // Combine reduced sample metadata with updated database parameters metadata,
                     // make sure id is db_name for publishing purposes.
                     def new_meta = temp_meta + new_db_meta
-                    new_meta['id'] = new_meta['db_name']
+                    new_meta.id = new_meta.db_name
 
                     [ new_meta, reads, db ]
 
@@ -171,8 +171,8 @@ workflow PROFILING {
         def ch_kraken2_output = KRAKEN2_KRAKEN2.out.report
             .filter {
                 meta, report ->
-                    if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Bracken has not been evaluated for Nanopore data. Skipping Bracken for sample ${meta.id}."
-                    meta['tool'] == 'bracken' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+                    if ( meta.instrument_platform == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Bracken has not been evaluated for Nanopore data. Skipping Bracken for sample ${meta.id}."
+                    meta.tool == 'bracken' && meta.instrument_platform != 'OXFORD_NANOPORE'
             }
 
         // If necessary, convert the eight column output to six column output.
@@ -182,12 +182,12 @@ workflow PROFILING {
 
         // Extract the database name to combine by.
         ch_bracken_databases = databases
-            .filter { meta, db -> meta['tool'] == 'bracken' }
-            .map { meta, db -> [meta['db_name'], meta, db] }
+            .filter { meta, db -> meta.tool == 'bracken' }
+            .map { meta, db -> [meta.db_name, meta, db] }
 
         // Combine back with the reads
         ch_input_for_bracken = ch_kraken2_output
-            .map { meta, report -> [meta['db_name'], meta, report] }
+            .map { meta, report -> [meta.db_name, meta, report] }
             .combine(ch_bracken_databases, by: 0)
             .map {
 
@@ -196,7 +196,7 @@ workflow PROFILING {
 
                     // Have to pick second element if using bracken, as first element
                     // contains kraken parameters
-                    if ( db_meta['tool'] == 'bracken' ) {
+                    if ( db_meta.tool == 'bracken' ) {
 
                         // Only take second element if one exists
                         def parsed_params = db_meta_new['db_params'].split(";")
@@ -237,30 +237,43 @@ workflow PROFILING {
                                 }
 
         CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads, params.centrifuge_save_reads  )
-        CENTRIFUGE_KREPORT (CENTRIFUGE_CENTRIFUGE.out.report, ch_input_for_centrifuge.db)
         ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
+
+        // Ensure the correct database goes with the generated report for KREPORT
+        ch_database_for_centrifugekreport = databases
+                                                .filter { meta, db -> meta.tool == 'centrifuge' }
+                                                .map { meta, db -> [meta.db_name, meta, db] }
+
+        ch_input_for_centrifuge_kreport = CENTRIFUGE_CENTRIFUGE.out.report
+                                            .map { meta, profile -> [meta.db_name, meta, profile] }
+                                            .combine(ch_database_for_centrifugekreport, by: 0)
+                                            .multiMap {
+                                                key, meta, profile, db_meta, db ->
+                                                    profile: [meta, profile]
+                                                    db: db
+                                            }
+
+        // Generate profile
+        CENTRIFUGE_KREPORT (ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)
+        ch_versions            = ch_versions.mix( CENTRIFUGE_KREPORT.out.versions.first() )
         ch_raw_profiles        = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
         ch_multiqc_files       = ch_multiqc_files.mix( CENTRIFUGE_KREPORT.out.kreport )
 
     }
 
-    if ( params.run_metaphlan3 ) {
+    if ( params.run_metaphlan ) {
 
-        ch_input_for_metaphlan3 = ch_input_for_profiling.metaphlan3
-                            .filter{
-                                if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] MetaPhlAn3 currently does not accept FASTA files as input. Skipping MetaPhlAn3 for sample ${it[0].id}."
-                                !it[0].is_fasta
-                            }
+        ch_input_for_metaphlan = ch_input_for_profiling.metaphlan
                             .multiMap {
                                 it ->
                                     reads: [it[0] + it[2], it[1]]
                                     db: it[3]
                             }
 
-        METAPHLAN3_METAPHLAN3 ( ch_input_for_metaphlan3.reads, ch_input_for_metaphlan3.db )
-        ch_versions        = ch_versions.mix( METAPHLAN3_METAPHLAN3.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN3_METAPHLAN3.out.profile )
+        METAPHLAN_METAPHLAN ( ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db )
+        ch_versions        = ch_versions.mix( METAPHLAN_METAPHLAN.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN_METAPHLAN.out.profile )
 
     }
 
@@ -277,10 +290,25 @@ workflow PROFILING {
         ch_versions = ch_versions.mix( KAIJU_KAIJU.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KAIJU_KAIJU.out.results )
 
-        KAIJU_KAIJU2TABLE_SINGLE ( KAIJU_KAIJU.out.results, ch_input_for_kaiju.db, params.kaiju_taxon_rank)
+        // Ensure the correct database goes with the generated report for KAIJU2TABLE
+        ch_database_for_kaiju2table = databases
+                                                .filter { meta, db -> meta.tool == 'kaiju' }
+                                                .map { meta, db -> [meta.db_name, meta, db] }
+
+        ch_input_for_kaiju2table = KAIJU_KAIJU.out.results
+                                            .map { meta, profile -> [meta.db_name, meta, profile] }
+                                            .combine(ch_database_for_kaiju2table, by: 0)
+                                            .multiMap {
+                                                key, meta, profile, db_meta, db ->
+                                                    profile: [meta, profile]
+                                                    db: db
+                                            }
+
+        // Generate profile
+        KAIJU_KAIJU2TABLE_SINGLE ( ch_input_for_kaiju2table.profile, ch_input_for_kaiju2table.db, params.kaiju_taxon_rank)
         ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_SINGLE.out.versions )
         ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
-        ch_raw_profiles    = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
+        ch_raw_profiles  = ch_raw_profiles.mix( KAIJU_KAIJU2TABLE_SINGLE.out.summary )
     }
 
     if ( params.run_diamond ) {
@@ -377,8 +405,8 @@ workflow PROFILING {
         ch_input_for_ganonclassify = ch_input_for_profiling.ganon
                                 .filter {
                                     meta, reads, meta_db, db ->
-                                        if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Ganon has not been evaluated for Nanopore data. Skipping Ganon for sample ${meta.id}."
-                                        meta_db['tool'] == 'ganon' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+                                        if ( meta.instrument_platform == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Ganon has not been evaluated for Nanopore data. Skipping Ganon for sample ${meta.id}."
+                                        meta_db.tool == 'ganon' && meta.instrument_platform != 'OXFORD_NANOPORE'
                                 }
                                 .multiMap {
                                     it ->
@@ -394,7 +422,7 @@ workflow PROFILING {
         ch_report_for_ganonreport = GANON_CLASSIFY.out.report
                                         .map{
                                             meta, report ->
-                                                def meta_db = [ meta['db_name'] ]
+                                                def meta_db = [ meta.db_name ]
 
                                             [ meta_db, meta, report ]
 
@@ -403,7 +431,7 @@ workflow PROFILING {
         ch_database_for_ganonreport = databases
                                         .map{
                                             meta, database ->
-                                                def meta_db = [ meta['db_name'] ]
+                                                def meta_db = [ meta.db_name ]
 
                                         [ meta_db, meta, database ]
 

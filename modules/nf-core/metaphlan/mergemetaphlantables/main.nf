@@ -1,17 +1,17 @@
-process METAPHLAN3_MERGEMETAPHLANTABLES {
+process METAPHLAN_MERGEMETAPHLANTABLES {
     label 'process_single'
 
-    conda "bioconda::metaphlan=3.0.12"
+    conda "bioconda::metaphlan=4.0.6"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/metaphlan:3.0.12--pyhb7b1952_0' :
-        'quay.io/biocontainers/metaphlan:3.0.12--pyhb7b1952_0' }"
+        'https://depot.galaxyproject.org/singularity/metaphlan:4.0.6--pyhca03a8a_0' :
+        'quay.io/biocontainers/metaphlan:4.0.6--pyhca03a8a_0' }"
 
     input:
     tuple val(meta), path(profiles)
 
     output:
     tuple val(meta), path("${prefix}.txt") , emit: txt
-    path "versions.yml" , emit: versions
+    path "versions.yml"                    , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -27,7 +27,7 @@ process METAPHLAN3_MERGEMETAPHLANTABLES {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        metaphlan3: \$(metaphlan --version 2>&1 | awk '{print \$3}')
+        metaphlan: \$(metaphlan --version 2>&1 | awk '{print \$3}')
     END_VERSIONS
     """
 }

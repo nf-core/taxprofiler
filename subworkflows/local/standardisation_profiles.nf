@@ -8,7 +8,7 @@ include { BRACKEN_COMBINEBRACKENOUTPUTS                                         
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
-include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
+include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../modules/nf-core/metaphlan/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
 include { KMCP_PROFILE                                                          } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
@@ -31,15 +31,11 @@ workflow STANDARDISATION_PROFILES {
                                 // TODO: add tool to taxpasta
                                     if ( meta['tool'] == 'kmcp' ) log.warn "[nf-core/taxprofiler] kmcp is not yet supported in Taxpasta. Skipping kmcp profile for sample ${meta.id}."
                                     meta['tool'] != 'kmcp'
-                                // TODO: add tool to taxpasta!
-                                    if ( meta['tool'] == 'ganon' ) log.warn "[nf-core/taxprofiler] ganon not yet supported in Taxpasta. Skipping ganon profile for sample ${meta.id}."
-                                    meta['tool'] != 'ganon'
-                            }
                             .map {
                                     meta, profile ->
                                         def meta_new = [:]
                                         meta_new.id = meta.db_name
-                                        meta_new.tool = meta.tool == 'metaphlan3' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
+                                        meta_new.tool = meta.tool == 'metaphlan' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
                                         [meta_new, profile]
                             }
                             .groupTuple ()
@@ -66,7 +62,7 @@ workflow STANDARDISATION_PROFILES {
             bracken: it[0]['tool'] == 'bracken'
             centrifuge: it[0]['tool'] == 'centrifuge'
             kraken2: it[0]['tool'] == 'kraken2'
-            metaphlan3: it[0]['tool'] == 'metaphlan3'
+            metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
             kmcp: it [0]['tool'] == 'kmcp'
             ganon: it[0]['tool'] == 'ganon'
@@ -128,7 +124,16 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    KAIJU_KAIJU2TABLE_COMBINED ( ch_profiles_for_kaiju, ch_input_databases.kaiju.map{it[1]}, params.kaiju_taxon_rank)
+    ch_input_for_kaiju2tablecombine = ch_profiles_for_kaiju
+                                        .map { meta, profile -> [meta.id, meta, profile] }
+                                        .combine(ch_input_databases.kaiju.map{meta, db -> [meta.db_name, meta, db]}, by: 0)
+                                        .multiMap {
+                                            key, meta, profile, db_meta, db ->
+                                                profile: [meta, profile]
+                                                db: db
+                                        }
+
+    KAIJU_KAIJU2TABLE_COMBINED ( ch_input_for_kaiju2tablecombine.profile, ch_input_for_kaiju2tablecombine.db, params.kaiju_taxon_rank)
     ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE_COMBINED.out.summary )
     ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_COMBINED.out.versions )
 
@@ -148,18 +153,18 @@ workflow STANDARDISATION_PROFILES {
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.versions )
 
-    // MetaPhlAn3
+    // MetaPhlAn
 
-    ch_profiles_for_metaphlan3 = ch_input_profiles.metaphlan3
+    ch_profiles_for_metaphlan = ch_input_profiles.metaphlan
                             .map { [it[0]['db_name'], it[1]] }
                             .groupTuple()
                             .map {
                                 [[id:it[0]], it[1]]
                             }
 
-    METAPHLAN3_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan3 )
-    ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
-    ch_versions = ch_versions.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.versions )
+    METAPHLAN_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan )
+    ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN_MERGEMETAPHLANTABLES.out.txt )
+    ch_versions = ch_versions.mix( METAPHLAN_MERGEMETAPHLANTABLES.out.versions )
 
     // mOTUs
 
@@ -174,7 +179,16 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
+    ch_input_for_motusmerge = ch_profiles_for_motus
+                                        .map { meta, profile -> [meta.id, meta, profile] }
+                                        .combine(ch_input_databases.motus.map{meta, db -> [meta.db_name, meta, db]}, by: 0)
+                                        .multiMap {
+                                            key, meta, profile, db_meta, db ->
+                                                profile: [meta, profile]
+                                                db: db
+                                        }
+
+    MOTUS_MERGE ( ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, motu_version )
     ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
 
     // Ganon

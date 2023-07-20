@@ -30,7 +30,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Kaiju](#kaiju) - Taxonomic classifier that finds maximum (in-)exact matches on the protein-level.
 - [Diamond](#diamond) - Sequence aligner for protein and translated DNA searches.
 - [MALT](#malt) - Sequence alignment and analysis tool designed for processing high-throughput sequencing data, especially in the context of metagenomics
-- [MetaPhlAn3](#metaphlan3) - Genome-level marker gene based taxonomic classifier
+- [MetaPhlAn](#metaphlan) - Genome-level marker gene based taxonomic classifier
 - [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
 - [kmcp](#kmcp) - Taxonomic classifier that utilizes genome coverage information by splitting the reference genomes into chunks and stores k-mers in a modified and optimized COBS index for fast alignment-free sequence searching.
 - [ganon](#ganon) - Taxonomic classifier and profile that uses Interleaved Bloom Filters as indices based on k-mers/minimizers.
@@ -313,7 +313,7 @@ This directory and its FASTQ files will only be present if you supply `--save_ru
 
 </details>
 
-The main taxonomic profiling file from Bracken is the `*.tsv` file. This provides the basic results from Kraken2 but with the corrected abundance information.
+The main taxonomic profiling file from Bracken is the `*.tsv` file. This provides the basic results from Kraken2 but with the corrected abundance information. Note that the raw Kraken2 version of the upstream step of Bracken can be found in the `kraken2/` directory with the suffix of `<sample_id>_<db_name>.bracken.report.txt` (with a 6 column variant when `--save_minimizers` specified).
 
 ### Kraken2
 
@@ -327,12 +327,12 @@ The main taxonomic profiling file from Bracken is the `*.tsv` file. This provide
   - `<db_name>/`
     - `<sample_id>_<db_name>.classified.fastq.gz`: FASTQ file containing all reads that had a hit against a reference in the database for a given sample
     - `<sample_id>_<db_name>.unclassified.fastq.gz`: FASTQ file containing all reads that did not have a hit in the database for a given sample
-    - `<sample_id>_<db_name>.report.txt`: A Kraken2 report that summarises the fraction abundance, taxonomic ID, number of Kmers, taxonomic path of all the hits in the Kraken2 run for a given sample
+    - `<sample_id>_<db_name>.<kraken2/bracken2>report.txt`: A Kraken2 report that summarises the fraction abundance, taxonomic ID, number of Kmers, taxonomic path of all the hits in the Kraken2 run for a given sample. Will be 6 column rather than 8 if `--save_minimizers` specified.
     - `<sample_id>_<db_name>.classifiedreads.txt`: A list of read IDs and the hits each read had against each database for a given sample
 
 </details>
 
-The main taxonomic classification file from Kraken2 is the `_combined_reports.txt` or `*report.txt` file. The former provides you the broadest over view of the taxonomic classification results across all samples against a single databse, where you get two columns for each sample e.g. `2_all` and `2_lvl`, as well as a summarised column summing up across all samples `tot_all` and `tot_lvl`. The latter gives you the most information for a single sample. The report file is also used for the taxpasta step.
+The main taxonomic classification file from Kraken2 is the `_combined_reports.txt` or `*report.txt` file. The former provides you the broadest over view of the taxonomic classification results across all samples against a single database, where you get two columns for each sample e.g. `2_all` and `2_lvl`, as well as a summarised column summing up across all samples `tot_all` and `tot_lvl`. The latter gives you the most information for a single sample. The report file is also used for the taxpasta step.
 
 You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply `--kraken2_save_reads` and/or `--kraken2_save_readclassifications` parameters to the pipeline.
 
@@ -430,23 +430,23 @@ The main output of MALT is the `.rma6` file format, which can be only loaded int
 
 You will only receive the `.sam` and `.megan` files if you supply `--malt_save_reads` and/or `--malt_generate_megansummary` parameters to the pipeline.
 
-### MetaPhlAn3
+### MetaPhlAn
 
-[MetaPhlAn3](https://github.com/biobakery/metaphlan) is a computational tool for profiling the composition of microbial communities (Bacteria, Archaea and Eukaryotes) from metagenomic shotgun sequencing data (i.e. not 16S) with species-level resolution via marker genes.
+[MetaPhlAn](https://github.com/biobakery/metaphlan) is a computational tool for profiling the composition of microbial communities (Bacteria, Archaea and Eukaryotes) from metagenomic shotgun sequencing data (i.e. not 16S) with species-level resolution via marker genes.
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `metaphlan3/`
-  - `metaphlan3_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `metaphlan_merge_tables`)
+- `metaphlan/`
+  - `metaphlan_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `metaphlan_merge_tables`)
   - `<db_name>/`
     - `<sample_id>.biom`: taxonomic profile in BIOM format
-    - `<sample_id>.bowtie2out.txt`: BowTie2 alignment information (can be re-used for skipping alignment when re-running MetaPhlAn3 with different parameters)
-    - `<sample_id>_profile.txt`: MetaPhlAn3 taxonomic profile including abundance estimates
+    - `<sample_id>.bowtie2out.txt`: BowTie2 alignment information (can be re-used for skipping alignment when re-running MetaPhlAn with different parameters)
+    - `<sample_id>_profile.txt`: MetaPhlAn taxonomic profile including abundance estimates
 
 </details>
 
-The main taxonomic profiling file from MetaPhlAn3 is the `*_profile.txt` file. This provides the abundance estimates from MetaPhlAn3 however does not include raw counts by default.
+The main taxonomic profiling file from MetaPhlAn is the `*_profile.txt` file. This provides the abundance estimates from MetaPhlAn however does not include raw counts by default.
 
 ### mOTUs
 
@@ -545,7 +545,7 @@ The following report files are used for the taxpasta step:
 - KrakenUniq: `<sample_id>_<db_name>.report.txt` Taxpasta uses the `reads` column for the standardised profile.
 - Kraken2: `<sample_id>_<db_name>.report.txt` Taxpasta uses the `direct_assigned_reads` column for the standardised profile.
 - MALT: `<sample_id>.txt.gz` Taxpasta uses the `count` (second) column from the output of MEGAN6's rma2info for the standardised profile.
-- MetaPhlAn3: `<sample_id>_profile.txt` Taxpasta uses the `relative_abundance` column multiplied with a fixed number to yield an integer for the standardised profile.
+- MetaPhlAn: `<sample_id>_profile.txt` Taxpasta uses the `relative_abundance` column multiplied with a fixed number to yield an integer for the standardised profile.
 - mOTUs: `<sample_id>.out` Taxpasta uses the `read_count` column for the standardised profile.
 
 > ⚠️ Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
