@@ -500,7 +500,6 @@ Generally you will want to refer to the `combined_reports.txt` or `_report.tre` 
 
 You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--ganon_save_readclassifications` parameter to the pipeline.
 
-
 ### Krona
 
 [Krona](https://github.com/marbl/Krona) allows the exploration of (metagenomic) hierarchical data with interactive zooming, multi-layered pie charts.

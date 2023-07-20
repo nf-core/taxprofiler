@@ -790,7 +790,6 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 
 > 🛈 `ganon build-custom` can be multi-threaded with `-t` to speed up building.
 
-
 <details markdown="1">
 <summary>Expected files in database directory</summary>
 
