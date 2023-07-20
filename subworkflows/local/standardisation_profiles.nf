@@ -31,6 +31,7 @@ workflow STANDARDISATION_PROFILES {
                                 // TODO: add tool to taxpasta
                                     if ( meta['tool'] == 'kmcp' ) log.warn "[nf-core/taxprofiler] kmcp is not yet supported in Taxpasta. Skipping kmcp profile for sample ${meta.id}."
                                     meta['tool'] != 'kmcp'
+                             }
                             .map {
                                     meta, profile ->
                                         def meta_new = [:]
