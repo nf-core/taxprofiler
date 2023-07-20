@@ -716,7 +716,7 @@ See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/m
 
 MetaPhlAn does not allow (easy) construction of custom databases. Therefore we recommend to use the prebuilt database of marker genes that is provided by the developers.
 
-To perform this task, ensure that you have installed `MetaPhlAn` on your machine. Keep in mind that each version of MetaPhlAn aligns with a specific version of the database. Therefore, if you download the MetaPhlAn3 database, remember to include `--mpa3` as a parameter for the database.
+To perform this task, ensure that you have installed `MetaPhlAn` on your machine. Keep in mind that each version of MetaPhlAn aligns with a specific version of the database. Therefore, if you download the MetaPhlAn3 database, remember to include `--mpa3` as a parameter for the database in the `--databases` CSV file.
 
 ```bash
 metaphlan --install --bowtie2db <YOUR_DB_NAME>/
