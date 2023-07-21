@@ -29,7 +29,6 @@ run_modules:
   - samtools
   - kraken
   - kaiju
-  - metaphlan
   - diamond
   - malt
   - motus

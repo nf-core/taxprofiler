@@ -163,7 +163,7 @@
                     },
                     "metaphlan/metaphlan": {
                         "branch": "master",
-                        "git_sha": "31ec4470b455fe88c072151a5ea7821bfb2add38",
+                        "git_sha": "1038d3de36263159b4138324a646105941ac271a",
                         "installed_by": ["modules"]
                     },
                     "minimap2/align": {
