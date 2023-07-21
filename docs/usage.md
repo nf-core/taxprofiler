@@ -300,7 +300,7 @@ Krona can only be run on MALT output if path to Krona taxonomy database supplied
 
 ##### MetaPhlAn
 
-MetaPhlAn4 is compatible with the MetaPhlAn3 database by adding the `--mpa3` paramter to the MetaPhlAn process in the config file `module.config`.
+MetaPhlAn4 is compatible with the MetaPhlAn3 database by adding the `--mpa3` into `db_params` of the `database.csv`.
 
 ##### mOTUs
 
@@ -716,7 +716,7 @@ See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/m
 
 MetaPhlAn does not allow (easy) construction of custom databases. Therefore we recommend to use the prebuilt database of marker genes that is provided by the developers.
 
-To do this you need to have `MetaPhlAn` installed on your machine.
+To perform this task, ensure that you have installed `MetaPhlAn` on your machine. Keep in mind that each version of MetaPhlAn aligns with a specific version of the database. Therefore, if you download the MetaPhlAn3 database, remember to include `--mpa3` as a parameter for the database in the `--databases` CSV file.
 
 ```bash
 metaphlan --install --bowtie2db <YOUR_DB_NAME>/
@@ -724,14 +724,14 @@ metaphlan --install --bowtie2db <YOUR_DB_NAME>/
 
 You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
 
-> 🛈 It is generally not recommended to modify this database yourself, thus this is currently not supported in the pipeline. However, it is possible to customise the existing database by adding your own marker genomes following the instructions [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.1#customizing-the-database).
+> 🛈 It is generally not recommended to modify this database yourself, thus this is currently not supported in the pipeline. However, it is possible to customise the existing database by adding your own marker genomes following the instructions [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
 
 > 🖊️ If using your own database is relevant for you, please contact the nf-core/taxprofiler developers on the [nf-core slack](https://nf-co.re/join) and we will investigate supporting this.
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
 
-- `metaphlan`
+- `metaphlan4`
   - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.pkl`
   - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.fna.bz2`
   - `mpa_vJan21_TOY_CHOCOPhlAnSGB_202103.1.bt2l`

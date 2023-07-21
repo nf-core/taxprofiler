@@ -36,10 +36,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool     | Previous version | New version |
-| -------- | ---------------- | ----------- |
-| MultiQC  | 1.13             | 1.14        |
-| taxpasta | 0.2.3            | 0.4.1       |
+| Tool      | Previous version | New version |
+| --------- | ---------------- | ----------- |
+| MultiQC   | 1.13             | 1.14        |
+| taxpasta  | 0.2.3            | 0.4.1       |
+| MetaPhlAn | 3.0.12           | 4.0.6       |
 
 ### `Deprecated`
 
