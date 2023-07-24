@@ -88,7 +88,6 @@ workflow PROFILING {
                     // make sure id is db_name for publishing purposes.
                     def new_meta = temp_meta + new_db_meta
 
-                    println(new_db_meta)
 
                     new_meta.id = new_meta.db_name
 
