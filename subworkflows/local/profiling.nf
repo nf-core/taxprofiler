@@ -74,8 +74,7 @@ workflow PROFILING {
                     // as we don't run run on a per-sample basis due to huge datbaases
                     // so all samples are in one run and so sample-specific metadata
                     // unnecessary. Set as database name to prevent `null` job ID and prefix.
-                    def temp_meta = [ id: db_meta.db_name ]
-                    def new_meta = db_meta + temp_meta
+                    def new_meta = db_meta + [ id: db_meta.db_name ]
 
                     // Extend database parameters to specify whether to save alignments or not
                     def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
