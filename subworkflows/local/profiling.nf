@@ -139,7 +139,7 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads.dump(tag: "kraken2_reads"), ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassifications )
+        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report )
         ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
@@ -209,7 +209,7 @@ workflow PROFILING {
                 db: db
             }
 
-        BRACKEN_BRACKEN(ch_input_for_bracken.report.dump(tag: "bracken_report"), ch_input_for_bracken.db)
+        BRACKEN_BRACKEN(ch_input_for_bracken.report, ch_input_for_bracken.db)
         ch_versions     = ch_versions.mix(BRACKEN_BRACKEN.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(BRACKEN_BRACKEN.out.reports)
 
