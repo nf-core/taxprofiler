@@ -446,7 +446,7 @@ You will only receive the `.sam` and `.megan` files if you supply `--malt_save_r
 
 </details>
 
-The main taxonomic profiling file from MetaPhlAn is the `*_profile.txt` file. This provides the abundance estimates from MetaPhlAn however does not include raw counts by default.
+The output contains a file named `*_combined_reports.txt`, which provides an overview of the classification results for all samples. The main taxonomic profiling file from MetaPhlAn is the `*_profile.txt` file. This provides the abundance estimates from MetaPhlAn however does not include raw counts by default. Additionally, it contains intermediate Bowtie2 output `.bowtie2out.txt`, which presents a condensed representation of the mapping results of your sequencing reads to MetaPhlAn's marker gene sequences. The alignments are listed in tab-separated columns, including Read ID and Marker Gene ID, with each alignment represented on a separate line.
 
 ### mOTUs
 
@@ -583,7 +583,6 @@ You can expect in the MultiQC reports either sections and/or general stats colum
 - bracken
 - centrifuge
 - kaiju
-- metaphlan
 - diamond
 - malt
 - motus

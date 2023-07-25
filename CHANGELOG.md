@@ -43,13 +43,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#307](https://github.com/nf-core/taxprofiler/pull/307) Fix databases being sometimes associated with the wrong tool (e.g. Kaiju) (fix by @jfy133)
 - [#313](https://github.com/nf-core/taxprofiler/pull/304) Fix pipeline not providing error when database sheet does not have a header (♥ to @noah472 for reporting, fix by @jfy133)
 - [#330](https://github.com/nf-core/taxprofiler/pull/330) Added better tagging to allow disambiguation of Kraken2 steps of Kraken2 vs Bracken (♥ to @MajoroMask for requesting, added by @jfy133)
+- [#334](https://github.com/nf-core/taxprofiler/pull/334) Increase the memory of the FALCO process to 4GB (fix by @LilyAnderssonLee)
 
 ### `Dependencies`
 
-| Tool     | Previous version | New version |
-| -------- | ---------------- | ----------- |
-| MultiQC  | 1.13             | 1.14        |
-| taxpasta | 0.2.3            | 0.4.1       |
+| Tool      | Previous version | New version |
+| --------- | ---------------- | ----------- |
+| MultiQC   | 1.13             | 1.14        |
+| taxpasta  | 0.2.3            | 0.4.1       |
+| MetaPhlAn | 3.0.12           | 4.0.6       |
 
 ### `Deprecated`
 
