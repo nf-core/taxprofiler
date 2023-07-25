@@ -64,7 +64,6 @@ workflow PROFILING {
 
     if ( params.run_malt ) {
 
-
         // MALT: We groupTuple to have all samples in one channel for MALT as database
         // loading takes a long time, so we only want to run it once per database
         ch_input_for_malt =  ch_input_for_profiling.malt
@@ -76,20 +75,11 @@ workflow PROFILING {
                     // so all samples are in one run and so sample-specific metadata
                     // unnecessary. Set as database name to prevent `null` job ID and prefix.
                     def temp_meta = [ id: db_meta.db_name ]
+                    def new_meta = db_meta + temp_meta
 
                     // Extend database parameters to specify whether to save alignments or not
                     def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
-
-                    def db_meta_keys = db_meta.keySet()
-                    def new_db_meta = db_meta.subMap(db_meta_keys)
-                    new_db_meta.db_params = db_meta.db_params + sam_format
-
-                    // Combine reduced sample metadata with updated database parameters metadata,
-                    // make sure id is db_name for publishing purposes.
-                    def new_meta = temp_meta + new_db_meta
-
-
-                    new_meta.id = new_meta.db_name
+                    new_meta.db_params = db_meta.db_params + sam_format
 
                     [ new_meta, reads, db ]
 
@@ -130,17 +120,15 @@ workflow PROFILING {
         ch_input_for_kraken2 = ch_input_for_profiling.kraken2
                                 .map {
                                     meta, reads, db_meta, db ->
-                                        def db_meta_keys = db_meta.keySet()
-                                        def db_meta_new = db_meta.subMap(db_meta_keys)
 
                                         // Only take first element if one exists
-                                        def parsed_params = db_meta_new['db_params'].split(";")
+                                        def parsed_params = db_meta['db_params'].split(";")
                                         if ( parsed_params.size() == 2 ) {
-                                            db_meta_new['db_params'] = parsed_params[0]
+                                            db_meta_new = db_meta + [db_params: parsed_params[0]]
                                         } else if ( parsed_params.size() == 0 ) {
-                                            db_meta_new['db_params'] = ""
+                                            db_meta_new = db_meta + [db_params: ""]
                                         } else {
-                                            db_meta_new['db_params'] = parsed_params[0]
+                                            db_meta_new = db_meta + [db_params: parsed_params[0]]
                                         }
 
                                     [ meta, reads, db_meta_new, db ]
@@ -151,7 +139,7 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassifications )
+        KRAKEN2_KRAKEN2 ( ch_input_for_kraken2.reads.dump(tag: "kraken2_reads"), ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKEN2_KRAKEN2.out.report )
         ch_versions            = ch_versions.mix( KRAKEN2_KRAKEN2.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
@@ -190,6 +178,10 @@ workflow PROFILING {
             .map {
 
                 key, meta, reads, db_meta, db ->
+
+                    // // Have to make a completely fresh copy here as otherwise
+                    // // was getting db_param loss due to upstream meta parsing at
+                    // // kraken2 input channel manipulation step
                     def db_meta_keys = db_meta.keySet()
                     def db_meta_new = db_meta.subMap(db_meta_keys)
 
@@ -198,11 +190,12 @@ workflow PROFILING {
                     if ( db_meta.tool == 'bracken' ) {
 
                         // Only take second element if one exists
-                        def parsed_params = db_meta_new['db_params'].split(";")
+                        def parsed_params = db_meta['db_params'].split(";")
+
                         if ( parsed_params.size() == 2 ) {
-                            db_meta_new['db_params'] =  parsed_params[1]
+                            db_meta_new = db_meta + [ db_params: parsed_params[1] ]
                         } else {
-                            db_meta_new['db_params'] = ""
+                            db_meta_new = db_meta + [ db_params: "" ]
                         }
 
                     } else {
@@ -216,7 +209,7 @@ workflow PROFILING {
                 db: db
             }
 
-        BRACKEN_BRACKEN(ch_input_for_bracken.report, ch_input_for_bracken.db)
+        BRACKEN_BRACKEN(ch_input_for_bracken.report.dump(tag: "bracken_report"), ch_input_for_bracken.db)
         ch_versions     = ch_versions.mix(BRACKEN_BRACKEN.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(BRACKEN_BRACKEN.out.reports)
 
