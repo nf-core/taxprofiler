@@ -45,6 +45,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Deprecated`
 
+- [#335](https://github.com/nf-core/taxprofiler/pull/335) Updated Centrifuge module to not generate (undocumented) SAM alignments by default if --save_centrifuge_reads supplied, to due Centrifuge bug modifying profile header. SAM alignments can still be generated if `--out-fmt` supplied in `database.csv` (♥ to @LilyAnderssonLee for reporting, fix by @jfy133)
+
 ## v1.0.1 - Dodgy Dachshund Patch [2023-05-15]
 
 ### `Added`
