@@ -238,17 +238,14 @@ workflow PROFILING {
         ch_database_for_centrifugekreport = databases
                                                 .filter { meta, db -> meta.tool == 'centrifuge' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
-                                                .dump(tag: "2")
-
-        CENTRIFUGE_CENTRIFUGE.out.report.dump(tag: "1")
 
         ch_input_for_centrifuge_kreport = WorkflowTaxprofiler.mapCombineMultimap(CENTRIFUGE_CENTRIFUGE.out.report, ch_database_for_centrifugekreport)
 
         // Generate profile
-        //CENTRIFUGE_KREPORT (ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)
-        //ch_versions            = ch_versions.mix( CENTRIFUGE_KREPORT.out.versions.first() )
-        //ch_raw_profiles        = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
-        //ch_multiqc_files       = ch_multiqc_files.mix( CENTRIFUGE_KREPORT.out.kreport )
+        CENTRIFUGE_KREPORT (ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)
+        ch_versions            = ch_versions.mix( CENTRIFUGE_KREPORT.out.versions.first() )
+        ch_raw_profiles        = ch_raw_profiles.mix( CENTRIFUGE_KREPORT.out.kreport )
+        ch_multiqc_files       = ch_multiqc_files.mix( CENTRIFUGE_KREPORT.out.kreport )
 
     }
 
