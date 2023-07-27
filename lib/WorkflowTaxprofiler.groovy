@@ -5,6 +5,8 @@
 import nextflow.Nextflow
 import groovy.text.SimpleTemplateEngine
 
+import groovyx.gpars.dataflow.DataflowBroadcast
+
 class WorkflowTaxprofiler {
 
     //
@@ -242,4 +244,21 @@ class WorkflowTaxprofiler {
             Nextflow.error(error_string)
         }
     }
+
+
+    public static DataflowBroadcast mapCombineMultimap(groovyx.gpars.dataflow.DataflowBroadcast ch_reads, groovyx.gpars.dataflow.DataflowBroadcast ch_database) {
+
+        groovyx.gpars.dataflow.DataflowBroadcast ch_prepped_channel = ch_reads
+            .map { meta, profile -> [meta.db_name, meta, profile] }
+            .combine(ch_database, by: 0)
+            .multiMap {
+                key, meta, profile, db_meta, db ->
+                    profile: [meta, profile]
+                    db: db
+            }
+
+        return ch_prepped_channel
+    }
+
+
 }

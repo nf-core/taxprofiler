@@ -239,14 +239,7 @@ workflow PROFILING {
                                                 .filter { meta, db -> meta.tool == 'centrifuge' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
-        ch_input_for_centrifuge_kreport = CENTRIFUGE_CENTRIFUGE.out.report
-                                            .map { meta, profile -> [meta.db_name, meta, profile] }
-                                            .combine(ch_database_for_centrifugekreport, by: 0)
-                                            .multiMap {
-                                                key, meta, profile, db_meta, db ->
-                                                    profile: [meta, profile]
-                                                    db: db
-                                            }
+        ch_input_for_centrifuge_kreport = WorkflowTaxprofiler.mapCombineMultimap(CENTRIFUGE_CENTRIFUGE.out.report.dump(tag: "1"), ch_database_for_centrifugekreport.dump(tag: "2"))
 
         // Generate profile
         CENTRIFUGE_KREPORT (ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)
