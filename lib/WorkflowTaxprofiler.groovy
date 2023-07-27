@@ -4,7 +4,6 @@
 
 import nextflow.Nextflow
 import groovy.text.SimpleTemplateEngine
-
 import groovyx.gpars.dataflow.DataflowBroadcast
 
 class WorkflowTaxprofiler {
@@ -246,9 +245,20 @@ class WorkflowTaxprofiler {
     }
 
 
-    public static DataflowBroadcast mapCombineMultimap(groovyx.gpars.dataflow.DataflowBroadcast ch_reads, groovyx.gpars.dataflow.DataflowBroadcast ch_database) {
+    /**
+     * Join output from a channel back to the original database the output was associated with
+     *
+     * The channel elements are assumed to be tuples one of [ meta, profile ], and the
+     * database to be of [db_key, meta, database_file].
+     *
+     * @param ch_profile A channel containing a meta and the profilign report of a given profiler
+     * @param ch_database A channel containing a key, the database meta, and the database file/folders itself
+     * @return An multiMap'ed output channel with two sub channels, one with the profile and the other with the db
+     */
 
-        groovyx.gpars.dataflow.DataflowBroadcast ch_prepped_channel = ch_reads
+    static DataflowBroadcast mapCombineMultimap(DataflowBroadcast ch_profile, DataflowBroadcast ch_database) {
+
+        DataflowBroadcast ch_prepped_channel = ch_profile
             .map { meta, profile -> [meta.db_name, meta, profile] }
             .combine(ch_database, by: 0)
             .multiMap {
@@ -259,6 +269,5 @@ class WorkflowTaxprofiler {
 
         return ch_prepped_channel
     }
-
 
 }
