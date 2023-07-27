@@ -116,16 +116,6 @@
                         "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
                         "installed_by": ["modules"]
                     },
-                    "kmcp/compute": {
-                        "branch": "master",
-                        "git_sha": "6a8df5472d224697a64502961291038fafc7ed08",
-                        "installed_by": ["modules"]
-                    },
-                    "kmcp/index": {
-                        "branch": "master",
-                        "git_sha": "1106a8046ead1562c57e1c969f8c66863cab338b",
-                        "installed_by": ["modules"]
-                    },
                     "kmcp/merge": {
                         "branch": "master",
                         "git_sha": "0fbbd07d2430dd2adcbdd2900bd420e10263c94a",
