@@ -15,8 +15,6 @@ include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                                 } from '../../modules/nf-core/motus/profile/main'
 include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
-include { KMCP_COMPUTE                                  } from '../../modules/nf-core/kmcp/compute/main'
-include { KMCP_INDEX                                    } from '../../modules/nf-core/kmcp/index/main'
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { KMCP_SEARCH                                   } from '../../modules/nf-core/kmcp/search/main'
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
@@ -391,7 +389,7 @@ workflow PROFILING {
                             }
 
             KMCP_SEARCH (ch_input_for_kmcp.db, ch_input_for_kmcp.reads)
-            //KMCP_PROFILE (KMCP_SEARCH.out.result,ch_input_for_kmcpcompute.db.map, params.kmcp_mode)
+            KMCP_PROFILE (KMCP_SEARCH.out.result,ch_input_for_kmcpcompute.db, params.kmcp_mode)
 
             //ch_versions = ch_versions.mix( KMCP_PROFILE.out.versions.first() )
             //ch_raw_profiles    = ch_raw_profiles.mix( KMCP_PROFILE.out.profile )
