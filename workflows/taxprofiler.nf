@@ -209,8 +209,7 @@ workflow TAXPROFILER {
             .mix( ch_longreads_hostremoved )
             .map {
                 meta, reads ->
-                    def meta_new = meta.clone()
-                    meta_new.remove('run_accession')
+                    def meta_new = meta - meta.subMap('run_accession')
                     [ meta_new, reads ]
             }
             .groupTuple()

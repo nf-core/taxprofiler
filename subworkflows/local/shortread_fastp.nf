@@ -28,8 +28,7 @@ workflow SHORTREAD_FASTP {
         ch_fastp_reads_prepped_pe = FASTP_PAIRED.out.reads_merged
                                         .map {
                                             meta, reads ->
-                                                def meta_new = meta.clone()
-                                                meta_new['single_end'] = true
+                                                def meta_new = meta + [single_end: true]
                                                 [ meta_new, [ reads ].flatten() ]
                                         }
 
