@@ -227,7 +227,7 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-        CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads, params.centrifuge_save_reads  )
+        CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads  )
         ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
 
@@ -236,7 +236,11 @@ workflow PROFILING {
                                                 .filter { meta, db -> meta.tool == 'centrifuge' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
-        ch_input_for_centrifuge_kreport = CENTRIFUGE_CENTRIFUGE.out.report
+        // We must combine the _results_ file to get correct output - sending the report file will
+        // weirdly still produce valid-looking output, however the numbers are nonsense.
+        // Unfortunately the Centrifuge documentation for this was unclear as to _which_ outfile
+        // goes into it.
+        ch_input_for_centrifuge_kreport = CENTRIFUGE_CENTRIFUGE.out.results
                                             .map { meta, profile -> [meta.db_name, meta, profile] }
                                             .combine(ch_database_for_centrifugekreport, by: 0)
                                             .multiMap {
