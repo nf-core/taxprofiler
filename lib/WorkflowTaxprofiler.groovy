@@ -4,7 +4,6 @@
 
 import nextflow.Nextflow
 import groovy.text.SimpleTemplateEngine
-import groovyx.gpars.dataflow.DataflowBroadcast
 
 class WorkflowTaxprofiler {
 
@@ -243,5 +242,4 @@ class WorkflowTaxprofiler {
             Nextflow.error(error_string)
         }
     }
-
 }
