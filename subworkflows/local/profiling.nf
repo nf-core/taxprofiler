@@ -18,6 +18,30 @@ include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
 
+
+/**
+ * Combine profiles with their original database, then separate into two channels.
+ *
+ * The channel elements are assumed to be tuples one of [ meta, profile ], and the
+ * database to be of [db_key, meta, database_file].
+ *
+ * @param ch_profile A channel containing a meta and the profilign report of a given profiler
+ * @param ch_database A channel containing a key, the database meta, and the database file/folders itself
+ * @return A multiMap'ed output channel with two sub channels, one with the profile and the other with the db
+ */
+def combineProfilesWithDatabase(ch_profile, ch_database) {
+
+    return ch_profile
+        .map { meta, profile -> [meta.db_name, meta, profile] }
+        .combine(ch_database, by: 0)
+        .multiMap {
+            key, meta, profile, db_meta, db ->
+                profile: [meta, profile]
+                db: db
+        }
+}
+
+
 workflow PROFILING {
     take:
     reads // [ [ meta ], [ reads ] ]
@@ -239,7 +263,7 @@ workflow PROFILING {
                                                 .filter { meta, db -> meta.tool == 'centrifuge' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
-        ch_input_for_centrifuge_kreport = WorkflowTaxprofiler.mapCombineMultimap(CENTRIFUGE_CENTRIFUGE.out.report, ch_database_for_centrifugekreport)
+        ch_input_for_centrifuge_kreport = combineProfilesWithDatabase(CENTRIFUGE_CENTRIFUGE.out.report, ch_database_for_centrifugekreport)
 
         // Generate profile
         CENTRIFUGE_KREPORT (ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)

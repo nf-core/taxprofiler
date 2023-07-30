@@ -244,30 +244,4 @@ class WorkflowTaxprofiler {
         }
     }
 
-
-    /**
-     * Join output from a channel back to the original database the output was associated with
-     *
-     * The channel elements are assumed to be tuples one of [ meta, profile ], and the
-     * database to be of [db_key, meta, database_file].
-     *
-     * @param ch_profile A channel containing a meta and the profilign report of a given profiler
-     * @param ch_database A channel containing a key, the database meta, and the database file/folders itself
-     * @return An multiMap'ed output channel with two sub channels, one with the profile and the other with the db
-     */
-
-    static DataflowBroadcast mapCombineMultimap(DataflowBroadcast ch_profile, DataflowBroadcast ch_database) {
-
-        DataflowBroadcast ch_prepped_channel = ch_profile
-            .map { meta, profile -> [meta.db_name, meta, profile] }
-            .combine(ch_database, by: 0)
-            .multiMap {
-                key, meta, profile, db_meta, db ->
-                    profile: [meta, profile]
-                    db: db
-            }
-
-        return ch_prepped_channel
-    }
-
 }
