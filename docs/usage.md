@@ -478,7 +478,7 @@ The following tutorials assumes you already have the tool available (e.g. instal
 
 #### Bracken custom database
 
-Bracken does not require an independent database but rather builds upon Kraken2 databases. [Pre-built Kraken2 databases](https://benlangmead.github.io/aws-indexes/k2) already contain the required files to run Bracken. 
+Bracken does not require an independent database but rather builds upon Kraken2 databases. [The pre-built Kraken2 databases hosted by Ben Langmead](https://benlangmead.github.io/aws-indexes/k2) already contain the required files to run Bracken. 
 
 However, to build custom databases, you will need a Kraken2 database, the (average) read lengths (in bp) of your sequencing experiment, the K-mer size used to build the Kraken2 database, and Kraken2 available on your machine.
 
