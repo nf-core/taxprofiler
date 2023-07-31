@@ -478,9 +478,9 @@ The following tutorials assumes you already have the tool available (e.g. instal
 
 #### Bracken custom database
 
-Bracken does not require an independent database nor not provide any default databases for classification/profiling, but rather builds upon Kraken2 databases. See [Kraken2](#kraken2-custom-database) for more information on how to build these.
+Bracken does not require an independent database but rather builds upon Kraken2 databases. [Pre-built Kraken2 databases](https://benlangmead.github.io/aws-indexes/k2) already contain the required files to run Bracken. 
 
-In addition to a Kraken2 database, you also need to have the (average) read lengths (in bp) of your sequencing experiment, the K-mer size used to build the Kraken2 database, and Kraken2 available on your machine.
+However, to build custom databases, you will need a Kraken2 database, the (average) read lengths (in bp) of your sequencing experiment, the K-mer size used to build the Kraken2 database, and Kraken2 available on your machine.
 
 ```bash
 bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
@@ -497,11 +497,8 @@ bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
   - `hash.k2d`
   - `opts.k2d`
   - `taxo.k2d`
-  - `database.kraken`
   - `database100mers.kmer_distrib`
-  - `database100mers.kraken`
   - `database150mers.kmer_distrib`
-  - `database150mers.kraken`
 
 </details>
 
@@ -607,7 +604,9 @@ For the Kaiju database construction documentation, see [here](https://github.com
 
 #### Kraken2 custom database
 
-To build a Kraken2 database you need two components: a taxonomy (consisting of `names.dmp`, `nodes.dmp`, and `*accession2taxid`) files, and the FASTA files you wish to include.
+A number of database indexes have already been generated and maintained by [@BenLangmead Lab](https://github.com/BenLangmead), see [here](https://benlangmead.github.io/aws-indexes/k2). These databases can directly be used to run the workflow with Kraken2 as well as Bracken.
+
+In case the databases above do not contain your desired libraries, you can build a custom Kraken2 database. This requires two components: a taxonomy (consisting of `names.dmp`, `nodes.dmp`, and `*accession2taxid`) files, and the FASTA files you wish to include.
 
 To pull the NCBI taxonomy, you can run the following:
 
