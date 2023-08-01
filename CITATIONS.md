@@ -100,7 +100,7 @@
 
 - [kmcp](https://doi.org/10.1093/bioinformatics/btac845)
 
-  > Shen, W., Xiang, H., Huang, T., Tang, H., Peng, M., Cai, D., Hu, P., & Ren, H. (2023). KMCP: accurate metagenomic profiling of both prokaryotic and viral populations by pseudo-mapping. Bioinformatics 39, btac845.
+  > Shen, W., Xiang, H., Huang, T., Tang, H., Peng, M., Cai, D., Hu, P., & Ren, H. (2023). KMCP: accurate metagenomic profiling of both prokaryotic and viral populations by pseudo-mapping. Bioinformatics 39, btac845. https://doi.org/10.1093/bioinformatics/btac845
 
 - [ganon](https://doi.org/10.1093/bioinformatics/btaa458)
 
