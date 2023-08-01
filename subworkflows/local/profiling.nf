@@ -19,28 +19,29 @@ include { GANON_CLASSIFY                                } from '../../modules/nf
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
 
 
+// Custom Functions
+
 /**
- * Combine profiles with their original database, then separate into two channels.
- *
- * The channel elements are assumed to be tuples one of [ meta, profile ], and the
- * database to be of [db_key, meta, database_file].
- *
- * @param ch_profile A channel containing a meta and the profilign report of a given profiler
- * @param ch_database A channel containing a key, the database meta, and the database file/folders itself
- * @return A multiMap'ed output channel with two sub channels, one with the profile and the other with the db
- */
+* Combine profiles with their original database, then separate into two channels.
+*
+* The channel elements are assumed to be tuples one of [ meta, profile ], and the
+* database to be of [db_key, meta, database_file].
+*
+* @param ch_profile A channel containing a meta and the profilign report of a given profiler
+* @param ch_database A channel containing a key, the database meta, and the database file/folders itself
+* @return A multiMap'ed output channel with two sub channels, one with the profile and the other with the db
+*/
 def combineProfilesWithDatabase(ch_profile, ch_database) {
 
-    return ch_profile
-        .map { meta, profile -> [meta.db_name, meta, profile] }
-        .combine(ch_database, by: 0)
-        .multiMap {
-            key, meta, profile, db_meta, db ->
-                profile: [meta, profile]
-                db: db
-        }
+return ch_profile
+    .map { meta, profile -> [meta.db_name, meta, profile] }
+    .combine(ch_database, by: 0)
+    .multiMap {
+        key, meta, profile, db_meta, db ->
+            profile: [meta, profile]
+            db: db
+    }
 }
-
 
 workflow PROFILING {
     take:
@@ -303,15 +304,7 @@ workflow PROFILING {
                                                 .filter { meta, db -> meta.tool == 'kaiju' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
-        ch_input_for_kaiju2table = KAIJU_KAIJU.out.results
-                                            .map { meta, profile -> [meta.db_name, meta, profile] }
-                                            .combine(ch_database_for_kaiju2table, by: 0)
-                                            .multiMap {
-                                                key, meta, profile, db_meta, db ->
-                                                    profile: [meta, profile]
-                                                    db: db
-                                            }
-
+        ch_input_for_kaiju2table = combineProfilesWithDatabase(KAIJU_KAIJU.out.results, ch_database_for_kaiju2table)
         // Generate profile
         KAIJU_KAIJU2TABLE_SINGLE ( ch_input_for_kaiju2table.profile, ch_input_for_kaiju2table.db, params.kaiju_taxon_rank)
         ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_SINGLE.out.versions )
