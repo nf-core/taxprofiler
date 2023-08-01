@@ -123,12 +123,12 @@
                     },
                     "kmcp/profile": {
                         "branch": "master",
-                        "git_sha": "ecdc4800454b78c03ed9b33cdf9235f271c09ba1",
+                        "git_sha": "e198734cc3be18af5f64f6d7734c7f1a7c3af5a6",
                         "installed_by": ["modules"]
                     },
                     "kmcp/search": {
                         "branch": "master",
-                        "git_sha": "808a16b76a956154ce10bd64fb2b131518b509f4",
+                        "git_sha": "e198734cc3be18af5f64f6d7734c7f1a7c3af5a6",
                         "installed_by": ["modules"]
                     },
                     "kraken2/kraken2": {
