@@ -507,19 +507,6 @@
                     "description": "Turn on classification with kmcp.",
                     "fa_icon": "fas fa-toggle-on"
                 },
-                "kmcp_taxdump": {
-                    "type": "string",
-                    "default": "None",
-                    "description": "Directory of NCBI taxonomy dump files, names.dmp and nodes.dmp",
-                    "help_text": "The files merged.dmp and delnodes.dmp are optional.",
-                    "fa_icon": "fas fa-folder-open"
-                },
-                "kmcp_taxid": {
-                    "type": "string",
-                    "default": "None",
-                    "description": "Tabular two-column file(s) mapping reference IDs to TaxIds.",
-                    "fa_icon": "fas fa-sort-amount-down-alt"
-                },
                 "kmcp_mode": {
                     "type": "integer",
                     "default": 3,
