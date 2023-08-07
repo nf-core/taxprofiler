@@ -13,9 +13,9 @@ It assumes that you have basic knowledge of metagenomic classification input and
 
 The datasets used should be small enough to run on your own laptop or a single server node.
 
-If you wish to use a HPC cluster or cloud, please see the [nf-core documentation](https://nf-co.re/docs/usage/configuration#introduction) on how to make a relevant config file.
+If you wish to use a HPC cluster or cloud, and don't wish to use an 'interactive' session submitted to your scheduler, please see the [nf-core documentation](https://nf-co.re/docs/usage/configuration#introduction) on how to make a relevant config file.
 
-You will need 1.5 GB of hardrive space in total.
+You will need internet access and at least 1.5 GB of hardrive space.
 
 #### Software
 
