@@ -6,10 +6,16 @@ This page provides a range of tutorials to help give you a bit more guidance on 
 
 In this tutorial we will run you through a simple set up of a small nf-core/taxprofiler run.
 It assumes that you have basic knowledge of metagenomic classification input and output files.
-The datasets used should be small enough to run on your own laptop or a single server node.
-If you wish to use a HPC cluster or cloud, please see the [nf-core documentation](https://nf-co.re/docs/usage/configuration#introduction) on how to make a relevant config file.
 
 ### Preparation
+
+#### Hardware
+
+The datasets used should be small enough to run on your own laptop or a single server node.
+
+If you wish to use a HPC cluster or cloud, please see the [nf-core documentation](https://nf-co.re/docs/usage/configuration#introduction) on how to make a relevant config file.
+
+You will need 1.5 GB of hardrive space in total.
 
 #### Software
 
@@ -17,8 +23,6 @@ The tutorial assumes you are on a Unix based operating system, and have already 
 The tutorial will use Docker, however you can simply replace references to `docker` with `conda`, `singularity`, or `apptainer` accordingly.
 
 #### Data
-
-The tutorial will require a minimum of 2GB hard drive space.
 
 First we will make a directory to run the whole tutorial in.
 
@@ -38,10 +42,6 @@ curl -O https://raw.githubusercontent.com/nf-core/test-datasets/taxprofiler/data
 curl -O https://raw.githubusercontent.com/nf-core/test-datasets/taxprofiler/data/fastq/ERX5474932_ERR5766176_B_2.fastq.gz
 ```
 
-:::info
-The resulting FASTQ files will use 246 MB of disk space
-:::
-
 In this tutorial we will demonstrate running with three different profilers, and in one of those cases, running the same database twice but with different parameters.
 The database consists of two genomes of species known to be present in the metagenomes.
 You can download the databases for Kraken2, Centrifuge, and Kaiju with the following commands.
@@ -51,10 +51,6 @@ curl -O https://raw.githubusercontent.com/nf-core/test-datasets/taxprofiler/data
 curl -O https://raw.githubusercontent.com/nf-core/test-datasets/taxprofiler/data/database/centrifuge/test-db-centrifuge.tar.gz
 curl -O https://raw.githubusercontent.com/nf-core/test-datasets/taxprofiler/data/database/kaiju/kaiju.tar.gz
 ```
-
-:::info
-The resulting FASTQ files will use 19 MB of disk space
-:::
 
 To demonstrate that nf-core/taxprofiler can also accept databases as uncompressed folders, we can extract one of them.
 
@@ -74,10 +70,6 @@ A common contaminant in Illumina sequencing is a spike-in control of the genome 
 ```bash
 curl -O https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/819/615/GCF_000819615.1_ViralProj14015/GCF_000819615.1_ViralProj14015_genomic.fna.gz
 ```
-
-:::info
-The resulting FASTQ files will use 1.9 KB of disk space
-:::
 
 ### Preparing Input
 

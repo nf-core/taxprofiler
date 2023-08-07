@@ -8,6 +8,13 @@
 
 nf-core/taxprofiler is a pipeline for highly-parallelised taxonomic classification and profiling of shotgun metagenomic data across multiple tools simultaneously. In addition to multiple classification and profiling tools, at the same time it allows you to performing taxonomic classification and profiling across multiple databases and settings per tool, as well as produces standardised output tables to allow immediate cross comparison of results between tools.
 
+In addition to this page, you can find additional usage information on the following pages:
+
+- [Tutorials](usage/tutorials.md)
+- [FAQ and Troubleshooting](usage/faq-troubleshooting.md)
+
+## General Usage
+
 To run nf-core/taxprofiler, at a minimum two you require two inputs:
 
 - a sequencing read samplesheet
@@ -123,16 +130,16 @@ nf-core/taxprofiler will automatically decompress and extract any compressed arc
 
 The (uncompressed) database paths (`db_path`) for each tool are expected to contain:
 
-- [**Bracken**:](#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
-- [**Centrifuge**:](#centrifuge-custom-database) output of `centrifuge-build`.
-- [**DIAMOND**:](#diamond-custom-database) output of `diamond makedb`.
-- [**Kaiju**:](#kaiju-custom-database) output of `kaiju-makedb`.
-- [**Kraken2**:](#kraken2-custom-database) output of `kraken2-build` command(s).
-- [**KrakenUniq**:](#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
-- [**MALT**](#malt-custom-database) output of `malt-build`.
-- [**MetaPhlAn**:](#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
-- [**mOTUs**:](#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
-- [**ganon**:](#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
+- [**Bracken**:](usage/tutorials.md#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
+- [**Centrifuge**:](usage/tutorials.md#centrifuge-custom-database) output of `centrifuge-build`.
+- [**DIAMOND**:](usage/tutorials.md#diamond-custom-database) output of `diamond makedb`.
+- [**Kaiju**:](usage/tutorials.md#kaiju-custom-database) output of `kaiju-makedb`.
+- [**Kraken2**:](usage/tutorials.md#kraken2-custom-database) output of `kraken2-build` command(s).
+- [**KrakenUniq**:](usage/tutorials.md#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
+- [**MALT**](usage/tutorials.md#malt-custom-database) output of `malt-build`.
+- [**MetaPhlAn**:](usage/tutorials.md#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
+- [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
+- [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 
 > ℹ️ Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
 
@@ -465,13 +472,3 @@ We recommend adding the following line to your environment to limit this (typica
 ```bash
 NXF_OPTS='-Xms1g -Xmx4g'
 ```
-
-## Troubleshooting and FAQs
-
-### I get a warning during centrifuge_kreport process with exit status 255
-
-When a sample has insufficient hits for abundance estimation, the resulting `report.txt` file will be empty.
-
-When trying to convert this to a kraken-style report, the conversion tool will exit with a status code `255`, and provide a `WARN`.
-
-This is **not** an error nor a failure of the pipeline, just your sample has no hits to the provided database when using centrifuge.
