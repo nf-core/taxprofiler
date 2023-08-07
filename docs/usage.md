@@ -141,7 +141,9 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 
-> ℹ️ Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
+:::info
+Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
+:::
 
 ## Running the pipeline
 
@@ -200,7 +202,9 @@ nf-core/taxprofiler offers four main preprocessing steps for preprocessing raw s
 - [**Host read-removal**](#host-read-removal): removal of reads aligning to reference genome(s) of a host.
 - [**Run merging**](#run-merging): concatenation of multiple FASTQ chunks/sequencing runs/libraries of a sample.
 
-> ℹ️ You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_reads`.
+:::info
+You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_reads`.
+:::
 
 #### Read Processing
 
@@ -245,7 +249,9 @@ nf-core/taxprofiler currently offers host-removal via alignment against a refere
 
 You can supply your reference genome in FASTA format with `--hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index` or a minimap2 `.mmi` file for `--longread_hostremoval_index`, however nf-core/taxprofiler will generate these for you if necessary. Pre-supplying the index directory or files can greatly speed up the process, and these can be re-used.
 
-> 💡 If you have multiple taxa or sequences you wish to remove (e.g., the host genome and then also PhiX - common quality-control reagent during sequencing) you can simply concatenate the FASTAs of each taxa or sequences into a single reference file.
+:::note
+If you have multiple taxa or sequences you wish to remove (e.g., the host genome and then also PhiX - common quality-control reagent during sequencing) you can simply concatenate the FASTAs of each taxa or sequences into a single reference file.
+:::
 
 #### Run Merging
 
@@ -267,7 +273,9 @@ Note that not all taxonomic classification tools (e.g. Kraken, MALT, Kaiju) perf
 
 For advice as to which tool to run in your context, please see the documentation of each tool.
 
-> 🖊️ If you would like to change this behaviour, please contact us on the [nf-core slack](https://nf-co.re/join) and we can discuss this.
+:::note
+If you would like to change this behaviour, please contact us on the [nf-core slack](https://nf-co.re/join) and we can discuss this.
+:::
 
 Not all tools currently have dedicated tips, suggestions and/or recommendations, however we welcome further contributions for existing and additional tools via pull requests to the [nf-core/taxprofiler repository](https://github.com/nf-core/taxprofiler)!
 

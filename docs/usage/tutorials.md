@@ -258,9 +258,13 @@ However, to build custom databases, you will need a Kraken2 database, the (avera
 bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
 ```
 
-> 🛈 You can speed up database construction by supplying the threads parameter (`-t`).
+:::info
+You can speed up database construction by supplying the threads parameter (`-t`).
+:::
 
-> 🛈 If you do not have Kraken2 in your `$PATH` you can point to the binary with `-x /<path>/<to>/kraken2`.
+:::info
+If you do not have Kraken2 in your `$PATH` you can point to the binary with `-x /<path>/<to>/kraken2`.
+:::
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
@@ -362,7 +366,7 @@ kaiju-mkbwt -a ACDEFGHIKLMNPQRSTVWY -o proteins proteins.faa
 kaiju-mkfmi proteins
 ```
 
-:::info 
+:::info
 You can speed up database construction by supplying the threads parameter (`-t`).
 :::
 
@@ -439,7 +443,9 @@ krakenuniq-download --db <DB_DIR_NAME>  taxonomy
 krakenuniq-build --db <DB_DIR_NAME> --kmer-len 31
 ```
 
-> 🛈 You can speed up database construction by supplying the threads parameter (`--threads`) to `krakenuniq-build`.
+:::info
+You can speed up database construction by supplying the threads parameter (`--threads`) to `krakenuniq-build`.
+:::info
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
@@ -465,9 +471,13 @@ malt-build -i <path>/<to>/<fasta>/*.{fna,fa,fasta} -a2t <path>/<to>/<map>.db -d 
 
 You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
 
-⚠️ MALT generates very large database files and requires large amounts of RAM. You can reduce both by increasing the step size `-st` (with a reduction in sensitivity).
+:::warning
+MALT generates very large database files and requires large amounts of RAM. You can reduce both by increasing the step size `-st` (with a reduction in sensitivity).
+:::
 
-> 🛈 MALT-build can be multi-threaded with `-t` to speed up building.
+:::info
+MALT-build can be multi-threaded with `-t` to speed up building.
+:::
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
@@ -499,9 +509,13 @@ metaphlan --install --bowtie2db <YOUR_DB_NAME>/
 
 You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
 
-> 🛈 It is generally not recommended to modify this database yourself, thus this is currently not supported in the pipeline. However, it is possible to customise the existing database by adding your own marker genomes following the instructions [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
+:::info
+It is generally not recommended to modify this database yourself, thus this is currently not supported in the pipeline. However, it is possible to customise the existing database by adding your own marker genomes following the instructions [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
+:::
 
-> 🖊️ If using your own database is relevant for you, please contact the nf-core/taxprofiler developers on the [nf-core slack](https://nf-co.re/join) and we will investigate supporting this.
+:::note
+If using your own database is relevant for you, please contact the nf-core/taxprofiler developers on the [nf-core slack](https://nf-co.re/join) and we will investigate supporting this.
+:::
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
@@ -525,7 +539,9 @@ More information on the MetaPhlAn database can be found [here](https://github.co
 
 mOTUs does not provide the ability to construct custom databases. Therefore we recommend to use the the prebuilt database of marker genes provided by the developers.
 
-> ⚠️ **Do not change the directory name of the resulting database if moving to a central location** The database name of `db_mOTU/` is hardcoded in the mOTUs tool
+:::warning
+**Do not change the directory name of the resulting database if moving to a central location** The database name of `db_mOTU/` is hardcoded in the mOTUs tool
+:::
 
 To do this you need to have `mOTUs` installed on your machine.
 
@@ -535,7 +551,9 @@ motus downloadDB
 
 Then supply the `db_mOTU/` path to your nf-core/taxprofiler database input sheet.
 
-> ⚠️ The `db_mOTU/` directory may be downloaded to somewhere in your Python's `site-package` directory. You will have to find this yourself as the exact location varies depends on installation method.
+:::warning
+The `db_mOTU/` directory may be downloaded to somewhere in your Python's `site-package` directory. You will have to find this yourself as the exact location varies depends on installation method.
+:::
 
 More information on the mOTUs database can be found [here](https://motu-tool.org/installation.html).
 
@@ -543,7 +561,9 @@ More information on the mOTUs database can be found [here](https://motu-tool.org
 
 To build a custom ganon database you need two components: the FASTA files you wish to include, and the file extension of those FASTA files.
 
-> 🛈 You can also use [`ganon build`](https://pirovc.github.io/ganon/default_databases/) to download and generate pre-defined databases for you.
+:::info
+🛈 You can also use [`ganon build`](https://pirovc.github.io/ganon/default_databases/) to download and generate pre-defined databases for you.
+:::
 
 You can optionally include your own taxonomy files, however `ganon build-custom` will download these for you if not provided.
 
@@ -553,7 +573,9 @@ ganon build-custom --threads 4 --input *.fa --db-prefix <YOUR_DB_NAME>
 
 You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
 
-> 🛈 `ganon build-custom` can be multi-threaded with `-t` to speed up building.
+:::info
+`ganon build-custom` can be multi-threaded with `-t` to speed up building.
+:::
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
