@@ -344,7 +344,9 @@ A detailed description can be found [here](https://github.com/bbuchfink/diamond/
 
 To build a kaiju database, you need three components: a FASTA file with the protein sequences ,the NCBI taxonomy dump files, and you need to define the uppercase characters of the standard 20 amino acids you wish to include.
 
-> ⚠️ The headers of the protein fasta file must be numeric NCBI taxon identifiers of the protein sequences.
+:::warning
+The headers of the protein fasta file must be numeric NCBI taxon identifiers of the protein sequences.
+:::
 
 To download the NCBI taxonomy files, please run the following commands:
 
@@ -360,7 +362,9 @@ kaiju-mkbwt -a ACDEFGHIKLMNPQRSTVWY -o proteins proteins.faa
 kaiju-mkfmi proteins
 ```
 
-> 🛈 You can speed up database construction by supplying the threads parameter (`-t`).
+:::info 
+You can speed up database construction by supplying the threads parameter (`-t`).
+:::
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
