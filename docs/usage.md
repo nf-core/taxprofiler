@@ -52,7 +52,9 @@ sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 
 ```
 
-> ⚠️ Runs of the same sample sequenced on Illumina platforms with a combination of single and paired-end data will **not** be run-wise concatenated, unless pair-merging is specified. In the example above, `run3` will be profiled independently of `run1` and `run2` if pairs are not merged.
+:::warning
+Runs of the same sample sequenced on Illumina platforms with a combination of single and paired-end data will **not** be run-wise concatenated, unless pair-merging is specified. In the example above, `run3` will be profiled independently of `run1` and `run2` if pairs are not merged.
+:::
 
 ### Full samplesheet
 
@@ -69,9 +71,13 @@ sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 ERR3201952,ERR3201952,OXFORD_NANOPORE,/<path>/<to>/fastq/ERR3201952.fastq.gz,,
 ```
 
-> ⚠️ Input FASTQ and FASTA files _must_ be gzipped
+:::warning
+Input FASTQ and FASTA files _must_ be gzipped
+:::
 
-> ⚠️ While one can include both short-read and long-read data in one run, we recommend that you split these across _two_ pipeline runs and database sheets (see below). This will allow classification optimisation for each data type, and make MultiQC run-reports more readable (due to run statistics having vary large number differences).
+:::warning
+While one can include both short-read and long-read data in one run, we recommend that you split these across _two_ pipeline runs and database sheets (see below). This will allow classification optimisation for each data type, and make MultiQC run-reports more readable (due to run statistics having vary large number differences).
+:::
 
 | Column                | Description                                                                                                                                                                                              |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -90,11 +96,15 @@ nf-core/taxprofiler supports multiple databases being classified/profiled agains
 
 Databases can be supplied either in the form of a compressed `.tar.gz` archive of a directory containing all relevant database files or the path to a directory on the filesystem.
 
-> ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
+:::warning
+nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
+:::
 
 The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
 
-> ⚠️ To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters), and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
+:::warning
+To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters), and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
+:::
 
 An example database sheet can look as follows, where 7 tools are being used, and `malt` and `kraken2` will be used against two databases each.
 
@@ -124,7 +134,9 @@ Column specifications are as follows:
 | `db_params` | Any parameters of the given taxonomic classifier/profiler that you wish to specify that the taxonomic classifier/profiling tool should use when profiling against this specific database. Can be empty to use taxonomic classifier/profiler defaults. Must not be surrounded by quotes [required]. We generally do not recommend specifying parameters here that turn on/off saving of output files or specifying particular file extensions - this should be already addressed via pipeline parameters. For Bracken databases, must at a minimum contain a `;` separating Kraken2 from Bracken parameters. |
 | `db_path`   | Path to the database. Can either be a path to a directory containing the database index files or a `.tar.gz` file which contains the compressed database directory with the same name as the tar archive, minus `.tar.gz` [required].                                                                                                                                                                                                                                                                                                                                                                       |
 
-> 💡 You can also specify the same database directory/file twice (ensuring unique `db_name`s) and specify different parameters for each database to compare the effect of different parameters during classification/profiling.
+:::note
+You can also specify the same database directory/file twice (ensuring unique `db_name`s) and specify different parameters for each database to compare the effect of different parameters during classification/profiling.
+:::
 
 nf-core/taxprofiler will automatically decompress and extract any compressed archives for you.
 
@@ -170,7 +182,9 @@ If you wish to repeatedly use the same parameters for multiple runs, rather than
 
 Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
 
-> ⚠️ Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+:::warning
+Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+:::
 
 The above pipeline run specified with a params file in yaml format:
 
@@ -237,7 +251,9 @@ The tools offer different algorithms and parameters for removing low complexity 
 
 You can optionally save the FASTQ output of the run merging with the `--save_complexityfiltered_reads`. If running with `fastp`, complexity filtering happens inclusively within the earlier shortread preprocessing step. Therefore there will not be an independent pipeline step for complexity filtering, and no independent FASTQ file (i.e. `--save_complexityfiltered_reads` will be ignored) - your complexity filtered reads will also be in the `fastp/` folder in the same file(s) as the preprocessed read.
 
-> ⚠️ For nanopore data: we do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.
+:::warning
+For nanopore data: we do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.
+;::
 
 #### Host-Read Removal
 
@@ -338,7 +354,9 @@ nf-core/taxprofiler supports generation of Krona interactive pie chart plots for
 - Kaiju
 - MALT
 
-> ⚠️ MALT KRONA plots cannot be generated automatically, you must also specify a Krona taxonomy directory with `--krona_taxonomy_directory` if you wish to generate these.
+:::warning
+MALT KRONA plots cannot be generated automatically, you must also specify a Krona taxonomy directory with `--krona_taxonomy_directory` if you wish to generate these.
+:::
 
 ##### Multi-Table Generation
 

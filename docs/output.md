@@ -108,7 +108,9 @@ By default nf-core/taxprofiler will only provide the `.settings` file if Adapter
 
 You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. If this is selected, you may receive different combinations of `.fastq` files for each sample depending on the input types - e.g. whether you have merged or not, or if you're supplying both single- and paired-end reads. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
+:::warning
+The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
+:::
 
 ### Porechop
 
@@ -127,7 +129,9 @@ The output logs are saved in the output folder and are part of MultiQC report.Yo
 
 You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
+:::warning
+We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
+:::
 
 ### BBDuk
 
@@ -146,7 +150,9 @@ It is used in nf-core/taxprofiler for complexity filtering using different algor
 
 By default nf-core/taxprofiler will only provide the `.log` file if BBDuk is selected as the complexity filtering tool. You will only find the complexity filtered reads in your results directory if you provide ` --save_complexityfiltered_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+:::warning
+The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+:::
 
 ### PRINSEQ++
 
@@ -165,7 +171,9 @@ It is used in nf-core/taxprofiler for complexity filtering using different algor
 
 By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is selected as the complexity filtering tool. You will only find the complexity filtered `.fastq` files in your results directory if you supply ` --save_complexityfiltered_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+:::warning
+The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+:::
 
 ### Filtlong
 
@@ -182,7 +190,9 @@ By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is
 
 You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ We do **not** recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
+:::warning
+We do **not** recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
+:::
 
 ### Bowtie2
 
@@ -278,7 +288,9 @@ This optional results directory will only be present in the pipeline results whe
 
 The results directory will contain the 'final' processed reads used as input for classification/profiling. It will _only_ include the output of the _last_ step of any combinations of preprocessing steps that may have been specified in the run configuration. For example, if you perform the read QC and host-removal preprocessing steps, the final reads that are sent to classification/profiling are the host-removed FASTQ files - those will be the ones present in this directory.
 
-> ⚠️ If you turn off all preprocessing steps, then no results will be present in this directory. This happens independently for short- and long-reads. I.e. you will only have FASTQ files for short reads in this directory if you skip all long-read preprocessing.
+:::warning
+If you turn off all preprocessing steps, then no results will be present in this directory. This happens independently for short- and long-reads. I.e. you will only have FASTQ files for short reads in this directory if you skip all long-read preprocessing.
+:::
 
 ### SAMtools stats
 
@@ -560,7 +572,9 @@ The following report files are used for the taxpasta step:
 - MetaPhlAn: `<sample_id>_profile.txt` Taxpasta uses the `relative_abundance` column multiplied with a fixed number to yield an integer for the standardised profile.
 - mOTUs: `<sample_id>.out` Taxpasta uses the `read_count` column for the standardised profile.
 
-> ⚠️ Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
+:::warning
+Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
+:::
 
 ### MultiQC
 
