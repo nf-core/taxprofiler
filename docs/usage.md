@@ -253,7 +253,7 @@ You can optionally save the FASTQ output of the run merging with the `--save_com
 
 :::warning
 For nanopore data: we do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.
-;::
+:::
 
 #### Host-Read Removal
 
