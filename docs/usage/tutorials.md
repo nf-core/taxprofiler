@@ -183,7 +183,7 @@ E ---> K[MultiQC]
 F ---> K[MultiQC]
 ```
 
-:::publication{title=""}
+:::tip{title=""}
 We hope you see the benefit of using pipelines for such a task!
 :::
 
@@ -236,7 +236,7 @@ Once you have completed the tutorial, you can run the following command to delet
 rm -r taxprofiler-tutorial/
 ```
 
-:::note
+:::warning
 Don't forget to change out of the directory above before trying to delete it!
 :::
 
@@ -258,11 +258,11 @@ However, to build custom databases, you will need a Kraken2 database, the (avera
 bracken-build -d <KRAKEN_DB_DIR> -k <KRAKEN_DB_KMER_LENGTH> -l <READLENGTH>
 ```
 
-:::info
+:::tip
 You can speed up database construction by supplying the threads parameter (`-t`).
 :::
 
-:::info
+:::tip
 If you do not have Kraken2 in your `$PATH` you can point to the binary with `-x /<path>/<to>/kraken2`.
 :::
 
@@ -366,7 +366,7 @@ kaiju-mkbwt -a ACDEFGHIKLMNPQRSTVWY -o proteins proteins.faa
 kaiju-mkfmi proteins
 ```
 
-:::info
+:::tip
 You can speed up database construction by supplying the threads parameter (`-t`).
 :::
 
@@ -443,9 +443,9 @@ krakenuniq-download --db <DB_DIR_NAME>  taxonomy
 krakenuniq-build --db <DB_DIR_NAME> --kmer-len 31
 ```
 
-:::info
+:::tip
 You can speed up database construction by supplying the threads parameter (`--threads`) to `krakenuniq-build`.
-:::info
+:::
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
@@ -475,7 +475,7 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 MALT generates very large database files and requires large amounts of RAM. You can reduce both by increasing the step size `-st` (with a reduction in sensitivity).
 :::
 
-:::info
+:::tip
 MALT-build can be multi-threaded with `-t` to speed up building.
 :::
 
@@ -509,7 +509,7 @@ metaphlan --install --bowtie2db <YOUR_DB_NAME>/
 
 You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
 
-:::info
+:::warning
 It is generally not recommended to modify this database yourself, thus this is currently not supported in the pipeline. However, it is possible to customise the existing database by adding your own marker genomes following the instructions [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
 :::
 
@@ -561,8 +561,8 @@ More information on the mOTUs database can be found [here](https://motu-tool.org
 
 To build a custom ganon database you need two components: the FASTA files you wish to include, and the file extension of those FASTA files.
 
-:::info
-🛈 You can also use [`ganon build`](https://pirovc.github.io/ganon/default_databases/) to download and generate pre-defined databases for you.
+:::tip
+You can also use [`ganon build`](https://pirovc.github.io/ganon/default_databases/) to download and generate pre-defined databases for you.
 :::
 
 You can optionally include your own taxonomy files, however `ganon build-custom` will download these for you if not provided.
@@ -573,7 +573,7 @@ ganon build-custom --threads 4 --input *.fa --db-prefix <YOUR_DB_NAME>
 
 You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
 
-:::info
+:::tip
 `ganon build-custom` can be multi-threaded with `-t` to speed up building.
 :::
 
