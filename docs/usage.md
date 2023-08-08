@@ -97,7 +97,7 @@ nf-core/taxprofiler supports multiple databases being classified/profiled agains
 Databases can be supplied either in the form of a compressed `.tar.gz` archive of a directory containing all relevant database files or the path to a directory on the filesystem.
 
 :::warning
-nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building custom database](usage/tutorials.md#retrieving-databases-or-building-custom-databases) tutorials.
+nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building custom database](usage/tutorials#retrieving-databases-or-building-custom-databases) tutorials.
 :::
 
 The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
@@ -142,16 +142,16 @@ nf-core/taxprofiler will automatically decompress and extract any compressed arc
 
 The (uncompressed) database paths (`db_path`) for each tool are expected to contain:
 
-- [**Bracken**:](usage/tutorials.md#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
-- [**Centrifuge**:](usage/tutorials.md#centrifuge-custom-database) output of `centrifuge-build`.
-- [**DIAMOND**:](usage/tutorials.md#diamond-custom-database) output of `diamond makedb`.
-- [**Kaiju**:](usage/tutorials.md#kaiju-custom-database) output of `kaiju-makedb`.
-- [**Kraken2**:](usage/tutorials.md#kraken2-custom-database) output of `kraken2-build` command(s).
-- [**KrakenUniq**:](usage/tutorials.md#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
-- [**MALT**](usage/tutorials.md#malt-custom-database) output of `malt-build`.
-- [**MetaPhlAn**:](usage/tutorials.md#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
-- [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
-- [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
+- [**Bracken**:](usage/tutorials#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
+- [**Centrifuge**:](usage/tutorials#centrifuge-custom-database) output of `centrifuge-build`.
+- [**DIAMOND**:](usage/tutorials#diamond-custom-database) output of `diamond makedb`.
+- [**Kaiju**:](usage/tutorials#kaiju-custom-database) output of `kaiju-makedb`.
+- [**Kraken2**:](usage/tutorials#kraken2-custom-database) output of `kraken2-build` command(s).
+- [**KrakenUniq**:](usage/tutorials#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
+- [**MALT**](usage/tutorials#malt-custom-database) output of `malt-build`.
+- [**MetaPhlAn**:](usage/tutorials#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
+- [**mOTUs**:](usage/tutorials#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
+- [**ganon**:](usage/tutorials#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 
 :::info
 Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
