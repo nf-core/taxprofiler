@@ -6,4 +6,4 @@ When a sample has insufficient hits for abundance estimation, the resulting `rep
 
 When trying to convert this to a kraken-style report, the conversion tool will exit with a status code `255`, and provide a `WARN`.
 
-This is **not** an error nor a failure of the pipeline, just your sample has no hits to the provided database when using centrifuge.
+This is _not_ an error nor a failure of the pipeline, just your sample has no hits to the provided database when using centrifuge.

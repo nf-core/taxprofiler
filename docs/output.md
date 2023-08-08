@@ -191,7 +191,7 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
 You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
 :::warning
-We do **not** recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
+We do _not_ recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
 :::
 
 ### Bowtie2
@@ -216,7 +216,7 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/
 By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only have a `.bam` file if you specify `--save_hostremoval_bam`. This will contain _both_ mapped and unmapped reads. You will only get FASTQ files if you specify to save `--save_hostremoval_unmapped` - these contain only unmapped reads. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
 :::info
-Unmapped reads in FASTQ are only found in this directory for short-reads, for long-reads see [`samtools/fastq/`](#samtools-fastq)
+Unmapped reads in FASTQ are only found in this directory for short-reads, for long-reads see [`samtools/fastq/`](#samtools-fastq).
 :::
 
 :::info
@@ -251,7 +251,7 @@ minimap2 is not yet supported as a module in MultiQC and therefore there is no d
 :::
 
 :::info
-Unlike Bowtie2, minimap2 does not produce an unmapped FASTQ file by itself. See [`samtools/fastq`](#samtools-fastq)
+Unlike Bowtie2, minimap2 does not produce an unmapped FASTQ file by itself. See [`samtools/fastq`](#samtools-fastq).
 :::
 
 ### SAMtools fastq

@@ -72,7 +72,7 @@ ERR3201952,ERR3201952,OXFORD_NANOPORE,/<path>/<to>/fastq/ERR3201952.fastq.gz,,
 ```
 
 :::warning
-Input FASTQ and FASTA files _must_ be gzipped
+Input FASTQ and FASTA files _must_ be gzipped.
 :::
 
 :::warning

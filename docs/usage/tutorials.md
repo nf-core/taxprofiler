@@ -64,7 +64,7 @@ For guidance on how to build databases, see the [Retrieving databases or buildin
 :::
 
 Finally, an important step of any metagenomic classification is to remove contamination.
-Contamination can come from many places, typically from the the host of a host-associated sample, however this can also come from laboratory processing samples.
+Contamination can come from many places, typically from the host of a host-associated sample, however this can also come from laboratory processing samples.
 A common contaminant in Illumina sequencing is a spike-in control of the genome of PhiX virus, which we can download with the following command.
 
 ```bash
@@ -79,9 +79,9 @@ You provide the sequencing data FASTQ files to nf-core/taxprofiler via a input '
 This is a 6 column table, that includes sample and library names, instrument platform, and paths to the sequencing data.
 
 Open a text editor, and create a file called `samplesheet.csv`.
-Copy and paste the following csv file into the file and save it.
+Copy and paste the following lines into the file and save it.
 
-```csv
+```csv title="samplesheet.csv"
 sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 ERX5474932,ERR5766176,ILLUMINA,ERX5474932_ERR5766176_1.fastq.gz,ERX5474932_ERR5766176_2.fastq.gz,
 ERX5474932,ERR5766176_B,ILLUMINA,ERX5474932_ERR5766176_B_1.fastq.gz,ERX5474932_ERR5766176_B_2.fastq.gz,
@@ -98,7 +98,7 @@ This 4 column table contains the tool the database has been built for, a databas
 Open a text editor, and create a file called `database.csv`.
 Copy and paste the following csv file into the file and save it.
 
-```csv
+```csv title="database.csv"
 tool,db_name,db_params,db_path
 kraken2,db1,--quick,testdb-kraken2.tar.gz
 centrifuge,db2,,test-db-centrifuge.tar.gz
@@ -112,7 +112,7 @@ Furthermore, while the Kraken2 and Centrifuge databases have been supplied as `.
 
 ### Running the pipeline
 
-Now that we have the sequencing reads (in FASTQ format), the databases (directory or .tar.gz), and a reference genome (FASTA, optionally gzipped), we can now run them with the pipeline. The following command will perform short read quality control, remove contaminant reads, merge multiple libraries for each sample, run the three profilers, and finally generate standardised profiles.
+Now that we have the sequencing reads (in FASTQ format), the databases (directory or `.tar.gz`), and a reference genome (FASTA, optionally gzipped), we can now run them with the pipeline. The following command will perform short read quality control, remove contaminant reads, merge multiple libraries for each sample, run the three profilers, and finally generate standardised profiles.
 
 ```bash
 nextflow run nf-core/taxprofiler -r 1.1.0 -profile docker \
@@ -288,7 +288,7 @@ In total, you need four components: a tab-separated file mapping sequence IDs to
 
 An example of custom `seqid2taxid.map`:
 
-```
+```csv title="seqid2taxid.map"
  NC_001133.9 4392
  NC_012920.1 9606
  NC_001134.8 4392
@@ -342,11 +342,11 @@ rm *dmp *txt *gz *prt *zip
 
 </details>
 
-A detailed description can be found [here](https://github.com/bbuchfink/diamond/wiki/1.-Tutorial)
+A detailed description can be found [here](https://github.com/bbuchfink/diamond/wiki/1.-Tutorial).
 
 ### Kaiju custom database
 
-To build a kaiju database, you need three components: a FASTA file with the protein sequences ,the NCBI taxonomy dump files, and you need to define the uppercase characters of the standard 20 amino acids you wish to include.
+To build a kaiju database, you need three components: a FASTA file with the protein sequences, the NCBI taxonomy dump files, and you need to define the uppercase characters of the standard 20 amino acids you wish to include.
 
 :::warning
 The headers of the protein fasta file must be numeric NCBI taxon identifiers of the protein sequences.
