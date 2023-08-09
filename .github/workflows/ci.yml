@@ -61,6 +61,14 @@ jobs:
           sudo locale-gen en_US.UTF-8
           sudo update-locale LANG=en_US.UTF-8
 
+      - name: Prepare the database for motus
+        if: matrix.tags == 'test_motus'
+        run: |
+          wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
+          python downloadDB.py > download_db_log.txt
+          echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
+          echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
+
       - name: Run pipeline with test data
         uses: Wandalen/wretry.action@v1.0.11
         with:
