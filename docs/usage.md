@@ -155,6 +155,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**kmcp**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp compute` and `kmcp index`.
+
 :::info
 Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
 :::
