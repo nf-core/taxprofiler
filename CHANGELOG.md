@@ -44,6 +44,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#313](https://github.com/nf-core/taxprofiler/pull/304) Fix pipeline not providing error when database sheet does not have a header (♥ to @noah472 for reporting, fix by @jfy133)
 - [#330](https://github.com/nf-core/taxprofiler/pull/330) Added better tagging to allow disambiguation of Kraken2 steps of Kraken2 vs Bracken (♥ to @MajoroMask for requesting, added by @jfy133)
 - [#334](https://github.com/nf-core/taxprofiler/pull/334) Increase the memory of the FALCO process to 4GB (fix by @LilyAnderssonLee)
+- [#332](https://github.com/nf-core/taxprofiler/pull/332) Improved meta map stability for more robust pipeline resuming (fix by @jfy133)
+- [#338](https://github.com/nf-core/taxprofiler/pull/338) Fixed wrong file 'out' file going to `centrifuge kreport` module (♥ to @LilyAnderssonLee for reporting, fix by @jfy133)
+- [#342](https://github.com/nf-core/taxprofiler/pull/342) Fixed docs/usage to correctly list the required database files for Bracken and tips to obtain Kraken2 databases (fix by @husensofteng)
 
 ### `Dependencies`
 
@@ -54,6 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | MetaPhlAn | 3.0.12           | 4.0.6       |
 
 ### `Deprecated`
+
+- [#338](https://github.com/nf-core/taxprofiler/pull/338) Updated Centrifuge module to not generate (undocumented) SAM alignments by default if --save_centrifuge_reads supplied, to due to a Centrifuge bug modifying profile header. SAM alignments can still be generated if `--out-fmt` supplied in `database.csv` (♥ to @LilyAnderssonLee for reporting, fix by @jfy133)
 
 ## v1.0.1 - Dodgy Dachshund Patch [2023-05-15]
 

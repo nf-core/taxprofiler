@@ -42,7 +42,7 @@
                     },
                     "centrifuge/centrifuge": {
                         "branch": "master",
-                        "git_sha": "c8e35eb2055c099720a75538d1b8adb3fb5a464c",
+                        "git_sha": "7b0b4276fbad744a69c35d3cbf9d55fdfc9491bd",
                         "installed_by": ["modules"]
                     },
                     "centrifuge/kreport": {

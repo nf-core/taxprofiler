@@ -8,6 +8,13 @@
 
 nf-core/taxprofiler is a pipeline for highly-parallelised taxonomic classification and profiling of shotgun metagenomic data across multiple tools simultaneously. In addition to multiple classification and profiling tools, at the same time it allows you to performing taxonomic classification and profiling across multiple databases and settings per tool, as well as produces standardised output tables to allow immediate cross comparison of results between tools.
 
+In addition to this page, you can find additional usage information on the following pages:
+
+- [Tutorials](usage/tutorials.md)
+- [FAQ and Troubleshooting](usage/faq-troubleshooting.md)
+
+## General Usage
+
 To run nf-core/taxprofiler, at a minimum two you require two inputs:
 
 - a sequencing read samplesheet
@@ -25,7 +32,7 @@ Please see the rest of this page for information about how to prepare input samp
 
 nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers).
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row as shown in the examples below. Furthermother, nf-core/taxprofiler also requires a second comma-separated file of 3 columns with a header row as in the examples below.
+You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row as shown in the examples below. Furthermore, nf-core/taxprofiler also requires a second comma-separated file of 3 columns with a header row as in the examples below.
 
 This samplesheet is then specified on the command line as follows:
 
@@ -45,7 +52,9 @@ sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 
 ```
 
-> ⚠️ Runs of the same sample sequenced on Illumina platforms with a combination of single and paired-end data will **not** be run-wise concatenated, unless pair-merging is specified. In the example above, `run3` will be profiled independently of `run1` and `run2` if pairs are not merged.
+:::warning
+Runs of the same sample sequenced on Illumina platforms with a combination of single and paired-end data will **not** be run-wise concatenated, unless pair-merging is specified. In the example above, `run3` will be profiled independently of `run1` and `run2` if pairs are not merged.
+:::
 
 ### Full samplesheet
 
@@ -62,18 +71,22 @@ sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 ERR3201952,ERR3201952,OXFORD_NANOPORE,/<path>/<to>/fastq/ERR3201952.fastq.gz,,
 ```
 
-> ⚠️ Input FASTQ and FASTA files _must_ be gzipped
+:::warning
+Input FASTQ and FASTA files _must_ be gzipped.
+:::
 
-> ⚠️ While one can include both short-read and long-read data in one run, we recommend that you split these across _two_ pipeline runs and database sheets (see below). This will allow classification optimisation for each data type, and make MultiQC run-reports more readable (due to run statistics having vary large number differences).
+:::warning
+While one can include both short-read and long-read data in one run, we recommend that you split these across _two_ pipeline runs and database sheets (see below). This will allow classification optimisation for each data type, and make MultiQC run-reports more readable (due to run statistics having vary large number differences).
+:::
 
-| Column                | Description                                                                                                                                                                                              |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`              | Unique sample name [required].                                                                                                                                                                           |
-| `run_accession`       | Run ID or name unique for each (pairs of) file(s) .Can also supply sample name again here, if only a single run was generated [required].                                                                |
-| `instrument_platform` | Sequencing platform reads generated on, selected from the EBI ENA [controlled vocabulary](https://www.ebi.ac.uk/ena/portal/api/controlledVocab?field=instrument_platform) [required].                    |
-| `fastq_1`             | Path or URL to sequencing reads or for Illumina R1 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if data in FASTA is specifed. Cannot be combined with `fasta`. |
-| `fastq_2`             | Path or URL to Illumina R2 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if single end data. Cannot be combined with `fasta`.                                   |
-| `fasta`               | Path or URL to long-reads or contigs in FASTA format. GZipped compressed files accepted. Can be left empty if data in FASTA is specifed. Cannot be combined with `fastq_1` or `fastq_2`.                 |
+| Column                | Description                                                                                                                                                                                               |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample`              | Unique sample name [required].                                                                                                                                                                            |
+| `run_accession`       | Run ID or name unique for each (pairs of) file(s) .Can also supply sample name again here, if only a single run was generated [required].                                                                 |
+| `instrument_platform` | Sequencing platform reads generated on, selected from the EBI ENA [controlled vocabulary](https://www.ebi.ac.uk/ena/portal/api/controlledVocab?field=instrument_platform) [required].                     |
+| `fastq_1`             | Path or URL to sequencing reads or for Illumina R1 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if data in FASTA is specified. Cannot be combined with `fasta`. |
+| `fastq_2`             | Path or URL to Illumina R2 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if single end data. Cannot be combined with `fasta`.                                    |
+| `fasta`               | Path or URL to long-reads or contigs in FASTA format. GZipped compressed files accepted. Can be left empty if data in FASTA is specified. Cannot be combined with `fastq_1` or `fastq_2`.                 |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -83,11 +96,15 @@ nf-core/taxprofiler supports multiple databases being classified/profiled agains
 
 Databases can be supplied either in the form of a compressed `.tar.gz` archive of a directory containing all relevant database files or the path to a directory on the filesystem.
 
-> ⚠️ nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See below for more information of the expected database files.
+:::warning
+nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building custom database](usage/tutorials.md#retrieving-databases-or-building-custom-databases) tutorials.
+:::
 
 The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
 
-> ⚠️ To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters), and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
+:::warning
+To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters), and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
+:::
 
 An example database sheet can look as follows, where 7 tools are being used, and `malt` and `kraken2` will be used against two databases each.
 
@@ -118,25 +135,29 @@ Column specifications are as follows:
 | `db_params` | Any parameters of the given taxonomic classifier/profiler that you wish to specify that the taxonomic classifier/profiling tool should use when profiling against this specific database. Can be empty to use taxonomic classifier/profiler defaults. Must not be surrounded by quotes [required]. We generally do not recommend specifying parameters here that turn on/off saving of output files or specifying particular file extensions - this should be already addressed via pipeline parameters. For Bracken databases, must at a minimum contain a `;` separating Kraken2 from Bracken parameters. |
 | `db_path`   | Path to the database. Can either be a path to a directory containing the database index files or a `.tar.gz` file which contains the compressed database directory with the same name as the tar archive, minus `.tar.gz` [required].                                                                                                                                                                                                                                                                                                                                                                       |
 
-> 💡 You can also specify the same database directory/file twice (ensuring unique `db_name`s) and specify different parameters for each database to compare the effect of different parameters during classification/profiling.
+:::tip
+You can also specify the same database directory/file twice (ensuring unique `db_name`s) and specify different parameters for each database to compare the effect of different parameters during classification/profiling.
+:::
 
 nf-core/taxprofiler will automatically decompress and extract any compressed archives for you.
 
 The (uncompressed) database paths (`db_path`) for each tool are expected to contain:
 
-- [**Bracken**:](#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
-- [**Centrifuge**:](#centrifuge-custom-database) output of `centrifuge-build`.
-- [**DIAMOND**:](#diamond-custom-database) output of `diamond makedb`.
-- [**Kaiju**:](#kaiju-custom-database) output of `kaiju-makedb`.
-- [**Kraken2**:](#kraken2-custom-database) output of `kraken2-build` command(s).
-- [**KrakenUniq**:](#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
-- [**MALT**](#malt-custom-database) output of `malt-build`.
-- [**MetaPhlAn**:](#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
-- [**mOTUs**:](#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
-- [**kmcp**:](#kmcp-custom-database) output of `kmcp compute` and `kmcp index`.
-- [**ganon**:](#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
-
 > ℹ️ Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
+- [**Bracken**:](usage/tutorials.md#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
+- [**Centrifuge**:](usage/tutorials.md#centrifuge-custom-database) output of `centrifuge-build`.
+- [**DIAMOND**:](usage/tutorials.md#diamond-custom-database) output of `diamond makedb`.
+- [**Kaiju**:](usage/tutorials.md#kaiju-custom-database) output of `kaiju-makedb`.
+- [**Kraken2**:](usage/tutorials.md#kraken2-custom-database) output of `kraken2-build` command(s).
+- [**KrakenUniq**:](usage/tutorials.md#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
+- [**MALT**](usage/tutorials.md#malt-custom-database) output of `malt-build`.
+- [**MetaPhlAn**:](usage/tutorials.md#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
+- [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
+- [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
+- [**kmcp**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp compute` and `kmcp index`.
+:::info
+Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
+:::
 
 ## Running the pipeline
 
@@ -163,7 +184,9 @@ If you wish to repeatedly use the same parameters for multiple runs, rather than
 
 Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <file>`.
 
-> ⚠️ Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+:::warning
+Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+:::
 
 The above pipeline run specified with a params file in yaml format:
 
@@ -195,7 +218,9 @@ nf-core/taxprofiler offers four main preprocessing steps for preprocessing raw s
 - [**Host read-removal**](#host-read-removal): removal of reads aligning to reference genome(s) of a host.
 - [**Run merging**](#run-merging): concatenation of multiple FASTQ chunks/sequencing runs/libraries of a sample.
 
-> ℹ️ You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_reads`.
+:::info
+You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_reads`.
+:::
 
 #### Read Processing
 
@@ -228,7 +253,9 @@ The tools offer different algorithms and parameters for removing low complexity 
 
 You can optionally save the FASTQ output of the run merging with the `--save_complexityfiltered_reads`. If running with `fastp`, complexity filtering happens inclusively within the earlier shortread preprocessing step. Therefore there will not be an independent pipeline step for complexity filtering, and no independent FASTQ file (i.e. `--save_complexityfiltered_reads` will be ignored) - your complexity filtered reads will also be in the `fastp/` folder in the same file(s) as the preprocessed read.
 
-> ⚠️ For nanopore data: we do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.
+:::warning
+For nanopore data: we do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.
+;::
 
 #### Host-Read Removal
 
@@ -240,7 +267,9 @@ nf-core/taxprofiler currently offers host-removal via alignment against a refere
 
 You can supply your reference genome in FASTA format with `--hostremoval_reference`. You can also optionally supply a directory containing pre-indexed Bowtie2 index files with `--shortread_hostremoval_index` or a minimap2 `.mmi` file for `--longread_hostremoval_index`, however nf-core/taxprofiler will generate these for you if necessary. Pre-supplying the index directory or files can greatly speed up the process, and these can be re-used.
 
-> 💡 If you have multiple taxa or sequences you wish to remove (e.g., the host genome and then also PhiX - common quality-control reagent during sequencing) you can simply concatenate the FASTAs of each taxa or sequences into a single reference file.
+:::tip
+If you have multiple taxa or sequences you wish to remove (e.g., the host genome and then also PhiX - common quality-control reagent during sequencing) you can simply concatenate the FASTAs of each taxa or sequences into a single reference file.
+:::
 
 #### Run Merging
 
@@ -262,7 +291,9 @@ Note that not all taxonomic classification tools (e.g. Kraken, MALT, Kaiju) perf
 
 For advice as to which tool to run in your context, please see the documentation of each tool.
 
-> 🖊️ If you would like to change this behaviour, please contact us on the [nf-core slack](https://nf-co.re/join) and we can discuss this.
+:::note
+If you would like to change this behaviour, please contact us on the [nf-core slack](https://nf-co.re/join) and we can discuss this.
+:::
 
 Not all tools currently have dedicated tips, suggestions and/or recommendations, however we welcome further contributions for existing and additional tools via pull requests to the [nf-core/taxprofiler repository](https://github.com/nf-core/taxprofiler)!
 
@@ -270,7 +301,7 @@ Not all tools currently have dedicated tips, suggestions and/or recommendations,
 
 You must make sure to also activate Kraken2 to run Bracken in the pipeline.
 
-It is unclear whether Bracken is suitable for running long reads, as it makes certain assumptions about read lengths. Furthemore, during testing we found issues where Bracken would fail on the long-read test data.
+It is unclear whether Bracken is suitable for running long reads, as it makes certain assumptions about read lengths. Furthermore, during testing we found issues where Bracken would fail on the long-read test data.
 
 Therefore currently nf-core/taxprofiler does not run Bracken on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet.
 
@@ -296,7 +327,7 @@ Currently, no specific tips or suggestions.
 
 ##### MALT
 
-MALT does not support paired-end reads alignment (unlike other tools), therefore nf-core/taxprofiler aligns these as indepenent files if read-merging is skipped. If you skip merging, you can sum or average the results of the counts of the pairs.
+MALT does not support paired-end reads alignment (unlike other tools), therefore nf-core/taxprofiler aligns these as independent files if read-merging is skipped. If you skip merging, you can sum or average the results of the counts of the pairs.
 
 Krona can only be run on MALT output if path to Krona taxonomy database supplied to `--krona_taxonomy_directory`. Therefore if you do not supply the a Krona directory, Krona plots will not be produced for MALT.
 
@@ -329,11 +360,13 @@ nf-core/taxprofiler supports generation of Krona interactive pie chart plots for
 - Kaiju
 - MALT
 
-> ⚠️ MALT KRONA plots cannot be generated automatically, you must also specify a Krona taxonomy directory with `--krona_taxonomy_directory` if you wish to generate these.
+:::warning
+MALT KRONA plots cannot be generated automatically, you must also specify a Krona taxonomy directory with `--krona_taxonomy_directory` if you wish to generate these.
+:::
 
 ##### Multi-Table Generation
 
-The main multiple-sample table from nf-core/taxprofiler is from a dedicated standalone tool originally developed for the pipeline - [Taxpasta](https://taxpasta.readthedocs.io/en/latest/). When providing `--run_profile_standardisation`, every classifier/profiler and database combination will get a standardised and (if present) multi-sample taxon table in the [`taxpasta/`](https://nf-co.re/taxprofiler/output) directory. These tables are structured in the same way, to facilitate comparison between the the results of the classifier/profiler. If multiple samples are provided, `taxpasta merge` will be executed, whereas if only a single sample is provided, `taxpasta standardise` will be executed - the file naming scheme will be the same for both.
+The main multiple-sample table from nf-core/taxprofiler is from a dedicated standalone tool originally developed for the pipeline - [Taxpasta](https://taxpasta.readthedocs.io/en/latest/). When providing `--run_profile_standardisation`, every classifier/profiler and database combination will get a standardised and (if present) multi-sample taxon table in the [`taxpasta/`](https://nf-co.re/taxprofiler/output) directory. These tables are structured in the same way, to facilitate comparison between the results of the classifier/profiler. If multiple samples are provided, `taxpasta merge` will be executed, whereas if only a single sample is provided, `taxpasta standardise` will be executed - the file naming scheme will be the same for both.
 
 In addition to per-sample profiles and standardised Taxpasta output, the pipeline also supports generation of 'native' multi-sample taxonomic profiles (i.e., those generated by the taxonomic profiling tools themselves or additional utility scripts provided by the tool authors), when providing `--run_profile_standardisation` to your pipeline.
 
@@ -367,7 +400,7 @@ First, go to the [nf-core/taxprofiler releases page](https://github.com/nf-core/
 
 This version number will be logged in reports when you run the pipeline, so that you'll know what you used when you look back in the future. For example, at the bottom of the MultiQC reports.
 
-To further assist in reproducbility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
+To further assist in reproducibility, you can use share and re-use [parameter files](#running-the-pipeline) to repeat pipeline runs with the same settings without having to write out a command with every single parameter.
 
 > 💡 If you wish to share such profile (such as upload as supplementary material for academic publications), make sure to NOT include cluster specific paths to files, nor institutional specific profiles.
 
@@ -388,7 +421,7 @@ The pipeline also dynamically loads configurations from [https://github.com/nf-c
 Note that multiple profiles can be loaded, for example: `-profile test,docker` - the order of arguments is important!
 They are loaded in sequence, so later profiles can overwrite earlier profiles.
 
-If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the `PATH`. This is _not_ recommended, since it can lead to different results on different machines dependent on the computer enviroment.
+If `-profile` is not specified, the pipeline will run locally and expect all software to be installed and available on the `PATH`. This is _not_ recommended, since it can lead to different results on different machines dependent on the computer environment.
 
 - `test`
   - A profile with a complete configuration for automated testing
@@ -824,3 +857,4 @@ When a sample has insufficient hits for abundance estimation, the resulting `rep
 When trying to convert this to a kraken-style report, the conversion tool will exit with a status code `255`, and provide a `WARN`.
 
 This is **not** an error nor a failure of the pipeline, just your sample has no hits to the provided database when using centrifuge.
+

@@ -20,6 +20,31 @@ include { KMCP_SEARCH                                   } from '../../modules/nf
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
 
+
+// Custom Functions
+
+/**
+* Combine profiles with their original database, then separate into two channels.
+*
+* The channel elements are assumed to be tuples one of [ meta, profile ], and the
+* database to be of [db_key, meta, database_file].
+*
+* @param ch_profile A channel containing a meta and the profilign report of a given profiler
+* @param ch_database A channel containing a key, the database meta, and the database file/folders itself
+* @return A multiMap'ed output channel with two sub channels, one with the profile and the other with the db
+*/
+def combineProfilesWithDatabase(ch_profile, ch_database) {
+
+return ch_profile
+    .map { meta, profile -> [meta.db_name, meta, profile] }
+    .combine(ch_database, by: 0)
+    .multiMap {
+        key, meta, profile, db_meta, db ->
+            profile: [meta, profile]
+            db: db
+    }
+}
+
 workflow PROFILING {
     take:
     reads // [ [ meta ], [ reads ] ]
@@ -68,7 +93,6 @@ workflow PROFILING {
 
     if ( params.run_malt ) {
 
-
         // MALT: We groupTuple to have all samples in one channel for MALT as database
         // loading takes a long time, so we only want to run it once per database
         ch_input_for_malt =  ch_input_for_profiling.malt
@@ -79,17 +103,11 @@ workflow PROFILING {
                     // as we don't run run on a per-sample basis due to huge datbaases
                     // so all samples are in one run and so sample-specific metadata
                     // unnecessary. Set as database name to prevent `null` job ID and prefix.
-                    def temp_meta = [ id: meta.db_name ]
+                    def new_meta = db_meta + [ id: db_meta.db_name ]
 
                     // Extend database parameters to specify whether to save alignments or not
-                    def new_db_meta = db_meta.clone()
                     def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
-                    new_db_meta.db_params = db_meta.db_params + sam_format
-
-                    // Combine reduced sample metadata with updated database parameters metadata,
-                    // make sure id is db_name for publishing purposes.
-                    def new_meta = temp_meta + new_db_meta
-                    new_meta.id = new_meta.db_name
+                    new_meta.db_params = db_meta.db_params + sam_format
 
                     [ new_meta, reads, db ]
 
@@ -110,9 +128,8 @@ workflow PROFILING {
                                             // re-extract meta from file names, use filename without rma to
                                             // ensure we keep paired-end information in downstream filenames
                                             // when no pair-merging
-                                            def meta_new = meta.clone()
-                                            meta_new['db_name'] = meta.id
-                                            meta_new['id'] = rma.baseName
+                                            def meta_new = meta + [db_name: meta.id, id: rma.baseName]
+
                                         [ meta_new, rma ]
                                 }
 
@@ -131,16 +148,15 @@ workflow PROFILING {
         ch_input_for_kraken2 = ch_input_for_profiling.kraken2
                                 .map {
                                     meta, reads, db_meta, db ->
-                                        def db_meta_new = db_meta.clone()
 
-                                        // Only take second element if one exists
-                                        def parsed_params = db_meta_new['db_params'].split(";")
+                                        // Only take first element if one exists
+                                        def parsed_params = db_meta['db_params'].split(";")
                                         if ( parsed_params.size() == 2 ) {
-                                            db_meta_new['db_params'] = parsed_params[0]
+                                            db_meta_new = db_meta + [db_params: parsed_params[0]]
                                         } else if ( parsed_params.size() == 0 ) {
-                                            db_meta_new['db_params'] = ""
+                                            db_meta_new = db_meta + [db_params: ""]
                                         } else {
-                                            db_meta_new['db_params'] = parsed_params[0]
+                                            db_meta_new = db_meta + [db_params: parsed_params[0]]
                                         }
 
                                     [ meta, reads, db_meta_new, db ]
@@ -190,18 +206,24 @@ workflow PROFILING {
             .map {
 
                 key, meta, reads, db_meta, db ->
-                    def db_meta_new = db_meta.clone()
+
+                    // // Have to make a completely fresh copy here as otherwise
+                    // // was getting db_param loss due to upstream meta parsing at
+                    // // kraken2 input channel manipulation step
+                    def db_meta_keys = db_meta.keySet()
+                    def db_meta_new = db_meta.subMap(db_meta_keys)
 
                     // Have to pick second element if using bracken, as first element
                     // contains kraken parameters
                     if ( db_meta.tool == 'bracken' ) {
 
                         // Only take second element if one exists
-                        def parsed_params = db_meta_new['db_params'].split(";")
+                        def parsed_params = db_meta['db_params'].split(";")
+
                         if ( parsed_params.size() == 2 ) {
-                            db_meta_new['db_params'] =  parsed_params[1]
+                            db_meta_new = db_meta + [ db_params: parsed_params[1] ]
                         } else {
-                            db_meta_new['db_params'] = ""
+                            db_meta_new = db_meta + [ db_params: "" ]
                         }
 
                     } else {
@@ -234,7 +256,7 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-        CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads, params.centrifuge_save_reads  )
+        CENTRIFUGE_CENTRIFUGE ( ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads  )
         ch_versions            = ch_versions.mix( CENTRIFUGE_CENTRIFUGE.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( CENTRIFUGE_CENTRIFUGE.out.results )
 
@@ -243,14 +265,7 @@ workflow PROFILING {
                                                 .filter { meta, db -> meta.tool == 'centrifuge' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
-        ch_input_for_centrifuge_kreport = CENTRIFUGE_CENTRIFUGE.out.report
-                                            .map { meta, profile -> [meta.db_name, meta, profile] }
-                                            .combine(ch_database_for_centrifugekreport, by: 0)
-                                            .multiMap {
-                                                key, meta, profile, db_meta, db ->
-                                                    profile: [meta, profile]
-                                                    db: db
-                                            }
+        ch_input_for_centrifuge_kreport = combineProfilesWithDatabase(CENTRIFUGE_CENTRIFUGE.out.report, ch_database_for_centrifugekreport)
 
         // Generate profile
         CENTRIFUGE_KREPORT (ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)
@@ -293,15 +308,7 @@ workflow PROFILING {
                                                 .filter { meta, db -> meta.tool == 'kaiju' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
-        ch_input_for_kaiju2table = KAIJU_KAIJU.out.results
-                                            .map { meta, profile -> [meta.db_name, meta, profile] }
-                                            .combine(ch_database_for_kaiju2table, by: 0)
-                                            .multiMap {
-                                                key, meta, profile, db_meta, db ->
-                                                    profile: [meta, profile]
-                                                    db: db
-                                            }
-
+        ch_input_for_kaiju2table = combineProfilesWithDatabase(KAIJU_KAIJU.out.results, ch_database_for_kaiju2table)
         // Generate profile
         KAIJU_KAIJU2TABLE_SINGLE ( ch_input_for_kaiju2table.profile, ch_input_for_kaiju2table.db, params.kaiju_taxon_rank)
         ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_SINGLE.out.versions )

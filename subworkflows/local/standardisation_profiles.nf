@@ -13,6 +13,30 @@ include { MOTUS_MERGE                                                           
 include { KMCP_PROFILE                                                          } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
 
+// Custom Functions
+
+/**
+* Combine profiles with their original database, then separate into two channels.
+*
+* The channel elements are assumed to be tuples one of [ meta, profile ], and the
+* database to be of [db_key, meta, database_file].
+*
+* @param ch_profile A channel containing a meta and the profilign report of a given profiler
+* @param ch_database A channel containing a key, the database meta, and the database file/folders itself
+* @return A multiMap'ed output channel with two sub channels, one with the profile and the other with the db
+*/
+def combineProfilesWithDatabase(ch_profile, ch_database) {
+
+return ch_profile
+    .map { meta, profile -> [meta.db_name, meta, profile] }
+    .combine(ch_database, by: 0)
+    .multiMap {
+        key, meta, profile, db_meta, db ->
+            profile: [meta, profile]
+            db: db
+    }
+}
+
 workflow STANDARDISATION_PROFILES {
     take:
     classifications
@@ -125,14 +149,7 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    ch_input_for_kaiju2tablecombine = ch_profiles_for_kaiju
-                                        .map { meta, profile -> [meta.id, meta, profile] }
-                                        .combine(ch_input_databases.kaiju.map{meta, db -> [meta.db_name, meta, db]}, by: 0)
-                                        .multiMap {
-                                            key, meta, profile, db_meta, db ->
-                                                profile: [meta, profile]
-                                                db: db
-                                        }
+    ch_input_for_kaiju2tablecombine = combineProfilesWithDatabase(ch_profiles_for_kaiju, ch_input_databases.kaiju)
 
     KAIJU_KAIJU2TABLE_COMBINED ( ch_input_for_kaiju2tablecombine.profile, ch_input_for_kaiju2tablecombine.db, params.kaiju_taxon_rank)
     ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE_COMBINED.out.summary )
@@ -180,14 +197,7 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    ch_input_for_motusmerge = ch_profiles_for_motus
-                                        .map { meta, profile -> [meta.id, meta, profile] }
-                                        .combine(ch_input_databases.motus.map{meta, db -> [meta.db_name, meta, db]}, by: 0)
-                                        .multiMap {
-                                            key, meta, profile, db_meta, db ->
-                                                profile: [meta, profile]
-                                                db: db
-                                        }
+    ch_input_for_motusmerge = combineProfilesWithDatabase(ch_profiles_for_motus, ch_input_databases.motus)
 
     MOTUS_MERGE ( ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, motu_version )
     ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
