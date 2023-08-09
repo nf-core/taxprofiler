@@ -144,6 +144,7 @@ nf-core/taxprofiler will automatically decompress and extract any compressed arc
 The (uncompressed) database paths (`db_path`) for each tool are expected to contain:
 
 > ℹ️ Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
+
 - [**Bracken**:](usage/tutorials.md#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
 - [**Centrifuge**:](usage/tutorials.md#centrifuge-custom-database) output of `centrifuge-build`.
 - [**DIAMOND**:](usage/tutorials.md#diamond-custom-database) output of `diamond makedb`.
@@ -858,4 +859,3 @@ When a sample has insufficient hits for abundance estimation, the resulting `rep
 When trying to convert this to a kraken-style report, the conversion tool will exit with a status code `255`, and provide a `WARN`.
 
 This is **not** an error nor a failure of the pipeline, just your sample has no hits to the provided database when using centrifuge.
-
