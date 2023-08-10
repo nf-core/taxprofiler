@@ -63,18 +63,20 @@ jobs:
 
       - name: Run pipeline for motus
         uses: Wandalen/wretry.action@v1.0.11
-        if: matrix.tags == 'test_motus'
+        if: ${{ matrix.tags == 'test_motus' }}
         run: |
           wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
           python downloadDB.py > download_db_log.txt
           echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
           echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
           nextflow run ${{ github.workspace }} -profile ${{ matrix.tags }},${{ matrix.profile }} ${{ matrix.parameters }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }}
+        with:
           attempt_limit: 3
 
       - name: Run pipeline with test data
         uses: Wandalen/wretry.action@v1.0.11
-        if: matrix.tags != 'test_motus'
+        if: ${{ matrix.tags != 'test_motus' }}
         run: |
           nextflow run ${{ github.workspace }} -profile ${{ matrix.tags }},${{ matrix.profile }} ${{ matrix.parameters }} --outdir ./results_${{ matrix.tags }}
+        with:
           attempt_limit: 3
