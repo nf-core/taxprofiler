@@ -73,5 +73,10 @@ jobs:
         uses: Wandalen/wretry.action@v1.0.11
         with:
           command: |
-            nextflow run ${GITHUB_WORKSPACE} -profile ${{ matrix.tags }},${{ matrix.profile }} ${{ matrix.parameters }} ${{ matrix.tags == 'test_motus' ? '--databases ./database_motus.csv' : '' }} --outdir ./results_${{ matrix.tags }}
+            if [ "${{ matrix.tags }}" == "test_motus" ]; then
+              DATABASE_ARGS="--databases ./database_motus.csv"
+            else
+              DATABASE_ARGS=""
+            fi
+            nextflow run ${{ github.workspace }} -profile ${{ matrix.tags }},${{ matrix.profile }} ${{ matrix.parameters }} $DATABASE_ARGS --outdir ./results_${{ matrix.tags }}
           attempt_limit: 3
