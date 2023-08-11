@@ -29,6 +29,7 @@ jobs:
           - "latest-everything"
         tags:
           - "test"
+          - "test_full"
           - "test_krakenuniq"
           - "test_malt"
           - "test_motus"
