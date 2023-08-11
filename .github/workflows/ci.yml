@@ -35,14 +35,8 @@ jobs:
           - "test_nopreprocessing"
           - "test_noprofiling"
           - "test_nothing"
-        parameters:
-          - "--preprocessing_qc_tool=falco"
-          - "--shortread_qc_tool=fastp"
-          - "--shortread_qc_tool=adapterremoval"
-          - "--shortread_complexityfilter_tool=bbduk"
-          - "--shortread_complexityfilter_tool=prinseqplusplus"
         profile:
-          - "docker"
+          - "docker,--preprocessing_qc_tool=falco --shortread_qc_tool=fastp --shortread_qc_tool=adapterremoval --shortread_complexityfilter_tool=bbdu,--shortread_complexityfilter_tool=prinseqplusplus"
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v3
@@ -60,21 +54,17 @@ jobs:
           sudo locale-gen en_US.UTF-8
           sudo update-locale LANG=en_US.UTF-8
 
-      - name: Run pipeline for motus
-        uses: Wandalen/wretry.action@v1.0.11
-        if: ${{ matrix.tags == 'test_motus' }}
-        with:
-          command: |
-            wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
-            python downloadDB.py > download_db_log.txt
-            echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
-            echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
-            nextflow run ${{ github.workspace }} -profile ${{ matrix.tags }},${{ matrix.profile }} ${{ matrix.parameters }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }}
-          attempt_limit: 3
-
       - name: Run pipeline with test data
         uses: Wandalen/wretry.action@v1.0.11
-        if: ${{ matrix.tags != 'test_motus' }}
         with:
-          command: nextflow run ${{ github.workspace }} -profile ${{ matrix.tags }},${{ matrix.profile }} ${{ matrix.parameters }} --outdir ./results_${{ matrix.tags }}
+          command: |
+            if [[ $matrix.tags == "test_motus" ]]; then
+              wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
+              python downloadDB.py > download_db_log.txt
+              echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
+              echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
+              nextflow run ${{ github.workspace }} -profile ${{ matrix.tags }},${{ matrix.profile }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }}
+            else
+              nextflow run ${{ github.workspace }} -profile ${{ matrix.tags }},${{ matrix.profile }} --outdir ./results_${{ matrix.tags }}
+            fi
           attempt_limit: 3
