@@ -392,7 +392,6 @@ workflow PROFILING {
                                     it ->
                                         reads: [ it[0] + it[2], it[1] ]
                                         db: it[3]
-
                             }
 
             KMCP_SEARCH (ch_input_for_kmcp.db, ch_input_for_kmcp.reads)
