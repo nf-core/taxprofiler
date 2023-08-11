@@ -19,7 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#345](https://github.com/nf-core/taxprofiler/pull/345) Add simple tutorial to explain how to get up and running with an nf-core/taxprofiler run (added by @jfy133)
 - [#312](https://github.com/nf-core/taxprofiler/pull/312) **New classifier** [kmcp](https://github.com/shenwei356/kmcp) (added by @sofstam)
 
-
 ### `Fixed`
 
 - [#271](https://github.com/nf-core/taxprofiler/pull/271) Improved standardised table generation documentation for mOTUs manual database download tutorial (♥ to @prototaxites for reporting, fix by @jfy133)

@@ -155,7 +155,6 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**kmcp**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. `kmcp index` in each turn is the output of `kmcp compute` step.
 
-
 :::info
 Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
 :::
