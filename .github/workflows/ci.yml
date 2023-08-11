@@ -35,8 +35,7 @@ jobs:
           - "test_nopreprocessing"
           - "test_noprofiling"
           - "test_nothing"
-        profile:
-          - "docker,--preprocessing_qc_tool=falco --shortread_qc_tool=fastp --shortread_qc_tool=adapterremoval --shortread_complexityfilter_tool=bbdu,--shortread_complexityfilter_tool=prinseqplusplus"
+          - "test_falco"
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v3
@@ -63,8 +62,8 @@ jobs:
               python downloadDB.py > download_db_log.txt
               echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
               echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
-              nextflow run ${{ github.workspace }} -profile ${{ matrix.tags }},${{ matrix.profile }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }}
+              nextflow run ${{ github.workspace }} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }}
             else
-              nextflow run ${{ github.workspace }} -profile ${{ matrix.tags }},${{ matrix.profile }} --outdir ./results_${{ matrix.tags }}
+              nextflow run ${{ github.workspace }} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }}
             fi
           attempt_limit: 3
