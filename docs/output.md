@@ -503,9 +503,17 @@ You will receive the relative abundance instead of read counts if you provide th
 
 [kmcp](https://github.com/shenwei356/kmcp) utilizes genome coverage information by splitting the reference genomes into chunks and stores k-mers in a modified and optimized COBS index for fast alignment-free sequence searching. KMCP combines k-mer similarity and genome coverage information to reduce the false positive rate of k-mer-based taxonomic classification and profiling methods.
 
+<details markdown="1">
 <summary>Output files</summary>
 
 - `kmcp`
+
+  - `<db_name>/`
+
+    - `<sample_id>.gz`: output of `kmcp_search` containing search sequences against a database.
+    - `<sample_id>_kmcp.profile`: output of `kmcp_profile` containing the taxonomic profile from search results.
+
+    </details>
 
 ### ganon
 
