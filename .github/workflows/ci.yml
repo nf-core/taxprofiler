@@ -69,5 +69,5 @@ jobs:
               nextflow run ${{ github.workspace }} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }};
             else
               nextflow run ${{ github.workspace }} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
-            fi
+            fi;
           attempt_limit: 3
