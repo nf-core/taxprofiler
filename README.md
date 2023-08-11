@@ -117,6 +117,7 @@ We thank the following people for their contributions to the development of this
 - [Jianhong Ou](https://github.com/jianhong)
 - [Rafal Stepien](https://github.com/rafalstepien)
 - [Mahwash Jamy](https://github.com/mjamy)
+- [Lily Andersson Lee](https://github.com/LilyAnderssonLee)
 
 ### Acknowledgments
 
@@ -127,7 +128,6 @@ We also are grateful for the feedback and comments from:
 And specifically to
 
 - [Alex Hübner](https://github.com/alexhbnr)
-- [Lily Andersson Lee](https://github.com/LilyAnderssonLee)
 
 ❤️ also goes to [Zandra Fagernäs](https://github.com/ZandraFagernas) for the logo.
 

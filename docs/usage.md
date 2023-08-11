@@ -97,7 +97,7 @@ nf-core/taxprofiler supports multiple databases being classified/profiled agains
 Databases can be supplied either in the form of a compressed `.tar.gz` archive of a directory containing all relevant database files or the path to a directory on the filesystem.
 
 :::warning
-nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building custom database](usage/tutorials.md#retrieving-databases-or-building-custom-databases) tutorials.
+nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building custom database](usage/tutorials#retrieving-databases-or-building-custom-databases) tutorials.
 :::
 
 The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
@@ -154,6 +154,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**kmcp**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. `kmcp index` in each turn is the output of `kmcp compute` step.
+
 
 :::info
 Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
@@ -255,7 +256,7 @@ You can optionally save the FASTQ output of the run merging with the `--save_com
 
 :::warning
 For nanopore data: we do not recommend performing any read preprocessing or complexity filtering if you are using ONTs Guppy toolkit for basecalling and post-processing.
-;::
+:::
 
 #### Host-Read Removal
 
