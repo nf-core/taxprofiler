@@ -331,7 +331,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the run-merging step",
-                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> \u26a0\ufe0f Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
+                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> ⚠️ Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
                 }
             },
             "fa_icon": "fas fa-clipboard-check"
@@ -513,6 +513,11 @@
                     "description": "Profiling mode.",
                     "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision)",
                     "fa_icon": "fas fa-check-square"
+                },
+                "kmcp_save_search": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving the output of kmcp search"
                 },
                 "run_ganon": {
                     "type": "boolean",
@@ -727,14 +732,12 @@
                     "type": "boolean",
                     "description": "Display help text.",
                     "fa_icon": "fas fa-question-circle",
-                    "default": false,
                     "hidden": true
                 },
                 "version": {
                     "type": "boolean",
                     "description": "Display version and exit.",
                     "fa_icon": "fas fa-question-circle",
-                    "default": false,
                     "hidden": true
                 },
                 "publish_dir_mode": {
@@ -758,7 +761,6 @@
                     "type": "boolean",
                     "description": "Send plain-text email instead of HTML.",
                     "fa_icon": "fas fa-remove-format",
-                    "default": false,
                     "hidden": true
                 },
                 "max_multiqc_email_size": {
@@ -773,7 +775,6 @@
                     "type": "boolean",
                     "description": "Do not use coloured log outputs.",
                     "fa_icon": "fas fa-palette",
-                    "default": false,
                     "hidden": true
                 },
                 "hook_url": {
@@ -812,7 +813,6 @@
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",
                     "description": "Show all params when using `--help`",
-                    "default": false,
                     "hidden": true,
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
                 },
