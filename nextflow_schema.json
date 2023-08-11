@@ -504,7 +504,7 @@
                 },
                 "run_kmcp": {
                     "type": "boolean",
-                    "description": "Turn on classification with kmcp.",
+                    "description": "Turn on classification with KMCP.",
                     "fa_icon": "fas fa-toggle-on"
                 },
                 "kmcp_mode": {
