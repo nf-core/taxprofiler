@@ -511,7 +511,7 @@
                     "type": "integer",
                     "default": 3,
                     "description": "Specify which KMCP profiling mode to use.",
-                    "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision)",
+                    "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision).\n\n> Modifies tool parameter(s):\n- kmcp profile: `--mode`\n",
                     "fa_icon": "fas fa-check-square"
                 },
                 "kmcp_save_search": {
