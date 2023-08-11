@@ -510,7 +510,7 @@
                 "kmcp_mode": {
                     "type": "integer",
                     "default": 3,
-                    "description": "Profiling mode.",
+                    "description": "Specify which KMCP profiling mode to use.",
                     "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision)",
                     "fa_icon": "fas fa-check-square"
                 },
