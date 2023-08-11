@@ -406,7 +406,7 @@ workflow PROFILING {
             ch_input_for_kmcp_profile = combineProfilesWithDatabase(KMCP_SEARCH.out.result, ch_database_for_kmcp_profile)
 
             //Generate kmcp profile
-            KMCP_PROFILE (ch_input_for_kmcp_profile.profile,ch_input_for_profile.db, params.kmcp_mode)
+            KMCP_PROFILE (ch_input_for_kmcp_profile.profile,ch_input_for_kmcp_profile.db, params.kmcp_mode)
 
             ch_versions = ch_versions.mix( KMCP_PROFILE.out.versions.first() )
             ch_raw_profiles    = ch_raw_profiles.mix( KMCP_PROFILE.out.profile )
