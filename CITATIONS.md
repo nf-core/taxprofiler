@@ -98,7 +98,7 @@
 
   > Ruscheweyh, H.-J., Milanese, A., Paoli, L., Karcher, N., Clayssen, Q., Keller, M. I., Wirbel, J., Bork, P., Mende, D. R., Zeller, G., & Sunagawa, S. (2022). Cultivation-independent genomes greatly expand taxonomic-profiling capabilities of mOTUs across various environments. Microbiome, 10(1), 212. https://doi.org/10.1186/s40168-022-01410-z
 
-- [kmcp](https://doi.org/10.1093/bioinformatics/btac845)
+- [KMCP](https://doi.org/10.1093/bioinformatics/btac845)
 
   > Shen, W., Xiang, H., Huang, T., Tang, H., Peng, M., Cai, D., Hu, P., & Ren, H. (2023). KMCP: accurate metagenomic profiling of both prokaryotic and viral populations by pseudo-mapping. Bioinformatics (Oxford, England), 39(1). https://doi.org/10.1093/bioinformatics/btac845
 
