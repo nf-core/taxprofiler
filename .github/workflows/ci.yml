@@ -62,7 +62,7 @@ jobs:
         uses: Wandalen/wretry.action@v1.0.11
         with:
           command: |
-            if [[ $matrix.tags == 'test_motus' ]]; then
+            if [[ "${{ matrix.tags }}" == "test_motus" ]]; then
                 wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
                 python downloadDB.py > download_db_log.txt
                 echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
