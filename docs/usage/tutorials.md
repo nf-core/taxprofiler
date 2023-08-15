@@ -588,7 +588,7 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 
 More information on custom ganon database construction can be found [here](https://pirovc.github.io/ganon/custom_databases/).
 
-#### kmcp custom database
+#### KMCP custom database
 
 To build a kmcp ganon database you need three components: the FASTA files you wish to include in gzip-compressed format and one genome per file with the reference identifier in the file name, the taxid mapping file, and NCBI taxonomy dump files (names.dmp, nodes.dmp)
 
