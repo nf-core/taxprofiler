@@ -517,7 +517,7 @@
                 "kmcp_save_search": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Turn on saving the output of kmcp search"
+                    "description": "Turn on saving the output of KMCP search"
                 },
                 "run_ganon": {
                     "type": "boolean",
