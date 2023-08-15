@@ -331,7 +331,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the run-merging step",
-                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> ⚠️ Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
+                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> \u26a0\ufe0f Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
                 }
             },
             "fa_icon": "fas fa-clipboard-check"
@@ -511,7 +511,7 @@
                     "type": "integer",
                     "default": 3,
                     "description": "Specify which KMCP profiling mode to use.",
-                    "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision).\n\n> Modifies tool parameter(s):\n- kmcp profile: `--mode`\n",
+                    "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision).\nFor more information about the different profiling modes, please see the [kmcp documentation](https://bioinf.shenwei.me/kmcp/usage/#profile)\n\n> Modifies tool parameter(s):\n- kmcp profile: `--mode`\n\n",
                     "fa_icon": "fas fa-check-square"
                 },
                 "kmcp_save_search": {
