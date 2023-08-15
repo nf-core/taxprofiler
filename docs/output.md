@@ -499,7 +499,7 @@ The output contains a file named `*_combined_reports.txt`, which provides an ove
 Normally `*_combined_reports.txt` is the most useful file for downstream analyses, but the per sample `.out` file can provide additional more specific information. By default, nf-core/taxprofiler is providing a column describing NCBI taxonomic ID as this is used in the taxpasta step. You can disable this column by activating the argument `--motus_remove_ncbi_ids`.
 You will receive the relative abundance instead of read counts if you provide the argument `--motus_use_relative_abundance`.
 
-### kmcp
+### KMCP
 
 [kmcp](https://github.com/shenwei356/kmcp) utilizes genome coverage information by splitting the reference genomes into chunks and stores k-mers in a modified and optimized COBS index for fast alignment-free sequence searching. KMCP combines k-mer similarity and genome coverage information to reduce the false positive rate of k-mer-based taxonomic classification and profiling methods.
 
