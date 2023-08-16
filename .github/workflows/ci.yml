@@ -29,7 +29,6 @@ jobs:
           - "latest-everything"
         tags:
           - "test"
-          - "test_full"
           - "test_nopreprocessing"
           - "test_noprofiling"
           - "test_krakenuniq"
