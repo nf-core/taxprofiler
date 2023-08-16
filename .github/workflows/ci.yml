@@ -58,7 +58,20 @@ jobs:
           sudo update-locale LANG=en_US.UTF-8
 
       - name: Run pipeline with test data
+        run: |
+          if [[ "${{ matrix.tags }}" == "test_motus" ]]; then 
+            wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py 
+            python downloadDB.py > download_db_log.txt
+            echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
+            echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
+            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }}; 
+          else 
+            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
+          fi
+
+      - name: Retry on failure
         uses: Wandalen/wretry.action@v1.3.0
         with:
-          command: if [[ "${{ matrix.tags }}" == "test_motus" ]]; then wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py; python downloadDB.py > download_db_log.txt; echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'; echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'; nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases './database_motus.csv' --outdir ./results_${{ matrix.tags }}; else nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }}; fi
+          command: echo "Retrying the previous step"
           attempt_limit: 3
+        if: failure()
