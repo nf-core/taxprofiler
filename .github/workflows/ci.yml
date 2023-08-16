@@ -28,6 +28,10 @@ jobs:
           - "23.04.0"
           - "latest-everything"
         tags:
+          - "test"
+          - "test_full"
+          - "test_nopreprocessing"
+          - "test_noprofiling"
           - "test_krakenuniq"
           - "test_malt"
           - "test_motus"
@@ -55,32 +59,17 @@ jobs:
 
       - name: Run pipeline with test data
         run: |
-          attempt=1
-          max_attempts=3
-
-          while [[ $attempt -le $max_attempts ]]; do
-            echo "Running pipeline - Attempt $attempt"
-
-            if [[ "${{ matrix.tags }}" == "test_motus" ]]; then 
-              wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py 
-              python downloadDB.py > download_db_log.txt
-              echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
-              echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
-              nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }} 
-            else 
-              nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }}
-            fi
-
-            if [[ $? -eq 0 ]]; then
-              echo "Pipeline run successfully"
-              break
-            else
-              echo "Pipeline run failed - Retrying..."
-              attempt=$((attempt + 1))
-            fi
-          done
-
-          if [[ $attempt -gt $max_attempts ]]; then
-            echo "Exceeded maximum number of attempts. Pipeline run unsuccessful."
-            exit 1
+          if [[ "${{ matrix.tags }}" == "test_motus" ]]; then 
+            wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py 
+            python downloadDB.py > download_db_log.txt
+            echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
+            echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
+            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }}; 
+          else 
+            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
           fi
+        retry:
+          max: 3
+          when:
+            - runner_system_failure
+            - stuck_or_timeout_failure
