@@ -21,6 +21,11 @@ jobs:
     # Only run on push if this is the nf-core dev branch (merged PRs)
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}"
     runs-on: ubuntu-latest
+    retry:
+      max: 3
+      when:
+        - runner_system_failure
+        - stuck_or_timeout_failure
     strategy:
       fail-fast: false
       matrix:
@@ -40,11 +45,6 @@ jobs:
           - "test_adapterremoval"
           - "test_bbduk"
           - "test_prinseqplusplus"
-    retry:
-      max: 3
-      when:
-        - runner_system_failure
-        - stuck_or_timeout_failure
 
     steps:
       - name: Check out pipeline code
