@@ -28,13 +28,9 @@ jobs:
           - "23.04.0"
           - "latest-everything"
         tags:
-          - "test"
           - "test_krakenuniq"
           - "test_malt"
           - "test_motus"
-          - "test_nopreprocessing"
-          - "test_noprofiling"
-          - "test_nothing"
           - "test_falco"
           - "test_fastp"
           - "test_adapterremoval"
