@@ -55,19 +55,32 @@ jobs:
 
       - name: Run pipeline with test data
         run: |
-          if [[ "${{ matrix.tags }}" == "test_motus" ]]; then 
-            wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py 
-            python downloadDB.py > download_db_log.txt
-            echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
-            echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
-            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }}; 
-          else 
-            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
-          fi
+          attempt=1
+          max_attempts=3
 
-      - name: Retry on failure
-        uses: Wandalen/wretry.action@v1.3.0
-        with:
-          command: echo "Retrying the previous step"
-          attempt_limit: 3
-        if: failure()
+          while [[ $attempt -le $max_attempts ]]; do
+            echo "Running pipeline - Attempt $attempt"
+
+            if [[ "${{ matrix.tags }}" == "test_motus" ]]; then 
+              wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py 
+              python downloadDB.py > download_db_log.txt
+              echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
+              echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
+              nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }} 
+            else 
+              nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }}
+            fi
+
+            if [[ $? -eq 0]]; then
+              echo "Pipeline run successfully"
+              break
+            else
+              echo "Pipeline run failed - Retrying..."
+              attempt=$((attempt + 1))
+            fi
+          done
+
+          if [[ $attempt -gt $max_attempts ]]; then
+            echo "Exceeded maximum number of attempts. Pipeline run unsuccessful."
+            exit 1
+          fi
