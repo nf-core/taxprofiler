@@ -40,6 +40,12 @@ jobs:
           - "test_adapterremoval"
           - "test_bbduk"
           - "test_prinseqplusplus"
+    retry:
+      max: 3
+      when:
+        - runner_system_failure
+        - stuck_or_timeout_failure
+
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v3
@@ -68,8 +74,3 @@ jobs:
           else 
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
           fi
-        retry:
-          max: 3
-          when:
-            - runner_system_failure
-            - stuck_or_timeout_failure
