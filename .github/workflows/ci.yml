@@ -71,7 +71,7 @@ jobs:
               nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }}
             fi
 
-            if [[ $? -eq 0]]; then
+            if [[ $? -eq 0 ]]; then
               echo "Pipeline run successfully"
               break
             else
