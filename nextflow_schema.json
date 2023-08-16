@@ -517,7 +517,8 @@
                 "kmcp_save_search": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Turn on saving the output of KMCP search"
+                    "description": "Turn on saving the output of KMCP search",
+                    "help_text": "During the searching step, KMCP searches across the database with all k-mers and returns reference genome chunks sharing enough k-mers with the query.  The output file is a tab-delimited file in gzip format with 15 columns and is used to generate the taxonomic profiling.  More information about the columns can be found here. https://bioinf.shenwei.me/kmcp/usage/#search. "
                 },
                 "run_ganon": {
                     "type": "boolean",
