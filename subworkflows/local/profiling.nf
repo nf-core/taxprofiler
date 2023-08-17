@@ -393,7 +393,7 @@ workflow PROFILING {
                                     meta, reads, db_meta, db ->
                                         def db_meta_new = db_meta.clone()
 
-                                        // Only take second element if one exists
+                                        //Split the string
                                         def parsed_params = db_meta_new['db_params'].split(";")
                                         if ( parsed_params.size() == 2 ) {
                                             db_meta_new['db_params'] = parsed_params[0]
