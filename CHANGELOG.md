@@ -31,14 +31,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#290](https://github.com/nf-core/taxprofiler/pull/290) Minor database input documentation improvements (♥ to @alneberg for reporting, fix by @jfy133)
 - [#305](https://github.com/nf-core/taxprofiler/pull/305) Fix docker/podman registry definition for tower compatibility (fix by @adamrtalbot, @jfy133)
 - [#304](https://github.com/nf-core/taxprofiler/pull/304) Correct mistake in kaiju2table documentation, only single rank can be supplied (♥ to @artur-matysik for reporting, fix by @jfy133)
-- [#307](https://github.com/nf-core/taxprofiler/pull/307) Fix databases being sometimes associated with the wrong tool (e.g. Kaiju) (fix by @jfy133)
+- [#307](https://github.com/nf-core/taxprofiler/pull/307) Fix databases being sometimes associated with the wrong tool (e.g. Kaiju) (fix by @jfy133, @Midnighter and @LilyAnderssonLee)
 - [#313](https://github.com/nf-core/taxprofiler/pull/304) Fix pipeline not providing error when database sheet does not have a header (♥ to @noah472 for reporting, fix by @jfy133)
 - [#330](https://github.com/nf-core/taxprofiler/pull/330) Added better tagging to allow disambiguation of Kraken2 steps of Kraken2 vs Bracken (♥ to @MajoroMask for requesting, added by @jfy133)
 - [#334](https://github.com/nf-core/taxprofiler/pull/334) Increase the memory of the FALCO process to 4GB (fix by @LilyAnderssonLee)
 - [#332](https://github.com/nf-core/taxprofiler/pull/332) Improved meta map stability for more robust pipeline resuming (fix by @jfy133)
 - [#338](https://github.com/nf-core/taxprofiler/pull/338) Fixed wrong file 'out' file going to `centrifuge kreport` module (♥ to @LilyAnderssonLee for reporting, fix by @jfy133)
 - [#342](https://github.com/nf-core/taxprofiler/pull/342) Fixed docs/usage to correctly list the required database files for Bracken and tips to obtain Kraken2 databases (fix by @husensofteng)
-- [#351](https://github.com/nf-core/taxprofiler/issues/351) Add combineProfilesWithDatabase to enhance profiler `ganon` (fix by @LilyAnderssonLee)
 
 ### `Dependencies`
 
