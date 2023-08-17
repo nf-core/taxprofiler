@@ -89,6 +89,7 @@ def validate_db_rows(LinkedHashMap row) {
 
     // check if any form of bracken params, that it must have `;`
     if ( row.tool == 'bracken' && row.db_params && !row.db_params.contains(";") )  error("[nf-core/taxprofiler] ERROR: Invalid database db_params entry. Bracken requires a semi-colon if passing parameter. Error in: ${row}")
+    if (row.tools == 'kmcp' && row.db_params && !row.db_params.contains(";") ) error ("[nf-core/taxprofiler] ERROR: Invalid database db_params entry. KMCP requires a semi-colon if passing parameter. Error in: ${row}")
 
     // ensure that the database directory exists
     if (!file(row.db_path, type: 'dir').exists()) error("ERROR: Please check input samplesheet -> database path could not be found!\n${row.db_path}")

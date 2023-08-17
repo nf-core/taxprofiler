@@ -383,12 +383,29 @@ workflow PROFILING {
     if (params.run_kmcp) {
 
             ch_input_for_kmcp = ch_input_for_profiling.kmcp
+                                .dump(tag: "ch_input_for_kmcp_b4")
                                 .filter {
                                     meta, reads, meta_db, db ->
                                         if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Kmcp is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Skipping kmcp for sample ${meta.id}."
                                         meta_db['tool'] == 'kmcp' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
                                     }
-                                    .multiMap {
+                                .map {
+                                    meta, reads, db_meta, db ->
+                                        def db_meta_new = db_meta.clone()
+
+                                        // Only take second element if one exists
+                                        def parsed_params = db_meta_new['db_params'].split(";")
+                                        if ( parsed_params.size() == 2 ) {
+                                            db_meta_new['db_params'] = parsed_params[0]
+                                        } else if ( parsed_params.size() == 0 ) {
+                                            db_meta_new['db_params'] = ""
+                                        } else {
+                                            db_meta_new['db_params'] = parsed_params[0]
+                                        }
+
+                                    [ meta, reads, db_meta_new, db ]
+                                    }
+                                .multiMap {
                                     it ->
                                         reads: [ it[0] + it[2], it[1] ]
                                         db: it[3]
