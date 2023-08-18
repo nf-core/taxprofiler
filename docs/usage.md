@@ -121,10 +121,12 @@ centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
 metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
-kmcp,db1,,/<path>/<to>/ganon/test-db-kmcp.tar.gz
+kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 ```
 
 For Bracken, if you wish to supply any parameters to either the Kraken or Bracken step you **must** have a _semi-colon_ `;` list as in `db_params`. This is to allow to specify the Kraken2 parameters before, and Bracken parameters after the `;` as Bracken is a two step process. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this as empty.
+
+For KMCP, if you want to supply any parameters to KMCP profile step, you **must** have a _semi-colon_ `;` list as in `db_params`. This is to allow to specify the KMCP profile parameters after the `;` as KMCP is a two step process including search and profile. If you do not have any parameters to specify, you can leave this as empty.
 
 Column specifications are as follows:
 
