@@ -155,7 +155,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**MetaPhlAn**:](usage/tutorials.md#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
 - [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
-- [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. `kmcp index` is the output of `kmcp compute` step.
+- [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
 
 :::info
 Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
