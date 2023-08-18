@@ -79,7 +79,7 @@ def validate_db_rows(LinkedHashMap row) {
     if ( !row.keySet().containsAll(expected_headers) ) error("[nf-core/taxprofiler] ERROR: Invalid database input sheet - malformed column names. Please check input TSV. Column names should be: ${expected_headers.join(", ")}")
 
     // valid tools specified
-    def expected_tools = [ "bracken", "centrifuge", "diamond", "kaiju", "cd", "krakenuniq", "malt", "metaphlan", "motus", "ganon", "kmcp" ]
+    def expected_tools = [ "bracken", "centrifuge", "diamond", "ganon", "kaiju", "kmcp", "kraken2", "krakenuniq", "malt", "metaphlan", "motus" ]
 
     if ( !expected_tools.contains(row.tool) ) error("[nf-core/taxprofiler] ERROR: Invalid tool name. Please see documentation for all supported profilers. Error in: ${row}")
 
@@ -89,7 +89,7 @@ def validate_db_rows(LinkedHashMap row) {
 
     // check if any form of bracken params, that it must have `;`
     if ( row.tool == 'bracken' && row.db_params && !row.db_params.contains(";") )  error("[nf-core/taxprofiler] ERROR: Invalid database db_params entry. Bracken requires a semi-colon if passing parameter. Error in: ${row}")
-    if ( row.tool == 'kmcp' && row.db_params && !row.db_params.contains(";"))  error ("[nf-core/taxprofiler] ERROR: Invalid database db_params entry. KMCP requires a semi-colon if passing argument. Error in: ${row}")
+    if ( row.tool == 'kmcp' && row.db_params && row.db_params.matches(".*;\$"))  error ("[nf-core/taxprofiler] ERROR: Invalid database db_params entry. KMCP  only requires a semi-colon if passing arguments to KMCP profile, in cases of which should go after the semi-colon. Error in: ${row}")
 
     // ensure that the database directory exists
     if (!file(row.db_path, type: 'dir').exists()) error("ERROR: Please check input samplesheet -> database path could not be found!\n${row.db_path}")

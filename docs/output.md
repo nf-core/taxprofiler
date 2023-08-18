@@ -515,9 +515,9 @@ You will receive the relative abundance instead of read counts if you provide th
 
   </details>
 
-  You will receive the `<sample_id>.gz` file if you supply `--kmcp_save_search`. Please note that there is no taxonomic label assignment in this output file.
+You will receive the `<sample_id>.gz` file if you supply `--kmcp_save_search`. Please note that there is no taxonomic label assignment in this output file.
 
-The main taxonomic classification file from kmcp is the `*kmcp.profile` which is also used by the taxpasta step.
+The main taxonomic classification file from KMCP is the `*kmcp.profile` which is also used by the taxpasta step.
 
 ### ganon
 

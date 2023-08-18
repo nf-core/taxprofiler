@@ -383,10 +383,9 @@ workflow PROFILING {
     if (params.run_kmcp) {
 
             ch_input_for_kmcp = ch_input_for_profiling.kmcp
-                                .dump(tag: "ch_input_for_kmcp_b4")
                                 .filter {
                                     meta, reads, meta_db, db ->
-                                        if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Kmcp is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Skipping kmcp for sample ${meta.id}."
+                                        if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] KMCP is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Skipping KMCP for sample ${meta.id}."
                                         meta_db['tool'] == 'kmcp' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
                                     }
                                 .map {
@@ -411,7 +410,7 @@ workflow PROFILING {
                                        db: it[3]
                             }
 
-            KMCP_SEARCH (ch_input_for_kmcp.db, ch_input_for_kmcp.reads)
+            KMCP_SEARCH ( ch_input_for_kmcp.db, ch_input_for_kmcp.reads )
 
             ch_versions            = ch_versions.mix( KMCP_SEARCH.out.versions.first() )
             ch_raw_classifications = ch_raw_classifications.mix(KMCP_SEARCH.out.result)
@@ -420,12 +419,12 @@ workflow PROFILING {
                                                 .filter { meta, db -> meta.tool == 'kmcp' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
-            ch_input_for_kmcp_profile=KMCP_SEARCH.out.result
+            ch_input_for_kmcp_profile = KMCP_SEARCH.out.result
                 .map { meta, report -> [meta.db_name, meta, report] }
                 .combine(ch_database_for_kmcp_profile, by: 0)
                 .map {
 
-                key, meta, reads, db_meta, db ->
+                  key, meta, reads, db_meta, db ->
 
                     //Same as  kraken2/bracken logic here. Arguments after semicolon are going into KMCP_PROFILE
                     def db_meta_keys = db_meta.keySet()
@@ -448,8 +447,7 @@ workflow PROFILING {
             }
 
             //Generate kmcp profile
-            KMCP_PROFILE(ch_input_for_kmcp_profile.report,ch_input_for_kmcp.db,params.kmcp_mode)
-           //KMCP_PROFILE (ch_input_for_kmcp_profile.profile,ch_input_for_kmcp_profile.db, params.kmcp_mode)
+            KMCP_PROFILE( ch_input_for_kmcp_profile.report, ch_input_for_kmcp.db, params.kmcp_mode )
             ch_versions = ch_versions.mix( KMCP_PROFILE.out.versions.first() )
             ch_raw_profiles    = ch_raw_profiles.mix( KMCP_PROFILE.out.profile )
             ch_multiqc_files   = ch_multiqc_files.mix( KMCP_PROFILE.out.profile )
