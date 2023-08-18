@@ -595,6 +595,15 @@ To build a KMCP ganon database you need three components: the FASTA files you wi
 1. You need to compute the k-mers with [`kmcp compute`](https://bioinf.shenwei.me/kmcp/usage/#compute) and by providing as input the FASTA files you wish to include.
 2. You need to build index for k-mers with [`kmcp index`](https://bioinf.shenwei.me/kmcp/usage/#index) by providing as input the output of `kmcp compute`
 
+For example
+
+```bash
+kmcp compute -k 21 -n 10 -l 150 -O <OUTDIR_NAME>  <path>/<to>/<fasta>/*.{fna,fa,fasta}
+kmcp index -I <OUTDIR_NAME>/ --threads 8 --num-hash 1 --false-positive-rate 0.3 --out-dir <YOUR_DB_NAME>/
+```
+
+You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
+
 <details markdown="1">
 <summary>Expected files in database directory</summary>
 
@@ -606,4 +615,4 @@ To build a KMCP ganon database you need three components: the FASTA files you wi
 
 </details>
 
-More information on custom kmcp database construction can be found [here](https://bioinf.shenwei.me/kmcp/database/#building-custom-databases).
+More information on custom KMCP database construction can be found [here](https://bioinf.shenwei.me/kmcp/database/#building-custom-databases).
