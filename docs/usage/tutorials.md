@@ -590,7 +590,7 @@ More information on custom ganon database construction can be found [here](https
 
 #### KMCP custom database
 
-To build a KMCP database you need three components: the FASTA files you wish to include in gzip-compressed format and one genome per file with the reference identifier in the file name, the taxid mapping file, and NCBI taxonomy dump files (names.dmp, nodes.dmp)
+To build a KMCP database you need four components: the FASTA files you wish to include in gzip-compressed format and one genome per file with the reference identifier in the file name, the taxid mapping file, NCBI taxonomy dump files (names.dmp, nodes.dmp), and the range of k-mers to build the database with.
 
 1. You need to compute the k-mers with [`kmcp compute`](https://bioinf.shenwei.me/kmcp/usage/#compute) and by providing as input the FASTA files you wish to include.
 2. You need to build index for k-mers with [`kmcp index`](https://bioinf.shenwei.me/kmcp/usage/#index) by providing as input the output of `kmcp compute`

@@ -15,8 +15,8 @@ include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                                 } from '../../modules/nf-core/motus/profile/main'
 include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
-include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { KMCP_SEARCH                                   } from '../../modules/nf-core/kmcp/search/main'
+include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
 
@@ -80,7 +80,6 @@ workflow PROFILING {
                 ganon: it[2]['tool'] == 'ganon'
                 unknown: true
             }
-
 
     /*
         PREPARE PROFILER INPUT CHANNELS & RUN PROFILING
@@ -390,9 +389,10 @@ workflow PROFILING {
                                     }
                                 .map {
                                     meta, reads, db_meta, db ->
-                                        def db_meta_new = db_meta.clone()
+                                        def db_meta_keys = db_meta.keySet()
+                                        def db_meta_new = db_meta.subMap(db_meta_keys)
 
-                                        //Split the string, the arguments before semicolon should be parsed into kmcp search
+                                        // Split the string, the arguments before semicolon should be parsed into kmcp search
                                         def parsed_params = db_meta_new['db_params'].split(";")
                                         if ( parsed_params.size() == 2 ) {
                                             db_meta_new['db_params'] = parsed_params[0]
@@ -406,9 +406,9 @@ workflow PROFILING {
                                 }
                                 .multiMap  {
                                     it ->
-                                       reads: [ it[0] + it[2], it[1] ]
-                                       db: it[3]
-                            }
+                                        reads: [ it[0] + it[2], it[1] ]
+                                        db: it[3]
+                                }
 
             KMCP_SEARCH ( ch_input_for_kmcp.db, ch_input_for_kmcp.reads )
 
@@ -424,19 +424,19 @@ workflow PROFILING {
                 .combine(ch_database_for_kmcp_profile, by: 0)
                 .map {
 
-                  key, meta, reads, db_meta, db ->
+                    key, meta, reads, db_meta, db ->
 
-                    //Same as  kraken2/bracken logic here. Arguments after semicolon are going into KMCP_PROFILE
-                    def db_meta_keys = db_meta.keySet()
-                    def db_meta_new = db_meta.subMap(db_meta_keys)
+                        // Same as kraken2/bracken logic here. Arguments after semicolon are going into KMCP_PROFILE
+                        def db_meta_keys = db_meta.keySet()
+                        def db_meta_new = db_meta.subMap(db_meta_keys)
 
-                    def parsed_params = db_meta['db_params'].split(";")
+                        def parsed_params = db_meta['db_params'].split(";")
 
-                        if ( parsed_params.size() == 2 ) {
-                            db_meta_new = db_meta + [ db_params: parsed_params[1] ]
-                        } else {
-                            db_meta_new = db_meta + [ db_params: "" ]
-                        }
+                            if ( parsed_params.size() == 2 ) {
+                                db_meta_new = db_meta + [ db_params: parsed_params[1] ]
+                            } else {
+                                db_meta_new = db_meta + [ db_params: "" ]
+                            }
 
                     [ key, meta, reads, db_meta_new, db ]
 
@@ -451,8 +451,7 @@ workflow PROFILING {
             ch_versions = ch_versions.mix( KMCP_PROFILE.out.versions.first() )
             ch_raw_profiles    = ch_raw_profiles.mix( KMCP_PROFILE.out.profile )
             ch_multiqc_files   = ch_multiqc_files.mix( KMCP_PROFILE.out.profile )
-
- }
+}
 
 
     if ( params.run_ganon ) {
