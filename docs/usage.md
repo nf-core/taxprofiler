@@ -124,9 +124,15 @@ ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 ```
 
-For Bracken, if you wish to supply any parameters to either the Kraken or Bracken step you **must** have a _semi-colon_ `;` list as in `db_params`. This is to allow to specify the Kraken2 parameters before, and Bracken parameters after the `;` as Bracken is a two step process. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this as empty.
+:::warning
+For Bracken and KMCP, which are two step profilers, nf-core/taxprofiler has a special way of passing parameters to each steps!
 
-For KMCP, if you want to supply any parameters to KMCP profile step, you **must** have a _semi-colon_ `;` list as in `db_params`. This is to allow to specify the KMCP profile parameters after the `;` as KMCP is a two step process including search and profile. If you do not have any parameters to specify, you can leave this as empty.
+For Bracken, if you wish to supply any parameters to both the Kraken or Bracken steps or just the Bracken step, you **must** have a _semi-colon_ `;` list in the `db_params` column. This allows you to specify the Kraken2 parameters before and Bracken parameters after the `;`. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this column empty. If you wish to provide settings to _just_ the Kraken2 step of the Bracken profiling, you can supply a normal string to the column without a semi-colon. If you wish to supply parameters to only Bracken (and keep default Kraken2 parameters), then you supply a string to the column starting with `;` and the Bracken parameters _after_.
+
+Similiarly, for KMCP, if you want to supply parameters both the first (KMCP search) and the _second step_ (KMCP profile) steps, you **must** have a _semi-colon_ separated`;` list in `db_params`. If you wish to provide parameters to just KMCP search, you do not need the `;`. If you want to supply parameters to just KMCP profile (and keep search parameters at default), then you must start the string with `;` and the KMCP profile parameters come _after_ the semi colon. If you do not wish to modify any parameters, you can leave the column empty (i.e. the `;` is not necessary).
+
+This is to allow specifying the KMCP profile parameters after the `;`, and the KM. If you do not have any parameters to specify, you can leave this as empty.
+:::
 
 Column specifications are as follows:
 
