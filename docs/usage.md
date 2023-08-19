@@ -121,9 +121,18 @@ centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
 metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
+kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 ```
 
-For Bracken, if you wish to supply any parameters to either the Kraken or Bracken step you **must** have a _semi-colon_ `;` list as in `db_params`. This is to allow to specify the Kraken2 parameters before, and Bracken parameters after the `;` as Bracken is a two step process. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this as empty.
+:::warning
+For Bracken and KMCP, which are two step profilers, nf-core/taxprofiler has a special way of passing parameters to each steps!
+
+For Bracken, if you wish to supply any parameters to both the Kraken or Bracken steps or just the Bracken step, you **must** have a _semi-colon_ `;` list in the `db_params` column. This allows you to specify the Kraken2 parameters before and Bracken parameters after the `;`. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this column empty. If you wish to provide settings to _just_ the Kraken2 step of the Bracken profiling, you can supply a normal string to the column without a semi-colon. If you wish to supply parameters to only Bracken (and keep default Kraken2 parameters), then you supply a string to the column starting with `;` and the Bracken parameters _after_.
+
+Similiarly, for KMCP, if you want to supply parameters both the first (KMCP search) and the _second step_ (KMCP profile) steps, you **must** have a _semi-colon_ separated`;` list in `db_params`. If you wish to provide parameters to just KMCP search, you do not need the `;`. If you want to supply parameters to just KMCP profile (and keep search parameters at default), then you must start the string with `;` and the KMCP profile parameters come _after_ the semi colon. If you do not wish to modify any parameters, you can leave the column empty (i.e. the `;` is not necessary).
+
+This is to allow specifying the KMCP profile parameters after the `;`, and the KM. If you do not have any parameters to specify, you can leave this as empty.
+:::
 
 Column specifications are as follows:
 
@@ -142,16 +151,17 @@ nf-core/taxprofiler will automatically decompress and extract any compressed arc
 
 The (uncompressed) database paths (`db_path`) for each tool are expected to contain:
 
-- [**Bracken**:](usage/tutorials#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
-- [**Centrifuge**:](usage/tutorials#centrifuge-custom-database) output of `centrifuge-build`.
-- [**DIAMOND**:](usage/tutorials#diamond-custom-database) output of `diamond makedb`.
-- [**Kaiju**:](usage/tutorials#kaiju-custom-database) output of `kaiju-makedb`.
-- [**Kraken2**:](usage/tutorials#kraken2-custom-database) output of `kraken2-build` command(s).
-- [**KrakenUniq**:](usage/tutorials#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
-- [**MALT**](usage/tutorials#malt-custom-database) output of `malt-build`.
-- [**MetaPhlAn**:](usage/tutorials#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
-- [**mOTUs**:](usage/tutorials#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
-- [**ganon**:](usage/tutorials#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
+- [**Bracken**:](usage/tutorials.md#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
+- [**Centrifuge**:](usage/tutorials.md#centrifuge-custom-database) output of `centrifuge-build`.
+- [**DIAMOND**:](usage/tutorials.md#diamond-custom-database) output of `diamond makedb`.
+- [**Kaiju**:](usage/tutorials.md#kaiju-custom-database) output of `kaiju-makedb`.
+- [**Kraken2**:](usage/tutorials.md#kraken2-custom-database) output of `kraken2-build` command(s).
+- [**KrakenUniq**:](usage/tutorials.md#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
+- [**MALT**](usage/tutorials.md#malt-custom-database) output of `malt-build`.
+- [**MetaPhlAn**:](usage/tutorials.md#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
+- [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
+- [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
+- [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
 
 :::info
 Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
@@ -342,6 +352,10 @@ mOTUs currently does not accept FASTA files as input, therefore no output will b
 It is unclear whether ganon is suitable for running long reads - during testing we found issues where ganon would fail on the long-read test data.
 
 Therefore currently nf-core/taxprofiler does not run ganon on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet.
+
+##### KMCP
+
+KMCP is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Therefore, nf-core/taxprofiler does not currently run KMCP on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet.
 
 #### Post Processing
 

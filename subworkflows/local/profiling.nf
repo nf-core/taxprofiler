@@ -15,6 +15,8 @@ include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                                 } from '../../modules/nf-core/motus/profile/main'
 include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
+include { KMCP_SEARCH                                   } from '../../modules/nf-core/kmcp/search/main'
+include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
 
@@ -74,6 +76,7 @@ workflow PROFILING {
                 malt:    it[2]['tool'] == 'malt'
                 metaphlan: it[2]['tool'] == 'metaphlan'
                 motus: it[2]['tool'] == 'motus'
+                kmcp: it[2]['tool'] == 'kmcp'
                 ganon: it[2]['tool'] == 'ganon'
                 unknown: true
             }
@@ -375,6 +378,81 @@ workflow PROFILING {
         ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
 
     }
+
+    if (params.run_kmcp) {
+
+            ch_input_for_kmcp = ch_input_for_profiling.kmcp
+                                .filter {
+                                    meta, reads, meta_db, db ->
+                                        if ( meta['instrument_platform'] == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] KMCP is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Skipping KMCP for sample ${meta.id}."
+                                        meta_db['tool'] == 'kmcp' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+                                    }
+                                .map {
+                                    meta, reads, db_meta, db ->
+                                        def db_meta_keys = db_meta.keySet()
+                                        def db_meta_new = db_meta.subMap(db_meta_keys)
+
+                                        // Split the string, the arguments before semicolon should be parsed into kmcp search
+                                        def parsed_params = db_meta_new['db_params'].split(";")
+                                        if ( parsed_params.size() == 2 ) {
+                                            db_meta_new['db_params'] = parsed_params[0]
+                                        } else if ( parsed_params.size() == 0 ) {
+                                            db_meta_new['db_params'] = ""
+                                        } else {
+                                            db_meta_new['db_params'] = parsed_params[0]
+                                        }
+
+                                    [ meta, reads, db_meta_new, db ]
+                                }
+                                .multiMap  {
+                                    it ->
+                                        reads: [ it[0] + it[2], it[1] ]
+                                        db: it[3]
+                                }
+
+            KMCP_SEARCH ( ch_input_for_kmcp.db, ch_input_for_kmcp.reads )
+
+            ch_versions            = ch_versions.mix( KMCP_SEARCH.out.versions.first() )
+            ch_raw_classifications = ch_raw_classifications.mix(KMCP_SEARCH.out.result)
+
+            ch_database_for_kmcp_profile = databases
+                                                .filter { meta, db -> meta.tool == 'kmcp' }
+                                                .map { meta, db -> [meta.db_name, meta, db] }
+
+            ch_input_for_kmcp_profile = KMCP_SEARCH.out.result
+                .map { meta, report -> [meta.db_name, meta, report] }
+                .combine(ch_database_for_kmcp_profile, by: 0)
+                .map {
+
+                    key, meta, reads, db_meta, db ->
+
+                        // Same as kraken2/bracken logic here. Arguments after semicolon are going into KMCP_PROFILE
+                        def db_meta_keys = db_meta.keySet()
+                        def db_meta_new = db_meta.subMap(db_meta_keys)
+
+                        def parsed_params = db_meta['db_params'].split(";")
+
+                            if ( parsed_params.size() == 2 ) {
+                                db_meta_new = db_meta + [ db_params: parsed_params[1] ]
+                            } else {
+                                db_meta_new = db_meta + [ db_params: "" ]
+                            }
+
+                    [ key, meta, reads, db_meta_new, db ]
+
+            }
+            .multiMap { key, meta, report, db_meta, db ->
+                report: [meta + db_meta, report]
+                db: db
+            }
+
+            //Generate kmcp profile
+            KMCP_PROFILE( ch_input_for_kmcp_profile.report, ch_input_for_kmcp.db, params.kmcp_mode )
+            ch_versions = ch_versions.mix( KMCP_PROFILE.out.versions.first() )
+            ch_raw_profiles    = ch_raw_profiles.mix( KMCP_PROFILE.out.profile )
+            ch_multiqc_files   = ch_multiqc_files.mix( KMCP_PROFILE.out.profile )
+}
+
 
     if ( params.run_ganon ) {
 

@@ -49,6 +49,12 @@ workflow STANDARDISATION_PROFILES {
 
     //Taxpasta standardisation
     ch_prepare_for_taxpasta = profiles
+                            .filter {
+                                meta, report ->
+                                // TODO: add tool to taxpasta
+                                    if ( meta['tool'] == 'kmcp' ) log.warn "[nf-core/taxprofiler] kmcp is not yet supported in Taxpasta. Skipping kmcp profile for sample ${meta.id}."
+                                    meta['tool'] != 'kmcp'
+                             }
                             .map {
                                     meta, profile ->
                                         def meta_new = [:]
@@ -82,6 +88,7 @@ workflow STANDARDISATION_PROFILES {
             kraken2: it[0]['tool'] == 'kraken2'
             metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
+            kmcp: it [0]['tool'] == 'kmcp'
             ganon: it[0]['tool'] == 'ganon'
             unknown: true
         }
@@ -206,7 +213,6 @@ workflow STANDARDISATION_PROFILES {
     GANON_TABLE ( ch_profiles_for_ganon )
     ch_multiqc_files = ch_multiqc_files.mix( GANON_TABLE.out.txt )
     ch_versions = ch_versions.mix( GANON_TABLE.out.versions )
-
 
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles

@@ -34,6 +34,7 @@
    - [Kaiju](https://kaiju.binf.ku.dk/)
    - [mOTUs](https://motu-tool.org/)
    - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
+   - [KMCP](https://github.com/shenwei356/kmcp)
    - [ganon](https://pirovc.github.io/ganon/)
 5. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)

@@ -502,6 +502,24 @@
                     "fa_icon": "fas fa-address-card",
                     "help_text": "By default mOTUs will report species names rather than NCBI Taxon IDs. In nf-core/taxprofiler we prefer taxon IDs due to interoperatbility and comparability with the output of other classifiers and profilers. If you prefer to have just species names, you can specify this to remove the IDs.\n\n> Modifies tool parameter(s):\n- mOTUs: `-p` (removed from the default nf-core/taxprofiler command)"
                 },
+                "run_kmcp": {
+                    "type": "boolean",
+                    "description": "Turn on classification with KMCP.",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "kmcp_mode": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "Specify which KMCP profiling mode to use.",
+                    "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision).\nFor more information about the different profiling modes, please see the [kmcp documentation](https://bioinf.shenwei.me/kmcp/usage/#profile)\n\n> Modifies tool parameter(s):\n- kmcp profile: `--mode`\n\n",
+                    "fa_icon": "fas fa-check-square"
+                },
+                "kmcp_save_search": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving the output of KMCP search",
+                    "help_text": "During the searching step, KMCP searches across the database with all k-mers and returns reference genome chunks sharing enough k-mers with the query.  The output file is a tab-delimited file in gzip format with 15 columns and is used to generate the taxonomic profiling.  More information about the columns can be found here. https://bioinf.shenwei.me/kmcp/usage/#search. "
+                },
                 "run_ganon": {
                     "type": "boolean",
                     "description": "Turn on profiling with ganon. Requires database to be present CSV file passed to --databases.",
@@ -715,14 +733,12 @@
                     "type": "boolean",
                     "description": "Display help text.",
                     "fa_icon": "fas fa-question-circle",
-                    "default": false,
                     "hidden": true
                 },
                 "version": {
                     "type": "boolean",
                     "description": "Display version and exit.",
                     "fa_icon": "fas fa-question-circle",
-                    "default": false,
                     "hidden": true
                 },
                 "publish_dir_mode": {
@@ -746,7 +762,6 @@
                     "type": "boolean",
                     "description": "Send plain-text email instead of HTML.",
                     "fa_icon": "fas fa-remove-format",
-                    "default": false,
                     "hidden": true
                 },
                 "max_multiqc_email_size": {
@@ -761,7 +776,6 @@
                     "type": "boolean",
                     "description": "Do not use coloured log outputs.",
                     "fa_icon": "fas fa-palette",
-                    "default": false,
                     "hidden": true
                 },
                 "hook_url": {
@@ -800,7 +814,6 @@
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",
                     "description": "Show all params when using `--help`",
-                    "default": false,
                     "hidden": true,
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
                 },
