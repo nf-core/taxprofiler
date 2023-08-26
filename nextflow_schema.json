@@ -639,7 +639,7 @@
                 "taxpasta_add_ranklineage": {
                     "type": "boolean",
                     "description": "Add the taxon's entire rank lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxonomicl levels taxon's entire lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table. This complements `--taxpasta_add_lineage` by telling you which taxonomic rank level each entry in the lineage refers to.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank-lineage`\n",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxonomic ranks categories of the taxon's entire lineage separated by semi-colons can be added as additional information to the output table. This complements `--taxpasta_add_lineage` by telling you which taxonomic rank level each entry in the lineage refers to.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank-lineage`\n",
                     "fa_icon": "fas fa-link"
                 }
             },
