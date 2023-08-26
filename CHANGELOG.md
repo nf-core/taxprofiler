@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#319](https://github.com/nf-core/taxprofiler/pull/319) Added support for virus hit expansion in Kaiju (❤️ to @dnlrxn for requesting, added by @jfy133)
 - [#323](https://github.com/nf-core/taxprofiler/pull/323) Add ability to skip sequencing quality control tools (❤️ to @vinisalazar for requesting, added by @jfy133)
 - [#345](https://github.com/nf-core/taxprofiler/pull/345) Add simple tutorial to explain how to get up and running with an nf-core/taxprofiler run (added by @jfy133)
+- [#355](https://github.com/nf-core/taxprofiler/pull/345) Add support for TAXPASTA's `--add-rank-lineage` to output (❤️ to @MajoroMask for request, added by @Midnighter, @sofstam, @jfy133)
 
 ### `Fixed`
 

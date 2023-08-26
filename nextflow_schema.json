@@ -615,25 +615,31 @@
                 "taxpasta_add_name": {
                     "type": "boolean",
                     "description": "Add the taxon name to the output.",
-                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon name can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_name`",
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon name can be added as additional information to the output table in addition to the taxon ID.\n\nModifies tool parameter(s):\n- taxpasta: `--add-name`",
                     "fa_icon": "fas fa-tag"
                 },
                 "taxpasta_add_rank": {
                     "type": "boolean",
                     "description": "Add the taxon rank to the output.",
-                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_rank`",
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank of the given taxonomic entry can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank`",
                     "fa_icon": "fas fa-sort-amount-down-alt"
                 },
                 "taxpasta_add_lineage": {
                     "type": "boolean",
                     "description": "Add the taxon's entire name lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon names separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_lineage`\n",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire taxonomic lineage with the taxon names separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--add-lineage`\n",
                     "fa_icon": "fas fa-link"
                 },
                 "taxpasta_add_idlineage": {
                     "type": "boolean",
                     "description": "Add the taxon's entire ID lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_idlineage`\n",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire taxonomic lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--add-id-lineage`\n",
+                    "fa_icon": "fas fa-link"
+                },
+                "taxpasta_add_ranklineage": {
+                    "type": "boolean",
+                    "description": "Add the taxon's entire rank lineage to the output.",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxonomicl levels taxon's entire lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table. This complements `--taxpasta_add_lineage` by telling you which taxonomic rank level each entry in the lineage refers to.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank-lineage`\n",
                     "fa_icon": "fas fa-link"
                 }
             },
