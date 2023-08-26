@@ -100,7 +100,7 @@ class WorkflowTaxprofiler {
                 params.run_kaiju      ? "Kaiju (Menzel et al. 2016)," : "",
                 params.run_motus      ? "mOTUs (Ruscheweyh et al. 2022)," : "",
                 params.run_ganon      ? "ganon (Piro et al. 2020)" : "",
-                params.run_kmcp       ? "kmcp (Shen et al. 2023)" : "",
+                params.run_kmcp       ? "KMCP (Shen et al. 2023)" : "",
                 "."
             ].join(' ').trim()
 
@@ -200,7 +200,7 @@ class WorkflowTaxprofiler {
             text_classification,
             params.run_krona                          ? text_visualisation : "",
             params.run_profile_standardisation        ? text_postprocessing : "",
-            "<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. <a href=\"https:/doi.org/10.1093/bioinformatics/btw354\">10.1093/bioinformatics/btw354.</li>"
+            "<li>Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics , 32(19), 3047–3048. <a href=\"https:/doi.org/10.1093/bioinformatics/btw354\">10.1093/bioinformatics/btw354.</a></li>"
         ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
 
         return reference_text
