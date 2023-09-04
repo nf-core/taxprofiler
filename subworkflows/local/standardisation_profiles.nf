@@ -70,8 +70,11 @@ workflow STANDARDISATION_PROFILES {
 
 
     TAXPASTA_MERGE       (ch_input_for_taxpasta.merge      , ch_taxpasta_tax_dir, [])
-    TAXPASTA_STANDARDISE (ch_input_for_taxpasta.standardise, ch_taxpasta_tax_dir    )
     ch_versions = ch_versions.mix( TAXPASTA_MERGE.out.versions )
+    TAXPASTA_STANDARDISE (ch_input_for_taxpasta.standardise, ch_taxpasta_tax_dir    )
+    ch_version = ch_versions.mix( TAXPASTA_STANDARDISE.out.versions )
+
+
 
     /*
         Split profile results based on tool they come from
