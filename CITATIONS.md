@@ -6,7 +6,7 @@
 
 ## [Nextflow](https://pubmed.ncbi.nlm.nih.gov/28398311/)
 
-> DI Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. In Nature Biotechnology (Vol. 35, Issue 4). https://doi.org/10.1038/nbt.3820
+> Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. In Nature Biotechnology (Vol. 35, Issue 4). https://doi.org/10.1038/nbt.3820
 
 ## Pipeline tools
 
