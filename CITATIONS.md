@@ -36,11 +36,11 @@
 
 - [Filtlong](https://github.com/rrwick/Filtlong)
 
-> Wick R (2021) Filtlong, URL: https://github.com/rrwick/Filtlong
+  > Wick R (2021) Filtlong, URL: https://github.com/rrwick/Filtlong
 
 - [BBTools](http://sourceforge.net/projects/bbmap/)
 
-> Bushnell B. (2022) BBMap, URL: http://sourceforge.net/projects/bbmap/
+  > Bushnell B. (2022) BBMap, URL: http://sourceforge.net/projects/bbmap/
 
 - [PRINSEQ++](https://doi.org/10.7287/peerj.preprints.27553v1)
 
