@@ -2,11 +2,11 @@
 
 ## [nf-core](https://pubmed.ncbi.nlm.nih.gov/32055031/)
 
-> Ewels PA, Peltzer A, Fillinger S, Patel H, Alneberg J, Wilm A, Garcia MU, Di Tommaso P, Nahnsen S. The nf-core framework for community-curated bioinformatics pipelines. Nat Biotechnol. 2020 Mar;38(3):276-278. doi: 10.1038/s41587-020-0439-x. PubMed PMID: 32055031.
+> Ewels, P. A., Peltzer, A., Fillinger, S., Patel, H., Alneberg, J., Wilm, A., Garcia, M. U., Di Tommaso, P., & Nahnsen, S. (2020). The nf-core framework for community-curated bioinformatics pipelines. In Nature Biotechnology (Vol. 38, Issue 3). https://doi.org/10.1038/s41587-020-0439-x
 
 ## [Nextflow](https://pubmed.ncbi.nlm.nih.gov/28398311/)
 
-> Di Tommaso P, Chatzou M, Floden EW, Barja PP, Palumbo E, Notredame C. Nextflow enables reproducible computational workflows. Nat Biotechnol. 2017 Apr 11;35(4):316-319. doi: 10.1038/nbt.3820. PubMed PMID: 28398311.
+> Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. In Nature Biotechnology (Vol. 35, Issue 4). https://doi.org/10.1038/nbt.3820
 
 ## Pipeline tools
 
@@ -16,7 +16,7 @@
 
 - [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
 
-  > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
+  > Ewels, P., Magnusson, M., Lundin, S., & Käller, M. (2016). MultiQC: Summarize analysis results for multiple tools and samples in a single report. Bioinformatics, 32(19). https://doi.org/10.1093/bioinformatics/btw354
 
 - [falco](https://doi.org/10.12688/f1000research.21142.2)
 
@@ -108,7 +108,7 @@
 
 - [Krona](https://doi.org/10.1186/1471-2105-12-385)
 
-  > Ondov, Brian D., Nicholas H. Bergman, and Adam M. Phillippy. 2011. Interactive metagenomic visualization in a Web browser. BMC Bioinformatics 12 (1): 385. doi: 10.1186/1471-2105-12-385.
+  > Ondov, B. D., Bergman, N. H., & Phillippy, A. M. (2011). Interactive metagenomic visualization in a Web browser. BMC Bioinformatics, 12. https://doi.org/10.1186/1471-2105-12-385
 
 - [TAXPASTA](https://doi.org/10.21105/joss.05627)
 
@@ -122,11 +122,11 @@
 
 - [Bioconda](https://pubmed.ncbi.nlm.nih.gov/29967506/)
 
-  > Grüning B, Dale R, Sjödin A, Chapman BA, Rowe J, Tomkins-Tinch CH, Valieris R, Köster J; Bioconda Team. Bioconda: sustainable and comprehensive software distribution for the life sciences. Nat Methods. 2018 Jul;15(7):475-476. doi: 10.1038/s41592-018-0046-7. PubMed PMID: 29967506.
+  > Dale, R., Grüning, B., Sjödin, A., Rowe, J., Chapman, B. A., Tomkins-Tinch, C. H., Valieris, R., Batut, B., Caprez, A., Cokelaer, T., Yusuf, D., Beauchamp, K. A., Brinda, K., Wollmann, T., Corguillé, G. Le, Ryan, D., Bretaudeau, A., Hoogstrate, Y., Pedersen, B. S., … Köster, J. (2018). Bioconda: Sustainable and comprehensive software distribution for the life sciences. Nature Methods, 15(7). https://doi.org/10.1038/s41592-018-0046-7
 
 - [BioContainers](https://pubmed.ncbi.nlm.nih.gov/28379341/)
 
-  > da Veiga Leprevost F, Grüning B, Aflitos SA, Röst HL, Uszkoreit J, Barsnes H, Vaudel M, Moreno P, Gatto L, Weber J, Bai M, Jimenez RC, Sachsenberg T, Pfeuffer J, Alvarez RV, Griss J, Nesvizhskii AI, Perez-Riverol Y. BioContainers: an open-source and community-driven framework for software standardization. Bioinformatics. 2017 Aug 15;33(16):2580-2582. doi: 10.1093/bioinformatics/btx192. PubMed PMID: 28379341; PubMed Central PMCID: PMC5870671.
+  > Da Veiga Leprevost, F., Grüning, B. A., Alves Aflitos, S., Röst, H. L., Uszkoreit, J., Barsnes, H., Vaudel, M., Moreno, P., Gatto, L., Weber, J., Bai, M., Jimenez, R. C., Sachsenberg, T., Pfeuffer, J., Vera Alvarez, R., Griss, J., Nesvizhskii, A. I., & Perez-Riverol, Y. (2017). BioContainers: An open-source and community-driven framework for software standardization. Bioinformatics, 33(16). https://doi.org/10.1093/bioinformatics/btx192
 
 - [Docker](https://dl.acm.org/doi/10.5555/2600239.2600241)
 
@@ -134,14 +134,14 @@
 
 - [Singularity](https://pubmed.ncbi.nlm.nih.gov/28494014/)
 
-  > Kurtzer GM, Sochat V, Bauer MW. Singularity: Scientific containers for mobility of compute. PLoS One. 2017 May 11;12(5):e0177459. doi: 10.1371/journal.pone.0177459. eCollection 2017. PubMed PMID: 28494014; PubMed Central PMCID: PMC5426675.
+  > Kurtzer, G. M., Sochat, V., & Bauer, M. W. (2017). Singularity: Scientific containers for mobility of compute. PLoS ONE, 12(5). https://doi.org/10.1371/journal.pone.0177459
 
 ## Data
 
 - [Maixner (2021)](https://doi.org/10.1016/j.cub.2021.09.031) (CI Test Data)
 
-  > Maixner, Frank, Mohamed S. Sarhan, Kun D. Huang, Adrian Tett, Alexander Schoenafinger, Stefania Zingale, Aitor Blanco-Míguez, et al. 2021. “Hallstatt Miners Consumed Blue Cheese and Beer during the Iron Age and Retained a Non-Westernized Gut Microbiome until the Baroque Period.” Current Biology: CB 31 (23): 5149–62.e6. doi: 10.1016/j.cub.2021.09.031.
+  > Maixner, F., Sarhan, M. S., Huang, K. D., Tett, A., Schoenafinger, A., Zingale, S., Blanco-Míguez, A., Manghi, P., Cemper-Kiesslich, J., Rosendahl, W., Kusebauch, U., Morrone, S. R., Hoopmann, M. R., Rota-Stabelli, O., Rattei, T., Moritz, R. L., Oeggl, K., Segata, N., Zink, A., … Kowarik, K. (2021). Hallstatt miners consumed blue cheese and beer during the Iron Age and retained a non-Westernized gut microbiome until the Baroque period. Current Biology, 31(23). https://doi.org/10.1016/j.cub.2021.09.031
 
 - [Meslier (2022)](https://doi.org/10.1038/s41597-022-01762-z) (AWS Full Test data)
 
-  > Meslier, Victoria, Benoit Quinquis, Kévin Da Silva, Florian Plaza Oñate, Nicolas Pons, Hugo Roume, Mircea Podar, and Mathieu Almeida. 2022. “Benchmarking Second and Third-Generation Sequencing Platforms for Microbial Metagenomics.” Scientific Data 9 (1): 694. doi: 10.1038/s41597-022-01762-z.
+  > Meslier, V., Quinquis, B., Da Silva, K., Plaza Oñate, F., Pons, N., Roume, H., Podar, M., & Almeida, M. (2022). Benchmarking second and third-generation sequencing platforms for microbial metagenomics. Scientific Data, 9(1). https://doi.org/10.1038/s41597-022-01762-z
