@@ -645,7 +645,7 @@
                 "taxpasta_ignore_errors": {
                     "type": "boolean",
                     "description": "Ignore individual profiles that cause errors.",
-                    "help_text": "\nIgnore any metagenomic profilers with errors by running `taxpasta merge`. At least two profilers without errors to merge.\n\nModifies tool parameter(s):\n- taxpasta: `--ignore-errors`\n",
+                    "help_text": "\nIgnore any metagenomic profiles with errors when running `taxpasta merge`. At least two profiles without errors are needed to merge.\n\nModifies tool parameter(s):\n- taxpasta: `--ignore-errors`\n",
                     "fa_icon": "fas fa-link"
                 }
             },
