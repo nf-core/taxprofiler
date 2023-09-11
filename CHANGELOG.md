@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#323](https://github.com/nf-core/taxprofiler/pull/323) Add ability to skip sequencing quality control tools (❤️ to @vinisalazar for requesting, added by @jfy133)
 - [#345](https://github.com/nf-core/taxprofiler/pull/345) Add simple tutorial to explain how to get up and running with an nf-core/taxprofiler run (added by @jfy133)
 - [#355](https://github.com/nf-core/taxprofiler/pull/355) Add support for TAXPASTA's `--add-rank-lineage` to output (❤️ to @MajoroMask for request, added by @Midnighter, @sofstam, @jfy133)
+- [#368](https://github.com/nf-core/taxprofiler/pull/368/) Add the ability to ignore profile errors caused by empty profilers when merging multiple profiles using TAXPASTA(added by @@Midnighter and @LilyAnderssonLee)
 
 ### `Fixed`
 
@@ -48,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Tool      | Previous version | New version |
 | --------- | ---------------- | ----------- |
 | MultiQC   | 1.13             | 1.14        |
-| TAXPASTA  | 0.2.3            | 0.5.0       |
+| TAXPASTA  | 0.2.3            | 0.6.0       |
 | MetaPhlAn | 3.0.12           | 4.0.6       |
 
 ### `Deprecated`
