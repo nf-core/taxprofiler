@@ -264,7 +264,7 @@ workflow PROFILING {
                                                 .filter { meta, db -> meta.tool == 'centrifuge' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
-        ch_input_for_centrifuge_kreport = combineProfilesWithDatabase(CENTRIFUGE_CENTRIFUGE.out.report, ch_database_for_centrifugekreport)
+        ch_input_for_centrifuge_kreport = combineProfilesWithDatabase(CENTRIFUGE_CENTRIFUGE.out.results, ch_database_for_centrifugekreport)
 
         // Generate profile
         CENTRIFUGE_KREPORT (ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)
