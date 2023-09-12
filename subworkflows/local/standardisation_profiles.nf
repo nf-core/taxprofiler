@@ -83,11 +83,11 @@ workflow STANDARDISATION_PROFILES {
         .branch {
             bracken: it[0]['tool'] == 'bracken'
             centrifuge: it[0]['tool'] == 'centrifuge'
+            ganon: it[0]['tool'] == 'ganon'
+            kmcp: it [0]['tool'] == 'kmcp'
             kraken2: it[0]['tool'] == 'kraken2'
             metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
-            kmcp: it [0]['tool'] == 'kmcp'
-            ganon: it[0]['tool'] == 'ganon'
             unknown: true
         }
 
