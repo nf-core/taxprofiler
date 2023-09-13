@@ -35,7 +35,7 @@ workflow LONGREAD_HOSTREMOVAL {
         }
 
     // Generate unmapped reads FASTQ for downstream taxprofiling
-    SAMTOOLS_VIEW ( ch_minimap2_mapped , [], [] )
+    SAMTOOLS_VIEW ( ch_minimap2_mapped , [[],[]], [] )
     ch_versions      = ch_versions.mix( SAMTOOLS_VIEW.out.versions.first() )
 
     SAMTOOLS_FASTQ ( SAMTOOLS_VIEW.out.bam, false )
