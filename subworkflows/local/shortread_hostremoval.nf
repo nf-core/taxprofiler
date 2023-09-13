@@ -36,7 +36,9 @@ workflow SHORTREAD_HOSTREMOVAL {
     bam_bai = BOWTIE2_ALIGN.out.aligned
         .join(SAMTOOLS_INDEX.out.bai, remainder: true)
 
-    SAMTOOLS_STATS ( bam_bai, reference )
+    // Convert the reference path into a channel
+    reference_channel = Channel.fromPath(reference)
+    SAMTOOLS_STATS(bam_bai, reference_channel.map { refPath -> [[:], refPath] })
     ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
     ch_multiqc_files = ch_multiqc_files.mix( SAMTOOLS_STATS.out.stats )
 
