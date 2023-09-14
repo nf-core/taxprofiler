@@ -49,7 +49,7 @@ workflow LONGREAD_HOSTREMOVAL {
         .join(SAMTOOLS_INDEX.out.bai)
 
     // Convert the reference path into a channel
-    reference_channel = Channel.fromPath(reference)
+    reference_channel = reads.map { meta, _ -> file(reference) }
     SAMTOOLS_STATS(bam_bai, reference_channel.map { refpath -> [[:], refpath] })
 
     ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
