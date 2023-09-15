@@ -43,14 +43,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#342](https://github.com/nf-core/taxprofiler/pull/342) Fixed docs/usage to correctly list the required database files for Bracken and tips to obtain Kraken2 databases (fix by @husensofteng)
 - [#350](https://github.com/nf-core/taxprofiler/pull/350) Reorganize the CI tests into separate profiles in preparation for implementation of nf-test (fix by @LilyAnderssonLee)
 - [#364](https://github.com/nf-core/taxprofiler/pull/364) Add autoMounts to apptainer profile in nextflow.config (♥ to @hkaspersento for reporting, fix by @LilyAnderssonLee)
+- [#372](https://github.com/nf-core/taxprofiler/pull/372) Update modules to use quay.io nf-core mirrored containers (♥ to @maxulysse for pointing out, fix by @LilyAnderssonLee and @jfy133)
 
 ### `Dependencies`
 
 | Tool      | Previous version | New version |
 | --------- | ---------------- | ----------- |
-| MultiQC   | 1.13             | 1.14        |
+| MultiQC   | 1.13             | 1.15        |
 | TAXPASTA  | 0.2.3            | 0.6.0       |
 | MetaPhlAn | 3.0.12           | 4.0.6       |
+| fastp     | 0.23.2           | 0.23.4      |
+| samtools  | 1.16.1           | 1.17        |
 
 ### `Deprecated`
 
