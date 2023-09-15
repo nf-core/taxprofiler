@@ -53,7 +53,7 @@ workflow STANDARDISATION_PROFILES {
                                     meta, profile ->
                                         def meta_new = [:]
                                         meta_new.id = meta.db_name
-                                        meta_new.tool = meta.tool == 'metaphlan' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
+                                        meta_new.tool = meta.tool == 'malt' ? 'megan6' : meta.tool
                                         [meta_new, profile]
                             }
                             .groupTuple ()
