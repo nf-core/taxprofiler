@@ -49,7 +49,6 @@ workflow LONGREAD_HOSTREMOVAL {
         .join(SAMTOOLS_INDEX.out.bai)
 
     SAMTOOLS_STATS ( bam_bai, [[],reference] )
-
     ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
     ch_multiqc_files = ch_multiqc_files.mix( SAMTOOLS_STATS.out.stats )
 
