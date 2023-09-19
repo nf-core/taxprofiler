@@ -30,13 +30,13 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_multiqc_files = ch_multiqc_files.mix( BOWTIE2_ALIGN.out.log )
 
     // Indexing whole BAM for host removal statistics
-    SAMTOOLS_INDEX ( BOWTIE2_ALIGN.out.bam )
+    SAMTOOLS_INDEX ( BOWTIE2_ALIGN.out.aligned )
     ch_versions      = ch_versions.mix( SAMTOOLS_INDEX.out.versions.first() )
 
-    bam_bai = BOWTIE2_ALIGN.out.bam
+    bam_bai = BOWTIE2_ALIGN.out.aligned
         .join(SAMTOOLS_INDEX.out.bai, remainder: true)
 
-    SAMTOOLS_STATS ( bam_bai, reference )
+    SAMTOOLS_STATS ( bam_bai, [[],reference] )
     ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
     ch_multiqc_files = ch_multiqc_files.mix( SAMTOOLS_STATS.out.stats )
 

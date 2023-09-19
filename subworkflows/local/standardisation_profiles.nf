@@ -2,13 +2,39 @@
 // Standardise output files e.g. aggregation
 //
 
+include { TAXPASTA_MERGE                                                        } from '../../modules/nf-core/taxpasta/merge/main'
+include { TAXPASTA_STANDARDISE                                                  } from '../../modules/nf-core/taxpasta/standardise/main'
 include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../modules/nf-core/bracken/combinebrackenoutputs/main'
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
-include { METAPHLAN3_MERGEMETAPHLANTABLES                                       } from '../../modules/nf-core/metaphlan3/mergemetaphlantables/main'
+include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../modules/nf-core/metaphlan/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
-include { TAXPASTA_MERGE                                                        } from '../../modules/nf-core/taxpasta/merge/main'
+include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
+
+// Custom Functions
+
+/**
+* Combine profiles with their original database, then separate into two channels.
+*
+* The channel elements are assumed to be tuples one of [ meta, profile ], and the
+* database to be of [db_key, meta, database_file].
+*
+* @param ch_profile A channel containing a meta and the profilign report of a given profiler
+* @param ch_database A channel containing a key, the database meta, and the database file/folders itself
+* @return A multiMap'ed output channel with two sub channels, one with the profile and the other with the db
+*/
+def combineProfilesWithDatabase(ch_profile, ch_database) {
+
+return ch_profile
+    .map { meta, profile -> [meta.db_name, meta, profile] }
+    .combine(ch_database, by: 0)
+    .multiMap {
+        key, meta, profile, db_meta, db ->
+            profile: [meta, profile]
+            db: db
+    }
+}
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -22,12 +48,12 @@ workflow STANDARDISATION_PROFILES {
     ch_multiqc_files       = Channel.empty()
 
     //Taxpasta standardisation
-    ch_input_for_taxpasta = profiles
+    ch_prepare_for_taxpasta = profiles
                             .map {
                                     meta, profile ->
                                         def meta_new = [:]
                                         meta_new.id = meta.db_name
-                                        meta_new.tool = meta.tool == 'metaphlan3' ? 'metaphlan' : meta.tool == 'malt' ? 'megan6' : meta.tool
+                                        meta_new.tool = meta.tool == 'malt' ? 'megan6' : meta.tool
                                         [meta_new, profile]
                             }
                             .groupTuple ()
@@ -35,7 +61,20 @@ workflow STANDARDISATION_PROFILES {
 
     ch_taxpasta_tax_dir = params.taxpasta_taxonomy_dir ? Channel.fromPath(params.taxpasta_taxonomy_dir, checkIfExists: true).collect() : []
 
-    TAXPASTA_MERGE (ch_input_for_taxpasta, ch_taxpasta_tax_dir, [])
+    ch_input_for_taxpasta = ch_prepare_for_taxpasta
+                        .branch {
+                            meta, profile ->
+                                merge:      profile.size() > 1
+                                standardise: true
+                        }
+
+
+    TAXPASTA_MERGE       (ch_input_for_taxpasta.merge      , ch_taxpasta_tax_dir, [])
+    ch_versions = ch_versions.mix( TAXPASTA_MERGE.out.versions.first() )
+    TAXPASTA_STANDARDISE (ch_input_for_taxpasta.standardise, ch_taxpasta_tax_dir    )
+    ch_version = ch_versions.mix( TAXPASTA_STANDARDISE.out.versions.first() )
+
+
 
     /*
         Split profile results based on tool they come from
@@ -44,8 +83,10 @@ workflow STANDARDISATION_PROFILES {
         .branch {
             bracken: it[0]['tool'] == 'bracken'
             centrifuge: it[0]['tool'] == 'centrifuge'
+            ganon: it[0]['tool'] == 'ganon'
+            kmcp: it [0]['tool'] == 'kmcp'
             kraken2: it[0]['tool'] == 'kraken2'
-            metaphlan3: it[0]['tool'] == 'metaphlan3'
+            metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
             unknown: true
         }
@@ -105,7 +146,9 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    KAIJU_KAIJU2TABLE_COMBINED ( ch_profiles_for_kaiju, ch_input_databases.kaiju.map{it[1]}, params.kaiju_taxon_rank)
+    ch_input_for_kaiju2tablecombine = combineProfilesWithDatabase(ch_profiles_for_kaiju, ch_input_databases.kaiju)
+
+    KAIJU_KAIJU2TABLE_COMBINED ( ch_input_for_kaiju2tablecombine.profile, ch_input_for_kaiju2tablecombine.db, params.kaiju_taxon_rank)
     ch_multiqc_files = ch_multiqc_files.mix( KAIJU_KAIJU2TABLE_COMBINED.out.summary )
     ch_versions = ch_versions.mix( KAIJU_KAIJU2TABLE_COMBINED.out.versions )
 
@@ -125,18 +168,18 @@ workflow STANDARDISATION_PROFILES {
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.versions )
 
-    // MetaPhlAn3
+    // MetaPhlAn
 
-    ch_profiles_for_metaphlan3 = ch_input_profiles.metaphlan3
+    ch_profiles_for_metaphlan = ch_input_profiles.metaphlan
                             .map { [it[0]['db_name'], it[1]] }
                             .groupTuple()
                             .map {
                                 [[id:it[0]], it[1]]
                             }
 
-    METAPHLAN3_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan3 )
-    ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.txt )
-    ch_versions = ch_versions.mix( METAPHLAN3_MERGEMETAPHLANTABLES.out.versions )
+    METAPHLAN_MERGEMETAPHLANTABLES ( ch_profiles_for_metaphlan )
+    ch_multiqc_files = ch_multiqc_files.mix( METAPHLAN_MERGEMETAPHLANTABLES.out.txt )
+    ch_versions = ch_versions.mix( METAPHLAN_MERGEMETAPHLANTABLES.out.versions )
 
     // mOTUs
 
@@ -151,8 +194,23 @@ workflow STANDARDISATION_PROFILES {
                                     [[id:it[0]], it[1]]
                                 }
 
-    MOTUS_MERGE ( ch_profiles_for_motus, ch_input_databases.motus.map{it[1]}, motu_version )
+    ch_input_for_motusmerge = combineProfilesWithDatabase(ch_profiles_for_motus, ch_input_databases.motus)
+
+    MOTUS_MERGE ( ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, motu_version )
     ch_versions = ch_versions.mix( MOTUS_MERGE.out.versions )
+
+    // Ganon
+
+    ch_profiles_for_ganon = ch_input_profiles.ganon
+                            .map { [it[0]['db_name'], it[1]] }
+                            .groupTuple()
+                            .map {
+                                [[id:it[0]], it[1]]
+                            }
+
+    GANON_TABLE ( ch_profiles_for_ganon )
+    ch_multiqc_files = ch_multiqc_files.mix( GANON_TABLE.out.txt )
+    ch_versions = ch_versions.mix( GANON_TABLE.out.versions )
 
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles

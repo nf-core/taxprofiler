@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/master/nextflow_schema.json",
     "title": "nf-core/taxprofiler pipeline parameters",
-    "description": "Taxonomic profiling of shotgun metagenomic data",
+    "description": "Taxonomic classification and profiling of shotgun short- and long-read metagenomic data",
     "type": "object",
     "definitions": {
         "input_output_options": {
@@ -15,9 +15,9 @@
                 "input": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": true,
                     "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.(csv)$",
-                    "schema": "assets/schema_input.json",
+                    "pattern": "^\\S+\\.csv$",
                     "description": "Path to comma-separated file containing information about the samples and libraries/runs.",
                     "help_text": "You will need to create a design file with information about the samples and libraries/runs you want to running in your pipeline run. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
@@ -56,6 +56,12 @@
             "description": "Common options across both long and short read preprocessing QC steps",
             "default": "",
             "properties": {
+                "skip_preprocessing_qc": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-forward",
+                    "description": "Specify to skip sequencing quality control of raw sequencing reads",
+                    "help": "Skipping running of FastQC or Falco maybe useful in cases where you are already running with preprocessed data (e.g. you are also skipping short/long read qc steps) that you already know the quality of"
+                },
                 "preprocessing_qc_tool": {
                     "type": "string",
                     "default": "fastqc",
@@ -69,6 +75,12 @@
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the adapter clipping, pair-merging, and length filtering steps for both short and long reads",
                     "help_text": "This saves the FASTQ output from the following tools:\n\n- fastp\n- AdapterRemoval\n- Porechop\n- Filtlong\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
+                },
+                "save_analysis_ready_fastqs": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save only the final reads from all read processing steps (that are sent to classification/profiling) in results directory.",
+                    "help_text": "This flag will generate the directory `results/analysis_read_reads` that contains the reads from the last preprocessing (QC, host removal, run merging etc.) step of the pipeline run. \n\nThis can be useful if you wish to re-use the final cleaned-up and prepared reads - the data actually used for the actual classification/profiling steps of the pipeline - for other analyses or purposes (e.g., to reduce redundant preprocessing between different pipelines, e.g. [nf-core/mag](https://nf-co.re/mag)).\n\nIn most cases this will be preferred over similar parameters e.g. ` --save_preprocessed_reads` or ` --save_complexityfiltered_reads`, unless you wish to explore in more detail the output of each specific preprocessing step independently.\n\nNote if you do no preprocessing of any kind, nothing will be present in this directory. "
                 }
             },
             "fa_icon": "fas fa-users-cog"
@@ -100,21 +112,18 @@
                 },
                 "shortread_qc_adapter1": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-grip-lines",
                     "description": "Specify adapter 1 nucleotide sequence",
                     "help_text": "Specify a custom forward or R1 adapter sequence to be removed from reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCA`\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG`"
                 },
                 "shortread_qc_adapter2": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-grip-lines",
                     "description": "Specify adapter 2 nucleotide sequence",
                     "help_text": "Specify a custom reverse or R2 adapter sequence to be removed from reads. \n\nIf not set, the selected short-read QC tool's defaults will be used.\n\n> Modifies tool parameter(s):\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT`\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT`"
                 },
                 "shortread_qc_adapterlist": {
                     "type": "string",
-                    "default": "None",
                     "description": "Specify a list of all possible adapters to trim. Overrides --shortread_qc_adapter1/2. Formats: .txt (AdapterRemoval) or .fasta. (fastp).",
                     "help_text": "Allows to supply a file with a list of adapter (combinations) to remove from all files. \n\nOverrides the --shortread_qc_adapter1/--shortread_qc_adapter2 parameters . \n\nFor AdapterRemoval this consists of a two column table with a `.txt` extension: first column represents forward strand, second column for reverse strand. You must supply all possible combinations, one per line, and this list is applied to all files. See AdapterRemoval documentation for more information.\n\nFor fastp this consists of a standard FASTA format with a `.fasta`/`.fa`/`.fna`/`.fas` extension. The adapter sequence in this file should be at least 6bp long, otherwise it will be skipped. fastp trims the adapters present in the FASTA file one by one.\n\n> Modifies AdapterRemoval parameter: --adapter-list\n> Modifies fastp parameter: --adapter_fasta",
                     "fa_icon": "fas fa-th-list"
@@ -269,21 +278,18 @@
                 },
                 "hostremoval_reference": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-file-alt",
                     "description": "Specify path to single reference FASTA of host(s) genome(s)",
                     "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
                 },
                 "shortread_hostremoval_index": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference",
                     "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.). These should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
                 },
                 "longread_hostremoval_index": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference",
                     "help_text": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference file given to `--hostremoval_reference`.\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
@@ -304,7 +310,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the host-removal step",
-                    "help_text": "Save only the reads NOT mapped to the reference genome in FASTQ format (as exported from `samtools view` and `bam2fq`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
+                    "help_text": "Save only the reads NOT mapped to the reference genome in FASTQ format (as exported from `samtools view` and `fastq`).\n\nThis can be useful if you wish to perform other analyses on the off-target reads from the host mapping, such as manual profiling or _de novo_ assembly."
                 }
             },
             "fa_icon": "fas fa-user-times"
@@ -371,13 +377,19 @@
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on profiling with Kaiju. Requires database to be present CSV file passed to --databases"
                 },
+                "kaiju_expand_viruses": {
+                    "type": "boolean",
+                    "description": "Turn on expanding of virus hits to individual viruses rather than aggregating at a taxonomic level.",
+                    "help_text": "Turn on the reporting by Kaiju of viruses at specific virus levels, rather than aggregating at specific taxonomic levels as specified by `-- kaiju_taxon_rank` (i.e., read counts will not be summarised at higher taxonomic levels).\n\n> Modifies tool parameter(s):\n> - kaiju2table: `-e`",
+                    "fa_icon": "fas fa-expand-arrows-alt"
+                },
                 "kaiju_taxon_rank": {
                     "type": "string",
                     "default": "species",
                     "enum": ["phylum", "class", "order", "family", "genus", "species"],
                     "fa_icon": "fas fa-tag",
                     "description": "Specify taxonomic rank to be displayed in Kaiju taxon table",
-                    "help_text": "Specify the taxonomic level(s) to be displayed in the resulting Kaiju taxon table, as generated by the kaiju2table helper tool.\n\nThis can be either a single level (e.g. `species`), or a comma separated list to display the full taxonomic path (e.g. `superkingdom,phylum,class,order,family,genus,species.`).\n\n> Modifies tool parameter(s):\n> - kaiju2table: `-l`"
+                    "help_text": "Specify the taxonomic level(s) to be displayed in the resulting Kaiju taxon table, as generated by the kaiju2table helper tool.\n\nThis can be only be a single level (e.g. `species`).\n\n> Modifies tool parameter(s):\n> - kaiju2table: `-l`"
                 },
                 "run_kraken2": {
                     "type": "boolean",
@@ -390,7 +402,7 @@
                     "description": "Turn on saving of Kraken2-aligned reads",
                     "help_text": "Save reads that do and do not have a taxonomic classification in your output results directory in FASTQ format.\n\n> Modifies tool parameter(s):\n> - kraken2: `--classified-out` and `--unclassified-out`"
                 },
-                "kraken2_save_readclassification": {
+                "kraken2_save_readclassifications": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Turn on saving of Kraken2 per-read taxonomic assignment file",
@@ -426,6 +438,13 @@
                     "description": "Turn on saving of KrakenUniq per-read taxonomic assignment file",
                     "help_text": "Save a text file that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic taxonomic assignment that that read recieved.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--output`"
                 },
+                "krakenuniq_batch_size": {
+                    "type": "integer",
+                    "default": 20,
+                    "fa_icon": "far fa-window-restore",
+                    "description": "Specify the number of samples for each KrakenUniq run",
+                    "help_text": "Specify the batch size for KrakenUniq. The reference database for KrakenUniq is loaded into memory once per nextflow process and then used to classify many samples. When you have many samples, a single KrakenUniq run can be rather slow. Alternatively, we can split up KrakenUniq runs for a 'batch' of samples, allowing a balance between shared use of database for multiple samples, but also faster parallelised KrakenUniq runs. This parameter determines for how many samples at a time."
+                },
                 "run_bracken": {
                     "type": "boolean",
                     "description": "Turn on Bracken (and the required Kraken2 prerequisite step).",
@@ -455,9 +474,9 @@
                     "description": "Turn on generation of MEGAN summary file from MALT results",
                     "help_text": "Turns on saving of MALT output in an additional MEGAN summary file (`.megan`) that can be loaded into the MEGAN metagenomic exploration tool.\n\nNote: this file is generated not directly from MALT but rather then MEGAN utility script `rma2info`.\n\n> Modifies tool parameter(s):\n> - rma2info: `-es`"
                 },
-                "run_metaphlan3": {
+                "run_metaphlan": {
                     "type": "boolean",
-                    "description": "Turn on profiling with MetaPhlAn3. Requires database to be present CSV file passed to --databases",
+                    "description": "Turn on profiling with MetaPhlAn. Requires database to be present CSV file passed to --databases",
                     "fa_icon": "fas fa-toggle-on"
                 },
                 "run_motus": {
@@ -467,15 +486,85 @@
                 },
                 "motus_use_relative_abundance": {
                     "type": "boolean",
-                    "description": "Turn on printing relative abundance instead of counts."
+                    "description": "Turn on printing relative abundance instead of counts.",
+                    "fa_icon": "fas fa-percent",
+                    "help_text": "This parameter specifies to use the calculated relative abundance (i.e., percentage of all hits). This is normally the default behaviour in mOTUs however we use counts by default in nf-core/taxprofiler for consistency with other classification/profiling tools.\n\n> Modifies tool parameter(s):\n> - mOTUs: `-c` (removed from the default nf-core/taxprofiler command)"
                 },
                 "motus_save_mgc_read_counts": {
                     "type": "boolean",
-                    "description": "Turn on saving the mgc reads count."
+                    "description": "Turn on saving the mgc reads count.",
+                    "fa_icon": "fas fa-save",
+                    "help_text": "Turns on the saving of the read counts against each mOTU marker-gene clusters, in addition to per-taxon count/abundance reporting (in a separate file)\n\n> Modifies tool parameter(s):\n- mOTUs: `-M`"
                 },
                 "motus_remove_ncbi_ids": {
                     "type": "boolean",
-                    "description": "Turn on removing NCBI taxonomic IDs."
+                    "description": "Turn on removing NCBI taxonomic IDs.",
+                    "fa_icon": "fas fa-address-card",
+                    "help_text": "By default mOTUs will report species names rather than NCBI Taxon IDs. In nf-core/taxprofiler we prefer taxon IDs due to interoperatbility and comparability with the output of other classifiers and profilers. If you prefer to have just species names, you can specify this to remove the IDs.\n\n> Modifies tool parameter(s):\n- mOTUs: `-p` (removed from the default nf-core/taxprofiler command)"
+                },
+                "run_kmcp": {
+                    "type": "boolean",
+                    "description": "Turn on classification with KMCP.",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "kmcp_mode": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "Specify which KMCP profiling mode to use.",
+                    "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision).\nFor more information about the different profiling modes, please see the [kmcp documentation](https://bioinf.shenwei.me/kmcp/usage/#profile)\n\n> Modifies tool parameter(s):\n- kmcp profile: `--mode`\n\n",
+                    "fa_icon": "fas fa-check-square"
+                },
+                "kmcp_save_search": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving the output of KMCP search",
+                    "help_text": "During the searching step, KMCP searches across the database with all k-mers and returns reference genome chunks sharing enough k-mers with the query.  The output file is a tab-delimited file in gzip format with 15 columns and is used to generate the taxonomic profiling.  More information about the columns can be found here. https://bioinf.shenwei.me/kmcp/usage/#search. "
+                },
+                "run_ganon": {
+                    "type": "boolean",
+                    "description": "Turn on profiling with ganon. Requires database to be present CSV file passed to --databases.",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "ganon_save_readclassifications": {
+                    "type": "boolean",
+                    "description": "Turn on saving of ganon per-read taxonomic assignment file(s).",
+                    "fa_icon": "fas fa-save",
+                    "help_text": "Saves `.lca`, `.all`, and `.unc` text files that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic assignment that the read received.\n\n> Modifies tool parameter(s):\n- ganon classify: `--output-all --output-lca --output-unclassified`"
+                },
+                "ganon_report_type": {
+                    "type": "string",
+                    "default": "reads",
+                    "description": "Specify the type of ganon report to save.",
+                    "help_text": "Specify the type of taxonomic report to produce from ganon report. This mainly refers to which form of 'value' to print: raw read counts, abundance estimates, genome-size normalised etc. \n\nSee the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/#ganon-report) for more information of each option.\n\n> Modifies tool parameter(s):\n- ganon report: `--report-type`\n",
+                    "enum": ["abundance", "reads", "matches", "dist", "corr"],
+                    "fa_icon": "fas fa-file"
+                },
+                "ganon_report_rank": {
+                    "type": "string",
+                    "description": "Specify the taxonomic report the ganon report file should display.",
+                    "help_text": "Specify the taxonomic rank level to report each taxonomic hit as. `all` will specify all ranks, however you can customise this from `superkingdom` through to `species` to as specific as `assembly`. ganon has a default preset, however you can customise the specific ranks in a comma separated list, e.g. `--ganon_report_rank [phylum,genus,species]`.\n\nSee the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/#ganon-report) for more information of each option.\n\n> Modifies tool parameter(s):\n- ganon report: `--ranks`",
+                    "fa_icon": "fas fa-sort-amount-down-alt"
+                },
+                "ganon_report_toppercentile": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Specify a percentile within which hits will be reported in ganon report output..",
+                    "help_text": "Specify the top percentile or relative abundance\n under which all hits underneath the threshold are not reported. This can be useful to remove long tails of few-reads and thus unconfident hits.\n\n> Modifies tool parameter(s)\n> - ganon report: `--top-percentile`\n",
+                    "fa_icon": "fas fa-percent"
+                },
+                "ganon_report_mincount": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Specify a minimum number of reads a hit must have to be retained in the ganon report.",
+                    "help_text": "Specify the minmum number of reads or percentage of counts a hit must have against a taxon to be retained. To specify a minimum percentage, specify between 0 and 1 (e.g. 0.1 for 10%), and more than 1 to specify a hard count cut off (e.g. 100 for minimum of 100 reads).\n\n> Modifies tool parameter(s):\n- ganon report: `--min-count`",
+                    "fa_icon": "fas fa-filter"
+                },
+                "ganon_report_maxcount": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Specify a maximum number of reads a hit must have to be retained in the ganon report.",
+                    "help_text": "Specify the maximum number of reads or percentage of counts a hit must have against a taxon to be retained. To specify a maximum percentage, specify between 0 and 1 (e.g. 0.9 for 90%), and more than 1 to specify a hard count cut off (e.g. 10000 for maximum of 10,000 reads).\n\n> Modifies tool parameter(s):\n- ganon report: `--max-count`",
+                    "fa_icon": "fas fa-filter"
                 }
             },
             "fa_icon": "fas fa-align-center"
@@ -490,7 +579,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on standardisation of taxon tables across profilers",
-                    "help_text": "Turns on standardisation of output OTU tables across all tools; each into a TSV format following the following scheme:\n\n|TAXON   | SAMPLE_A | SAMPLE_B |\n|-------------|----------------|-----------------|\n| taxon_a | 32               | 123             |\n| taxon_b | 1                 | 5                 |\n\nThis currently only is generated for mOTUs."
+                    "help_text": "Turns on standardisation of output OTU tables across all tools.\n\nThis happens in two forms, firstly - if available - by a given classifiers/profilers 'native' profile merger and standardisation (for Bracken, Kaiju, Kraken, Centrifuge, MetaPhlAn3, mOTUs), and secondly for _all_ classifier/profilers in the pipeline using [`taxpasta`](https://taxpasta.readthedocs.io).\n\nIn the latter case, taxpasta generates a standardised output as follows:\n\n|TAXON   | SAMPLE_A | SAMPLE_B |\n|-------------|----------------|-----------------|\n| taxon_a | 32               | 123             |\n| taxon_b | 1                 | 5                 |\n\nwhereas all other 'native' tools have varying format outputs. See pipeline [output](https://nf-co.re/taxprofiler) documentation for more information."
                 },
                 "standardisation_motus_generatebiom": {
                     "type": "boolean",
@@ -506,7 +595,6 @@
                 },
                 "krona_taxonomy_directory": {
                     "type": "string",
-                    "default": "None",
                     "fa_icon": "fas fa-folder-open",
                     "description": "Specify path to krona taxonomy directories (required for MALT krona plots)",
                     "help_text": "Specify a path to a Krona taxonomy database directory (i.e. a directory containing a krona generated `.tab` file).\n\nThis is only required for generating Krona plots of MALT output.\n\nNote this taxonomy database must be downloaded and generated with the `updateTaxonomy.sh` script from the krona-tools package."
@@ -527,25 +615,37 @@
                 "taxpasta_add_name": {
                     "type": "boolean",
                     "description": "Add the taxon name to the output.",
-                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon name can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_name`",
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon name can be added as additional information to the output table in addition to the taxon ID.\n\nModifies tool parameter(s):\n- taxpasta: `--add-name`",
                     "fa_icon": "fas fa-tag"
                 },
                 "taxpasta_add_rank": {
                     "type": "boolean",
                     "description": "Add the taxon rank to the output.",
-                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_rank`",
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank of the given taxonomic entry can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank`",
                     "fa_icon": "fas fa-sort-amount-down-alt"
                 },
                 "taxpasta_add_lineage": {
                     "type": "boolean",
                     "description": "Add the taxon's entire name lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon names separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_lineage`\n",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire taxonomic lineage with the taxon names separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--add-lineage`\n",
                     "fa_icon": "fas fa-link"
                 },
                 "taxpasta_add_idlineage": {
                     "type": "boolean",
                     "description": "Add the taxon's entire ID lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--taxpasta_add_idlineage`\n",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire taxonomic lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--add-id-lineage`\n",
+                    "fa_icon": "fas fa-link"
+                },
+                "taxpasta_add_ranklineage": {
+                    "type": "boolean",
+                    "description": "Add the taxon's entire rank lineage to the output.",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxonomic ranks categories of the taxon's entire lineage separated by semi-colons can be added as additional information to the output table. This complements `--taxpasta_add_lineage` by telling you which taxonomic rank level each entry in the lineage refers to.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank-lineage`\n",
+                    "fa_icon": "fas fa-link"
+                },
+                "taxpasta_ignore_errors": {
+                    "type": "boolean",
+                    "description": "Ignore individual profiles that cause errors.",
+                    "help_text": "\nIgnore any metagenomic profiles with errors when running `taxpasta merge`. At least two profiles without errors are needed to merge.\n\nModifies tool parameter(s):\n- taxpasta: `--ignore-errors`\n",
                     "fa_icon": "fas fa-link"
                 }
             },
@@ -628,7 +728,7 @@
                     "description": "Maximum amount of time that can be requested for any single job.",
                     "default": "240.h",
                     "fa_icon": "far fa-clock",
-                    "pattern": "^(\\d+\\.?\\s*(s|m|h|day)\\s*)+$",
+                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
                     "hidden": true,
                     "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '2.h'`"
                 }
@@ -699,6 +799,7 @@
                 },
                 "multiqc_config": {
                     "type": "string",
+                    "format": "file-path",
                     "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
@@ -714,13 +815,6 @@
                     "description": "Custom MultiQC yaml file containing HTML including a methods description.",
                     "fa_icon": "fas fa-cog"
                 },
-                "tracedir": {
-                    "type": "string",
-                    "description": "Directory to keep pipeline Nextflow logs and reports.",
-                    "default": "${params.outdir}/pipeline_info",
-                    "fa_icon": "fas fa-cogs",
-                    "hidden": true
-                },
                 "validate_params": {
                     "type": "boolean",
                     "description": "Boolean whether to validate parameters against the schema at runtime",
@@ -728,12 +822,26 @@
                     "fa_icon": "fas fa-check-square",
                     "hidden": true
                 },
-                "show_hidden_params": {
+                "validationShowHiddenParams": {
                     "type": "boolean",
                     "fa_icon": "far fa-eye-slash",
                     "description": "Show all params when using `--help`",
                     "hidden": true,
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters."
+                },
+                "validationFailUnrecognisedParams": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters fails when an unrecognised parameter is found.",
+                    "hidden": true,
+                    "help_text": "By default, when an unrecognised parameter is found, it returns a warinig."
+                },
+                "validationLenientMode": {
+                    "type": "boolean",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Validation of parameters in lenient more.",
+                    "hidden": true,
+                    "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
                 }
             }
         },
