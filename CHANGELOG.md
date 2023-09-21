@@ -3,6 +3,17 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2.0dev [unreleased]
+
+### `Added`
+- [#379](https://github.com/nf-core/taxprofiler/pull/379) Added Bracken-corrected Kraken2 report as output (added by @hkaspersen)
+
+### `Fixed`
+
+### `Dependencies`
+
+### `Deprecated`
+
 ## v1.1.0 - Augmented Akita [2023-09-19]
 
 ### `Added`
