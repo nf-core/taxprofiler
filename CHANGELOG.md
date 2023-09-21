@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v1.2.0dev [unreleased]
 
 ### `Added`
-- [#379](https://github.com/nf-core/taxprofiler/pull/379) Added Bracken-corrected Kraken2 report as output (added by @hkaspersen)
+
+- [#379](https://github.com/nf-core/taxprofiler/pull/379) Added support for Bracken-corrected Kraken2 report as output (added by @hkaspersen)
 
 ### `Fixed`
 
@@ -26,8 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#303](https://github.com/nf-core/taxprofiler/pull/303) Add support for taxpasta profile standardisation in single sample pipeline runs (❤️ to @artur-matysik for request, added by @jfy133)
 - [#308](https://github.com/nf-core/taxprofiler/pull/308) Add citations and bibliographic information to the MultiQC methods text of tools used in a given pipeline run (added by @jfy133)
 - [#315](https://github.com/nf-core/taxprofiler/pull/315) Updated to nf-core pipeline template v2.9 (added by @sofstam & @jfy133)
-- [#319](https://github.com/nf-core/taxprofiler/pull/319) Added support for virus hit expansion in Kaiju (❤️ to @dnlrxn for requesting, added by @jfy133)
-- [#323](https://github.com/nf-core/taxprofiler/pull/323) Add ability to skip sequencing quality control tools (❤️ to @vinisalazar for requesting, added by @jfy133)
+- [#321](https://github.com/nf-core/taxprofiler/pull/321) Added support for virus hit expansion in Kaiju (❤️ to @dnlrxn for requesting, added by @jfy133)
+- [#325](https://github.com/nf-core/taxprofiler/pull/325) Add ability to skip sequencing quality control tools (❤️ to @vinisalazar for requesting, added by @jfy133)
 - [#345](https://github.com/nf-core/taxprofiler/pull/345) Add simple tutorial to explain how to get up and running with an nf-core/taxprofiler run (added by @jfy133)
 - [#355](https://github.com/nf-core/taxprofiler/pull/355) Add support for TAXPASTA's `--add-rank-lineage` to output (❤️ to @MajoroMask for request, added by @Midnighter, @sofstam, @jfy133)
 - [#368](https://github.com/nf-core/taxprofiler/pull/368/) Add the ability to ignore profile errors caused by empty profiles and other validation errors when merging multiple profiles using TAXPASTA (added by @Midnighter and @LilyAnderssonLee)
@@ -46,14 +47,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#305](https://github.com/nf-core/taxprofiler/pull/305) Fix docker/podman registry definition for tower compatibility (fix by @adamrtalbot, @jfy133)
 - [#304](https://github.com/nf-core/taxprofiler/pull/304) Correct mistake in kaiju2table documentation, only single rank can be supplied (♥ to @artur-matysik for reporting, fix by @jfy133)
 - [#307](https://github.com/nf-core/taxprofiler/pull/307) Fix databases being sometimes associated with the wrong tool (e.g. Kaiju) (fix by @jfy133, @Midnighter and @LilyAnderssonLee)
-- [#313](https://github.com/nf-core/taxprofiler/pull/304) Fix pipeline not providing error when database sheet does not have a header (♥ to @noah472 for reporting, fix by @jfy133)
+- [#313](https://github.com/nf-core/taxprofiler/pull/313) Fix pipeline not providing error when database sheet does not have a header (♥ to @noah472 for reporting, fix by @jfy133)
 - [#330](https://github.com/nf-core/taxprofiler/pull/330) Added better tagging to allow disambiguation of Kraken2 steps of Kraken2 vs Bracken (♥ to @MajoroMask for requesting, added by @jfy133)
 - [#334](https://github.com/nf-core/taxprofiler/pull/334) Increase the memory of the FALCO process to 4GB (fix by @LilyAnderssonLee)
 - [#332](https://github.com/nf-core/taxprofiler/pull/332) Improved meta map stability for more robust pipeline resuming (fix by @jfy133)
 - [#338](https://github.com/nf-core/taxprofiler/pull/338) Fixed wrong file 'out' file going to `centrifuge kreport` module (♥ to @LilyAnderssonLee for reporting, fix by @jfy133)
 - [#342](https://github.com/nf-core/taxprofiler/pull/342) Fixed docs/usage to correctly list the required database files for Bracken and tips to obtain Kraken2 databases (fix by @husensofteng)
 - [#350](https://github.com/nf-core/taxprofiler/pull/350) Reorganize the CI tests into separate profiles in preparation for implementation of nf-test (fix by @LilyAnderssonLee)
-- [#364](https://github.com/nf-core/taxprofiler/pull/364) Add autoMounts to apptainer profile in nextflow.config (♥ to @hkaspersento for reporting, fix by @LilyAnderssonLee)
+- [#364](https://github.com/nf-core/taxprofiler/pull/364) Add autoMounts to apptainer profile in nextflow.config (♥ to @hkaspersen for reporting, fix by @LilyAnderssonLee)
 - [#372](https://github.com/nf-core/taxprofiler/pull/372) Update modules to use quay.io nf-core mirrored containers (♥ to @maxulysse for pointing out, fix by @LilyAnderssonLee and @jfy133)
 
 ### `Dependencies`
