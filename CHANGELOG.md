@@ -11,9 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#383](https://github.com/nf-core/taxprofiler/pull/383) Update the module of krakenuniq to the latest (❤️ to @asafpr, fixed by @LilyAnderssonLee)
+- [#383](https://github.com/nf-core/taxprofiler/pull/383) Update the module of KrakenUniq to the latest (❤️ to @asafpr, fixed by @LilyAnderssonLee)
 
 ### `Dependencies`
+
+| Tool       | Previous version | New version |
+| ---------- | ---------------- | ----------- |
+| KrakenUniq | 1.0.2            | 1.0.4       |
 
 ### `Deprecated`
 
