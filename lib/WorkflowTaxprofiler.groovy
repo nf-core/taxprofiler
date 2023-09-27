@@ -53,11 +53,12 @@ class WorkflowTaxprofiler {
 
     public static String toolCitationText(params) {
 
+        // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "Tool (Foo et al. 2023)" : "",
+        // Uncomment function in methodsDescriptionText to render in MultiQC report
             def text_seq_qc = [
                 "Sequencing quality control was carried out with:",
                 params.preprocessing_qc_tool == "falco" ? "Falco (de Sena Brandine and Smith 2021)." : "FastQC (Andrews 2010)."
             ].join(' ').trim()
-
 
             def text_shortread_qc = [
                 "Short read preprocessing was performed with:",
@@ -113,6 +114,7 @@ class WorkflowTaxprofiler {
             ].join(' ').trim()
 
         def citation_text = [
+            "Tools used in the workflow included:",
             text_seq_qc,
             params.perform_shortread_qc               ? text_shortread_qc : "",
             params.perform_longread_qc                ? text_longread_qc : "",
