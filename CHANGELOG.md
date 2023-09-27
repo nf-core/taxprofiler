@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#383](https://github.com/nf-core/taxprofiler/pull/383) Update the module of KrakenUniq to the latest (❤️ to @asafpr for reporting and solution, fixed by @LilyAnderssonLee)
+- [#383](https://github.com/nf-core/taxprofiler/pull/383) Update the module of KrakenUniq to the latest to account for edge case bugs where FASTQ input was mis-detected as wrong format (❤️ to @asafpr for reporting and solution, fixed by @LilyAnderssonLee)
 
 ### `Dependencies`
 
