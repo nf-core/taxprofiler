@@ -27,7 +27,7 @@
                     },
                     "bracken/bracken": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "093e35505936bce5127e1d14966b6cac91cd137f",
                         "installed_by": ["modules"]
                     },
                     "bracken/combinebrackenoutputs": {
