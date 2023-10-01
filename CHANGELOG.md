@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#379](https://github.com/nf-core/taxprofiler/pull/379) Added support for previously missing Bracken-corrected Kraken2 report as output (added by @hkaspersen & @jfy133 )
 - [#380](https://github.com/nf-core/taxprofiler/pull/380) Updated to nf-core pipeline template v2.10 (added by @LilyAnderssonLee & @sofstam)
 
 ### `Fixed`
