@@ -3,15 +3,22 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2.0dev [unreleased]
+## v1.1.1 - Augmented Akita Patch [2023-09-28]
 
 ### `Added`
 
-- [#379](https://github.com/nf-core/taxprofiler/pull/379) Added support for Bracken-corrected Kraken2 report as output (added by @hkaspersen)
+- [#379](https://github.com/nf-core/taxprofiler/pull/379) Added support for previously missing Bracken-corrected Kraken2 report as output (added by @hkaspersen)
+- [#380](https://github.com/nf-core/taxprofiler/pull/380) Updated to nf-core pipeline template v2.10 (added by @LilyAnderssonLee & @sofstam)
 
 ### `Fixed`
 
+- [#383](https://github.com/nf-core/taxprofiler/pull/383) Update the module of KrakenUniq to the latest to account for edge case bugs where FASTQ input was mis-detected as wrong format (❤️ to @asafpr for reporting and solution, fixed by @LilyAnderssonLee)
+
 ### `Dependencies`
+
+| Tool       | Previous version | New version |
+| ---------- | ---------------- | ----------- |
+| KrakenUniq | 1.0.2            | 1.0.4       |
 
 ### `Deprecated`
 
