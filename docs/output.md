@@ -345,6 +345,7 @@ The first step of using Bracken requires running Kraken2, therefore the initial 
     - `bracken_<db_name>_combined_reports.txt`: combined bracken results as output from Bracken's `combine_bracken_outputs.py` script
     - `<db_name>/`
       - `<sample>_<db_name>.tsv`: TSV file containing per-sample summary of Bracken results with abundance information
+      - `<sample>_<db_name>.report_bracken_species.txt`: Kraken2 style report with Bracken abundance information
 
 </details>
 
