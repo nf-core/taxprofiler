@@ -53,6 +53,8 @@ if (params.diamond_save_reads              ) log.warn "[nf-core/taxprofiler] DIA
 if (params.run_malt && params.run_krona && !params.krona_taxonomy_directory) log.warn "[nf-core/taxprofiler] Krona can only be run on MALT output if path to Krona taxonomy database supplied to --krona_taxonomy_directory. Krona will not be executed in this run for MALT."
 if (params.run_bracken && !params.run_kraken2) error('ERROR: [nf-core/taxprofiler] You are attempting to run Bracken without running kraken2. This is not possible! Please set --run_kraken2 as well.')
 
+if ( (params.taxpasta_add_name || params.taxpasta_add_rank || params.taxpasta_add_lineage || params.taxpasta_add_lineage || params.taxpasta_add_idlineage || params.taxpasta_add_ranklineage ) && !params.taxpasta_taxonomy_dir ) error('ERROR: [nf-core/taxprofiler] All --taxpasta_add_* parameters require a taxonomy supplied to --taxpasta_taxonomy_dir. However the latter parameter was not detected. Please check input.')
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES
