@@ -22,7 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | KrakenUniq | 1.0.2            | 1.0.4       |
 | taxpasta   | 0.6.0            | 0.6.1       |
 
-
 ### `Deprecated`
 
 ## v1.1.0 - Augmented Akita [2023-09-19]
