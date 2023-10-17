@@ -232,6 +232,21 @@
                         "git_sha": "3ffae3598260a99e8db3207dead9f73f87f90d1f",
                         "installed_by": ["modules"]
                     },
+                    "sourmash/gather": {
+                        "branch": "master",
+                        "git_sha": "33f66e0b2612df417ba94e89ce4c3770258d674b",
+                        "installed_by": ["modules"]
+                    },
+                    "sourmash/sketch": {
+                        "branch": "master",
+                        "git_sha": "33f66e0b2612df417ba94e89ce4c3770258d674b",
+                        "installed_by": ["modules"]
+                    },
+                    "sourmash/taxannotate": {
+                        "branch": "master",
+                        "git_sha": "33f66e0b2612df417ba94e89ce4c3770258d674b",
+                        "installed_by": ["modules"]
+                    },
                     "taxpasta/merge": {
                         "branch": "master",
                         "git_sha": "48019785051ba491e82dce910273c2eca61bd5b7",

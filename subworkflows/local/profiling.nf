@@ -488,6 +488,56 @@ workflow PROFILING {
 
     }
 
+
+    if ( params.run_sourmash ) {
+
+        ch_input_for_sourmash_sketching = ch_input_for_profiling.sourmash.map {
+                                    it -> [ it[0], it[1] ]
+                                }
+
+        // Extract Sample ID
+        sourmash_sample_database = ch_input_for_profiling.sourmash.map {
+                                    it -> [ it[0].sample, it[0] + it[2], it[3] ]
+                                }
+
+        // Create FracMinHash sketches (signatures) for each sample
+        SOURMASH_SKETCH(ch_input_for_sourmash_sketching)
+
+        // Add database to the signatures back
+        ch_input_for_sourmash_gather = SOURMASH_SKETCH.out.signatures.map {
+                                    it -> [ it[0].sample, it[0], it[1] ]
+                                }.join(sourmash_sample_database)
+                                .multiMap  {
+                                    it ->
+                                        signatures: [ it[3], it[2] ]
+                                        db_path: it[4]
+                                        db:  it[4] + "/*.zip"
+                                        tax: it[4] + "/sourmash-taxonomy.csv"
+                                }
+
+        // ch_input_for_sourmash_gather.signatures.view()
+        // ch_input_for_sourmash_gather.db.view()
+
+        // Perform profiling with sourmash
+        SOURMASH_GATHER(
+            ch_input_for_sourmash_gather.signatures,
+            ch_input_for_sourmash_gather.db,
+            false,  // save_unassigned
+            false,  // save_matches_sig
+            false,  // save_prefetch
+            false   // save_prefetch_csv
+        )
+
+        // Add taxonomic lineage information to `sourmash gather` results
+        SOURMASH_TAXANNOTATE(
+            SOURMASH_GATHER.out.result,
+            ch_input_for_sourmash_gather.tax
+            )
+
+    }
+
+
+
     emit:
     classifications = ch_raw_classifications
     profiles        = ch_raw_profiles    // channel: [ val(meta), [ reads ] ] - should be text files or biom

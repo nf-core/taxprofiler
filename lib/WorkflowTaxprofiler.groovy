@@ -102,6 +102,7 @@ class WorkflowTaxprofiler {
                 params.run_motus      ? "mOTUs (Ruscheweyh et al. 2022)," : "",
                 params.run_ganon      ? "ganon (Piro et al. 2020)" : "",
                 params.run_kmcp       ? "KMCP (Shen et al. 2023)" : "",
+                params.run_sourmash   ? "sourmash (Brown & Irber 2016)" : "",
                 "."
             ].join(' ').trim()
 
@@ -174,6 +175,7 @@ class WorkflowTaxprofiler {
                 params.run_motus      ? "<li>Ruscheweyh, H.-J., Milanese, A., Paoli, L., Karcher, N., Clayssen, Q., Keller, M. I., Wirbel, J., Bork, P., Mende, D. R., Zeller, G., & Sunagawa, S. (2022). Cultivation-independent genomes greatly expand taxonomic-profiling capabilities of mOTUs across various environments. Microbiome, 10(1), 212. <a href=\"https://doi.org/10.1186/s40168-022-01410-z\">10.1186/s40168-022-01410-z</a></li>" : "",
                 params.run_ganon      ? "<li>Piro, V. C., Dadi, T. H., Seiler, E., Reinert, K., & Renard, B. Y. (2020). Ganon: Precise metagenomics classification against large and up-to-date sets of reference sequences. Bioinformatics (Oxford, England), 36(Suppl_1), i12–i20. <a href=\"https://doi.org/10.1093/bioinformatics/btaa458\">10.1093/bioinformatics/btaa458</a></li>" : "",
                 params.run_kmcp       ? "<li>Shen, W., Xiang, H., Huang, T., Tang, H., Peng, M., Cai, D., Hu, P., & Ren, H. (2023). KMCP: accurate metagenomic profiling of both prokaryotic and viral populations by pseudo-mapping. Bioinformatics (Oxford, England), 39(1). <a href=\"https://doi.org/10.1093/bioinformatics/btac845\">10.1093/bioinformatics/btac845</a></li>" : "",
+                params.run_sourmash   ? "<li>Brown, T., & Irber, L. (2016).  sourmash: a library for MinHash sketching of DNA. Journal of Open Source Software, 1(5). <a href=\"https://doi.org/10.21105/joss.00027\">10.21105/joss.00027</a></li>" : "",
             ].join(' ').trim()
 
             def text_visualisation = [
