@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#405] Fix database to tool mismatching in the KAIJU2KRONA input (❤️ to @MajoroMask for reporting, fix by @jfy133)
+- [#405] Fix database to tool mismatching in KAIJU2KRONA input (❤️ to @MajoroMask for reporting, fix by @jfy133)
 
 ### `Dependencies`
 
