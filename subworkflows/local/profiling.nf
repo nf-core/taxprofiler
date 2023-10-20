@@ -19,6 +19,9 @@ include { KMCP_SEARCH                                   } from '../../modules/nf
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
+include { SOURMASH_SKETCH                               } from '../../modules/nf-core/sourmash/sketch/main'
+include { SOURMASH_GATHER                               } from '../../modules/nf-core/sourmash/gather/main'
+include { SOURMASH_TAXANNOTATE                          } from '../../modules/nf-core/sourmash/taxannotate/main'
 
 
 // Custom Functions
