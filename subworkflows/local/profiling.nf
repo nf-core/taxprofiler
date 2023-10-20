@@ -515,8 +515,8 @@ workflow PROFILING {
                                     it ->
                                         signatures: [ it[3], it[2] ]
                                         db_path: it[4]
-                                        db:  it[4] + "/*.zip"
-                                        tax: it[4] + "/sourmash-taxonomy.csv"
+                                        db:  it[4] + "/sourmash-db.zip"
+                                        tax: it[4] + "/lineages.csv.gz"
                                 }
 
         // ch_input_for_sourmash_gather.signatures.view()
