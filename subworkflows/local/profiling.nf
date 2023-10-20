@@ -81,6 +81,7 @@ workflow PROFILING {
                 motus: it[2]['tool'] == 'motus'
                 kmcp: it[2]['tool'] == 'kmcp'
                 ganon: it[2]['tool'] == 'ganon'
+                sourmash:  it[2]['tool'] == 'sourmash'
                 unknown: true
             }
 
