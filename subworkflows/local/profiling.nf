@@ -538,6 +538,10 @@ workflow PROFILING {
             ch_input_for_sourmash_gather.tax
             )
 
+        ch_versions      = ch_versions.mix( SOURMASH_TAXANNOTATE.out.versions.first() )
+        ch_raw_profiles  = ch_raw_profiles.mix( SOURMASH_TAXANNOTATE.out.result )
+        ch_multiqc_files = ch_multiqc_files.mix( SOURMASH_TAXANNOTATE.out.result )
+
     }
 
 
