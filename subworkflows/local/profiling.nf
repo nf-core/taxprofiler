@@ -172,9 +172,13 @@ workflow PROFILING {
         ch_raw_classifications = ch_raw_classifications.mix( KRAKEN2_KRAKEN2.out.classified_reads_assignment )
         ch_raw_profiles        = ch_raw_profiles.mix(
             KRAKEN2_KRAKEN2.out.report
-                // Set the tool to be strictly 'kraken2' instead of potentially 'bracken' for downstream use.
-                // Will remain distinct from 'pure' Kraken2 results due to distinct database names in file names.
-                .map { meta, report -> [meta + [tool: 'kraken2'], report]}
+                // Rename tool in the meta for the for-bracken files to disambiguate from only-kraken2 results in downstream steps.
+                // Note may need to rename back to to just bracken in those downstream steps depending on context.
+                .map {
+                    meta, report ->
+                        def new_tool = meta['tool'] == 'bracken' ? 'kraken2-bracken' : meta['tool']
+                    [meta + [tool: new_tool], report]
+                }
         )
 
     }
