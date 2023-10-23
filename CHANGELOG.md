@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#406] Fixed overwriting of bracken-derived kraken2 outputs when the database name is shared between Bracken/Kraken2. (❤️ to @MajoroMask for reporting, fix by @jfy133)
+
 ### `Dependencies`
 
 ### `Deprecated`
