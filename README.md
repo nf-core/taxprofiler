@@ -146,7 +146,7 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 If you use nf-core/taxprofiler for your analysis, please cite it using the following doi: [10.1101/2023.10.20.563221](https://doi.org/10.1101/2023.10.20.563221).
 
-> Stamouli, S., Beber, M. E., Normark, T., Christensen, T. A., Andersson-Li, L., Borry, M., Jamy, M., nf-core community, & Fellows Yates, J. A. (2023). nf-core/taxprofiler: Highly parallelised and flexible pipeline for metagenomic taxonomic classification and profiling. In bioRxiv (p. 2023.10.20.563221). https://doi.org/10.1101/2023.10.20.563221
+> Stamouli, S., Beber, M. E., Normark, T., Christensen II, T. A., Andersson-Li, L., Borry, M., Jamy, M., nf-core community, & Fellows Yates, J. A. (2023). nf-core/taxprofiler: Highly parallelised and flexible pipeline for metagenomic taxonomic classification and profiling. In bioRxiv (p. 2023.10.20.563221). https://doi.org/10.1101/2023.10.20.563221
 
 For the latest version of the code, cite the Zenodo doi: [10.5281/zenodo.7728364](https://doi.org/10.5281/zenodo.7728364)
 
