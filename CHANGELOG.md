@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#408] Added preprint citation information to README and manifest (added by @jfy133)
+
 ### `Fixed`
 
 ### `Dependencies`
