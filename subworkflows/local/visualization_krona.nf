@@ -43,8 +43,7 @@ workflow VISUALIZATION_KRONA {
     ch_kraken_reports = ch_input_profiles.kraken2
             .map {
                 meta, report ->
-                    def new_tool = meta['tool'] == 'kraken2-bracken' ? 'bracken' : meta['tool']
-                [meta + [tool: new_tool], report]
+                [meta +  [tool: meta.tool == 'bracken' ? 'kraken2-bracken' : meta.tool], report]
             }
             .mix( ch_input_profiles.centrifuge )
     KRAKENTOOLS_KREPORT2KRONA ( ch_kraken_reports )

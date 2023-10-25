@@ -176,8 +176,8 @@ workflow PROFILING {
                 // Note may need to rename back to to just bracken in those downstream steps depending on context.
                 .map {
                     meta, report ->
-                        def new_tool = meta['tool'] == 'bracken' ? 'kraken2-bracken' : meta['tool']
-                    [meta + [tool: new_tool], report]
+                        def new_tool = 
+                    [meta + [tool: meta.tool == 'bracken' ? 'kraken2-bracken' : meta.tool], report]
                 }
         )
 

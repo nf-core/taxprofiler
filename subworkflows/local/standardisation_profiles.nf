@@ -173,9 +173,7 @@ workflow STANDARDISATION_PROFILES {
                                         new_meta.db_name = meta.tool == 'kraken2-bracken' ? "${meta.db_name}-bracken" : "${meta.db_name}" // append so to disambiguate when we have same databases for kraken2 step of bracken, with normal bracken
                                     [ new_meta, profiles ]
                                 }
-                                .dump(tag: 'b4group')
                                 .groupTuple(sort: {-it.size()})
-                                .dump(tag: 'whatsgoingon')
 
     KRAKENTOOLS_COMBINEKREPORTS_KRAKEN ( ch_profiles_for_kraken2 )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
