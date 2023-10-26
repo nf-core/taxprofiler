@@ -12,9 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#405] Fix database to tool mismatching in KAIJU2KRONA input (❤️ to @MajoroMask for reporting, fix by @jfy133)
-- [#406] Fixed overwriting of bracken-derived kraken2 outputs when the database name is shared between Bracken/Kraken2. (❤️ to @MajoroMask for reporting, fix by @jfy133)
+- [#406] Fix overwriting of bracken-derived kraken2 outputs when the database name is shared between Bracken/Kraken2. (❤️ to @MajoroMask for reporting, fix by @jfy133)
+- [#409] Fix a null pointer exception error occurring occasionally in older version of MEGAN's rma2info (❤️ to @MajoroMask for reporting, fix by @jfy133)
 
 ### `Dependencies`
+
+| Tool           | Previous version | New version |
+| -------------- | ---------------- | ----------- |
+| megan/rma2info | 6.21.7           | 6.24.20     |
 
 ### `Deprecated`
 
