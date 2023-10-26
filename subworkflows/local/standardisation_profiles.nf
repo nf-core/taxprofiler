@@ -52,12 +52,19 @@ workflow STANDARDISATION_PROFILES {
                             .map {
                                     meta, profile ->
                                         def meta_new = [:]
-                                        meta_new.id = meta.db_name
                                         meta_new.tool = meta.tool == 'malt' ? 'megan6' : meta.tool
+                                        meta_new.db_name = meta.db_name
                                         [meta_new, profile]
                             }
                             .groupTuple ()
-                            .map { [ it[0], it[1].flatten() ] }
+                            .map {
+                                meta, profiles ->
+                                    meta = meta + [
+                                        tool: meta.tool == 'kraken2-bracken' ? 'kraken2' : meta.tool, // replace to get the right output-format description
+                                        id: meta.tool == 'kraken2-bracken' ? "${meta.db_name}-bracken" : "${meta.db_name}" // append so to disambiguate when we have same databases for kraken2 step of bracken, with normal bracken
+                                    ]
+                                [ meta, profiles.flatten() ]
+                            }
 
     ch_taxpasta_tax_dir = params.taxpasta_taxonomy_dir ? Channel.fromPath(params.taxpasta_taxonomy_dir, checkIfExists: true).collect() : []
 
@@ -85,7 +92,7 @@ workflow STANDARDISATION_PROFILES {
             centrifuge: it[0]['tool'] == 'centrifuge'
             ganon: it[0]['tool'] == 'ganon'
             kmcp: it [0]['tool'] == 'kmcp'
-            kraken2: it[0]['tool'] == 'kraken2'
+            kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
             metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
             unknown: true
@@ -158,11 +165,15 @@ workflow STANDARDISATION_PROFILES {
     // Have to sort by size to ensure first file actually has hits otherwise
     // the script fails
     ch_profiles_for_kraken2 = ch_input_profiles.kraken2
-                                .map { [it[0]['db_name'], it[1]] }
-                                .groupTuple(sort: {-it.size()} )
                                 .map {
-                                    [[id:it[0]], it[1]]
+                                    meta, profiles ->
+                                        def new_meta = [:]
+                                        new_meta.tool = meta.tool == 'kraken2-bracken' ? 'kraken2' : meta.tool // replace to get the right output-format description
+                                        new_meta.id = meta.tool // append so to disambiguate when we have same databases for kraken2 step of bracken, with normal bracken
+                                        new_meta.db_name = meta.tool == 'kraken2-bracken' ? "${meta.db_name}-bracken" : "${meta.db_name}" // append so to disambiguate when we have same databases for kraken2 step of bracken, with normal bracken
+                                    [ new_meta, profiles ]
                                 }
+                                .groupTuple(sort: {-it.size()})
 
     KRAKENTOOLS_COMBINEKREPORTS_KRAKEN ( ch_profiles_for_kraken2 )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
