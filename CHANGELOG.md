@@ -7,13 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#408] Added preprint citation information to README and manifest (added by @jfy133)
+- [#408](https://github.com/nf-core/taxprofiler/pull/408) Added preprint citation information to README and manifest (added by @jfy133)
 
 ### `Fixed`
 
-- [#405] Fix database to tool mismatching in KAIJU2KRONA input (❤️ to @MajoroMask for reporting, fix by @jfy133)
-- [#406] Fix overwriting of bracken-derived kraken2 outputs when the database name is shared between Bracken/Kraken2. (❤️ to @MajoroMask for reporting, fix by @jfy133)
-- [#409] Fix a NullPointerException error occurring occasionally in older version of MEGAN's rma2info (❤️ to @MajoroMask for reporting, fix by @jfy133)
+- [#405](https://github.com/nf-core/taxprofiler/pull/405) Fix database to tool mismatching in KAIJU2KRONA input (❤️ to @MajoroMask for reporting, fix by @jfy133)
+- [#406](https://github.com/nf-core/taxprofiler/pull/406) Fix overwriting of bracken-derived kraken2 outputs when the database name is shared between Bracken/Kraken2. (❤️ to @MajoroMask for reporting, fix by @jfy133)
+- [#409](https://github.com/nf-core/taxprofiler/pull/409) Fix a NullPointerException error occurring occasionally in older version of MEGAN's rma2info (❤️ to @MajoroMask for reporting, fix by @jfy133)
 
 ### `Dependencies`
 
