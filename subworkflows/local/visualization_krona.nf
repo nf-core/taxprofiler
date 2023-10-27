@@ -27,7 +27,7 @@ workflow VISUALIZATION_KRONA {
     ch_input_profiles = profiles
         .branch {
             centrifuge: it[0]['tool'] == 'centrifuge'
-            kraken2: it[0]['tool'] == 'kraken2'
+            kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
             unknown: true
         }
     ch_input_classifications = classifications
@@ -41,7 +41,11 @@ workflow VISUALIZATION_KRONA {
         Convert Kraken2 formatted reports into Krona text files
     */
     ch_kraken_reports = ch_input_profiles.kraken2
-        .mix( ch_input_profiles.centrifuge )
+            .map {
+                meta, report ->
+                [meta +  [tool: meta.tool == 'bracken' ? 'kraken2-bracken' : meta.tool], report]
+            }
+            .mix( ch_input_profiles.centrifuge )
     KRAKENTOOLS_KREPORT2KRONA ( ch_kraken_reports )
     ch_krona_text = ch_krona_text.mix( KRAKENTOOLS_KREPORT2KRONA.out.txt )
     ch_versions = ch_versions.mix( KRAKENTOOLS_KREPORT2KRONA.out.versions.first() )
@@ -50,8 +54,8 @@ workflow VISUALIZATION_KRONA {
         Combine Kaiju profiles with their databases
     */
     ch_input_for_kaiju2krona = ch_input_classifications.kaiju
-        .map{ [it[0]['db_name'], it[0], it[1]] }
-        .combine( databases.map{ [it[0]['db_name'], it[1]] }, by: 0 )
+        .map{ meta, profiles -> [[meta['tool'], meta['db_name']], meta, profiles] }
+        .combine( databases.map{ meta, db -> [[meta['tool'], meta['db_name']], db] }, by: 0 )
         .multiMap{
             it ->
                 profiles: [it[1], it[2]]
