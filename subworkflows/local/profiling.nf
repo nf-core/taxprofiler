@@ -512,11 +512,19 @@ workflow PROFILING {
                                     it -> [ it[0].sample, it[0], it[1] ]
                                 }.join(sourmash_sample_database)
                                 .multiMap  {
-                                    it ->
-                                        signatures: [ it[3], it[2] ]
-                                        db_path: it[4]
-                                        db:  it[4] + "/sourmash-db.zip"
-                                        tax: it[4] + "/lineages.csv.gz"
+                                    input ->
+
+                                        // Get the database file names from the channel (e.g., ZIP and CSV.GZ)
+                                        def find_db  = []
+                                        def find_tax = []
+
+                                        input.eachFileMatch( ~/.*\.zip$/ )        { find_db << it  }
+                                        input.eachFileMatch( ~/.*\.csv(\.gz)?$/ ) { find_tax << it }
+
+                                        signatures: [ input[3], input[2] ]
+                                        db_path: input[4]
+                                        db:  [find_db]
+                                        tax: [find_tax]
                                 }
 
         // ch_input_for_sourmash_gather.signatures.view()
