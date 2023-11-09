@@ -101,6 +101,7 @@ include { FALCO                       } from '../modules/nf-core/falco/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
+include { NONPAREIL                   } from '../modules/nf-core/nonpareil/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -174,6 +175,17 @@ workflow TAXPROFILER {
     } else {
         ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
     }
+
+    /*
+        MODULE: REDUNDANCY ESTIMATION
+    */
+
+    if ( params.run_redundancy_estimation ) {
+        ch_reads_for_nonpareil
+
+        NONPAREIL( ch_reads_for_nonpareil, params.redundancy_estimation_format, params.redundancy_estimation_mode)
+    }
+
 
     /*
         SUBWORKFLOW: COMPLEXITY FILTERING

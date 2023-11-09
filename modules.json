@@ -201,6 +201,11 @@
                         "git_sha": "a6e11ac655e744f7ebc724be669dd568ffdc0e80",
                         "installed_by": ["modules"]
                     },
+                    "nonpareil": {
+                        "branch": "master",
+                        "git_sha": "d1e3f0e70e025bb2c48f59465db31609330a65f2",
+                        "installed_by": ["modules"]
+                    },
                     "porechop/porechop": {
                         "branch": "master",
                         "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
