@@ -180,10 +180,23 @@ workflow TAXPROFILER {
         MODULE: REDUNDANCY ESTIMATION
     */
 
-    if ( params.run_redundancy_estimation ) {
-        ch_reads_for_nonpareil
+    // TODO:
+    // - autodetect fastq/fastq
+    // - multiqc module? or nonpareil.curve
+    if ( params.perform_shortread_redundancyestimation ) {
+        ch_reads_for_nonpareil = ch_shortreads_preprocessed
+                                    .map {
+                                        meta, reads ->
+                                            def reads_new = meta.single_end ? reads : reads[0]
+                                        [meta, reads_new]
+                                    }
+                                    .multiMap {
+                                        meta, reads ->
+                                            reads: [meta, reads]
+                                            format: 'fastq' // TODO can we autodetect?
+                                    }
 
-        NONPAREIL( ch_reads_for_nonpareil, params.redundancy_estimation_format, params.redundancy_estimation_mode)
+        NONPAREIL( ch_reads_for_nonpareil.reads, ch_reads_for_nonpareil.format, params.shortread_redundancyestimation_mode)
     }
 
 

@@ -15,6 +15,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [fastp](#fastp) - Adapter trimming for Illumina data
 - [AdapterRemoval](#adapterremoval) - Adapter trimming for Illumina data
 - [Porechop](#porechop) - Adapter removal for Oxford Nanopore data
+- [Nonpareil](#nonpareil) - Read redundancy and metagenome coverage estimation for short reads
 - [BBDuk](#bbduk) - Quality trimming and filtering for Illumina data
 - [PRINSEQ++](#prinseq) - Quality trimming and filtering for Illunina data
 - [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
@@ -22,7 +23,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [SAMtools stats](#samtools-stats) - Statistics from host removal
 - [SAMtools fastq](#samtools-fastq) - Converts unmapped BAM file to fastq format (minimap2 only)
-- [Analysis Ready Reads](#analysis-read-reads) - Optional results directory containing the final processed reads used as input for classification/profiling.
+- [Analysis Ready Reads](#analysis-ready-reads) - Optional results directory containing the final processed reads used as input for classification/profiling.
 - [Bracken](#bracken) - Taxonomic classifier using k-mers and abundance estimations
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
 - [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
@@ -116,6 +117,24 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 :::warning
 The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
 :::
+
+### Nonpareil
+
+Turns on [nonpareil](https://nonpareil.readthedocs.io/en/latest/) is a tool for estimating metagenome 'coverage' from short-read libraries, i.e, whether all genomes within the metagenome have had at least one read sequenced. The lower the redundancy, the more sequencing can be done until the entire metagenome has been captured. The output can be used to guide the amount of further sequencing is required.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `nonpareil/`
+
+  - `<sample_id>.npl` - log file of the nonpareil run
+  - `<sample_id>.npo` - redundancy summary file. This is the most useful file and contains the information for generating metagenome coverage curves. These six columns are: seq. effort (_n_ reads), average redundancy, standard deviation, quartile 1, median (quartile 2), and quartile 3.
+  - `<sample_id>.npa` - raw version of npo but with all replicates not just a summary (average) at each point. These three columns are: seq. effort (_n_ reads), replicate ID, redundancy value.
+  - `<sample_id>.npc` - raw list with the number of reads in the dataset matching a query read.
+
+  </details>
+
+  In most cases you will just want to look at the output of applying Nonpareil's `Nonpareil.curve()` or `Nonpareil.set()` R functions on the `.npo` file to generate the coverage and extrapolation plot.
 
 ### Porechop
 

@@ -66,6 +66,10 @@ class WorkflowTaxprofiler {
                 params.shortread_qc_tool == "fastp" ? "fastp (Chen et al. 2018)." : "",
             ].join(' ').trim()
 
+            def text_shortread_redundancy = [
+                "Short-read reference-free metagenome coverage estimation was performed with Nonpareil (Rodriguez-R et al. 2018)"
+            ].join(' ').trim()
+
             def text_longread_qc = [
                 "Long read preprocessing was performed with:",
                 !params.longread_qc_skipadaptertrim ? "Porechop (Wick et al. 2017)," : "",
@@ -116,14 +120,15 @@ class WorkflowTaxprofiler {
         def citation_text = [
             "Tools used in the workflow included:",
             text_seq_qc,
-            params.perform_shortread_qc               ? text_shortread_qc : "",
-            params.perform_longread_qc                ? text_longread_qc : "",
-            params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
-            params.perform_shortread_hostremoval      ? text_shortreadhostremoval : "",
-            params.perform_longread_hostremoval       ? text_longreadhostremoval : "",
+            params.perform_shortread_qc                   ? text_shortread_qc : "",
+            params.perform_shortread_redundancyestimation ? text_shortread_redundancy : ""
+            params.perform_longread_qc                    ? text_longread_qc : "",
+            params.perform_shortread_complexityfilter     ? text_shortreadcomplexity : "",
+            params.perform_shortread_hostremoval          ? text_shortreadhostremoval : "",
+            params.perform_longread_hostremoval           ? text_longreadhostremoval : "",
             text_classification,
-            params.run_krona                          ? text_visualisation : "",
-            params.run_profile_standardisation        ? text_postprocessing : "",
+            params.run_krona                              ? text_visualisation : "",
+            params.run_profile_standardisation            ? text_postprocessing : "",
             "Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
         ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
 
@@ -140,6 +145,10 @@ class WorkflowTaxprofiler {
 
             def text_shortread_qc = [
                 params.shortread_qc_tool == "adapterremoval" ? "<li>Schubert, M., Lindgreen, S., & Orlando, L. (2016). AdapterRemoval v2: rapid adapter trimming, identification, and read merging. BMC Research Notes, 9, 88. <a href=\"https://doi.org/10.1186/s13104-016-1900-2\">10.1186/s13104-016-1900-2</a></li>" : "",
+            ].join(' ').trim()
+
+            def text_shortread_redundancy = [
+                "<li>Rodriguez-R, L. M., Gunturu, S., Tiedje, J. M., Cole, J. R., & Konstantinidis, K. T. (2018). Nonpareil 3: Fast Estimation of Metagenomic Coverage and Sequence Diversity. mSystems, 3(3). <a href=\"https://doi.org/10.1128/mSystems.00039-18\">10.1128/mSystems.00039-18</a></li>" : "",
             ].join(' ').trim()
 
             def text_longread_qc = [
