@@ -121,7 +121,7 @@ class WorkflowTaxprofiler {
             "Tools used in the workflow included:",
             text_seq_qc,
             params.perform_shortread_qc                   ? text_shortread_qc : "",
-            params.perform_shortread_redundancyestimation ? text_shortread_redundancy : ""
+            params.perform_shortread_redundancyestimation ? text_shortread_redundancy : "",
             params.perform_longread_qc                    ? text_longread_qc : "",
             params.perform_shortread_complexityfilter     ? text_shortreadcomplexity : "",
             params.perform_shortread_hostremoval          ? text_shortreadhostremoval : "",
@@ -148,7 +148,7 @@ class WorkflowTaxprofiler {
             ].join(' ').trim()
 
             def text_shortread_redundancy = [
-                "<li>Rodriguez-R, L. M., Gunturu, S., Tiedje, J. M., Cole, J. R., & Konstantinidis, K. T. (2018). Nonpareil 3: Fast Estimation of Metagenomic Coverage and Sequence Diversity. mSystems, 3(3). <a href=\"https://doi.org/10.1128/mSystems.00039-18\">10.1128/mSystems.00039-18</a></li>" : "",
+                "<li>Rodriguez-R, L. M., Gunturu, S., Tiedje, J. M., Cole, J. R., & Konstantinidis, K. T. (2018). Nonpareil 3: Fast Estimation of Metagenomic Coverage and Sequence Diversity. mSystems, 3(3). <a href=\"https://doi.org/10.1128/mSystems.00039-18\">10.1128/mSystems.00039-18</a></li>",
             ].join(' ').trim()
 
             def text_longread_qc = [
