@@ -74,16 +74,14 @@ jobs:
 
       - name: Run nf-test
         run: |
-          if [[ "${{ matrix.tags }}" == "test_motus" ]]; then 
-            wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py 
+          if [[ "${{ matrix.tags }}" == "test_motus" ]]; then
+            wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
             python downloadDB.py > download_db_log.txt
             echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
             echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
-            ## TODO: Add --databases database_motus.csv parameter some how
-            nf-test test ${{ matrix.tags }},${{ matrix.profile }} --junitxml=test.xml
-            #nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }}; 
-          else 
-            nf-test test ${{ matrix.tags }},${{ matrix.profile }} --junitxml=test.xml
+            nf-test test --profile ${{ matrix.tags }},${{ matrix.profile }} --junitxml=test.xml
+          else
+            nf-test test --profile ${{ matrix.tags }},${{ matrix.profile }} --junitxml=test.xml
           fi
 
       - name: Output log on failure
