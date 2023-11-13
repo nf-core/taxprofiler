@@ -1,17 +1,23 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    VALIDATE INPUTS
+    PRINT PARAMS SUMMARY
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
+include { paramsSummaryLog; paramsSummaryMap } from 'plugin/nf-validation'
 
-// Validate input parameters
+def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
+def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
+def summary_params = paramsSummaryMap(workflow)
+
+// Print parameter summary log to screen
+log.info logo + paramsSummaryLog(workflow) + citation
+
 WorkflowTaxprofiler.initialise(params, log)
 
 // Check input path parameters to see if they exist
 def checkPathParamList = [ params.input, params.genome, params.databases,
-                            params.outdir, params.longread_hostremoval_index,
+                            params.longread_hostremoval_index,
                             params.hostremoval_reference, params.shortread_hostremoval_index,
                             params.multiqc_config, params.shortread_qc_adapterlist,
                             params.krona_taxonomy_directory,
@@ -46,6 +52,8 @@ if (params.diamond_save_reads              ) log.warn "[nf-core/taxprofiler] DIA
 
 if (params.run_malt && params.run_krona && !params.krona_taxonomy_directory) log.warn "[nf-core/taxprofiler] Krona can only be run on MALT output if path to Krona taxonomy database supplied to --krona_taxonomy_directory. Krona will not be executed in this run for MALT."
 if (params.run_bracken && !params.run_kraken2) error('ERROR: [nf-core/taxprofiler] You are attempting to run Bracken without running kraken2. This is not possible! Please set --run_kraken2 as well.')
+
+if ( [params.taxpasta_add_name, params.taxpasta_add_rank, params.taxpasta_add_lineage, params.taxpasta_add_lineage, params.taxpasta_add_idlineage, params.taxpasta_add_ranklineage].any() && !params.taxpasta_taxonomy_dir ) error('ERROR: [nf-core/taxprofiler] All --taxpasta_add_* parameters require a taxonomy supplied to --taxpasta_taxonomy_dir. However the latter parameter was not detected. Please check input.')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,9 +126,12 @@ workflow TAXPROFILER {
         SUBWORKFLOW: Read in samplesheet, validate and stage input files
     */
     INPUT_CHECK (
-        ch_input
+        file(params.input)
     )
     ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
+    // TODO: OPTIONAL, you can use nf-validation plugin to create an input channel from the samplesheet with Channel.fromSamplesheet("input")
+    // See the documentation https://nextflow-io.github.io/nf-validation/samplesheets/fromSamplesheet/
+    // ! There is currently no tooling to help you write a sample sheet schema
 
     // Save final FASTA reads if requested, as otherwise no processing occurs on FASTA
 
@@ -135,13 +146,16 @@ workflow TAXPROFILER {
     */
     ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
 
-    if ( params.preprocessing_qc_tool == 'falco' ) {
-        FALCO ( ch_input_for_fastqc )
-        ch_versions = ch_versions.mix(FALCO.out.versions.first())
-    } else {
-        FASTQC ( ch_input_for_fastqc )
-        ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    if ( !params.skip_preprocessing_qc ) {
+        if ( params.preprocessing_qc_tool == 'falco' ) {
+            FALCO ( ch_input_for_fastqc )
+            ch_versions = ch_versions.mix(FALCO.out.versions.first())
+        } else {
+            FASTQC ( ch_input_for_fastqc )
+            ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+        }
     }
+
     /*
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
@@ -197,8 +211,7 @@ workflow TAXPROFILER {
             .mix( ch_longreads_hostremoved )
             .map {
                 meta, reads ->
-                    def meta_new = meta.clone()
-                    meta_new.remove('run_accession')
+                    def meta_new = meta - meta.subMap('run_accession')
                     [ meta_new, reads ]
             }
             .groupTuple()
@@ -264,7 +277,7 @@ workflow TAXPROFILER {
     workflow_summary    = WorkflowTaxprofiler.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
-    methods_description    = WorkflowTaxprofiler.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description)
+    methods_description    = WorkflowTaxprofiler.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description, params)
     ch_methods_description = Channel.value(methods_description)
 
     ch_multiqc_files = Channel.empty()
@@ -272,17 +285,18 @@ workflow TAXPROFILER {
     ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
     ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
 
-    if ( params.preprocessing_qc_tool == 'falco' ) {
-        // only mix in files acutally used by MultiQC
-        ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt
-                            .map { meta, reports -> reports }
-                            .flatten()
-                            .filter { path -> path.name.endsWith('_data.txt')}
-                            .ifEmpty([]))
-    } else {
-        ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+    if ( !params.skip_preprocessing_qc ) {
+        if ( params.preprocessing_qc_tool == 'falco' ) {
+            // only mix in files actually used by MultiQC
+            ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt
+                                .map { meta, reports -> reports }
+                                .flatten()
+                                .filter { path -> path.name.endsWith('_data.txt')}
+                                .ifEmpty([]))
+        } else {
+            ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+        }
     }
-
 
     if (params.perform_shortread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
@@ -329,6 +343,7 @@ workflow.onComplete {
     if (params.email || params.email_on_fail) {
         NfcoreTemplate.email(workflow, params, summary_params, projectDir, log, multiqc_report)
     }
+    NfcoreTemplate.dump_parameters(workflow, params)
     NfcoreTemplate.summary(workflow, params, log)
     if (params.hook_url) {
         NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)

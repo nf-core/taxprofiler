@@ -1,8 +1,9 @@
 # ![nf-core/taxprofiler](docs/images/nf-core-taxprofiler_logo_custom_light.png#gh-light-mode-only) ![nf-core/taxprofiler](docs/images/nf-core-taxprofiler_logo_custom_dark.png#gh-dark-mode-only)
 
-[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/taxprofiler/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7728364-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7728364)
+[![GitHub Actions CI Status](https://github.com/nf-core/taxprofiler/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/taxprofiler/actions?query=workflow%3A%22nf-core+CI%22)
+[![GitHub Actions Linting Status](https://github.com/nf-core/taxprofiler/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/taxprofiler/actions?query=workflow%3A%22nf-core+linting%22)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/taxprofiler/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7728364-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7728364)
 
-[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A522.10.1-23aa62.svg)](https://www.nextflow.io/)
+[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A523.04.0-23aa62.svg)](https://www.nextflow.io/)
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 [![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
@@ -10,9 +11,11 @@
 
 [![Get help on Slack](http://img.shields.io/badge/slack-nf--core%20%23taxprofiler-4A154B?labelColor=000000&logo=slack)](https://nfcore.slack.com/channels/taxprofiler)[![Follow on Twitter](http://img.shields.io/badge/twitter-%40nf__core-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/nf_core)[![Follow on Mastodon](https://img.shields.io/badge/mastodon-nf__core-6364ff?labelColor=FFFFFF&logo=mastodon)](https://mstdn.science/@nf_core)[![Watch on YouTube](http://img.shields.io/badge/youtube-nf--core-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/c/nf-core)
 
+[![Cite Preprint](https://img.shields.io/badge/Cite%20Us!-Cite%20Preprint-orange)](https://doi.org/10.1101/2023.10.20.563221)
+
 ## Introduction
 
-**nf-core/taxprofiler** is a bioinformatics best-practice analysis pipeline for taxonomic classification and profiling of shotgun and long-read metagenomic data. It allows for in-parallel taxonomic identification of reads or taxonomic abundance estimation with multiple classification and profiling tools against multiple databases, and produces standardised output tables for facilitating results comparison between different tools and databases.
+**nf-core/taxprofiler** is a bioinformatics best-practice analysis pipeline for taxonomic classification and profiling of shotgun short- and long-read metagenomic data. It allows for in-parallel taxonomic identification of reads or taxonomic abundance estimation with multiple classification and profiling tools against multiple databases, and produces standardised output tables for facilitating results comparison between different tools and databases.
 
 ## Pipeline summary
 
@@ -27,13 +30,15 @@
 3. Supports statistics for host-read removal ([Samtools](http://www.htslib.org/))
 4. Performs taxonomic classification and/or profiling using one or more of:
    - [Kraken2](https://ccb.jhu.edu/software/kraken2/)
-   - [MetaPhlAn3](https://huttenhower.sph.harvard.edu/metaphlan/)
+   - [MetaPhlAn](https://huttenhower.sph.harvard.edu/metaphlan/)
    - [MALT](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/malt/)
    - [DIAMOND](https://github.com/bbuchfink/diamond)
    - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/)
    - [Kaiju](https://kaiju.binf.ku.dk/)
    - [mOTUs](https://motu-tool.org/)
    - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
+   - [KMCP](https://github.com/shenwei356/kmcp)
+   - [ganon](https://pirovc.github.io/ganon/)
 5. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
 6. Standardises output tables ([`Taxpasta`](https://taxpasta.readthedocs.io))
@@ -42,10 +47,11 @@
 
 ## Usage
 
-> **Note**
-> If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how
-> to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline)
-> with `-profile test` before running the workflow on actual data.
+:::note
+If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how
+to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline)
+with `-profile test` before running the workflow on actual data.
+:::
 
 First, prepare a samplesheet with your input data that looks as follows:
 
@@ -67,7 +73,7 @@ Additionally, you will need a database sheet that looks as follows:
 ```
 tool,db_name,db_params,db_path
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
-metaphlan3,db1,,/<path>/<to>/metaphlan3/metaphlan_database/
+metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 ```
 
 That includes directories or `.tar.gz` archives containing databases for the tools you wish to run the pipeline against.
@@ -80,19 +86,20 @@ nextflow run nf-core/taxprofiler \
    --input samplesheet.csv \
    --databases databases.csv \
    --outdir <OUTDIR>  \
-   --run_kraken2 --run_metaphlan3
+   --run_kraken2 --run_metaphlan
 ```
 
-> **Warning:**
-> Please provide pipeline parameters via the CLI (as above) or Nextflow `-params-file` option. Custom config files including those
-> provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
-> see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
+:::warning
+Please provide pipeline parameters via the CLI or Nextflow `-params-file` option. Custom config files including those
+provided by the `-c` Nextflow option can be used to provide any configuration _**except for parameters**_;
+see [docs](https://nf-co.re/usage/configuration#custom-configuration-files).
+:::
 
-For more details, please refer to the [usage documentation](https://nf-co.re/taxprofiler/usage) and the [parameter documentation](https://nf-co.re/taxprofiler/parameters).
+For more details and further functionality, please refer to the [usage documentation](https://nf-co.re/taxprofiler/usage) and the [parameter documentation](https://nf-co.re/taxprofiler/parameters).
 
 ## Pipeline output
 
-To see the results of a test run with a full size dataset refer to the [results](https://nf-co.re/taxprofiler/results) tab on the nf-core website pipeline page.
+To see the results of an example test run with a full size dataset refer to the [results](https://nf-co.re/taxprofiler/results) tab on the nf-core website pipeline page.
 For more details about the output files and reports, please refer to the
 [output documentation](https://nf-co.re/taxprofiler/output).
 
@@ -115,6 +122,7 @@ We thank the following people for their contributions to the development of this
 - [Jianhong Ou](https://github.com/jianhong)
 - [Rafal Stepien](https://github.com/rafalstepien)
 - [Mahwash Jamy](https://github.com/mjamy)
+- [Lily Andersson Lee](https://github.com/LilyAnderssonLee)
 
 ### Acknowledgments
 
@@ -125,7 +133,6 @@ We also are grateful for the feedback and comments from:
 And specifically to
 
 - [Alex Hübner](https://github.com/alexhbnr)
-- [Lily Andersson Lee](https://github.com/LilyAnderssonLee)
 
 ❤️ also goes to [Zandra Fagernäs](https://github.com/ZandraFagernas) for the logo.
 
@@ -137,7 +144,11 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
-If you use nf-core/taxprofiler for your analysis, please cite it using the following doi: [10.5281/zenodo.7728364](https://doi.org/10.5281/zenodo.7728364)
+If you use nf-core/taxprofiler for your analysis, please cite it using the following doi: [10.1101/2023.10.20.563221](https://doi.org/10.1101/2023.10.20.563221).
+
+> Stamouli, S., Beber, M. E., Normark, T., Christensen II, T. A., Andersson-Li, L., Borry, M., Jamy, M., nf-core community, & Fellows Yates, J. A. (2023). nf-core/taxprofiler: Highly parallelised and flexible pipeline for metagenomic taxonomic classification and profiling. In bioRxiv (p. 2023.10.20.563221). https://doi.org/10.1101/2023.10.20.563221
+
+For the latest version of the code, cite the Zenodo doi: [10.5281/zenodo.7728364](https://doi.org/10.5281/zenodo.7728364)
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

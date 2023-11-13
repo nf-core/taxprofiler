@@ -30,8 +30,10 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Kaiju](#kaiju) - Taxonomic classifier that finds maximum (in-)exact matches on the protein-level.
 - [Diamond](#diamond) - Sequence aligner for protein and translated DNA searches.
 - [MALT](#malt) - Sequence alignment and analysis tool designed for processing high-throughput sequencing data, especially in the context of metagenomics
-- [MetaPhlAn3](#metaphlan3) - Genome-level marker gene based taxonomic classifier
+- [MetaPhlAn](#metaphlan) - Genome-level marker gene based taxonomic classifier
 - [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
+- [KMCP](#kmcp) - Taxonomic classifier that utilizes genome coverage information by splitting the reference genomes into chunks and stores k-mers in a modified and optimized COBS index for fast alignment-free sequence searching.
+- [ganon](#ganon) - Taxonomic classifier and profile that uses Interleaved Bloom Filters as indices based on k-mers/minimizers.
 - [TAXPASTA](#taxpasta) - Tool to standardise taxonomic profiles as well as merge profiles across samples from the same database and classifier/profiler.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
@@ -55,13 +57,19 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 If preprocessing is turned on, nf-core/taxprofiler runs FastQC/Falco twice -once before and once after adapter removal/read merging, to allow evaluation of the performance of these preprocessing steps. Note in the General Stats table, the columns of these two instances of FastQC/Falco are placed next to each other to make it easier to evaluate. However, the columns of the actual preprocessing steps (i.e, fastp, AdapterRemoval, and Porechop) will be displayed _after_ the two FastQC/Falco columns, even if they were run 'between' the two FastQC/Falco jobs in the pipeline itself.
 
-> ℹ️ Falco produces identical output to FastQC but in the `falco/` directory.
+:::info
+Falco produces identical output to FastQC but in the `falco/` directory.
+:::
 
 ![MultiQC - FastQC sequence counts plot](images/mqc_fastqc_counts.png)
 
 ![MultiQC - FastQC mean quality scores plot](images/mqc_fastqc_quality.png)
 
 ![MultiQC - FastQC adapter content plot](images/mqc_fastqc_adapter.png)
+
+:::note
+The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality.
+:::
 
 ### fastp
 
@@ -72,7 +80,7 @@ It is used in nf-core/taxprofiler for adapter trimming of short-reads.
 <details markdown="1">
 <summary>Output files</summary>
 
-- `fastp`
+- `fastp/`
   - `<sample_id>.fastp.fastq.gz`: File with the trimmed unmerged fastq reads.
   - `<sample_id>.merged.fastq.gz`: File with the reads that were successfully merged.
   - `<sample_id>.*{log,html,json}`: Log files in different formats.
@@ -105,7 +113,9 @@ By default nf-core/taxprofiler will only provide the `.settings` file if Adapter
 
 You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. If this is selected, you may receive different combinations of `.fastq` files for each sample depending on the input types - e.g. whether you have merged or not, or if you're supplying both single- and paired-end reads. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
+:::warning
+The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
+:::
 
 ### Porechop
 
@@ -114,7 +124,7 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `porechop`
+- `porechop/`
   - `<sample_id>.log`: Log file containing trimming statistics
   - `<sample_id>.fastq.gz`: Adapter-trimmed file
 
@@ -124,7 +134,9 @@ The output logs are saved in the output folder and are part of MultiQC report.Yo
 
 You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
+:::warning
+We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
+:::
 
 ### BBDuk
 
@@ -143,7 +155,9 @@ It is used in nf-core/taxprofiler for complexity filtering using different algor
 
 By default nf-core/taxprofiler will only provide the `.log` file if BBDuk is selected as the complexity filtering tool. You will only find the complexity filtered reads in your results directory if you provide ` --save_complexityfiltered_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+:::warning
+The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+:::
 
 ### PRINSEQ++
 
@@ -162,7 +176,9 @@ It is used in nf-core/taxprofiler for complexity filtering using different algor
 
 By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is selected as the complexity filtering tool. You will only find the complexity filtered `.fastq` files in your results directory if you supply ` --save_complexityfiltered_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+:::warning
+The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as host removal, run merging etc..
+:::
 
 ### Filtlong
 
@@ -171,7 +187,7 @@ By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is
 <details markdown="1">
 <summary>Output files</summary>
 
-- `filtlong`
+- `filtlong/`
   - `<sample_id>_filtered.fastq.gz`: Quality or short read data filtered file
   - `<sample_id>_filtered.log`: log file containing summary statistics
 
@@ -179,7 +195,9 @@ By default nf-core/taxprofiler will only provide the `.log` file if PRINSEQ++ is
 
 You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ⚠️ We do **not** recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
+:::warning
+We do _not_ recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
+:::
 
 ### Bowtie2
 
@@ -202,11 +220,17 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/
 
 By default nf-core/taxprofiler will only provide the `.log` file if host removal is turned on. You will only have a `.bam` file if you specify `--save_hostremoval_bam`. This will contain _both_ mapped and unmapped reads. You will only get FASTQ files if you specify to save `--save_hostremoval_unmapped` - these contain only unmapped reads. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ℹ️ Unmapped reads in FASTQ are only found in this directory for short-reads, for long-reads see [`samtools/fastq/`](#samtools-fastq)
+:::info
+Unmapped reads in FASTQ are only found in this directory for short-reads, for long-reads see [`samtools/fastq/`](#samtools-fastq).
+:::
 
-> ⚠️ The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as run merging etc..
+:::info
+The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as run merging etc..
+:::
 
-> ℹ️ While there is a dedicated section in the MultiQC HTML for Bowtie2, these values are not displayed by default in the General Stats table. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report for direct comparison with minimap2 (see below).
+:::info
+While there is a dedicated section in the MultiQC HTML for Bowtie2, these values are not displayed by default in the General Stats table. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report for direct comparison with minimap2 (see below).
+:::
 
 ### minimap2
 
@@ -217,7 +241,7 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 <details markdown="1">
 <summary>Output files</summary>
 
-- `minimap2`
+- `minimap2/`
   - `build/`
     - `*.mmi2`: minimap2 indices of reference genome, only if `--save_hostremoval_index` supplied.
   - `align/`
@@ -227,9 +251,13 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
 
 By default, nf-core/taxprofiler will only provide the `.bam` file containing mapped and unmapped reads if saving of host removal for long reads is turned on via `--save_hostremoval_bam`.
 
-> ℹ️ minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
+:::info
+minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
+:::
 
-> ℹ️ Unlike Bowtie2, minimap2 does not produce an unmapped FASTQ file by itself. See [`samtools/fastq`](#samtools-fastq)
+:::info
+Unlike Bowtie2, minimap2 does not produce an unmapped FASTQ file by itself. See [`samtools/fastq`](#samtools-fastq).
+:::
 
 ### SAMtools fastq
 
@@ -238,30 +266,36 @@ By default, nf-core/taxprofiler will only provide the `.bam` file containing map
 <details markdown="1">
 <summary>Output files</summary>
 
-- `samtoolsstats`
+- `samtools/stats/`
   - `<sample_id>_interleaved.fq.gz`: Unmapped reads only in FASTQ gzip format
 
 </details>
 
 This directory will be present and contain the unmapped reads from the `.fastq` format from long-read minimap2 host removal, if `--save_hostremoval_unmapped` is supplied. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
-> ℹ️ For short-read unmapped reads, see [bowtie2](#bowtie2).
+:::info
+For short-read unmapped reads, see [bowtie2](#bowtie2).
+:::
 
 ### Analysis Ready Reads
 
-> ℹ️ This optional results directory will only be present in the pipeline results when supplying `--save_analysis_ready_reads`.
+:::info
+This optional results directory will only be present in the pipeline results when supplying `--save_analysis_ready_reads`.
+:::
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `samtoolsstats`
+- `samtools/stats/`
   - `<sample_id>_{fq,fastq}.gz`: Final reads that underwent preprocessing and were sent for classification/profiling.
 
 </details>
 
 The results directory will contain the 'final' processed reads used as input for classification/profiling. It will _only_ include the output of the _last_ step of any combinations of preprocessing steps that may have been specified in the run configuration. For example, if you perform the read QC and host-removal preprocessing steps, the final reads that are sent to classification/profiling are the host-removed FASTQ files - those will be the ones present in this directory.
 
-> ⚠️ If you turn off all preprocessing steps, then no results will be present in this directory. This happens independently for short- and long-reads. I.e. you will only have FASTQ files for short reads in this directory if you skip all long-read preprocessing.
+:::warning
+If you turn off all preprocessing steps, then no results will be present in this directory. This happens independently for short- and long-reads. I.e. you will only have FASTQ files for short reads in this directory if you skip all long-read preprocessing.
+:::
 
 ### SAMtools stats
 
@@ -270,7 +304,7 @@ The results directory will contain the 'final' processed reads used as input for
 <details markdown="1">
 <summary>Output files</summary>
 
-- `samtools/stats`
+- `samtools/stats/`
   - `<sample_id>.stats`: File containing samtools stats output.
 
 </details>
@@ -299,19 +333,23 @@ This directory and its FASTQ files will only be present if you supply `--save_ru
 
 [Bracken](https://ccb.jhu.edu/software/bracken/) (Bayesian Reestimation of Abundance with Kraken) is a highly accurate statistical method that computes the abundance of species in DNA sequences from a metagenomics sample. Braken uses the taxonomy labels assigned by Kraken, a highly accurate metagenomics classification algorithm, to estimate the number of reads originating from each species present in a sample.
 
-> 🛈 The first step of using Bracken requires running Kraken2, therefore the initial results before abundance estimation will be found in `<your_results>/kraken2/<your_bracken_db_name>`.
+:::info
+The first step of using Bracken requires running Kraken2, therefore the initial results before abundance estimation will be found in `<your_results>/kraken2/<your_bracken_db_name>`.
+:::
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `bracken/`
-  - `bracken_<db_name>_combined_reports.txt`: combined bracken results as output from Bracken's `combine_bracken_outputs.py` script
   - `<db_name>/`
-    - `<sample>_<db_name>.tsv`: TSV file containing per-sample summary of Bracken results with abundance information
+    - `bracken_<db_name>_combined_reports.txt`: combined bracken results as output from Bracken's `combine_bracken_outputs.py` script
+    - `<db_name>/`
+      - `<sample>_<db_name>.tsv`: TSV file containing per-sample summary of Bracken results with abundance information
+      - `<sample>_<db_name>.report_bracken_species.txt`: Kraken2 style report with Bracken abundance information
 
 </details>
 
-The main taxonomic profiling file from Bracken is the `*.tsv` file. This provides the basic results from Kraken2 but with the corrected abundance information.
+The main taxonomic profiling file from Bracken is the `*.tsv` file. This provides the basic results from Kraken2 but with the corrected abundance information. Note that the raw Kraken2 version of the upstream step of Bracken can be found in the `kraken2/` directory with the suffix of `<sample_id>_<db_name>.bracken.report.txt` (with a 6 column variant when `--save_minimizers` specified).
 
 ### Kraken2
 
@@ -322,17 +360,18 @@ The main taxonomic profiling file from Bracken is the `*.tsv` file. This provide
 
 - `kraken2/`
   - `<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `krakentools`)
+    - If you have also run Bracken, the original Kraken report (i.e., _before_ read re-assignment) will also be included in this directory with `-bracken` suffixed to your Bracken database name. For example: `kraken2-<mydatabase>-bracken.tsv`. However in most cases you want to use the actual Bracken file (i.e., `bracken_<mydatabase>.tsv`).
   - `<db_name>/`
     - `<sample_id>_<db_name>.classified.fastq.gz`: FASTQ file containing all reads that had a hit against a reference in the database for a given sample
     - `<sample_id>_<db_name>.unclassified.fastq.gz`: FASTQ file containing all reads that did not have a hit in the database for a given sample
-    - `<sample_id>_<db_name>.report.txt`: A Kraken2 report that summarises the fraction abundance, taxonomic ID, number of Kmers, taxonomic path of all the hits in the Kraken2 run for a given sample
+    - `<sample_id>_<db_name>.<kraken2/bracken2>report.txt`: A Kraken2 report that summarises the fraction abundance, taxonomic ID, number of Kmers, taxonomic path of all the hits in the Kraken2 run for a given sample. Will be 6 column rather than 8 if `--save_minimizers` specified.
     - `<sample_id>_<db_name>.classifiedreads.txt`: A list of read IDs and the hits each read had against each database for a given sample
 
 </details>
 
-The main taxonomic classification file from Kraken2 is the `_combined_reports.txt` or `*report.txt` file. The former provides you the broadest over view of the taxonomic classification results across all samples against a single databse, where you get two columns for each sample e.g. `2_all` and `2_lvl`, as well as a summarised column summing up across all samples `tot_all` and `tot_lvl`. The latter gives you the most information for a single sample. The report file is also used for the taxpasta step.
+The main taxonomic classification file from Kraken2 is the `_combined_reports.txt` or `*report.txt` file. The former provides you the broadest over view of the taxonomic classification results across all samples against a single database, where you get two columns for each sample e.g. `2_all` and `2_lvl`, as well as a summarised column summing up across all samples `tot_all` and `tot_lvl`. The latter gives you the most information for a single sample. The report file is also used for the taxpasta step.
 
-You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply `--kraken2_save_reads` and/or `--kraken2_save_readclassification` parameters to the pipeline.
+You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply `--kraken2_save_reads` and/or `--kraken2_save_readclassifications` parameters to the pipeline.
 
 ### KrakenUniq
 
@@ -354,7 +393,9 @@ The main taxonomic classification file from KrakenUniq is the `*report.txt` file
 
 You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply `--krakenuniq_save_reads` and/or `--krakenuniq_save_readclassification` parameters to the pipeline.
 
-> ⚠️ The output system of KrakenUniq can result in other `stdout` or `stderr` logging information being saved in the report file, therefore you must check your report files before downstream use!
+:::info
+The output system of KrakenUniq can result in other `stdout` or `stderr` logging information being saved in the report file, therefore you must check your report files before downstream use!
+:::
 
 ### Centrifuge
 
@@ -363,12 +404,13 @@ You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply
 <details markdown="1">
 <summary>Output files</summary>
 
-- `centrifuge`
-  - `<sample_id>.centrifuge.mapped.fastq.gz`: `FASTQ` files containing all mapped reads
-  - `<sample_id>.centrifuge.report.txt`: A classification report that summarises the taxonomic ID, the taxonomic rank, length of genome sequence, number of classified and uniquely classified reads
-  - `<sample_id>.centrifuge.results.txt`: A file that summarises the classification assignment for a read, i.e read ID, sequence ID, score for the classification, score for the next best classification, number of classifications for this read
-  - `<sample_id>.centrifuge.txt`: A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of k-mers, taxonomic path of all the hits in the centrifuge run for a given sample
-  - `<sample_id>.centrifuge.unmapped.fastq.gz`: FASTQ file containing all unmapped reads
+- `centrifuge/`
+  - `<db_name>/`
+    - `<sample_id>.centrifuge.mapped.fastq.gz`: `FASTQ` files containing all mapped reads
+    - `<sample_id>.centrifuge.report.txt`: A classification report that summarises the taxonomic ID, the taxonomic rank, length of genome sequence, number of classified and uniquely classified reads
+    - `<sample_id>.centrifuge.results.txt`: A file that summarises the classification assignment for a read, i.e read ID, sequence ID, score for the classification, score for the next best classification, number of classifications for this read
+    - `<sample_id>.centrifuge.txt`: A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of k-mers, taxonomic path of all the hits in the centrifuge run for a given sample
+    - `<sample_id>.centrifuge.unmapped.fastq.gz`: FASTQ file containing all unmapped reads
 
 </details>
 
@@ -381,7 +423,7 @@ The main taxonomic classification files from Centrifuge are the `_combined_repor
 <details markdown="1">
 <summary>Output files</summary>
 
-- `kaiju`
+- `kaiju/`
   - `kaiju_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by kaiju2table)
   - `<db_name>/`
     - `<sample_id>_<db_name>.kaiju.tsv`: Raw output from Kaiju with taxonomic rank, read ID and taxonic ID
@@ -398,15 +440,18 @@ The most useful summary file is the `_combined_reports.txt` file which summarise
 <details markdown="1">
 <summary>Output files</summary>
 
-- `diamond`
-  - `<sample_id>.log`: A log file containing stdout information
-  - `<sample_id>*.{blast,xml,txt,daa,sam,tsv,paf}`: A file containing alignment information in various formats, or taxonomic information in a text-based format. Exact output depends on user choice.
+- `diamond/`
+  - `<db_name>/`
+    - `<sample_id>.log`: A log file containing stdout information
+    - `<sample_id>*.{blast,xml,txt,daa,sam,tsv,paf}`: A file containing alignment information in various formats, or taxonomic information in a text-based format. Exact output depends on user choice.
 
 </details>
 
 By default you will receive a TSV output. Alternatively, you will receive a `*.sam` file if you provide the parameter `--diamond_save_reads` but in this case no taxonomic classification will be available(!), only the aligned reads in sam format.
 
-> ℹ️ DIAMOND has many output formats, so depending on your [choice](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options) with ` --diamond_output_format` you will receive the taxonomic information in a different format.
+:::info
+DIAMOND has many output formats, so depending on your [choice](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options) with ` --diamond_output_format` you will receive the taxonomic information in a different format.
+:::
 
 ### MALT
 
@@ -417,10 +462,10 @@ By default you will receive a TSV output. Alternatively, you will receive a `*.s
 
 - `malt/`
   - `<db_name>/`
-  - `<sample_id>.blastn.sam`: sparse SAM file containing alignments of each hit
-  - `<sample_id>.megan`: summary file that can be loaded into the [MEGAN6](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/megan6/) interactive viewer. Generated by MEGAN6 companion tool `rma2info`
-  - `<sample_id>.rma6`: binary file containing all alignments and taxonomic information of hits that can be loaded into the [MEGAN6](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/megan6/) interactive viewer
-  - `<sample_id>.txt.gz`: text file containing taxonomic IDs and read counts against each taxon. Generated by MEGAN6 companion tool `rma2info`
+    - `<sample_id>.blastn.sam`: sparse SAM file containing alignments of each hit
+    - `<sample_id>.megan`: summary file that can be loaded into the [MEGAN6](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/megan6/) interactive viewer. Generated by MEGAN6 companion tool `rma2info`
+    - `<sample_id>.rma6`: binary file containing all alignments and taxonomic information of hits that can be loaded into the [MEGAN6](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/megan6/) interactive viewer
+    - `<sample_id>.txt.gz`: text file containing taxonomic IDs and read counts against each taxon. Generated by MEGAN6 companion tool `rma2info`
 
 </details>
 
@@ -428,23 +473,23 @@ The main output of MALT is the `.rma6` file format, which can be only loaded int
 
 You will only receive the `.sam` and `.megan` files if you supply `--malt_save_reads` and/or `--malt_generate_megansummary` parameters to the pipeline.
 
-### MetaPhlAn3
+### MetaPhlAn
 
-[MetaPhlAn3](https://github.com/biobakery/metaphlan) is a computational tool for profiling the composition of microbial communities (Bacteria, Archaea and Eukaryotes) from metagenomic shotgun sequencing data (i.e. not 16S) with species-level resolution via marker genes.
+[MetaPhlAn](https://github.com/biobakery/metaphlan) is a computational tool for profiling the composition of microbial communities (Bacteria, Archaea and Eukaryotes) from metagenomic shotgun sequencing data (i.e. not 16S) with species-level resolution via marker genes.
 
 <details markdown="1">
 <summary>Output files</summary>
 
-- `metaphlan3/`
-  - `metaphlan3_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `metaphlan_merge_tables`)
+- `metaphlan/`
+  - `metaphlan_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `metaphlan_merge_tables`)
   - `<db_name>/`
     - `<sample_id>.biom`: taxonomic profile in BIOM format
-    - `<sample_id>.bowtie2out.txt`: BowTie2 alignment information (can be re-used for skipping alignment when re-running MetaPhlAn3 with different parameters)
-    - `<sample_id>_profile.txt`: MetaPhlAn3 taxonomic profile including abundance estimates
+    - `<sample_id>.bowtie2out.txt`: BowTie2 alignment information (can be re-used for skipping alignment when re-running MetaPhlAn with different parameters)
+    - `<sample_id>_profile.txt`: MetaPhlAn taxonomic profile including abundance estimates
 
 </details>
 
-The main taxonomic profiling file from MetaPhlAn3 is the `*_profile.txt` file. This provides the abundance estimates from MetaPhlAn3 however does not include raw counts by default.
+The output contains a file named `*_combined_reports.txt`, which provides an overview of the classification results for all samples. The main taxonomic profiling file from MetaPhlAn is the `*_profile.txt` file. This provides the abundance estimates from MetaPhlAn however does not include raw counts by default. Additionally, it contains intermediate Bowtie2 output `.bowtie2out.txt`, which presents a condensed representation of the mapping results of your sequencing reads to MetaPhlAn's marker gene sequences. The alignments are listed in tab-separated columns, including Read ID and Marker Gene ID, with each alignment represented on a separate line.
 
 ### mOTUs
 
@@ -453,15 +498,62 @@ The main taxonomic profiling file from MetaPhlAn3 is the `*_profile.txt` file. T
 <details markdown="1">
 <summary>Output files</summary>
 
-- `motus`
-  - `<sample_id>.log`: A log file that contains summary statistics
-  - `<sample_id>.out`: A classification file that summarises taxonomic identifiers, by default at the rank of mOTUs (i.e., species level), and their relative abundances in the profiled sample.
+- `motus/`
+  - `<db_name>/`
+    - `<sample_id>.log`: A log file that contains summary statistics
+    - `<sample_id>.out`: A classification file that summarises taxonomic identifiers, by default at the rank of mOTUs (i.e., species level), and their relative abundances in the profiled sample.
   - `motus_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `motus_merge`)
 
 </details>
 
 Normally `*_combined_reports.txt` is the most useful file for downstream analyses, but the per sample `.out` file can provide additional more specific information. By default, nf-core/taxprofiler is providing a column describing NCBI taxonomic ID as this is used in the taxpasta step. You can disable this column by activating the argument `--motus_remove_ncbi_ids`.
 You will receive the relative abundance instead of read counts if you provide the argument `--motus_use_relative_abundance`.
+
+### KMCP
+
+[KMCP](https://github.com/shenwei356/kmcp) utilises genome coverage information by splitting the reference genomes into chunks and stores k-mers in a modified and optimised COBS index for fast alignment-free sequence searching. KMCP combines k-mer similarity and genome coverage information to reduce the false positive rate of k-mer-based taxonomic classification and profiling methods.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `kmcp/`
+
+  - `<db_name>/`
+    - `<sample_id>.gz`: output of `kmcp_search` containing search sequences against a database in tab-delimited format with 15 columns.
+    - `<sample_id>_kmcp.profile`: output of `kmcp_profile` containing the taxonomic profile from search results.
+
+  </details>
+
+You will receive the `<sample_id>.gz` file if you supply `--kmcp_save_search`. Please note that there is no taxonomic label assignment in this output file.
+
+The main taxonomic classification file from KMCP is the `*kmcp.profile` which is also used by the taxpasta step.
+
+### ganon
+
+[ganon](https://pirovc.github.io/ganon/) is designed to index large sets of genomic reference sequences and to classify reads against them efficiently. The tool uses Interleaved Bloom Filters as indices based on k-mers/minimizers. It was mainly developed, but not limited, to the metagenomics classification problem: quickly assign sequence fragments to their closest reference among thousands of references. After classification, taxonomic abundance is estimated and reported.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `ganon/`
+
+  - `<db_name>/`
+
+    - `<sample_id>_report.tre`: output of `ganon report` containing taxonomic classifications with possible formatting and/or filtering depending on options specified.
+    - `<sample_id>`.tre: output of `ganon classify` containing raw taxonomic classifications and abundance estimations with no additional formatting or filtering.
+    - `<sample_id>`.rep: 'raw' report of counts against each taxon.
+    - `<sample_id>`.all: per-read summary of all hits of each reads.
+    - `<sample_id>`.lca: per-read summary of the best single hit after LCA for each read.
+    - `<sample_id>`.unc: list of read IDs with no hits.
+    - `<sample_id>`.log: the stdout console messages printed by `ganon classify`, containing some classification summary information
+
+  - `ganon_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `ganon table`)
+
+</details>
+
+Generally you will want to refer to the `combined_reports.txt` or `_report.tre` file. For further descriptions of the contents of each file, see the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/).
+
+You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--ganon_save_readclassifications` parameter to the pipeline.
 
 ### Krona
 
@@ -486,11 +578,12 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 <details markdown="1">
 <summary>Output files</summary>
 
-- `taxpasta`
+- `taxpasta/`
 
   - `<tool>_<database>*.{tsv,csv,arrow,parquet,biom}`: Standardised taxon table containing multiple samples. The standard format is the `tsv`.
     - The first column describes the taxonomy ID and the rest of the columns describe the read counts for each sample.
     - Note that the file naming scheme will apply regardless of whether `TAXPASTA_MERGE` (multiple sample run) or `TAXPASTA_STANDARDISE` (single sample run) are executed.
+    - If you have also run Bracken, the initial Kraken report (i.e., _before_ read re-assignment) will also be included in this directory with `-bracken` suffixed to your Bracken database name. For example: `kraken2-<mydatabase>-bracken.tsv`. However in most cases you want to use the actual Bracken file (i.e., `bracken_<mydatabase>.tsv`).
 
   </details>
 
@@ -507,10 +600,12 @@ The following report files are used for the taxpasta step:
 - KrakenUniq: `<sample_id>_<db_name>.report.txt` Taxpasta uses the `reads` column for the standardised profile.
 - Kraken2: `<sample_id>_<db_name>.report.txt` Taxpasta uses the `direct_assigned_reads` column for the standardised profile.
 - MALT: `<sample_id>.txt.gz` Taxpasta uses the `count` (second) column from the output of MEGAN6's rma2info for the standardised profile.
-- MetaPhlAn3: `<sample_id>_profile.txt` Taxpasta uses the `relative_abundance` column multiplied with a fixed number to yield an integer for the standardised profile.
+- MetaPhlAn: `<sample_id>_profile.txt` Taxpasta uses the `relative_abundance` column multiplied with a fixed number to yield an integer for the standardised profile.
 - mOTUs: `<sample_id>.out` Taxpasta uses the `read_count` column for the standardised profile.
 
-> ⚠️ Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
+:::warning
+Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
+:::
 
 ### MultiQC
 
@@ -546,12 +641,13 @@ You can expect in the MultiQC reports either sections and/or general stats colum
 - bracken
 - centrifuge
 - kaiju
-- metaphlan
 - diamond
 - malt
 - motus
 
-> ℹ️ The 'General Stats' table by default will only show statistics referring to pre-processing steps, and will not display possible values from each classifier/profiler, unless turned on by the user within the 'Configure Columns' menu or via a custom MultiQC config file (`--multiqc_config`)
+:::info
+The 'General Stats' table by default will only show statistics referring to pre-processing steps, and will not display possible values from each classifier/profiler, unless turned on by the user within the 'Configure Columns' menu or via a custom MultiQC config file (`--multiqc_config`)
+:::
 
 ### Pipeline information
 
@@ -562,6 +658,7 @@ You can expect in the MultiQC reports either sections and/or general stats colum
   - Reports generated by Nextflow: `execution_report.html`, `execution_timeline.html`, `execution_trace.txt` and `pipeline_dag.dot`/`pipeline_dag.svg`.
   - Reports generated by the pipeline: `pipeline_report.html`, `pipeline_report.txt` and `software_versions.yml`. The `pipeline_report*` files will only be present if the `--email` / `--email_on_fail` parameter's are used when running the pipeline.
   - Reformatted samplesheet files used as input to the pipeline: `samplesheet.valid.csv`.
+  - Parameters used by the pipeline run: `params.json`.
 
 </details>
 
