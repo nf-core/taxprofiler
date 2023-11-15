@@ -110,7 +110,7 @@ An example database sheet can look as follows, where 7 tools are being used, and
 
 `kraken2` will be run twice even though only having a single 'dedicated' database because specifying `bracken` implies first running `kraken2` on the `bracken` database, as required by `bracken`.
 
-```console
+```csv
 tool,db_name,db_params,db_path
 malt,malt85,-id 85,/<path>/<to>/malt/testdb-malt/
 malt,malt95,-id 90,/<path>/<to>/malt/testdb-malt.tar.gz
