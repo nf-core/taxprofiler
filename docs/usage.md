@@ -222,6 +222,7 @@ You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-c
 nf-core/taxprofiler offers four main preprocessing steps for preprocessing raw sequencing reads:
 
 - [**Read processing**](#read-processing): adapter clipping and pair-merging.
+- [**Redundancy estimation**](#redundancy-estimation): short-read metagenome coverage estimation.
 - [**Complexity filtering**](#complexity-filtering): removal of low-sequence complexity reads.
 - [**Host read-removal**](#host-read-removal): removal of reads aligning to reference genome(s) of a host.
 - [**Run merging**](#run-merging): concatenation of multiple FASTQ chunks/sequencing runs/libraries of a sample.
@@ -246,6 +247,41 @@ Both tools support length filtering of reads and can be tuned with `--shortread_
 There is currently one option for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop).
 
 For both short-read and long-read preprocessing, you can optionally save the resulting processed reads with `--save_preprocessed_reads`.
+
+#### Redundancy Estimation
+
+Metagenome 'coverage' or sequencing complexity estimations of short-read datasets can be activated with `--perform_shortread_redundancyestimation`.
+
+This turns on checking of read redundancy in a sequencing library using [Nonpareil](https://nonpareil.readthedocs.io/en/latest/), to provide an estimation of whether you have sequenced enough to capture all possible genomes present in your metagenomic sample (with the assumption that once you've sequenced enough, you will keep sequencing PCR amplicons rather than unique reads).
+
+This is only suitable for short-read, and in nf-core/taxprofiler specifically, FASTQ files.
+
+Nonpareil is performed on processed reads (i.e. after fastp or AdapterRemoval). This will run on either the first read of each read pair (as recommended by the authors), or on merged reads.
+
+Before using this tool please note the following caveats:
+
+:::warning
+
+- It is not recommended to run this on deep sequencing data, or very large datasets
+  - Nonpareil requires uncompressed FASTQ files, and nf-core/taxprofiler will uncompress these in your working directory, potentially with a extremely large hard-drive footprint.
+- Your shortest reads _after_ processing should not go below 24bp (see warning below)
+- It is not recommended to keep unmerged (`--shortread_qc_includeunmerged`) reads when using the calculation.
+
+:::info
+If you get errors regarding the 'kmer' value is not correct, make sure your shortest reads _after_ processing is not less than 24bp.
+
+If this is the case you will need to specify in a custom config
+
+```nextflow
+process {
+  withName: NONPAREIL_NONPAREIL {
+    ext.args = { "-k <NUMBER>" }
+    }
+}
+```
+
+Where `<NUMBER>` should be at least the shortest read in your library
+:::
 
 #### Complexity Filtering
 
