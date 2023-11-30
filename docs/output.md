@@ -120,14 +120,14 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
 
 ### Nonpareil
 
-Turns on [nonpareil](https://nonpareil.readthedocs.io/en/latest/) is a tool for estimating metagenome 'coverage' from short-read libraries, i.e, whether all genomes within the metagenome have had at least one read sequenced. The lower the redundancy, the more sequencing can be done until the entire metagenome has been captured. The output can be used to guide the amount of further sequencing is required.
+[nonpareil](https://nonpareil.readthedocs.io/en/latest/) is a tool for estimating metagenome 'coverage' from short-read libraries, i.e, whether all genomes within the metagenome have had at least one read sequenced. The lower the redundancy, the more sequencing can be done until the entire metagenome has been captured. The output can be used to guide the amount of further sequencing is required.
 
 <details markdown="1">
 <summary>Output files</summary>
 
 - `nonpareil/`
 
-  - `<sample_id>.npl` - log file of the nonpareil run
+  - `<sample_id>.npl` - log file of the nonpareil run.
   - `<sample_id>.npo` - redundancy summary file. This is the most useful file and contains the information for generating metagenome coverage curves. These six columns are: seq. effort (_n_ reads), average redundancy, standard deviation, quartile 1, median (quartile 2), and quartile 3.
   - `<sample_id>.npa` - raw version of npo but with all replicates not just a summary (average) at each point. These three columns are: seq. effort (_n_ reads), replicate ID, redundancy value.
   - `<sample_id>.npc` - raw list with the number of reads in the dataset matching a query read.
@@ -136,7 +136,7 @@ Turns on [nonpareil](https://nonpareil.readthedocs.io/en/latest/) is a tool for 
 
   </details>
 
-  In most cases you will just want to look at the PNG files which contain the extrapolation information for estimating how much of the metagenome 'coverage' you will recover if you sequence more (i.e., to help indicate at what point you will keep just keep sequencing redundant reads that provide no more new taxonomic information).
+  In most cases you will just want to look at the PNG files which contain the extrapolation information for estimating how much of the metagenome 'coverage' you will recover if you sequence more (i.e., to help indicate at what point you will just keep sequencing redundant reads that provide no more new taxonomic information).
 
   The `.npo` files can be used for re-generating and customising the plots using the companion `Nonpareil` R package.
 

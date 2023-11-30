@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#410](https://github.com/nf-core/taxprofiler/pull/410) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
+- [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
 
 ### `Fixed`
 

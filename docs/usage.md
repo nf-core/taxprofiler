@@ -222,7 +222,7 @@ You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-c
 nf-core/taxprofiler offers four main preprocessing steps for preprocessing raw sequencing reads:
 
 - [**Read processing**](#read-processing): adapter clipping and pair-merging.
-- [**Redundancy estimation**](#redundancy-estimation): short-read metagenome coverage estimation
+- [**Redundancy estimation**](#redundancy-estimation): short-read metagenome coverage estimation.
 - [**Complexity filtering**](#complexity-filtering): removal of low-sequence complexity reads.
 - [**Host read-removal**](#host-read-removal): removal of reads aligning to reference genome(s) of a host.
 - [**Run merging**](#run-merging): concatenation of multiple FASTQ chunks/sequencing runs/libraries of a sample.
@@ -252,7 +252,7 @@ For both short-read and long-read preprocessing, you can optionally save the res
 
 Metagenome 'coverage' or sequencing complexity estimations of short-read datasets can be activated with `--perform_shortread_redundancyestimation`.
 
-This turns on checking of read redundancy in a sequencing library using [Nonpareil](https://nonpareil.readthedocs.io/en/latest/), to provide an estimation of whether you have sequenced enough to capture all possible genomes present in your metagenomic (with the assumption that once you've sequenced enough, you will keep sequencing PCR amplicons rather than unique reads).
+This turns on checking of read redundancy in a sequencing library using [Nonpareil](https://nonpareil.readthedocs.io/en/latest/), to provide an estimation of whether you have sequenced enough to capture all possible genomes present in your metagenomic sample (with the assumption that once you've sequenced enough, you will keep sequencing PCR amplicons rather than unique reads).
 
 This is only suitable for short-read, and in nf-core/taxprofiler specifically, FASTQ files.
 
