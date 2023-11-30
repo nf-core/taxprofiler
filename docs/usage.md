@@ -261,6 +261,7 @@ Nonpareil is performed on processed reads (i.e. after fastp or AdapterRemoval). 
 Before using this tool please note the following caveats:
 
 :::warning
+
 - It is not recommended to run this on deep sequencing data, or very large datasets
   - Nonpareil requires uncompressed FASTQ files, and nf-core/taxprofiler will uncompress these in your working directory, potentially with a extremely large hard-drive footprint.
 - Your shortest reads _after_ processing should not go below 24bp (see warning below)
