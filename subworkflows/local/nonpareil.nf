@@ -46,7 +46,6 @@ workflow NONPAREIL {
     NONPAREIL_SET ( NONPAREIL_NONPAREIL.out.npo.map {meta, npo -> [[id: 'all'], npo] }.groupTuple() )
 
     ch_versions = ch_versions.mix( NONPAREIL_NONPAREIL.out.versions.first(), NONPAREIL_CURVE.out.versions.first(), NONPAREIL_SET.out.versions.first() )
-
     ch_multiqc_files = ch_multiqc_files.mix( NONPAREIL_SET.out.png )
 
     emit:
