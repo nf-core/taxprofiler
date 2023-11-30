@@ -52,7 +52,7 @@ workflow NONPAREIL {
     emit:
     npo        = NONPAREIL_NONPAREIL.out.npo
     curve_pngs = NONPAREIL_CURVE.out.png
-    set_pngs   = NONPAREIL_CURVE.out.set
+    set_pngs   = NONPAREIL_CURVE.out.png
     versions   = ch_versions
     mqc        = ch_multiqc_files
 }
