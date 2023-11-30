@@ -651,8 +651,9 @@ All tools in taxprofiler supported by MultiQC will have a dedicated section show
 You can expect in the MultiQC reports either sections and/or general stats columns for the following tools:
 
 - fastqc
-- adapterRemoval
+- adapterremoval
 - fastp
+- nonpareil
 - bbduk
 - prinseqplusplus
 - porechop
