@@ -208,7 +208,7 @@
                     },
                     "nonpareil/nonpareil": {
                         "branch": "master",
-                        "git_sha": "56ace4ddc46f6346656d5d791782aca9b1754aea",
+                        "git_sha": "b5b76d170586dfa39cbd9be3043d53d827cfb68d",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/set": {
