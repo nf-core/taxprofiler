@@ -10,7 +10,7 @@ include { NONPAREIL_SET       } from '../../modules/nf-core/nonpareil/set/main'
 def extractNonpareilExtensionFromArrays(ch_input) {
 
 return ch_profile
-    .map { meta, profile -> [meta.db_name, meta, profile] }
+.map { meta, profile -> [meta.db_name, meta, profile] }
     .combine(ch_database, by: 0)
     .multiMap {
         key, meta, profile, db_meta, db ->
@@ -18,7 +18,6 @@ return ch_profile
             db: db
     }
 }
-
 
 workflow NONPAREIL {
     take:
