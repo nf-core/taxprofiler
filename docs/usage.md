@@ -272,7 +272,7 @@ If this is the case you will need to specify in a custom config
 
 ```nextflow
 process {
-  withName: NONPAREIL {
+  withName: NONPAREIL_NONPAREIL {
     ext.args = { "-k <NUMBER>" }
     }
 }

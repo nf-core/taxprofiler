@@ -79,6 +79,7 @@ include { INPUT_CHECK                   } from '../subworkflows/local/input_chec
 
 include { DB_CHECK                      } from '../subworkflows/local/db_check'
 include { SHORTREAD_PREPROCESSING       } from '../subworkflows/local/shortread_preprocessing'
+include { NONPAREIL                     } from '../subworkflows/local/nonpareil'
 include { LONGREAD_PREPROCESSING        } from '../subworkflows/local/longread_preprocessing'
 include { SHORTREAD_HOSTREMOVAL         } from '../subworkflows/local/shortread_hostremoval'
 include { LONGREAD_HOSTREMOVAL          } from '../subworkflows/local/longread_hostremoval'
@@ -101,7 +102,6 @@ include { FALCO                       } from '../modules/nf-core/falco/main'
 include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
-include { NONPAREIL                   } from '../modules/nf-core/nonpareil/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -180,25 +180,10 @@ workflow TAXPROFILER {
         MODULE: REDUNDANCY ESTIMATION
     */
 
-    // TODO:
-    // - autodetect fastq/fastq
-    // - multiqc module? or nonpareil.curve
     if ( params.perform_shortread_redundancyestimation ) {
-        ch_reads_for_nonpareil = ch_shortreads_preprocessed
-                                    .map {
-                                        meta, reads ->
-                                            def reads_new = meta.single_end ? reads : reads[0]
-                                        [meta, reads_new]
-                                    }
-                                    .multiMap {
-                                        meta, reads ->
-                                            reads: [meta, reads]
-                                            format: 'fastq' // TODO can we autodetect?
-                                    }
-
-        NONPAREIL( ch_reads_for_nonpareil.reads, ch_reads_for_nonpareil.format, params.shortread_redundancyestimation_mode)
+        NONPAREIL ( ch_shortreads_preprocessed )
+        ch_versions = ch_versions.mix( NONPAREIL.out.versions )
     }
-
 
     /*
         SUBWORKFLOW: COMPLEXITY FILTERING
@@ -329,6 +314,10 @@ workflow TAXPROFILER {
 
     if (params.perform_longread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
+    }
+
+    if ( params.perform_shortread_redundancyestimation ) {
+        ch_multiqc_files = ch_multiqc_files.mix( NONPAREIL.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
 
     if (params.perform_shortread_complexityfilter && params.shortread_complexityfilter_tool != 'fastp'){

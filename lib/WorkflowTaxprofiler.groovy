@@ -67,7 +67,7 @@ class WorkflowTaxprofiler {
             ].join(' ').trim()
 
             def text_shortread_redundancy = [
-                "Short-read reference-free metagenome coverage estimation was performed with Nonpareil (Rodriguez-R et al. 2018)"
+                "Short-read reference-free metagenome coverage estimation was performed with Nonpareil (Rodriguez-R et al. 2018)."
             ].join(' ').trim()
 
             def text_longread_qc = [

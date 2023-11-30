@@ -131,10 +131,14 @@ Turns on [nonpareil](https://nonpareil.readthedocs.io/en/latest/) is a tool for 
   - `<sample_id>.npo` - redundancy summary file. This is the most useful file and contains the information for generating metagenome coverage curves. These six columns are: seq. effort (_n_ reads), average redundancy, standard deviation, quartile 1, median (quartile 2), and quartile 3.
   - `<sample_id>.npa` - raw version of npo but with all replicates not just a summary (average) at each point. These three columns are: seq. effort (_n_ reads), replicate ID, redundancy value.
   - `<sample_id>.npc` - raw list with the number of reads in the dataset matching a query read.
+  - `<sample_id>.png` - rendered version of a Nonpareil curve, with extrapolation and sequencing effort information.
+  - `nonpareil_all_samples_mqc.png` summary of plot of curves of all samples with sequencing effort information.
 
   </details>
 
-  In most cases you will just want to look at the output of applying Nonpareil's `Nonpareil.curve()` or `Nonpareil.set()` R functions on the `.npo` file to generate the coverage and extrapolation plot.
+  In most cases you will just want to look at the PNG files which contain the extrapolation information for estimating how much of the metagenome 'coverage' you will recover if you sequence more (i.e., to help indicate at what point you will keep just keep sequencing redundant reads that provide no more new taxonomic information).
+
+  The `.npo` files can be used for re-generating and customising the plots using the companion `Nonpareil` R package.
 
 ### Porechop
 

@@ -1,3 +1,4 @@
+name: nonpareil_curve
 channels:
   - conda-forge
   - bioconda

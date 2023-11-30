@@ -198,12 +198,22 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "a6e11ac655e744f7ebc724be669dd568ffdc0e80",
+                        "git_sha": "1537442a7be4a78efa3d1ff700a923c627bbda5d",
                         "installed_by": ["modules"]
                     },
-                    "nonpareil": {
+                    "nonpareil/curve": {
                         "branch": "master",
-                        "git_sha": "d1e3f0e70e025bb2c48f59465db31609330a65f2",
+                        "git_sha": "729335dda8ba226323edc54dec80ae959079207e",
+                        "installed_by": ["modules"]
+                    },
+                    "nonpareil/nonpareil": {
+                        "branch": "master",
+                        "git_sha": "56ace4ddc46f6346656d5d791782aca9b1754aea",
+                        "installed_by": ["modules"]
+                    },
+                    "nonpareil/set": {
+                        "branch": "master",
+                        "git_sha": "729335dda8ba226323edc54dec80ae959079207e",
                         "installed_by": ["modules"]
                     },
                     "porechop/porechop": {

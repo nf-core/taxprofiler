@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
+| Tool    | Previous version | New version |
+| ------- | ---------------- | ----------- |
+| multiqc | 1.15             | 1.18        |
+
 ### `Deprecated`
 
 ## v1.1.2 - Augmented Akita Patch [2023-10-27]
