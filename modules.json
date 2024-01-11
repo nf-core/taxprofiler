@@ -52,7 +52,7 @@
                     },
                     "custom/dumpsoftwareversions": {
                         "branch": "master",
-                        "git_sha": "05c280924b6c768d484c7c443dad5e605c4ff4b4",
+                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
                         "installed_by": ["modules"]
                     },
                     "diamond/blastx": {
@@ -73,12 +73,12 @@
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "65ad3e0b9a4099592e1102e92e10455dc661cf53",
+                        "git_sha": "617777a807a1770f73deb38c80004bac06807eef",
                         "installed_by": ["modules"]
                     },
                     "filtlong": {
                         "branch": "master",
-                        "git_sha": "4ab13872435962dadc239979554d13709e20bf29",
+                        "git_sha": "b4c8ac68ffcdabac3f63aaa5e7420b175e1d8d76",
                         "installed_by": ["modules"]
                     },
                     "ganon/classify": {
