@@ -7,7 +7,7 @@
                 "nf-core": {
                     "adapterremoval": {
                         "branch": "master",
-                        "git_sha": "bba7e362e4afead70653f84d8700588ea28d0f9e",
+                        "git_sha": "5add1e8e11af620c779462936ce8bbcc1abcef2d",
                         "installed_by": ["modules"]
                     },
                     "bbmap/bbduk": {
