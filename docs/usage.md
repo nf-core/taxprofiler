@@ -44,12 +44,11 @@ This samplesheet is then specified on the command line as follows:
 
 The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate different runs FASTQ files of the same sample before performing profiling, when `--perform_runmerging` is supplied. Below is an example for the same sample sequenced across 3 lanes:
 
-```csv
+```csv title="samplesheet.csv"
 sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 2612,run1,ILLUMINA,2612_run1_R1.fq.gz,,
 2612,run2,ILLUMINA,2612_run2_R1.fq.gz,,
 2612,run3,ILLUMINA,2612_run3_R1.fq.gz,2612_run3_R2.fq.gz,
-
 ```
 
 :::warning
@@ -62,7 +61,7 @@ The pipeline will auto-detect whether a sample is single- or paired-end using th
 
 A final samplesheet file consisting of both single- and paired-end data, as well as long-read FASTA files may look something like the one below. This is for 6 samples, where `2612` has been sequenced twice.
 
-```csv
+```csv title="samplesheet.csv"
 sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 2611,ERR5766174,ILLUMINA,,,/<path>/<to>/fasta/ERX5474930_ERR5766174_1.fa.gz
 2612,ERR5766176,ILLUMINA,/<path>/<to>/fastq/ERX5474932_ERR5766176_1.fastq.gz,/<path>/<to>/fastq/ERX5474932_ERR5766176_2.fastq.gz,
