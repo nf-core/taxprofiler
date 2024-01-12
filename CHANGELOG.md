@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#419](https://github.com/nf-core/taxprofiler/pull/419) Added improved syntax highlighting for tables in documentation (fix by @mashehu)
 - [#421](https://github.com/nf-core/taxprofiler/pull/421) Updated the krakenuniq/preloadedkrakenuniq module that contained a fix for saving the output reads (❤️ to @SannaAb for reporting, fix by @Midnighter)
 - [#427](https://github.com/nf-core/taxprofiler/pull/427) Fixed preprint information information in recommended methods text (fix by @jfy133)
 
