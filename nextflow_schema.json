@@ -331,7 +331,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the run-merging step",
-                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> \u26a0\ufe0f Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
+                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> ⚠️ Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
                 }
             },
             "fa_icon": "fas fa-clipboard-check"
@@ -417,32 +417,32 @@
                 "run_krakenuniq": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turn on profiling with KrakenUniq. Requires database to be present CSV file passed to --databases"
+                    "description": "Turn on profiling with KrakenUniq. Requires one or more KrakenUniq databases to be present in the CSV file passed to --databases."
                 },
                 "krakenuniq_save_reads": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Turn on saving of KrakenUniq-aligned reads",
-                    "help_text": "Save reads that do and do not have a taxonomic classification in your output results directory in FASTQ format.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--classified-out` and `--unclassified-out`"
+                    "description": "Turn on saving of KrakenUniq (un-)classified reads as FASTA.",
+                    "help_text": "Save reads that do and do not have a taxonomic classification in your output results directory in FASTA format. Reads from paired-end input are merged.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--classified-out` and `--unclassified-out`"
                 },
                 "krakenuniq_ram_chunk_size": {
                     "type": "string",
                     "default": "16G",
-                    "description": "Specify how large to chunk database when loading into memory for KrakenUniq",
+                    "description": "Specify how large to chunk the database when loading into memory for KrakenUniq.",
                     "fa_icon": "fas fa-database",
                     "help_text": "nf-core/taxprofiler utilises a 'low memory' option for KrakenUniq that can reduce the amount of RAM the process requires using the `--preloaded` option.\n\nA further extension to this option is that you can specify how large each chunk of the database should be that gets loaded into memory at any one time. You can specify the amount of RAM to chunk the database to with this parameter, and is particularly useful for people with limited computational resources.\n\nMore information about this parameter can be seen [here](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#new-release-v07).\n\n> Modifies KrakenUniq parameter: --preload-size\n\n"
                 },
                 "krakenuniq_save_readclassifications": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Turn on saving of KrakenUniq per-read taxonomic assignment file",
-                    "help_text": "Save a text file that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic taxonomic assignment that that read recieved.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--output`"
+                    "description": "Turn on saving of KrakenUniq per-read taxonomic assignment file.",
+                    "help_text": "Save a text file that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic taxonomic assignment that that read received.\n\n> Modifies tool parameter(s):\n> - krakenuniq: `--output`"
                 },
                 "krakenuniq_batch_size": {
                     "type": "integer",
                     "default": 20,
                     "fa_icon": "far fa-window-restore",
-                    "description": "Specify the number of samples for each KrakenUniq run",
+                    "description": "Specify the number of samples for each KrakenUniq run.",
                     "help_text": "Specify the batch size for KrakenUniq. The reference database for KrakenUniq is loaded into memory once per nextflow process and then used to classify many samples. When you have many samples, a single KrakenUniq run can be rather slow. Alternatively, we can split up KrakenUniq runs for a 'batch' of samples, allowing a balance between shared use of database for multiple samples, but also faster parallelised KrakenUniq runs. This parameter determines for how many samples at a time."
                 },
                 "run_bracken": {
