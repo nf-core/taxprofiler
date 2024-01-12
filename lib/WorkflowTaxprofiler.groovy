@@ -216,7 +216,7 @@ class WorkflowTaxprofiler {
         meta["manifest_map"] = run_workflow.manifest.toMap()
 
         // Pipeline DOI
-        meta["doi_text"] = meta.manifest_map.doi ? "(doi: <a href=\'https://doi.org/${meta.manifest_map.doi}\'>${meta.manifest_map.doi}</a>)" : ""
+        meta["doi_text"] = meta.manifest_map.doi ? "(doi: <a href=\'https://doi.org/${meta.manifest_map.doi}\'>Stamouli et al. 2023</a>)" : ""
         meta["nodoi_text"] = meta.manifest_map.doi ? "": "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
 
         meta["tool_citations"] = ""
