@@ -13,11 +13,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool    | Previous version | New version |
-| ------- | ---------------- | ----------- |
-| multiqc | 1.15             | 1.18        |
-
 ### `Deprecated`
+
+## v1.1.3 - Augmented Akita Patch [2024-01-12]
+
+### `Added`
+
+- [#424](https://github.com/nf-core/taxprofiler/pull/424) Updated to nf-core pipeline template v2.11.1 (added by @LilyAnderssonLee & @sofstam)
+
+### `Fixed`
+
+- [#419](https://github.com/nf-core/taxprofiler/pull/419) Added improved syntax highlighting for tables in documentation (fix by @mashehu)
+- [#421](https://github.com/nf-core/taxprofiler/pull/421) Updated the krakenuniq/preloadedkrakenuniq module that contained a fix for saving the output reads (❤️ to @SannaAb for reporting, fix by @Midnighter)
+- [#427](https://github.com/nf-core/taxprofiler/pull/427) Fixed preprint information in the recommended methods text (fix by @jfy133)
+
+### `Dependencies`
+
+| Tool          | Previous version | New version |
+| ------------- | ---------------- | ----------- |
+| multiqc       | 1.15             | 1.19        |
+| fastqc        | 11.9             | 12.1        |
+| nf-validation | unpinned         | 1.1.3       |
+
+> > > > > > > dev
 
 ## v1.1.2 - Augmented Akita Patch [2023-10-27]
 
