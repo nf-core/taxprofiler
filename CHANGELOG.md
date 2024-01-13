@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#309](https://github.com/nf-core/taxprofiler/pull/309) Implemented nf-tests for existing CI tests (added by @sateeshperi & @jfy133)
 - [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
 
 ### `Fixed`

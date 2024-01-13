@@ -1,0 +1,75 @@
+{
+    "filtlong": {
+        "content": [
+            "ERR3201952_ERR3201952_filtered.log:md5,513650c6b058af60a824f98e6a632e2d"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    },
+    "metaphlan3": {
+        "content": [
+            "metaphlan3_db4_combined_reports.txt:md5,ceb88c02370a2c3bccdd3ff4ee7c23a9"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    },
+    "software_versions": {
+        "content": [
+            "{ADAPTERREMOVAL_PAIRED={adapterremoval=2.3.2}, ADAPTERREMOVAL_SINGLE={adapterremoval=2.3.2}, BBMAP_BBDUK={bbmap=39.01}, BOWTIE2_ALIGN={bowtie2=2.4.4, pigz=2.6, samtools=1.16.1}, BOWTIE2_BUILD={bowtie2=2.4.4}, BRACKEN_BRACKEN={bracken=2.7}, CENTRIFUGE_CENTRIFUGE={centrifuge=1.0.4}, CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.0, yaml=6.0}, DIAMOND_BLASTX={diamond=2.0.15}, FASTQC={fastqc=0.11.9}, FASTQC_PROCESSED={fastqc=0.11.9}, FILTLONG={filtlong=0.2.1}, KAIJU_KAIJU={kaiju=1.8.2}, KAIJU_KAIJU2KRONA={kaiju=1.8.2}, KAIJU_KAIJU2TABLE_COMBINED={kaiju=1.8.2}, KAIJU_KAIJU2TABLE_SINGLE={kaiju=1.8.2}, KRAKEN2_KRAKEN2={kraken2=2.1.2, pigz=2.6}, KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE={combine_kreports.py=1.2}, KRAKENTOOLS_COMBINEKREPORTS_KRAKEN={combine_kreports.py=1.2}, KRAKENTOOLS_KREPORT2KRONA={kreport2krona.py=1.2}, KRONA_CLEANUP={sed=4.7}, KRONA_KTIMPORTTEXT={krona=2.8.1}, MERGE_RUNS={cat=8.30}, METAPHLAN3_MERGEMETAPHLANTABLES={metaphlan3=3.0.12}, METAPHLAN3_METAPHLAN3={metaphlan3=3.0.12}, MINIMAP2_ALIGN={minimap2=2.24-r1122}, MINIMAP2_INDEX={minimap2=2.24-r1122}, PORECHOP_PORECHOP={porechop=0.2.4}, SAMPLESHEET_CHECK={python=3.8.3}, SAMTOOLS_FASTQ={samtools=1.16.1}, SAMTOOLS_INDEX={samtools=1.16.1}, SAMTOOLS_STATS={samtools=1.16.1}, SAMTOOLS_VIEW={samtools=1.16.1}, UNTAR={untar=1.30}, Workflow={nf-core/taxprofiler=1.1.0dev}}"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    },
+    "porechop": {
+        "content": [
+            "ERR3201952_ERR3201952.log.filtered:md5,92a485cb081b6e40e1bc3360e73f69a9"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    },
+    "taxpasta": {
+        "content": [
+            "bracken_db1.tsv:md5,3b34e55c670b94b6382ea45dad46c0a4",
+            "centrifuge_db3.tsv:md5,e863ece410193be03940cd6e106071a3",
+            "diamond_db1.tsv:md5,955ebd2d69aa8f19c04873c41e58aeaf",
+            "kaiju_db5.tsv:md5,1b1f70c369e3decc7947de9be4164aa9",
+            "kraken2_db1.tsv:md5,881953e5a67956a2323950d5e3f4af4d",
+            "kraken2_db2.tsv:md5,1ebecba3015143b8905168f72d88a4ff",
+            "metaphlan_db4.tsv:md5,2e19ca1dd3904d18a53637d173ff9017"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    },
+    "adapterremoval": {
+        "content": [
+            "2612_ERR5766176.settings:md5,e9f2de44ca1711aa609d0fd943f4b29f",
+            "2612_ERR5766176_B.settings:md5,e9f2de44ca1711aa609d0fd943f4b29f",
+            "2612_ERR5766180.settings:md5,1cc7909f9f70d185850780ae9a116803",
+            "2613_ERR5766181.settings:md5,e3ec2f6c633a43bca4470aa7bd19a156"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    },
+    "bracken": {
+        "content": [
+            "bracken_db1_combined_reports.txt:md5,e31134c567abcffa7b2c4b19f73d5dea"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    },
+    "diamond": {
+        "content": [
+            "2611_se_db1.diamond.tsv:md5,4d3baec82aeed53c6fa8803171edd212",
+            "2612_se_db1.diamond.tsv:md5,f71d9b71b3f3c9261c6fb40383964013",
+            "2613_se_db1.diamond.tsv:md5,575f69334dbd4d49b05ae74058d80f35",
+            "ERR3201952_se_db1.diamond.tsv:md5,3c3d1a901abe0a097469423d217c13db"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    },
+    "centrifuge": {
+        "content": [
+            "centrifuge_db3_combined_reports.txt:md5,5d64a6ba245b269d2c501d614ac302f6"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    },
+    "multiqc": {
+        "content": [
+            "filtlong.txt:md5,69cd258c3883ba2acfb1b72cf3b743de",
+            "porechop.txt:md5,5cadfceb7d9bc6b4da7bbb981a90d8ed"
+        ],
+        "timestamp": "2023-06-21T14:02:00+0000"
+    }
+}

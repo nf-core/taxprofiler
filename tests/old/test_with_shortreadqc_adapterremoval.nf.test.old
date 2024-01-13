@@ -1,0 +1,66 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+    tag "test"
+    tag "test_adapterremoval"
+    tag "pipeline"
+
+    test("Short Read QC Tool - Adapter Removal") {
+
+        when {
+            params {
+                outdir            = "$outputDir"
+                shortread_qc_tool = "adapterremoval"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(UTILS.removeNextflowVersion("$outputDir")).match("software_versions") },
+                { assert new File("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").exists() },
+                { assert new File("$outputDir/bbduk/2612_ERR5766176.bbduk.log").exists() },
+                { assert new File("$outputDir/bbduk/2612_ERR5766180.bbduk.log").exists() },
+                { assert new File("$outputDir/bbduk/2613_ERR5766181.bbduk.log").exists() },
+                { assert new File("$outputDir/bowtie2/align/2612_ERR5766176.bowtie2.log").exists() },
+                { assert new File("$outputDir/bowtie2/align/2612_ERR5766176_B.bowtie2.log").exists() },
+                { assert new File("$outputDir/bowtie2/align/2612_ERR5766180.bowtie2.log").exists() },
+                { assert new File("$outputDir/bowtie2/align/2613_ERR5766181.bowtie2.log").exists() },
+                { assert snapshot(path("$outputDir/bracken/bracken_db1_combined_reports.txt")).match("bracken") },
+                { assert snapshot(path("$outputDir/centrifuge/centrifuge_db3_combined_reports.txt")).match("centrifuge") },
+                { assert new File("$outputDir/diamond/db1/2611_se_db1.diamond.tsv").exists() },
+                { assert new File("$outputDir/diamond/db1/2612_se_db1.diamond.tsv").exists() },
+                { assert new File("$outputDir/diamond/db1/2613_se_db1.diamond.tsv").exists() },
+                { assert new File("$outputDir/diamond/db1/ERR3201952_se_db1.diamond.tsv").exists() },
+                { assert snapshot(path("$outputDir/adapterremoval/").list()).match("adapterremoval") },
+                { assert snapshot(path("$outputDir/filtlong/").list()).match("filtlong") },
+                { assert new File("$outputDir/kaiju/kaiju_db5_combined_reports.txt").exists() },
+                { assert new File("$outputDir/kraken2/kraken2_db1_combined_reports.txt").exists() },
+                { assert new File("$outputDir/kraken2/kraken2_db2_combined_reports.txt").exists() },
+                { assert new File("$outputDir/krona/centrifuge_db3.html").exists() },
+                { assert new File("$outputDir/krona/kaiju_db5.html").exists() },
+                { assert new File("$outputDir/krona/kraken2_db1.html").exists() },
+                { assert new File("$outputDir/krona/kraken2_db2.html").exists() },
+                { assert new File("$outputDir/metaphlan3/metaphlan3_db4_combined_reports.txt").exists() },
+                { assert snapshot(path("$outputDir/multiqc/multiqc_data/filtlong.txt"),
+                                path("$outputDir/multiqc/multiqc_data/porechop.txt")).match("multiqc") },
+                { assert snapshot(UTILS.filterLines("$outputDir/porechop/ERR3201952_ERR3201952.log", -3)).match("porechop") },
+                { assert new File("$outputDir/samtools/stats/2612_ERR5766176.stats").exists() },
+                { assert new File("$outputDir/samtools/stats/2612_ERR5766176_B.stats").exists() },
+                { assert new File("$outputDir/samtools/stats/2612_ERR5766180.stats").exists() },
+                { assert new File("$outputDir/samtools/stats/2613_ERR5766181.stats").exists() },
+                { assert new File("$outputDir/samtools/stats/ERR3201952_ERR3201952.stats").exists() },
+                { assert new File("$outputDir/taxpasta/bracken_db1.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/centrifuge_db3.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/diamond_db1.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/kaiju_db5.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/kraken2_db1.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/kraken2_db2.tsv").exists() },
+                { assert new File("$outputDir/taxpasta/metaphlan_db4.tsv").exists() }
+            )
+        }
+
+    }
+
+}

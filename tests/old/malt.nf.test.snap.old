@@ -1,0 +1,8 @@
+{
+    "software_versions": {
+        "content": [
+            "{CUSTOM_DUMPSOFTWAREVERSIONS={python=3.11.0, yaml=6.0}, FASTQC={fastqc=0.11.9}, MALT_RUN={malt=0.6.1}, MEGAN_RMA2INFO_TSV={megan=6.21.7}, SAMPLESHEET_CHECK={python=3.8.3}, UNTAR={untar=1.30}, Workflow={nf-core/taxprofiler=1.1.0dev}}"
+        ],
+        "timestamp": "2023-06-19T19:53:09+0000"
+    }
+}

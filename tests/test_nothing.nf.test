@@ -1,0 +1,28 @@
+nextflow_pipeline {
+
+    name "Test pipeline: NFCORE_TAXPROFILER"
+    script "main.nf"
+    tag "pipeline"
+    tag "nfcore_taxprofiler"
+    tag "nfcore_taxprofiler_test_nothing"
+    tag "test_nothing"
+
+    test("nf-core/taxprofiler test_nothing profile") {
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(
+                        file("${params.outdir}/fastqc").listFiles().exists,
+                        file("${params.outdir}/multiqc").listFiles().exists,
+                    ).match()
+                }
+            )
+        }
+    }
+}
