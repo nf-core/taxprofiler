@@ -13,11 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool          | Previous version | New version |
-| ------------- | ---------------- | ----------- |
-| kaiju         | 1.8.2            | 1.10.0      |
-
-
+| Tool  | Previous version | New version |
+| ----- | ---------------- | ----------- |
+| kaiju | 1.8.2            | 1.10.0      |
 
 ### `Deprecated`
 
