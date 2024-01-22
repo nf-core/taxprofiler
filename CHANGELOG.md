@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#430](https://github.com/nf-core/taxprofiler/pull/430) Fix the fastq output in the module LONGREAD_HOSTREMOVAL. (fix by @LilyAnderssonLee)
+
 ### `Dependencies`
 
 ### `Deprecated`
