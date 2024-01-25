@@ -147,6 +147,12 @@
                     "description": "Specify the minimum length of reads to be retained",
                     "help_text": "Specifying a mimum read length filtering can speed up profiling by reducing the number of short unspecific reads that need to be match/aligned to the database.\n\n> Modifies tool parameter(s):\n> - removed from reads `--length_required`\n> - AdapterRemoval: `--minlength`"
                 },
+                "shortread_qc_dedup": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Perform deduplication of the input reads. Only when shortread QC is done with fastp",
+                    "help_text": "This enable the deduplication to drop the duplicated reads/pairs with fastp"
+                },
                 "perform_shortread_complexityfilter": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
