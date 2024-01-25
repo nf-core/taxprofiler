@@ -52,8 +52,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | fastqc        | 11.9             | 12.1        |
 | nf-validation | unpinned         | 1.1.3       |
 
-> > > > > > > dev
-
 ## v1.1.2 - Augmented Akita Patch [2023-10-27]
 
 ### `Added`
