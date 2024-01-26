@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#439](https://github.com/nf-core/taxprofiler/pull/439) Read deduplication with fastp
+- [#439](https://github.com/nf-core/taxprofiler/pull/439) Read deduplication with fastp (added by @maxibor)
 
 ### `Fixed`
 
