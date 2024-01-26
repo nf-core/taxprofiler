@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#440](https://github.com/nf-core/taxprofiler/pull/440) Include pre-built kaiju databases in tutorial.md (added by @Joon-Klaps)
+
 ### `Fixed`
 
 ### `Dependencies`
