@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#440](https://github.com/nf-core/taxprofiler/pull/440) - Add more informative message when resources request exceeds availability (❤️ to @mribeirodantas for solution, fix by @jfy133)
+
 ### `Fixed`
 
 ### `Dependencies`
@@ -19,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#431](https://github.com/nf-core/modules/pull/4781#event-11555493525) Updated kaiju2table module to report taxon names (fix by @Joon-Klaps)
+- [#431](https://github.com/nf-core/modules/pull/4781) Updated kaiju2table module to report taxon names (fix by @Joon-Klaps)
 - [#430](https://github.com/nf-core/taxprofiler/pull/430) Fix the fastq output in the module LONGREAD_HOSTREMOVAL. (fix by @LilyAnderssonLee)
 
 ### `Dependencies`
