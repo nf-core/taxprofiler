@@ -150,7 +150,7 @@
                 "shortread_qc_dedup": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Perform deduplication of the input reads. Only when shortread QC is done with fastp",
+                    "description": "Perform deduplication of the input reads (fastp only)",
                     "help_text": "This enable the deduplication to drop the duplicated reads/pairs with fastp"
                 },
                 "perform_shortread_complexityfilter": {
