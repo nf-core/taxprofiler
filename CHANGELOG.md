@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#440](https://github.com/nf-core/taxprofiler/pull/440) - Add more informative message when resources request exceeds availability (❤️ to @mribeirodantas for solution, fix by @jfy133)
+- [#441](https://github.com/nf-core/taxprofiler/pull/441) - Add more informative message when resources request exceeds availability (❤️ to @mribeirodantas for solution, fix by @jfy133)
 
 ### `Fixed`
 
