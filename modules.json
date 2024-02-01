@@ -73,7 +73,7 @@
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "617777a807a1770f73deb38c80004bac06807eef",
+                        "git_sha": "c9488585ce7bd35ccd2a30faa2371454c8112fb9",
                         "installed_by": ["modules"]
                     },
                     "filtlong": {
