@@ -151,7 +151,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Perform deduplication of the input reads (fastp only)",
-                    "help_text": "This enables the deduplication of processed reads during fastp adapter removal and/or merging. It removes identical reads that are likely artefacts from laboratory protocols (e.g. amplification), and provide no additional sequence information to the library.\n\nRemoving duplicates can increase runtime and increase accuracy of abundance calculations.\n\n> Modifies tool parameter(S):\n> fastp: ` --dedup`\n"
+                    "help_text": "This enables the deduplication of processed reads during fastp adapter removal and/or merging. It removes identical reads that are likely artefacts from laboratory protocols (e.g. amplification), and provide no additional sequence information to the library.\n\nRemoving duplicates can increase runtime and increase accuracy of abundance calculations.\n\n> Modifies tool parameter(s):\n> fastp: ` --dedup`\n"
                 },
                 "perform_shortread_complexityfilter": {
                     "type": "boolean",
