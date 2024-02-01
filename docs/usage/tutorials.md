@@ -289,10 +289,10 @@ In total, you need four components: a tab-separated file mapping sequence IDs to
 An example of custom `seqid2taxid.map`:
 
 ```csv title="seqid2taxid.map"
- NC_001133.9 4392
- NC_012920.1 9606
- NC_001134.8 4392
- NC_001135.5 4392
+  NC_001133.9 4392
+  NC_012920.1 9606
+  NC_001134.8 4392
+  NC_001135.5 4392
 ```
 
 ```bash
