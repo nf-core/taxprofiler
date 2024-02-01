@@ -1,7 +1,7 @@
 <h1>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-taxprofiler_logo_dark.png">
-    <img alt="nf-core/taxprofiler" src="docs/images/nf-core-taxprofiler_logo_light.png">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-taxprofiler_logo_custom_dark.png">
+    <img alt="nf-core/taxprofiler" src="docs/images/nf-core-taxprofiler_logo_custom_light.png.png">
   </picture>
 </h1>
 [![GitHub Actions CI Status](https://github.com/nf-core/taxprofiler/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/taxprofiler/actions?query=workflow%3A%22nf-core+CI%22)
