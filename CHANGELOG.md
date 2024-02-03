@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#444](https://github.com/nf-core/taxprofiler/pull/440) Centrifuge uses dedicated /tmp directory to hopefully prevent mkfifo clashes (❤️ to @erinyoung for reporting, fix by @jfy133)
+- [#444](https://github.com/nf-core/taxprofiler/pull/440) Centrifuge now uses dedicated tmp directory to hopefully prevent mkfifo clashes (❤️ to @erinyoung for reporting, fix by @jfy133)
 
 ### `Dependencies`
 
