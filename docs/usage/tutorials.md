@@ -289,10 +289,10 @@ In total, you need four components: a tab-separated file mapping sequence IDs to
 An example of custom `seqid2taxid.map`:
 
 ```csv title="seqid2taxid.map"
- NC_001133.9 4392
- NC_012920.1 9606
- NC_001134.8 4392
- NC_001135.5 4392
+  NC_001133.9 4392
+  NC_012920.1 9606
+  NC_001134.8 4392
+  NC_001135.5 4392
 ```
 
 ```bash
@@ -346,7 +346,9 @@ A detailed description can be found [here](https://github.com/bbuchfink/diamond/
 
 ### Kaiju custom database
 
-To build a kaiju database, you need three components: a FASTA file with the protein sequences, the NCBI taxonomy dump files, and you need to define the uppercase characters of the standard 20 amino acids you wish to include.
+A number of kaiju pre-built indexes for reference datasets are maintained by the developers of kaiju and made available on the [kaiju website](https://bioinformatics-centre.github.io/kaiju/downloads.html). These databases can directly be used to run the workflow with Kaiju.
+
+In case the databases above do not contain your desired libraries, you can build a custom kaiju database. To build a kaiju database, you need three components: a FASTA file with the protein sequences, the NCBI taxonomy dump files, and you need to define the uppercase characters of the standard 20 amino acids you wish to include.
 
 :::warning
 The headers of the protein fasta file must be numeric NCBI taxon identifiers of the protein sequences.
