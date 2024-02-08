@@ -11,8 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-### `Deprecated` 
-
+### `Deprecated`
 
 ## v1.1.5 - Augmented Akita Patch [2024-02-08]
 
