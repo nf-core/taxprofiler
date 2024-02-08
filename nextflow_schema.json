@@ -147,6 +147,12 @@
                     "description": "Specify the minimum length of reads to be retained",
                     "help_text": "Specifying a mimum read length filtering can speed up profiling by reducing the number of short unspecific reads that need to be match/aligned to the database.\n\n> Modifies tool parameter(s):\n> - removed from reads `--length_required`\n> - AdapterRemoval: `--minlength`"
                 },
+                "shortread_qc_dedup": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Perform deduplication of the input reads (fastp only)",
+                    "help_text": "This enables the deduplication of processed reads during fastp adapter removal and/or merging. It removes identical reads that are likely artefacts from laboratory protocols (e.g. amplification), and provide no additional sequence information to the library.\n\nRemoving duplicates can increase runtime and increase accuracy of abundance calculations.\n\n> Modifies tool parameter(s):\n> fastp: ` --dedup`\n"
+                },
                 "perform_shortread_complexityfilter": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
@@ -885,7 +891,7 @@
                     "type": "string",
                     "format": "directory-path",
                     "description": "Directory / URL base for iGenomes references.",
-                    "default": "s3://ngi-igenomes/igenomes",
+                    "default": "s3://ngi-igenomes/igenomes/",
                     "fa_icon": "fas fa-cloud-download-alt",
                     "hidden": true
                 },

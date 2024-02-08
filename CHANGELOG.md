@@ -15,6 +15,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Deprecated`
 
+## v1.1.5 - Augmented Akita Patch [2024-02-08]
+
+### `Added`
+
+- [#439](https://github.com/nf-core/taxprofiler/pull/439) Read deduplication with fastp (added by @maxibor)
+- [#440](https://github.com/nf-core/taxprofiler/pull/440) Include mention of pre-built kaiju databases in tutorial.md (added by @Joon-Klaps)
+- [#442](https://github.com/nf-core/taxprofiler/pull/442) Updated to nf-core pipeline template v2.12 (added by @sofstam)
+
+### `Fixed`
+
+- [#444](https://github.com/nf-core/taxprofiler/pull/444) Centrifuge now uses dedicated tmp directory to hopefully prevent mkfifo clashes (❤️ to @erinyoung for reporting, fix by @jfy133)
+
+### `Dependencies`
+
+| Tool       | Previous version | New version |
+| ---------- | ---------------- | ----------- |
+| Centrifuge | 1.0.4_beta       | 1.0.4.1     |
+
+### `Deprecated`
+
 ## v1.1.4 - Augmented Akita Patch [2024-01-24]
 
 ### `Added`
