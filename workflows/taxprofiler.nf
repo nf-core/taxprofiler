@@ -79,6 +79,7 @@ include { INPUT_CHECK                   } from '../subworkflows/local/input_chec
 
 include { DB_CHECK                      } from '../subworkflows/local/db_check'
 include { SHORTREAD_PREPROCESSING       } from '../subworkflows/local/shortread_preprocessing'
+include { NONPAREIL                     } from '../subworkflows/local/nonpareil'
 include { LONGREAD_PREPROCESSING        } from '../subworkflows/local/longread_preprocessing'
 include { SHORTREAD_HOSTREMOVAL         } from '../subworkflows/local/shortread_hostremoval'
 include { LONGREAD_HOSTREMOVAL          } from '../subworkflows/local/longread_hostremoval'
@@ -173,6 +174,15 @@ workflow TAXPROFILER {
         ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     } else {
         ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
+    }
+
+    /*
+        MODULE: REDUNDANCY ESTIMATION
+    */
+
+    if ( params.perform_shortread_redundancyestimation ) {
+        NONPAREIL ( ch_shortreads_preprocessed )
+        ch_versions = ch_versions.mix( NONPAREIL.out.versions )
     }
 
     /*
@@ -304,6 +314,10 @@ workflow TAXPROFILER {
 
     if (params.perform_longread_qc) {
         ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
+    }
+
+    if ( params.perform_shortread_redundancyestimation ) {
+        ch_multiqc_files = ch_multiqc_files.mix( NONPAREIL.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
 
     if (params.perform_shortread_complexityfilter && params.shortread_complexityfilter_tool != 'fastp'){
