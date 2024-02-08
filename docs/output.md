@@ -564,7 +564,7 @@ The main taxonomic classification file from KMCP is the `*kmcp.profile` which is
 
     - `<sample_id>_report.tre`: output of `ganon report` containing taxonomic classifications with possible formatting and/or filtering depending on options specified.
     - `<sample_id>`.tre: output of `ganon classify` containing raw taxonomic classifications and abundance estimations with no additional formatting or filtering.
-    - `<sample_id>`.rep: 'raw' report of counts against each taxon. 
+    - `<sample_id>`.rep: 'raw' report of counts against each taxon.
     - `<sample_id>`.all: per-read summary of all hits of each reads.
     - `<sample_id>`.one: per-read summary of the best single hit after LCA for each read.
     - `<sample_id>`.unc: list of read IDs with no hits.
