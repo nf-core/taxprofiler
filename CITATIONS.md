@@ -30,6 +30,10 @@
 
   > Schubert, M., Lindgreen, S., & Orlando, L. (2016). AdapterRemoval v2: rapid adapter trimming, identification, and read merging. BMC Research Notes, 9, 88. https://doi.org/10.1186/s13104-016-1900-2
 
+- [Nonpareil](https://doi.org/10.1128/mSystems.00039-18)
+
+  - Rodriguez-R, L. M., Gunturu, S., Tiedje, J. M., Cole, J. R., & Konstantinidis, K. T. (2018). Nonpareil 3: Fast Estimation of Metagenomic Coverage and Sequence Diversity. mSystems, 3(3). https://doi.org/10.1128/mSystems.00039-18
+
 - [Porechop](https://github.com/rrwick/Porechop)
 
   > Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. https://doi.org/10.1099/mgen.0.000132
