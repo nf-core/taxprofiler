@@ -11,7 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#446](https://github.com/nf-core/taxprofiler/pull/446) - Updated ganon to newest version to allow hibf (fix by @sofstam)
+
 ### `Dependencies`
+
+| Tool  | Previous version | New version |
+| ----- | ---------------- | ----------- |
+| ganon | 1.5.1            | 2.0.0       |
 
 ### `Deprecated`
 
