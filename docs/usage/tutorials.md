@@ -346,7 +346,7 @@ A detailed description can be found [here](https://github.com/bbuchfink/diamond/
 
 ### Kaiju custom database
 
-A number of kaiju pre-built indexes for reference datasets are maintained by the the developers of kaiju and made available on the [kaiju website](https://bioinformatics-centre.github.io/kaiju/downloads.html). These databases can directly be used to run the workflow with Kaiju.
+A number of kaiju pre-built indexes for reference datasets are maintained by the developers of kaiju and made available on the [kaiju website](https://bioinformatics-centre.github.io/kaiju/downloads.html). These databases can directly be used to run the workflow with Kaiju.
 
 In case the databases above do not contain your desired libraries, you can build a custom kaiju database. To build a kaiju database, you need three components: a FASTA file with the protein sequences, the NCBI taxonomy dump files, and you need to define the uppercase characters of the standard 20 amino acids you wish to include.
 
