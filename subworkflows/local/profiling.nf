@@ -19,6 +19,9 @@ include { KMCP_SEARCH                                   } from '../../modules/nf
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
+include { SOURMASH_SKETCH                               } from '../../modules/nf-core/sourmash/sketch/main'
+include { SOURMASH_GATHER                               } from '../../modules/nf-core/sourmash/gather/main'
+include { SOURMASH_TAXANNOTATE                          } from '../../modules/nf-core/sourmash/taxannotate/main'
 
 
 // Custom Functions
@@ -78,6 +81,7 @@ workflow PROFILING {
                 motus: it[2]['tool'] == 'motus'
                 kmcp: it[2]['tool'] == 'kmcp'
                 ganon: it[2]['tool'] == 'ganon'
+                sourmash:  it[2]['tool'] == 'sourmash'
                 unknown: true
             }
 
@@ -491,6 +495,68 @@ workflow PROFILING {
         ch_raw_classifications = ch_raw_classifications.mix( GANON_CLASSIFY.out.all )
 
     }
+
+
+    if ( params.run_sourmash ) {
+
+        ch_input_for_sourmash_sketching = ch_input_for_profiling.sourmash.map {
+                                    it -> [ it[0], it[1] ]
+                                }
+
+        // Extract Sample ID
+        sourmash_sample_database = ch_input_for_profiling.sourmash.map {
+                                    it -> [ it[0].sample, it[0] + it[2], it[3] ]
+                                }
+
+        // Create FracMinHash sketches (signatures) for each sample
+        SOURMASH_SKETCH(ch_input_for_sourmash_sketching)
+
+        // Add database to the signatures back
+        ch_input_for_sourmash_gather = SOURMASH_SKETCH.out.signatures.map {
+                                    it -> [ it[0].sample, it[0], it[1] ]
+                                }.join(sourmash_sample_database)
+                                .multiMap  {
+                                    input ->
+
+                                        // Get the database file names from the channel (e.g., ZIP and CSV.GZ)
+                                        def find_db  = []
+                                        def find_tax = []
+
+                                        input.eachFileMatch( ~/.*\.zip$/ )        { find_db << it  }
+                                        input.eachFileMatch( ~/.*\.csv(\.gz)?$/ ) { find_tax << it }
+
+                                        signatures: [ input[3], input[2] ]
+                                        db_path: input[4]
+                                        db:  [find_db]
+                                        tax: [find_tax]
+                                }
+
+        // ch_input_for_sourmash_gather.signatures.view()
+        // ch_input_for_sourmash_gather.db.view()
+
+        // Perform profiling with sourmash
+        SOURMASH_GATHER(
+            ch_input_for_sourmash_gather.signatures,
+            ch_input_for_sourmash_gather.db,
+            false,  // save_unassigned
+            false,  // save_matches_sig
+            false,  // save_prefetch
+            false   // save_prefetch_csv
+        )
+
+        // Add taxonomic lineage information to `sourmash gather` results
+        SOURMASH_TAXANNOTATE(
+            SOURMASH_GATHER.out.result,
+            ch_input_for_sourmash_gather.tax
+            )
+
+        ch_versions      = ch_versions.mix( SOURMASH_TAXANNOTATE.out.versions.first() )
+        ch_raw_profiles  = ch_raw_profiles.mix( SOURMASH_TAXANNOTATE.out.result )
+        ch_multiqc_files = ch_multiqc_files.mix( SOURMASH_TAXANNOTATE.out.result )
+
+    }
+
+
 
     emit:
     classifications = ch_raw_classifications
