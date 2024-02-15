@@ -67,10 +67,3 @@ jobs:
             lint_log.txt
             lint_results.md
             PR_number.txt
-
-       - name: Upload log file artifact
-         if: ${{ always()}}
-         uses: actions/upload-artifact@v4
-         with:
-           name: workdir
-           path: .work/
