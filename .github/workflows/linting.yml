@@ -30,9 +30,6 @@ jobs:
 
   nf-core:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory:/home/runner/work/taxprofiler/taxprofiler
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v4
@@ -70,5 +67,10 @@ jobs:
             lint_log.txt
             lint_results.md
             PR_number.txt
-            /home/runner/work/taxprofiler/taxprofiler/
 
+       - name: Upload log file artifact
+         if: failure()
+         uses: actions/upload-artifact@v3
+         with:
+           name: workdir
+           path: .work/
