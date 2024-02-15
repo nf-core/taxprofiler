@@ -89,7 +89,7 @@ jobs:
           path: results
       - uses: actions/upload-artifact@v4
         if: always()
-        name: Upload log
+        name: Upload nextflow log
         with:
           name: nextflow.log
           path: .nextflow.log
