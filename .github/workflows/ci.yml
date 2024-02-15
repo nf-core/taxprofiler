@@ -73,6 +73,6 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: logs-${{ matrix.profile }}
+          name: results_failing
           path: |
-            /home/runner/work/taxprofiler/taxprofiler/work
+            ./results_${{ matrix.tags }}
