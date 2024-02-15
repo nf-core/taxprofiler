@@ -30,6 +30,9 @@ jobs:
 
   nf-core:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory:/home/runner/work/taxprofiler/taxprofiler
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@v4
@@ -68,9 +71,9 @@ jobs:
             lint_results.md
             PR_number.txt
 
-      - name: Upload nextflow.log
+      - name: Upload work-dir
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: nextflow-log
-          path: .nextflow.log
+          name: work-dir
+          path: /home/runner/work/taxprofiler/taxprofiler/
