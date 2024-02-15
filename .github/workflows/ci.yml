@@ -69,19 +69,11 @@ jobs:
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
           fi
 
-      - name: Gather failed logs
-        if: failure() || cancelled()
-        run: |
-          mkdir failed_logs
-          failed=$(grep "FAILED" results/pipeline_info/execution_trace.txt | cut -f 2)
-          while read -r line ; do cp $(ls work/${line}*/*.log) failed_logs/ | true ; done <<< "$failed"
-      - uses: actions/upload-artifact@v4
-        if: failure() || cancelled()
-        name: Upload failed logs
-        with:
-          name: failed_logs
-          path: failed_logs
-      - uses: actions/upload-artifact@v4
+      - name: Upload logs on failure
         if: failure()
-        name: Upload work dir
-	path: /home/runner/pytest_workflow_*/*/work
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs-${{ matrix.profile }}
+          path: |
+            /home/runner/.nextflow.log
+            /home/runner/work
