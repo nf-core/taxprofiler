@@ -67,3 +67,12 @@ jobs:
             lint_log.txt
             lint_results.md
             PR_number.txt
+
+      - name: Upload work directory
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: work_dir
+          path: |
+            /home/runner/work/taxprofiler/taxprofiler/work
+          compression-level: 0
