@@ -68,10 +68,9 @@ jobs:
             lint_results.md
             PR_number.txt
 
-      - name: Upload work directory
+      - name: Upload nextflow.log 
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: work_dir
-          path: /home/runner/work/taxprofiler/taxprofiler/work/
-          compression-level: 0
+          name: nextflow-log
+          path: .nextflow.log
