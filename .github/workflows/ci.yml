@@ -68,3 +68,6 @@ jobs:
           else
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
           fi
+
+      - name: Setup ssh session
+        uses: Warpbuilds/action-debugger@v1.3
