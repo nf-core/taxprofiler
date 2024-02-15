@@ -73,6 +73,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: work_dir
-          path: |
-            /home/runner/work/taxprofiler/taxprofiler/work
+          path: *work*
           compression-level: 0
