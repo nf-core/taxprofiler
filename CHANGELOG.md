@@ -3,14 +3,15 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-<<<<<<< HEAD
-## v1.1.6dev - [date]
-=======
 ## v1.1.6dev - [unreleased]
 
 ### `Added`
 
+- [#450](https://github.com/nf-core/taxprofiler/pull/450) Updated to nf-core pipeline template v2.13 (added by @LilyAnderssonLee & @sofstam)
+
 ### `Fixed`
+
+- [#336](https://github.com/nf-core/taxprofiler/issues/336) Replace samplesheet check with nf-validation for both sample and database input sheets (fix by @LilyAnderssonLee)
 
 ### `Dependencies`
 
@@ -180,7 +181,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#291](https://github.com/nf-core/taxprofiler/pull/291) - Fix Taxpasta not receiving taxonomy directory (❤️ to @SannaAb for reporting, fix by @jfy133)
 
 ## v1.0.0 - Dodgy Dachshund [2023-03-13]
->>>>>>> dev
 
 Initial release of nf-core/taxprofiler, created with the [nf-core](https://nf-co.re/) template.
 
