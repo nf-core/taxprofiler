@@ -42,6 +42,7 @@ workflow NFCORE_TAXPROFILER {
 
     take:
     samplesheet // channel: samplesheet read in from --input
+    databases   // channel: databases in from --databases
 
     main:
 
@@ -50,6 +51,7 @@ workflow NFCORE_TAXPROFILER {
     //
     TAXPROFILER (
         samplesheet
+        databases
     )
 
     emit:
