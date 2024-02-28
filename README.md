@@ -1,5 +1,9 @@
-# ![nf-core/taxprofiler](docs/images/nf-core-taxprofiler_logo_custom_light.png#gh-light-mode-only) ![nf-core/taxprofiler](docs/images/nf-core-taxprofiler_logo_custom_dark.png#gh-dark-mode-only)
-
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-taxprofiler_logo_custom_dark.png">
+    <img alt="nf-core/taxprofiler" src="docs/images/nf-core-taxprofiler_logo_custom_light.png.png">
+  </picture>
+</h1>
 [![GitHub Actions CI Status](https://github.com/nf-core/taxprofiler/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/taxprofiler/actions?query=workflow%3A%22nf-core+CI%22)
 [![GitHub Actions Linting Status](https://github.com/nf-core/taxprofiler/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/taxprofiler/actions?query=workflow%3A%22nf-core+linting%22)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/taxprofiler/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7728364-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7728364)
 
@@ -27,7 +31,7 @@
    - Low complexity and quality filtering (short-read: [bbduk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/), [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus); long-read: [Filtlong](https://github.com/rrwick/Filtlong))
    - Host-read removal (short-read: [BowTie2](http://bowtie-bio.sourceforge.net/bowtie2/); long-read: [Minimap2](https://github.com/lh3/minimap2))
    - Run merging
-3. Supports statistics for host-read removal ([Samtools](http://www.htslib.org/))
+3. Supports statistics metagenome coverage estimation ([Nonpareil](https://nonpareil.readthedocs.io/en/latest/)) and for host-read removal ([Samtools](http://www.htslib.org/))
 4. Performs taxonomic classification and/or profiling using one or more of:
    - [Kraken2](https://ccb.jhu.edu/software/kraken2/)
    - [MetaPhlAn](https://huttenhower.sph.harvard.edu/metaphlan/)

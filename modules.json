@@ -42,12 +42,12 @@
                     },
                     "centrifuge/centrifuge": {
                         "branch": "master",
-                        "git_sha": "7b0b4276fbad744a69c35d3cbf9d55fdfc9491bd",
+                        "git_sha": "9a07a1293d9b818d1e06d0f7b58152f74d462012",
                         "installed_by": ["modules"]
                     },
                     "centrifuge/kreport": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "9a07a1293d9b818d1e06d0f7b58152f74d462012",
                         "installed_by": ["modules"]
                     },
                     "custom/dumpsoftwareversions": {
@@ -73,7 +73,7 @@
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "617777a807a1770f73deb38c80004bac06807eef",
+                        "git_sha": "c9488585ce7bd35ccd2a30faa2371454c8112fb9",
                         "installed_by": ["modules"]
                     },
                     "filtlong": {
@@ -199,6 +199,21 @@
                     "multiqc": {
                         "branch": "master",
                         "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
+                        "installed_by": ["modules"]
+                    },
+                    "nonpareil/curve": {
+                        "branch": "master",
+                        "git_sha": "729335dda8ba226323edc54dec80ae959079207e",
+                        "installed_by": ["modules"]
+                    },
+                    "nonpareil/nonpareil": {
+                        "branch": "master",
+                        "git_sha": "b5b76d170586dfa39cbd9be3043d53d827cfb68d",
+                        "installed_by": ["modules"]
+                    },
+                    "nonpareil/set": {
+                        "branch": "master",
+                        "git_sha": "729335dda8ba226323edc54dec80ae959079207e",
                         "installed_by": ["modules"]
                     },
                     "porechop/porechop": {
