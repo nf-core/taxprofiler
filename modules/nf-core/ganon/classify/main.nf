@@ -36,7 +36,8 @@ process GANON_CLASSIFY {
         $args \\
         --threads $task.cpus \\
         --output-prefix ${prefix} \\
-        $input \
+        --verbose \\
+	$input \
         2>&1 | tee ${prefix}.log
 
     cat <<-END_VERSIONS > versions.yml
