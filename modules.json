@@ -83,17 +83,17 @@
                     },
                     "ganon/classify": {
                         "branch": "master",
-                        "git_sha": "3b9d0fd0431442facdc816ca0c731f9807c47ebd",
+                        "git_sha": "c89d14142b1a81600487a0d086669222d3804b4f",
                         "installed_by": ["modules"]
                     },
                     "ganon/report": {
                         "branch": "master",
-                        "git_sha": "f61e38c82ca2bbb8dfa740822df6f2b75f2d8a86",
+                        "git_sha": "c89d14142b1a81600487a0d086669222d3804b4f",
                         "installed_by": ["modules"]
                     },
                     "ganon/table": {
                         "branch": "master",
-                        "git_sha": "c02373677641897c9744c0f55f0c12fd79232c71",
+                        "git_sha": "c89d14142b1a81600487a0d086669222d3804b4f",
                         "installed_by": ["modules"]
                     },
                     "gunzip": {
