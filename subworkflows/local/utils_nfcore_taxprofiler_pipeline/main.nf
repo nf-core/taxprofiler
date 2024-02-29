@@ -340,12 +340,12 @@ def toolBibliographyText() {
     return reference_text
 }
 
-def methodsDescriptionText(mqc_methods_yaml) {
+def methodsDescriptionText( mqc_methods_yaml ) {
 
     def meta = [:]
 
-    meta.workflow = run_workflow.toMap()
-    meta["manifest_map"] = run_workflow.manifest.toMap()
+    meta.workflow = workflow.toMap()
+    meta["manifest_map"] = workflow.manifest.toMap()
 
     // Pipeline DOI
     meta["doi_text"] = meta.manifest_map.doi ? "(doi: <a href=\'https://doi.org/${meta.manifest_map.doi}\'>Stamouli et al. 2023</a>)" : ""
@@ -354,8 +354,10 @@ def methodsDescriptionText(mqc_methods_yaml) {
     meta["tool_citations"] = ""
     meta["tool_bibliography"] = ""
 
-    meta["tool_citations"] = toolCitationText(params)
-    meta["tool_bibliography"] = toolBibliographyText(params)
+    // TODO nf-core: Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
+    // meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+    // meta["tool_bibliography"] = toolBibliographyText()
+
 
     def methods_text = mqc_methods_yaml.text
 

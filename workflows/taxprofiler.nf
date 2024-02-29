@@ -156,6 +156,7 @@ workflow TAXPROFILER {
         .map { db_meta, db -> [db_meta.db_params]
             def corrected_db_params = db_meta.db_params == null ? '' : db_meta.db_params
             db_meta.db_params = corrected_db_params
+            println "db_params: $db_meta.db_params"
         }
         .set { ch_databases }
 
@@ -177,6 +178,7 @@ workflow TAXPROFILER {
             untar: db_path.name.endsWith(".tar.gz")
             skip: true
         }
+    ch_dbs_for_untar.untar.view()
     // Filter the channel to untar only those databases for tools that are selected to be run by the user.
     ch_input_untar = ch_dbs_for_untar.untar
         .filter { db_meta, db_path ->
@@ -221,16 +223,6 @@ workflow TAXPROFILER {
     } else {
         ch_longreads_preprocessed = ch_input.nanopore
     }
-
-    /*
-        MODULE: REDUNDANCY ESTIMATION
-    */
-
-    if ( params.perform_shortread_redundancyestimation ) {
-        NONPAREIL ( ch_shortreads_preprocessed )
-        ch_versions = ch_versions.mix( NONPAREIL.out.versions )
-    }
-
 
     /*
         SUBWORKFLOW: COMPLEXITY FILTERING
