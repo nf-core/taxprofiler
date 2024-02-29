@@ -50,8 +50,8 @@ workflow NFCORE_TAXPROFILER {
     // WORKFLOW: Run pipeline
     //
     TAXPROFILER (
-        samplesheet
-        databases
+        samplesheet,
+        databases,
     )
 
     emit:
@@ -86,7 +86,8 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_TAXPROFILER (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.samplesheet,
+        PIPELINE_INITIALISATION.out.databases,
     )
 
     //

@@ -92,9 +92,7 @@ include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardis
 // MODULE: Installed directly from nf-core/modules
 //
 include { UNTAR                       } from '../modules/nf-core/untar/main'
-include { FASTQC                      } from '../modules/nf-core/fastqc/main'
 include { FALCO                       } from '../modules/nf-core/falco/main'
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
 
