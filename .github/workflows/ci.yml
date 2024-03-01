@@ -22,10 +22,24 @@ jobs:
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}"
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         NXF_VER:
           - "23.04.0"
           - "latest-everything"
+        tags:
+          - "test"
+          - "test_nopreprocessing"
+          - "test_noprofiling"
+          - "test_krakenuniq"
+          - "test_malt"
+          - "test_motus"
+          - "test_falco"
+          - "test_fastp"
+          - "test_adapterremoval"
+          - "test_bbduk"
+          - "test_prinseqplusplus"
+
     steps:
       - name: Check out pipeline code
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
@@ -43,4 +57,17 @@ jobs:
         # For example: adding multiple test runs with different parameters
         # Remember that you can parallelise this by using strategy.matrix
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile test,docker --outdir ./results
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
+
+      - name: Run pipeline with test data
+        run: |
+          if [[ "${{ matrix.tags }}" == "test_motus" ]]; then
+            wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
+            python downloadDB.py > download_db_log.txt
+            echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
+            echo 'motus,db_mOTU,,${GITHUB_WORKSPACE}/db_mOTU' >> 'database_motus.csv'
+            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }};
+          else
+            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
+          fi
