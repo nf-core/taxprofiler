@@ -83,7 +83,6 @@ include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardis
 //
 include { UNTAR                       } from '../modules/nf-core/untar/main'
 include { FALCO                       } from '../modules/nf-core/falco/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
 
 /*
