@@ -69,8 +69,7 @@
             "db_path": {
                 "type": "string",
                 "exists": true,
-                "format": "file-path",
-                "errorMessage": "The database path could not be found."
+                "format": "file-path"
             }
         },
         "required": ["tool", "db_name", "db_path"],
