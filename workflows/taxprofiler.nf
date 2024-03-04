@@ -155,6 +155,7 @@ workflow TAXPROFILER {
         .map { db_meta, db -> [db_meta.db_params]
             def corrected_db_params = db_meta.db_params == null ? '' : db_meta.db_params
             db_meta.db_params = corrected_db_params
+            // Check the empty db_params is ""
             println "db_params: $db_meta.db_params"
         }
         .set { ch_databases }
