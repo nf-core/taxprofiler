@@ -10,7 +10,6 @@
             "tool": {
                 "type": "string",
                 "exists": true,
-                "pattern": "^\\S+$",
                 "enum": [
                     "bracken",
                     "centrifuge",
