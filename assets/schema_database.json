@@ -52,14 +52,6 @@
                         },
                         "pattern": ".*;$",
                         "errorMessage": "Invalid database `db_params` entry. KMCP only requires a semi-colon if passing arguments to KMCP profile, in cases of which the arguments should go after the semi-colon."
-                    },
-                    {
-                        "not": {
-                            "properties": {
-                                "tool": { "enum": ["bracken", "kmcp"] }
-                            }
-                        },
-                        "errorMessage": "Invalid database db_params entry."
                     }
                 ],
                 "errorMessage": "Invalid database db_params entry. No quotes allowed.",
