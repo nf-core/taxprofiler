@@ -150,18 +150,8 @@ workflow TAXPROFILER {
     // Merge ch_fastq and ch_input.nanopore into a single channel
     def ch_input_for_fastqc = ch_fastq.mix(ch_input.nanopore)
 
-    // Validate databases
-    databases
-        .map { db_meta, db -> [db_meta.db_params]
-            def corrected_db_params = db_meta.db_params == null ? '' : db_meta.db_params
-            db_meta.db_params = corrected_db_params
-            // Check the empty db_params is ""
-            println "db_params: $db_meta.db_params"
-        }
-        .set { ch_databases }
-
-    // Decompress
-    ch_dbs_for_untar = ch_databases
+    // Validate and decompress databases
+    ch_dbs_for_untar = databases
         .branch { db_meta, db_path ->
             untar: db_path.name.endsWith(".tar.gz")
             skip: true
@@ -174,6 +164,12 @@ workflow TAXPROFILER {
     UNTAR (ch_input_untar)
 
     ch_final_dbs = ch_dbs_for_untar.skip.mix( UNTAR.out.untar )
+    ch_final_dbs
+        .map { db_meta, db -> [db_meta.db_params]
+            def corrected_db_params = db_meta.db_params == null ? '' : db_meta.db_params
+            db_meta.db_params = corrected_db_params
+            [db_meta, db]
+        }
     ch_versions = ch_versions.mix(UNTAR.out.versions.first())
 
     /*
