@@ -160,17 +160,6 @@ workflow TAXPROFILER {
         }
         .set { ch_databases }
 
-    // Equivenent to "uniqueEntries" in schema_databases.json, but with better error message. Should we remove this part?
-    // ch_databases
-    //     .map {db_meta, db -> [db_meta.tool, db_meta.db_name] }
-    //     .groupTuple()
-    //     .map { tool, db_name ->
-    //         def unique_names = db_name.unique(false)
-    //             if (unique_names.size() < db_name.size()) {
-    //                 error("[nf-core/taxprofiler] ERROR: Each database for a tool must have a unique name, duplicates detected. Tool: ${tool}, Database names: ${unique_names}")
-    //             }
-    //     }
-
     // Decompress
     ch_dbs_for_untar = ch_databases
         .branch { db_meta, db_path ->
