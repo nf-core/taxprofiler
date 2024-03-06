@@ -136,7 +136,7 @@ workflow TAXPROFILER {
         fastq_se: meta.single_end
             return [meta, [fastq_1]]
         //
-        nanopore: instrument_platform == 'OXFORD_NANOPORE'
+        nanopore: instrument_platform == 'OXFORD_NANOPORE' && meta.single_end
             return [meta, [fastq_1]]
         fastq_pe: fastq_2
             return [meta, [fastq_1, fastq_2]]
