@@ -3,7 +3,7 @@ process FALCO {
     label 'process_single'
 
 
-    conda "bioconda::falco=1.2.1"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/falco:1.2.1--h867801b_3':
         'biocontainers/falco:1.2.1--h867801b_3' }"
@@ -24,7 +24,7 @@ process FALCO {
     def prefix = task.ext.prefix ?: "${meta.id}"
     if ( reads.toList().size() == 1 ) {
         """
-        falco $args --threads $task.cpus ${reads} -D ${prefix}_data.txt -S ${prefix}_summary.txt -R ${prefix}_report.html
+        falco $args --threads $task.cpus ${reads} -D ${prefix}_fastqc_data.txt -S ${prefix}_summary.txt -R ${prefix}_report.html
 
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
@@ -33,9 +33,7 @@ process FALCO {
         """
     } else {
         """
-        [ ! -f  ${prefix}_1.fastq.gz ] && ln -s ${reads[0]} ${prefix}_1.fastq.gz
-        [ ! -f  ${prefix}_2.fastq.gz ] && ln -s ${reads[1]} ${prefix}_2.fastq.gz
-        falco $args --threads $task.cpus ${prefix}_1.fastq.gz ${prefix}_2.fastq.gz
+        falco $args --threads $task.cpus ${reads}
 
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":

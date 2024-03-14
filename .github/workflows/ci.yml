@@ -42,17 +42,20 @@ jobs:
 
     steps:
       - name: Check out pipeline code
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
       - name: Install Nextflow
         uses: nf-core/setup-nextflow@v1
         with:
           version: "${{ matrix.NXF_VER }}"
 
-      - name: Show current locale
-        run: locale
+      - name: Disk space cleanup
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
 
-      - name: Set UTF-8 enabled locale
+      - name: Run pipeline with test data
+        # TODO nf-core: You can customise CI pipeline run tests as required
+        # For example: adding multiple test runs with different parameters
+        # Remember that you can parallelise this by using strategy.matrix
         run: |
           sudo locale-gen en_US.UTF-8
           sudo update-locale LANG=en_US.UTF-8
@@ -63,7 +66,7 @@ jobs:
             wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
             python downloadDB.py > download_db_log.txt
             echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
-            echo 'motus,db_mOTU,,db_mOTU' >> 'database_motus.csv'
+            echo "motus,db_mOTU,,db_mOTU" >> 'database_motus.csv'
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }};
           else
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};

@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/master/assets/schema_database.json",
+    "title": "nf-core/taxprofiler pipeline - params.database schema",
+    "description": "Schema for the file provided with params.database",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "tool": {
+                "type": "string",
+                "exists": true,
+                "enum": [
+                    "bracken",
+                    "centrifuge",
+                    "diamond",
+                    "ganon",
+                    "kaiju",
+                    "kmcp",
+                    "kraken2",
+                    "krakenuniq",
+                    "malt",
+                    "metaphlan",
+                    "motus"
+                ],
+                "errorMessage": "Invalid tool name. Please see documentation for all supported profilers. Currently these classifers are included: bracken, centrifuge, diamond, ganon, kaiju, kmcp, kraken2, krakenuniq, malt, metaphlan, motus.",
+                "meta": ["tool"]
+            },
+            "db_name": {
+                "type": "string",
+                "exists": true,
+                "pattern": "^\\S+$",
+                "errorMessage": "The unique name of the database should be provided.",
+                "meta": ["db_name"]
+            },
+            "db_params": {
+                "type": "string",
+                "pattern": "^[^\"']*$",
+                "anyOf": [
+                    {
+                        "properties": {
+                            "tool": { "const": "bracken" }
+                        },
+                        "not": {
+                            "pattern": ".*;"
+                        },
+                        "errorMessage": "Invalid database db_params entry. Bracken requires a semi-colon for passing one or more parameters."
+                    },
+                    {
+                        "properties": {
+                            "tool": { "const": "kmcp" }
+                        },
+                        "pattern": ".*;$",
+                        "errorMessage": "Invalid database `db_params` entry. KMCP only requires a semi-colon if passing arguments to KMCP profile, in cases of which the arguments should go after the semi-colon."
+                    }
+                ],
+                "errorMessage": "Invalid database db_params entry. No quotes allowed.",
+                "meta": ["db_params"]
+            },
+            "db_path": {
+                "type": "string",
+                "exists": true,
+                "format": "path",
+                "errorMessage": "db_path should be either a file path or a directory."
+            }
+        },
+        "required": ["tool", "db_name", "db_path"],
+        "uniqueEntries": ["tool", "db_name"]
+    }
+}
