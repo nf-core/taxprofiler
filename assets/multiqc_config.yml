@@ -51,6 +51,7 @@ report_section_order:
 
 export_plots: true
 
+disable_version_detection: true
 custom_logo: "nf-core-taxprofiler_logo_custom_light.png"
 custom_logo_url: https://nf-co.re/taxprofiler
 custom_logo_title: "nf-core/taxprofiler"
