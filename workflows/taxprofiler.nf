@@ -1,19 +1,16 @@
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    PRINT PARAMS SUMMARY
+    IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { paramsSummaryLog; paramsSummaryMap } from 'plugin/nf-validation'
-
-def logo = NfcoreTemplate.logo(workflow, params.monochrome_logs)
-def citation = '\n' + WorkflowMain.citation(workflow) + '\n'
-def summary_params = paramsSummaryMap(workflow)
-
-// Print parameter summary log to screen
-log.info logo + paramsSummaryLog(workflow) + citation
-
-WorkflowTaxprofiler.initialise(params, log)
+include { FASTQC                 } from '../modules/nf-core/fastqc/main'
+include { MULTIQC                } from '../modules/nf-core/multiqc/main'
+include { paramsSummaryMap       } from 'plugin/nf-validation'
+include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_taxprofiler_pipeline'
+include { validateParameters; paramsHelp; paramsSummaryLog; fromSamplesheet } from 'plugin/nf-validation'
 
 // Check input path parameters to see if they exist
 def checkPathParamList = [ params.input, params.genome, params.databases,
@@ -55,16 +52,6 @@ if (params.run_bracken && !params.run_kraken2) error('ERROR: [nf-core/taxprofile
 
 if ( [params.taxpasta_add_name, params.taxpasta_add_rank, params.taxpasta_add_lineage, params.taxpasta_add_lineage, params.taxpasta_add_idlineage, params.taxpasta_add_ranklineage].any() && !params.taxpasta_taxonomy_dir ) error('ERROR: [nf-core/taxprofiler] All --taxpasta_add_* parameters require a taxonomy supplied to --taxpasta_taxonomy_dir. However the latter parameter was not detected. Please check input.')
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    CONFIG FILES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-ch_multiqc_config          = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
-ch_multiqc_custom_config   = params.multiqc_config ? Channel.fromPath( params.multiqc_config, checkIfExists: true ) : Channel.empty()
-ch_multiqc_logo            = params.multiqc_logo   ? Channel.fromPath( params.multiqc_logo, checkIfExists: true ) : Channel.empty()
-ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,9 +62,7 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK                   } from '../subworkflows/local/input_check'
 
-include { DB_CHECK                      } from '../subworkflows/local/db_check'
 include { SHORTREAD_PREPROCESSING       } from '../subworkflows/local/shortread_preprocessing'
 include { NONPAREIL                     } from '../subworkflows/local/nonpareil'
 include { LONGREAD_PREPROCESSING        } from '../subworkflows/local/longread_preprocessing'
@@ -97,10 +82,8 @@ include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardis
 //
 // MODULE: Installed directly from nf-core/modules
 //
-include { FASTQC                      } from '../modules/nf-core/fastqc/main'
+include { UNTAR                       } from '../modules/nf-core/untar/main'
 include { FALCO                       } from '../modules/nf-core/falco/main'
-include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { CUSTOM_DUMPSOFTWAREVERSIONS } from '../modules/nf-core/custom/dumpsoftwareversions/main'
 include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
 
 /*
@@ -109,13 +92,8 @@ include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-// Info required for completion email and summary
-def multiqc_report = []
-
 workflow TAXPROFILER {
 
-    ch_versions = Channel.empty()
-    ch_multiqc_logo= Channel.fromPath("$projectDir/docs/images/nf-core-taxprofiler_logo_custom_light.png")
     adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
 
     if ( params.shortread_qc_adapterlist ) {
@@ -123,29 +101,82 @@ workflow TAXPROFILER {
         if ( params.shortread_qc_tool == 'fastp' && !adapterlist.extension.matches(".*(fa|fasta|fna|fas)") ) error "[nf-core/taxprofiler] ERROR: fastp adapter list requires a `.fasta` format and extension (or fa, fas, fna). Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
     }
 
-    /*
-        SUBWORKFLOW: Read in samplesheet, validate and stage input files
-    */
-    INPUT_CHECK (
-        file(params.input)
-    )
-    ch_versions = ch_versions.mix(INPUT_CHECK.out.versions)
-    // TODO: OPTIONAL, you can use nf-validation plugin to create an input channel from the samplesheet with Channel.fromSamplesheet("input")
-    // See the documentation https://nextflow-io.github.io/nf-validation/samplesheets/fromSamplesheet/
-    // ! There is currently no tooling to help you write a sample sheet schema
+    take:
+    samplesheet // channel: samplesheet read in from --input
+    databases // channel: databases from --databases
 
-    // Save final FASTA reads if requested, as otherwise no processing occurs on FASTA
+    main:
 
+    ch_versions = Channel.empty()
+    ch_multiqc_files = Channel.empty()
 
-    DB_CHECK (
-        ch_databases
-    )
-    ch_versions = ch_versions.mix(DB_CHECK.out.versions)
+    // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
+    samplesheet
+        .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+            //println "Mapping: meta=$meta, run_accession=$run_accession, instrument_platform=$instrument_platform, fastq_1=$fastq_1, fastq_2=$fastq_2, fasta=$fasta"
+
+        meta.run_accession = run_accession
+        meta.instrument_platform = instrument_platform
+
+        // Define single_end based on the conditions
+        meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE')
+
+        // Define is_fasta based on the presence of fasta
+        meta.is_fasta = fasta ? true : false
+
+        if (!meta.is_fasta && !fastq_1) {
+            error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
+        }
+        if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
+            error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
+        }
+        if (meta.single_end && fastq_2) {
+            error("Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty")
+        }
+        // create fastq_se channel if single_end
+        fastq_se: meta.single_end
+            return [meta, [fastq_1]]
+        //
+        nanopore: instrument_platform == 'OXFORD_NANOPORE' && meta.single_end
+            return [meta, [fastq_1]]
+        fastq_pe: fastq_2
+            return [meta, [fastq_1, fastq_2]]
+        ch_fasta: meta.is_fasta && meta.single_end
+            return [meta, [fasta]]
+    }
+    .set { ch_input }
+
+    // Merge ch_input.fastq_pe and ch_input.fastq_se into a single channel
+    def ch_fastq = ch_input.fastq_pe.mix(ch_input.fastq_se)
+    // Merge ch_fastq and ch_input.nanopore into a single channel
+    def ch_input_for_fastqc = ch_fastq.mix(ch_input.nanopore)
+
+    // Validate and decompress databases
+    ch_dbs_for_untar = databases
+        .branch { db_meta, db_path ->
+            untar: db_path.name.endsWith(".tar.gz")
+            skip: true
+        }
+    // Filter the channel to untar only those databases for tools that are selected to be run by the user.
+    ch_input_untar = ch_dbs_for_untar.untar
+        .filter { db_meta, db_path ->
+            params["run_${db_meta.tool}"]
+        }
+    UNTAR (ch_input_untar)
+
+    ch_final_dbs = ch_dbs_for_untar.skip.mix( UNTAR.out.untar )
+    ch_final_dbs
+        .map { db_meta, db -> [db_meta.db_params]
+            def corrected_db_params = db_meta.db_params == null ? '' : db_meta.db_params
+            db_meta.db_params = corrected_db_params
+            [db_meta, db]
+        }
+    ch_versions = ch_versions.mix(UNTAR.out.versions.first())
 
     /*
         MODULE: Run FastQC
     */
-    ch_input_for_fastqc = INPUT_CHECK.out.fastq.mix( INPUT_CHECK.out.nanopore )
+
 
     if ( !params.skip_preprocessing_qc ) {
         if ( params.preprocessing_qc_tool == 'falco' ) {
@@ -162,18 +193,18 @@ workflow TAXPROFILER {
     */
 
     if ( params.perform_shortread_qc ) {
-        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( INPUT_CHECK.out.fastq, adapterlist ).reads
+        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( ch_fastq, adapterlist ).reads
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     } else {
-        ch_shortreads_preprocessed = INPUT_CHECK.out.fastq
+        ch_shortreads_preprocessed = ch_fastq
     }
 
     if ( params.perform_longread_qc ) {
-        ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( INPUT_CHECK.out.nanopore ).reads
+        ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( ch_input.nanopore ).reads
                                         .map { it -> [ it[0], [it[1]] ] }
         ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     } else {
-        ch_longreads_preprocessed = INPUT_CHECK.out.nanopore
+        ch_longreads_preprocessed = ch_input.nanopore
     }
 
     /*
@@ -243,27 +274,27 @@ workflow TAXPROFILER {
                 meta, reads ->
                 [ meta, [ reads ].flatten() ]
             }
-            .mix( INPUT_CHECK.out.fasta )
+            .mix( ch_input.ch_fasta )
 
         ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
 
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
-            .mix( ch_longreads_hostremoved, INPUT_CHECK.out.fasta )
+            .mix( ch_longreads_hostremoved, ch_input.ch_fasta )
     }
 
     /*
         SUBWORKFLOW: PROFILING
     */
 
-    PROFILING ( ch_reads_runmerged, DB_CHECK.out.dbs )
+    PROFILING ( ch_reads_runmerged, ch_final_dbs )
     ch_versions = ch_versions.mix( PROFILING.out.versions )
 
     /*
         SUBWORKFLOW: VISUALIZATION_KRONA
     */
     if ( params.run_krona ) {
-        VISUALIZATION_KRONA ( PROFILING.out.classifications, PROFILING.out.profiles, DB_CHECK.out.dbs )
+        VISUALIZATION_KRONA ( PROFILING.out.classifications, PROFILING.out.profiles, ch_final_dbs )
         ch_versions = ch_versions.mix( VISUALIZATION_KRONA.out.versions )
     }
 
@@ -271,7 +302,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: PROFILING STANDARDISATION
     */
     if ( params.run_profile_standardisation ) {
-        STANDARDISATION_PROFILES ( PROFILING.out.classifications, PROFILING.out.profiles, DB_CHECK.out.dbs, PROFILING.out.motus_version )
+        STANDARDISATION_PROFILES ( PROFILING.out.classifications, PROFILING.out.profiles, ch_final_dbs, PROFILING.out.motus_version )
         ch_versions = ch_versions.mix( STANDARDISATION_PROFILES.out.versions )
     }
 
@@ -279,21 +310,26 @@ workflow TAXPROFILER {
         MODULE: MultiQC
     */
 
-    CUSTOM_DUMPSOFTWAREVERSIONS (
-        ch_versions.unique().collectFile(name: 'collated_versions.yml')
-    )
+    //
+    // Collate and save software versions
+    //
+    softwareVersionsToYAML(ch_versions)
+        .collectFile(storeDir: "${params.outdir}/pipeline_info", name: 'nf_core_pipeline_software_mqc_versions.yml', sort: true, newLine: true)
+        .set { ch_collated_versions }
 
-
-    workflow_summary    = WorkflowTaxprofiler.paramsSummaryMultiqc(workflow, summary_params)
-    ch_workflow_summary = Channel.value(workflow_summary)
-
-    methods_description    = WorkflowTaxprofiler.methodsDescriptionText(workflow, ch_multiqc_custom_methods_description, params)
-    ch_methods_description = Channel.value(methods_description)
-
-    ch_multiqc_files = Channel.empty()
-    ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
-    ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml'))
-    ch_multiqc_files = ch_multiqc_files.mix(CUSTOM_DUMPSOFTWAREVERSIONS.out.mqc_yml.collect())
+    //
+    // MODULE: MultiQC
+    //
+    ch_multiqc_config                     = Channel.fromPath("$projectDir/assets/multiqc_config.yml", checkIfExists: true)
+    ch_multiqc_custom_config              = params.multiqc_config ? Channel.fromPath(params.multiqc_config, checkIfExists: true) : Channel.empty()
+    ch_multiqc_logo                       = params.multiqc_logo ? Channel.fromPath(params.multiqc_logo, checkIfExists: true) : Channel.empty()
+    summary_params                        = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    ch_workflow_summary                   = Channel.value(paramsSummaryMultiqc(summary_params))
+    ch_multiqc_custom_methods_description = params.multiqc_methods_description ? file(params.multiqc_methods_description, checkIfExists: true) : file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
+    ch_methods_description                = Channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_collated_versions)
+    ch_multiqc_files                      = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: false))
 
     if ( !params.skip_preprocessing_qc ) {
         if ( params.preprocessing_qc_tool == 'falco' ) {
@@ -344,31 +380,10 @@ workflow TAXPROFILER {
         ch_multiqc_custom_config.toList(),
         ch_multiqc_logo.toList()
     )
-    multiqc_report = MULTIQC.out.report.toList()
-}
 
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    COMPLETION EMAIL AND SUMMARY
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
-
-workflow.onComplete {
-    if (params.email || params.email_on_fail) {
-        NfcoreTemplate.email(workflow, params, summary_params, projectDir, log, multiqc_report)
-    }
-    NfcoreTemplate.dump_parameters(workflow, params)
-    NfcoreTemplate.summary(workflow, params, log)
-    if (params.hook_url) {
-        NfcoreTemplate.IM_notification(workflow, params, summary_params, projectDir, log)
-    }
-}
-
-workflow.onError {
-    if (workflow.errorReport.contains("Process requirement exceeds available memory")) {
-        println("🛑 Default resources exceed availability 🛑 ")
-        println("💡 See here on how to configure pipeline: https://nf-co.re/docs/usage/configuration#tuning-workflow-resources 💡")
-    }
+    emit:
+    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
+    versions       = ch_versions                 // channel: [ path(versions.yml) ]
 }
 
 /*

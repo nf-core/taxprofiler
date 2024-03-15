@@ -8,8 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
+- [#454](https://github.com/nf-core/taxprofiler/pull/454) Updated to nf-core pipeline template v2.13.1 (added by @LilyAnderssonLee & @sofstam)
 
 ### `Fixed`
+
+- [#336](https://github.com/nf-core/taxprofiler/issues/336) Replace samplesheet check with nf-validation for both sample and database input sheets (fix by @LilyAnderssonLee)
 
 ### `Dependencies`
 
