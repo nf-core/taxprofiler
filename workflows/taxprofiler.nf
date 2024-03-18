@@ -112,65 +112,63 @@ workflow TAXPROFILER {
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
     samplesheet
         .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
-            //println "Mapping: meta=$meta, run_accession=$run_accession, instrument_platform=$instrument_platform, fastq_1=$fastq_1, fastq_2=$fastq_2, fasta=$fasta"
+            meta.run_accession = run_accession
+            meta.instrument_platform = instrument_platform
 
-        meta.run_accession = run_accession
-        meta.instrument_platform = instrument_platform
+            // Define single_end based on the conditions
+            meta.single_end = ( fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' )
 
-        // Define single_end based on the conditions
-        meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE')
+            // Define is_fasta based on the presence of fasta
+            meta.is_fasta = fasta ? true : false
 
-        // Define is_fasta based on the presence of fasta
-        meta.is_fasta = fasta ? true : false
-
-        if (!meta.is_fasta && !fastq_1) {
-            error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
+            if ( !meta.is_fasta && !fastq_1 ) {
+                error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
+            }
+            if ( meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2 ) {
+                error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
+            }
+            if ( meta.single_end && fastq_2 ) {
+                error("Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty")
+            }
+            fastq_se: meta.single_end
+                return [ meta, [ fastq_1 ] ]
+            nanopore: instrument_platform == 'OXFORD_NANOPORE'
+                meta.single_end = true
+                return [ meta, [ fastq_1 ] ]
+            fastq_pe: fastq_2
+                return [ meta, [ fastq_1, fastq_2 ] ]
+            ch_fasta: meta.is_fasta
+                meta.single_end = true
+                return [ meta, [fasta] ]
         }
-        if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
-            error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
-        }
-        if (meta.single_end && fastq_2) {
-            error("Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty")
-        }
-        // create fastq_se channel if single_end
-        fastq_se: meta.single_end
-            return [meta, [fastq_1]]
-        //
-        nanopore: instrument_platform == 'OXFORD_NANOPORE' && meta.single_end
-            return [meta, [fastq_1]]
-        fastq_pe: fastq_2
-            return [meta, [fastq_1, fastq_2]]
-        ch_fasta: meta.is_fasta && meta.single_end
-            return [meta, [fasta]]
-    }
-    .set { ch_input }
+        .set { ch_input }
 
     // Merge ch_input.fastq_pe and ch_input.fastq_se into a single channel
-    def ch_fastq = ch_input.fastq_pe.mix(ch_input.fastq_se)
+    def ch_fastq = ch_input.fastq_pe.mix( ch_input.fastq_se )
     // Merge ch_fastq and ch_input.nanopore into a single channel
-    def ch_input_for_fastqc = ch_fastq.mix(ch_input.nanopore)
+    def ch_input_for_fastqc = ch_fastq.mix( ch_input.nanopore )
 
     // Validate and decompress databases
     ch_dbs_for_untar = databases
         .branch { db_meta, db_path ->
-            untar: db_path.name.endsWith(".tar.gz")
+            untar: db_path.name.endsWith( ".tar.gz" )
             skip: true
         }
     // Filter the channel to untar only those databases for tools that are selected to be run by the user.
     ch_input_untar = ch_dbs_for_untar.untar
         .filter { db_meta, db_path ->
-            params["run_${db_meta.tool}"]
+            params[ "run_${db_meta.tool}" ]
         }
-    UNTAR (ch_input_untar)
+    UNTAR ( ch_input_untar )
 
     ch_final_dbs = ch_dbs_for_untar.skip.mix( UNTAR.out.untar )
     ch_final_dbs
-        .map { db_meta, db -> [db_meta.db_params]
+        .map { db_meta, db -> [ db_meta.db_params ]
             def corrected_db_params = db_meta.db_params == null ? '' : db_meta.db_params
             db_meta.db_params = corrected_db_params
-            [db_meta, db]
+            [ db_meta, db ]
         }
-    ch_versions = ch_versions.mix(UNTAR.out.versions.first())
+    ch_versions = ch_versions.mix( UNTAR.out.versions.first() )
 
     /*
         MODULE: Run FastQC
