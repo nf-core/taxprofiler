@@ -111,8 +111,8 @@ workflow TAXPROFILER {
     ch_multiqc_files = Channel.empty()
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
-    samplesheet
-        .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+    ch_input = samplesheet
+        .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             meta.run_accession = run_accession
             meta.instrument_platform = instrument_platform
 
@@ -131,6 +131,9 @@ workflow TAXPROFILER {
             if ( meta.single_end && fastq_2 ) {
                 error("Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty")
             }
+            return [ meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ]
+        }
+        .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             fastq_se: meta.single_end
                 return [ meta, [ fastq_1 ] ]
             nanopore: instrument_platform == 'OXFORD_NANOPORE'
@@ -140,9 +143,8 @@ workflow TAXPROFILER {
                 return [ meta, [ fastq_1, fastq_2 ] ]
             ch_fasta: meta.is_fasta
                 meta.single_end = true
-                return [ meta, [fasta] ]
+                return [ meta, [ fasta ] ]
         }
-        .set { ch_input }
 
     // Merge ch_input.fastq_pe and ch_input.fastq_se into a single channel
     def ch_fastq = ch_input.fastq_pe.mix( ch_input.fastq_se )
