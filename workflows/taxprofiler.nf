@@ -134,22 +134,18 @@ workflow TAXPROFILER {
             return [ meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ]
         }
         .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
-            fastq_se: meta.single_end
-                return [ meta, [ fastq_1 ] ]
+            fastq: meta.single_end || fastq_2
+                return [ meta, fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
             nanopore: instrument_platform == 'OXFORD_NANOPORE'
                 meta.single_end = true
                 return [ meta, [ fastq_1 ] ]
-            fastq_pe: fastq_2
-                return [ meta, [ fastq_1, fastq_2 ] ]
             fasta: meta.is_fasta
                 meta.single_end = true
                 return [ meta, [ fasta ] ]
         }
 
-    // Merge ch_input.fastq_pe and ch_input.fastq_se into a single channel
-    def ch_fastq = ch_input.fastq_pe.mix( ch_input.fastq_se )
-    // Merge ch_fastq and ch_input.nanopore into a single channel
-    def ch_input_for_fastqc = ch_fastq.mix( ch_input.nanopore )
+    // Merge ch_input.fastq and ch_input.nanopore into a single channel
+    def ch_input_for_fastqc = ch_input.fastq.mix( ch_input.nanopore )
 
     // Validate and decompress databases
     ch_dbs_for_untar = databases
@@ -193,10 +189,10 @@ workflow TAXPROFILER {
     */
 
     if ( params.perform_shortread_qc ) {
-        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( ch_fastq, adapterlist ).reads
+        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( ch_input.fastq, adapterlist ).reads
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     } else {
-        ch_shortreads_preprocessed = ch_fastq
+        ch_shortreads_preprocessed = ch_input.fastq
     }
 
     if ( params.perform_longread_qc ) {
@@ -274,13 +270,13 @@ workflow TAXPROFILER {
                 meta, reads ->
                 [ meta, [ reads ].flatten() ]
             }
-            .mix( ch_input.ch_fasta )
+            .mix( ch_input.fasta )
 
         ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
 
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
-            .mix( ch_longreads_hostremoved, ch_input.ch_fasta )
+            .mix( ch_longreads_hostremoved, ch_input.fasta )
     }
 
     /*
