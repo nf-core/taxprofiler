@@ -141,7 +141,7 @@ workflow TAXPROFILER {
                 return [ meta, [ fastq_1 ] ]
             fastq_pe: fastq_2
                 return [ meta, [ fastq_1, fastq_2 ] ]
-            ch_fasta: meta.is_fasta
+            fasta: meta.is_fasta
                 meta.single_end = true
                 return [ meta, [ fasta ] ]
         }
