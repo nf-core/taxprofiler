@@ -155,7 +155,7 @@ workflow TAXPROFILER {
             skip: true
         }
     // Filter the channel to untar only those databases for tools that are selected to be run by the user.
-    // Only untar once, and spread out again after
+    // Also, to ensure only untar once per file, group together all databases of one file
     ch_inputdb_untar = ch_dbs_for_untar.untar
         .filter { db_meta, db_path ->
             params[ "run_${db_meta.tool}" ]
@@ -168,18 +168,16 @@ workflow TAXPROFILER {
         }
         .dump(tag: 'for_untar')
 
+    // Untar the databases
     UNTAR ( ch_inputdb_untar )
 
+    // Spread out the untarred and shared databases
     ch_outputdb_from_untar = UNTAR.out.untar
         .map {
             meta, db ->
             [meta.meta, db]
         }
-        .dump(tag: 'post_untar')
-        .transpose(by: 1)
-        .dump(tag: 'from_untar')
-
-    // TODO spread UNTARed stuff
+        .transpose(by: 0)
 
     ch_final_dbs = ch_dbs_for_untar.skip.mix( ch_outputdb_from_untar  )
     ch_final_dbs
