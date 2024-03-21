@@ -155,13 +155,33 @@ workflow TAXPROFILER {
             skip: true
         }
     // Filter the channel to untar only those databases for tools that are selected to be run by the user.
-    ch_input_untar = ch_dbs_for_untar.untar
+    // Only untar once, and spread out again after
+    ch_inputdb_untar = ch_dbs_for_untar.untar
         .filter { db_meta, db_path ->
             params[ "run_${db_meta.tool}" ]
         }
-    UNTAR ( ch_input_untar )
+        .groupTuple(by: 1)
+        .map {
+            meta, dbfile ->
+                def new_meta = [ 'id': dbfile.baseName ] + [ 'meta': meta ]
+            [new_meta , dbfile ]
+        }
+        .dump(tag: 'for_untar')
 
-    ch_final_dbs = ch_dbs_for_untar.skip.mix( UNTAR.out.untar )
+    UNTAR ( ch_inputdb_untar )
+
+    ch_outputdb_from_untar = UNTAR.out.untar
+        .map {
+            meta, db ->
+            [meta.meta, db]
+        }
+        .dump(tag: 'post_untar')
+        .transpose(by: 1)
+        .dump(tag: 'from_untar')
+
+    // TODO spread UNTARed stuff
+
+    ch_final_dbs = ch_dbs_for_untar.skip.mix( ch_outputdb_from_untar  )
     ch_final_dbs
         .map { db_meta, db -> [ db_meta.db_params ]
             def corrected_db_params = db_meta.db_params == null ? '' : db_meta.db_params
