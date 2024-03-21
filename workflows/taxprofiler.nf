@@ -110,8 +110,8 @@ workflow TAXPROFILER {
     ch_multiqc_files = Channel.empty()
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
-    samplesheet
-        .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+    ch_input = samplesheet
+        .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             meta.run_accession = run_accession
             meta.instrument_platform = instrument_platform
 
@@ -130,23 +130,21 @@ workflow TAXPROFILER {
             if ( meta.single_end && fastq_2 ) {
                 error("Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty")
             }
-            fastq_se: meta.single_end
-                return [ meta, [ fastq_1 ] ]
+            return [ meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ]
+        }
+        .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+            fastq: meta.single_end || fastq_2
+                return [ meta, fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
             nanopore: instrument_platform == 'OXFORD_NANOPORE'
                 meta.single_end = true
                 return [ meta, [ fastq_1 ] ]
-            fastq_pe: fastq_2
-                return [ meta, [ fastq_1, fastq_2 ] ]
-            ch_fasta: meta.is_fasta
+            fasta: meta.is_fasta
                 meta.single_end = true
-                return [ meta, [fasta] ]
+                return [ meta, [ fasta ] ]
         }
-        .set { ch_input }
 
-    // Merge ch_input.fastq_pe and ch_input.fastq_se into a single channel
-    def ch_fastq = ch_input.fastq_pe.mix( ch_input.fastq_se )
-    // Merge ch_fastq and ch_input.nanopore into a single channel
-    def ch_input_for_fastqc = ch_fastq.mix( ch_input.nanopore )
+    // Merge ch_input.fastq and ch_input.nanopore into a single channel
+    def ch_input_for_fastqc = ch_input.fastq.mix( ch_input.nanopore )
 
     // Validate and decompress databases
     ch_dbs_for_untar = databases
@@ -190,10 +188,10 @@ workflow TAXPROFILER {
     */
 
     if ( params.perform_shortread_qc ) {
-        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( ch_fastq, adapterlist ).reads
+        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( ch_input.fastq, adapterlist ).reads
         ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
     } else {
-        ch_shortreads_preprocessed = ch_fastq
+        ch_shortreads_preprocessed = ch_input.fastq
     }
 
     if ( params.perform_longread_qc ) {
@@ -262,13 +260,13 @@ workflow TAXPROFILER {
                 meta, reads ->
                 [ meta, [ reads ].flatten() ]
             }
-            .mix( ch_input.ch_fasta )
+            .mix( ch_input.fasta )
 
         ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
 
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
-            .mix( ch_longreads_hostremoved, ch_input.ch_fasta )
+            .mix( ch_longreads_hostremoved, ch_input.fasta )
     }
 
     /*
