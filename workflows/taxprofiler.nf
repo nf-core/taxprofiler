@@ -169,6 +169,7 @@ workflow TAXPROFILER {
 
     // Untar the databases
     UNTAR ( ch_inputdb_untar )
+    ch_versions = ch_versions.mix( UNTAR.out.versions.first() )
 
     // Spread out the untarred and shared databases
     ch_outputdb_from_untar = UNTAR.out.untar
@@ -186,7 +187,6 @@ workflow TAXPROFILER {
             [ db_meta, db ]
         }
 
-    ch_versions = ch_versions.mix( UNTAR.out.versions.first() )
 
     /*
         MODULE: Run FastQC
