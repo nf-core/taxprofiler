@@ -166,7 +166,6 @@ workflow TAXPROFILER {
                 def new_meta = [ 'id': dbfile.baseName ] + [ 'meta': meta ]
             [new_meta , dbfile ]
         }
-        .dump(tag: 'for_untar')
 
     // Untar the databases
     UNTAR ( ch_inputdb_untar )
@@ -186,6 +185,7 @@ workflow TAXPROFILER {
             db_meta.db_params = corrected_db_params
             [ db_meta, db ]
         }
+        .dump(tag: 'final_dbs')
     ch_versions = ch_versions.mix( UNTAR.out.versions.first() )
 
     /*
