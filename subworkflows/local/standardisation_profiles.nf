@@ -15,25 +15,28 @@ include { GANON_TABLE                                                           
 // Custom Functions
 
 /**
-* Combine profiles with their original database, then separate into two channels.
+* Combine profiles with their corresponding reference database, then separate into two channels.
 *
-* The channel elements are assumed to be tuples one of [ meta, profile ], and the
-* database to be of [db_key, meta, database_file].
+* The combined results are returned on multiple channels, where the element
+* position for the profiles in one channel is the same as the position of the
+* corresponding database element in the other channel.
 *
-* @param ch_profile A channel containing a meta and the profilign report of a given profiler
-* @param ch_database A channel containing a key, the database meta, and the database file/folders itself
-* @return A multiMap'ed output channel with two sub channels, one with the profile and the other with the db
+* @param ch_profiles A channel containing pairs of a meta map with an `id` key
+*   for a reference database, and all the corresponding profiling reports.
+* @param ch_database A channel containing pairs of a database meta map and the
+*   database itself.
+* @return A multiMap'ed output channel with two sub channels, one with the
+*   profiles (`profile`) and the other with the corresponding database (`db`).
 */
-def combineProfilesWithDatabase(ch_profile, ch_database) {
-
-return ch_profile
-    .map { meta, profile -> [meta.db_name, meta, profile] }
-    .combine(ch_database, by: 0)
-    .multiMap {
-        key, meta, profile, db_meta, db ->
-            profile: [meta, profile]
-            db: db
-    }
+def combineProfilesWithDatabase(ch_profiles, ch_database) {
+    return ch_profiles
+        .map { meta, profile -> [meta.id, meta, profile] }
+        .combine(ch_database.map { db_meta, db -> [db_meta.db_name, db] }, by: 0)
+        .multiMap {
+            key, meta, profile, db ->
+                profile: [meta, profile]
+                db: db
+        }
 }
 
 workflow STANDARDISATION_PROFILES {
