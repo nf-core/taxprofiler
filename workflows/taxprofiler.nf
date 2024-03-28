@@ -179,14 +179,12 @@ workflow TAXPROFILER {
         }
         .transpose(by: 0)
 
-    ch_final_dbs = ch_dbs_for_untar.skip.mix( ch_outputdb_from_untar  )
-    ch_final_dbs
-        .map { db_meta, db -> [ db_meta.db_params ]
-            def corrected_db_params = db_meta.db_params == null ? '' : db_meta.db_params
-            db_meta.db_params = corrected_db_params
-            [ db_meta, db ]
-        }
-
+    ch_final_dbs = ch_dbs_for_untar.skip
+                    .mix( ch_outputdb_from_untar  )
+                    .map { db_meta, db ->
+                        def corrected_db_params = db_meta.db_params == null ? [ db_params: '' ] : [ db_params: db_meta.db_params ]
+                        [ db_meta + corrected_db_params, db ]
+                    }
 
     /*
         MODULE: Run FastQC
