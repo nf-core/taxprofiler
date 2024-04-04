@@ -153,20 +153,36 @@ workflow TAXPROFILER {
             skip: true
         }
     // Filter the channel to untar only those databases for tools that are selected to be run by the user.
-    ch_input_untar = ch_dbs_for_untar.untar
+    // Also, to ensure only untar once per file, group together all databases of one file
+    ch_inputdb_untar = ch_dbs_for_untar.untar
         .filter { db_meta, db_path ->
             params[ "run_${db_meta.tool}" ]
         }
-    UNTAR ( ch_input_untar )
-
-    ch_final_dbs = ch_dbs_for_untar.skip.mix( UNTAR.out.untar )
-    ch_final_dbs
-        .map { db_meta, db -> [ db_meta.db_params ]
-            def corrected_db_params = db_meta.db_params == null ? '' : db_meta.db_params
-            db_meta.db_params = corrected_db_params
-            [ db_meta, db ]
+        .groupTuple(by: 1)
+        .map {
+            meta, dbfile ->
+                def new_meta = [ 'id': dbfile.baseName ] + [ 'meta': meta ]
+            [new_meta , dbfile ]
         }
+
+    // Untar the databases
+    UNTAR ( ch_inputdb_untar )
     ch_versions = ch_versions.mix( UNTAR.out.versions.first() )
+
+    // Spread out the untarred and shared databases
+    ch_outputdb_from_untar = UNTAR.out.untar
+        .map {
+            meta, db ->
+            [meta.meta, db]
+        }
+        .transpose(by: 0)
+
+    ch_final_dbs = ch_dbs_for_untar.skip
+                    .mix( ch_outputdb_from_untar  )
+                    .map { db_meta, db ->
+                        def corrected_db_params = db_meta.db_params ? [ db_params: db_meta.db_params ] : [ db_params: '' ]
+                        [ db_meta + corrected_db_params, db ]
+                    }
 
     /*
         MODULE: Run FastQC
