@@ -34,6 +34,12 @@
                     "description": "Path to comma-separated file containing information about databases and profiling parameters for each taxonomic profiler",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 4 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/dev/usage#full-database-sheet).\n\nProfilers will only be executed if a corresponding  database are supplied. \n\nWe recommend storing this database sheet somewhere centrally and accessible by others members of your lab/institutions, as this file will likely be regularly reused."
                 },
+                "save_untarred_databases": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-database",
+                    "description": "Specify to save decompressed user-supplied TAR archives of databases",
+                    "help_text": "If input databases are supplied as gzipped TAR archives, in some cases you may want to move and re-use these for future runs./n/n Specifying this parameter will save these to `--outdir results/` under a directory called `untar`."
+                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
