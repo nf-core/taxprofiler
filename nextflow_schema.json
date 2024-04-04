@@ -38,7 +38,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-database",
                     "description": "Specify to save decompressed user-supplied TAR archives of databases",
-                    "help_text": "If input databases are supplied as gzipped TAR archives, in some cases you may want to move and re-use these for future runs./n/n Specifying this parameter will save these to `--outdir results/` under a directory called `untar`."
+                    "help_text": "If input databases are supplied as gzipped TAR archives, in some cases you may want to move and re-use these for future runs. Specifying this parameter will save these to `--outdir results/` under a directory called `untar`."
                 },
                 "outdir": {
                     "type": "string",
