@@ -170,14 +170,14 @@ workflow STANDARDISATION_PROFILES {
     // Have to sort by size to ensure first file actually has hits otherwise
     // the script fails
     ch_profiles_for_kraken2 = groupProfiles(
-        ch_input_profiles.kraken2.dump(tag: 'k2-profiles', pretty: true)
+        ch_input_profiles.kraken2
         .map { meta, profile ->
             // Replace database name, to get the right output description.
             def db_name = meta.tool == 'kraken2-bracken' ? "${meta.db_name}-bracken" : "${meta.db_name}"
             return [meta + [db_name: db_name], profile]
         },
         [sort: { -it.size() }]
-    ).dump(tag: 'k2-grouped', pretty: true)
+    )
 
     KRAKENTOOLS_COMBINEKREPORTS_KRAKEN ( ch_profiles_for_kraken2 )
     ch_multiqc_files = ch_multiqc_files.mix( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
