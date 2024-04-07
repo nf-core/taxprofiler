@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#336](https://github.com/nf-core/taxprofiler/issues/336) Replace samplesheet check with nf-validation for both sample and database input sheets (fix by @LilyAnderssonLee)
+- [#460](https://github.com/nf-core/taxprofiler/issues/460) corrected the channel transformations to combine Kaiju and mOTUs reports with their reference databases (fix by @Midnighter)
 
 ### `Dependencies`
 
