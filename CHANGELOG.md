@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
 - [#454](https://github.com/nf-core/taxprofiler/pull/454) Updated to nf-core pipeline template v2.13.1 (added by @LilyAnderssonLee & @sofstam)
 - [#461](https://github.com/nf-core/taxprofiler/pull/461) Turned on 'strict' Nextflow evaluation runs (added by @jfy133)
 - [#461](https://github.com/nf-core/taxprofiler/pull/461) Optimised database compression so each compressed input database is untarred once, and shared amongst each run with different parameters (added by @jfy133)
