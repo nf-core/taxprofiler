@@ -67,6 +67,14 @@ workflow PROFILING {
                     [meta + [id: "${meta.id}${meta.single_end ? '_se' : '_pe'}"], reads]
             }
             .combine(databases)
+            .filter { it ->
+                def platform = it[0]['instrument_platform']
+                def db_type = it[2]['db_type']
+                def is_long_read = platform == 'OXFORD_NANOPORE'
+                def is_long_db = db_type == 'long' || db_type == 'both'
+                def is_short_db = db_type == 'short' || db_type == 'both'
+                (is_long_read && is_long_db) || (!is_long_read && is_short_db)
+            }
             .branch {
                 centrifuge: it[2]['tool'] == 'centrifuge'
                 diamond: it[2]['tool'] == 'diamond'

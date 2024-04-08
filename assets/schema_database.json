@@ -57,6 +57,11 @@
                 "errorMessage": "Invalid database db_params entry. No quotes allowed.",
                 "meta": ["db_params"]
             },
+            "db_type": {
+                "type": "string",
+                "enum": ["short", "long", "both"],
+                "meta": ["db_type"]
+            },
             "db_path": {
                 "type": "string",
                 "exists": true,
@@ -64,7 +69,7 @@
                 "errorMessage": "db_path should be either a file path or a directory."
             }
         },
-        "required": ["tool", "db_name", "db_path"],
+        "required": ["tool", "db_name", "db_type", "db_path"],
         "uniqueEntries": ["tool", "db_name"]
     }
 }
