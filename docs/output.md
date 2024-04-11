@@ -10,6 +10,7 @@ The directories listed below will be created in the results directory after the 
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
+- [UNTAR](#untar) - Optionally saved decompressed input databases
 - [FastQC](#fastqc) - Raw read QC
 - [falco](#fastqc) - Alternative to FastQC for raw read QC
 - [fastp](#fastp) - Adapter trimming for Illumina data
@@ -40,6 +41,21 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
 ![](images/taxprofiler_tube.png)
+
+### untar
+
+untar is used in nf-core/taxprofiler to decompress various input files ending in `.tar.gz`. This process is mainly used for decompressing input database archive files.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `untar/`
+  - `database/`
+    - `<database_file_name>`: directory containing contents of the decompressed archive
+
+</details>
+
+This directory will only be present if `--save_untarred_databases` is supplied. The contained directories can be useful for moving the decompressed directories to a central 'cache' location allowing users to re-use the same databases. This is useful to save unnecessary computational time of decompressing the archives on every run.
 
 ### FastQC or Falco
 

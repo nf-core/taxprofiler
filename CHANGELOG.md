@@ -8,11 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
+
+## v1.1.6dev - [unreleased]
+
+### `Added`
+
+- [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
 - [#454](https://github.com/nf-core/taxprofiler/pull/454) Updated to nf-core pipeline template v2.13.1 (added by @LilyAnderssonLee & @sofstam)
+- [#461](https://github.com/nf-core/taxprofiler/pull/461) Turned on 'strict' Nextflow evaluation runs (added by @jfy133)
+- [#461](https://github.com/nf-core/taxprofiler/pull/461) Optimised database compression so each compressed input database is untarred once, and shared amongst each run with different parameters (added by @jfy133)
+- [#461](https://github.com/nf-core/taxprofiler/pull/461) Added new parameter to optionally save uncompressed databases (added by @jfy133)
 
 ### `Fixed`
 
 - [#336](https://github.com/nf-core/taxprofiler/issues/336) Replace samplesheet check with nf-validation for both sample and database input sheets (fix by @LilyAnderssonLee)
+- [#460](https://github.com/nf-core/taxprofiler/issues/460) corrected the channel transformations to combine Kaiju and mOTUs reports with their reference databases (fix by @Midnighter)
 
 ### `Dependencies`
 
