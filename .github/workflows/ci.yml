@@ -68,7 +68,7 @@ jobs:
             echo 'tool,db_name,db_params,db_type,db_path' > 'database_motus.csv'
             echo "motus,db1_mOTU,,short,db_mOTU" >> 'database_motus.csv'
             echo "motus,db2_mOTU,prep_long,long,db_mOTU" >> 'database_motus.csv'
-            echo "motus,db2_mOTU,,both,db_mOTU" >> 'database_motus.csv'
+            echo "motus,db3_mOTU,,both,db_mOTU" >> 'database_motus.csv'
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }};
           else
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
