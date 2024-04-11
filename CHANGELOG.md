@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
+- [#466](https://github.com/nf-core/taxprofiler/pull/466) The new column `db_type` has been added to the database sheet to differentiate between long-read and short-read parameters in databases.
 
 ## v1.1.6dev - [unreleased]
 
