@@ -73,12 +73,3 @@ jobs:
           else
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};
           fi
-
-      - name: Upload results and logs on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: logs-${{ matrix.profile }}
-          path: |
-            ./results_${{ matrix.tags }}
-          overwrite: true
