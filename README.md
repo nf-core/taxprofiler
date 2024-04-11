@@ -33,7 +33,7 @@
    - Low complexity and quality filtering (short-read: [bbduk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/), [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus); long-read: [Filtlong](https://github.com/rrwick/Filtlong))
    - Host-read removal (short-read: [BowTie2](http://bowtie-bio.sourceforge.net/bowtie2/); long-read: [Minimap2](https://github.com/lh3/minimap2))
    - Run merging
-3. Supports statistics for host-read removal ([Samtools](http://www.htslib.org/))
+3. Supports statistics metagenome coverage estimation ([Nonpareil](https://nonpareil.readthedocs.io/en/latest/)) and for host-read removal ([Samtools](http://www.htslib.org/))
 4. Performs taxonomic classification and/or profiling using one or more of:
    - [Kraken2](https://ccb.jhu.edu/software/kraken2/)
    - [MetaPhlAn](https://huttenhower.sph.harvard.edu/metaphlan/)

@@ -274,6 +274,29 @@
             },
             "fa_icon": "fas fa-expand-alt"
         },
+        "redundancy_estimation": {
+            "title": "Redundancy Estimation",
+            "type": "object",
+            "description": "Estimate metagenome sequencing complexity coverage",
+            "default": "",
+            "properties": {
+                "perform_shortread_redundancyestimation": {
+                    "type": "boolean",
+                    "description": "Turn on short-read metagenome sequencing redundancy estimation with nonpareil. Warning: only use for shallow short-read sequencing datasets.",
+                    "fa_icon": "fas fa-toggle-on",
+                    "help_text": "Turns on [nonpareil](https://nonpareil.readthedocs.io/en/latest/), a tool for estimating metagenome 'coverage', i.e, whether all genomes within the metagenome have had at least one read sequenced.\n\nIt estimates this by checking the read redundancy between a subsample of reads versus other reads in the library.\n\nThe more redundancy that exists, the larger the assumption that all possible reads in the library have been sequenced and all 'redundant' reads are simply sequencing of PCR duplicates.\n\nThe lower the redundancy, the more sequencing should be done until the entire metagenome has been captured. The output can be used to guide the amount of further sequencing is required.\n\nNote this is not the same as _genomic_ coverage, which is the number of times a base-pair is covered by unique reads on a reference genome.\n\nBefore using this tool please note the following caveats:\n\n- It is not recommended to run this on deep sequencing data, or very large datasets\n  - Nonpareil requires uncompressed FASTQ files, and nf-core/taxprofiler will uncompress these in your working directory, potentially with a extremely large hard-drive footprint.\n- Your shortest reads _after_ processing should not go below 24bp (see warning below)\n- It is not recommended to keep unmerged (`--shortread_qc_includeunmerged`) reads when using the calculation.\n:::warning\nOn default settings, with 'kmer mode', you must make sure that your shortest processed reads do not go below 24 bp (the default kmer size).\n\nIf you have errors regarding kmer size, you will need to specify in a custom config in a process block\n\n```\n    withName: NONPAREIL {\n        ext.args = { \"-k <NUMBER>\" }\n    }\n```\n\nWhere `<NUMBER>` should be at least the shortest read in your library\n:::"
+                },
+                "shortread_redundancyestimation_mode": {
+                    "type": "string",
+                    "default": "kmer",
+                    "description": "Specify mode for identifying redundant reads",
+                    "enum": ["kmer", "alignment"],
+                    "fa_icon": "fas fa-align-left",
+                    "help_text": "Specify which read-comparison mode to use to check for redundancy.\n\nk-mer is faster but less precise but is recommended for FASTQ files. Alignment is more precise but is slower, it is recommended for FASTA files.\n\n> Modifies tool parameter(s):\n> - Nonpareil: `-T`"
+                }
+            },
+            "fa_icon": "fas fa-chart-line"
+        },
         "preprocessing_host_removal_options": {
             "title": "Preprocessing host removal options",
             "type": "object",
@@ -904,6 +927,9 @@
         },
         {
             "$ref": "#/definitions/preprocessing_long_read_qc_options"
+        },
+        {
+            "$ref": "#/definitions/redundancy_estimation"
         },
         {
             "$ref": "#/definitions/preprocessing_host_removal_options"

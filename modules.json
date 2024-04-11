@@ -195,6 +195,21 @@
                         "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
                         "installed_by": ["modules"]
                     },
+                    "nonpareil/curve": {
+                        "branch": "master",
+                        "git_sha": "729335dda8ba226323edc54dec80ae959079207e",
+                        "installed_by": ["modules"]
+                    },
+                    "nonpareil/nonpareil": {
+                        "branch": "master",
+                        "git_sha": "b5b76d170586dfa39cbd9be3043d53d827cfb68d",
+                        "installed_by": ["modules"]
+                    },
+                    "nonpareil/set": {
+                        "branch": "master",
+                        "git_sha": "729335dda8ba226323edc54dec80ae959079207e",
+                        "installed_by": ["modules"]
+                    },
                     "porechop/porechop": {
                         "branch": "master",
                         "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
