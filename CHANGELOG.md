@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.1.6 - Augmented Akita Patch [2024-04-12]
+## v1.1.6 - Augmented Akita Patch [2024-04-16]
 
 ### `Added`
 
@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#461](https://github.com/nf-core/taxprofiler/pull/461) Turned on 'strict' Nextflow evaluation runs (added by @jfy133)
 - [#461](https://github.com/nf-core/taxprofiler/pull/461) Optimised database compression so each compressed input database is untarred once, and shared amongst each run with different parameters (added by @jfy133)
 - [#461](https://github.com/nf-core/taxprofiler/pull/461) Added new parameter to optionally save uncompressed databases (added by @jfy133)
-- [#471](https://github.com/nf-core/taxprofiler/pull/471) Update `download_pipeline.yml` because the pipeline does not support stub runs on dev (fixed by @LilyAnderssonLee)
+- [#471](https://github.com/nf-core/taxprofiler/pull/471) Remove `-stub` run in the `download_pipeline.yml` because the pipeline does not support stub runs on dev (fixed by @LilyAnderssonLee)
 
 ### `Fixed`
 

@@ -67,18 +67,8 @@ jobs:
       - name: Inspect download
         run: tree ./${{ env.REPOTITLE_LOWERCASE }}
 
-      - name: Run the downloaded pipeline (stub)
-        id: stub_run_pipeline
-        continue-on-error: true
+      - name: Run the downloaded pipeline
         env:
           NXF_SINGULARITY_CACHEDIR: ./
           NXF_SINGULARITY_HOME_MOUNT: true
-        run: nextflow run ./${{ env.REPOTITLE_LOWERCASE }}/$( sed 's/\W/_/g' <<< dev) -stub -profile test,singularity --outdir ./results
-
-      - name: Run the downloaded pipeline (stub run not supported)
-        id: run_pipeline
-        if: ${{ job.steps.stub_run_pipeline.status == failure() }}
-        env:
-          NXF_SINGULARITY_CACHEDIR: ./
-          NXF_SINGULARITY_HOME_MOUNT: true
-        run: nextflow run ./${{ env.REPOTITLE_LOWERCASE }}/$( sed 's/\W/_/g' <<< ${{ env.REPO_BRANCH }}) -profile test,singularity --outdir ./results
+        run: nextflow run ./${{ env.REPOTITLE_LOWERCASE }}/$( sed 's/\W/_/g' <<< ${{ env.REPO_BRANCH }}) -profile test_nothing,singularity --outdir ./results
