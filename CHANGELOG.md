@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#477](https://github.com/nf-core/taxprofiler/pull/477) Provide more emphasis and links to tutorials on how to retrieve and supply reference databases (❤️ to @vmkalbskopf for reporting, added by @jfy133)
+
 ### `Fixed`
 
 ### `Dependencies`
