@@ -36,24 +36,6 @@
             "db_params": {
                 "type": "string",
                 "pattern": "^[^\"']*$",
-                "anyOf": [
-                    {
-                        "properties": {
-                            "tool": { "const": "bracken" }
-                        },
-                        "not": {
-                            "pattern": ".*;"
-                        },
-                        "errorMessage": "Invalid database db_params entry. Bracken requires a semi-colon for passing one or more parameters."
-                    },
-                    {
-                        "properties": {
-                            "tool": { "const": "kmcp" }
-                        },
-                        "pattern": ".*;$",
-                        "errorMessage": "Invalid database `db_params` entry. KMCP only requires a semi-colon if passing arguments to KMCP profile, in cases of which the arguments should go after the semi-colon."
-                    }
-                ],
                 "errorMessage": "Invalid database db_params entry. No quotes allowed.",
                 "meta": ["db_params"]
             },
