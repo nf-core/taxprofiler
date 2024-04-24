@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#476](https://github.com/nf-core/taxprofiler/pull/476/) Fixed bug in validating Bracken/Kraken/KMCP split database parameters (fixed by @LilyAnderssonLee)
+
 ### `Dependencies`
 
 ### `Deprecated`
