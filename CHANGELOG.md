@@ -3,6 +3,20 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.7 - Augmented Akita Patch [2024-04-25]
+
+### `Added`
+
+- [#477](https://github.com/nf-core/taxprofiler/pull/477) Provide more emphasis and links to tutorials on how to retrieve and supply reference databases (❤️ to @vmkalbskopf for reporting, added by @jfy133)
+
+### `Fixed`
+
+- [#476](https://github.com/nf-core/taxprofiler/pull/476/) Fixed bug in validating Bracken/Kraken/KMCP split database parameters (fixed by @LilyAnderssonLee)
+
+### `Dependencies`
+
+### `Deprecated`
+
 ## v1.1.6 - Augmented Akita Patch [2024-04-16]
 
 ### `Added`

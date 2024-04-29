@@ -96,7 +96,7 @@ nf-core/taxprofiler supports multiple databases being classified/profiled agains
 Databases can be supplied either in the form of a compressed `.tar.gz` archive of a directory containing all relevant database files or the path to a directory on the filesystem.
 
 :::warning
-nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building custom database](usage/tutorials#retrieving-databases-or-building-custom-databases) tutorials.
+nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building databases](usage/tutorials#retrieving-databases-or-building-custom-databases) tutorial.
 :::
 
 The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
@@ -128,7 +128,7 @@ For Bracken and KMCP, which are two step profilers, nf-core/taxprofiler has a sp
 
 For Bracken, if you wish to supply any parameters to both the Kraken or Bracken steps or just the Bracken step, you **must** have a _semi-colon_ `;` list in the `db_params` column. This allows you to specify the Kraken2 parameters before and Bracken parameters after the `;`. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this column empty. If you wish to provide settings to _just_ the Kraken2 step of the Bracken profiling, you can supply a normal string to the column without a semi-colon. If you wish to supply parameters to only Bracken (and keep default Kraken2 parameters), then you supply a string to the column starting with `;` and the Bracken parameters _after_.
 
-Similiarly, for KMCP, if you want to supply parameters for both the first (KMCP search) and the _second step_ (KMCP profile) steps, you **must** have a _semi-colon_ separated`;` list in `db_params`. If you wish to provide parameters to just KMCP search, you do not need the `;`. If you want to supply parameters to just KMCP profile (and keep search parameters at default), then you must start the string with `;` and the KMCP profile parameters come _after_ the semi colon. If you do not wish to modify any parameters, you can leave the column empty (i.e. the `;` is not necessary).
+Similarly, for KMCP, if you want to supply parameters for both the first (KMCP search) and the _second step_ (KMCP profile) steps, you **must** have a _semi-colon_ separated`;` list in `db_params`. If you wish to provide parameters to just KMCP search, you do not need the `;`. If you want to supply parameters to just KMCP profile (and keep search parameters at default), then you must start the string with `;` and the KMCP profile parameters come _after_ the semi colon. If you do not wish to modify any parameters, you can leave the column empty (i.e. the `;` is not necessary).
 
 This allows you to specify the KMCP search and the KMCP profile parameters, separated by `;`. If you do not have any parameters to specify, you can leave this as empty.
 :::
@@ -148,6 +148,10 @@ You can also specify the same database directory/file twice (ensuring unique `db
 
 nf-core/taxprofiler will automatically decompress and extract any compressed archives for you.
 
+:::tip
+Click the links in the list below for short quick-reference tutorials how to generate download 'pre-made' and/or custom databases for each tool.
+:::
+
 The (uncompressed) database paths (`db_path`) for each tool are expected to contain:
 
 - [**Bracken**:](usage/tutorials.md#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
@@ -159,12 +163,9 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**MALT**](usage/tutorials.md#malt-custom-database) output of `malt-build`.
 - [**MetaPhlAn**:](usage/tutorials.md#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
 - [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
+  - Note that you must use `motus downloadDB` and if installed via `conda`, will be placed in a specific `site-package` directory in the conda environment. For more details see the [mOTUs database tutorial](usage/tutorials.md#motus-custom-database).
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
-
-:::info
-Click the links in the list above for short quick-reference tutorials how to generate custom databases for each tool.
-:::
 
 ## Running the pipeline
 
