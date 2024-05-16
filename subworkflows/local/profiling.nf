@@ -362,20 +362,24 @@ workflow PROFILING {
         ch_input_for_krakenuniq =  ch_input_for_profiling.krakenuniq
             .map {
                 meta, reads, db_meta, db ->
-                    [[id: db_meta.db_name, single_end: meta.single_end], reads, db_meta, db]
+                    def seqtype = reads[0].matches('*a.gz|*a') ? 'fasta' : 'fastq'
+                    [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], reads, db_meta, db]
             }
+            .dump(tag: 'ch_input_for_krakenuniq_pregrouptuple')
             .groupTuple(by: [0,2,3])
             .flatMap { single_meta, reads, db_meta, db ->
                 def batches = reads.collate(params.krakenuniq_batch_size)
                 return batches.collect { batch -> [ single_meta + db_meta, batch.flatten(), db ]}
             }
+            .dump(tag: 'ch_input_for_krakenuniq_premultimap')
             .multiMap {
                 meta, reads, db ->
                     reads: [ meta, reads ]
                     db: db
+                    seqtype: meta.seqtype
             }
         // Hardcode to _always_ produce the report file (which is our basic output, and goes into)
-        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.db, params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
+        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.seqtype, ch_input_for_krakenuniq.db, params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
         ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
         ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment )
