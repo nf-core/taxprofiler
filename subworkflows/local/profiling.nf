@@ -362,16 +362,14 @@ workflow PROFILING {
         ch_input_for_krakenuniq =  ch_input_for_profiling.krakenuniq
             .map {
                 meta, reads, db_meta, db ->
-                    def seqtype = reads[0].name.matches(".*a.gz\$|.*a\$") ? 'fasta' : 'fastq'
+                    def seqtype = (reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/) ? 'fasta' : 'fastq'
                     [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], reads, db_meta, db]
             }
-            .dump(tag: 'ch_input_for_krakenuniq_pregrouptuple')
             .groupTuple(by: [0,2,3])
             .flatMap { single_meta, reads, db_meta, db ->
                 def batches = reads.collate(params.krakenuniq_batch_size)
                 return batches.collect { batch -> [ single_meta + db_meta, batch.flatten(), db ]}
             }
-            .dump(tag: 'ch_input_for_krakenuniq_premultimap')
             .multiMap {
                 meta, reads, db ->
                     reads: [ meta, reads ]
@@ -382,8 +380,8 @@ workflow PROFILING {
         KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.seqtype, ch_input_for_krakenuniq.db, params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
         ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
-        ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment.map{meta, profiles -> [meta - meta.subMap('seqtype'), profiles]}.dump(tag: 'post-ku-classifications') )
-        ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report.map{meta, profiles -> [meta - meta.subMap('seqtype'), profiles]}.dump(tag: 'post-ku-reports') )
+        ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment.map{meta, profiles -> [meta - meta.subMap('seqtype'), profiles]} )
+        ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report.map{meta, profiles -> [meta - meta.subMap('seqtype'), profiles]} )
 
     }
 
