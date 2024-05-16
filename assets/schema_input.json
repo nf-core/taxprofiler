@@ -9,25 +9,49 @@
         "properties": {
             "sample": {
                 "type": "string",
-                "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
                 "meta": ["id"]
+            },
+            "run_accession": {
+                "type": "string",
+                "errorMessage": "Run accession must be provided and cannot contain spaces."
+            },
+            "instrument_platform": {
+                "type": "string",
+                "enum": [
+                    "ABI_SOLID",
+                    "BGISEQ",
+                    "CAPILLARY",
+                    "COMPLETE_GENOMICS",
+                    "DNBSEQ",
+                    "HELICOS",
+                    "ILLUMINA",
+                    "ION_TORRENT",
+                    "LS454",
+                    "OXFORD_NANOPORE",
+                    "PACBIO_SMRT"
+                ],
+                "errorMessage": "Sequencing platform must be provided."
             },
             "fastq_1": {
                 "type": "string",
                 "format": "file-path",
-                "exists": true,
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
                 "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             },
             "fastq_2": {
                 "type": "string",
                 "format": "file-path",
-                "exists": true,
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
-                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
+                "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'. If not applicable, leave it empty."
+            },
+            "fasta": {
+                "type": "string",
+                "format": "file-path",
+                "pattern": "^\\S+\\.(f(ast)?q|fa(sta)?)\\.gz$",
+                "errorMessage": "FastA file must be provided, cannot contain spaces and must have extension '.fa.gz' or '.fasta.gz'. If not applicable, leave it empty."
             }
         },
-        "required": ["sample", "fastq_1"]
+        "required": ["sample", "run_accession", "instrument_platform"]
     }
 }
