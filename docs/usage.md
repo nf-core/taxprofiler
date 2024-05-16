@@ -53,9 +53,9 @@ sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 
 ::: info
 Please note that the column name `run_accession` follows the definition of an ENA 'run'.
-A 'run' corresponds to a single or paired-end set of demultiplexed FASTQs. 
+A 'run' corresponds to a single or paired-end set of demultiplexed FASTQs.
 Given that demultiplexing of a given library happens per lane, each sequencing pair from each lane is a 'run'.
-Therefore, for each sample, you may get multiple 'runs' consisting of _both_ lanes (of the same library) _and_ sequencing libraries. 
+Therefore, for each sample, you may get multiple 'runs' consisting of _both_ lanes (of the same library) _and_ sequencing libraries.
 Therefore ensure that each `run_accession` ID is unique, even if from the same sample!
 :::
 
@@ -460,6 +460,8 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
   - A generic configuration profile to be used with [Charliecloud](https://hpc.github.io/charliecloud/)
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
+- `wave`
+  - A generic configuration profile to enable [Wave](https://seqera.io/wave/) containers. Use together with one of the above (requires Nextflow ` 24.03.0-edge` or later).
 - `conda`
   - A generic configuration profile to be used with [Conda](https://conda.io/docs/). Please only use Conda as a last resort i.e. when it's not possible to run the pipeline with Docker, Singularity, Podman, Shifter, Charliecloud, or Apptainer.
 
