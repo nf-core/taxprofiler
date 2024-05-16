@@ -398,8 +398,8 @@ You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply
 
 - `krakenuniq/`
   - `<db_name>/`
-    - `<sample_id>_<db_name>[.merged].classified.fasta.gz`: Optional FASTA file containing all reads that had a hit against a reference in the database for a given sample. Paired-end input reads are merged in this output.
-    - `<sample_id>_<db_name>[.merged].unclassified.fasta.gz`: Optional FASTA file containing all reads that did not have a hit in the database for a given sample. Paired-end input reads are merged in this output.
+    - `<sample_id>_<db_name>[.merged].classified.fast{a,q}.gz`: Optional FASTA file containing all reads that had a hit against a reference in the database for a given sample. Paired-end input reads are merged in this output.
+    - `<sample_id>_<db_name>[.merged].unclassified.fast{a,q}.gz`: Optional FASTA file containing all reads that did not have a hit in the database for a given sample. Paired-end input reads are merged in this output.
     - `<sample_id>_<db_name>.krakenuniq.report.txt`: A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of Kmers, taxonomic path of all the hits, with an additional column for k-mer coverage, that allows for more accurate distinguishing between false-positive/true-postitive hits.
     - `<sample_id>_<db_name>.krakenuniq.classified.txt`: An optional list of read IDs and the hits each read had against each database for a given sample.
 
