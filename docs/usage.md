@@ -51,7 +51,13 @@ sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 2612,lane3,ILLUMINA,2612_lane3_R1.fq.gz,,
 ```
 
-Please note that the column name `run_accession` is following the ENA terms and is a single or paired-end set of demultiplexed FASTQs. Given that demultiplexing happens per lane, each sequencing pair from each lane is a 'run' and therefore you get multiple 'runs' per sample, which can span across both lanes and sequencing libraries. 
+::: info
+Please note that the column name `run_accession` follows the definition of an ENA 'run'.
+A 'run' corresponds to a single or paired-end set of demultiplexed FASTQs. 
+Given that demultiplexing of a given library happens per lane, each sequencing pair from each lane is a 'run'.
+Therefore, for each sample, you may get multiple 'runs' consisting of _both_ lanes (of the same library) _and_ sequencing libraries. 
+Therefore ensure that each `run_accession` ID is unique, even if from the same sample!
+:::
 
 :::warning
 Runs of the same sample sequenced on Illumina platforms with a combination of single and paired-end data will **not** be run-wise concatenated, unless pair-merging is specified. In the example above, `run3` will be profiled independently of `run1` and `run2` if pairs are not merged.
