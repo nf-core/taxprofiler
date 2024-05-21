@@ -60,7 +60,7 @@ workflow PROFILING {
         COMBINE READS WITH POSSIBLE DATABASES
     */
 
-    // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
+    // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':true], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
     ch_input_for_profiling = reads
             .map {
                 meta, reads ->
@@ -362,7 +362,8 @@ workflow PROFILING {
         ch_input_for_krakenuniq =  ch_input_for_profiling.krakenuniq
             .map {
                 meta, reads, db_meta, db ->
-                    [[id: db_meta.db_name, single_end: meta.single_end], reads, db_meta, db]
+                    def seqtype = (reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/) ? 'fasta' : 'fastq'
+                    [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], reads, db_meta, db]
             }
             .groupTuple(by: [0,2,3])
             .flatMap { single_meta, reads, db_meta, db ->
@@ -373,13 +374,14 @@ workflow PROFILING {
                 meta, reads, db ->
                     reads: [ meta, reads ]
                     db: db
+                    seqtype: meta.seqtype
             }
         // Hardcode to _always_ produce the report file (which is our basic output, and goes into)
-        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.db, params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
+        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.seqtype, ch_input_for_krakenuniq.db, params.krakenuniq_ram_chunk_size, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
         ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
         ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
-        ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment )
-        ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
+        ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment.map{meta, profiles -> [meta - meta.subMap('seqtype'), profiles]} )
+        ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report.map{meta, profiles -> [meta - meta.subMap('seqtype'), profiles]} )
 
     }
 
