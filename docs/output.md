@@ -389,6 +389,8 @@ The main taxonomic classification file from Kraken2 is the `_combined_reports.tx
 
 You will only receive the `.fastq` and `*classifiedreads.txt` file if you supply `--kraken2_save_reads` and/or `--kraken2_save_readclassifications` parameters to the pipeline.
 
+When running Kraken2 together with bracken, you can use the `--bracken_save_intermediatekraken2` to save the intermediate/upstream files generated during the bracken run.
+
 ### KrakenUniq
 
 [KrakenUniq](https://github.com/fbreitwieser/krakenuniq) (formerly KrakenHLL) is an extension to the fast k-mer-based classification performed by [Kraken](https://github.com/DerrickWood/kraken) with an efficient algorithm for additionally assessing the coverage of unique k-mers found in each species in a dataset.
