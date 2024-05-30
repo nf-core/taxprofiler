@@ -469,7 +469,7 @@
                 "bracken_save_intermediatekraken2": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
-                    "description": "Turn on saving the upstream Bracken files"
+                    "description": "Turn on the saving of the intermediate Kraken2 files used as input to Bracken itself into Kraken2 results folder"
                 },
                 "run_malt": {
                     "type": "boolean",
