@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#484](https://github.com/nf-core/taxprofiler/pull/484) Improved input validation to immediately fail if run accession IDs within a given sample ID are not unique (❤️ to @sofstam for reporting, fixed by @jfy133)
-- [491](https://github.com/nf-core/taxprofiler/pull/491) Added flag to publish intermediate bracken files (❤️ to @ewissel for reporting, fixed by @sofstam and @jfy133)
+- [#491](https://github.com/nf-core/taxprofiler/pull/491) Added flag to publish intermediate bracken files (❤️ to @ewissel for reporting, fixed by @sofstam and @jfy133)
 
 ### `Dependencies`
 
