@@ -466,6 +466,11 @@
                     "description": "Turn on Bracken (and the required Kraken2 prerequisite step).",
                     "fa_icon": "fas fa-toggle-on"
                 },
+                "bracken_save_intermediatekraken2": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on the saving of the intermediate Kraken2 files used as input to Bracken itself into Kraken2 results folder"
+                },
                 "run_malt": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
