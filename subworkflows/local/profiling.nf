@@ -416,7 +416,7 @@ workflow PROFILING {
                                         db: it[3]
                                 }
 
-            KMCP_SEARCH ( ch_input_for_kmcp.db, ch_input_for_kmcp.reads )
+            KMCP_SEARCH ( ch_input_for_kmcp.reads, ch_input_for_kmcp.db )
 
             ch_versions            = ch_versions.mix( KMCP_SEARCH.out.versions.first() )
             ch_raw_classifications = ch_raw_classifications.mix(KMCP_SEARCH.out.result)
@@ -453,7 +453,7 @@ workflow PROFILING {
             }
 
             //Generate kmcp profile
-            KMCP_PROFILE( ch_input_for_kmcp_profile.report, ch_input_for_kmcp.db, params.kmcp_mode )
+            KMCP_PROFILE( ch_input_for_kmcp_profile.report, ch_input_for_kmcp.db )
             ch_versions = ch_versions.mix( KMCP_PROFILE.out.versions.first() )
             ch_raw_profiles    = ch_raw_profiles.mix( KMCP_PROFILE.out.profile )
             ch_multiqc_files   = ch_multiqc_files.mix( KMCP_PROFILE.out.profile )

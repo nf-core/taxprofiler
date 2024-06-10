@@ -117,7 +117,7 @@
                     },
                     "kmcp/search": {
                         "branch": "master",
-                        "git_sha": "e198734cc3be18af5f64f6d7734c7f1a7c3af5a6",
+                        "git_sha": "64cd3f418b191a008b9d362b8ccf0216ae0302d5",
                         "installed_by": ["modules"]
                     },
                     "kraken2/kraken2": {
