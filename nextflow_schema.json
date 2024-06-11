@@ -16,6 +16,7 @@
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "schema": "assets/schema_input.json",
                     "mimetype": "text/csv",
                     "pattern": "^\\S+\\.csv$",
                     "description": "Path to comma-separated file containing information about the samples and libraries/runs.",
@@ -26,9 +27,18 @@
                     "type": "string",
                     "mimetype": "text/csv",
                     "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_database.json",
+                    "pattern": "^\\S+\\.csv$",
                     "fa_icon": "fas fa-database",
                     "description": "Path to comma-separated file containing information about databases and profiling parameters for each taxonomic profiler",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 4 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/dev/usage#full-database-sheet).\n\nProfilers will only be executed if a corresponding  database are supplied. \n\nWe recommend storing this database sheet somewhere centrally and accessible by others members of your lab/institutions, as this file will likely be regularly reused."
+                },
+                "save_untarred_databases": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-database",
+                    "description": "Specify to save decompressed user-supplied TAR archives of databases",
+                    "help_text": "If input databases are supplied as gzipped TAR archives, in some cases you may want to move and re-use these for future runs. Specifying this parameter will save these to `--outdir results/` under a directory called `untar`."
                 },
                 "outdir": {
                     "type": "string",
@@ -146,6 +156,12 @@
                     "fa_icon": "fas fa-ruler-horizontal",
                     "description": "Specify the minimum length of reads to be retained",
                     "help_text": "Specifying a mimum read length filtering can speed up profiling by reducing the number of short unspecific reads that need to be match/aligned to the database.\n\n> Modifies tool parameter(s):\n> - removed from reads `--length_required`\n> - AdapterRemoval: `--minlength`"
+                },
+                "shortread_qc_dedup": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Perform deduplication of the input reads (fastp only)",
+                    "help_text": "This enables the deduplication of processed reads during fastp adapter removal and/or merging. It removes identical reads that are likely artefacts from laboratory protocols (e.g. amplification), and provide no additional sequence information to the library.\n\nRemoving duplicates can increase runtime and increase accuracy of abundance calculations.\n\n> Modifies tool parameter(s):\n> fastp: ` --dedup`\n"
                 },
                 "perform_shortread_complexityfilter": {
                     "type": "boolean",
@@ -473,6 +489,11 @@
                     "description": "Turn on Bracken (and the required Kraken2 prerequisite step).",
                     "fa_icon": "fas fa-toggle-on"
                 },
+                "bracken_save_intermediatekraken2": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on the saving of the intermediate Kraken2 files used as input to Bracken itself into Kraken2 results folder"
+                },
                 "run_malt": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
@@ -529,13 +550,6 @@
                     "type": "boolean",
                     "description": "Turn on classification with KMCP.",
                     "fa_icon": "fas fa-toggle-on"
-                },
-                "kmcp_mode": {
-                    "type": "integer",
-                    "default": 3,
-                    "description": "Specify which KMCP profiling mode to use.",
-                    "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision).\nFor more information about the different profiling modes, please see the [kmcp documentation](https://bioinf.shenwei.me/kmcp/usage/#profile)\n\n> Modifies tool parameter(s):\n- kmcp profile: `--mode`\n\n",
-                    "fa_icon": "fas fa-check-square"
                 },
                 "kmcp_save_search": {
                     "type": "boolean",
@@ -865,6 +879,13 @@
                     "description": "Validation of parameters in lenient more.",
                     "hidden": true,
                     "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
+                },
+                "pipelines_testdata_base_path": {
+                    "type": "string",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Base URL or local path to location of pipeline test dataset files",
+                    "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
+                    "hidden": true
                 }
             }
         },
@@ -885,7 +906,7 @@
                     "type": "string",
                     "format": "directory-path",
                     "description": "Directory / URL base for iGenomes references.",
-                    "default": "s3://ngi-igenomes/igenomes",
+                    "default": "s3://ngi-igenomes/igenomes/",
                     "fa_icon": "fas fa-cloud-download-alt",
                     "hidden": true
                 },

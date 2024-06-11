@@ -42,17 +42,12 @@
                     },
                     "centrifuge/centrifuge": {
                         "branch": "master",
-                        "git_sha": "7b0b4276fbad744a69c35d3cbf9d55fdfc9491bd",
+                        "git_sha": "9a07a1293d9b818d1e06d0f7b58152f74d462012",
                         "installed_by": ["modules"]
                     },
                     "centrifuge/kreport": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
-                        "installed_by": ["modules"]
-                    },
-                    "custom/dumpsoftwareversions": {
-                        "branch": "master",
-                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
+                        "git_sha": "9a07a1293d9b818d1e06d0f7b58152f74d462012",
                         "installed_by": ["modules"]
                     },
                     "diamond/blastx": {
@@ -62,18 +57,17 @@
                     },
                     "falco": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/falco/falco.diff"
+                        "git_sha": "a236d2c2ec9e68db9b8501105d804acb359552b5",
+                        "installed_by": ["modules"]
                     },
                     "fastp": {
                         "branch": "master",
-                        "git_sha": "d497a4868ace3302016ea8ed4b395072d5e833cd",
+                        "git_sha": "451d49b70f1801a9e5835f111c927104af64481e",
                         "installed_by": ["modules"]
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "617777a807a1770f73deb38c80004bac06807eef",
+                        "git_sha": "285a50500f9e02578d90b3ce6382ea3c30216acd",
                         "installed_by": ["modules"]
                     },
                     "filtlong": {
@@ -118,12 +112,12 @@
                     },
                     "kmcp/profile": {
                         "branch": "master",
-                        "git_sha": "e198734cc3be18af5f64f6d7734c7f1a7c3af5a6",
+                        "git_sha": "6f56948d0674ad5870035e80c7af209a51d8e243",
                         "installed_by": ["modules"]
                     },
                     "kmcp/search": {
                         "branch": "master",
-                        "git_sha": "e198734cc3be18af5f64f6d7734c7f1a7c3af5a6",
+                        "git_sha": "64cd3f418b191a008b9d362b8ccf0216ae0302d5",
                         "installed_by": ["modules"]
                     },
                     "kraken2/kraken2": {
@@ -143,7 +137,7 @@
                     },
                     "krakenuniq/preloadedkrakenuniq": {
                         "branch": "master",
-                        "git_sha": "8bbaa881ab9e59f3e18680550d65d52339640630",
+                        "git_sha": "9de9365c3ca6071ec01705919f6667c718ef47b4",
                         "installed_by": ["modules"]
                     },
                     "krona/ktimporttaxonomy": {
@@ -198,7 +192,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
+                        "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/curve": {
@@ -261,6 +255,25 @@
                         "branch": "master",
                         "git_sha": "d0b4fc03af52a1cc8c6fb4493b921b57352b1dd8",
                         "installed_by": ["modules"]
+                    }
+                }
+            },
+            "subworkflows": {
+                "nf-core": {
+                    "utils_nextflow_pipeline": {
+                        "branch": "master",
+                        "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "utils_nfcore_pipeline": {
+                        "branch": "master",
+                        "git_sha": "92de218a329bfc9a9033116eb5f65fd270e72ba3",
+                        "installed_by": ["subworkflows"]
+                    },
+                    "utils_nfvalidation_plugin": {
+                        "branch": "master",
+                        "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
+                        "installed_by": ["subworkflows"]
                     }
                 }
             }
