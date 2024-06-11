@@ -17,7 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
+| Tool | Previous version | New version |
+| ---- | ---------------- | ----------- |
+| KMCP | 0.9.1            | 0.9.4       |
+
 ### `Deprecated`
+
+- [#492](https://github.com/nf-core/taxprofiler/pull/492) Removed `--kmcp_mode` parameter from KMCP to allow per database specification by setting in db_params in database sheet (fixed by @jfy133)
 
 ## v1.1.7 - Augmented Akita Patch [2024-04-25]
 
