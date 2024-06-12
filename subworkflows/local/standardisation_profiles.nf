@@ -93,11 +93,23 @@ workflow STANDARDISATION_PROFILES {
                                 standardise: true
                         }
 
+    ch_input_for_taxpasta_merge       = ch_input_for_taxpasta.merge
+                                            .multiMap{ meta, profiles ->
+                                                        profiles: [meta, profiles]
+                                                        tool: meta.tool
+                                                    }
 
-    TAXPASTA_MERGE       (ch_input_for_taxpasta.merge      , ch_taxpasta_tax_dir, [])
+    ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
+                                            .multiMap{ meta, profiles ->
+                                                        profiles: [meta, profiles]
+                                                        tool: meta.tool
+                                                    }
+
+
+    TAXPASTA_MERGE       ( ch_input_for_taxpasta_merge.profiles      , ch_input_for_taxpasta_merge.tool      , params.standardisation_taxpasta_format, ch_taxpasta_tax_dir, [] )
+    TAXPASTA_STANDARDISE ( ch_input_for_taxpasta_standardise.profiles, ch_input_for_taxpasta_standardise.tool, params.standardisation_taxpasta_format, ch_taxpasta_tax_dir     )
     ch_versions = ch_versions.mix( TAXPASTA_MERGE.out.versions.first() )
-    TAXPASTA_STANDARDISE (ch_input_for_taxpasta.standardise, ch_taxpasta_tax_dir    )
-    ch_version = ch_versions.mix( TAXPASTA_STANDARDISE.out.versions.first() )
+    ch_versions = ch_versions.mix( TAXPASTA_STANDARDISE.out.versions.first() )
 
 
 
