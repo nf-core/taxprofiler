@@ -489,6 +489,11 @@
                     "description": "Turn on Bracken (and the required Kraken2 prerequisite step).",
                     "fa_icon": "fas fa-toggle-on"
                 },
+                "bracken_save_intermediatekraken2": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on the saving of the intermediate Kraken2 files used as input to Bracken itself into Kraken2 results folder"
+                },
                 "run_malt": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
@@ -545,13 +550,6 @@
                     "type": "boolean",
                     "description": "Turn on classification with KMCP.",
                     "fa_icon": "fas fa-toggle-on"
-                },
-                "kmcp_mode": {
-                    "type": "integer",
-                    "default": 3,
-                    "description": "Specify which KMCP profiling mode to use.",
-                    "help_text": "Available values: \n0 (for pathogen detection)\n1 (higherrecall)\n2 (high recall)\n3 (default)\n4 (high precision)\n5 (higher precision).\nFor more information about the different profiling modes, please see the [kmcp documentation](https://bioinf.shenwei.me/kmcp/usage/#profile)\n\n> Modifies tool parameter(s):\n- kmcp profile: `--mode`\n\n",
-                    "fa_icon": "fas fa-check-square"
                 },
                 "kmcp_save_search": {
                     "type": "boolean",
@@ -881,6 +879,13 @@
                     "description": "Validation of parameters in lenient more.",
                     "hidden": true,
                     "help_text": "Allows string values that are parseable as numbers or booleans. For further information see [JSONSchema docs](https://github.com/everit-org/json-schema#lenient-mode)."
+                },
+                "pipelines_testdata_base_path": {
+                    "type": "string",
+                    "fa_icon": "far fa-check-circle",
+                    "description": "Base URL or local path to location of pipeline test dataset files",
+                    "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
+                    "hidden": true
                 }
             }
         },

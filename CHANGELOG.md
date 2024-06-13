@@ -10,15 +10,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
 - [#466](https://github.com/nf-core/taxprofiler/pull/466) - Input database sheets now require a `db_type` column to distinguish between short- and long-read databases
 
-## v1.1.6dev - [unreleased]
+## v1.1.8dev - Augmented Akita Patch []
 
 ### `Added`
 
-- [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome estimation with Nonpareil (added by @jfy133)
+- [#487](https://github.com/nf-core/taxprofiler/pull/487) Updated to nf-core pipeline template v2.14.1 (added by jfy133)
+
+### `Fixed`
+
+- [#484](https://github.com/nf-core/taxprofiler/pull/484) Improved input validation to immediately fail if run accession IDs within a given sample ID are not unique (❤️ to @sofstam for reporting, fixed by @jfy133)
+- [#491](https://github.com/nf-core/taxprofiler/pull/491) Added flag to publish intermediate bracken files (❤️ to @ewissel for reporting, fixed by @sofstam and @jfy133)
+- [489](https://github.com/nf-core/taxprofiler/pull/489) Fix KrakenUniq classified reads output format mismatch (❤️ to @SannaAb for reporting, fixed by @jfy133)
+
+### `Dependencies`
+
+| Tool | Previous version | New version |
+| ---- | ---------------- | ----------- |
+| KMCP | 0.9.1            | 0.9.4       |
+
+### `Deprecated`
+
+- [#492](https://github.com/nf-core/taxprofiler/pull/492) Removed `--kmcp_mode` parameter from KMCP to allow per database specification by setting in db_params in database sheet (fixed by @jfy133)
+
+## v1.1.7 - Augmented Akita Patch [2024-04-25]
+
+### `Added`
+
+- [#477](https://github.com/nf-core/taxprofiler/pull/477) Provide more emphasis and links to tutorials on how to retrieve and supply reference databases (❤️ to @vmkalbskopf for reporting, added by @jfy133)
+
+### `Fixed`
+
+- [#476](https://github.com/nf-core/taxprofiler/pull/476/) Fixed bug in validating Bracken/Kraken/KMCP split database parameters (fixed by @LilyAnderssonLee)
+
+### `Dependencies`
+
+### `Deprecated`
+
+## v1.1.6 - Augmented Akita Patch [2024-04-16]
+
+### `Added`
+
 - [#454](https://github.com/nf-core/taxprofiler/pull/454) Updated to nf-core pipeline template v2.13.1 (added by @LilyAnderssonLee & @sofstam)
 - [#461](https://github.com/nf-core/taxprofiler/pull/461) Turned on 'strict' Nextflow evaluation runs (added by @jfy133)
 - [#461](https://github.com/nf-core/taxprofiler/pull/461) Optimised database compression so each compressed input database is untarred once, and shared amongst each run with different parameters (added by @jfy133)
 - [#461](https://github.com/nf-core/taxprofiler/pull/461) Added new parameter to optionally save uncompressed databases (added by @jfy133)
+- [#471](https://github.com/nf-core/taxprofiler/pull/471) Remove `-stub` run in the `download_pipeline.yml` because the pipeline does not support stub runs on dev (fixed by @LilyAnderssonLee)
 
 ### `Fixed`
 

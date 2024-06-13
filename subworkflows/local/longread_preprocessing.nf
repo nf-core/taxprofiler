@@ -20,7 +20,7 @@ workflow LONGREAD_PREPROCESSING {
         PORECHOP_PORECHOP ( reads )
 
         ch_processed_reads = PORECHOP_PORECHOP.out.reads
-            .map { meta, reads -> [ meta + [single_end: 1], reads ] }
+            .map { meta, reads -> [ meta + [single_end: true], reads ] }
 
         ch_versions = ch_versions.mix(PORECHOP_PORECHOP.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix( PORECHOP_PORECHOP.out.log )
@@ -34,7 +34,7 @@ workflow LONGREAD_PREPROCESSING {
     } else {
         PORECHOP_PORECHOP ( reads )
         ch_clipped_reads = PORECHOP_PORECHOP.out.reads
-            .map { meta, reads -> [ meta + [single_end: 1], reads ] }
+            .map { meta, reads -> [ meta + [single_end: true], reads ] }
 
         ch_processed_reads = FILTLONG ( ch_clipped_reads.map { meta, reads -> [ meta, [], reads ] } ).reads
 

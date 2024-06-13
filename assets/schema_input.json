@@ -14,6 +14,7 @@
             },
             "run_accession": {
                 "type": "string",
+                "unique": ["sample"],
                 "errorMessage": "Run accession must be provided and cannot contain spaces."
             },
             "instrument_platform": {
