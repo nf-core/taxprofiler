@@ -61,33 +61,42 @@ workflow PROFILING {
     */
 
     // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
+    ch_reads = reads
+        .map { meta, reads -> [ meta.type, meta.subMap( meta.keySet() - 'type' ), reads ] }
+
+    ch_dbs = databases
+        .flatMap { db ->
+            def ( db_meta, db_path ) = db
+            def db_types = db_meta.db_type.replaceAll(/\[|\]/, '').split(',') //removes the square brackets and splits the string into a list ["short", "long"]
+            if ( db_types.size() > 1 ) {
+                return db_types.collect { it ->
+                    def new_db_meta = db_meta.clone()
+                    [new_db_meta,db_path]
+                }
+            } else {
+                return [ db ]
+            }
+        }
+        .map{ meta, db -> [ meta.db_type, meta.subMap( meta.keySet() - 'db_type' ), db ] }
+
     ch_input_for_profiling = reads
-            .map {
-                meta, reads ->
-                    [meta + [id: "${meta.id}${meta.single_end ? '_se' : '_pe'}"], reads]
-            }
-            .combine(databases)
-            .filter { it ->
-                def platform = it[0]['instrument_platform']
-                def db_type = it[2]['db_type']
-                def is_long_read = platform == 'OXFORD_NANOPORE'
-                def is_long_db = db_type == 'long' || db_type == 'both'
-                def is_short_db = db_type == 'short' || db_type == 'both'
-                (is_long_read && is_long_db) || (!is_long_read && is_short_db)
-            }
-            .branch {
-                centrifuge: it[2]['tool'] == 'centrifuge'
-                diamond: it[2]['tool'] == 'diamond'
-                kaiju: it[2]['tool'] == 'kaiju'
-                kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken' // to reuse the kraken module to produce the input data for bracken
-                krakenuniq: it[2]['tool'] == 'krakenuniq'
-                malt:    it[2]['tool'] == 'malt'
-                metaphlan: it[2]['tool'] == 'metaphlan'
-                motus: it[2]['tool'] == 'motus'
-                kmcp: it[2]['tool'] == 'kmcp'
-                ganon: it[2]['tool'] == 'ganon'
-                unknown: true
-            }
+        .map { meta, reads -> [ meta.type, meta.subMap( meta.keySet() - 'type' ), reads ] }
+        .combine(ch_dbs, by: 0)
+        .map{ db_type, meta, reads, db_meta, db ->
+            [ meta, reads, db_meta, db ] }
+        .branch { meta, reads, db_meta, db ->
+            centrifuge: db_meta.tool == 'centrifuge'
+            diamond: db_meta.tool == 'diamond'
+            kaiju: db_meta.tool == 'kaiju'
+            kraken2: db_meta.tool == 'kraken2' || db_meta.tool == 'bracken' // to reuse the kraken module to produce the input data for bracken
+            krakenuniq: db_meta.tool == 'krakenuniq'
+            malt:    db_meta.tool == 'malt'
+            metaphlan: db_meta.tool == 'metaphlan'
+            motus: db_meta.tool == 'motus'
+            kmcp: db_meta.tool == 'kmcp'
+            ganon: db_meta.tool == 'ganon'
+            unknown: true
+        }
 
     /*
         PREPARE PROFILER INPUT CHANNELS & RUN PROFILING

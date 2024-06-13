@@ -36,30 +36,13 @@
             "db_params": {
                 "type": "string",
                 "pattern": "^[^\"']*$",
-                "anyOf": [
-                    {
-                        "properties": {
-                            "tool": { "const": "bracken" }
-                        },
-                        "not": {
-                            "pattern": ".*;"
-                        },
-                        "errorMessage": "Invalid database db_params entry. Bracken requires a semi-colon for passing one or more parameters."
-                    },
-                    {
-                        "properties": {
-                            "tool": { "const": "kmcp" }
-                        },
-                        "pattern": ".*;$",
-                        "errorMessage": "Invalid database `db_params` entry. KMCP only requires a semi-colon if passing arguments to KMCP profile, in cases of which the arguments should go after the semi-colon."
-                    }
-                ],
                 "errorMessage": "Invalid database db_params entry. No quotes allowed.",
                 "meta": ["db_params"]
             },
             "db_type": {
                 "type": "string",
-                "enum": ["short", "long", "both"],
+                "enum": ["short", "long", "short,long"],
+                "default": ["short,long"],
                 "meta": ["db_type"]
             },
             "db_path": {
@@ -69,7 +52,7 @@
                 "errorMessage": "db_path should be either a file path or a directory."
             }
         },
-        "required": ["tool", "db_name", "db_type", "db_path"],
+        "required": ["tool", "db_name", "db_path"],
         "uniqueEntries": ["tool", "db_name"]
     }
 }
