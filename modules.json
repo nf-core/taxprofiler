@@ -160,6 +160,16 @@
                         "git_sha": "dbce8951ff9a39ad08d87e563636bbcc6ef34032",
                         "installed_by": ["modules"]
                     },
+                    "metamaps/classify": {
+                        "branch": "master",
+                        "git_sha": "4272190cc308098e66e142812cbd554ea8d31857",
+                        "installed_by": ["modules"]
+                    },
+                    "metamaps/mapdirectly": {
+                        "branch": "master",
+                        "git_sha": "4272190cc308098e66e142812cbd554ea8d31857",
+                        "installed_by": ["modules"]
+                    },
                     "metaphlan/mergemetaphlantables": {
                         "branch": "master",
                         "git_sha": "efae1c431e539d6a6d323ee2e9223c4b81a152ce",

@@ -10,7 +10,6 @@ include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
 include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../modules/nf-core/metaphlan/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
-include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
 
 // Custom Functions
 
@@ -211,6 +210,8 @@ workflow STANDARDISATION_PROFILES {
     GANON_TABLE ( ch_profiles_for_ganon )
     ch_multiqc_files = ch_multiqc_files.mix( GANON_TABLE.out.txt )
     ch_versions = ch_versions.mix( GANON_TABLE.out.versions )
+
+// Add metamaps to taxpasta
 
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles

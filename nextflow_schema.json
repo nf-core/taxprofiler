@@ -370,7 +370,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the run-merging step",
-                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> ⚠️ Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
+                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> \u26a0\ufe0f Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
                 }
             },
             "fa_icon": "fas fa-clipboard-check"
@@ -602,6 +602,11 @@
                     "description": "Specify a maximum number of reads a hit must have to be retained in the ganon report.",
                     "help_text": "Specify the maximum number of reads or percentage of counts a hit must have against a taxon to be retained. To specify a maximum percentage, specify between 0 and 1 (e.g. 0.9 for 90%), and more than 1 to specify a hard count cut off (e.g. 10000 for maximum of 10,000 reads).\n\n> Modifies tool parameter(s):\n- ganon report: `--max-count`",
                     "fa_icon": "fas fa-filter"
+                },
+                "run_metamaps": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with metamaps. Requires database to be present CSV file passed to --databases."
                 }
             },
             "fa_icon": "fas fa-align-center"
