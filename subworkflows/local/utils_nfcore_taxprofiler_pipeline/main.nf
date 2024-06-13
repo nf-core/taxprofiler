@@ -244,6 +244,7 @@ def toolCitationText() {
             params.run_motus      ? "mOTUs (Ruscheweyh et al. 2022)," : "",
             params.run_ganon      ? "ganon (Piro et al. 2020)" : "",
             params.run_kmcp       ? "KMCP (Shen et al. 2023)" : "",
+            params.run_metamaps   ? "MetaMaps (Dilthey et al. 2019)" : "",
         "."
     ].join(' ').trim()
 

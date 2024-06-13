@@ -19,6 +19,8 @@ include { KMCP_SEARCH                                   } from '../../modules/nf
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
+include { METAMAPS_MAPDIRECTLY                          } from '../../modules/nf-core/metamaps/mapdirectly/main'
+include { METAMAPS_CLASSIFY                             } from '../../modules/nf-core/metamaps/classify/main'
 
 
 // Custom Functions
@@ -78,6 +80,7 @@ workflow PROFILING {
                 motus: it[2]['tool'] == 'motus'
                 kmcp: it[2]['tool'] == 'kmcp'
                 ganon: it[2]['tool'] == 'ganon'
+                metamaps: it[2]['tool'] == 'metamaps'
                 unknown: true
             }
 
@@ -491,6 +494,38 @@ workflow PROFILING {
         // Might be flipped - check/define what is a profile vs raw classification
         ch_raw_profiles        = ch_raw_profiles.mix( GANON_REPORT.out.tre )
         ch_raw_classifications = ch_raw_classifications.mix( GANON_CLASSIFY.out.all )
+
+    }
+
+    if ( params.run_metamaps ) {
+
+        ch_input_for_metamaps_mapdirectly = ch_input_for_profiling.metamaps
+                                .filter {
+                                    meta, reads, meta_db, db ->
+                                        if ( meta.instrument_platform == 'ILLUMINA' || meta.instrument_platform == "ION_TORRENT" ) log.warn "[nf-core/taxprofiler] MetaMaps is a tool for long-read classification. Skipping MetaMaps for sample ${meta.id}."
+                                        meta_db.tool == 'metamaps' && ( meta.instrument_platform != 'ILLUMINA' || meta.instrument_platform != "ION_TORRENT" )
+                                }
+                                .multiMap {
+                                    it ->
+                                        reads: [ it[0] + it[2], it[1] ]
+                                        db: it[3]
+                                }
+
+        ch_input_for_metamaps_mapdirectly.reads
+
+        METAMAPS_MAPDIRECTLY( ch_input_for_metamaps_mapdirectly.reads, ch_input_for_metamaps_mapdirectly.db )
+        ch_versions = ch_versions.mix( METAMAPS_MAPDIRECTLY.out.versions.first() )
+
+        ch_database_for_metamaps_classify = databases
+                                        .filter { meta, db -> meta.tool == "metamaps" }
+                                        .map { meta, db -> [meta.db_name, meta, db] }
+
+        ch_input_for_metamaps_classify = combineProfilesWithDatabase(METAMAPS_MAPDIRECTLY.out.classification_res, METAMAPS_MAPDIRECTLY.out.meta_file, METAMAPS_MAPDIRECTLY.out.meta_unmappedreadsLengths, METAMAPS_MAPDIRECTLY.out.para_file,  ch_database_for_metamaps_classify)
+
+        METAMAPS_CLASSIFY(ch_input_for_metamaps_classify.profile, ch_input_for_metamaps_classify.db, )
+        ch_versions            = ch_versions.mix( METAMAPS_CLASSIFY.out.versions.first() )
+        ch_raw_profiles        = ch_raw_profiles.mix( METAMAPS_CLASSIFY.out.wimp  )
+
 
     }
 
