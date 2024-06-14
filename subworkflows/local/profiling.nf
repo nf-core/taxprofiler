@@ -69,6 +69,7 @@ workflow PROFILING {
             if ( db_types.size() > 1 ) {
                 return db_types.collect { it ->
                     def new_db_meta = db_meta.clone()
+                    new_db_meta.db_type = it
                     [new_db_meta,db_path]
                 }
             } else {
