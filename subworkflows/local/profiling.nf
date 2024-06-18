@@ -65,7 +65,7 @@ workflow PROFILING {
     ch_dbs = databases
         .flatMap { db ->
             def ( db_meta, db_path ) = db
-            def db_types = db_meta.db_type.replaceAll(/\[|\]/, '').split(',') //removes the square brackets and splits the string into a list ["short", "long"]
+            def db_types = db_meta.db_type.replaceAll(/\[|\]/, '').split(';') //removes the square brackets and splits the string into a list ["short", "long"]
             if ( db_types.size() > 1 ) {
                 return db_types.collect { it ->
                     def new_db_meta = db_meta.clone()

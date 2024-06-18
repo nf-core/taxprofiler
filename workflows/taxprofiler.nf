@@ -151,7 +151,7 @@ workflow TAXPROFILER {
     ch_dbs_for_untar = databases
         .branch { db_meta, db_path ->
             if ( !db_meta.db_type ) {
-                db_meta = db_meta + [ db_type: "short,long" ]
+                db_meta = db_meta + [ db_type: "short;long" ]
             }
             untar: db_path.name.endsWith( ".tar.gz" )
             skip: true
