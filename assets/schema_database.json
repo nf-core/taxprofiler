@@ -42,7 +42,7 @@
             "db_type": {
                 "type": "string",
                 "enum": ["short", "long", "short;long"],
-                "default": ["short;long"],
+                "default": "short;long",
                 "meta": ["db_type"]
             },
             "db_path": {

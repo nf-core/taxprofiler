@@ -60,29 +60,36 @@ workflow PROFILING {
         COMBINE READS WITH POSSIBLE DATABASES
     */
 
-    // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
-
+    // Separate default 'short;long' (when necessary) databases when short/long specified in database sheet
     ch_dbs = databases
-        .flatMap { db ->
-            def ( db_meta, db_path ) = db
-            def db_types = db_meta.db_type.replaceAll(/\[|\]/, '').split(';') //removes the square brackets and splits the string into a list ["short", "long"]
-            if ( db_types.size() > 1 ) {
-                return db_types.collect { it ->
-                    def new_db_meta = db_meta.clone()
-                    new_db_meta.db_type = it
-                    [new_db_meta,db_path]
-                }
-            } else {
-                return [ db ]
-            }
+        .map{
+            meta_db, db ->
+            [ [meta_db.db_type.split(";")].flatten(), meta_db, db]
         }
-        .map{ meta, db -> [ meta.db_type, meta.subMap( meta.keySet() - 'db_type' ), db ] }
+        .transpose(by: 0)
+        .map{
+            type, meta_db, db ->
+            [[type: type], meta_db.subMap(meta_db.keySet() - 'db_type') + [type: type], db]
+        }
+        .dump(tag: 'databases')
+
+    // Join short and long reads with their corresponding short/long database
+    // Note that for not-specified `short;long`, it will match with the database.
+    // E.g. if there is no 'long' reads the above generted 'long' database channel element
+    //  will have nothing to join to and will be discarded
+    // Final output: [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
 
     ch_input_for_profiling = reads
-        .map { meta, reads -> [ meta.type, meta.subMap( meta.keySet() - 'type' ), reads ] }
+        .map{
+            meta, reads ->
+            [[type: meta.type], meta, reads]
+        }
         .combine(ch_dbs, by: 0)
-        .map{ db_type, meta, reads, db_meta, db ->
-            [ meta, reads, db_meta, db ] }
+        .map{
+            db_type, meta, reads, db_meta, db ->
+            [ meta, reads, db_meta, db ]
+        }
+        .dump(tag: 'input to profiling')
         .branch { meta, reads, db_meta, db ->
             centrifuge: db_meta.tool == 'centrifuge'
             diamond: db_meta.tool == 'diamond'
