@@ -3,6 +3,30 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.8 - Augmented Akita Patch [2024-06-20]
+
+### `Added`
+
+- [#487](https://github.com/nf-core/taxprofiler/pull/487) Updated to nf-core pipeline template v2.14.1 (added by @jfy133)
+
+### `Fixed`
+
+- [#484](https://github.com/nf-core/taxprofiler/pull/484) Improved input validation to immediately fail if run accession IDs within a given sample ID are not unique (❤️ to @sofstam for reporting, fixed by @jfy133)
+- [#491](https://github.com/nf-core/taxprofiler/pull/491) Added flag to publish intermediate bracken files (❤️ to @ewissel for reporting, fixed by @sofstam and @jfy133)
+- [#489](https://github.com/nf-core/taxprofiler/pull/489) Fix KrakenUniq classified reads output format mismatch (❤️ to @SannaAb for reporting, fixed by @jfy133)
+- [#495](https://github.com/nf-core/taxprofiler/pull/495) Stop TAXPASTA failures when profiles do not have exact compositionality (fixes by @Midnighter, @jfy133)
+
+### `Dependencies`
+
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| KMCP     | 0.9.1            | 0.9.4       |
+| TAXPASTA | 0.6.1            | 0.7.0       |
+
+### `Deprecated`
+
+- [#492](https://github.com/nf-core/taxprofiler/pull/492) Removed `--kmcp_mode` parameter from KMCP to allow per database specification by setting in db_params in database sheet (fixed by @jfy133)
+
 ## v1.1.7 - Augmented Akita Patch [2024-04-25]
 
 ### `Added`

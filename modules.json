@@ -67,7 +67,7 @@
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "f4ae1d942bd50c5c0b9bd2de1393ce38315ba57c",
+                        "git_sha": "285a50500f9e02578d90b3ce6382ea3c30216acd",
                         "installed_by": ["modules"]
                     },
                     "filtlong": {
@@ -112,12 +112,12 @@
                     },
                     "kmcp/profile": {
                         "branch": "master",
-                        "git_sha": "e198734cc3be18af5f64f6d7734c7f1a7c3af5a6",
+                        "git_sha": "6f56948d0674ad5870035e80c7af209a51d8e243",
                         "installed_by": ["modules"]
                     },
                     "kmcp/search": {
                         "branch": "master",
-                        "git_sha": "e198734cc3be18af5f64f6d7734c7f1a7c3af5a6",
+                        "git_sha": "64cd3f418b191a008b9d362b8ccf0216ae0302d5",
                         "installed_by": ["modules"]
                     },
                     "kraken2/kraken2": {
@@ -137,7 +137,7 @@
                     },
                     "krakenuniq/preloadedkrakenuniq": {
                         "branch": "master",
-                        "git_sha": "8bbaa881ab9e59f3e18680550d65d52339640630",
+                        "git_sha": "9de9365c3ca6071ec01705919f6667c718ef47b4",
                         "installed_by": ["modules"]
                     },
                     "krona/ktimporttaxonomy": {
@@ -228,12 +228,12 @@
                     },
                     "taxpasta/merge": {
                         "branch": "master",
-                        "git_sha": "48019785051ba491e82dce910273c2eca61bd5b7",
+                        "git_sha": "4fd9089d3cf904e0b870d5a6a7ab903ee5e1004d",
                         "installed_by": ["modules"]
                     },
                     "taxpasta/standardise": {
                         "branch": "master",
-                        "git_sha": "48019785051ba491e82dce910273c2eca61bd5b7",
+                        "git_sha": "4fd9089d3cf904e0b870d5a6a7ab903ee5e1004d",
                         "installed_by": ["modules"]
                     },
                     "untar": {
@@ -252,7 +252,7 @@
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "5caf7640a9ef1d18d765d55339be751bb0969dfa",
+                        "git_sha": "92de218a329bfc9a9033116eb5f65fd270e72ba3",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfvalidation_plugin": {
