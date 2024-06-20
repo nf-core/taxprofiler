@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/yaml-schema.json
+name: "nonpareil_tojson"
+description: Generate a JSON file from a single Nonpareil npo file for visualisation in MultiQC
+keywords:
+  - metagenomics
+  - statistics
+  - coverage
+  - complexity
+  - redundancy
+  - diversity
+  - visualisation
+  - multiqc
+tools:
+  - "nonpareil":
+      description: "Custom script to generate a JSON file from a single Nonpareil npo file for visualisation in MultiQC"
+      homepage: "https://github.com/lmrodriguezr/nonpareil"
+      documentation: "https://nonpareil.readthedocs.io/en/latest/"
+      tool_dev_url: "https://github.com/lmrodriguezr/nonpareil"
+      doi: "10.1128/msystems.00039-"
+      licence: ["Artistic License 2.0"]
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+  - npo:
+      type: file
+      description: Single npo redundancy summary file from nonpareil itself
+      pattern: "*.npo"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - npa:
+      type: file
+      description: PNG file of the Nonpareil curve
+      pattern: "*.png"
+authors:
+  - "@jfy133"
+maintainers:
+  - "@jfy133"
