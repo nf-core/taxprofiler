@@ -71,7 +71,6 @@ workflow PROFILING {
             type, meta_db, db ->
             [[type: type], meta_db.subMap(meta_db.keySet() - 'db_type') + [type: type], db]
         }
-        .dump(tag: 'databases')
 
     // Join short and long reads with their corresponding short/long database
     // Note that for not-specified `short;long`, it will match with the database.
@@ -89,7 +88,6 @@ workflow PROFILING {
             db_type, meta, reads, db_meta, db ->
             [ meta, reads, db_meta, db ]
         }
-        .dump(tag: 'input to profiling')
         .branch { meta, reads, db_meta, db ->
             centrifuge: db_meta.tool == 'centrifuge'
             diamond: db_meta.tool == 'diamond'
