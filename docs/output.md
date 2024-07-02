@@ -227,7 +227,7 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
 <summary>Output files</summary>
 
 - `filtlong/`
-  - `<sample_id>_filtered.fastq.gz`: Quality or short read data filtered file
+  - `<sample_id>_filtered.fastq.gz`: Quality or long read data filtered file
   - `<sample_id>_filtered.log`: log file containing summary statistics
 
 </details>
