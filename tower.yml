@@ -1,50 +1,24 @@
 reports:
   multiqc_report.html:
     display: "MultiQC HTML report"
-  "**/untar/database/":
-    display: "A directory containing contents of the decompressed archive. It will only be present if `--save_untarred_databases` is supplied."
-  "**/{fastqc,falco}/{raw,preprocessed}/*.html":
-    display: "A FastQC or Falco report contains quality metrics in HTML format."
-  "**/{fastqc,falco}/{raw,preprocessed}/*.txt":
-    display: "A FastQC or Falco report containing quality metrics in TXT format."
-  "**/fastqc/{raw,preprocessed}/*.zip":
-    display: "A zip archive contains the FastQC report, tab-delimited data file and plot images."
-  "**/fastp/*.fastp.fastq.gz":
-    display: "A file with the trimmed unmerged fastq reads."
-  "**/fastp/*.merged.fastq.gz":
-    display: "A file with the reads that were successfully merged."
-  "**/fastp/*.{log,html,json}":
-    display: "Log files in different formats."
-  "**/porechop/*.log":
-    display: "A log file containing trimming statistics."
-  "**/porechop/*.fastq.gz":
-    display: "Adapter-trimmed fastq files."
-  "**/bbduk/*.bbduk.log":
-    display: "A log file containing filtering statistics."
-  "**/bbduk/*.fastq.gz":
-    display: "Resulting FASTQ file without low-complexity reads."
-  "**/filtlong/*_filtered.log":
-    display: "A log file containing summary statistics."
-  "**/filtlong/*_filtered.fastq.gz":
-    display: "A quality or long read data filtered file."
-  "**/bowtie2/build/*.bt2":
-    display: "Bowtie2 indicies of reference genome, only if `--save_hostremoval_index` supplied."
-  "**/bowtie2/align/*.bam":
-    display: "A bam file containing reads that aligned against the user-supplied reference genome as well as unmapped reads."
-  "**/bowtie2/align/*.bowtie2.log":
-    display: "A log file about the mapped reads."
-  "**/bowtie2/align/*.unmapped.fastq.gz":
-    display: "A FASTQ file containing off-target reads from the mapping that is used in downstream steps."
-  "**/minimap2/build/*.mmi2":
-    display: "minimap2 indices of reference genome, only if `--save_hostremoval_index` supplied."
-  "**/minimap2/align/*.bam":
-    display: "A alignment file in BAM format containing both mapped and unmapped reads."
-  "**/samtools/stats/*_interleaved.fq.gz":
-    display: "Unmapped reads only in FASTQ gzip format."
-  "**/samtools/stats/*.stats":
-    display: "A file containing samtools stats output."
-  "**/analysis_ready_fastqs/":
-    display: "A results directory will contain the 'final' processed reads used as input for classification/profiling. This optional results directory will only be present in the pipeline results when supplying `--save_analysis_ready_reads`."
+  "**/fastqc/raw/*.html":
+    display: "A FastQC report contains quality metrics of raw reads in HTML format."
+  "**/fastqc/raw/*.txt":
+    display: "A FastQC report containing quality metrics of raw reads in TXT format."
+  "**/fastqc/preprocessed/*.html":
+    display: "A FastQC report contains quality metrics of processed reads in HTML format."
+  "**/fastqc/preprocessed/*.txt":
+    display: "A FastQC report containing quality metrics of processed reads in TXT format."
+  "**/falco/raw/*.html":
+    display: "A Falco report contains quality metrics of raw reads in HTML format."
+  "**/falco/raw/*.txt":
+    display: "A Falco report containing quality metrics of raw reads in TXT format."
+  "**/falco/preprocessed/*.html":
+    display: "A Falco report contains quality metrics of raw reads in HTML format."
+  "**/falco/preprocessed/*.txt":
+    display: "A Falco report containing quality metrics of raw reads in TXT format."
+  "**/fastp/*.html":
+    display: "A Log file in HTML format."
   "**/bracken/*_combined_reports.txt":
     display: "Combined bracken results as output from Bracken's `combine_bracken_outputs.py` script."
   "**/bracken/*/*.tsv":
@@ -57,16 +31,8 @@ reports:
     display: "A Kraken2 report that summarises the fraction abundance, taxonomic ID, number of Kmers, taxonomic path of all the hits in the Kraken2 run for a given sample. Will be 6 column rather than 8 if `--save_minimizers` specified."
   "**/kraken2/*/*.kraken2.classifiedreads.txt":
     display: "A list of read IDs and the hits each read had against each database for a given sample."
-  "**/kraken2/*/*.classified.fastq.gz":
-    display: "A FASTQ file containing all reads that mapped to a reference in the database for a specific sample."
-  "**/kraken2/*/*.unclassified.fastq.gz":
-    display: "A FASTQ file containing all reads that did not have a hit in the database for a given sample."
   "**/krakenuniq/*.krakenuniq.report.txt":
     display: "A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of Kmers, taxonomic path of all the hits, with an additional column for k-mer coverage, that allows for more accurate distinguishing between false-positive/true-postitive hits."
-  "**/krakenuniq/*.classified.fast{a,q}.gz":
-    display: "An optional FASTA file containing all reads that had a hit against a reference in the database for a given sample. Paired-end input reads are merged in this output."
-  "**/krakenuniq/*.unclassified.fast{a,q}.gz":
-    display: "An optional FASTA file containing all reads that did not have a hit in the database for a given sample. Paired-end input reads are merged in this output."
   "**/krakenuniq/*.krakenuniq.classified.txt":
     display: "An optional list of read IDs and the hits each read had against each database for a given sample."
   "**/centrifuge/*_combined_reports.txt":
@@ -77,59 +43,25 @@ reports:
     display: "A file that summarises the classification assignment for a read, i.e read ID, sequence ID, score for the classification, score for the next best classification, number of classifications for this read."
   "**/centrifuge/*/*.centrifuge.txt":
     display: "A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of k-mers, taxonomic path of all the hits in the centrifuge run for a given sample."
-  "**/centrifuge/*/*.mapped.fastq.gz":
-    display: "FASTQ files containing all mapped reads."
-  "**/centrifuge/*/*.unmapped.fastq.gz":
-    display: "FASTQ files containing all unmapped reads."
-  "**/diamond/*/*.{blast,xml,txt,daa,sam,tsv,paf}":
+  "**/diamond/*/*.tsv":
     display: "A file containing alignment information in various formats, or taxonomic information in a text-based format. Exact output depends on user choice."
   "**/ganon/*_combined_reports.txt":
     display: "A combined profile of all samples aligned to a given database (as generated by `ganon table`)."
-  "**/ganon/*/*.ganon.all":
-    display: "A per-read summary of all hits of each reads."
-  "**/ganon/*/*.ganon.lca":
-    display: "A per-read summary of the best single hit after LCA for each read."
-  "**/ganon/*/*.ganon.rep":
-    display: "A 'raw' report of counts against each taxon."
-  "**/ganon/*/*.ganon.tre":
-    display: "Output of `ganon report` containing taxonomic classifications with possible formatting and/or filtering depending on options specified."
-  "**/ganon/*/*.ganon.unc":
-    display: "A list of read IDs with no hits."
-  "**/ganon/*/*.ganon_report.tre":
-    display: "Output of `ganon report` containing taxonomic classifications with possible formatting and/or filtering depending on options specified."
   "**/kaiju/*_combined_reports.txt":
     display: "A combined profile of all samples aligned to a given database (as generated by kaiju2table)"
   "**/kaiju/*/*.kaiju.tsv":
     display: "Raw output from Kaiju with taxonomic rank, read ID and taxonic ID"
   "**/kaiju/*/*.kaijutable.txt":
     display: "Summarised Kaiju output with fraction abundance, taxonomic ID, number of reads, and taxonomic names (as generated by `kaiju2table`)"
-  "**/kmcp/*/*.kmcp.profile":
-    display: "Output of `kmcp_profile` containing the taxonomic profile from search results."
-  "**/kmcp/*/*.kmcp_search.gz":
-    display: "Output of `kmcp_search` containing search sequences against a database in tab-delimited format with 15 columns."
   "**/krona/*.html":
     display: "Per-tool/per-database interactive HTML file containing hierarchical piecharts."
-  "**/malt/*/*.rma6":
-    display: "A binary file containing all alignments and taxonomic information of hits that can be loaded into the MEGAN6."
-  "**/malt/*/*.txt.gz":
-    display: "A text file containing taxonomic IDs and read counts against each taxon. Generated by MEGAN6 companion tool `rma2info`."
-  "**/malt/*/*.megan":
-    display: "A summary file that can be loaded into the MEGAN6."
-  "**/malt/*/*.blastn.sam":
-    display: "A sparse SAM file containing alignments of each hit."
   "**/metaphlan/*/*_combined_reports.txt":
     display: "A combined profile of all samples aligned to a given database (as generated by `metaphlan_merge_tables`)."
-  "**/metaphlan/*/*.biom":
-    display: "A taxonomic profile in BIOM format."
   "**/metaphlan/*/*.bowtie2out.txt":
     display: "BowTie2 alignment information (can be re-used for skipping alignment when re-running MetaPhlAn with different parameters)."
   "**/metaphlan/*/*_profile.txt":
     display: "A MetaPhlAn taxonomic profile including abundance estimates."
   "**/motus/*/*_combined_reports.txt":
     display: "A combined profile of all samples aligned to a given database (as generated by `motus_merge`)."
-  "**/motus/*/*.log":
-    display: "A log file that contains summary statistics."
-  "**/motus/*/*.out":
-    display: "A classification file that summarises taxonomic identifiers, by default at the rank of mOTUs (i.e., species level), and their relative abundances in the profiled sample."
   "**/taxpasta/*tsv":
     display: "Standardised taxon table containing multiple samples. The first column describes the taxonomy ID and the rest of the columns describe the read counts for each sample."
