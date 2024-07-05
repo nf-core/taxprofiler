@@ -10,8 +10,8 @@ nf-core/taxprofiler is a pipeline for highly-parallelised taxonomic classificati
 
 In addition to this page, you can find additional usage information on the following pages:
 
-- [Tutorials](usage/tutorials.md)
-- [FAQ and Troubleshooting](usage/faq-troubleshooting.md)
+- [Tutorials](./tutorials.md)
+- [FAQ and Troubleshooting](./faq-troubleshooting.md)
 
 ## General Usage
 
