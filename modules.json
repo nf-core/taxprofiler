@@ -197,7 +197,7 @@
                     },
                     "nanoq": {
                         "branch": "master",
-                        "git_sha": "c3b91db39082a74be952b2cc217dcb0129142b3f",
+                        "git_sha": "cf05b61191f5df35cbbf33d47bbf8f22ca0ae0ab",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/curve": {
