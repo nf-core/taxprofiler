@@ -195,6 +195,11 @@
                         "git_sha": "b7ebe95761cd389603f9cc0e0dc384c0f663815a",
                         "installed_by": ["modules"]
                     },
+                    "nanoq": {
+                        "branch": "master",
+                        "git_sha": "c3b91db39082a74be952b2cc217dcb0129142b3f",
+                        "installed_by": ["modules"]
+                    },
                     "nonpareil/curve": {
                         "branch": "master",
                         "git_sha": "729335dda8ba226323edc54dec80ae959079207e",

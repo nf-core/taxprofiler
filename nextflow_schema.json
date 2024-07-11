@@ -238,11 +238,25 @@
                     "description": "Turns on long read quality control steps (adapter clipping, length filtering etc.)",
                     "help_text": "Turns on long read quality control steps (adapter clipping, length and/or quality filtering.)\n\nRemoving adapters (if present) is recommend to reduce false-postive hits that may occur from 'dirty' or 'contaminated' reference genomes in a profiling database that contain accidentially incorporated adapter sequences.\n\nLength filtering, and quality filtering can speed up alignment by reducing the number of unspecific reads that need to be aligned."
                 },
+                "longread_adapterremoval_tool": {
+                    "type": "string",
+                    "default": "porechop",
+                    "enum": ["porechop"],
+                    "fa_icon": "fas fa-hammer",
+                    "description": "Specify which tool to use for adapter trimming"
+                },
                 "longread_qc_skipadaptertrim": {
                     "type": "boolean",
                     "description": "Skip long-read trimming",
                     "fa_icon": "fas fa-forward",
                     "help_text": "Skip removal of adapters by Porechop. This can be useful in some cases to speed up run time - particularly when you are running data downloading from public databases such as the ENA/SRA that should already have adapters removed. We recommend that you check your FastQC results this is indeed the case."
+                },
+                "longread_filter_tool": {
+                    "type": "string",
+                    "default": "filtlong",
+                    "enum": ["filtlong", "nanoq"],
+                    "fa_icon": "fas fa-hammer",
+                    "description": "Specify which tool to use for long reads filtering"
                 },
                 "longread_qc_skipqualityfilter": {
                     "type": "boolean",
@@ -270,6 +284,13 @@
                     "description": "Specify the number of high-quality bases in the library to be retained",
                     "fa_icon": "fas fa-bullseye",
                     "help_text": "Removes the worst reads until only the specified value of bases remain, useful for very large read sets. If the input read set is less than the specified value, this setting will have no effect. _Modified from [Filtlong documentation](https://github.com/rrwick/Filtlong)_\n\n> Modifies tool parameter(s):\n> - Filtlong: `--keep_percent`"
+                },
+                "longread_qc_qualityfilter_minquality": {
+                    "type": "integer",
+                    "default": 7,
+                    "description": "Specify the minimum average read quality filter (Q)",
+                    "fa_icon": "fas fa-bullseye",
+                    "help_text": "Remove the reads with quality score lower than 7"
                 }
             },
             "fa_icon": "fas fa-expand-alt"
@@ -370,7 +391,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the run-merging step",
-                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> ⚠️ Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
+                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> \u26a0\ufe0f Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
                 }
             },
             "fa_icon": "fas fa-clipboard-check"

@@ -2,11 +2,11 @@
 // Process long raw reads with porechop
 //
 
-include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/fastqc/main'
-include { FALCO as FALCO_PROCESSED   } from '../../modules/nf-core/falco/main'
+include { FASTQC as FASTQC_PROCESSED       } from '../../modules/nf-core/fastqc/main'
+include { FALCO as FALCO_PROCESSED         } from '../../modules/nf-core/falco/main'
 
-include { PORECHOP_PORECHOP          } from '../../modules/nf-core/porechop/porechop/main'
-include { FILTLONG                   } from '../../modules/nf-core/filtlong/main'
+include { LONGREAD_ADAPTERREMOVAL          } from './longread_adaterremoval.nf'
+include { LONGREAD_FILTERING               } from './longread_filtering.nf'
 
 workflow LONGREAD_PREPROCESSING {
     take:
@@ -17,31 +17,22 @@ workflow LONGREAD_PREPROCESSING {
     ch_multiqc_files = Channel.empty()
 
     if ( !params.longread_qc_skipadaptertrim && params.longread_qc_skipqualityfilter) {
-        PORECHOP_PORECHOP ( reads )
-
-        ch_processed_reads = PORECHOP_PORECHOP.out.reads
-            .map { meta, reads -> [ meta + [single_end: true], reads ] }
-
-        ch_versions = ch_versions.mix(PORECHOP_PORECHOP.out.versions.first())
-        ch_multiqc_files = ch_multiqc_files.mix( PORECHOP_PORECHOP.out.log )
+        ch_processed_reads = LONGREAD_ADAPTERREMOVAL ( reads ).reads
+        ch_versions = ch_versions.mix(LONGREAD_ADAPTERREMOVAL.out.versions.first())
 
     } else if ( params.longread_qc_skipadaptertrim && !params.longread_qc_skipqualityfilter) {
 
-        ch_processed_reads = FILTLONG ( reads.map { meta, reads -> [meta, [], reads ] } )
-        ch_versions = ch_versions.mix(FILTLONG.out.versions.first())
-        ch_multiqc_files = ch_multiqc_files.mix( FILTLONG.out.log )
-
+        ch_processed_reads = LONGREAD_FILTERING ( reads ).reads
+        ch_versions = ch_versions.mix(LONGREAD_FILTERING.out.versions.first())
     } else {
-        PORECHOP_PORECHOP ( reads )
-        ch_clipped_reads = PORECHOP_PORECHOP.out.reads
+        LONGREAD_ADAPTERREMOVAL ( reads )
+        ch_clipped_reads = LONGREAD_ADAPTERREMOVAL.out.reads
             .map { meta, reads -> [ meta + [single_end: true], reads ] }
 
-        ch_processed_reads = FILTLONG ( ch_clipped_reads.map { meta, reads -> [ meta, [], reads ] } ).reads
+        ch_processed_reads = LONGREAD_FILTERING ( ch_clipped_reads ).reads
 
-        ch_versions = ch_versions.mix(PORECHOP_PORECHOP.out.versions.first())
-        ch_versions = ch_versions.mix(FILTLONG.out.versions.first())
-        ch_multiqc_files = ch_multiqc_files.mix( PORECHOP_PORECHOP.out.log )
-        ch_multiqc_files = ch_multiqc_files.mix( FILTLONG.out.log )
+        ch_versions = ch_versions.mix(LONGREAD_ADAPTERREMOVAL.out.versions.first())
+        ch_versions = ch_versions.mix(LONGREAD_FILTERING.out.versions.first())
     }
 
     if (params.preprocessing_qc_tool == 'fastqc') {
@@ -60,4 +51,3 @@ workflow LONGREAD_PREPROCESSING {
     versions = ch_versions          // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }
-
