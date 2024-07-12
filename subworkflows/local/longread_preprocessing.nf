@@ -5,7 +5,7 @@
 include { FASTQC as FASTQC_PROCESSED       } from '../../modules/nf-core/fastqc/main'
 include { FALCO as FALCO_PROCESSED         } from '../../modules/nf-core/falco/main'
 
-include { LONGREAD_ADAPTERREMOVAL          } from './longread_adaterremoval.nf'
+include { LONGREAD_ADAPTERREMOVAL          } from './longread_adapterremoval.nf'
 include { LONGREAD_FILTERING               } from './longread_filtering.nf'
 
 workflow LONGREAD_PREPROCESSING {
