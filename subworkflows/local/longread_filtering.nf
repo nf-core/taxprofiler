@@ -19,7 +19,7 @@ workflow LONGREAD_FILTERING {
         ch_versions = ch_versions.mix( FILTLONG.out.versions.first() )
         ch_multiqc_files = ch_multiqc_files.mix( FILTLONG.out.log )
     } else if ( params.longread_filter_tool == 'nanoq' ) {
-        ch_filtered_reads = NANOQ ( reads.map { meta, reads -> [ meta, reads ] } , 'fastq.gz' ).reads
+        ch_filtered_reads = NANOQ ( reads , 'fastq.gz' ).reads
         ch_versions        =  ch_versions.mix( NANOQ.out.versions.first() )
         ch_multiqc_files = ch_multiqc_files.mix( NANOQ.out.stats )
     } else {
