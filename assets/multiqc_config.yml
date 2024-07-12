@@ -66,6 +66,7 @@ run_modules:
   - prinseqplusplus
   - porechop
   - filtlong
+  - nanoq
   - bowtie2
   - minimap2
   - samtools
