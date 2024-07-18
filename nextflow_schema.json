@@ -257,7 +257,7 @@
                     "enum": ["filtlong", "nanoq"],
                     "fa_icon": "fas fa-hammer",
                     "description": "Specify which tool to use for long reads filtering",
-                    "help_text": "Nanoq is faster and more memory-efficient than Filtlong. Nanoq also provides a summary of input read statistics; see [benchmarking](https://github.com/esteinig/nanoq?tab=readme-ov-file#benchmarks). \n\nFiltlong is a good option if you want to keep a certain percentage of reads after filtering."
+                    "help_text": "Nanoq is a filtering tool only for Nanopore reads. Nanoq is faster and more memory-efficient than Filtlong. Nanoq also provides a summary of input read statistics; see [benchmarking](https://github.com/esteinig/nanoq?tab=readme-ov-file#benchmarks). \n\nFiltlong is a good option if you want to keep a certain percentage of reads after filtering, and you can also use it for non-Nanopore long reads."
                 },
                 "longread_qc_skipqualityfilter": {
                     "type": "boolean",
