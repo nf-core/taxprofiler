@@ -243,12 +243,12 @@
                     },
                     "taxpasta/merge": {
                         "branch": "master",
-                        "git_sha": "48019785051ba491e82dce910273c2eca61bd5b7",
+                        "git_sha": "4fd9089d3cf904e0b870d5a6a7ab903ee5e1004d",
                         "installed_by": ["modules"]
                     },
                     "taxpasta/standardise": {
                         "branch": "master",
-                        "git_sha": "48019785051ba491e82dce910273c2eca61bd5b7",
+                        "git_sha": "4fd9089d3cf904e0b870d5a6a7ab903ee5e1004d",
                         "installed_by": ["modules"]
                     },
                     "untar": {
