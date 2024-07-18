@@ -135,13 +135,13 @@ workflow TAXPROFILER {
         }
         .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             fastq: meta.single_end || fastq_2
-                return [ meta, fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
+                return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
             nanopore: instrument_platform == 'OXFORD_NANOPORE'
                 meta.single_end = true
-                return [ meta, [ fastq_1 ] ]
+                return [ meta + [ type: "long" ], [ fastq_1 ] ]
             fasta: meta.is_fasta
                 meta.single_end = true
-                return [ meta, [ fasta ] ]
+                return [ meta + [ type: "short" ], [ fasta ] ]
         }
 
     // Merge ch_input.fastq and ch_input.nanopore into a single channel
@@ -150,6 +150,9 @@ workflow TAXPROFILER {
     // Validate and decompress databases
     ch_dbs_for_untar = databases
         .branch { db_meta, db_path ->
+            if ( !db_meta.db_type ) {
+                db_meta = db_meta + [ db_type: "short;long" ]
+            }
             untar: db_path.name.endsWith( ".tar.gz" )
             skip: true
         }

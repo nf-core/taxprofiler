@@ -39,6 +39,12 @@
                 "errorMessage": "Invalid database db_params entry. No quotes allowed.",
                 "meta": ["db_params"]
             },
+            "db_type": {
+                "type": "string",
+                "enum": ["short", "long", "short;long"],
+                "default": "short;long",
+                "meta": ["db_type"]
+            },
             "db_path": {
                 "type": "string",
                 "exists": true,
