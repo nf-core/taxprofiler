@@ -20,6 +20,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [BBDuk](#bbduk) - Quality trimming and filtering for Illumina data
 - [PRINSEQ++](#prinseq) - Quality trimming and filtering for Illunina data
 - [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
+- [Nanoq] (#nanoq) - Quality trimming and filtering for Nanopore data
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [SAMtools stats](#samtools-stats) - Statistics from host removal
@@ -237,6 +238,21 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 :::warning
 We do _not_ recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
 :::
+
+### Nanoq
+
+[nanoq](https://github.com/esteinig/nanoq) is an ultra-fast quality filtering tool that also provides summary reports for nanopore reads.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `nanoq/`
+  - `<sample_id>_filtered.fastq.gz`: Quality or long read data filtered file
+  - `<sample_id>_filtered.stats`: Summary statistics report
+
+</details>
+
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
 ### Bowtie2
 

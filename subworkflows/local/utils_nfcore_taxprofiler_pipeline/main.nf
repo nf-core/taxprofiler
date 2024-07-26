@@ -211,8 +211,8 @@ def toolCitationText() {
     def text_longread_qc = [
         "Long read preprocessing was performed with:",
         !params.longread_qc_skipadaptertrim ? "Porechop (Wick et al. 2017)," : "",
-        !params.longread_qc_skipqualityfilter ? "Filtlong (Wick 2021)," : "",
-        "."
+        params.longread_filter_tool == "filtlong" ? "Filtlong (Wick 2021)," : "",
+        params.longread_filter_tool == "nanoq" ? "Nanoq (Steinig and Coin 2022)," : "",
     ].join(' ').trim()
 
     def text_shortreadcomplexity = [
@@ -290,7 +290,8 @@ def toolBibliographyText() {
 
     def text_longread_qc = [
         !params.longread_qc_skipadaptertrim   ? "<li>Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. <a href=\"https://doi.org/10.1099/mgen.0.000132\">10.1099/mgen.0.000132</a></li>" : "",
-        !params.longread_qc_skipqualityfilter ? "<li>Wick R. (2021) Filtlong, URL:  <a href=\"https://github.com/rrwick/Filtlong\">https://github.com/rrwick/Filtlong</a></li>" : ""
+        params.longread_filter_tool == "filtlong" ? "<li>Wick R. (2021) Filtlong, URL:  <a href=\"https://github.com/rrwick/Filtlong\">https://github.com/rrwick/Filtlong</a></li>" : "",
+        params.longread_filter_tool == "nanoq" ? "<li>Steinig, E., & Coin, L. (2022). Nanoq: ultra-fast quality control for nanopore reads. Journal of Open Source Software, 7(69). <a href=\"https://doi.org/10.21105/joss.02991\">10.21105/joss.02991</a></li>" : ""
     ].join(' ').trim()
 
     def text_shortreadcomplexity = [

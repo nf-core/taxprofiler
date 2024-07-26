@@ -42,6 +42,10 @@
 
   > Wick R (2021) Filtlong, URL: https://github.com/rrwick/Filtlong
 
+- [nanoq](https://github.com/esteinig/nanoq)
+
+  > Steinig, E., & Coin, L. (2022). Nanoq: ultra-fast quality control for nanopore reads. Journal of Open Source Software, 7(69). https://doi.org/10.21105/joss.02991
+
 - [BBTools](http://sourceforge.net/projects/bbmap/)
 
   > Bushnell B. (2022) BBMap, URL: http://sourceforge.net/projects/bbmap/
