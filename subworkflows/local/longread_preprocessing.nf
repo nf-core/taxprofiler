@@ -1,5 +1,5 @@
 //
-// Process long raw reads with porechop
+// Perform read trimming and filtering
 //
 
 include { FASTQC as FASTQC_PROCESSED       } from '../../modules/nf-core/fastqc/main'
