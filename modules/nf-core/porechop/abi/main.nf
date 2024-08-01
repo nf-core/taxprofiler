@@ -22,9 +22,14 @@ process PORECHOP_ABI {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}.porechop_abi"
     if ("$reads" == "${prefix}.fastq.gz") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
+    
     """
+     ## To ensure ID matches rest of pipeline based on meta.id rather than input file name
+
+    [[ -f ${prefix}.fastq.gz   ]] || ln -s $reads ${prefix}.fastq.gz
+
     porechop_abi \\
-        --input $reads \\
+        --input ${prefix}.fastq.gz \\
         --threads $task.cpus \\
         $args \\
         --output ${prefix}.fastq.gz \\
