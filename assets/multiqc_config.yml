@@ -347,6 +347,8 @@ extra_fn_clean_exts:
   - ".bbduk"
   - ".unmapped"
   - "_filtered"
+  - "porechop.log"
+  - "porechop_abi.log"  
   - type: remove
     pattern: "_falco"
 
