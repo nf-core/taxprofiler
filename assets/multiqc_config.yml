@@ -348,7 +348,7 @@ extra_fn_clean_exts:
   - ".unmapped"
   - "_filtered"
   - "porechop.log"
-  - "porechop_abi.log"  
+  - "porechop_abi.log"
   - type: remove
     pattern: "_falco"
 
