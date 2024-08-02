@@ -1,5 +1,5 @@
 {
-    "sarscov2 - fasta - stub": {
+    "sarscov2 single-end [fastq] stub": {
         "content": [
             {
                 "0": [
@@ -8,33 +8,29 @@
                             "id": "test",
                             "single_end": true
                         },
-                        "test_kmcp.profile:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.tre:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,71f3499117cd6d006be15365b761d38b"
+                    "versions.yml:md5,7219068902254fbc97f84e8e163213d0"
                 ],
-                "profile": [
+                "tre": [
                     [
                         {
                             "id": "test",
                             "single_end": true
                         },
-                        "test_kmcp.profile:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.tre:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,71f3499117cd6d006be15365b761d38b"
+                    "versions.yml:md5,7219068902254fbc97f84e8e163213d0"
                 ]
             }
         ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.3"
-        },
-        "timestamp": "2024-07-10T15:07:59.876784"
+        "timestamp": "2024-01-06T18:50:07.439069779"
     },
-    "sarscov2 - fasta": {
+    "sarscov2 single-end [fastq]": {
         "content": [
             {
                 "0": [
@@ -43,30 +39,26 @@
                             "id": "test",
                             "single_end": true
                         },
-                        "test_kmcp.profile:md5,d7318c8f2d578ea2e6355f05789db4f3"
+                        "test.tre:md5,3d2ef6fe0571d7aa7324539407a59630"
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,71f3499117cd6d006be15365b761d38b"
+                    "versions.yml:md5,7219068902254fbc97f84e8e163213d0"
                 ],
-                "profile": [
+                "tre": [
                     [
                         {
                             "id": "test",
                             "single_end": true
                         },
-                        "test_kmcp.profile:md5,d7318c8f2d578ea2e6355f05789db4f3"
+                        "test.tre:md5,3d2ef6fe0571d7aa7324539407a59630"
                     ]
                 ],
                 "versions": [
-                    "versions.yml:md5,71f3499117cd6d006be15365b761d38b"
+                    "versions.yml:md5,7219068902254fbc97f84e8e163213d0"
                 ]
             }
         ],
-        "meta": {
-            "nf-test": "0.8.4",
-            "nextflow": "24.04.2"
-        },
-        "timestamp": "2024-06-07T15:36:13.138318234"
+        "timestamp": "2024-01-06T18:49:52.505817066"
     }
 }
