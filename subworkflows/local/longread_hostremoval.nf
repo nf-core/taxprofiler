@@ -20,13 +20,13 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_multiqc_files  = Channel.empty()
 
     if ( !params.longread_hostremoval_index ) {
-        ch_minimap2_index = MINIMAP2_INDEX ( [ [], reference ] ).index.map { it[1] }
+        ch_minimap2_index = MINIMAP2_INDEX ( [ [], reference ] ).index
         ch_versions       = ch_versions.mix( MINIMAP2_INDEX.out.versions )
     } else {
         ch_minimap2_index = index
     }
 
-    MINIMAP2_ALIGN ( reads, ch_minimap2_index, true, false, false )
+    MINIMAP2_ALIGN ( reads, ch_minimap2_index, true, 'bai', false, false )
     ch_versions        = ch_versions.mix( MINIMAP2_ALIGN.out.versions.first() )
     ch_minimap2_mapped = MINIMAP2_ALIGN.out.bam
         .map {
