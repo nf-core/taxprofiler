@@ -72,7 +72,7 @@
                     },
                     "filtlong": {
                         "branch": "master",
-                        "git_sha": "b4c8ac68ffcdabac3f63aaa5e7420b175e1d8d76",
+                        "git_sha": "b34fb117e397e72a070cde8adf21b758670c90f5",
                         "installed_by": ["modules"]
                     },
                     "ganon/classify": {
@@ -82,12 +82,12 @@
                     },
                     "ganon/report": {
                         "branch": "master",
-                        "git_sha": "c89d14142b1a81600487a0d086669222d3804b4f",
+                        "git_sha": "4ba1155751e55cea28870bc5c7dd473abb970ae6",
                         "installed_by": ["modules"]
                     },
                     "ganon/table": {
                         "branch": "master",
-                        "git_sha": "c89d14142b1a81600487a0d086669222d3804b4f",
+                        "git_sha": "4ba1155751e55cea28870bc5c7dd473abb970ae6",
                         "installed_by": ["modules"]
                     },
                     "gunzip": {
@@ -127,12 +127,12 @@
                     },
                     "krakentools/combinekreports": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "70164f526c906301743f0a263d631a2def50b222",
                         "installed_by": ["modules"]
                     },
                     "krakentools/kreport2krona": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "ac3e1d78204a3a49af172c491a6db81f4815fb6c",
                         "installed_by": ["modules"]
                     },
                     "krakenuniq/preloadedkrakenuniq": {
