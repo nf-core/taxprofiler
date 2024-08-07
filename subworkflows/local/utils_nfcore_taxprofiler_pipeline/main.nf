@@ -210,9 +210,10 @@ def toolCitationText() {
 
     def text_longread_qc = [
         "Long read preprocessing was performed with:",
-        !params.longread_qc_skipadaptertrim ? "Porechop (Wick et al. 2017)," : "",
-        params.longread_filter_tool == "filtlong" ? "Filtlong (Wick 2021)," : "",
-        params.longread_filter_tool == "nanoq" ? "Nanoq (Steinig and Coin 2022)," : "",
+        params.longread_adapterremoval_tool == "porechop_abi" ? "Porechop_ABI (Bonenfant et al. 2023)." : "",
+        params.longread_adapterremoval_tool == "porechop" ? "Porechop (Wick et al. 2017)." : "",
+        params.longread_filter_tool == "filtlong" ? "Filtlong (Wick 2021)." : "",
+        params.longread_filter_tool == "nanoq" ? "Nanoq (Steinig and Coin 2022)." : "",
     ].join(' ').trim()
 
     def text_shortreadcomplexity = [
@@ -289,7 +290,8 @@ def toolBibliographyText() {
     ].join(' ').trim()
 
     def text_longread_qc = [
-        !params.longread_qc_skipadaptertrim   ? "<li>Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. <a href=\"https://doi.org/10.1099/mgen.0.000132\">10.1099/mgen.0.000132</a></li>" : "",
+        params.longread_adapterremoval_tool == "porechop_abi" ? "<li>Bonenfant, Q., Noé, L., & Touzet, H. (2023). Porechop_ABI: discovering unknown adapters in Oxford Nanopore Technology sequencing reads for downstream trimming. Bioinformatics Advances, 3(1):vbac085. <a href=\"https://10.1093/bioadv/vbac085\">10.1093/bioadv/vbac085</a></li>" : "",
+        params.longread_adapterremoval_tool == "porechop" ? "<li>Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. <a href=\"https://doi.org/10.1099/mgen.0.000132\">10.1099/mgen.0.000132</a></li>" : "",
         params.longread_filter_tool == "filtlong" ? "<li>Wick R. (2021) Filtlong, URL:  <a href=\"https://github.com/rrwick/Filtlong\">https://github.com/rrwick/Filtlong</a></li>" : "",
         params.longread_filter_tool == "nanoq" ? "<li>Steinig, E., & Coin, L. (2022). Nanoq: ultra-fast quality control for nanopore reads. Journal of Open Source Software, 7(69). <a href=\"https://doi.org/10.21105/joss.02991\">10.21105/joss.02991</a></li>" : ""
     ].join(' ').trim()

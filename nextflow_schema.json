@@ -240,10 +240,11 @@
                 },
                 "longread_adapterremoval_tool": {
                     "type": "string",
-                    "default": "porechop",
-                    "enum": ["porechop"],
+                    "default": "porechop_abi",
+                    "enum": ["porechop", "porechop_abi"],
                     "fa_icon": "fas fa-hammer",
-                    "description": "Specify which tool to use for adapter trimming. Currently only one option."
+                    "description": "Specify which tool to use for adapter trimming.",
+                    "help_text": "The performance of Porechop and Porechop_ABI is same in terms of removing adapter reads. However Porechop is no longer updated, Porechop_ABI receives regular updates."
                 },
                 "longread_qc_skipadaptertrim": {
                     "type": "boolean",

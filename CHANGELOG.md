@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#466](https://github.com/nf-core/taxprofiler/pull/466) - Input database sheets now require a `db_type` column to distinguish between short- and long-read databases (added by @LilyAnderssonLee)
 - [#505](https://github.com/nf-core/taxprofiler/pull/505) - Add small files to the file `tower.yml` (added by @LilyAnderssonLee)
 - [#508](https://github.com/nf-core/taxprofiler/pull/508) - Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
+- [#511](https://github.com/nf-core/taxprofiler/pull/511) - Add `porechop_abi` as an alternative adapter removal tool for long reads nanopore data (added by @LilyAnderssonLee)
 
 ### `Fixed`
 

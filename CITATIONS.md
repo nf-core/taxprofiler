@@ -38,6 +38,10 @@
 
   > Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. https://doi.org/10.1099/mgen.0.000132
 
+- [Porechop_ABI](https://github.com/bonsai-team/Porechop_ABI)
+
+  > Bonenfant, Q., Noé, L., & Touzet, H. (2023). Porechop_ABI: discovering unknown adapters in Oxford Nanopore Technology sequencing reads for downstream trimming. Bioinformatics Advances, 3(1):vbac085. https://10.1093/bioadv/vbac085
+
 - [Filtlong](https://github.com/rrwick/Filtlong)
 
   > Wick R (2021) Filtlong, URL: https://github.com/rrwick/Filtlong
