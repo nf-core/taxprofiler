@@ -363,6 +363,8 @@ Centrifuge currently does not accept FASTA files as input, therefore no output w
 
 ##### DIAMOND
 
+DIAMOND can only accept a single input read file. To run DIAMOND on paired-end reads, please merge the reads (e.g., using `--shortread_qc_mergepairs`).
+
 DIAMOND only allows output of a single file format at a time, therefore parameters such `--diamond_save_reads` supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending on your particular use case.
 
 ##### Kaiju
