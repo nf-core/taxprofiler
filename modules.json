@@ -122,12 +122,12 @@
                     },
                     "kraken2/kraken2": {
                         "branch": "master",
-                        "git_sha": "ca87ad032a62f025f0c373facacef2df0c5411b2",
+                        "git_sha": "a13d5d945742a60bbef6e5c177e81cda540f75dc",
                         "installed_by": ["modules"]
                     },
                     "krakentools/combinekreports": {
                         "branch": "master",
-                        "git_sha": "70164f526c906301743f0a263d631a2def50b222",
+                        "git_sha": "f8e2cf4e208be37c644c404087ee7121ebe9b86f",
                         "installed_by": ["modules"]
                     },
                     "krakentools/kreport2krona": {
@@ -142,12 +142,12 @@
                     },
                     "krona/ktimporttaxonomy": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "f8e2cf4e208be37c644c404087ee7121ebe9b86f",
                         "installed_by": ["modules"]
                     },
                     "krona/ktimporttext": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "f8e2cf4e208be37c644c404087ee7121ebe9b86f",
                         "installed_by": ["modules"]
                     },
                     "malt/run": {
@@ -202,17 +202,17 @@
                     },
                     "nonpareil/curve": {
                         "branch": "master",
-                        "git_sha": "bfdee0ab3dfed0f6052b47297404126169b1f741",
+                        "git_sha": "3f2fe668ac15c5292eb123f86104bc9ed96c3eed",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/nonpareil": {
                         "branch": "master",
-                        "git_sha": "bfdee0ab3dfed0f6052b47297404126169b1f741",
+                        "git_sha": "3f2fe668ac15c5292eb123f86104bc9ed96c3eed",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/set": {
                         "branch": "master",
-                        "git_sha": "bfdee0ab3dfed0f6052b47297404126169b1f741",
+                        "git_sha": "3f2fe668ac15c5292eb123f86104bc9ed96c3eed",
                         "installed_by": ["modules"]
                     },
                     "porechop/porechop": {

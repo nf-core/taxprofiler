@@ -11,10 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#466](https://github.com/nf-core/taxprofiler/pull/466) - Input database sheets now require a `db_type` column to distinguish between short- and long-read databases (added by @LilyAnderssonLee)
 - [#505](https://github.com/nf-core/taxprofiler/pull/505) - Add small files to the file `tower.yml` (added by @LilyAnderssonLee)
 - [#508](https://github.com/nf-core/taxprofiler/pull/508) - Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
+- [#512](https://github.com/nf-core/taxprofiler/pull/512) -Update all tools to the latest version and include nf-test (Updated by @LilyAnderssonLee & @jfy133)
 
 ### `Fixed`
 
 ### `Dependencies`
+
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| bbmap    | 39.01            | 39.06       |
+| bowtie2  | 2.4.4            | 2.5.2       |
+| bracken  | 2.7              | 2.9         |
+| diamond  | 2.0.15           | 2.1.8       |
+| ganon    | 1.5.1            | 2.0.0       |
+| kraken2  | 2.1.2            | 2.1.3       |
+| minimap2 | 2.24             | 2.28        |
+| samtools | 1.17             | 1.20        |
 
 ### `Deprecated`
 

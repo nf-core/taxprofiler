@@ -1,7 +1,7 @@
-name: nonpareil_curve
+name: krona_ktimporttext
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
-  - bioconda::nonpareil=3.5.5
+  - bioconda::krona=2.8.1
