@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | kraken2  | 2.1.2            | 2.1.3       |
 | minimap2 | 2.24             | 2.28        |
 | samtools | 1.17             | 1.20        |
+| megan    | 6.24.20          | 6.25.9      |
 
 ### `Deprecated`
 

@@ -157,7 +157,7 @@
                     },
                     "megan/rma2info": {
                         "branch": "master",
-                        "git_sha": "dbce8951ff9a39ad08d87e563636bbcc6ef34032",
+                        "git_sha": "3db77bc0d10059ff2cb2ccb5e9e1de70094c6b10",
                         "installed_by": ["modules"]
                     },
                     "metaphlan/mergemetaphlantables": {
