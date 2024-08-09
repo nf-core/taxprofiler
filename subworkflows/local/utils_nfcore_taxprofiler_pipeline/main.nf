@@ -85,16 +85,15 @@ workflow PIPELINE_INITIALISATION {
         .fromSamplesheet("input")
         .set { ch_samplesheet }
 
-    emit:
-    samplesheet = ch_samplesheet
-    versions    = ch_versions
-
-// Create channel from databases file provided through params.databases
+    //
+    // Create channel from databases file provided through params.databases
+    //
     Channel
         .fromSamplesheet("databases")
         .set {ch_databases}
 
     emit:
+    samplesheet = ch_samplesheet
     databases   = ch_databases
     versions    = ch_versions
 }
