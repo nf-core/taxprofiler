@@ -25,6 +25,8 @@ report_section_order:
     order: 500
   porechop:
     order: 400
+  porechop_abi:
+    order: 450
   bbduk:
     order: 300
   prinseqplusplus:
@@ -106,7 +108,21 @@ top_modules:
         - "*raw*"
       extra: "If used in this run, Falco is a drop-in replacement for FastQC producing the same output, written by Guilherme de Sena Brandine and Andrew D. Smith."
   - "porechop":
+      name: "Porechop"
+      anchor: "porechop"
+      target: "Porechop"
+      path_filters:
+        - "*porechop.log"
       extra: "ℹ️: if you get the error message 'Error - was not able to plot data.' this means that porechop did not detect any adapters and therefore no statistics generated."
+  - "porechop":
+      name: "Porechop_ABI"
+      anchor: "porechop_abi"
+      target: "Porechop_ABI"
+      doi: "10.1093/bioadv/vbac085"
+      info: "find and remove adapters from Oxford Nanopore reads."
+      path_filters:
+        - "*porechop_abi.log"
+      extra: "ℹ️: if you get the error message 'Error - was not able to plot data.' this means that porechop_abi did not detect any adapters and therefore no statistics generated."
   - "bowtie2":
       name: "bowtie2"
   - "samtools":
@@ -170,6 +186,14 @@ table_columns_placement:
     percent_collapsed: 380
     percent_discarded: 390
   Porechop:
+    Input Reads: 400
+    Start Trimmed: 410
+    Start Trimmed Percent: 420
+    End Trimmed: 430
+    End Trimmed Percent: 440
+    Middle Split: 450
+    Middle Split Percent: 460
+  Porechop_ABI:
     Input Reads: 400
     Start Trimmed: 410
     Start Trimmed Percent: 420
@@ -250,6 +274,14 @@ table_columns_visible:
     End Trimmed Percent: True
     Middle Split: False
     Middle Split Percent: True
+  porechop_abi:
+    Input reads: False
+    Start Trimmed:
+    Start Trimmed Percent: True
+    End Trimmed: False
+    End Trimmed Percent: True
+    Middle Split: False
+    Middle Split Percent: True
   fastp:
     pct_adapter: True
     pct_surviving: True
@@ -315,6 +347,8 @@ extra_fn_clean_exts:
   - ".bbduk"
   - ".unmapped"
   - "_filtered"
+  - "porechop"
+  - "porechop_abi"
   - type: remove
     pattern: "_falco"
 

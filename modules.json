@@ -215,6 +215,12 @@
                         "git_sha": "3f2fe668ac15c5292eb123f86104bc9ed96c3eed",
                         "installed_by": ["modules"]
                     },
+                    "porechop/abi": {
+                        "branch": "master",
+                        "git_sha": "870f9af2eaf0000c94d74910d762cf153752af98",
+                        "installed_by": ["modules"],
+                        "patch": "modules/nf-core/porechop/abi/porechop-abi.diff"
+                    },
                     "porechop/porechop": {
                         "branch": "master",
                         "git_sha": "1d68c7f248d1a480c5959548a9234602b771199e",

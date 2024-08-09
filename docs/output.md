@@ -16,6 +16,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [fastp](#fastp) - Adapter trimming for Illumina data
 - [AdapterRemoval](#adapterremoval) - Adapter trimming for Illumina data
 - [Porechop](#porechop) - Adapter removal for Oxford Nanopore data
+- [Porechop_ABI](#porechop_abi) - Adapter removal for Oxford Nanopore data
 - [Nonpareil](#nonpareil) - Read redundancy and metagenome coverage estimation for short reads
 - [BBDuk](#bbduk) - Quality trimming and filtering for Illumina data
 - [PRINSEQ++](#prinseq) - Quality trimming and filtering for Illunina data
@@ -177,6 +178,23 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 :::warning
 We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
 :::
+
+### Porechop_ABI
+
+[Porechop_ABI](https://github.com/bonsai-team/Porechop_ABI) is an extension of [Porechop](https://github.com/rrwick/Porechop). Porechop_ABI does not use any external knowledge or database for the adapters. Adapters are discovered directly from the reads using approximate k-mers counting and assembly. Then these sequences can be used for trimming, using all standard Porechop options. The software is able to report a combination of distinct sequences if a mix of adapters is used. It can also be used to check whether a dataset has already been trimmed out or not, or to find leftover adapters in datasets that have been previously processed with Guppy.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `porechop_abi/`
+  - `<sample_id>.log`: Log file containing trimming statistics
+  - `<sample_id>.fastq.gz`: Adapter-trimmed file
+
+</details>
+
+The output logs are saved in the output folder and are part of MultiQC report.You do not normally need to check these manually.
+
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
 ### BBDuk
 
