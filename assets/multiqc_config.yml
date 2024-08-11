@@ -84,8 +84,8 @@ sp:
     fn_re: ".*(fastqc|falco)_data.txt$"
   fastqc/zip:
     fn: "*_fastqc.zip"
-  nonpareil_all_samples_mqc:
-    fn: "nonpareil_all_samples_mqc.json"
+  nonpareil:
+    fn: "nonpareil_all_samples.json"
 
 top_modules:
   - "fastqc":
