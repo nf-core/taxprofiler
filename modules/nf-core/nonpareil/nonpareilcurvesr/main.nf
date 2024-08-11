@@ -1,6 +1,6 @@
-process NONPAREIL_NONPAREIL {
+process NONPAREIL_NONPAREILCURVESR {
     tag "$meta.id"
-    label 'process_low'
+    label 'process_single'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
@@ -8,15 +8,14 @@ process NONPAREIL_NONPAREIL {
         'biocontainers/nonpareil:3.5.5--r43hdcf5f25_0' }"
 
     input:
-    tuple val(meta), path(reads)
-    val format
-    val mode
+    tuple val(meta), path(npos)
 
     output:
-    tuple val(meta), path("*.npa"), emit: npa
-    tuple val(meta), path("*.npc"), emit: npc
-    tuple val(meta), path("*.npl"), emit: npl
-    tuple val(meta), path("*.npo"), emit: npo
+    tuple val(meta), path("*.json"), emit: json, optional: true
+    tuple val(meta), path("*.tsv" ), emit: tsv , optional: true
+    tuple val(meta), path("*.csv" ), emit: csv , optional: true
+    tuple val(meta), path("*.pdf" ), emit: pdf , optional: true
+
     path "versions.yml"           , emit: versions
 
     when:
@@ -25,16 +24,15 @@ process NONPAREIL_NONPAREIL {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def mem_mb = task.memory.toMega()
+
     """
-    nonpareil \\
-        -s $reads \\
-        -f $format \\
-        -T ${mode} \\
-        -t $task.cpus \\
-        -R ${mem_mb} \\
-        -b $prefix \\
-        $args
+    NonpareilCurves.R \\
+        $args \\
+        --json ${prefix}.json \\
+        --tsv ${prefix}.tsv \\
+        --csv ${prefix}.csv \\
+        --pdf ${prefix}.pdf \\
+        $npos
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -46,10 +44,10 @@ process NONPAREIL_NONPAREIL {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch ${prefix}.npa
-    touch ${prefix}.npc
-    touch ${prefix}.npl
-    touch ${prefix}.npo
+    touch ${prefix}.json
+    touch ${prefix}.tsv
+    touch ${prefix}.csv
+    touch ${prefix}.pdf
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

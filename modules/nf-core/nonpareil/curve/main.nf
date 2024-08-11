@@ -4,8 +4,8 @@ process NONPAREIL_CURVE {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/nonpareil:3.4.1--r42h9f5acd7_2':
-        'biocontainers/nonpareil:3.4.1--r42h9f5acd7_2' }"
+        'https://depot.galaxyproject.org/singularity/nonpareil:3.5.5--r43hdcf5f25_0':
+        'biocontainers/nonpareil:3.5.5--r43hdcf5f25_0' }"
 
     input:
     tuple val(meta), path(npo)

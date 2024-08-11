@@ -192,7 +192,7 @@ def genomeExistsError() {
 //
 def toolCitationText() {
     def text_seq_qc = [
-        "Sequencing quality control was carried out with:",
+        "Sequencing quality control with",
         params.preprocessing_qc_tool == "falco" ? "Falco (de Sena Brandine and Smith 2021)." : "FastQC (Andrews 2010)."
     ].join(' ').trim()
 
@@ -209,9 +209,9 @@ def toolCitationText() {
 
     def text_longread_qc = [
         "Long read preprocessing was performed with:",
-        params.longread_adapterremoval_tool == "porechop_abi" ? "Porechop_ABI (Bonenfant et al. 2023)." : "",
-        params.longread_adapterremoval_tool == "porechop" ? "Porechop (Wick et al. 2017)." : "",
-        params.longread_filter_tool == "filtlong" ? "Filtlong (Wick 2021)." : "",
+        params.longread_adapterremoval_tool == "porechop_abi" ? "Porechop_ABI (Bonenfant et al. 2023)," : "",
+        params.longread_adapterremoval_tool == "porechop" ? "Porechop (Wick et al. 2017)," : "",
+        params.longread_filter_tool == "filtlong" ? "Filtlong (Wick 2021)," : "",
         params.longread_filter_tool == "nanoq" ? "Nanoq (Steinig and Coin 2022)." : "",
     ].join(' ').trim()
 
@@ -264,7 +264,8 @@ def toolCitationText() {
         params.perform_shortread_complexityfilter       ? text_shortreadcomplexity : "",
         params.perform_shortread_hostremoval            ? text_shortreadhostremoval : "",
         params.perform_longread_hostremoval             ? text_longreadhostremoval : "",
-        text_classification,
+        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp].any() ?
+            text_classification : "",
         params.run_krona                                ? text_visualisation : "",
         params.run_profile_standardisation              ? text_postprocessing : "",
         "Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
@@ -375,13 +376,11 @@ def methodsDescriptionText( mqc_methods_yaml ) {
     } else meta["doi_text"] = ""
     meta["nodoi_text"] = meta.manifest_map.doi ? "" : "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
 
-    meta["tool_citations"] = ""
-    meta["tool_bibliography"] = ""
+    // meta["tool_citations"] = ""
+    // meta["tool_bibliography"] = ""
 
-    // TODO nf-core: Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
-    // meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
-    // meta["tool_bibliography"] = toolBibliographyText()
-
+    meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+    meta["tool_bibliography"] = toolBibliographyText()
 
     def methods_text = mqc_methods_yaml.text
 

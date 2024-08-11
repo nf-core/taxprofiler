@@ -21,7 +21,7 @@ report_section_order:
     order: 700
   adapterRemoval:
     order: 600
-  nonpareil_all_samples:
+  nonpareil:
     order: 500
   porechop:
     order: 400
@@ -62,8 +62,7 @@ custom_logo_title: "nf-core/taxprofiler"
 run_modules:
   - fastqc
   - adapterRemoval
-  - fastp
-  - custom_content
+  - nonpareil
   - bbduk
   - prinseqplusplus
   - porechop
@@ -76,6 +75,7 @@ run_modules:
   - diamond
   - malt
   - motus
+  - custom_content
 
 sp:
   diamond:
@@ -85,12 +85,7 @@ sp:
   fastqc/zip:
     fn: "*_fastqc.zip"
   nonpareil_all_samples_mqc:
-    fn: "nonpareil_all_samples_mqc.png"
-
-custom_data:
-  nonpareil_all_samples:
-    section_name: "Nonpareil"
-    description: "Nonpareil uses the redundancy of the reads in metagenomic datasets to estimate the average coverage and predict the amount of sequences that will be required to achieve “nearly complete coverage”. Plots here are not interactive - being exported directly from the tool. If you have difficulty reading the plot, please see the individual PNG files in the results directory. DOI: https://doi.org/10.1128/mSystems.00039-18"
+    fn: "nonpareil_all_samples_mqc.json"
 
 top_modules:
   - "fastqc":
@@ -107,6 +102,7 @@ top_modules:
       path_filters_exclude:
         - "*raw*"
       extra: "If used in this run, Falco is a drop-in replacement for FastQC producing the same output, written by Guilherme de Sena Brandine and Andrew D. Smith."
+  - nonpareil
   - "porechop":
       name: "Porechop"
       anchor: "porechop"
@@ -185,24 +181,30 @@ table_columns_placement:
     percent_aligned: 370
     percent_collapsed: 380
     percent_discarded: 390
+  nonpareil:
+    nonpareil_R: 400
+    nonpareil_LR: 410
+    nonpareil_kappa: 420
+    nonpareil_C: 430
+    nonpareil_diversity: 440
   Porechop:
-    Input Reads: 400
-    Start Trimmed: 410
-    Start Trimmed Percent: 420
-    End Trimmed: 430
-    End Trimmed Percent: 440
-    Middle Split: 450
-    Middle Split Percent: 460
+    Input Reads: 500
+    Start Trimmed: 510
+    Start Trimmed Percent: 520
+    End Trimmed: 530
+    End Trimmed Percent: 540
+    Middle Split: 550
+    Middle Split Percent: 560
   Porechop_ABI:
-    Input Reads: 400
-    Start Trimmed: 410
-    Start Trimmed Percent: 420
-    End Trimmed: 430
-    End Trimmed Percent: 440
-    Middle Split: 450
-    Middle Split Percent: 460
+    Input Reads: 500
+    Start Trimmed: 510
+    Start Trimmed Percent: 520
+    End Trimmed: 530
+    End Trimmed Percent: 540
+    Middle Split: 550
+    Middle Split Percent: 560
   Filtlong:
-    Target bases: 500
+    Target bases: 600
   BBDuk:
     Input reads: 800
     Total Removed bases percent: 810
@@ -266,6 +268,24 @@ table_columns_visible:
     percent_duplicates: False
     percent_gc: False
     percent_fails: False
+  Adapter Removal:
+    aligned_total: True
+    percent_aligned: True
+    percent_collapsed: True
+    percent_discarded: False
+  fastp:
+    pct_adapter: True
+    pct_surviving: True
+    pct_duplication: False
+    after_filtering_gc_content: False
+    after_filtering_q30_rate: False
+    after_filtering_q30_bases: False
+  nonpareil:
+    nonpareil_R: false
+    nonpareil_LR: false
+    nonpareil_kappa: true
+    nonpareil_C: true
+    nonpareil_diversity: true
   porechop:
     Input reads: False
     Start Trimmed:
@@ -282,20 +302,8 @@ table_columns_visible:
     End Trimmed Percent: True
     Middle Split: False
     Middle Split Percent: True
-  fastp:
-    pct_adapter: True
-    pct_surviving: True
-    pct_duplication: False
-    after_filtering_gc_content: False
-    after_filtering_q30_rate: False
-    after_filtering_q30_bases: False
   Filtlong:
     Target bases: True
-  Adapter Removal:
-    aligned_total: True
-    percent_aligned: True
-    percent_collapsed: True
-    percent_discarded: False
   BBDuk:
     Input reads: False
     Total Removed bases Percent: False
@@ -349,6 +357,7 @@ extra_fn_clean_exts:
   - "_filtered"
   - "porechop"
   - "porechop_abi"
+  - "_processed"
   - type: remove
     pattern: "_falco"
 

@@ -150,7 +150,8 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
   - `<sample_id>.npa` - raw version of npo but with all replicates not just a summary (average) at each point. These three columns are: seq. effort (_n_ reads), replicate ID, redundancy value.
   - `<sample_id>.npc` - raw list with the number of reads in the dataset matching a query read.
   - `<sample_id>.png` - rendered version of a Nonpareil curve, with extrapolation and sequencing effort information.
-  - `nonpareil_all_samples_mqc.png` summary of plot of curves of all samples with sequencing effort information.
+  - `nonpareil_all_samples_mqc.{png,pdf}` summary of plot of curves of all samples with sequencing effort information.
+  - `nonpareil_all_samples_mqc.{json,tsv,csv}` basic summary statistics of model, with additional curve and plotting information in the JSON.
 
   </details>
 
