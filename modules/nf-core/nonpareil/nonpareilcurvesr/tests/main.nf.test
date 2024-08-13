@@ -1,13 +1,13 @@
 nextflow_process {
 
-    name "Test Process NONPAREIL_SET"
+    name "Test Process NONPAREIL_NONPAREILCURVESR"
     script "../main.nf"
-    process "NONPAREIL_SET"
-    config "./nextflow.config"
+    process "NONPAREIL_NONPAREILCURVESR"
+
     tag "modules"
     tag "modules_nfcore"
     tag "nonpareil"
-    tag "nonpareil/set"
+    tag "nonpareil/nonpareilcurvesr"
     tag "nonpareil/nonpareil"
 
     setup {
@@ -40,7 +40,10 @@ nextflow_process {
             assertAll(
                 { assert process.success },
                 { assert snapshot(
-                        file(process.out.png[0][1]).name,
+                        path(process.out.json[0][1]).text.contains("modelR\": 0."),
+                        path(process.out.tsv[0][1]).text.contains("test	0."),
+                        path(process.out.csv[0][1]).text.contains("test\",0."),
+                        file(process.out.pdf[0][1]).name,
                         process.out.versions
                     ).match()
                 }
@@ -49,7 +52,7 @@ nextflow_process {
 
     }
 
-test("candidatus_portiera_aleyrodidarum - stub") {
+    test("candidatus_portiera_aleyrodidarum - stub") {
 
         options "-stub"
 
