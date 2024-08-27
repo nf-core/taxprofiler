@@ -202,7 +202,7 @@
                     },
                     "nonpareil/curve": {
                         "branch": "master",
-                        "git_sha": "3f2fe668ac15c5292eb123f86104bc9ed96c3eed",
+                        "git_sha": "3e403b703c04d4af6bddb4f0b03b772b7365ffc0",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/nonpareil": {
@@ -210,9 +210,14 @@
                         "git_sha": "3f2fe668ac15c5292eb123f86104bc9ed96c3eed",
                         "installed_by": ["modules"]
                     },
+                    "nonpareil/nonpareilcurvesr": {
+                        "branch": "master",
+                        "git_sha": "3e403b703c04d4af6bddb4f0b03b772b7365ffc0",
+                        "installed_by": ["modules"]
+                    },
                     "nonpareil/set": {
                         "branch": "master",
-                        "git_sha": "3f2fe668ac15c5292eb123f86104bc9ed96c3eed",
+                        "git_sha": "3e403b703c04d4af6bddb4f0b03b772b7365ffc0",
                         "installed_by": ["modules"]
                     },
                     "porechop/abi": {
