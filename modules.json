@@ -162,12 +162,12 @@
                     },
                     "metaphlan/mergemetaphlantables": {
                         "branch": "master",
-                        "git_sha": "efae1c431e539d6a6d323ee2e9223c4b81a152ce",
+                        "git_sha": "08ad45b22d4c12a5807a8ec3f07cb0a71070cbb8",
                         "installed_by": ["modules"]
                     },
                     "metaphlan/metaphlan": {
                         "branch": "master",
-                        "git_sha": "1038d3de36263159b4138324a646105941ac271a",
+                        "git_sha": "08ad45b22d4c12a5807a8ec3f07cb0a71070cbb8",
                         "installed_by": ["modules"]
                     },
                     "minimap2/align": {
