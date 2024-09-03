@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#516](https://github.com/nf-core/taxprofiler/pull/516) Fixed a bug where Oxford Nanopore FASTA input files would not be processed (❤️ to Ida Karlsson for reporting, fixed by @jfy133)
+
 ### `Dependencies`
 
 ### `Deprecated`

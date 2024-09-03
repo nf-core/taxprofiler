@@ -135,7 +135,7 @@ workflow TAXPROFILER {
         .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             fastq: meta.single_end || fastq_2
                 return [ meta, fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
-            nanopore: instrument_platform == 'OXFORD_NANOPORE'
+            nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
                 meta.single_end = true
                 return [ meta, [ fastq_1 ] ]
             fasta: meta.is_fasta
@@ -144,7 +144,7 @@ workflow TAXPROFILER {
         }
 
     // Merge ch_input.fastq and ch_input.nanopore into a single channel
-    def ch_input_for_fastqc = ch_input.fastq.mix( ch_input.nanopore )
+    ch_input_for_fastqc = ch_input.fastq.mix( ch_input.nanopore )
 
     // Validate and decompress databases
     ch_dbs_for_untar = databases
