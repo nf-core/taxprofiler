@@ -98,7 +98,7 @@ While one can include both short-read and long-read data in one run, we recommen
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
 :::warning
-FASTA input will not go through any preprocessing steps, and will go directly straight to profiling.
+FASTA input will not go through any preprocessing steps, and will go directly to profiling.
 :::
 
 ### Full database sheet
