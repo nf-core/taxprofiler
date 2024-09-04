@@ -7,12 +7,12 @@
                 "nf-core": {
                     "adapterremoval": {
                         "branch": "master",
-                        "git_sha": "5add1e8e11af620c779462936ce8bbcc1abcef2d",
+                        "git_sha": "ce12d21087049e45112e9107ebc3b28b18ea5af1",
                         "installed_by": ["modules"]
                     },
                     "bbmap/bbduk": {
                         "branch": "master",
-                        "git_sha": "9c769a7902405e7c799b215610b33bffdd087aad",
+                        "git_sha": "90b63cde0f838ca4da3a88a37a5309888cae97b9",
                         "installed_by": ["modules"]
                     },
                     "bowtie2/align": {
@@ -67,12 +67,12 @@
                     },
                     "fastqc": {
                         "branch": "master",
-                        "git_sha": "46eca555142d6e597729fcb682adcc791796f514",
+                        "git_sha": "b49b8992e5271ce427f3a7cdb29628fc58400eb5",
                         "installed_by": ["modules"]
                     },
                     "filtlong": {
                         "branch": "master",
-                        "git_sha": "b34fb117e397e72a070cde8adf21b758670c90f5",
+                        "git_sha": "cda49f98870ce775d23562fe4c8f00c89d5435a8",
                         "installed_by": ["modules"]
                     },
                     "ganon/classify": {
@@ -192,49 +192,49 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "fe9614c5d1d9820dae56a5e30a07ba336db45835",
+                        "git_sha": "19ca321db5d8bd48923262c2eca6422359633491",
                         "installed_by": ["modules"]
                     },
                     "nanoq": {
                         "branch": "master",
-                        "git_sha": "cf05b61191f5df35cbbf33d47bbf8f22ca0ae0ab",
+                        "git_sha": "5e8481d994963871e3faf061d6fbf02fe33d8cad",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/curve": {
                         "branch": "master",
-                        "git_sha": "3e403b703c04d4af6bddb4f0b03b772b7365ffc0",
+                        "git_sha": "fc1f68b58e200e864ac8231e58b61634f6e509d2",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/nonpareil": {
                         "branch": "master",
-                        "git_sha": "3f2fe668ac15c5292eb123f86104bc9ed96c3eed",
+                        "git_sha": "fc1f68b58e200e864ac8231e58b61634f6e509d2",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/nonpareilcurvesr": {
                         "branch": "master",
-                        "git_sha": "3e403b703c04d4af6bddb4f0b03b772b7365ffc0",
+                        "git_sha": "fc1f68b58e200e864ac8231e58b61634f6e509d2",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/set": {
                         "branch": "master",
-                        "git_sha": "3e403b703c04d4af6bddb4f0b03b772b7365ffc0",
+                        "git_sha": "fc1f68b58e200e864ac8231e58b61634f6e509d2",
                         "installed_by": ["modules"]
                     },
                     "porechop/abi": {
                         "branch": "master",
-                        "git_sha": "870f9af2eaf0000c94d74910d762cf153752af98",
+                        "git_sha": "66296d25b41844661aeed76f6bfe94d831828de1",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/porechop/abi/porechop-abi.diff"
                     },
                     "porechop/porechop": {
                         "branch": "master",
-                        "git_sha": "1d68c7f248d1a480c5959548a9234602b771199e",
+                        "git_sha": "583edaf97c9373a20df05a3b7be5a6677f9cd719",
                         "installed_by": ["modules"],
                         "patch": "modules/nf-core/porechop/porechop/porechop-porechop.diff"
                     },
                     "prinseqplusplus": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "a998731f3170388c8db868dc942ade0ad6c80fdf",
                         "installed_by": ["modules"]
                     },
                     "samtools/fastq": {
@@ -249,7 +249,7 @@
                     },
                     "samtools/stats": {
                         "branch": "master",
-                        "git_sha": "46eca555142d6e597729fcb682adcc791796f514",
+                        "git_sha": "1fe379cf6e6c1e6fa5e32bcbeefea0f1e874dac6",
                         "installed_by": ["modules"]
                     },
                     "samtools/view": {
