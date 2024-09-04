@@ -187,7 +187,7 @@
                     },
                     "motus/profile": {
                         "branch": "master",
-                        "git_sha": "911696ea0b62df80e900ef244d7867d177971f73",
+                        "git_sha": "6ad77de7a80304249e13253b252954cf35bd7b5d",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
