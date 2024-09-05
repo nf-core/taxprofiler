@@ -139,9 +139,12 @@ workflow TAXPROFILER {
             nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
                 meta.single_end = true
                 return [ meta + [ type: "long" ], [ fastq_1 ] ]
-            fasta: meta.is_fasta
+            fasta_short: meta.is_fasta && instrument_platform == 'ILLUMINA'
                 meta.single_end = true
                 return [ meta + [ type: "short" ], [ fasta ] ]
+            fasta_long: meta.is_fasta && instrument_platform == 'OXFORD_NANOPORE'
+                meta.single_end = true
+                return [ meta + [ type: "long" ], [ fasta ] ]
         }
 
     // Merge ch_input.fastq and ch_input.nanopore into a single channel
@@ -289,13 +292,13 @@ workflow TAXPROFILER {
                 meta, reads ->
                 [ meta, [ reads ].flatten() ]
             }
-            .mix( ch_input.fasta )
+            .mix( ch_input.fasta_short, ch_input.fasta_long)
 
         ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
 
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
-            .mix( ch_longreads_hostremoved, ch_input.fasta )
+            .mix( ch_longreads_hostremoved, ch_input.fasta_short, ch_input.fasta_long )
     }
 
     /*
