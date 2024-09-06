@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | bbmap                    | 39.01            | 39.06       |
 | bowtie2                  | 2.4.4            | 2.5.2       |
 | bracken                  | 2.7              | 2.9         |
-| cat/fastq:coreutils=8.30 |                  | 8.30        |
+| cat/fastq |                  | 8.30        |
 | diamond                  | 2.0.15           | 2.1.8       |
 | ganon                    | 1.5.1            | 2.0.0       |
 | kraken2                  | 2.1.2            | 2.1.3       |
