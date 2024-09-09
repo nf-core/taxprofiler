@@ -603,7 +603,8 @@
                     "type": "string",
                     "description": "Specify the taxonomic report the ganon report file should display.",
                     "help_text": "Specify the taxonomic rank level to report each taxonomic hit as. `all` will specify all ranks, however you can customise this from `superkingdom` through to `species` to as specific as `assembly`. ganon has a default preset, however you can customise the specific ranks in a comma separated list, e.g. `--ganon_report_rank [phylum,genus,species]`.\n\nSee the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/#ganon-report) for more information of each option.\n\n> Modifies tool parameter(s):\n- ganon report: `--ranks`",
-                    "fa_icon": "fas fa-sort-amount-down-alt"
+                    "fa_icon": "fas fa-sort-amount-down-alt",
+                    "default": "default"
                 },
                 "ganon_report_toppercentile": {
                     "type": "integer",

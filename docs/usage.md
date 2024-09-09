@@ -97,6 +97,10 @@ While one can include both short-read and long-read data in one run, we recommen
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
+:::warning
+FASTA input will not go through any preprocessing steps, and will go directly to profiling.
+:::
+
 ### Full database sheet
 
 nf-core/taxprofiler supports multiple databases being classified/profiled against in parallel for each tool.
@@ -299,7 +303,7 @@ Complexity filtering is primarily a run-time optimisation step. It is not necess
 
 There are currently three options for short-read complexity filtering: [`bbduk`](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/), [`prinseq++`](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus), and [`fastp`](https://github.com/OpenGene/fastp#low-complexity-filter).
 
-There are two options for long-read quality filtering: [`Filtlong`](https://github.com/rrwick/Filtlong) and [`nanoq`](https://github.com/esteinig/nanoq).
+There are two options for long-read quality filtering: [`Filtlong`](https://github.com/rrwick/Filtlong) and [`nanoq`](https://github.com/esteinig/nanoq), with `nanoq` being the default option.
 
 The tools offer different algorithms and parameters for removing low complexity reads and quality filtering. We therefore recommend reviewing the pipeline's [parameter documentation](https://nf-co.re/taxprofiler/parameters) and the documentation of the tools (see links above) to decide on optimal methods and parameters for your dataset.
 
@@ -362,6 +366,8 @@ Therefore currently nf-core/taxprofiler does not run Bracken on data specified a
 Centrifuge currently does not accept FASTA files as input, therefore no output will be produced for these input files.
 
 ##### DIAMOND
+
+DIAMOND can only accept a single input read file. To run DIAMOND on paired-end reads, please merge the reads (e.g., using `--shortread_qc_mergepairs`).
 
 DIAMOND only allows output of a single file format at a time, therefore parameters such `--diamond_save_reads` supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending on your particular use case.
 

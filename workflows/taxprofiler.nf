@@ -136,16 +136,19 @@ workflow TAXPROFILER {
         .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             fastq: meta.single_end || fastq_2
                 return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
-            nanopore: instrument_platform == 'OXFORD_NANOPORE'
+            nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
                 meta.single_end = true
                 return [ meta + [ type: "long" ], [ fastq_1 ] ]
-            fasta: meta.is_fasta
+            fasta_short: meta.is_fasta && instrument_platform == 'ILLUMINA'
                 meta.single_end = true
                 return [ meta + [ type: "short" ], [ fasta ] ]
+            fasta_long: meta.is_fasta && instrument_platform == 'OXFORD_NANOPORE'
+                meta.single_end = true
+                return [ meta + [ type: "long" ], [ fasta ] ]
         }
 
     // Merge ch_input.fastq and ch_input.nanopore into a single channel
-    def ch_input_for_fastqc = ch_input.fastq.mix( ch_input.nanopore )
+    ch_input_for_fastqc = ch_input.fastq.mix( ch_input.nanopore )
 
     // Validate and decompress databases
     ch_dbs_for_untar = databases
@@ -289,13 +292,13 @@ workflow TAXPROFILER {
                 meta, reads ->
                 [ meta, [ reads ].flatten() ]
             }
-            .mix( ch_input.fasta )
+            .mix( ch_input.fasta_short, ch_input.fasta_long)
 
         ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
 
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
-            .mix( ch_longreads_hostremoved, ch_input.fasta )
+            .mix( ch_longreads_hostremoved, ch_input.fasta_short, ch_input.fasta_long )
     }
 
     /*
@@ -415,7 +418,9 @@ workflow TAXPROFILER {
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),
         ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList()
+        ch_multiqc_logo.toList(),
+        [],
+        []
     )
 
     emit:

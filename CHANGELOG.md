@@ -12,10 +12,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#505](https://github.com/nf-core/taxprofiler/pull/505) - Add small files to the file `tower.yml` (added by @LilyAnderssonLee)
 - [#508](https://github.com/nf-core/taxprofiler/pull/508) - Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
 - [#511](https://github.com/nf-core/taxprofiler/pull/511) - Add `porechop_abi` as an alternative adapter removal tool for long reads nanopore data (added by @LilyAnderssonLee)
+- [#512](https://github.com/nf-core/taxprofiler/pull/512) - Update all tools to the latest version and include nf-test (Updated by @LilyAnderssonLee & @jfy133)
 
 ### `Fixed`
 
+- [#518](https://github.com/nf-core/taxprofiler/pull/518) Fixed a bug where Oxford Nanopore FASTA input files would not be processed (❤️ to @ikarls for reporting, fixed by @jfy133)
+
 ### `Dependencies`
+
+| Tool          | Previous version | New version |
+| ------------- | ---------------- | ----------- |
+| bbmap         | 39.01            | 39.06       |
+| bowtie2       | 2.4.4            | 2.5.2       |
+| bracken       | 2.7              | 2.9         |
+| cat/fastq     | 8.30             |
+| diamond       | 2.0.15           | 2.1.8       |
+| ganon         | 1.5.1            | 2.0.0       |
+| kraken2       | 2.1.2            | 2.1.3       |
+| krona         | 2.8              | 2.8.1       |
+| megan         | 6.24.20          | 6.25.9      |
+| metaphlan     | 4.0.6            | 4.1.1       |
+| minimap2      | 2.24             | 2.28        |
+| motus/profile | 3.0.3            | 3.1.0       |
+| multiqc       | 1.21             | 1.24.1      |
+| nanoq         |                  | 0.10.0      |
+| samtools      | 1.17             | 1.20        |
+| untar         | 4.7              | 4.8         |
 
 ### `Deprecated`
 
