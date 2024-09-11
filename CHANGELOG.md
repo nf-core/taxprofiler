@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2dev - Bouncy Basenji [unreleased]
+## v1.2 - Bouncy Basenji [2024-09-11]
 
 ### `Added`
 
@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#518](https://github.com/nf-core/taxprofiler/pull/518) Fixed a bug where Oxford Nanopore FASTA input files would not be processed (❤️ to @ikarls for reporting, fixed by @jfy133)
+- [#523](https://github.com/nf-core/taxprofiler/pull/523) Removed hardcoded `-m lca` from GANON_CLASSIFY due to more options in new version of ganon (fixed by @LilyAnderssonLee & @jfy133)
 
 ### `Dependencies`
 
