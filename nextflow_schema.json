@@ -589,7 +589,7 @@
                     "type": "boolean",
                     "description": "Turn on saving of ganon per-read taxonomic assignment file(s).",
                     "fa_icon": "fas fa-save",
-                    "help_text": "Saves `.lca`, `.all`, and `.unc` text files that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic assignment that the read received.\n\n> Modifies tool parameter(s):\n- ganon classify: `--output-all --output-lca --output-unclassified`"
+                    "help_text": "Saves `.one`, `.all`, and `.unc` text files that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic assignment that the read received.\n\n> Modifies tool parameter(s):\n- ganon classify: `--output-all --output-unclassified`"
                 },
                 "ganon_report_type": {
                     "type": "string",
