@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2dev - Bouncy Basenji [unreleased]
+## v1.2 - Bouncy Basenji [2024-09-11]
 
 ### `Added`
 
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#508](https://github.com/nf-core/taxprofiler/pull/508) - Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
 - [#511](https://github.com/nf-core/taxprofiler/pull/511) - Add `porechop_abi` as an alternative adapter removal tool for long reads nanopore data (added by @LilyAnderssonLee)
 - [#512](https://github.com/nf-core/taxprofiler/pull/512) - Update all tools to the latest version and include nf-test (Updated by @LilyAnderssonLee & @jfy133)
+- [#515](https://github.com/nf-core/taxprofiler/pull/515) Update nonpareil to allow gzip input and add native MultiQC support (fixed by @jfy133)
 
 ### `Fixed`
 
