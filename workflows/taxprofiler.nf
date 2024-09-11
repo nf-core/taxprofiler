@@ -64,6 +64,7 @@ if ( [params.taxpasta_add_name, params.taxpasta_add_rank, params.taxpasta_add_li
 //
 
 include { SHORTREAD_PREPROCESSING       } from '../subworkflows/local/shortread_preprocessing'
+include { NONPAREIL                     } from '../subworkflows/local/nonpareil'
 include { LONGREAD_PREPROCESSING        } from '../subworkflows/local/longread_preprocessing'
 include { SHORTREAD_HOSTREMOVAL         } from '../subworkflows/local/shortread_hostremoval'
 include { LONGREAD_HOSTREMOVAL          } from '../subworkflows/local/longread_hostremoval'
@@ -134,13 +135,16 @@ workflow TAXPROFILER {
         }
         .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             fastq: meta.single_end || fastq_2
-                return [ meta, fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
+                return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
             nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
                 meta.single_end = true
-                return [ meta, [ fastq_1 ] ]
-            fasta: meta.is_fasta
+                return [ meta + [ type: "long" ], [ fastq_1 ] ]
+            fasta_short: meta.is_fasta && instrument_platform == 'ILLUMINA'
                 meta.single_end = true
-                return [ meta, [ fasta ] ]
+                return [ meta + [ type: "short" ], [ fasta ] ]
+            fasta_long: meta.is_fasta && instrument_platform == 'OXFORD_NANOPORE'
+                meta.single_end = true
+                return [ meta + [ type: "long" ], [ fasta ] ]
         }
 
     // Merge ch_input.fastq and ch_input.nanopore into a single channel
@@ -149,6 +153,9 @@ workflow TAXPROFILER {
     // Validate and decompress databases
     ch_dbs_for_untar = databases
         .branch { db_meta, db_path ->
+            if ( !db_meta.db_type ) {
+                db_meta = db_meta + [ db_type: "short;long" ]
+            }
             untar: db_path.name.endsWith( ".tar.gz" )
             skip: true
         }
@@ -219,6 +226,15 @@ workflow TAXPROFILER {
     }
 
     /*
+        MODULE: REDUNDANCY ESTIMATION
+    */
+
+    if ( params.perform_shortread_redundancyestimation ) {
+        NONPAREIL ( ch_shortreads_preprocessed )
+        ch_versions = ch_versions.mix( NONPAREIL.out.versions )
+    }
+
+    /*
         SUBWORKFLOW: COMPLEXITY FILTERING
     */
 
@@ -276,13 +292,13 @@ workflow TAXPROFILER {
                 meta, reads ->
                 [ meta, [ reads ].flatten() ]
             }
-            .mix( ch_input.fasta )
+            .mix( ch_input.fasta_short, ch_input.fasta_long)
 
         ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
 
     } else {
         ch_reads_runmerged = ch_shortreads_hostremoved
-            .mix( ch_longreads_hostremoved, ch_input.fasta )
+            .mix( ch_longreads_hostremoved, ch_input.fasta_short, ch_input.fasta_long )
     }
 
     /*
@@ -376,6 +392,10 @@ workflow TAXPROFILER {
         ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
 
+    if ( params.perform_shortread_redundancyestimation ) {
+        ch_multiqc_files = ch_multiqc_files.mix( NONPAREIL.out.mqc.collect{it[1]}.ifEmpty([]) )
+    }
+
     if (params.perform_shortread_complexityfilter && params.shortread_complexityfilter_tool != 'fastp'){
         ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
@@ -398,7 +418,9 @@ workflow TAXPROFILER {
         ch_multiqc_files.collect(),
         ch_multiqc_config.toList(),
         ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList()
+        ch_multiqc_logo.toList(),
+        [],
+        []
     )
 
     emit:

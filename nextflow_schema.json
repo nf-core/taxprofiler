@@ -84,7 +84,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the adapter clipping, pair-merging, and length filtering steps for both short and long reads",
-                    "help_text": "This saves the FASTQ output from the following tools:\n\n- fastp\n- AdapterRemoval\n- Porechop\n- Filtlong\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
+                    "help_text": "This saves the FASTQ output from the following tools:\n\n- fastp\n- AdapterRemoval\n- Porechop\n- Filtlong\n- Nanoq\n\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
                 },
                 "save_analysis_ready_fastqs": {
                     "type": "boolean",
@@ -238,24 +238,40 @@
                     "description": "Turns on long read quality control steps (adapter clipping, length filtering etc.)",
                     "help_text": "Turns on long read quality control steps (adapter clipping, length and/or quality filtering.)\n\nRemoving adapters (if present) is recommend to reduce false-postive hits that may occur from 'dirty' or 'contaminated' reference genomes in a profiling database that contain accidentially incorporated adapter sequences.\n\nLength filtering, and quality filtering can speed up alignment by reducing the number of unspecific reads that need to be aligned."
                 },
+                "longread_adapterremoval_tool": {
+                    "type": "string",
+                    "default": "porechop_abi",
+                    "enum": ["porechop", "porechop_abi"],
+                    "fa_icon": "fas fa-hammer",
+                    "description": "Specify which tool to use for adapter trimming.",
+                    "help_text": "The performance of Porechop and Porechop_ABI is same in terms of removing adapter reads. However Porechop is no longer updated, Porechop_ABI receives regular updates."
+                },
                 "longread_qc_skipadaptertrim": {
                     "type": "boolean",
                     "description": "Skip long-read trimming",
                     "fa_icon": "fas fa-forward",
                     "help_text": "Skip removal of adapters by Porechop. This can be useful in some cases to speed up run time - particularly when you are running data downloading from public databases such as the ENA/SRA that should already have adapters removed. We recommend that you check your FastQC results this is indeed the case."
                 },
+                "longread_filter_tool": {
+                    "type": "string",
+                    "default": "nanoq",
+                    "enum": ["filtlong", "nanoq"],
+                    "fa_icon": "fas fa-hammer",
+                    "description": "Specify which tool to use for long reads filtering",
+                    "help_text": "Nanoq is a filtering tool only for Nanopore reads. Nanoq is faster and more memory-efficient than Filtlong. Nanoq also provides a summary of input read statistics; see [benchmarking](https://github.com/esteinig/nanoq?tab=readme-ov-file#benchmarks). \n\nFiltlong is a good option if you want to keep a certain percentage of reads after filtering, and you can also use it for non-Nanopore long reads."
+                },
                 "longread_qc_skipqualityfilter": {
                     "type": "boolean",
                     "description": "Skip long-read length and quality filtering",
                     "fa_icon": "fas fa-forward",
-                    "help_text": "Skip removal of quality filtering with Filtlong. This will skip length, percent reads, and target bases filtering (see other `--longread_qc_qualityfilter_*` parameters)."
+                    "help_text": "Skip removal of quality filtering with Filtlong or Nanoq. This will skip length, percent reads, and target bases filtering (see other `--longread_qc_qualityfilter_*` parameters)."
                 },
                 "longread_qc_qualityfilter_minlength": {
                     "type": "integer",
                     "default": 1000,
                     "description": "Specify the minimum length of reads to be retained",
                     "fa_icon": "fas fa-ruler-horizontal",
-                    "help_text": "Specify the minimum of length of reads to be kept for downstream analysis.\n\n> Modifies tool parameter(s):\n> - Filtlong: `--min_length`"
+                    "help_text": "Specify the minimum of length of reads to be kept for downstream analysis.\n\n> Modifies tool parameter(s):\n> - Filtlong: `--min_length` or - Nanoq: `--min-len`"
                 },
                 "longread_qc_qualityfilter_keeppercent": {
                     "type": "integer",
@@ -267,12 +283,42 @@
                 "longread_qc_qualityfilter_targetbases": {
                     "type": "integer",
                     "default": 500000000,
-                    "description": "Specify the number of high-quality bases in the library to be retained",
+                    "description": "Filtlong only: specify the number of high-quality bases in the library to be retained",
                     "fa_icon": "fas fa-bullseye",
                     "help_text": "Removes the worst reads until only the specified value of bases remain, useful for very large read sets. If the input read set is less than the specified value, this setting will have no effect. _Modified from [Filtlong documentation](https://github.com/rrwick/Filtlong)_\n\n> Modifies tool parameter(s):\n> - Filtlong: `--keep_percent`"
+                },
+                "longread_qc_qualityfilter_minquality": {
+                    "type": "integer",
+                    "default": 7,
+                    "description": "Nanoq only: specify the minimum average read quality filter (Q)",
+                    "fa_icon": "fas fa-bullseye",
+                    "help_text": "Remove the reads with quality score lower than 7. \n\n> Modifies tool parameter(s):\n> - Nanoq: `--min-qual`"
                 }
             },
             "fa_icon": "fas fa-expand-alt"
+        },
+        "redundancy_estimation": {
+            "title": "Redundancy Estimation",
+            "type": "object",
+            "description": "Estimate metagenome sequencing complexity coverage",
+            "default": "",
+            "properties": {
+                "perform_shortread_redundancyestimation": {
+                    "type": "boolean",
+                    "description": "Turn on short-read metagenome sequencing redundancy estimation with nonpareil. Warning: only use for shallow short-read sequencing datasets.",
+                    "fa_icon": "fas fa-toggle-on",
+                    "help_text": "Turns on [nonpareil](https://nonpareil.readthedocs.io/en/latest/), a tool for estimating metagenome 'coverage', i.e, whether all genomes within the metagenome have had at least one read sequenced.\n\nIt estimates this by checking the read redundancy between a subsample of reads versus other reads in the library.\n\nThe more redundancy that exists, the larger the assumption that all possible reads in the library have been sequenced and all 'redundant' reads are simply sequencing of PCR duplicates.\n\nThe lower the redundancy, the more sequencing should be done until the entire metagenome has been captured. The output can be used to guide the amount of further sequencing is required.\n\nNote this is not the same as _genomic_ coverage, which is the number of times a base-pair is covered by unique reads on a reference genome.\n\nBefore using this tool please note the following caveats:\n\n- It is not recommended to run this on deep sequencing data, or very large datasets\n  - Nonpareil requires uncompressed FASTQ files, and nf-core/taxprofiler will uncompress these in your working directory, potentially with a extremely large hard-drive footprint.\n- Your shortest reads _after_ processing should not go below 24bp (see warning below)\n- It is not recommended to keep unmerged (`--shortread_qc_includeunmerged`) reads when using the calculation.\n:::warning\nOn default settings, with 'kmer mode', you must make sure that your shortest processed reads do not go below 24 bp (the default kmer size).\n\nIf you have errors regarding kmer size, you will need to specify in a custom config in a process block\n\n```\n    withName: NONPAREIL {\n        ext.args = { \"-k <NUMBER>\" }\n    }\n```\n\nWhere `<NUMBER>` should be at least the shortest read in your library\n:::"
+                },
+                "shortread_redundancyestimation_mode": {
+                    "type": "string",
+                    "default": "kmer",
+                    "description": "Specify mode for identifying redundant reads",
+                    "enum": ["kmer", "alignment"],
+                    "fa_icon": "fas fa-align-left",
+                    "help_text": "Specify which read-comparison mode to use to check for redundancy.\n\nk-mer is faster but less precise but is recommended for FASTQ files. Alignment is more precise but is slower, it is recommended for FASTA files.\n\n> Modifies tool parameter(s):\n> - Nonpareil: `-T`"
+                }
+            },
+            "fa_icon": "fas fa-chart-line"
         },
         "preprocessing_host_removal_options": {
             "title": "Preprocessing host removal options",
@@ -347,7 +393,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save reads from samples that went through the run-merging step",
-                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> ⚠️ Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
+                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\n\n> \u26a0\ufe0f Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \n\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\n\n"
                 }
             },
             "fa_icon": "fas fa-clipboard-check"
@@ -543,7 +589,7 @@
                     "type": "boolean",
                     "description": "Turn on saving of ganon per-read taxonomic assignment file(s).",
                     "fa_icon": "fas fa-save",
-                    "help_text": "Saves `.lca`, `.all`, and `.unc` text files that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic assignment that the read received.\n\n> Modifies tool parameter(s):\n- ganon classify: `--output-all --output-lca --output-unclassified`"
+                    "help_text": "Saves `.one`, `.all`, and `.unc` text files that contains a list of each read that had a taxonomic assignment, with information on specific taxonomic assignment that the read received.\n\n> Modifies tool parameter(s):\n- ganon classify: `--output-all --output-unclassified`"
                 },
                 "ganon_report_type": {
                     "type": "string",
@@ -557,7 +603,8 @@
                     "type": "string",
                     "description": "Specify the taxonomic report the ganon report file should display.",
                     "help_text": "Specify the taxonomic rank level to report each taxonomic hit as. `all` will specify all ranks, however you can customise this from `superkingdom` through to `species` to as specific as `assembly`. ganon has a default preset, however you can customise the specific ranks in a comma separated list, e.g. `--ganon_report_rank [phylum,genus,species]`.\n\nSee the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/#ganon-report) for more information of each option.\n\n> Modifies tool parameter(s):\n- ganon report: `--ranks`",
-                    "fa_icon": "fas fa-sort-amount-down-alt"
+                    "fa_icon": "fas fa-sort-amount-down-alt",
+                    "default": "default"
                 },
                 "ganon_report_toppercentile": {
                     "type": "integer",
@@ -909,6 +956,9 @@
         },
         {
             "$ref": "#/definitions/preprocessing_long_read_qc_options"
+        },
+        {
+            "$ref": "#/definitions/redundancy_estimation"
         },
         {
             "$ref": "#/definitions/preprocessing_host_removal_options"

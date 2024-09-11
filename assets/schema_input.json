@@ -38,18 +38,21 @@
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
+                "unique": true,
                 "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             },
             "fastq_2": {
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
+                "unique": true,
                 "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'. If not applicable, leave it empty."
             },
             "fasta": {
                 "type": "string",
                 "format": "file-path",
                 "pattern": "^\\S+\\.(f(ast)?q|fa(sta)?)\\.gz$",
+                "unique": true,
                 "errorMessage": "FastA file must be provided, cannot contain spaces and must have extension '.fa.gz' or '.fasta.gz'. If not applicable, leave it empty."
             }
         },

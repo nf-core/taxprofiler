@@ -2,7 +2,7 @@ process PORECHOP_PORECHOP {
     tag "$meta.id"
     label 'process_medium'
 
-    conda "bioconda::porechop=0.2.4"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/porechop:0.2.4--py39h7cff6ad_2' :
         'biocontainers/porechop:0.2.4--py39h7cff6ad_2' }"
@@ -11,7 +11,7 @@ process PORECHOP_PORECHOP {
     tuple val(meta), path(reads)
 
     output:
-    tuple val(meta), path("*_porechopped.fastq.gz"), emit: reads
+    tuple val(meta), path("*.fastq.gz"), emit: reads
     tuple val(meta), path("*.log")     , emit: log
     path "versions.yml"                , emit: versions
 
@@ -21,18 +21,27 @@ process PORECHOP_PORECHOP {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
+    if ("$reads" == "${prefix}.fastq.gz") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
     """
-    ## To ensure ID matches rest of pipeline based on meta.id rather than input file name
-    
-    [[ -f ${prefix}.fastq.gz   ]] || ln -s $reads ${prefix}.fastq.gz
-
     porechop \\
-        -i ${prefix}.fastq.gz \\
+        -i $reads \\
         -t $task.cpus \\
         $args \\
-        -o ${prefix}_porechopped.fastq.gz \\
+        -o ${prefix}.fastq.gz \\
         > ${prefix}.log
 
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        porechop: \$( porechop --version )
+    END_VERSIONS
+    """
+
+    stub:
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    """
+    touch ${prefix}.fastq
+    gzip ${prefix}.fastq
+    touch ${prefix}.log
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         porechop: \$( porechop --version )

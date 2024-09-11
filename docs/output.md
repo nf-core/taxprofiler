@@ -16,14 +16,17 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [fastp](#fastp) - Adapter trimming for Illumina data
 - [AdapterRemoval](#adapterremoval) - Adapter trimming for Illumina data
 - [Porechop](#porechop) - Adapter removal for Oxford Nanopore data
+- [Porechop_ABI](#porechop_abi) - Adapter removal for Oxford Nanopore data
+- [Nonpareil](#nonpareil) - Read redundancy and metagenome coverage estimation for short reads
 - [BBDuk](#bbduk) - Quality trimming and filtering for Illumina data
 - [PRINSEQ++](#prinseq) - Quality trimming and filtering for Illunina data
 - [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
+- [Nanoq] (#nanoq) - Quality trimming and filtering for Nanopore data
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [SAMtools stats](#samtools-stats) - Statistics from host removal
 - [SAMtools fastq](#samtools-fastq) - Converts unmapped BAM file to fastq format (minimap2 only)
-- [Analysis Ready Reads](#analysis-read-reads) - Optional results directory containing the final processed reads used as input for classification/profiling.
+- [Analysis Ready Reads](#analysis-ready-reads) - Optional results directory containing the final processed reads used as input for classification/profiling.
 - [Bracken](#bracken) - Taxonomic classifier using k-mers and abundance estimations
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
 - [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
@@ -133,6 +136,29 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as complexity filtering, host removal, run merging etc..
 :::
 
+### Nonpareil
+
+[nonpareil](https://nonpareil.readthedocs.io/en/latest/) is a tool for estimating metagenome 'coverage' from short-read libraries, i.e, whether all genomes within the metagenome have had at least one read sequenced. The lower the redundancy, the more sequencing can be done until the entire metagenome has been captured. The output can be used to guide the amount of further sequencing is required.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `nonpareil/`
+
+  - `<sample_id>.npl` - log file of the nonpareil run.
+  - `<sample_id>.npo` - redundancy summary file. This is the most useful file and contains the information for generating metagenome coverage curves. These six columns are: seq. effort (_n_ reads), average redundancy, standard deviation, quartile 1, median (quartile 2), and quartile 3.
+  - `<sample_id>.npa` - raw version of npo but with all replicates not just a summary (average) at each point. These three columns are: seq. effort (_n_ reads), replicate ID, redundancy value.
+  - `<sample_id>.npc` - raw list with the number of reads in the dataset matching a query read.
+  - `<sample_id>.png` - rendered version of a Nonpareil curve, with extrapolation and sequencing effort information.
+  - `nonpareil_all_samples_mqc.{png,pdf}` summary of the plot of curves for all samples with sequencing effort information.
+  - `nonpareil_all_samples_mqc.{json,tsv,csv}` basic summary statistics of model, with additional curve and plotting information in the JSON.
+
+  </details>
+
+  In most cases you will just want to look at the PNG files which contain the extrapolation information for estimating how much of the metagenome 'coverage' you will recover if you sequence more (i.e., to help indicate at what point you will just keep sequencing redundant reads that provide no more new taxonomic information).
+
+  The `.npo` files can be used for re-generating and customising the plots using the companion `Nonpareil` R package.
+
 ### Porechop
 
 [Porechop](https://github.com/rrwick/Porechop) is a tool for finding and removing adapters from Oxford Nanopore reads. Adapters on the ends of reads are trimmed and if a read has an adapter in its middle, it is considered a chimeric and it chopped into separate reads.
@@ -153,6 +179,23 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 :::warning
 We do **not** recommend using Porechop if you are already trimming the adapters with ONT's basecaller Guppy.
 :::
+
+### Porechop_ABI
+
+[Porechop_ABI](https://github.com/bonsai-team/Porechop_ABI) is an extension of [Porechop](https://github.com/rrwick/Porechop). Porechop_ABI does not use any external knowledge or database for the adapters. Adapters are discovered directly from the reads using approximate k-mers counting and assembly. Then these sequences can be used for trimming, using all standard Porechop options. The software is able to report a combination of distinct sequences if a mix of adapters is used. It can also be used to check whether a dataset has already been trimmed out or not, or to find leftover adapters in datasets that have been previously processed with Guppy.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `porechop_abi/`
+  - `<sample_id>.log`: Log file containing trimming statistics
+  - `<sample_id>.fastq.gz`: Adapter-trimmed file
+
+</details>
+
+The output logs are saved in the output folder and are part of MultiQC report.You do not normally need to check these manually.
+
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
 ### BBDuk
 
@@ -204,7 +247,7 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
 <summary>Output files</summary>
 
 - `filtlong/`
-  - `<sample_id>_filtered.fastq.gz`: Quality or short read data filtered file
+  - `<sample_id>_filtered.fastq.gz`: Quality or long read data filtered file
   - `<sample_id>_filtered.log`: log file containing summary statistics
 
 </details>
@@ -214,6 +257,21 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 :::warning
 We do _not_ recommend using Filtlong if you are performing filtering of low quality reads with ONT's basecaller Guppy.
 :::
+
+### Nanoq
+
+[nanoq](https://github.com/esteinig/nanoq) is an ultra-fast quality filtering tool that also provides summary reports for nanopore reads.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `nanoq/`
+  - `<sample_id>_filtered.fastq.gz`: Quality or long read data filtered file
+  - `<sample_id>_filtered.stats`: Summary statistics report
+
+</details>
+
+You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
 ### Bowtie2
 
@@ -560,9 +618,9 @@ The main taxonomic classification file from KMCP is the `*kmcp.profile` which is
     - `<sample_id>_report.tre`: output of `ganon report` containing taxonomic classifications with possible formatting and/or filtering depending on options specified.
     - `<sample_id>`.tre: output of `ganon classify` containing raw taxonomic classifications and abundance estimations with no additional formatting or filtering.
     - `<sample_id>`.rep: 'raw' report of counts against each taxon.
-    - `<sample_id>`.all: per-read summary of all hits of each reads.
-    - `<sample_id>`.lca: per-read summary of the best single hit after LCA for each read.
-    - `<sample_id>`.unc: list of read IDs with no hits.
+    - `<sample_id>`.all: per-read summary of all hits of each read. Only generated if `--ganon_save_readclassifications` specified.
+    - `<sample_id>`.one: per-read summary of the best single hit after the selection by the user specified multiple match method for each read. Only generated if `--ganon_save_readclassifications` specified.
+    - `<sample_id>`.unc: list of read IDs with no hits. Only generated if `--ganon_save_readclassifications` specified.
     - `<sample_id>`.log: the stdout console messages printed by `ganon classify`, containing some classification summary information
 
   - `ganon_<db_name>_combined_reports.txt`: A combined profile of all samples aligned to a given database (as generated by `ganon table`)
@@ -646,8 +704,9 @@ All tools in taxprofiler supported by MultiQC will have a dedicated section show
 You can expect in the MultiQC reports either sections and/or general stats columns for the following tools:
 
 - fastqc
-- adapterRemoval
+- adapterremoval
 - fastp
+- nonpareil
 - bbduk
 - prinseqplusplus
 - porechop
