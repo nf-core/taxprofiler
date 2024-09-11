@@ -13,13 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#508](https://github.com/nf-core/taxprofiler/pull/508) - Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
 - [#511](https://github.com/nf-core/taxprofiler/pull/511) - Add `porechop_abi` as an alternative adapter removal tool for long reads nanopore data (added by @LilyAnderssonLee)
 - [#512](https://github.com/nf-core/taxprofiler/pull/512) - Update all tools to the latest version and include nf-test (Updated by @LilyAnderssonLee & @jfy133)
-- [#515](https://github.com/nf-core/taxprofiler/pull/515) Update nonpareil to allow gzip input and add native MultiQC support (fixed by @jfy133)
 
 ### `Fixed`
 
 - [#518](https://github.com/nf-core/taxprofiler/pull/518) Fixed a bug where Oxford Nanopore FASTA input files would not be processed (❤️ to @ikarls for reporting, fixed by @jfy133)
-- [#522](https://github.com/nf-core/taxprofiler/pull/522) Remove nanopore patch (fixed by @jfy133)
-- [#523](https://github.com/nf-core/taxprofiler/pull/523) Update the ganon/classify argument for the LCA algorithm to the latest version (fixed by @LilyAnderssonLee & @jfy133)
+- [#523](https://github.com/nf-core/taxprofiler/pull/523) Removed hardcoded `-m lca` from GANON_CLASSIFY due to more options in new version of ganon (fixed by @LilyAnderssonLee & @jfy133)
 
 ### `Dependencies`
 
