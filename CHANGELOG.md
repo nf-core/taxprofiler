@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#518](https://github.com/nf-core/taxprofiler/pull/518) Fixed a bug where Oxford Nanopore FASTA input files would not be processed (❤️ to @ikarls for reporting, fixed by @jfy133)
+- [#522](https://github.com/nf-core/taxprofiler/pull/522) Remove nanopore patch (fixed by @jfy133)
+- [#523](https://github.com/nf-core/taxprofiler/pull/523) Update the ganon/classify argument for the LCA algorithm to the latest version (fixed by @LilyAnderssonLee & @jfy133)
 
 ### `Dependencies`
 
