@@ -99,7 +99,7 @@ workflow VISUALIZATION_KRONA {
 
         KRONA_KTIMPORTTAXONOMY ( ch_krona_taxonomy_for_input, file(params.krona_taxonomy_directory, checkExists: true) )
         ch_krona_html.mix( KRONA_KTIMPORTTAXONOMY.out.html )
-        ch_versions = ch_versions.mix ( GUNZIP.out.versions.first() )
+        ch_versions = ch_versions.mix( GUNZIP.out.versions.first() )
         ch_versions = ch_versions.mix( MEGAN_RMA2INFO_KRONA.out.versions.first() )
         ch_versions = ch_versions.mix( KRONA_KTIMPORTTAXONOMY.out.versions.first() )
     }

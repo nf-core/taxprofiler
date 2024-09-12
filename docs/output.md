@@ -15,11 +15,11 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [falco](#fastqc) - Alternative to FastQC for raw read QC
 - [fastp](#fastp) - Adapter trimming for Illumina data
 - [AdapterRemoval](#adapterremoval) - Adapter trimming for Illumina data
-- [Porechop](#porechop) - Adapter removal for Oxford Nanopore data
-- [Porechop_ABI](#porechop_abi) - Adapter removal for Oxford Nanopore data
 - [Nonpareil](#nonpareil) - Read redundancy and metagenome coverage estimation for short reads
 - [BBDuk](#bbduk) - Quality trimming and filtering for Illumina data
 - [PRINSEQ++](#prinseq) - Quality trimming and filtering for Illunina data
+- [Porechop](#porechop) - Adapter removal for Oxford Nanopore data
+- [Porechop_ABI](#porechop_abi) - Adapter removal for Oxford Nanopore data
 - [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
 - [Nanoq] (#nanoq) - Quality trimming and filtering for Nanopore data
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
@@ -155,7 +155,7 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
 
   </details>
 
-  In most cases you will just want to look at the PNG files which contain the extrapolation information for estimating how much of the metagenome 'coverage' you will recover if you sequence more (i.e., to help indicate at what point you will just keep sequencing redundant reads that provide no more new taxonomic information).
+In most cases you will just want to look at the PNG files which contain the extrapolation information for estimating how much of the metagenome 'coverage' you will recover if you sequence more (i.e., to help indicate at what point you will just keep sequencing redundant reads that provide no more new taxonomic information).
 
   The `.npo` files can be used for re-generating and customising the plots using the companion `Nonpareil` R package.
 

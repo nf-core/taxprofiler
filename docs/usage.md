@@ -274,25 +274,22 @@ Before using this tool please note the following caveats:
 
 :::warning
 
-- It is not recommended to run this on deep sequencing data, or very large datasets
-  - Nonpareil requires uncompressed FASTQ files, and nf-core/taxprofiler will uncompress these in your working directory, potentially with a extremely large hard-drive footprint.
-- Your shortest reads _after_ processing should not go below 24bp (see warning below)
 - It is not recommended to keep unmerged (`--shortread_qc_includeunmerged`) reads when using the calculation.
-
-:::info
-If you get errors regarding the 'kmer' value is not correct, make sure your shortest reads _after_ processing is not less than 24bp.
-
-If this is the case you will need to specify in a custom config
-
-```nextflow
-process {
-  withName: NONPAREIL_NONPAREIL {
-    ext.args = { "-k <NUMBER>" }
+- Your shortest reads _after_ processing should not go below 24bp 
+    
+    If the 'kmer' value is not correct, make sure your shortest reads _after_ processing is not less than 24bp.
+    
+    If this is the case you will need to specify in a custom config
+    
+    ```nextflow
+    process {
+      withName: NONPAREIL_NONPAREIL {
+        ext.args = { "-k <NUMBER>" }
+        }
     }
-}
-```
-
-Where `<NUMBER>` should be at least the shortest read in your library
+    ```
+    
+    Where `<NUMBER>` should be at least the shortest read in your library
 :::
 
 #### Complexity Filtering

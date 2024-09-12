@@ -64,8 +64,8 @@ custom_logo_title: "nf-core/taxprofiler"
 run_modules:
   - fastqc
   - adapterRemoval
-    - fastp
-    - nonpareil
+  - fastp
+  - nonpareil
   - bbduk
   - prinseqplusplus
   - porechop
