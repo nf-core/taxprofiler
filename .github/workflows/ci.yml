@@ -36,7 +36,7 @@ jobs:
           - "test_motus"
           - "test_falco"
           - "test_fastp"
-          - "test_alternative"
+          - "test_alternativepreprocessing"
           - "test_bbduk"
           - "test_prinseqplusplus"
 
