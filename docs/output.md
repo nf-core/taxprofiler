@@ -157,7 +157,7 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
 
 In most cases you will just want to look at the PNG files which contain the extrapolation information for estimating how much of the metagenome 'coverage' you will recover if you sequence more (i.e., to help indicate at what point you will just keep sequencing redundant reads that provide no more new taxonomic information).
 
-  The `.npo` files can be used for re-generating and customising the plots using the companion `Nonpareil` R package.
+The `.npo` files can be used for re-generating and customising the plots using the companion `Nonpareil` R package.
 
 ### Porechop
 

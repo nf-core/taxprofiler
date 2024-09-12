@@ -23,7 +23,6 @@
 
 **nf-core/taxprofiler** is a bioinformatics best-practice analysis pipeline for taxonomic classification and profiling of shotgun short- and long-read metagenomic data. It allows for in-parallel taxonomic identification of reads or taxonomic abundance estimation with multiple classification and profiling tools against multiple databases, and produces standardised output tables for facilitating results comparison between different tools and databases.
 
-
 ## Pipeline summary
 
 ![](docs/images/taxprofiler_tube.png)

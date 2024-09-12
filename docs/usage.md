@@ -275,22 +275,21 @@ Before using this tool please note the following caveats:
 :::warning
 
 - It is not recommended to keep unmerged (`--shortread_qc_includeunmerged`) reads when using the calculation.
-- Your shortest reads _after_ processing should not go below 24bp 
-    
-    If the 'kmer' value is not correct, make sure your shortest reads _after_ processing is not less than 24bp.
-    
-    If this is the case you will need to specify in a custom config
-    
-    ```nextflow
-    process {
-      withName: NONPAREIL_NONPAREIL {
-        ext.args = { "-k <NUMBER>" }
-        }
-    }
-    ```
-    
-    Where `<NUMBER>` should be at least the shortest read in your library
-:::
+- Your shortest reads _after_ processing should not go below 24bp
+      If the 'kmer' value is not correct, make sure your shortest reads _after_ processing is not less than 24bp.
+
+      If this is the case you will need to specify in a custom config
+
+      ```nextflow
+      process {
+        withName: NONPAREIL_NONPAREIL {
+          ext.args = { "-k <NUMBER>" }
+          }
+      }
+      ```
+
+      Where `<NUMBER>` should be at least the shortest read in your library
+  :::
 
 #### Complexity Filtering
 
