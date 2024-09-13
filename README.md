@@ -73,7 +73,7 @@ Additionally, you will need a database sheet that looks as follows:
 
 `databases.csv`:
 
-```
+```csv
 tool,db_name,db_params,db_path
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/

@@ -90,16 +90,16 @@ workflow PROFILING {
         }
         .branch { meta, reads, db_meta, db ->
             centrifuge: db_meta.tool == 'centrifuge'
-            diamond: db_meta.tool == 'diamond'
-            kaiju: db_meta.tool == 'kaiju'
-            kraken2: db_meta.tool == 'kraken2' || db_meta.tool == 'bracken' // to reuse the kraken module to produce the input data for bracken
+            diamond:    db_meta.tool == 'diamond'
+            kaiju:      db_meta.tool == 'kaiju'
+            kraken2:    db_meta.tool == 'kraken2' || db_meta.tool == 'bracken' // to reuse the kraken module to produce the input data for bracken
             krakenuniq: db_meta.tool == 'krakenuniq'
-            malt:    db_meta.tool == 'malt'
-            metaphlan: db_meta.tool == 'metaphlan'
-            motus: db_meta.tool == 'motus'
-            kmcp: db_meta.tool == 'kmcp'
-            ganon: db_meta.tool == 'ganon'
-            unknown: true
+            malt:       db_meta.tool == 'malt'
+            metaphlan:  db_meta.tool == 'metaphlan'
+            motus:      db_meta.tool == 'motus'
+            kmcp:       db_meta.tool == 'kmcp'
+            ganon:      db_meta.tool == 'ganon'
+            unknown:    true
         }
 
     /*
