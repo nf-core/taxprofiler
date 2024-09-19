@@ -20,7 +20,6 @@ workflow NONPAREIL {
                                         def format = reads_new[0].getBaseName().split('\\.').last() in ['fasta', 'fna', 'fa', 'fas'] ? 'fasta' : 'fastq'
                                     [meta, reads_new, format]
                                 }
-                                .dump(tag: 'ch_reads_for_nonpareil')
                                 .multiMap {
                                     meta, reads, format ->
                                         reads: [meta, reads]
