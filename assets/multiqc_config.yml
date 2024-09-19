@@ -18,41 +18,41 @@ report_section_order:
   fastqc-1:
     order: 800
   fastp:
+    order: 750
+  adapterremoval:
     order: 700
-  adapterRemoval:
-    order: 600
   nonpareil:
-    order: 500
-  porechop:
-    order: 400
-  porechop_abi:
-    order: 450
+    order: 600
   bbduk:
-    order: 300
+    order: 500
   prinseqplusplus:
-    order: 200
+    order: 550
+  porechop:
+    order: 450
+  porechop_abi:
+    order: 400
   filtlong:
-    order: 100
+    order: 350
   nanoq:
-    order: 95
+    order: 300
   bowtie2:
-    order: 90
+    order: 200
   samtools:
-    order: 80
+    order: 100
   kraken:
-    order: 70
+    order: 90
   bracken:
-    order: 60
+    order: 80
   centrifuge:
-    order: 50
+    order: 70
   malt:
-    order: 40
+    order: 60
   diamond:
-    order: 30
+    order: 50
   kaiju:
-    order: 20
+    order: 40
   motus:
-    order: 10
+    order: 30
 
 export_plots: true
 
@@ -63,7 +63,7 @@ custom_logo_title: "nf-core/taxprofiler"
 
 run_modules:
   - fastqc
-  - adapterRemoval
+  - adapterremoval
   - fastp
   - nonpareil
   - bbduk
@@ -72,7 +72,6 @@ run_modules:
   - filtlong
   - nanoq
   - bowtie2
-  - minimap2
   - samtools
   - kraken
   - kaiju
@@ -83,7 +82,7 @@ run_modules:
 
 sp:
   diamond:
-    fn_re: ".*.diamond.log$"
+    fn: "*.diamond.log"
   fastqc/data:
     fn_re: ".*(fastqc|falco)_data.txt$"
   fastqc/zip:
@@ -210,7 +209,8 @@ table_columns_placement:
   Filtlong:
     Target bases: 600
   nanoq:
-    Read N50: 700
+    Reads: 700
+    Read N50: 710
   BBDuk:
     Input reads: 800
     Total Removed bases percent: 810
@@ -312,6 +312,7 @@ table_columns_visible:
     Target bases: True
   nanoq:
     ReadN50: True
+    Reads: True
   BBDuk:
     Input reads: False
     Total Removed bases Percent: False
@@ -356,6 +357,17 @@ table_columns_name:
     reads_mapped: "Nr. Mapped Reads"
     reads_mapped_percent: "% Mapped Reads"
 
+## Allow collapsing of file names with _R1/_R2 or _1/_2 at the end
+table_sample_merge:
+  "Read 1":
+    - "_R1"
+    - type: regex
+      pattern: "[_.-][rR]?1$"
+  "Read 2":
+    - "_R2"
+    - type: regex
+      pattern: "[_.-][rR]?2$"
+
 extra_fn_clean_exts:
   - "kraken2.report.txt"
   - ".txt"
@@ -366,6 +378,7 @@ extra_fn_clean_exts:
   - "porechop"
   - "porechop_abi"
   - "_processed"
+  - ".diamond"
   - type: remove
     pattern: "_falco"
 
