@@ -15,10 +15,12 @@ workflow NONPAREIL {
                                 .map {
                                     meta, reads ->
                                         def reads_new = meta.single_end ? reads : reads[0]
+                                        // taxprofiler only accepts gzipped input files,
+                                        // so don't need to account for getBaseName removing all extensions
                                         def format = reads_new[0].getBaseName().split('\\.').last() in ['fasta', 'fna', 'fa', 'fas'] ? 'fasta' : 'fastq'
-
                                     [meta, reads_new, format]
                                 }
+                                .dump(tag: 'ch_reads_for_nonpareil')
                                 .multiMap {
                                     meta, reads, format ->
                                         reads: [meta, reads]
