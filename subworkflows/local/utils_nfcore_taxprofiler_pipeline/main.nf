@@ -211,7 +211,7 @@ def toolCitationText() {
         "Long read preprocessing was performed with:",
         params.longread_adapterremoval_tool == "porechop_abi" ? "Porechop_ABI (Bonenfant et al. 2023)," : "",
         params.longread_adapterremoval_tool == "porechop" ? "Porechop (Wick et al. 2017)," : "",
-        params.longread_filter_tool == "filtlong" ? "Filtlong (Wick 2021)," : "",
+        params.longread_filter_tool == "filtlong" ? "Filtlong (Wick 2021)." : "",
         params.longread_filter_tool == "nanoq" ? "Nanoq (Steinig and Coin 2022)." : "",
     ].join(' ').trim()
 
