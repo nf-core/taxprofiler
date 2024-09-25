@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#518](https://github.com/nf-core/taxprofiler/pull/518) Fixed a bug where Oxford Nanopore FASTA input files would not be processed (❤️ to @ikarls for reporting, fixed by @jfy133)
 - [#523](https://github.com/nf-core/taxprofiler/pull/523) Removed hardcoded `-m lca` from GANON_CLASSIFY due to more options in new version of ganon (fixed by @LilyAnderssonLee & @jfy133)
+- [#532](https://github.com/nf-core/taxprofiler/pull/532) - Added missing documentation behind the 'ignore' BRACKEN_BRACKEN error strategy (❤️ to @Mavti for reporting, fixed by @jfy133)
 
 ### `Dependencies`
 
