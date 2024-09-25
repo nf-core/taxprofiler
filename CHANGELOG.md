@@ -7,17 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
-- [#417](https://github.com/nf-core/taxprofiler/pull/417) - Added reference-free metagenome complexity/coverage estimation with Nonpareil (added by @jfy133)
-- [#466](https://github.com/nf-core/taxprofiler/pull/466) - Input database sheets can specify a `db_type` column to distinguish between short- and long-read databases (added by @LilyAnderssonLee)
-- [#505](https://github.com/nf-core/taxprofiler/pull/505) - Add small files to the file `tower.yml` (added by @LilyAnderssonLee)
-- [#508](https://github.com/nf-core/taxprofiler/pull/508) - Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
-- [#511](https://github.com/nf-core/taxprofiler/pull/511) - Add `porechop_abi` as an alternative adapter removal tool for long reads nanopore data (added by @LilyAnderssonLee)
-- [#512](https://github.com/nf-core/taxprofiler/pull/512) - Update all tools to the latest version and include nf-test (updated by @LilyAnderssonLee & @jfy133)
+- [#417](https://github.com/nf-core/taxprofiler/pull/417) Added reference-free metagenome complexity/coverage estimation with Nonpareil (added by @jfy133)
+- [#466](https://github.com/nf-core/taxprofiler/pull/466) Input database sheets can specify a `db_type` column to distinguish between short- and long-read databases (added by @LilyAnderssonLee)
+- [#505](https://github.com/nf-core/taxprofiler/pull/505) Add small files to the file `tower.yml` (added by @LilyAnderssonLee)
+- [#508](https://github.com/nf-core/taxprofiler/pull/508) Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
+- [#511](https://github.com/nf-core/taxprofiler/pull/511) Add `porechop_abi` as an alternative adapter removal tool for long reads nanopore data (added by @LilyAnderssonLee)
+- [#512](https://github.com/nf-core/taxprofiler/pull/512) Update all tools to the latest version and include nf-test (updated by @LilyAnderssonLee & @jfy133)
+- [#512](https://github.com/nf-core/taxprofiler/pull/532) Configure MultiQC to collapse stats of paired-read files into one line (by @jfy133)
 
 ### `Fixed`
 
 - [#518](https://github.com/nf-core/taxprofiler/pull/518) Fixed a bug where Oxford Nanopore FASTA input files would not be processed (❤️ to @ikarls for reporting, fixed by @jfy133)
 - [#523](https://github.com/nf-core/taxprofiler/pull/523) Removed hardcoded `-m lca` from GANON_CLASSIFY due to more options in new version of ganon (fixed by @LilyAnderssonLee & @jfy133)
+- [#531](https://github.com/nf-core/taxprofiler/pull/531) Fix FASTA input validation in schema allowing FASTQ extension, expand allowed FASTA extensions (fixed by @jfy133)
+- [#512](https://github.com/nf-core/taxprofiler/pull/532) Minor formatting and ordering improvements in MultiQC report (by @jfy133)
 - [#532](https://github.com/nf-core/taxprofiler/pull/532) - Added missing documentation behind the 'ignore' BRACKEN_BRACKEN error strategy (❤️ to @Mavti for reporting, fixed by @jfy133)
 
 ### `Dependencies`
@@ -35,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | metaphlan     | 4.0.6            | 4.1.1       |
 | minimap2      | 2.24             | 2.28        |
 | motus/profile | 3.0.3            | 3.1.0       |
-| multiqc       | 1.21             | 1.24.1      |
+| multiqc       | 1.21             | 1.25        |
 | samtools      | 1.17             | 1.20        |
 
 ### `Deprecated`

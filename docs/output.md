@@ -723,7 +723,17 @@ You can expect in the MultiQC reports either sections and/or general stats colum
 - motus
 
 :::info
-The 'General Stats' table by default will only show statistics referring to pre-processing steps, and will not display possible values from each classifier/profiler, unless turned on by the user within the 'Configure Columns' menu or via a custom MultiQC config file (`--multiqc_config`)
+The 'General Stats' table by default will only show statistics referring to pre-processing steps, and will not display possible values from each classifier/profiler, unless turned on by the user within the 'Configure Columns' menu or via a custom MultiQC config file (`--multiqc_config`).
+
+For example, DIAMOND output does not have a dedicated section in the MultiQC HTML, only in the general stats table. To turn this on, copy the nf-core/taxprofiler [MultiQC config](https://github.com/nf-core/taxprofiler/blob/master/assets/multiqc_config.yml) and change the DIAMOND entry in `table_columns_visible:` to True.
+:::
+
+:::info
+In the 'General Stats' table, files that end with `_R1/_R2` or `_1/_2` prior the file format extension will be collapsed into single rows.
+
+It is assumed that file names only differening by these characters are associated paired-end reads and stats should be reported together.
+
+For example `sample1_R1.fastq.gz` and `sample1_R2.fastq.gz` will be reported together as `sample1`, with R1/R2 specific stats included inside the collapsed row.
 :::
 
 ### Pipeline information
