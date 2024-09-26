@@ -95,7 +95,7 @@ If you had placed your FASTQ files elsewhere, you would give the full path (i.e.
 #### Database sheet
 
 For the database(s), you also supply these via a `.csv` file.
-This 5 column table contains the tool the database has been built for, a database name, the parameters you wish reads to be queried against the given database with, a column to distinguish between short- and long-read databases and a path to a `.tar.gz` archive file or a directory containing the database files.
+This 4 (or 5) column table contains the tool the database has been built for, a database name, the parameters you wish reads to be queried against the given database with, an optional column to distinguish between short- and long-read databases, and a path to a `.tar.gz` archive file or a directory containing the database files.
 
 Open a text editor, and create a file called `database.csv`.
 Copy and paste the following csv file into the file and save it.
