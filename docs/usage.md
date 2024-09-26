@@ -116,7 +116,7 @@ Databases can be supplied either in the form of a compressed `.tar.gz` archive o
 nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building databases](usage/tutorials#retrieving-databases-or-building-custom-databases) tutorial.
 :::
 
-The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four (or five) column comma-separated sheet. 
+The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four (or five) column comma-separated sheet.
 
 The optional `db_type` column allows to use specific database/parameters against specific data types. By specifying if a database is for short-or long-reads (or even both), the samples sequenced with Illumina are combined with the short-read databases and the samples sequenced with Nanopore are combined with long-read databases. If `db_type` is not provided, it is assumed the database and parameters are applicable for both short and long read data.
 
