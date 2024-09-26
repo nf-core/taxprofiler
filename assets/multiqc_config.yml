@@ -24,9 +24,9 @@ report_section_order:
   nonpareil:
     order: 600
   bbduk:
-    order: 500
-  prinseqplusplus:
     order: 550
+  prinseqplusplus:
+    order: 500
   porechop:
     order: 450
   porechop_abi:
@@ -356,17 +356,6 @@ table_columns_name:
     raw_total_sequences: "Nr. Reads Into Mapping"
     reads_mapped: "Nr. Mapped Reads"
     reads_mapped_percent: "% Mapped Reads"
-
-## Allow collapsing of file names with _R1/_R2 or _1/_2 at the end
-table_sample_merge:
-  "Read 1":
-    - "_R1"
-    - type: regex
-      pattern: "[_.-][rR]?1$"
-  "Read 2":
-    - "_R2"
-    - type: regex
-      pattern: "[_.-][rR]?2$"
 
 extra_fn_clean_exts:
   - "kraken2.report.txt"
