@@ -116,7 +116,7 @@ Databases can be supplied either in the form of a compressed `.tar.gz` archive o
 nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building databases](usage/tutorials#retrieving-databases-or-building-custom-databases) tutorial.
 :::
 
-The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
+The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four (or five) column comma-separated sheet. The optional `db_type` column allows to use specific database/parameters against specific data types. By specifying if a database is for short-or long-reads (or even both), the samples sequenced with Illumina are combined with the short-read databases abd the samples sequenced with Nanopore are combined with long-read databases.
 
 :::warning
 To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters), and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
@@ -165,6 +165,8 @@ You can also specify the same database directory/file twice (ensuring unique `db
 :::
 
 nf-core/taxprofiler will automatically decompress and extract any compressed archives for you.
+
+The optional `db_type` column enables the use of specific databases or parameters for different data types. By specifying if a database is for short-reads, long-reads, or both, Illumina samples are combined with short-read databases, while Nanopore samples are combined with long-read databases.
 
 :::tip
 Click the links in the list below for short quick-reference tutorials how to generate download 'pre-made' and/or custom databases for each tool.
