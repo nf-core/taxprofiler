@@ -90,8 +90,6 @@ ERX5474932,ERR5766176_B,ILLUMINA,ERX5474932_ERR5766176_B_1.fastq.gz,ERX5474932_E
 Here we have specified two libraries of the same sample, that they were sequencing on Illumina platforms, and the paths to the FASTQ files.
 If you had placed your FASTQ files elsewhere, you would give the full path (i.e., with relevant directories) to the `fastq_1`, `fastq_2` and `fasta` columns.
 
-
-
 #### Database sheet
 
 For the database(s), you also supply these via a `.csv` file.
