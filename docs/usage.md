@@ -129,7 +129,7 @@ An example database sheet can look as follows, where 7 tools are being used, and
 ```csv
 tool,db_name,db_params,db_type,db_path
 malt,malt85,-id 85,short,/<path>/<to>/malt/testdb-malt/
-malt,malt95,-id 90,short,/<path>/<to>/malt/testdb-malt.tar.gz
+malt,malt95,-id 90,,/<path>/<to>/malt/testdb-malt.tar.gz
 bracken,db1,;-r 150,short,/<path>/<to>/bracken/testdb-bracken.tar.gz
 kraken2,db2,--quick,short,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 krakenuniq,db3,,short;long,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
