@@ -127,17 +127,17 @@ An example database sheet can look as follows, where 7 tools are being used, and
 `kraken2` will be run twice even though only having a single 'dedicated' database because specifying `bracken` implies first running `kraken2` on the `bracken` database, as required by `bracken`.
 
 ```csv
-tool,db_name,db_params,db_path
-malt,malt85,-id 85,/<path>/<to>/malt/testdb-malt/
-malt,malt95,-id 90,/<path>/<to>/malt/testdb-malt.tar.gz
-bracken,db1,;-r 150,/<path>/<to>/bracken/testdb-bracken.tar.gz
-kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
-krakenuniq,db3,,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
-centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
-metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
-motus,db_mOTU,,/<path>/<to>/motus/motus_database/
-ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
-kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
+tool,db_name,db_params,db_type,db_path
+malt,malt85,-id 85,short,/<path>/<to>/malt/testdb-malt/
+malt,malt95,-id 90,short,/<path>/<to>/malt/testdb-malt.tar.gz
+bracken,db1,;-r 150,short,/<path>/<to>/bracken/testdb-bracken.tar.gz
+kraken2,db2,--quick,short,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
+krakenuniq,db3,,short;long,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
+centrifuge,db1,,short,/<path>/<to>/centrifuge/minigut_cf.tar.gz
+metaphlan,db1,,short,/<path>/<to>/metaphlan/metaphlan_database/
+motus,db_mOTU,,long,/<path>/<to>/motus/motus_database/
+ganon,db1,,short,/<path>/<to>/ganon/test-db-ganon.tar.gz
+kmcp,db1,;-I 20,short,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 ```
 
 :::warning
@@ -157,7 +157,9 @@ Column specifications are as follows:
 | `tool`      | Taxonomic profiling tool (supported by nf-core/taxprofiler) that the database has been indexed for [required]. Please note that `bracken` also implies running `kraken2` on the same database.                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `db_name`   | A unique name per tool for the particular database [required]. Please note that names need to be unique across both `kraken2` and `bracken` as well, even if re-using the same database.                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `db_params` | Any parameters of the given taxonomic classifier/profiler that you wish to specify that the taxonomic classifier/profiling tool should use when profiling against this specific database. Can be empty to use taxonomic classifier/profiler defaults. Must not be surrounded by quotes [required]. We generally do not recommend specifying parameters here that turn on/off saving of output files or specifying particular file extensions - this should be already addressed via pipeline parameters. For Bracken databases, must at a minimum contain a `;` separating Kraken2 from Bracken parameters. |
+| `db_type`   | A column to distinguish between short- and long-read databases. If the column is empty, the pipeline will assume all databases (and their settings specified in `db_params`!) will be applicable for both short and long read data [optional].
 | `db_path`   | Path to the database. Can either be a path to a directory containing the database index files or a `.tar.gz` file which contains the compressed database directory with the same name as the tar archive, minus `.tar.gz` [required].                                                                                                                                                                                                                                                                                                                                                                       |
+
 
 :::tip
 You can also specify the same database directory/file twice (ensuring unique `db_name`s) and specify different parameters for each database to compare the effect of different parameters during classification/profiling.

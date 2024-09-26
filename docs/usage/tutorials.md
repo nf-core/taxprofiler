@@ -108,7 +108,7 @@ kaiju,db3,,short;long,kaiju/
 
 You can see here we have specified the Centrifuge database twice, to allow comparison of different settings.
 We have also specified different profiling parameters depending on whether a database is for short-read or long-read use.
-If we don't specify this, the pipeline will assume all databases (and their settings specifed in `db_params`!) will be applicable for both short and long read data.
+If we don't specify this, the pipeline will assume all databases (and their settings specified in `db_params`!) will be applicable for both short and long read data.
 Note that the each database of the same tool has a unique name.
 Furthermore, while the Kraken2 and Centrifuge databases have been supplied as `.tar.gz` archives, the Kaiju database has been supplied as a directory.
 
