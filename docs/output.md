@@ -709,6 +709,8 @@ You can expect in the MultiQC reports either sections and/or general stats colum
 - nonpareil
 - bbduk
 - prinseqplusplus
+- nanoq
+- porechop_abi
 - porechop
 - filtlong
 - bowtie2
