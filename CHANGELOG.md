@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#531](https://github.com/nf-core/taxprofiler/pull/531) Fix FASTA input validation in schema allowing FASTQ extension, expand allowed FASTA extensions (fixed by @jfy133)
 - [#512](https://github.com/nf-core/taxprofiler/pull/532) Minor formatting and ordering improvements in MultiQC report (by @jfy133)
 - [#532](https://github.com/nf-core/taxprofiler/pull/532) - Added missing documentation behind the 'ignore' BRACKEN_BRACKEN error strategy (❤️ to @Mavti for reporting, fixed by @jfy133)
-- [#536](https://github.com/nf-core/taxprofiler/pull/536) - Re-define contents_re for filtlong to fix the missing of filtlong from the MultiQC report (fixed by @LilyAnderssonLee)
+- [#536](https://github.com/nf-core/taxprofiler/pull/536) - Redefine `contents_re` for filtlong to fix its missing from the MultiQC report (fixed by @LilyAnderssonLee)
 
 ### `Dependencies`
 
