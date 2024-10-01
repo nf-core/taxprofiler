@@ -111,13 +111,17 @@ Databases can be supplied either in the form of a compressed `.tar.gz` archive o
 nf-core/taxprofiler does not provide any databases by default, nor does it currently generate them for you. This must be performed manually by the user. See bottom of this section for more information of the expected database files, or the [building databases](usage/tutorials#retrieving-databases-or-building-custom-databases) tutorial.
 :::
 
-The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four column comma-separated sheet.
+The pipeline takes the paths and specific classification/profiling parameters of the tool of these databases as input via a four (or five) column comma-separated sheet.
+
+The optional `db_type` column allows to use specific database/parameters against specific data types. By specifying if a database is for short-or long-reads (or even both), the samples sequenced with Illumina are combined with the short-read databases and the samples sequenced with Nanopore are combined with long-read databases. If `db_type` is not provided, it is assumed the database and parameters are applicable for both short- and long-read data.
 
 :::warning
 To allow user freedom, nf-core/taxprofiler does not check for mandatory or the validity of non-file database parameters for correct execution of the tool - excluding options offered via pipeline level parameters! Please validate your database parameters (cross-referencing [parameters](https://nf-co.re/taxprofiler/parameters), and the given tool documentation) before submitting the database sheet! For example, if you don't use the default read length - Bracken will require `-r <read_length>` in the `db_params` column.
 :::
 
-An example database sheet can look as follows, where 7 tools are being used, and `malt` and `kraken2` will be used against two databases each.
+An example database sheet can look as follows, where 7 tools are being used, and `malt` and `kraken2` will be used against two databases each. Since the `db_type` column is missing, it is therefore assumed that the database and parameters are suitable for both short- and long-read data.
+
+In the second example database sheet, the `db_type` column has been provided. The valid options are `short`, `long` and `short;long`.
 
 `kraken2` will be run twice even though only having a single 'dedicated' database because specifying `bracken` implies first running `kraken2` on the `bracken` database, as required by `bracken`.
 
@@ -133,6 +137,20 @@ metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
+```
+
+```csv
+tool,db_name,db_params,db_type,db_path
+malt,malt85,-id 85,short,/<path>/<to>/malt/testdb-malt/
+malt,malt95,-id 90,short,/<path>/<to>/malt/testdb-malt.tar.gz
+bracken,db1,;-r 150,short,/<path>/<to>/bracken/testdb-bracken.tar.gz
+kraken2,db2,--quick,short,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
+krakenuniq,db3,,short;long,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
+centrifuge,db1,,short,/<path>/<to>/centrifuge/minigut_cf.tar.gz
+metaphlan,db1,,short,/<path>/<to>/metaphlan/metaphlan_database/
+motus,db_mOTU,,long,/<path>/<to>/motus/motus_database/
+ganon,db1,,short,/<path>/<to>/ganon/test-db-ganon.tar.gz
+kmcp,db1,;-I 20,short,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 ```
 
 :::warning
@@ -152,6 +170,7 @@ Column specifications are as follows:
 | `tool`      | Taxonomic profiling tool (supported by nf-core/taxprofiler) that the database has been indexed for [required]. Please note that `bracken` also implies running `kraken2` on the same database.                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `db_name`   | A unique name per tool for the particular database [required]. Please note that names need to be unique across both `kraken2` and `bracken` as well, even if re-using the same database.                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `db_params` | Any parameters of the given taxonomic classifier/profiler that you wish to specify that the taxonomic classifier/profiling tool should use when profiling against this specific database. Can be empty to use taxonomic classifier/profiler defaults. Must not be surrounded by quotes [required]. We generally do not recommend specifying parameters here that turn on/off saving of output files or specifying particular file extensions - this should be already addressed via pipeline parameters. For Bracken databases, must at a minimum contain a `;` separating Kraken2 from Bracken parameters. |
+| `db_type`   | An optional column to distinguish between short- and long-read databases. If the column is empty, the pipeline will assume all databases (and their settings specified in `db_params`!) will be applicable for both short and long read data. Possible values: `long`, `short`, or `short;long`. If the `db_type` column is missing from the database.csv, it will take the default value short;long                                                                                                                                                                                                        |
 | `db_path`   | Path to the database. Can either be a path to a directory containing the database index files or a `.tar.gz` file which contains the compressed database directory with the same name as the tar archive, minus `.tar.gz` [required].                                                                                                                                                                                                                                                                                                                                                                       |
 
 :::tip
@@ -159,6 +178,8 @@ You can also specify the same database directory/file twice (ensuring unique `db
 :::
 
 nf-core/taxprofiler will automatically decompress and extract any compressed archives for you.
+
+The optional `db_type` column enables the use of specific databases or parameters for different data types. By specifying if a database is for short-reads, long-reads, or both, Illumina samples are combined with short-read databases, while Nanopore samples are combined with long-read databases.
 
 :::tip
 Click the links in the list below for short quick-reference tutorials how to generate download 'pre-made' and/or custom databases for each tool.

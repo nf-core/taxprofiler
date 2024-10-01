@@ -93,20 +93,22 @@ If you had placed your FASTQ files elsewhere, you would give the full path (i.e.
 #### Database sheet
 
 For the database(s), you also supply these via a `.csv` file.
-This 4 column table contains the tool the database has been built for, a database name, the parameters you wish reads to be queried against the given database with, and a path to a `.tar.gz` archive file or a directory containing the database files.
+This 4 (or 5) column table contains the tool the database has been built for, a database name, the parameters you wish reads to be queried against the given database with, an optional column to distinguish between short- and long-read databases, and a path to a `.tar.gz` archive file or a directory containing the database files.
 
 Open a text editor, and create a file called `database.csv`.
 Copy and paste the following csv file into the file and save it.
 
 ```csv title="database.csv"
-tool,db_name,db_params,db_path
-kraken2,db1,--quick,testdb-kraken2.tar.gz
-centrifuge,db2,,test-db-centrifuge.tar.gz
-centrifuge,db2_trimmed,--trim5 2 --trim3 2,test-db-centrifuge.tar.gz
-kaiju,db3,,kaiju/
+tool,db_name,db_params,db_type,db_path
+kraken2,db1,--quick,short,testdb-kraken2.tar.gz
+centrifuge,db2,,short,test-db-centrifuge.tar.gz
+centrifuge,db2_trimmed,--trim5 2 --trim3 2,long,test-db-centrifuge.tar.gz
+kaiju,db3,,short;long,kaiju/
 ```
 
 You can see here we have specified the Centrifuge database twice, to allow comparison of different settings.
+We have also specified different profiling parameters depending on whether a database is for short-read or long-read use.
+If we don't specify this, the pipeline will assume all databases (and their settings specified in `db_params`!) will be applicable for both short and long read data.
 Note that the each database of the same tool has a unique name.
 Furthermore, while the Kraken2 and Centrifuge databases have been supplied as `.tar.gz` archives, the Kaiju database has been supplied as a directory.
 
