@@ -89,6 +89,9 @@ sp:
     fn: "*_fastqc.zip"
   nonpareil:
     fn: "nonpareil_all_samples.json"
+  filtlong:
+    contents: Scoring long reads
+    contents_re: " "
 
 top_modules:
   - "fastqc":

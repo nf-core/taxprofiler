@@ -101,11 +101,6 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 FASTA input will not go through any preprocessing steps, and will go directly to profiling.
 :::
 
-:::warning
-Files names prior the file format extension that include `_R1`/`_R2`, or `_1`/`_2` will be automatically be collapsed in the MultiQC report's General Stats table.
-Please see output documentation for more information.
-:::
-
 ### Full database sheet
 
 nf-core/taxprofiler supports multiple databases being classified/profiled against in parallel for each tool.

@@ -74,9 +74,9 @@ workflow PROFILING {
 
     // Join short and long reads with their corresponding short/long database
     // Note that for not-specified `short;long`, it will match with the database.
-    // E.g. if there is no 'long' reads the above generted 'long' database channel element
+    // E.g. if there is no 'long' reads the above generated 'long' database channel element
     //  will have nothing to join to and will be discarded
-    // Final output: [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':1], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
+    // Final output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':false, 'is_fasta':false, 'type':'short'], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'malt95', 'db_params':'"-id 90"', 'type':'short'], <db_path>/malt95]
 
     ch_input_for_profiling = reads
         .map{

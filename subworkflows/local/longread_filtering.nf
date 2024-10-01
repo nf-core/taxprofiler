@@ -1,5 +1,5 @@
 //
-// Check input samplesheet and get read channels
+// Perform filtering
 //
 
 include { FILTLONG                   } from '../../modules/nf-core/filtlong/main'
