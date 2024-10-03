@@ -182,7 +182,7 @@
                     },
                     "motus/merge": {
                         "branch": "master",
-                        "git_sha": "e743b2dea725bcfc4b76a209981808987332013a",
+                        "git_sha": "3cf419b5480c5ca8893f5ea6e1746d2b3a7c326d",
                         "installed_by": ["modules"]
                     },
                     "motus/profile": {

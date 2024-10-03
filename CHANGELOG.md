@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2 - Bouncy Basenji [2024-09-11]
+## v1.2 - Bouncy Basenji [2024-10-03]
 
 ### `Added`
 
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#508](https://github.com/nf-core/taxprofiler/pull/508) Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
 - [#511](https://github.com/nf-core/taxprofiler/pull/511) Add `porechop_abi` as an alternative adapter removal tool for long reads nanopore data (added by @LilyAnderssonLee)
 - [#512](https://github.com/nf-core/taxprofiler/pull/512) Update all tools to the latest version and include nf-test (updated by @LilyAnderssonLee & @jfy133)
+- [#537](https://github.com/nf-core/taxprofiler/pull/537) Update the module `motus/merge` to the latest version (Updated by @sofstam & @LilyAnderssonLee)
 
 ### `Fixed`
 
@@ -25,21 +26,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool          | Previous version | New version |
-| ------------- | ---------------- | ----------- |
-| bbmap         | 39.01            | 39.06       |
-| bowtie2       | 2.4.4            | 2.5.2       |
-| bracken       | 2.7              | 2.9         |
-| diamond       | 2.0.15           | 2.1.8       |
-| ganon         | 1.5.1            | 2.0.0       |
-| kraken2       | 2.1.2            | 2.1.3       |
-| krona         | 2.8              | 2.8.1       |
-| megan         | 6.24.20          | 6.25.9      |
-| metaphlan     | 4.0.6            | 4.1.1       |
-| minimap2      | 2.24             | 2.28        |
-| motus/profile | 3.0.3            | 3.1.0       |
-| multiqc       | 1.21             | 1.25        |
-| samtools      | 1.17             | 1.20        |
+| Tool      | Previous version | New version |
+| --------- | ---------------- | ----------- |
+| bbmap     | 39.01            | 39.06       |
+| bowtie2   | 2.4.4            | 2.5.2       |
+| bracken   | 2.7              | 2.9         |
+| diamond   | 2.0.15           | 2.1.8       |
+| ganon     | 1.5.1            | 2.0.0       |
+| kraken2   | 2.1.2            | 2.1.3       |
+| krona     | 2.8              | 2.8.1       |
+| megan     | 6.24.20          | 6.25.9      |
+| metaphlan | 4.0.6            | 4.1.1       |
+| minimap2  | 2.24             | 2.28        |
+| motus     | 3.0.3            | 3.1.0       |
+| multiqc   | 1.21             | 1.25        |
+| samtools  | 1.17             | 1.20        |
 
 ### `Deprecated`
 
