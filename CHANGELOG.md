@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#508](https://github.com/nf-core/taxprofiler/pull/508) Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
 - [#511](https://github.com/nf-core/taxprofiler/pull/511) Add `porechop_abi` as an alternative adapter removal tool for long reads nanopore data (added by @LilyAnderssonLee)
 - [#512](https://github.com/nf-core/taxprofiler/pull/512) Update all tools to the latest version and include nf-test (updated by @LilyAnderssonLee & @jfy133)
+- [#537](https://github.com/nf-core/taxprofiler/pull/537) Update the module `motus/merge` to the latest version (Updated by @sofstam & @LilyAnderssonLee)
 
 ### `Fixed`
 
