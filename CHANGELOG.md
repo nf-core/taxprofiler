@@ -3,6 +3,47 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2 - Bouncy Basenji [2024-10-03]
+
+### `Added`
+
+- [#417](https://github.com/nf-core/taxprofiler/pull/417) Added reference-free metagenome complexity/coverage estimation with Nonpareil (added by @jfy133)
+- [#466](https://github.com/nf-core/taxprofiler/pull/466) Input database sheets can specify a `db_type` column to distinguish between short- and long-read databases (added by @LilyAnderssonLee)
+- [#505](https://github.com/nf-core/taxprofiler/pull/505) Add small files to the file `tower.yml` (added by @LilyAnderssonLee)
+- [#508](https://github.com/nf-core/taxprofiler/pull/508) Add `nanoq` as a filtering tool for nanopore reads (added by @LilyAnderssonLee)
+- [#511](https://github.com/nf-core/taxprofiler/pull/511) Add `porechop_abi` as an alternative adapter removal tool for long reads nanopore data (added by @LilyAnderssonLee)
+- [#512](https://github.com/nf-core/taxprofiler/pull/512) Update all tools to the latest version and include nf-test (updated by @LilyAnderssonLee & @jfy133)
+- [#537](https://github.com/nf-core/taxprofiler/pull/537) Update the module `motus/merge` to the latest version (Updated by @sofstam & @LilyAnderssonLee)
+
+### `Fixed`
+
+- [#518](https://github.com/nf-core/taxprofiler/pull/518) Fixed a bug where Oxford Nanopore FASTA input files would not be processed (❤️ to @ikarls for reporting, fixed by @jfy133)
+- [#523](https://github.com/nf-core/taxprofiler/pull/523) Removed hardcoded `-m lca` from GANON_CLASSIFY due to more options in new version of ganon (fixed by @LilyAnderssonLee & @jfy133)
+- [#531](https://github.com/nf-core/taxprofiler/pull/531) Fix FASTA input validation in schema allowing FASTQ extension, expand allowed FASTA extensions (fixed by @jfy133)
+- [#512](https://github.com/nf-core/taxprofiler/pull/532) Minor formatting and ordering improvements in MultiQC report (by @jfy133)
+- [#532](https://github.com/nf-core/taxprofiler/pull/532) - Added missing documentation behind the 'ignore' BRACKEN_BRACKEN error strategy (❤️ to @Mavti for reporting, fixed by @jfy133)
+- [#536](https://github.com/nf-core/taxprofiler/pull/536) - Redefine `contents_re` for filtlong to fix its missing from the MultiQC report (fixed by @LilyAnderssonLee)
+
+### `Dependencies`
+
+| Tool      | Previous version | New version |
+| --------- | ---------------- | ----------- |
+| bbmap     | 39.01            | 39.06       |
+| bowtie2   | 2.4.4            | 2.5.2       |
+| bracken   | 2.7              | 2.9         |
+| diamond   | 2.0.15           | 2.1.8       |
+| ganon     | 1.5.1            | 2.0.0       |
+| kraken2   | 2.1.2            | 2.1.3       |
+| krona     | 2.8              | 2.8.1       |
+| megan     | 6.24.20          | 6.25.9      |
+| metaphlan | 4.0.6            | 4.1.1       |
+| minimap2  | 2.24             | 2.28        |
+| motus     | 3.0.3            | 3.1.0       |
+| multiqc   | 1.21             | 1.25        |
+| samtools  | 1.17             | 1.20        |
+
+### `Deprecated`
+
 ## v1.1.8 - Augmented Akita Patch [2024-06-20]
 
 ### `Added`

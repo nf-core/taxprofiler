@@ -36,7 +36,7 @@ jobs:
           - "test_motus"
           - "test_falco"
           - "test_fastp"
-          - "test_adapterremoval"
+          - "test_alternativepreprocessing"
           - "test_bbduk"
           - "test_prinseqplusplus"
 
@@ -65,8 +65,10 @@ jobs:
           if [[ "${{ matrix.tags }}" == "test_motus" ]]; then
             wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
             python downloadDB.py --no-download-progress
-            echo 'tool,db_name,db_params,db_path' > 'database_motus.csv'
-            echo "motus,db_mOTU,,db_mOTU" >> 'database_motus.csv'
+            echo 'tool,db_name,db_params,db_type,db_path' > 'database_motus.csv'
+            echo "motus,db1_mOTU,,short,db_mOTU" >> 'database_motus.csv'
+            echo "motus,db2_mOTU,,long,db_mOTU" >> 'database_motus.csv'
+            echo "motus,db3_mOTU,,short;long,db_mOTU" >> 'database_motus.csv'
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --databases ./database_motus.csv --outdir ./results_${{ matrix.tags }};
           else
             nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.tags }} --outdir ./results_${{ matrix.tags }};

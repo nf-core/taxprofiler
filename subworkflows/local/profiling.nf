@@ -60,26 +60,47 @@ workflow PROFILING {
         COMBINE READS WITH POSSIBLE DATABASES
     */
 
-    // e.g. output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':true], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'mal95', 'db_params':'"-id 90"'], <db_path>/malt90]
+    // Separate default 'short;long' (when necessary) databases when short/long specified in database sheet
+    ch_dbs = databases
+        .map{
+            meta_db, db ->
+            [ [meta_db.db_type.split(";")].flatten(), meta_db, db]
+        }
+        .transpose(by: 0)
+        .map{
+            type, meta_db, db ->
+            [[type: type], meta_db.subMap(meta_db.keySet() - 'db_type') + [type: type], db]
+        }
+
+    // Join short and long reads with their corresponding short/long database
+    // Note that for not-specified `short;long`, it will match with the database.
+    // E.g. if there is no 'long' reads the above generated 'long' database channel element
+    //  will have nothing to join to and will be discarded
+    // Final output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':false, 'is_fasta':false, 'type':'short'], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'malt95', 'db_params':'"-id 90"', 'type':'short'], <db_path>/malt95]
+
     ch_input_for_profiling = reads
-            .map {
-                meta, reads ->
-                    [meta + [id: "${meta.id}${meta.single_end ? '_se' : '_pe'}"], reads]
-            }
-            .combine(databases)
-            .branch {
-                centrifuge: it[2]['tool'] == 'centrifuge'
-                diamond: it[2]['tool'] == 'diamond'
-                kaiju: it[2]['tool'] == 'kaiju'
-                kraken2: it[2]['tool'] == 'kraken2' || it[2]['tool'] == 'bracken' // to reuse the kraken module to produce the input data for bracken
-                krakenuniq: it[2]['tool'] == 'krakenuniq'
-                malt:    it[2]['tool'] == 'malt'
-                metaphlan: it[2]['tool'] == 'metaphlan'
-                motus: it[2]['tool'] == 'motus'
-                kmcp: it[2]['tool'] == 'kmcp'
-                ganon: it[2]['tool'] == 'ganon'
-                unknown: true
-            }
+        .map{
+            meta, reads ->
+            [[type: meta.type], meta, reads]
+        }
+        .combine(ch_dbs, by: 0)
+        .map{
+            db_type, meta, reads, db_meta, db ->
+            [ meta, reads, db_meta, db ]
+        }
+        .branch { meta, reads, db_meta, db ->
+            centrifuge: db_meta.tool == 'centrifuge'
+            diamond:    db_meta.tool == 'diamond'
+            kaiju:      db_meta.tool == 'kaiju'
+            kraken2:    db_meta.tool == 'kraken2' || db_meta.tool == 'bracken' // to reuse the kraken module to produce the input data for bracken
+            krakenuniq: db_meta.tool == 'krakenuniq'
+            malt:       db_meta.tool == 'malt'
+            metaphlan:  db_meta.tool == 'metaphlan'
+            motus:      db_meta.tool == 'motus'
+            kmcp:       db_meta.tool == 'kmcp'
+            ganon:      db_meta.tool == 'ganon'
+            unknown:    true
+        }
 
     /*
         PREPARE PROFILER INPUT CHANNELS & RUN PROFILING
@@ -322,12 +343,16 @@ workflow PROFILING {
     if ( params.run_diamond ) {
 
         ch_input_for_diamond = ch_input_for_profiling.diamond
+                                .filter {
+                                    meta, reads, meta_db, db ->
+                                    if (!meta.single_end) log.warn "[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. To run DIAMOND on this sample, please merge reads (e.g. with --shortread_qc_mergepairs). Skipping DIAMOND for sample ${meta.id}."
+                                    meta.single_end
+                                }
                                 .multiMap {
                                     it ->
                                         reads: [it[0] + it[2], it[1]]
-                                        db: it[3]
+                                        db: [ it[2], it[3] ]
                                 }
-
         // diamond only accepts single output file specification, therefore
         // this will replace output file!
         ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format

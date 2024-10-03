@@ -85,16 +85,15 @@ workflow PIPELINE_INITIALISATION {
         .fromSamplesheet("input")
         .set { ch_samplesheet }
 
-    emit:
-    samplesheet = ch_samplesheet
-    versions    = ch_versions
-
-// Create channel from databases file provided through params.databases
+    //
+    // Create channel from databases file provided through params.databases
+    //
     Channel
         .fromSamplesheet("databases")
         .set {ch_databases}
 
     emit:
+    samplesheet = ch_samplesheet
     databases   = ch_databases
     versions    = ch_versions
 }
@@ -193,7 +192,7 @@ def genomeExistsError() {
 //
 def toolCitationText() {
     def text_seq_qc = [
-        "Sequencing quality control was carried out with:",
+        "Sequencing quality control with",
         params.preprocessing_qc_tool == "falco" ? "Falco (de Sena Brandine and Smith 2021)." : "FastQC (Andrews 2010)."
     ].join(' ').trim()
 
@@ -203,11 +202,17 @@ def toolCitationText() {
         params.shortread_qc_tool == "fastp" ? "fastp (Chen et al. 2018)." : "",
     ].join(' ').trim()
 
+
+    def text_shortread_redundancy = [
+        "Short-read reference-free metagenome coverage estimation was performed with Nonpareil (Rodriguez-R et al. 2018)."
+    ].join(' ').trim()
+
     def text_longread_qc = [
         "Long read preprocessing was performed with:",
-        !params.longread_qc_skipadaptertrim ? "Porechop (Wick et al. 2017)," : "",
-        !params.longread_qc_skipqualityfilter ? "Filtlong (Wick 2021)," : "",
-        "."
+        params.longread_adapterremoval_tool == "porechop_abi" ? "Porechop_ABI (Bonenfant et al. 2023)," : "",
+        params.longread_adapterremoval_tool == "porechop" ? "Porechop (Wick et al. 2017)," : "",
+        params.longread_filter_tool == "filtlong" ? "Filtlong (Wick 2021)." : "",
+        params.longread_filter_tool == "nanoq" ? "Nanoq (Steinig and Coin 2022)." : "",
     ].join(' ').trim()
 
     def text_shortreadcomplexity = [
@@ -253,14 +258,16 @@ def toolCitationText() {
     def citation_text = [
         "Tools used in the workflow included:",
         text_seq_qc,
-        params.perform_shortread_qc               ? text_shortread_qc : "",
-        params.perform_longread_qc                ? text_longread_qc : "",
-        params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
-        params.perform_shortread_hostremoval      ? text_shortreadhostremoval : "",
-        params.perform_longread_hostremoval       ? text_longreadhostremoval : "",
-        text_classification,
-        params.run_krona                          ? text_visualisation : "",
-        params.run_profile_standardisation        ? text_postprocessing : "",
+        params.perform_shortread_qc                     ? text_shortread_qc : "",
+        params.perform_shortread_redundancyestimation   ? text_shortread_redundancy : "",
+        params.perform_longread_qc                      ? text_longread_qc : "",
+        params.perform_shortread_complexityfilter       ? text_shortreadcomplexity : "",
+        params.perform_shortread_hostremoval            ? text_shortreadhostremoval : "",
+        params.perform_longread_hostremoval             ? text_longreadhostremoval : "",
+        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp].any() ?
+            text_classification : "",
+        params.run_krona                                ? text_visualisation : "",
+        params.run_profile_standardisation              ? text_postprocessing : "",
         "Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
     ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
 
@@ -278,9 +285,15 @@ def toolBibliographyText() {
         params.shortread_qc_tool == "adapterremoval" ? "<li>Schubert, M., Lindgreen, S., & Orlando, L. (2016). AdapterRemoval v2: rapid adapter trimming, identification, and read merging. BMC Research Notes, 9, 88. <a href=\"https://doi.org/10.1186/s13104-016-1900-2\">10.1186/s13104-016-1900-2</a></li>" : "",
     ].join(' ').trim()
 
+    def text_shortread_redundancy = [
+        "<li>Rodriguez-R, L. M., Gunturu, S., Tiedje, J. M., Cole, J. R., & Konstantinidis, K. T. (2018). Nonpareil 3: Fast Estimation of Metagenomic Coverage and Sequence Diversity. mSystems, 3(3). <a href=\"https://doi.org/10.1128/mSystems.00039-18\">10.1128/mSystems.00039-18</a></li>",
+    ].join(' ').trim()
+
     def text_longread_qc = [
-        !params.longread_qc_skipadaptertrim   ? "<li>Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. <a href=\"https://doi.org/10.1099/mgen.0.000132\">10.1099/mgen.0.000132</a></li>" : "",
-        !params.longread_qc_skipqualityfilter ? "<li>Wick R. (2021) Filtlong, URL:  <a href=\"https://github.com/rrwick/Filtlong\">https://github.com/rrwick/Filtlong</a></li>" : ""
+        params.longread_adapterremoval_tool == "porechop_abi" ? "<li>Bonenfant, Q., Noé, L., & Touzet, H. (2023). Porechop_ABI: discovering unknown adapters in Oxford Nanopore Technology sequencing reads for downstream trimming. Bioinformatics Advances, 3(1):vbac085. <a href=\"https://10.1093/bioadv/vbac085\">10.1093/bioadv/vbac085</a></li>" : "",
+        params.longread_adapterremoval_tool == "porechop" ? "<li>Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. <a href=\"https://doi.org/10.1099/mgen.0.000132\">10.1099/mgen.0.000132</a></li>" : "",
+        params.longread_filter_tool == "filtlong" ? "<li>Wick R. (2021) Filtlong, URL:  <a href=\"https://github.com/rrwick/Filtlong\">https://github.com/rrwick/Filtlong</a></li>" : "",
+        params.longread_filter_tool == "nanoq" ? "<li>Steinig, E., & Coin, L. (2022). Nanoq: ultra-fast quality control for nanopore reads. Journal of Open Source Software, 7(69). <a href=\"https://doi.org/10.21105/joss.02991\">10.21105/joss.02991</a></li>" : ""
     ].join(' ').trim()
 
     def text_shortreadcomplexity = [
@@ -363,13 +376,11 @@ def methodsDescriptionText( mqc_methods_yaml ) {
     } else meta["doi_text"] = ""
     meta["nodoi_text"] = meta.manifest_map.doi ? "" : "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
 
-    meta["tool_citations"] = ""
-    meta["tool_bibliography"] = ""
+    // meta["tool_citations"] = ""
+    // meta["tool_bibliography"] = ""
 
-    // TODO nf-core: Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
-    // meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
-    // meta["tool_bibliography"] = toolBibliographyText()
-
+    meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+    meta["tool_bibliography"] = toolBibliographyText()
 
     def methods_text = mqc_methods_yaml.text
 
