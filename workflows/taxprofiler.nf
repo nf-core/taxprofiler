@@ -10,6 +10,7 @@ include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_taxprofiler_pipeline'
+include { GENERATE_DOWNSTREAM_SAMPLESHEETS } from '../subworkflows/local/generate_downstream_samplesheets/main.nf'
 include { validateParameters; paramsHelp; paramsSummaryLog; fromSamplesheet } from 'plugin/nf-validation'
 
 // Check input path parameters to see if they exist
@@ -327,6 +328,14 @@ workflow TAXPROFILER {
     /*
         MODULE: MultiQC
     */
+
+
+    //
+    // Samplesheet generation
+    //
+    if ( params.generate_downstream_samplesheets ) {
+        GENERATE_DOWNSTREAM_SAMPLESHEETS ( samplesheet )
+    }
 
     //
     // Collate and save software versions
