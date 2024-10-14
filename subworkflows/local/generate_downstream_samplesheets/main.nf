@@ -10,7 +10,7 @@ workflow GENERATE_DOWNSTREAM_SAMPLESHEETS {
     format     = 'csv' // most common format in nf-core
     format_sep = ','
 
-    if ( params.generate_pipeline_samplesheets == 'mag' && params.save_analysis_ready_reads ) {
+    if ( params.generate_pipeline_samplesheets == 'mag' && params.save_analysis_ready_fastqs ) {
         def fastq_rel_path = '/'
         format = 'csv'
         format_sep = ','
