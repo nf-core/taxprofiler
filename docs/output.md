@@ -683,7 +683,6 @@ The following report files are used for the taxpasta step:
 Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
 :::
 
-
 The pipeline can also generate downstream pipeline input samplesheets.
 These are stored in `<outdir>/downstream_samplesheets`.
 
@@ -748,7 +747,6 @@ For example, DIAMOND output does not have a dedicated section in the MultiQC HTM
 </details>
 
 [Nextflow](https://www.nextflow.io/docs/latest/tracing.html) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
-
 
 ### Downstream samplesheets
 
