@@ -10,7 +10,7 @@ workflow GENERATE_DOWNSTREAM_SAMPLESHEETS {
     format     = 'csv' // most common format in nf-core
     format_sep = ','
 
-    if ( params.downstream_pipeline == 'mag' && params.save_analysis_ready_reads ) {
+    if ( params.generate_pipeline_samplesheets == 'mag' && params.save_analysis_ready_reads ) {
         def fastq_rel_path = '/'
         format = 'csv'
         format_sep = ','
@@ -36,7 +36,7 @@ workflow GENERATE_DOWNSTREAM_SAMPLESHEETS {
         .map{ it.keySet().join(format_sep) }
         .concat( ch_list_for_samplesheet.map{ it.values().join(format_sep) })
         .collectFile(
-            name:"${params.outdir}/downstream_samplesheet/${params.downstream_pipeline}.${format}",
+            name:"${params.outdir}/downstream_samplesheet/${params.generate_pipeline_samplesheets}.${format}",
             newLine: true,
             sort: false
         )

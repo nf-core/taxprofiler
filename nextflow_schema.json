@@ -984,5 +984,18 @@
         {
             "$ref": "#/definitions/reference_genome_options"
         }
-    ]
+    ],
+    "properties": {
+        "generate_downstream_samplesheets": {
+            "type": "boolean",
+            "description": "Turn on generation of samplesheets for downstream pipelines.",
+            "fa_icon": "fas fa-toggle-on"
+        },
+        "generate_pipeline_samplesheets": {
+            "type": "string",
+            "default": "taxprofiler",
+            "description": "Specify which pipeline to generate a samplesheet for.",
+            "fa_icon": "fas fa-toolbox"
+        }
+    }
 }
