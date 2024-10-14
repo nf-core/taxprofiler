@@ -42,6 +42,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
+The pipeline can also generate downstream pipeline input samplesheets.
+These are stored in `<outdir>/downstream_samplesheets`.
+
 ![](images/taxprofiler_tube.png)
 
 ### untar
@@ -683,8 +686,6 @@ The following report files are used for the taxpasta step:
 Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
 :::
 
-The pipeline can also generate downstream pipeline input samplesheets.
-These are stored in `<outdir>/downstream_samplesheets`.
 
 ### MultiQC
 

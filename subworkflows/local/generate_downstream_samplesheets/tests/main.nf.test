@@ -1,0 +1,42 @@
+nextflow_workflow {
+
+    name "Test Subworkflow GENERATE_DOWNSTREAM_SAMPLESHEETS"
+    script "../main.nf"
+    workflow "GENERATE_DOWNSTREAM_SAMPLESHEETS"
+
+    tag "subworkflows"
+    tag "subworkflows_local"
+    tag "subworkflows/generate_downstream_samplesheets"
+
+    test("generate_downstream_samplesheets - mag") {
+
+        when {
+            params {
+                modules_testdata_base_path      = "https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/"
+                outdir                          = "."
+                generate_pipeline_samplesheets  = 'mag'
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [id:'database', tool:'kraken2'],
+                        file(params.modules_testdata_base_path + "genomics/sarscov2/genome/db/kraken2.tar.gz", checkIfExists: true)
+                    ],
+                    [
+                        [id:'database', tool:'krakenuniq'],
+                        file(params.modules_testdata_base_path + "genomics/sarscov2/genome/db/krakenuniq.tar.gz", checkIfExists: true)
+                    ],
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot("${params.outdir}/downstream_samplesheets/${params.generate_pipeline_samplesheets}.csv").match() }
+            )
+        }
+    }
+}
