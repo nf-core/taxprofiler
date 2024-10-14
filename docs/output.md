@@ -759,7 +759,7 @@ pipelines:
 <summary>Output files</summary>
 
 - `downstream_samplesheets/`
-  - `mag.csv`: Only for paired-end reads
+  - `mag.csv`: input sheet for nf-core/mag with paths to nf-core/taxprofiler preprocessed (corresponding to what is saved with `--save_analysis_ready_fastqs`)
 
 </details>
 
