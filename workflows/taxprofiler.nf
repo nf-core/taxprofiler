@@ -10,7 +10,6 @@ include { paramsSummaryMap       } from 'plugin/nf-validation'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_taxprofiler_pipeline'
-include { GENERATE_DOWNSTREAM_SAMPLESHEETS } from '../subworkflows/local/generate_downstream_samplesheets/main.nf'
 include { validateParameters; paramsHelp; paramsSummaryLog; fromSamplesheet } from 'plugin/nf-validation'
 
 // Check input path parameters to see if they exist
@@ -73,6 +72,7 @@ include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_
 include { PROFILING                     } from '../subworkflows/local/profiling'
 include { VISUALIZATION_KRONA           } from '../subworkflows/local/visualization_krona'
 include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardisation_profiles'
+include { GENERATE_DOWNSTREAM_SAMPLESHEETS } from '../subworkflows/local/generate_downstream_samplesheets/main.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
