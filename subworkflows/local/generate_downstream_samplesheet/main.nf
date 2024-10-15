@@ -31,7 +31,7 @@ workflow GENERATE_DOWNSTREAM_SAMPLESHEETS {
     take:
     ch_taxpasta
 
-    mai:
+    main:
     def downstreampipeline_names = params.generate_pipeline_samplesheets.split(",")
 
     if ( downstreampipeline_names.contains('differentialabundance')) {

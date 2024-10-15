@@ -325,9 +325,9 @@ workflow TAXPROFILER {
         ch_versions = ch_versions.mix( STANDARDISATION_PROFILES.out.versions )
     }
 
-    //if ( params.generate_downstream_samplesheets ) {
-    //        GENERATE_DOWNSTREAM_SAMPLESHEETS ( STANDARDISATION_PROFILES.out.taxpasta)
-    //    }
+    if ( params.generate_downstream_samplesheets ) {
+            GENERATE_DOWNSTREAM_SAMPLESHEETS ( STANDARDISATION_PROFILES.out.taxpasta)
+        }
 
     /*
         MODULE: MultiQC

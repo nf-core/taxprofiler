@@ -744,3 +744,29 @@ For example, DIAMOND output does not have a dedicated section in the MultiQC HTM
 </details>
 
 [Nextflow](https://www.nextflow.io/docs/latest/tracing.html) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
+
+### Downstream samplesheets
+
+The pipeline can also generate input files for the following downstream
+pipelines:
+
+- [nf-core/differentialabundance](https://nf-co.re/differentialabundance)
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `downstream_samplesheets/`
+
+  - `samplesheet.csv`: A samplesheet for each classifier.
+  - `matrix.csv`: The output from taxpasta.
+
+</details>
+
+This pipeline only generates the `samplesheet` and `matrix` inputs. You will need to manually prepare the `contrast` table before running `nf-core/differentialabundance`.
+
+`samplesheet.csv` includes sample IDs from the `taxpasta` output for each classifier. You will need to specify the conditions (the groups you want to compare) as desired.
+
+:::warning
+Any generated downstream samplesheet is provided as 'best effort' and are not guaranteed to work straight out of the box!
+They may not be complete (e.g. some columns may need to be manually filled in).
+:::
