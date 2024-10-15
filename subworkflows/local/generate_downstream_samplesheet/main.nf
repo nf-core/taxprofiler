@@ -23,7 +23,7 @@ workflow SAMPLESHEET_DIFFERENTIALABUNDANCE {
 
         ch_colnames = Channel.of('sample')
 
-        channelToSamplesheet(ch_colnames, ch_list_for_samplesheet, 'downstream_samplesheets/differentialabundance', samplesheet_name )
+        channelToSamplesheet(ch_colnames, ch_list_for_samplesheet, "downstream_samplesheets/differentialabundance", "samplesheet_${samplesheet_name}" )
     }
 }
 
