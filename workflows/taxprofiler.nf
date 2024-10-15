@@ -63,15 +63,16 @@ if ( [params.taxpasta_add_name, params.taxpasta_add_rank, params.taxpasta_add_li
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
-include { SHORTREAD_PREPROCESSING       } from '../subworkflows/local/shortread_preprocessing'
-include { NONPAREIL                     } from '../subworkflows/local/nonpareil'
-include { LONGREAD_PREPROCESSING        } from '../subworkflows/local/longread_preprocessing'
-include { SHORTREAD_HOSTREMOVAL         } from '../subworkflows/local/shortread_hostremoval'
-include { LONGREAD_HOSTREMOVAL          } from '../subworkflows/local/longread_hostremoval'
-include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_complexityfiltering'
-include { PROFILING                     } from '../subworkflows/local/profiling'
-include { VISUALIZATION_KRONA           } from '../subworkflows/local/visualization_krona'
-include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardisation_profiles'
+include { SHORTREAD_PREPROCESSING           } from '../subworkflows/local/shortread_preprocessing'
+include { NONPAREIL                         } from '../subworkflows/local/nonpareil'
+include { LONGREAD_PREPROCESSING            } from '../subworkflows/local/longread_preprocessing'
+include { SHORTREAD_HOSTREMOVAL             } from '../subworkflows/local/shortread_hostremoval'
+include { LONGREAD_HOSTREMOVAL              } from '../subworkflows/local/longread_hostremoval'
+include { SHORTREAD_COMPLEXITYFILTERING     } from '../subworkflows/local/shortread_complexityfiltering'
+include { PROFILING                         } from '../subworkflows/local/profiling'
+include { VISUALIZATION_KRONA               } from '../subworkflows/local/visualization_krona'
+include { STANDARDISATION_PROFILES          } from '../subworkflows/local/standardisation_profiles'
+include { GENERATE_DOWNSTREAM_SAMPLESHEETS  } from '../subworkflows/local/generate_downstream_samplesheet/main.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -323,6 +324,10 @@ workflow TAXPROFILER {
         STANDARDISATION_PROFILES ( PROFILING.out.classifications, PROFILING.out.profiles, ch_final_dbs, PROFILING.out.motus_version )
         ch_versions = ch_versions.mix( STANDARDISATION_PROFILES.out.versions )
     }
+
+    //if ( params.generate_downstream_samplesheets ) {
+    //        GENERATE_DOWNSTREAM_SAMPLESHEETS ( STANDARDISATION_PROFILES.out.taxpasta)
+    //    }
 
     /*
         MODULE: MultiQC
