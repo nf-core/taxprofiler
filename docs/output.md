@@ -762,7 +762,7 @@ pipelines:
 
 </details>
 
-This pipeline only generates the `samplesheet` and `matrix` inputs. You will need to manually prepare the `contrast` table before running `nf-core/differentialabundance`.
+To generate the downsteam samplesheets for `nf-core/differentialabundance`, you need to turn on `--run_profile_standardisation`. The pipeline only generates the `samplesheet` and `matrix` inputs. You will need to manually prepare the `contrast` table before running `nf-core/differentialabundance`.
 
 `samplesheet.csv` includes sample IDs from the `taxpasta` output for each classifier. You will need to specify the conditions (the groups you want to compare) as desired.
 

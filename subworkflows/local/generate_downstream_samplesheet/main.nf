@@ -35,7 +35,7 @@ workflow GENERATE_DOWNSTREAM_SAMPLESHEETS {
     def downstreampipeline_names = params.generate_pipeline_samplesheets.split(",")
 
     if ( downstreampipeline_names.contains('differentialabundance')) {
-        SAMPLESHEET_TAXPROFILER(ch_databases)
+        SAMPLESHEET_DIFFERENTIALABUNDANCE(ch_taxpasta)
     }
 }
 
