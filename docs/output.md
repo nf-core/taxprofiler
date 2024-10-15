@@ -686,7 +686,6 @@ The following report files are used for the taxpasta step:
 Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
 :::
 
-
 ### MultiQC
 
 <details markdown="1">
