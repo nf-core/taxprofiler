@@ -12,7 +12,6 @@ workflow SAMPLESHEET_MAG {
 
 
     ch_list_for_samplesheet = ch_processed_reads
-            .view()
             .filter { meta, sample_id, instrument_platform,fastq_1,fastq_2,fasta -> (fastq_1 && fastq_2) && !fasta }
                 .map {
                         meta, sample_id, instrument_platform,fastq_1,fastq_2,fasta ->
@@ -26,7 +25,7 @@ workflow SAMPLESHEET_MAG {
         }
         .tap { ch_colnames }
 
-    channelToSamplesheet(ch_colnames, ch_list_for_samplesheet, 'downstream_samplesheets', format, format_sep)
+    channelToSamplesheet(ch_list_for_samplesheet,"${params.outdir}/downstream_samplesheets/mag", format)
 }
 
 workflow GENERATE_DOWNSTREAM_SAMPLESHEETS {
@@ -35,20 +34,26 @@ workflow GENERATE_DOWNSTREAM_SAMPLESHEETS {
     ch_processed_reads
 
     main:
-    if ( params.generate_pipeline_samplesheets == 'mag' && params.save_analysis_ready_fastqs ) {
+    def downstreampipeline_names = params.generate_pipeline_samplesheets.split(",")
+
+    if ( downstreampipeline_names.contains('mag') && params.save_analysis_ready_fastqs) {
         SAMPLESHEET_MAG(ch_processed_reads)
     }
+
 }
 
-def channelToSamplesheet(ch_header, ch_list_for_samplesheet, outdir_subdir, format, format_sep) {
-    // Constructs the header string and then the strings of each row, and
-    // finally concatenates for saving. Originally designed by @mahesh-panchal
+// Constructs the header string and then the strings of each row, and
+def channelToSamplesheet(ch_list_for_samplesheet, path, format) {
+    format_sep = ["csv":",", "tsv":"\t", "txt":"\t"][format]
+
+    ch_header = ch_list_for_samplesheet
+
     ch_header
         .first()
-        .map { it.keySet().join(format_sep) }
-        .concat(ch_list_for_samplesheet.map { it.values().join(format_sep) })
+        .map{ it.keySet().join(format_sep) }
+        .concat( ch_list_for_samplesheet.map{ it.values().join(format_sep) })
         .collectFile(
-            name: "${params.outdir}/${outdir_subdir}/${params.generate_pipeline_samplesheets}.${format}",
+            name:"${path}.${format}",
             newLine: true,
             sort: false
         )
