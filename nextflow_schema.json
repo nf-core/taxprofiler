@@ -725,9 +725,9 @@
                 },
                 "generate_pipeline_samplesheets": {
                     "type": "string",
-                    "enum": ["differentialabundance"],
                     "description": "Specify which pipeline to generate a samplesheet for.",
-                    "fa_icon": "fas fa-toolbox"
+                    "fa_icon": "fas fa-toolbox",
+                    "pattern": "^(differentialabundance)(?:,(differentialabundance)){0,1}"
                 }
             }
         },
