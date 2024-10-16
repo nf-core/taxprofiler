@@ -750,8 +750,7 @@ For example, DIAMOND output does not have a dedicated section in the MultiQC HTM
 
 ### Downstream samplesheets
 
-The pipeline can also generate input files for the following downstream
-pipelines:
+The pipeline can also generate input files for the following downstream pipelines:
 
 - [nf-core/mag](https://nf-co.re/mag)
 
