@@ -683,6 +683,9 @@ The following report files are used for the taxpasta step:
 Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
 :::
 
+The pipeline can also generate downstream pipeline input samplesheets.
+These are stored in `<outdir>/downstream_samplesheets`.
+
 ### MultiQC
 
 <details markdown="1">
@@ -762,7 +765,7 @@ pipelines:
 
 </details>
 
-To generate the downsteam samplesheets for `nf-core/differentialabundance`, you need to turn on `--run_profile_standardisation`. The pipeline only generates the `samplesheet` and `matrix` inputs. You will need to manually prepare the `contrast` table before running `nf-core/differentialabundance`.
+To generate the downsteam samplesheets for `nf-core/differentialabundance`, you need to turn on `--run_profile_standardisation`, `--generate_downstream_samplesheets` and `--generate_pipeline_samplesheets differentialabundance` The pipeline only generates the `samplesheet` and `matrix` inputs. You will need to manually prepare the `contrast` table before running `nf-core/differentialabundance`.
 
 `samplesheet.csv` includes sample IDs from the `taxpasta` output for each classifier. You will need to specify the conditions (the groups you want to compare) as desired.
 

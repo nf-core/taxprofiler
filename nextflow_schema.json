@@ -992,6 +992,9 @@
             "$ref": "#/definitions/postprocessing_and_visualisation_options"
         },
         {
+            "$ref": "#/definitions/generate_samplesheet_options"
+        },
+        {
             "$ref": "#/definitions/institutional_config_options"
         },
         {
