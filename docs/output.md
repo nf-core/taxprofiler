@@ -750,8 +750,7 @@ For example, DIAMOND output does not have a dedicated section in the MultiQC HTM
 
 ### Downstream samplesheets
 
-The pipeline can also generate input files for the following downstream
-pipelines:
+The pipeline can also generate input files for the following downstream pipelines:
 
 - [nf-core/mag](https://nf-co.re/mag)
 
@@ -759,7 +758,7 @@ pipelines:
 <summary>Output files</summary>
 
 - `downstream_samplesheets/`
-  - `mag.csv`: input sheet for nf-core/mag with paths to nf-core/taxprofiler preprocessed (corresponding to what is saved with `--save_analysis_ready_fastqs`)
+  - `mag.csv`: input sheet for that contains paths to preprocessed FASTQs (corresponding to what is saved with `--save_analysis_ready_fastqs`) that can be used to skip read preprocessing steps in nf-core/mag 
 
 </details>
 
