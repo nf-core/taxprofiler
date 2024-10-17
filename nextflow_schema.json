@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/master/nextflow_schema.json",
     "title": "nf-core/taxprofiler pipeline parameters",
     "description": "Taxonomic classification and profiling of shotgun short- and long-read metagenomic data",
@@ -712,6 +712,24 @@
             },
             "fa_icon": "fas fa-chart-line"
         },
+        "generate_samplesheet_options": {
+            "title": "Downstream pipeline samplesheet generation options",
+            "type": "object",
+            "fa_icon": "fas fa-university",
+            "description": "Options for generating input samplesheets for complementary downstream pipelines.",
+            "properties": {
+                "generate_pipeline_samplesheets": {
+                    "type": "string",
+                    "description": "Specify a comma separated string in quotes to specify which pipeline to generate a samplesheet for.",
+                    "pattern": "^(differentialabundance|mag)(?:,(differentialabundance|mag)){0,1}"
+                },
+                "generate_downstream_samplesheets": {
+                    "type": "boolean",
+                    "description": "Turn on generation of samplesheets for downstream pipelines.",
+                    "fa_icon": "fas fa-toggle-on"
+                }
+            }
+        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -945,6 +963,9 @@
         }
     },
     "allOf": [
+        {
+            "$ref": "#/definitions/generate_samplesheet_options"
+        },
         {
             "$ref": "#/definitions/input_output_options"
         },
