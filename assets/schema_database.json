@@ -1,0 +1,55 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/master/assets/schema_database.json",
+    "title": "nf-core/taxprofiler pipeline - params.database schema",
+    "description": "Schema for the file provided with params.database",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "tool": {
+                "type": "string",
+                "enum": [
+                    "bracken",
+                    "centrifuge",
+                    "diamond",
+                    "ganon",
+                    "kaiju",
+                    "kmcp",
+                    "kraken2",
+                    "krakenuniq",
+                    "malt",
+                    "metaphlan",
+                    "motus"
+                ],
+                "errorMessage": "Invalid tool name. Please see documentation for all supported profilers. Currently these classifers are included: bracken, centrifuge, diamond, ganon, kaiju, kmcp, kraken2, krakenuniq, malt, metaphlan, motus.",
+                "meta": ["tool"]
+            },
+            "db_name": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "The unique name of the database should be provided.",
+                "meta": ["db_name"]
+            },
+            "db_params": {
+                "type": "string",
+                "pattern": "^[^\"']*$",
+                "errorMessage": "Invalid database db_params entry. No quotes allowed.",
+                "meta": ["db_params"]
+            },
+            "db_type": {
+                "type": "string",
+                "enum": ["short", "long", "short;long"],
+                "default": "short;long",
+                "meta": ["db_type"]
+            },
+            "db_path": {
+                "type": "string",
+                "format": "file-path",
+                "errorMessage": "db_path should be either a file path or a directory."
+            }
+        },
+        "required": ["tool", "db_name", "db_path"],
+        "uniqueEntries": ["tool", "db_name"]
+    }
+}

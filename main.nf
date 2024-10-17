@@ -15,7 +15,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { TAXPROFILER  } from './workflows/taxprofiler'
+include { TAXPROFILER             } from './workflows/taxprofiler'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_taxprofiler_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_taxprofiler_pipeline'
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_taxprofiler_pipeline'
@@ -25,11 +25,6 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_taxp
     GENOME PARAMETER VALUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
-// TODO nf-core: Remove this line if you don't need a FASTA file
-//   This is an example of how to use getGenomeAttribute() to fetch parameters
-//   from igenomes.config using `--genome`
-params.fasta = getGenomeAttribute('fasta')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,6 +39,7 @@ workflow NFCORE_TAXPROFILER {
 
     take:
     samplesheet // channel: samplesheet read in from --input
+    databases   // channel: databases in from --databases
 
     main:
 
@@ -51,7 +47,8 @@ workflow NFCORE_TAXPROFILER {
     // WORKFLOW: Run pipeline
     //
     TAXPROFILER (
-        samplesheet
+        samplesheet,
+        databases,
     )
     emit:
     multiqc_report = TAXPROFILER.out.multiqc_report // channel: /path/to/multiqc_report.html
@@ -74,14 +71,16 @@ workflow {
         params.monochrome_logs,
         args,
         params.outdir,
-        params.input
+        params.input,
+        params.databases
     )
 
     //
     // WORKFLOW: Run main workflow
     //
     NFCORE_TAXPROFILER (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.samplesheet,
+        PIPELINE_INITIALISATION.out.databases,
     )
     //
     // SUBWORKFLOW: Run completion tasks
