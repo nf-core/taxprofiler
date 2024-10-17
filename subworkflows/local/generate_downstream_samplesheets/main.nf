@@ -11,7 +11,6 @@ workflow SAMPLESHEET_MAG {
     format_sep = ','
 
     ch_list_for_samplesheet = ch_processed_reads.view()
-             //.filter { meta, sample_id, instrument_platform,fastq_1,fastq_2,fasta -> (fastq_1 && fastq_2) && !fasta }
             .map {
                         meta, sample_id, instrument_platform,fastq_1,fastq_2,fasta ->
                             def sample        = meta.id
