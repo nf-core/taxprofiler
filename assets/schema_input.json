@@ -35,18 +35,21 @@
             },
             "fastq_1": {
                 "type": "string",
+                "exists": true,
                 "format": "file-path",
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
                 "errorMessage": "Gzipped FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             },
             "fastq_2": {
                 "type": "string",
+                "exists": true,
                 "format": "file-path",
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
                 "errorMessage": "Gzipped FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'. If not applicable, leave it empty."
             },
             "fasta": {
                 "type": "string",
+                "exists": true,
                 "format": "file-path",
                 "pattern": "^\\S+\\.(fasta|fas|fna|fa)\\.gz?$",
                 "errorMessage": "Gzipped FastA file must be provided, cannot contain spaces and must have extension '.fa.gz', 'fna.gz', 'fas.gz', or '.fasta.gz'. If not applicable, leave it empty."
