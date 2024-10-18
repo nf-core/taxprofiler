@@ -46,7 +46,7 @@
             "db_path": {
                 "type": "string",
                 "exists": true,
-                "format": "file-path",
+                "format": "path",
                 "errorMessage": "db_path should be either a file path or a directory."
             }
         },
