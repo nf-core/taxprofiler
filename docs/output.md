@@ -758,7 +758,7 @@ The pipeline can also generate input files for the following downstream pipeline
 <summary>Output files</summary>
 
 - `downstream_samplesheets/`
-  - `mag.csv`: input sheet for that contains paths to preprocessed FASTQs (corresponding to what is saved with `--save_analysis_ready_fastqs`) that can be used to skip read preprocessing steps in nf-core/mag 
+  - `mag.csv`: input sheet for that contains paths to preprocessed FASTQs (corresponding to what is saved with `--save_analysis_ready_fastqs`) that can be used to skip read preprocessing steps in nf-core/mag
 
 </details>
 
