@@ -9,11 +9,13 @@
         "properties": {
             "sample": {
                 "type": ["string", "integer"],
-                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "pattern": "^[^\\s]+$",
+                "errorMessage": "Sample name must be a string or an integer and cannot contain spaces",
                 "meta": ["id"]
             },
             "run_accession": {
                 "type": ["string", "integer"],
+                "pattern": "^[^\\s]+$",
                 "errorMessage": "Run accession must be provided and cannot contain spaces."
             },
             "instrument_platform": {

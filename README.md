@@ -112,6 +112,7 @@ nf-core/taxprofiler was originally written by James A. Fellows Yates, Sofia Stam
 - [James A. Fellows Yates](https://github.com/jfy133)
 - [Sofia Stamouli](https://github.com/sofstam)
 - [Moritz E. Beber](https://github.com/Midnighter)
+- [Lili Andersson-Li](https://github.com/LilyAnderssonLee)
 
 We thank the following people for their contributions to the development of this pipeline:
 
@@ -122,7 +123,6 @@ We thank the following people for their contributions to the development of this
 - [Jianhong Ou](https://github.com/jianhong)
 - [Rafal Stepien](https://github.com/rafalstepien)
 - [Mahwash Jamy](https://github.com/mjamy)
-- [Lily Andersson Lee](https://github.com/LilyAnderssonLee)
 
 ### Acknowledgments
 
