@@ -13,7 +13,7 @@
                 "meta": ["id"]
             },
             "run_accession": {
-                "type": "string",
+                "type": ["string", "integer"],
                 "errorMessage": "Run accession must be provided and cannot contain spaces."
             },
             "instrument_platform": {
