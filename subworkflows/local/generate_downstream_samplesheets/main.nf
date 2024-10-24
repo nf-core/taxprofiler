@@ -15,24 +15,24 @@ workflow SAMPLESHEET_MAG {
                         meta, sample_id, instrument_platform,fastq_1,fastq_2,fasta ->
                             def sample        = meta.id
                             def run           = meta.run_accession  //this should be optional
-                            def group         = ""
-                            def short_reads_1 = meta.single_end ? "": file(params.outdir).toString() + '/' + meta.id + '/' + fastq_1.getName()
-                            def short_reads_2 = meta.single_end ? "": file(params.outdir).toString() + '/' + meta.id + '/' + fastq_2.getName()
+                            def group         = "" 
+                            def short_reads_1 = file(params.outdir).toString() + '/' + meta.id + '/' + fastq_1.getName()
+                            def short_reads_2 = meta.single_end ? "" : file(params.outdir).toString() + '/' + meta.id + '/' + fastq_2.getName()
                             def long_reads    = meta.is_fasta ? file(params.outdir).toString() + '/' + meta.id + '/' + fasta.getName() : ""
                 [sample: sample, run: run, group: group, short_reads_1: short_reads_1, short_reads_2: short_reads_2, long_reads: long_reads]
         }
         .view()
         .tap{ ch_list_for_samplesheet_all }
-        .filter{ it.short_reads_1!="" }
+        .filter{ it.short_reads_1 != "" }
         .branch{
-            se: it.short_reads_2 ==""
+            se: it.short_reads_2 == ""
             pe: true
     }
 
     // Throw a warning that only long reads are not supported yet by MAG
     ch_list_for_samplesheet_all
-        .filter{ it.long_reads !="" && it.short_reads_1=="" }
-        .collect{ log.warn("Standalone long reads are not yet supported by the nf-core/mag pipeline and ARE REMOVED from the samplesheet 'mag-se.csv' \n sample: ${it.sample}" )}
+        .filter{ it.long_reads != "" && it.short_reads_1 == "" }
+        .collect{ log.warn("[nf-core/taxprofiler] WARNING: Standalone long reads are not yet supported by the nf-core/mag pipeline and will not be in present in `mag-*.csv`. Sample: ${it.sample}" )}
 
     channelToSamplesheet(ch_list_for_samplesheet.pe,"${params.outdir}/downstream_samplesheets/mag-pe", format)
     channelToSamplesheet(ch_list_for_samplesheet.se, "${params.outdir}/downstream_samplesheets/mag-se", format)
