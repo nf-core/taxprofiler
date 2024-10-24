@@ -334,7 +334,7 @@ workflow TAXPROFILER {
     // Samplesheet generation
     //
     if ( params.generate_downstream_samplesheets ) {
-        GENERATE_DOWNSTREAM_SAMPLESHEETS ( samplesheet )
+        GENERATE_DOWNSTREAM_SAMPLESHEETS ( ch_reads_runmerged )
     }
 
     //
