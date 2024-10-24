@@ -50,7 +50,7 @@
                 "errorMessage": "db_path should be either a file path or a directory."
             }
         },
-        "required": ["tool", "db_name", "db_path"],
-        "uniqueEntries": ["tool", "db_name"]
-    }
+        "required": ["tool", "db_name", "db_path"]
+    },
+    "uniqueEntries": ["tool", "db_name"]
 }

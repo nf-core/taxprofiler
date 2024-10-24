@@ -105,7 +105,7 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/taxprofiler was originally written by James A. Fellows Yates, Sofia Stamouli, Moritz E. Beber, and the nf-core/taxprofiler team.
+nf-core/taxprofiler was originally written by James A. Fellows Yates, Sofia Stamouli, Moritz E. Beber, Lili Andersson-Li, and the nf-core/taxprofiler team.
 
 ### Team
 
