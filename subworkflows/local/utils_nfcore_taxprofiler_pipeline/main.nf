@@ -149,7 +149,17 @@ workflow PIPELINE_COMPLETION {
 //
 def validateInputParameters() {
     genomeExistsError()
-}//
+
+    if (params.generate_downstream_samplesheets && !params.generate_pipeline_samplesheets) {
+        error('[nf-core/taxprofiler] ERROR: If supplying `--generate_downstream_samplesheets`, you must also specify which pipeline to generate for with `--generate_pipeline_samplesheets`! Check input.')
+    }
+
+    if ( params.generate_downstream_samplesheets && params.generate_pipeline_samplesheets.split(",").contains('mag') && !params.save_analysis_ready_fastqs ) {
+        error("[nf-core/taxprofiler] ERROR: To generate downstream samplesheets for nf-core/mag, you must also specify `--save_analysis_ready_fastqs`")
+    }
+}
+
+//
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {

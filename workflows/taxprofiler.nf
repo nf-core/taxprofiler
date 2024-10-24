@@ -72,6 +72,7 @@ include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_
 include { PROFILING                     } from '../subworkflows/local/profiling'
 include { VISUALIZATION_KRONA           } from '../subworkflows/local/visualization_krona'
 include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardisation_profiles'
+include { GENERATE_DOWNSTREAM_SAMPLESHEETS } from '../subworkflows/local/generate_downstream_samplesheets/main.nf'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -327,6 +328,14 @@ workflow TAXPROFILER {
     /*
         MODULE: MultiQC
     */
+
+
+    //
+    // Samplesheet generation
+    //
+    if ( params.generate_downstream_samplesheets ) {
+        GENERATE_DOWNSTREAM_SAMPLESHEETS ( ch_reads_runmerged )
+    }
 
     //
     // Collate and save software versions
