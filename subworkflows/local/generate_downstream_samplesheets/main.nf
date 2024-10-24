@@ -10,7 +10,12 @@ workflow SAMPLESHEET_MAG {
     format = 'csv'
 
     ch_list_for_samplesheet = ch_processed_reads
-        .dump()
+        .filter { meta, reads ->
+            if (meta.instrument_platform != 'ILLUMINA') {
+                log.warn("[nf-core/taxprofiler] WARNING: Only Illumina short-reads are supported by the nf-core/mag pipeline. The following sample will not be in present in `mag-*.csv`: ${meta.id}")
+            }
+            meta.instrument_platform == 'ILLUMINA'
+        }
         .map { meta, reads ->
             def sample = meta.id
             def run = params.perform_runmerging ? '' : meta.run_accession
@@ -20,7 +25,12 @@ workflow SAMPLESHEET_MAG {
             def short_reads_2 = meta.is_fasta || meta.single_end ? "" : file(params.outdir).toString() + '/analysis_ready_fastqs/' + reads[1].getName()
             def long_reads = meta.is_fasta ? file(params.outdir).toString() + '/analysis_ready_fastqs/' + reads[0].getName() : ""
 
-            [sample: sample, run: run, group: group, short_reads_1: short_reads_1, short_reads_2: short_reads_2, long_reads: long_reads]
+            if (params.perform_runmerging) {
+                [sample: sample, group: group, short_reads_1: short_reads_1, short_reads_2: short_reads_2, long_reads: long_reads]
+            }
+            else {
+                [sample: sample, run: run, group: group, short_reads_1: short_reads_1, short_reads_2: short_reads_2, long_reads: long_reads]
+            }
         }
         .tap { ch_list_for_samplesheet_all }
         .filter { it.short_reads_1 != "" }

@@ -759,8 +759,8 @@ The pipeline can also generate input files for the following downstream pipeline
 
 - `downstream_samplesheets/`
   - `mag-{pe,se}.csv`: input sheet for single-end and paired-end reads that contains paths to preprocessed short-read FASTQs (corresponding to what is saved with `--save_analysis_ready_fastqs`) that can be used to skip read preprocessing steps in nf-core/mag.
-    - Note: if you merge reads, these will be listed in teh `mag-se.csv`.
-    - Note: the nf-core/mag mandatory `group` column is filled with a dummy ID (`0`), you may wish to change this depending on your nf-core/mag settings!
+    - Note: if you supplied `--shortread_qc_mergepairs`, all files will be listed in `mag-se.csv` as single end and no `mag-pe.csv` will be generated.
+    - Note: the nf-core/mag mandatory `group` column is filled with a dummy ID (`0`), you may wish to change this depending on your nf-core/mag settings.
 
 </details>
 
