@@ -13,6 +13,8 @@ template:
   name: taxprofiler
   org: nf-core
   outdir: .
-  skip_features: null
+  skip_features:
+    - igenomes
+  
   version: 1.3.0dev
 update: null
