@@ -93,7 +93,7 @@ jobs:
 
       - name: Run pipeline with test data
         run: |
-          if [[ "${{ matrix.tags }}" == "test_motus" ]]; then
+          if [[ "${{ matrix.test_name }}" == "test_motus" ]]; then
             wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
             python downloadDB.py --no-download-progress
             echo 'tool,db_name,db_params,db_type,db_path' > 'database_motus.csv'
