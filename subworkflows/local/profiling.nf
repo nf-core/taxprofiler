@@ -388,16 +388,22 @@ workflow PROFILING {
             .map {
                 meta, reads, db_meta, db ->
                     def seqtype = (reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/) ? 'fasta' : 'fastq'
-                    [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], reads, db_meta, db]
+                    // We bundle the sample identifier with the sequencing files to undergo batching.
+                    [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], reads + [meta.id], db_meta, db]
             }
             .groupTuple(by: [0,2,3])
             .flatMap { single_meta, reads, db_meta, db ->
                 def batches = reads.collate(params.krakenuniq_batch_size)
-                return batches.collect { batch -> [ single_meta + db_meta, batch.flatten(), db ]}
+                return batches.collect { batch ->
+                    // We split the sample identifier from the reads again after batching.
+                    def reads_batch = batch.collect { elements -> elements.take(elements.size() - 1) }.flatten()
+                    def prefixes = batch.collect { elements -> elements[-1] }
+                    return [ single_meta + db_meta, reads_batch, prefixes, db ]
+                }
             }
             .multiMap {
-                meta, reads, db ->
-                    reads: [ meta, reads ]
+                meta, reads, prefixes, db ->
+                    reads: [ meta, reads, prefixes ]
                     db: db
                     seqtype: meta.seqtype
             }
