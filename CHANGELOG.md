@@ -3,11 +3,15 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.3.0dev [unreleased]
+## v1.2.1dev [unreleased]
 
 ### `Added`
 
+- [#545](https://github.com/nf-core/taxprofiler/pull/545) Updated to nf-core pipeline template v3.0.2 (added by @LilyAnderssonLee & @jfy133)
+
 ### `Fixed`
+
+- [#550](https://github.com/nf-core/taxprofiler/pull/550/) Fixed a bug where single-end data with the same sample names that include `.` in it would overwrite output files (❤️ to @SannaAb for reporting, fixed by @Midnighter)
 
 ### `Dependencies`
 
