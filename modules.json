@@ -202,7 +202,7 @@
                     },
                     "nonpareil/curve": {
                         "branch": "master",
-                        "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
+                        "git_sha": "63a1d0afbf5f129fb00a2acea5aa627915b288cd",
                         "installed_by": ["modules"]
                     },
                     "nonpareil/nonpareil": {

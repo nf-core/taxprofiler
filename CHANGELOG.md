@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#550](https://github.com/nf-core/taxprofiler/pull/550/) Fixed a bug where single-end data with the same sample names that include `.` in it would overwrite output files (❤️ to @SannaAb for reporting, fixed by @Midnighter)
+- [#552](https://github.com/nf-core/taxprofiler/pull/552) Fixed the issue where nonpareil fails due to insufficient data for calculation caused by a missing PNG (❤️ to @Joon-Klaps for reporting, fixed by @LilyAnderssonLee)
 
 ### `Dependencies`
 
