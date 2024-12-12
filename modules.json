@@ -185,6 +185,11 @@
                         "git_sha": "3cf419b5480c5ca8893f5ea6e1746d2b3a7c326d",
                         "installed_by": ["modules"]
                     },
+                    "motus/preplong": {
+                        "branch": "master",
+                        "git_sha": "b56ac062cb5fa01ef3d76a05f44cc9d6f0234140",
+                        "installed_by": ["modules"]
+                    },
                     "motus/profile": {
                         "branch": "master",
                         "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",

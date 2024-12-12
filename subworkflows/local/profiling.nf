@@ -14,6 +14,7 @@ include { KAIJU_KAIJU                                   } from '../../modules/nf
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                                 } from '../../modules/nf-core/motus/profile/main'
+include { MOTUS_PREPLONG                                } from '../../modules/nf-core/motus/preplong/main'
 include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
 include { KMCP_SEARCH                                   } from '../../modules/nf-core/kmcp/search/main'
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
@@ -371,13 +372,27 @@ workflow PROFILING {
                                     if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] mOTUs currently does not accept FASTA files as input. Skipping mOTUs for sample ${it[0].id}."
                                     !it[0].is_fasta
                                 }
-                                .multiMap {
-                                    it ->
-                                        reads: [it[0] + it[2], it[1]]
-                                        db: it[3]
+                                .branch {
+                                    longread: it[0].instrument_platform == 'OXFORD_NANOPORE'
+                                    shortread: it[0].instrument_platform != 'OXFORD_NANOPORE'
                                 }
+        ch_input_for_motus_longread = ch_input_for_motus.longread
+                                        .multiMap {
+                                            it ->
+                                                reads:[it[0] + it[2], it[1]]
+                                                db: it[3]
+                                        }
+        ch_input_for_motus_shortread = ch_input_for_motus.shortread
+                                        .multiMap {
+                                            it ->
+                                                reads:[it[0] + it[2], it[1]]
+                                                db: it[3]
+                                        }
+        MOTUS_PREPLONG ( ch_input_for_motus_longread.reads, ch_input_for_motus_longread.db )
 
-        MOTUS_PROFILE ( ch_input_for_motus.reads, ch_input_for_motus.db )
+        MOTUS_PROFILE ( MOTUS_PREPLONG.out.out.mix(ch_input_for_motus_shortread.reads), ch_input_for_motus_longread.db.mix(ch_input_for_motus_shortread.db) )
+
+        //ch_versions        = ch_versions.mix( MOTUS_PREPLONG.out.versions.first() )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
         ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
