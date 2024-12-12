@@ -14,6 +14,7 @@ include { KAIJU_KAIJU                                   } from '../../modules/nf
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                                 } from '../../modules/nf-core/motus/profile/main'
+include { MOTUS_PREPLONG                                } from '../../modules/nf-core/motus/preplong/main'
 include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
 include { KMCP_SEARCH                                   } from '../../modules/nf-core/kmcp/search/main'
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
@@ -371,13 +372,27 @@ workflow PROFILING {
                                     if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] mOTUs currently does not accept FASTA files as input. Skipping mOTUs for sample ${it[0].id}."
                                     !it[0].is_fasta
                                 }
-                                .multiMap {
-                                    it ->
-                                        reads: [it[0] + it[2], it[1]]
-                                        db: it[3]
+                                .branch {
+                                    longread: it[0].instrument_platform == 'OXFORD_NANOPORE'
+                                    shortread: it[0].instrument_platform != 'OXFORD_NANOPORE'
                                 }
+        ch_input_for_motus_longread = ch_input_for_motus.longread
+                                        .multiMap {
+                                            it ->
+                                                reads:[it[0] + it[2], it[1]]
+                                                db: it[3]
+                                        }
+        ch_input_for_motus_shortread = ch_input_for_motus.shortread
+                                        .multiMap {
+                                            it ->
+                                                reads:[it[0] + it[2], it[1]]
+                                                db: it[3]
+                                        }
+        MOTUS_PREPLONG ( ch_input_for_motus_longread.reads, ch_input_for_motus_longread.db )
 
-        MOTUS_PROFILE ( ch_input_for_motus.reads, ch_input_for_motus.db )
+        MOTUS_PROFILE ( MOTUS_PREPLONG.out.out.mix(ch_input_for_motus_shortread.reads), ch_input_for_motus_longread.db.mix(ch_input_for_motus_shortread.db) )
+
+        //ch_versions        = ch_versions.mix( MOTUS_PREPLONG.out.versions.first() )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
         ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
@@ -388,16 +403,24 @@ workflow PROFILING {
             .map {
                 meta, reads, db_meta, db ->
                     def seqtype = (reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/) ? 'fasta' : 'fastq'
-                    [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], reads, db_meta, db]
+                    // We bundle the sample identifier with the sequencing files to undergo batching.
+                    def prefix = params.perform_runmerging ? meta.id : "${meta.id}_${meta.run_accession}"
+                    prefix = meta.single_end ? "${prefix}.se" : "${prefix}.pe"
+                    [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], reads + [prefix], db_meta, db]
             }
             .groupTuple(by: [0,2,3])
             .flatMap { single_meta, reads, db_meta, db ->
                 def batches = reads.collate(params.krakenuniq_batch_size)
-                return batches.collect { batch -> [ single_meta + db_meta, batch.flatten(), db ]}
+                return batches.collect { batch ->
+                    // We split the sample identifier from the reads again after batching.
+                    def reads_batch = batch.collect { elements -> elements.take(elements.size() - 1) }.flatten()
+                    def prefixes = batch.collect { elements -> elements[-1] }
+                    return [ single_meta + db_meta, reads_batch, prefixes, db ]
+                }
             }
             .multiMap {
-                meta, reads, db ->
-                    reads: [ meta, reads ]
+                meta, reads, prefixes, db ->
+                    reads: [ meta, reads, prefixes ]
                     db: db
                     seqtype: meta.seqtype
             }
