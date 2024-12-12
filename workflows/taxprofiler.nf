@@ -11,7 +11,7 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_taxprofiler_pipeline'
 
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.genome, params.databases,
+def checkPathParamList = [ params.input, params.databases,
                             params.longread_hostremoval_index,
                             params.hostremoval_reference, params.shortread_hostremoval_index,
                             params.multiqc_config, params.shortread_qc_adapterlist,
