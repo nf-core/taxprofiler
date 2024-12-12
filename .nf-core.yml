@@ -1,11 +1,8 @@
-bump_version: null
-lint: null
-nf_core_version: 3.0.2
-org_path: null
+nf_core_version: 3.1.0
 repository_type: pipeline
 template:
-  author: James A. Fellows Yates, Sofia Stamouli, Moritz E. Beber, and the nf-core/taxprofiler
-    team
+  author: James A. Fellows Yates, Sofia Stamouli, Moritz E. Beber, Lili Andersson-Li,
+    and the nf-core/taxprofiler team
   description: Taxonomic classification and profiling of shotgun short- and long-read
     metagenomic data
   force: false
@@ -13,6 +10,6 @@ template:
   name: taxprofiler
   org: nf-core
   outdir: .
-  skip_features: null
+  skip_features:
+    - igenomes
   version: 1.3.0dev
-update: null
