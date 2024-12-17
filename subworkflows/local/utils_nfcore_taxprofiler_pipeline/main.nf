@@ -65,11 +65,6 @@ workflow PIPELINE_INITIALISATION {
     )
 
     //
-    // Custom validation for pipeline parameters
-    //
-    validateInputParameters()
-
-    //
     // Create channel from input file provided through params.input
     //
 
@@ -143,12 +138,6 @@ workflow PIPELINE_COMPLETION {
     FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-//
-// Check and validate pipeline parameters
-//
-def validateInputParameters() {
-    genomeExistsError()
-}//
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {
@@ -162,6 +151,7 @@ def validateInputSamplesheet(input) {
 
     return [ metas[0], fastqs, fasta ]
 }
+
 //
 // Generate methods description for MultiQC
 //
