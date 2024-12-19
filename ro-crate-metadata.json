@@ -124,11 +124,7 @@
         },
         {
             "@id": "main.nf",
-            "@type": [
-                "File",
-                "SoftwareSourceCode",
-                "ComputationalWorkflow"
-            ],
+            "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "creator": [
                 {
                     "@id": "#jfy133@gmail.com"
@@ -161,9 +157,7 @@
                 "taxonomic-classification",
                 "taxonomic-profiling"
             ],
-            "license": [
-                "MIT"
-            ],
+            "license": ["MIT"],
             "maintainer": [
                 {
                     "@id": "#jfy133@gmail.com"
@@ -175,22 +169,15 @@
                     "@id": "https://orcid.org/0009-0006-0893-3771"
                 }
             ],
-            "name": [
-                "nf-core/taxprofiler"
-            ],
+            "name": ["nf-core/taxprofiler"],
             "programmingLanguage": {
                 "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow"
             },
             "sdPublisher": {
                 "@id": "https://nf-co.re/"
             },
-            "url": [
-                "https://github.com/nf-core/taxprofiler",
-                "https://nf-co.re/taxprofiler/1.2.2/"
-            ],
-            "version": [
-                "1.2.2"
-            ]
+            "url": ["https://github.com/nf-core/taxprofiler", "https://nf-co.re/taxprofiler/1.2.2/"],
+            "version": ["1.2.2"]
         },
         {
             "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow",
