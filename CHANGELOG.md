@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#558](https://github.com/nf-core/taxprofiler/pull/558) Updated to nf-core pipeline template v3.1.0 (added by @LilyAnderssonLee)
+
 ### `Fixed`
 
+- [#561](https://github.com/nf-core/taxprofiler/pull/561) Updated Centrifuge to fix internal error when running with conda (❤️ to @AnotherSimon for reporting, fix by @jfy133)
+
 ### `Dependencies`
+
+| Tool       | Previous version | New version |
+| ---------- | ---------------- | ----------- |
+| centrifuge | 1.0.4.1          | 1.0.4.1     |
 
 ### `Deprecated`
 
