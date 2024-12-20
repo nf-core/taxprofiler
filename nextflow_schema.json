@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/master/nextflow_schema.json",
+    "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/main/nextflow_schema.json",
     "title": "nf-core/taxprofiler pipeline parameters",
     "description": "Taxonomic classification and profiling of shotgun short- and long-read metagenomic data",
     "type": "object",
@@ -193,7 +193,6 @@
         {
             "$ref": "#/$defs/input_output_options"
         },
-
         {
             "$ref": "#/$defs/institutional_config_options"
         },
