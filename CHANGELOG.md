@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#558](https://github.com/nf-core/taxprofiler/pull/558) Updated to nf-core pipeline template v3.1.0 (added by @LilyAnderssonLee)
+- [#565](https://github.com/nf-core/taxprofiler/pull/565) Update to nf-core pipeline template v3.1.1 (added by @LilyAnderssonLee)
 
 ### `Fixed`
 
