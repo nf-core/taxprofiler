@@ -44,6 +44,9 @@
                     "@id": "modules/"
                 },
                 {
+                    "@id": "modules/local/"
+                },
+                {
                     "@id": "modules/nf-core/"
                 },
                 {
@@ -129,6 +132,15 @@
             "creator": [
                 {
                     "@id": "#jfy133@gmail.com"
+                },
+                {
+                    "@id": "#jfy133@gmail.com"
+                },
+                {
+                    "@id": "#64467552+LilyAnderssonLee@users.noreply.github.com"
+                },
+                {
+                    "@id": "https://orcid.org/0009-0006-0893-3771"
                 }
             ],
             "dateCreated": "",
@@ -149,12 +161,19 @@
                 "taxonomic-classification",
                 "taxonomic-profiling"
             ],
-            "license": [
-                "MIT"
+            "license": ["MIT"],
+            "maintainer": [
+                {
+                    "@id": "#jfy133@gmail.com"
+                },
+                {
+                    "@id": "#64467552+LilyAnderssonLee@users.noreply.github.com"
+                },
+                {
+                    "@id": "https://orcid.org/0009-0006-0893-3771"
+                }
             ],
-            "name": [
-                "nf-core/taxprofiler"
-            ],
+            "name": ["nf-core/taxprofiler"],
             "programmingLanguage": {
                 "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow"
             },
@@ -166,7 +185,7 @@
                 "https://nf-co.re/taxprofiler/dev/"
             ],
             "version": [
-                "1.3.0dev"
+                "1.2.2"
             ]
         },
         {
@@ -236,6 +255,11 @@
             "@id": "modules/",
             "@type": "Dataset",
             "description": "Modules used by the pipeline"
+        },
+        {
+            "@id": "modules/local/",
+            "@type": "Dataset",
+            "description": "Pipeline-specific modules"
         },
         {
             "@id": "modules/nf-core/",
@@ -327,7 +351,19 @@
             "@id": "#jfy133@gmail.com",
             "@type": "Person",
             "email": "jfy133@gmail.com",
-            "name": "James Fellows Yates"
+            "name": "James A. Fellows Yates"
+        },
+        {
+            "@id": "#64467552+LilyAnderssonLee@users.noreply.github.com",
+            "@type": "Person",
+            "email": "64467552+LilyAnderssonLee@users.noreply.github.com",
+            "name": "Lili Andersson-Li"
+        },
+        {
+            "@id": "https://orcid.org/0009-0006-0893-3771",
+            "@type": "Person",
+            "email": "91951607+sofstam@users.noreply.github.com",
+            "name": "Sofia Stamouli"
         }
     ]
 }
