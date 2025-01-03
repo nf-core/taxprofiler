@@ -1,4 +1,4 @@
-nf_core_version: 3.1.0
+nf_core_version: 3.1.1
 repository_type: pipeline
 template:
   author: James A. Fellows Yates, Sofia Stamouli, Moritz E. Beber, Lili Andersson-Li,
@@ -10,4 +10,6 @@ template:
   name: taxprofiler
   org: nf-core
   outdir: .
-  version: 1.3.0dev
+  skip_features:
+    - igenomes
+  version: 1.2.2
