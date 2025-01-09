@@ -19,6 +19,7 @@ on:
     branches:
       - main
       - master
+      - dev
   pull_request_target:
     branches:
       - main
