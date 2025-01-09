@@ -29,7 +29,7 @@ env:
 
 jobs:
   configure:
-    runs-on: ubuntu-latest{% raw %}
+    runs-on: ubuntu-latest
     outputs:
       REPO_LOWERCASE: ${{ steps.get_repo_properties.outputs.REPO_LOWERCASE }}
       REPOTITLE_LOWERCASE: ${{ steps.get_repo_properties.outputs.REPOTITLE_LOWERCASE }}
@@ -40,7 +40,7 @@ jobs:
         run: |
           echo "REPO_LOWERCASE=${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
           echo "REPOTITLE_LOWERCASE=$(basename ${GITHUB_REPOSITORY,,})" >> "$GITHUB_OUTPUT"
-          echo "REPO_BRANCH=${{ github.event.inputs.testbranch || 'dev' }}" >> "$GITHUB_OUTPUT{% endraw %}"
+          echo "REPO_BRANCH=${{ github.event.inputs.testbranch || 'dev' }}" >> "$GITHUB_OUTPUT"
 
   download:
     runs-on: ubuntu-latest
@@ -73,7 +73,7 @@ jobs:
 
       - name: Download the pipeline
         env:
-          NXF_SINGULARITY_CACHEDIR: ./singularity_container_images{% raw %}
+          NXF_SINGULARITY_CACHEDIR: ./singularity_container_images
         run: |
           nf-core pipelines download ${{ needs.configure.outputs.REPO_LOWERCASE }} \
           --revision ${{ needs.configure.outputs.REPO_BRANCH }} \
@@ -85,7 +85,7 @@ jobs:
           --download-configuration 'yes'
 
       - name: Inspect download
-        run: tree ./${{ needs.configure.outputs.REPOTITLE_LOWERCASE }}{% endraw %}{% if test_config %}{% raw %}
+        run: tree ./${{ needs.configure.outputs.REPOTITLE_LOWERCASE }}
 
       - name: Inspect container images
         run: tree ./singularity_container_images | tee ./container_initial
@@ -131,4 +131,4 @@ jobs:
             exit 1
           else
             echo "The pipeline can be downloaded successfully!"
-          fi{% endraw %}{% endif %}
+          fi
