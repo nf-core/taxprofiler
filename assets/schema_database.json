@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/taxprofiler/master/assets/schema_database.json",
     "title": "nf-core/taxprofiler pipeline - params.database schema",
     "description": "Schema for the file provided with params.database",
@@ -9,7 +9,6 @@
         "properties": {
             "tool": {
                 "type": "string",
-                "exists": true,
                 "enum": [
                     "bracken",
                     "centrifuge",
@@ -28,7 +27,6 @@
             },
             "db_name": {
                 "type": "string",
-                "exists": true,
                 "pattern": "^\\S+$",
                 "errorMessage": "The unique name of the database should be provided.",
                 "meta": ["db_name"]
@@ -52,7 +50,7 @@
                 "errorMessage": "db_path should be either a file path or a directory."
             }
         },
-        "required": ["tool", "db_name", "db_path"],
-        "uniqueEntries": ["tool", "db_name"]
-    }
+        "required": ["tool", "db_name", "db_path"]
+    },
+    "uniqueEntries": ["tool", "db_name"]
 }
