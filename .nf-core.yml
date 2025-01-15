@@ -11,5 +11,5 @@ template:
   org: nf-core
   outdir: .
   skip_features:
-    - igenomes
-  version: 1.2.2
+  - igenomes
+  version: 1.3.0dev
