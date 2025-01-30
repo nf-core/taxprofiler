@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [573](https://github.com/nf-core/taxprofiler/pull/573) Improved help messages and documentation to state many of the taxpasta related params require taxonomy files to be input (❤️ to @alexhbnr for reporting, fix by @jfy133)
+
 ### `Dependencies`
 
 ### `Deprecated`
