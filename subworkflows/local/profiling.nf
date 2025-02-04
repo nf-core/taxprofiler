@@ -384,20 +384,20 @@ workflow PROFILING {
     }
 
     if ( params.run_krakenuniq ) {
+
+        ch_input_for_krakenuniq = ch_input_for_profiling.krakenuniq
         // Collect channel into list.  Sort to ensure batch membership remains constant across runs.
         // This will enable retrieval of cached tasks.  This is a blocking operation.
-        ch_input_for_krakenuniq_sorted = ch_input_for_profiling.krakenuniq
-            .collect(
-                flat: false,
-                sort: {
+        ch_input_for_krakenuniq_sorted = ch_input_for_krakenuniq
+            .toSortedList(
+                {
                     a,b ->  a[0].id <=> b[0].id ?:
                             a[0].run_accession <=> b[0].run_accession ?:
                             a[0].db_meta.db_name <=> b[0].db_meta.db_name ?:
                             a[0].db <=> b[0].db
                 }   
-            )   
-            // Apply inverse of collect operator.  Result is multi-value channel.
-            .flatMap { it -> it.toList() }
+            ) 
+            .flatMap()
 
         ch_input_for_krakenuniq = ch_input_for_krakenuniq_sorted
             .map {
