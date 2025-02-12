@@ -390,12 +390,17 @@ workflow PROFILING {
         // This will enable retrieval of cached tasks.  This is a blocking operation.
         ch_input_for_krakenuniq_sorted = ch_input_for_krakenuniq
             .toSortedList(
-                {
-                    a,b ->  a[0].id <=> b[0].id ?:
-                            a[0].run_accession <=> b[0].run_accession ?:
+                {   
+                    def prefix( meta ) { 
+                            def prefix = "${meta.id}" 
+                            prefix += params.perform_runmerging ? "_${meta.run_accession}" : ""
+                            prefix += meta.single_end ? ".se" : ".pe"
+                    }
+
+                    a,b ->  prefix( a ) <=> prefix( b ) ?:
                             a[0].db_meta.db_name <=> b[0].db_meta.db_name ?:
                             a[0].db <=> b[0].db
-                }   
+                }
             ) 
             .flatMap()
 
