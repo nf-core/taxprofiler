@@ -1,4 +1,4 @@
-nf_core_version: 3.1.1
+nf_core_version: 3.2.0
 repository_type: pipeline
 template:
   author: James A. Fellows Yates, Sofia Stamouli, Moritz E. Beber, Lili Andersson-Li,
@@ -12,4 +12,4 @@ template:
   outdir: .
   skip_features:
     - igenomes
-  version: 1.2.2
+  version: 1.3.0dev
