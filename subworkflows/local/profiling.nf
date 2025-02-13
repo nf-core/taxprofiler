@@ -391,16 +391,18 @@ workflow PROFILING {
         ch_input_for_krakenuniq_sorted = ch_input_for_krakenuniq
             .toSortedList(
                 {   
-                    def form_prefix = {
-                        meta ->
-                            ( "${meta.id}" +
-                            ( params.perform_runmerging ? "_${meta.run_accession}" : "" ) +
-                            ( meta.single_end ? ".se" : ".pe" ) )
-                    }
+                    a,b -> {
+                        def form_prefix = {
+                            meta ->
+                                ( "${meta.id}" +
+                                ( params.perform_runmerging ? "_${meta.run_accession}" : "" ) +
+                                ( meta.single_end ? ".se" : ".pe" ) )
+                        }
 
-                    form_prefix( a[0] ) <=> form_prefix( b[0] ) ?:
-                    a[0].db_meta.db_name <=> b[0].db_meta.db_name ?:
-                    a[0].db <=> b[0].db
+                        form_prefix( a[0] ) <=> form_prefix( b[0] ) ?:
+                        a[0].db_meta.db_name <=> b[0].db_meta.db_name ?:
+                        a[0].db <=> b[0].db
+                    }
                 }
             ) 
             .flatMap()
