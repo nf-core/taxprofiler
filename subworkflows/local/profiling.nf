@@ -390,7 +390,7 @@ workflow PROFILING {
         // This will enable retrieval of cached tasks.  This is a blocking operation.
         ch_input_for_krakenuniq_sorted = ch_input_for_krakenuniq
             .toSortedList(
-                {   
+                {
                     a,b -> {
                         def form_prefix = {
                             meta ->
@@ -404,7 +404,7 @@ workflow PROFILING {
                         a[0].db <=> b[0].db
                     }
                 }
-            ) 
+            )
             .flatMap()
 
         ch_input_for_krakenuniq = ch_input_for_krakenuniq_sorted
