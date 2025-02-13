@@ -400,8 +400,8 @@ workflow PROFILING {
                         }
 
                         form_prefix( a[0] ) <=> form_prefix( b[0] ) ?:
-                        a[0].db_meta.db_name <=> b[0].db_meta.db_name ?:
-                        a[0].db <=> b[0].db
+                        a[2].db_name <=> b[2].db_name ?:
+                        a[3] <=> b[3]
                     }
                 }
             )
