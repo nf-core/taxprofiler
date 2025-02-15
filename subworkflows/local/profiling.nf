@@ -386,28 +386,6 @@ workflow PROFILING {
     if ( params.run_krakenuniq ) {
 
         ch_input_for_krakenuniq = ch_input_for_profiling.krakenuniq
-        // Collect channel into list.  Sort to ensure batch membership remains constant across runs.
-        // This will enable retrieval of cached tasks.  This is a blocking operation.
-        ch_input_for_krakenuniq_sorted = ch_input_for_krakenuniq
-            .toSortedList(
-                {
-                    a,b -> {
-                        def form_prefix = {
-                            meta ->
-                                ( "${meta.id}" +
-                                ( params.perform_runmerging ? "_${meta.run_accession}" : "" ) +
-                                ( meta.single_end ? ".se" : ".pe" ) )
-                        }
-
-                        form_prefix( a[0] ) <=> form_prefix( b[0] ) ?:
-                        a[2].db_name <=> b[2].db_name ?:
-                        a[3] <=> b[3]
-                    }
-                }
-            )
-            .flatMap()
-
-        ch_input_for_krakenuniq = ch_input_for_krakenuniq_sorted
             .map {
                 meta, reads, db_meta, db ->
                     def seqtype = (reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/) ? 'fasta' : 'fastq'
@@ -418,6 +396,9 @@ workflow PROFILING {
             }
             .groupTuple(by: [0,2,3])
             .flatMap { single_meta, reads, db_meta, db ->
+                // Sort reads array by comparing last element, prefix. This will ensure batch membership remains
+                // constant across runs, enabling retrieval of cached tasks.
+                reads.sort { a,b -> a[-1] <=> b[-1] }
                 def batches = reads.collate(params.krakenuniq_batch_size)
                 return batches.collect { batch ->
                     // We split the sample identifier from the reads again after batching.
