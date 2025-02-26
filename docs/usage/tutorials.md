@@ -123,8 +123,7 @@ nextflow run nf-core/taxprofiler -r 1.1.0 -profile docker \
 --perform_shortread_hostremoval --hostremoval_reference GCF_000819615.1_ViralProj14015_genomic.fna.gz \
 --perform_runmerging --save_runmerged_reads \
 --run_centrifuge --run_kaiju --run_kraken2 \
---run_profile_standardisation \
---max_cpus 2 --max_memory '6.GB'
+--run_profile_standardisation
 ```
 
 :::info
@@ -144,9 +143,7 @@ To break down each line of the command:
 - (Optional) provide a _cap_ to the maximum amount of resources each step/job of the pipeline can use
 
 :::warning
-The `--max_cpu`, `--max_memory`, `--max_time` parameters _do not_ increase the amount of memory a step of the pipeline uses!
-They simply prevent Nextflow requesting more than this threshold, e.g. more than available on your machine.
-To learn how to increase computational resource to the pipeline, see the central [nf-core documentation](https://nf-co.re/docs/usage/configuration).
+The pipeline runs occasionally fail due to a particular step of the pipeline requesting more resources than you have on your system. To avoid these failures, you can tell Nextflow to set a cap pipeline-step resource requests against a list called `resourceLimits` specified in Nextflow config file. These should represent the maximum possible resources of a machine or node. To learn how to increase computational resource to the pipeline, see the central [nf-core documentation](https://nf-co.re/docs/usage/configuration).
 :::
 
 The pipeline run can be represented (in a simplified format!) as follows
