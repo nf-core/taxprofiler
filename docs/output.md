@@ -391,7 +391,7 @@ This is the last possible preprocessing step, so if you have multiple runs or li
 
 Note that you will only find samples that went through the run merging step in this directory. For samples that had a single run or library will not go through this step of the pipeline and thus will not be present in this directory.
 
-This directory and its FASTQ files will only be present if you supply `--save_runmerged_reads`.Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
+This directory and its FASTQ files will only be present if you supply `--save_runmerged_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_reads`, in which case the reads will be in the folder `analysis_ready_reads`.
 
 ### Bracken
 

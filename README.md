@@ -124,6 +124,7 @@ We thank the following people for their contributions to the development of this
 - [Jianhong Ou](https://github.com/jianhong)
 - [Rafal Stepien](https://github.com/rafalstepien)
 - [Mahwash Jamy](https://github.com/mjamy)
+- [Alex Caswell](https://github.com/AlexHoratio)
 
 ### Acknowledgments
 
