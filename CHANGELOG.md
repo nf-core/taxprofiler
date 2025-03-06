@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#576](https://github.com/nf-core/taxprofiler/pull/576) Sort input to krakenuniq to enable retrieval of cached batch tasks (added by @muniheart)
+
 ### `Fixed`
 
 - [573](https://github.com/nf-core/taxprofiler/pull/573) Improved help messages and documentation to state many of the taxpasta related params require taxonomy files to be input (❤️ to @alexhbnr for reporting, fix by @jfy133)
