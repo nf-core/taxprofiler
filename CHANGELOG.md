@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#576](https://github.com/nf-core/taxprofiler/pull/576) Sort input to krakenuniq to enable retrieval of cached batch tasks (❤️ to @muniheart for reporting and fix)
 - [#569](https://github.com/nf-core/taxprofiler/pull/569) Updated to nf-core pipeline template v3.1.2 (added by @sofstam)
 - [#571](https://github.com/nf-core/taxprofiler/pull/571) Updated to nf-core pipeline template v3.2.0 (added by @sofstam)
-- 
+-
+
 ### `Fixed`
 
 - [#580](https://github.com/nf-core/taxprofiler/pull/580) Minor documentation typo fixes (❤️ to @AlexHoratio for reporting and fix)
