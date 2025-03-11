@@ -59,9 +59,7 @@
 
 First, prepare a samplesheet with your input data that looks as follows:
 
-`samplesheet.csv`:
-
-```csv
+```csv title="samplesheet.csv"
 sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 2612,run1,ILLUMINA,2612_run1_R1.fq.gz,,
 2612,run2,ILLUMINA,2612_run2_R1.fq.gz,,
@@ -72,9 +70,7 @@ Each row represents a fastq file (single-end), a pair of fastq files (paired end
 
 Additionally, you will need a database sheet that looks as follows:
 
-`databases.csv`:
-
-```csv
+```csv title="databases.csv"
 tool,db_name,db_params,db_path
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
