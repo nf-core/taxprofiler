@@ -259,7 +259,7 @@ nf-core/taxprofiler offers four main preprocessing steps for preprocessing raw s
 - [**Run merging**](#run-merging): concatenation of multiple FASTQ chunks/sequencing runs/libraries of a sample.
 
 :::info
-You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_reads`.
+You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_fastqs`.
 :::
 
 #### Read Processing
