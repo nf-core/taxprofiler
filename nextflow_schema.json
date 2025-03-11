@@ -70,7 +70,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-forward",
                     "description": "Specify to skip sequencing quality control of raw sequencing reads",
-                    "help": "Skipping running of FastQC or Falco maybe useful in cases where you are already running with preprocessed data (e.g. you are also skipping short/long read qc steps) that you already know the quality of"
+                    "help_text": "Skipping running of FastQC or Falco maybe useful in cases where you are already running with preprocessed data (e.g. you are also skipping short/long read qc steps) that you already know the quality of"
                 },
                 "preprocessing_qc_tool": {
                     "type": "string",
@@ -675,32 +675,32 @@
                 },
                 "taxpasta_add_name": {
                     "type": "boolean",
-                    "description": "Add the taxon name to the output.",
-                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon name can be added as additional information to the output table in addition to the taxon ID.\n\nModifies tool parameter(s):\n- taxpasta: `--add-name`",
+                    "description": "Add the taxon name to the output. Requires --taxpasta_taxonomy_dir.",
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon name can be added as additional information to the output table in addition to the taxon ID. Requires --taxpasta_taxonomy_dir to be supplied to infer the additional information.\n\nModifies tool parameter(s):\n- taxpasta: `--add-name`",
                     "fa_icon": "fas fa-tag"
                 },
                 "taxpasta_add_rank": {
                     "type": "boolean",
-                    "description": "Add the taxon rank to the output.",
-                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank of the given taxonomic entry can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank`",
+                    "description": "Add the taxon rank to the output. Requires --taxpasta_taxonomy_dir.",
+                    "help_text": "The standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon rank of the given taxonomic entry can be added as additional information to the output table. Requires --taxpasta_taxonomy_dir to be supplied to infer the additional information.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank`",
                     "fa_icon": "fas fa-sort-amount-down-alt"
                 },
                 "taxpasta_add_lineage": {
                     "type": "boolean",
-                    "description": "Add the taxon's entire name lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire taxonomic lineage with the taxon names separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--add-lineage`\n",
+                    "description": "Add the taxon's entire name lineage to the output. Requires --taxpasta_taxonomy_dir.",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire taxonomic lineage with the taxon names separated by semi-colons can be added as additional information to the output table. Requires --taxpasta_taxonomy_dir to be supplied to infer the additional information.\n\nModifies tool parameter(s):\n- taxpasta: `--add-lineage`\n",
                     "fa_icon": "fas fa-link"
                 },
                 "taxpasta_add_idlineage": {
                     "type": "boolean",
-                    "description": "Add the taxon's entire ID lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire taxonomic lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table.\n\nModifies tool parameter(s):\n- taxpasta: `--add-id-lineage`\n",
+                    "description": "Add the taxon's entire ID lineage to the output. Requires --taxpasta_taxonomy_dir.",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxon's entire taxonomic lineage with the taxon identifiers separated by semi-colons can be added as additional information to the output table. Requires --taxpasta_taxonomy_dir to be supplied to infer the additional information.\n\nModifies tool parameter(s):\n- taxpasta: `--add-id-lineage`\n",
                     "fa_icon": "fas fa-link"
                 },
                 "taxpasta_add_ranklineage": {
                     "type": "boolean",
-                    "description": "Add the taxon's entire rank lineage to the output.",
-                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxonomic ranks categories of the taxon's entire lineage separated by semi-colons can be added as additional information to the output table. This complements `--taxpasta_add_lineage` by telling you which taxonomic rank level each entry in the lineage refers to.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank-lineage`\n",
+                    "description": "Add the taxon's entire rank lineage to the output. Requires --taxpasta_taxonomy_dir.",
+                    "help_text": "\nThe standard output format of taxpasta is a two-column table including the read counts and the integer taxonomic ID. The taxonomic ranks categories of the taxon's entire lineage separated by semi-colons can be added as additional information to the output table. This complements `--taxpasta_add_lineage` by telling you which taxonomic rank level each entry in the lineage refers to. Requires --taxpasta_taxonomy_dir to be supplied to infer the additional information.\n\nModifies tool parameter(s):\n- taxpasta: `--add-rank-lineage`\n",
                     "fa_icon": "fas fa-link"
                 },
                 "taxpasta_ignore_errors": {
@@ -848,36 +848,12 @@
                     "description": "Base URL or local path to location of pipeline test dataset files",
                     "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
                     "hidden": true
-                }
-            }
-        },
-        "reference_genome_options": {
-            "title": "Reference genome options",
-            "type": "object",
-            "fa_icon": "fas fa-dna",
-            "description": "Reference genome related files and options required for the workflow.",
-            "properties": {
-                "genome": {
-                    "type": "string",
-                    "description": "Name of iGenomes reference.",
-                    "fa_icon": "fas fa-book",
-                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`. \n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details.",
-                    "hidden": true
                 },
-                "igenomes_base": {
+                "trace_report_suffix": {
                     "type": "string",
-                    "format": "directory-path",
-                    "description": "Directory / URL base for iGenomes references.",
-                    "default": "s3://ngi-igenomes/igenomes/",
-                    "fa_icon": "fas fa-cloud-download-alt",
+                    "fa_icon": "far calendar",
+                    "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
-                },
-                "igenomes_ignore": {
-                    "type": "boolean",
-                    "description": "Do not load the iGenomes reference config.",
-                    "fa_icon": "fas fa-ban",
-                    "hidden": true,
-                    "help_text": "Do not load `igenomes.config` when running the pipeline. You may choose this option if you observe clashes between custom parameters and those supplied in `igenomes.config`."
                 }
             }
         }
@@ -915,9 +891,6 @@
         },
         {
             "$ref": "#/$defs/generic_options"
-        },
-        {
-            "$ref": "#/$defs/reference_genome_options"
         }
     ]
 }

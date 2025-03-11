@@ -9,7 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [573](https://github.com/nf-core/taxprofiler/pull/573) Improved help messages and documentation to state many of the taxpasta related params require taxonomy files to be input (❤️ to @alexhbnr for reporting, fix by @jfy133)
+- [578](https://github.com/nf-core/taxprofiler/pull/578) Fixed incorrect keyword in nextflow_schema.json (fix by @mashehu)
+
 ### `Dependencies`
+
+### `Deprecated`
+
+## v1.2.2 - Bouncy Basenji Patch [2024-01-15]
+
+### `Added`
+
+- [#558](https://github.com/nf-core/taxprofiler/pull/558) Updated to nf-core pipeline template v3.1.0 (added by @LilyAnderssonLee)
+- [#565](https://github.com/nf-core/taxprofiler/pull/565) Updated to nf-core pipeline template v3.1.1 (added by @LilyAnderssonLee)
+
+### `Fixed`
+
+- [#561](https://github.com/nf-core/taxprofiler/pull/561) Updated Centrifuge to fix internal error when running with conda (❤️ to @AnotherSimon for reporting, fix by @jfy133)
+
+### `Dependencies`
+
+| Tool       | Previous version | New version |
+| ---------- | ---------------- | ----------- |
+| centrifuge | 1.0.4.1          | 1.0.4.2     |
 
 ### `Deprecated`
 

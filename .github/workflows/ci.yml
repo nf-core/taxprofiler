@@ -56,7 +56,9 @@ jobs:
             profile: "singularity"
     steps:
       - name: Check out pipeline code
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Nextflow
         uses: nf-core/setup-nextflow@v2
@@ -100,7 +102,7 @@ jobs:
             echo "motus,db1_mOTU,,short,db_mOTU" >> 'database_motus.csv'
             echo "motus,db2_mOTU,,long,db_mOTU" >> 'database_motus.csv'
             echo "motus,db3_mOTU,,short;long,db_mOTU" >> 'database_motus.csv'
-            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.test_name }} --databases ./database_motus.csv --outdir ./results_${{ matrix.test_name }};
+            nextflow run ${GITHUB_WORKSPACE} -profile ${{ matrix.profile }},${{ matrix.test_name }} --databases ./database_motus.csv --outdir ./results_${{ matrix.test_name }};
           else
-            nextflow run ${GITHUB_WORKSPACE} -profile docker,${{ matrix.test_name }} --outdir ./results_${{ matrix.test_name }};
+            nextflow run ${GITHUB_WORKSPACE} -profile ${{ matrix.profile }},${{ matrix.test_name }} --outdir ./results_${{ matrix.test_name }};
           fi
