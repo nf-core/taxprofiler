@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#573](https://github.com/nf-core/taxprofiler/pull/573) Improved help messages and documentation to state many of the taxpasta related params require taxonomy files to be input (❤️ to @alexhbnr for reporting, fix by @jfy133)
 - [#578](https://github.com/nf-core/taxprofiler/pull/578) Fixed incorrect keyword in nextflow_schema.json (fix by @mashehu)
 - [#585](https://github.com/nf-core/taxprofiler/pull/585) Fixed code blocks (fix by @masheshu)
+- [#586](https://github.com/nf-core/taxprofiler/pull/586) Fixed wrong argument name for saving analysis reads (fix by @epstein6)
 
 ### `Dependencies`
 
