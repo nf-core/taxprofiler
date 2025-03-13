@@ -7,6 +7,7 @@
 
 [![GitHub Actions CI Status](https://github.com/nf-core/taxprofiler/actions/workflows/ci.yml/badge.svg)](https://github.com/nf-core/taxprofiler/actions/workflows/ci.yml)
 [![GitHub Actions Linting Status](https://github.com/nf-core/taxprofiler/actions/workflows/linting.yml/badge.svg)](https://github.com/nf-core/taxprofiler/actions/workflows/linting.yml)[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/taxprofiler/results)[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.7728364-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.7728364)
+
 [![nf-test](https://img.shields.io/badge/unit_tests-nf--test-337ab7.svg)](https://www.nf-test.com)
 
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A524.04.2-23aa62.svg)](https://www.nextflow.io/)
@@ -58,9 +59,7 @@
 
 First, prepare a samplesheet with your input data that looks as follows:
 
-`samplesheet.csv`:
-
-```csv
+```csv title="samplesheet.csv"
 sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
 2612,run1,ILLUMINA,2612_run1_R1.fq.gz,,
 2612,run2,ILLUMINA,2612_run2_R1.fq.gz,,
@@ -71,9 +70,7 @@ Each row represents a fastq file (single-end), a pair of fastq files (paired end
 
 Additionally, you will need a database sheet that looks as follows:
 
-`databases.csv`:
-
-```csv
+```csv title="databases.csv"
 tool,db_name,db_params,db_path
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
@@ -123,6 +120,8 @@ We thank the following people for their contributions to the development of this
 - [Jianhong Ou](https://github.com/jianhong)
 - [Rafal Stepien](https://github.com/rafalstepien)
 - [Mahwash Jamy](https://github.com/mjamy)
+- [Alex Caswell](https://github.com/AlexHoratio)
+- [Aidan Epstein](https://github.com/epstein6)
 
 ### Acknowledgments
 
