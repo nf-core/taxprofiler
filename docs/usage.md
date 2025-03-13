@@ -411,7 +411,8 @@ MetaPhlAn4 is compatible with the MetaPhlAn3 database by adding the `--mpa3` int
 
 ##### mOTUs
 
-mOTUs currently does not accept FASTA files as input, therefore no output will be produced for these input files. For long reads, the `motus prep_long` command is being executed first to split long reads into shorter reads which can then be profiled with `motus profile` command.
+mOTUs currently does not accept FASTA files as input, therefore no output will be produced for these input files. 
+For long reads, the `motus prep_long` command will be being executed first to split long reads into shorter reads which can then be profiled with `motus profile` command.
 
 ##### ganon
 
