@@ -392,7 +392,7 @@ workflow PROFILING {
 
         MOTUS_PROFILE ( MOTUS_PREPLONG.out.out.mix(ch_input_for_motus_shortread.reads), ch_input_for_motus_longread.db.mix(ch_input_for_motus_shortread.db) )
 
-        //ch_versions        = ch_versions.mix( MOTUS_PREPLONG.out.versions.first() )
+        ch_versions        = ch_versions.mix( MOTUS_PREPLONG.out.versions.first() )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
         ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
