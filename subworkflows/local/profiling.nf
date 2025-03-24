@@ -365,6 +365,7 @@ workflow PROFILING {
 
     }
 
+
     if ( params.run_motus ) {
 
         ch_input_for_motus = ch_input_for_profiling.motus
@@ -382,21 +383,53 @@ workflow PROFILING {
                                                 reads:[it[0] + it[2], it[1]]
                                                 db: it[3]
                                         }
-        ch_input_for_motus_shortread = ch_input_for_motus.shortread
+        ch_input_for_motus_shortread = ch_input_for_motus.shortread.view()
                                         .multiMap {
                                             it ->
                                                 reads:[it[0] + it[2], it[1]]
                                                 db: it[3]
                                         }
+
+
         MOTUS_PREPLONG ( ch_input_for_motus_longread.reads, ch_input_for_motus_longread.db )
 
-        MOTUS_PROFILE ( MOTUS_PREPLONG.out.out.mix(ch_input_for_motus_shortread.reads), ch_input_for_motus_longread.db.mix(ch_input_for_motus_shortread.db) )
+        ch_database_for_motus = databases
+                                    .filter { meta, db -> meta.tool == 'motus' }
+                                    .map { meta, db -> [meta.db_name, meta, db] }
+
+
+        ch_prepped_to_motus = MOTUS_PREPLONG.out.out
+                                    .map { meta, reads -> [meta.db_name, [meta, reads]] }
+                                    .combine(ch_database_for_motus, by:0)
+                                    .map { item ->
+                                        def db_name = item[0]
+                                        def meta = item[1][0]
+                                        def reads = item[1][1]
+                                        def db_meta = item[2]
+                                        def db = item[3]
+                                        def meta_keys = ['id', 'run_accession', 'instrument_platform', 'single_end', 'is_fasta', 'type']
+                                        def new_meta = meta.subMap(meta_keys)
+
+                                        def db_meta_keys = db_meta.keySet()
+                                        def new_db_meta = db_meta.subMap(db_meta_keys) + [type: meta.type]
+
+                                        [new_meta, [reads], new_db_meta, db]
+                            }
+                                    .mix(ch_input_for_motus.shortread)
+                                    .multiMap  {
+                                        it ->
+                                                reads:[it[0] + it[2], it[1]]
+                                                db: it[3]
+                                        }
+
+
+        MOTUS_PROFILE ( ch_prepped_to_motus.reads, ch_prepped_to_motus.db)
 
         ch_versions        = ch_versions.mix( MOTUS_PREPLONG.out.versions.first() )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
         ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
-    }
+        }
 
     if ( params.run_krakenuniq ) {
 
