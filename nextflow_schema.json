@@ -612,11 +612,13 @@
                 },
                 "motus_longprep_splittinglength": {
                     "type": "integer",
+                    "default": 300,
                     "description": "Splitting length for the long reads.",
                     "fa_icon": "fas fa-percent"
                 },
                 "motus_longprep_minlen": {
                     "type": "integer",
+                    "default": 50,
                     "description": "Minimum read length, shorter are discarded.",
                     "fa_icon": "fas fa-percent"
                 },
