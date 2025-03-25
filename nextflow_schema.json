@@ -341,6 +341,7 @@
                 "hostremoval_reference": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": true,
                     "fa_icon": "fas fa-file-alt",
                     "description": "Specify path to single reference FASTA of host(s) genome(s)",
                     "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
@@ -355,6 +356,7 @@
                 "longread_hostremoval_index": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": true,
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference",
                     "help_text": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference file given to `--hostremoval_reference`.\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
@@ -824,6 +826,7 @@
                 "multiqc_config": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": true,
                     "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
