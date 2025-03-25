@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- improved json schema as part of nf-core hackathon 2025
+
 ### `Dependencies`
 
 ### `Deprecated`
