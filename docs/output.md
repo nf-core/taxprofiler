@@ -189,7 +189,7 @@ You will only find the `.fastq` files in the results directory if you provide ` 
 
 You can enable on the `abi` option by turning on `params.longread_qc_predictadapters` to predict adapters directly from the reads. Alterntively you can set `params.longread_qc_adapterlist` to provide a custom adapter list instead of using the default adapters from the Porechop database.
 
-Below is an example text file of a custom adapters:
+Below is an example of a custom adapter list file:
 
 ```txt title="custom_adapters_list.txt"
     line 1: Adapter name

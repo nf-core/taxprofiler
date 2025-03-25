@@ -256,7 +256,7 @@
                     "type": "string",
                     "format": "file-path",
                     "mimetype": "text",
-                    "fa_icon": "fas fa-database",
+                    "fa_icon": "fas fa-file-alt",
                     "description": "Path to a custom adapter text file, if you want to manually submit some",
                     "help_text": "Requires disabling default adapters from the Porechop database."
                 },
