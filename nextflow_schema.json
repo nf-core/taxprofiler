@@ -614,12 +614,14 @@
                     "type": "integer",
                     "default": 300,
                     "description": "Splitting length for the long reads.",
+                    "help_text": "Specify the splitting length for the long reads.mOTUs has a default value 300`.\n\n> Modifies tool parameter(s):\n- motus prep_long: `--sl`",
                     "fa_icon": "fas fa-percent"
                 },
                 "motus_longprep_minlen": {
                     "type": "integer",
                     "default": 50,
                     "description": "Minimum read length, shorter are discarded.",
+                    "help_text": "Specify the minimu read length. Reads shorted than the defined value will be discarded.mOTUs has a default value 50`.\n\n> Modifies tool parameter(s):\n- motus prep_long: `--ml`",
                     "fa_icon": "fas fa-percent"
                 },
                 "run_kmcp": {
@@ -685,17 +687,6 @@
                     "description": "Specify a maximum number of reads a hit must have to be retained in the ganon report.",
                     "help_text": "Specify the maximum number of reads or percentage of counts a hit must have against a taxon to be retained. To specify a maximum percentage, specify between 0 and 1 (e.g. 0.9 for 90%), and more than 1 to specify a hard count cut off (e.g. 10000 for maximum of 10,000 reads).\n\n> Modifies tool parameter(s):\n- ganon report: `--max-count`",
                     "fa_icon": "fas fa-filter"
-                },
-                "run_sylph": {
-                    "type": "boolean",
-                    "description": "Turn on profiling with sylph. Requires database to be present CSV file passed to --databases",
-                    "fa_icon": "fas fa-toggle-on"
-                },
-                "sylph_taxonomy": {
-                    "type": "string",
-                    "fa_icon": "fas fa-folder-open",
-                    "description": "Specify path to sylph taxonomy",
-                    "help_text": "Specify a path to a Sylph taxonomy."
                 }
             },
             "fa_icon": "fas fa-align-center"
