@@ -187,6 +187,19 @@ The output logs are saved in the output folder and are part of MultiQC report.Yo
 
 You will only find the `.fastq` files in the results directory if you provide ` --save_preprocessed_reads`. Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_fastqs`, in which case the reads will be in the folder `analysis_ready_reads`.
 
+You can enable on the `abi` option by turning on `params.longread_qc_predictadapters` to predict adapters directly from the reads. Alterntively you can set `params.longread_qc_adapterlist` to provide a custom adapter list instead of using the default adapters from the Porechop database.
+
+Below is an example text file of a custom adapters:
+
+```txt title="custom_adapters_list.txt"
+    line 1: Adapter name
+    line 2: Start adapter sequence
+    line 3: End adapter sequence
+    --- repeat for each adapter pair---
+```
+
+If your adapters do not contain the start or end sequence, just put an empty line.
+
 ### BBDuk
 
 [BBDuk](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/) stands for Decontamination Using Kmers. BBDuk was developed to combine most common data-quality-related trimming, filtering, and masking operations into a single high-performance tool.
