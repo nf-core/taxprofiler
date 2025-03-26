@@ -126,6 +126,9 @@
 
   > Beber, M. E., Borry, M., Stamouli, S., & Fellows Yates, J. A. (2023). TAXPASTA: TAXonomic Profile Aggregation and STAndardisation. Journal of Open Source Software, 8(87), 5627. https://doi.org/10.21105/joss.05627
 
+- [sylph](https://doi.org/10.1038/s41587-024-02412-y)
+  > Shaw, J., & Yu, Y. W. (2024). Rapid species-level metagenome profiling and containment estimation with Sylph. Nature Biotechnology. https://doi.org/10.1038/s41587-024-02412-y
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)

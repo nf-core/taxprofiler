@@ -19,6 +19,9 @@ include { KMCP_SEARCH                                   } from '../../modules/nf
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
+include { SYLPH_PROFILE                                 } from '../../modules/nf-core/sylph/profile/main'
+include { SYLPHTAX_TAXPROF                              } from '../../modules/nf-core/sylphtax/taxprof/main'
+
 
 
 // Custom Functions
@@ -99,6 +102,7 @@ workflow PROFILING {
             motus:      db_meta.tool == 'motus'
             kmcp:       db_meta.tool == 'kmcp'
             ganon:      db_meta.tool == 'ganon'
+            sylph:      db_meta.tool == 'sylph'
             unknown:    true
         }
 
@@ -524,6 +528,31 @@ workflow PROFILING {
         // Might be flipped - check/define what is a profile vs raw classification
         ch_raw_profiles        = ch_raw_profiles.mix( GANON_REPORT.out.tre )
         ch_raw_classifications = ch_raw_classifications.mix( GANON_CLASSIFY.out.all )
+
+    }
+
+    if ( params.run_sylph ) {
+        ch_input_for_sylph = ch_input_for_profiling.sylph
+                            .filter{
+                                    if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] sylph currently does not accept FASTA files as input. Skipping sylph for sample ${it[0].id}."
+                                    !it[0].is_fasta
+                                }
+                            .multiMap {
+                                it ->
+                                    reads: [it[0] + it[2], it[1]]
+                                    db: it[3]
+                            }
+
+        SYLPH_PROFILE ( ch_input_for_sylph.reads, ch_input_for_sylph.db)
+        ch_versions = ch_versions.mix( SYLPH_PROFILE.out.versions.first() )
+
+        ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
+                .map { meta, profile -> [meta,profile] }
+
+
+        SYLPHTAX_TAXPROF (ch_input_for_sylphtax, file(params.sylph_taxonomy, checkExists: true) )
+        ch_versions = ch_versions.mix( SYLPHTAX_TAXPROF.out.versions.first() )
+        ch_raw_profiles    = ch_raw_profiles.mix( SYLPHTAX_TAXPROF.out.taxprof_output )
 
     }
 

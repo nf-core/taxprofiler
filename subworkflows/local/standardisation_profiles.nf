@@ -116,7 +116,8 @@ workflow STANDARDISATION_PROFILES {
     /*
         Split profile results based on tool they come from
     */
-    ch_input_profiles = profiles
+
+    ch_input_profiles = profiles // These per-read ID taxonomic assingment
         .branch {
             bracken: it[0]['tool'] == 'bracken'
             centrifuge: it[0]['tool'] == 'centrifuge'
@@ -125,10 +126,11 @@ workflow STANDARDISATION_PROFILES {
             kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
             metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
+            sylph: it[0]['tool'] == 'sylph'
             unknown: true
         }
 
-    ch_input_classifications = classifications
+    ch_input_classifications = classifications // These are count tables
         .branch {
             kaiju: it[0]['tool'] == 'kaiju'
             unknown: true

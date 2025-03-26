@@ -209,6 +209,7 @@ def toolCitationText() {
             params.run_motus      ? "mOTUs (Ruscheweyh et al. 2022)," : "",
             params.run_ganon      ? "ganon (Piro et al. 2020)" : "",
             params.run_kmcp       ? "KMCP (Shen et al. 2023)" : "",
+            params.run_sylph      ? "sylph (Shaw et al. 2024)":"",
         "."
     ].join(' ').trim()
 
@@ -229,7 +230,7 @@ def toolCitationText() {
         params.perform_shortread_complexityfilter       ? text_shortreadcomplexity : "",
         params.perform_shortread_hostremoval            ? text_shortreadhostremoval : "",
         params.perform_longread_hostremoval             ? text_longreadhostremoval : "",
-        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp].any() ?
+        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp, params.run_sylph].any() ?
             text_classification : "",
         params.run_krona                                ? text_visualisation : "",
         params.run_profile_standardisation              ? text_postprocessing : "",
