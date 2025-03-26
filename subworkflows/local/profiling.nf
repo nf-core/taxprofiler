@@ -365,7 +365,6 @@ workflow PROFILING {
 
     }
 
-
     if ( params.run_motus ) {
 
         ch_input_for_motus = ch_input_for_profiling.motus
@@ -423,13 +422,13 @@ workflow PROFILING {
                                         }
 
 
-        MOTUS_PROFILE ( ch_prepped_to_motus.reads, ch_prepped_to_motus.db)
+        MOTUS_PROFILE ( ch_prepped_to_motus.reads, ch_prepped_to_motus.db )
 
         ch_versions        = ch_versions.mix( MOTUS_PREPLONG.out.versions.first() )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
         ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
-        }
+    }
 
     if ( params.run_krakenuniq ) {
 
