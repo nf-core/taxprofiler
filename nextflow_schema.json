@@ -573,7 +573,7 @@
                     "type": "integer",
                     "default": 300,
                     "description": "Splitting length for the long reads.",
-                    "help_text": "Specify the splitting length for the long reads.mOTUs has a default value 300`.\n\n> Modifies tool parameter(s):\n- motus prep_long: `--sl`",
+                    "help_text": "Specify the splitting length for the long reads into short reads compatible with short read alignment against the marker genes .mOTUs has a default value 300`.\n\n> Modifies tool parameter(s):\n- motus prep_long: `--sl`",
                     "fa_icon": "fas fa-percent"
                 },
                 "motus_longprep_minlen": {
