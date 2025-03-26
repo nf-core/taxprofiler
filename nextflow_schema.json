@@ -580,7 +580,7 @@
                     "type": "integer",
                     "default": 50,
                     "description": "Minimum read length, shorter are discarded.",
-                    "help_text": "Specify the minimu read length. Reads shorted than the defined value will be discarded.mOTUs has a default value 50`.\n\n> Modifies tool parameter(s):\n- motus prep_long: `--ml`",
+                    "help_text": "Specify the minimum read length of 'synthetic' short reads. The reads post-splitting shorter than the defined value will be discarded. mOTUs has a default value 50`.\n\n> Modifies tool parameter(s):\n- motus prep_long: `--ml`",
                     "fa_icon": "fas fa-percent"
                 },
                 "run_kmcp": {
