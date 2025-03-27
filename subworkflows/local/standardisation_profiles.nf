@@ -126,7 +126,7 @@ workflow STANDARDISATION_PROFILES {
             kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
             metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
-            sylph: it[0]['tool'] == 'sylph'
+            //sylph: it[0]['tool'] == 'sylph'
             unknown: true
         }
 
