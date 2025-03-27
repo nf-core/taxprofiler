@@ -617,3 +617,41 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 </details>
 
 More information on custom KMCP database construction can be found [here](https://bioinf.shenwei.me/kmcp/database/#building-custom-databases).
+
+
+#### sylph custom database
+
+To build a sylph database, it requires only fasta files.
+
+```bash
+sylph sketch genomes/*.fa.gz
+```
+
+If all genomes are in the same file, you can run:
+
+```bash
+sylph sketch all_genomes.fa
+```
+
+You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
+
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `sylph`
+  - `.syldb`
+</details>
+
+More information on custom sylph database construction can be found [here](https://sylph-docs.github.io/sylph-cookbook/#database-sketching-options).
+
+Classification using the sylph classifier consists of two steps: first running the `sylph profile` command, followed by the `sylph-tax taxprof` command.
+
+`sylph-tax taxprof` command requires a taxonomy file. You can create your own taxonomy metadata file. A taxonomic metadata file is a two-column TSV file:
+
+* Column 1: the name of your genome's FASTA file: my_mag.fa
+
+* Column 2: a semicolon-delimited taxonomy string. d__Archaea;p__Methanobacteriota_B;c__Thermococci;o__Thermococcales;f__Thermococcaceae;g__Thermococcus_A;s__Thermococcus_A alcaliphilus
+
+You can either use [taxonkit lineage](https://bioinf.shenwei.me/taxonkit/usage/#lineage) or [GDTBTk](https://github.com/Ecogenomics/GTDBTk) to retrieve the lineage from taxonomic IDs.
+
+More information on custom taxonomies can be found [here](https://sylph-docs.github.io/sylph-tax-custom-taxonomies/)

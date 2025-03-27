@@ -38,6 +38,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
 - [KMCP](#kmcp) - Taxonomic classifier that utilizes genome coverage information by splitting the reference genomes into chunks and stores k-mers in a modified and optimized COBS index for fast alignment-free sequence searching.
 - [ganon](#ganon) - Taxonomic classifier and profile that uses Interleaved Bloom Filters as indices based on k-mers/minimizers.
+- [Sylph](#sylph) - Taxonomic classifier that performs ultrafast average nucleotide identity (ANI) querying or metagenomic profiling for metagenomic shotgun samples.
 - [TAXPASTA](#taxpasta) - Tool to standardise taxonomic profiles as well as merge profiles across samples from the same database and classifier/profiler.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
@@ -630,6 +631,24 @@ The main taxonomic classification file from KMCP is the `*kmcp.profile` which is
 Generally you will want to refer to the `combined_reports.txt` or `_report.tre` file. For further descriptions of the contents of each file, see the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/).
 
 You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--ganon_save_readclassifications` parameter to the pipeline.
+
+### sylph
+
+[sylph](https://github.com/bluenote-1577/sylph) is a program that performs metagenomic profiling or containment average nucleotide identity(ANI) querying for metagenomic shotgun sequencing samples.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `sylph/`
+
+  - `<db_name>/`
+
+    - `<sample_id>.sylphmpa`: output of `sylph profile` containing taxonomic classifications where each row is one genome detected in the sample. This output does not have any information about the species, genus, order etc
+    - `<sample_id>`.sylph.tsv: output of `sylph-tax taxprof containing a taxonomic profile like Kraken or MetaPhlan.
+
+</details>
+
+For further descriptions of the contents of each file, see the [sylph documentation](https://sylph-docs.github.io/Output-format/).
 
 ### Krona
 

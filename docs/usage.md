@@ -423,6 +423,10 @@ Therefore currently nf-core/taxprofiler does not run ganon on data specified as 
 
 KMCP is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Therefore, nf-core/taxprofiler does not currently run KMCP on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet.
 
+##### sylph
+
+Currently, no specific tips or suggestions.
+
 #### Post Processing
 
 ##### Visualisation
