@@ -643,8 +643,8 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
 
   - `<db_name>/`
 
-    - `<sample_id>.sylphmpa`: output of `sylph profile` containing taxonomic classifications where each row is one genome detected in the sample. This output does not have any information about the species, genus, order etc
-    - `<sample_id>`.sylph.tsv: output of `sylph-tax taxprof containing a taxonomic profile like Kraken or MetaPhlan.
+    - `<sample_id>.sylph.tsv`: output of `sylph profile` containing taxonomic classifications where each row is one genome detected in the sample. This output does not have any information about the species, genus, order etc
+    - `<sample_id>`.sylphmpa: output of `sylph-tax taxprof containing a taxonomic profile like Kraken or MetaPhlan.
 
 </details>
 
