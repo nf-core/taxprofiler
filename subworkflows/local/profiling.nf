@@ -19,6 +19,7 @@ include { KMCP_SEARCH                                   } from '../../modules/nf
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
+include { MELON                                         } from '../../modules/nf-core/melon/main'
 
 
 // Custom Functions
@@ -99,6 +100,7 @@ workflow PROFILING {
             motus:      db_meta.tool == 'motus'
             kmcp:       db_meta.tool == 'kmcp'
             ganon:      db_meta.tool == 'ganon'
+            melon:      db_meta.tool == 'melon'
             unknown:    true
         }
 
@@ -528,6 +530,27 @@ workflow PROFILING {
         // Might be flipped - check/define what is a profile vs raw classification
         ch_raw_profiles        = ch_raw_profiles.mix( GANON_REPORT.out.tre )
         ch_raw_classifications = ch_raw_classifications.mix( GANON_CLASSIFY.out.all )
+
+    }
+
+    if ( params.run_melon ) {
+
+        ch_input_for_melon = ch_input_for_profiling.melon
+                                .filter {
+                                    meta, reads, meta_db, db ->
+                                        if ( !meta['type'] == 'long' ) log.warn "[nf-core/taxprofiler] melon is only suitable for long-read metagenomic profiling. Skipping melon for sample ${meta.id}."
+                                        meta_db['tool'] == 'melon' && meta['type'] == 'long'
+                                }
+                                .multiMap {
+                                    it ->
+                                        reads: [ it[0] + it[2], it[1] ]
+                                        db: it[3]
+                                }
+
+        MELON( ch_input_for_melon.reads, ch_input_for_melon.db, [] )
+        ch_versions             = ch_versions.mix( MELON.out.versions.first() )
+        ch_raw_classifications  = ch_raw_classifications.mix( MELON.out.json_output )
+        ch_raw_profiles         = ch_raw_profiles.mix( MELON.out.tsv_output )
 
     }
 
