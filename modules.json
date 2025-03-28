@@ -160,6 +160,11 @@
                         "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
                         "installed_by": ["modules"]
                     },
+                    "melon": {
+                        "branch": "master",
+                        "git_sha": "83fe5c85a83aae68a6eb0561e04cbba1e153ac5a",
+                        "installed_by": ["modules"]
+                    },
                     "metaphlan/mergemetaphlantables": {
                         "branch": "master",
                         "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
