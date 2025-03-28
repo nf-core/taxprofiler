@@ -20,9 +20,10 @@
                     "krakenuniq",
                     "malt",
                     "metaphlan",
-                    "motus"
+                    "motus",
+                    "melon"
                 ],
-                "errorMessage": "Invalid tool name. Please see documentation for all supported profilers. Currently these classifers are included: bracken, centrifuge, diamond, ganon, kaiju, kmcp, kraken2, krakenuniq, malt, metaphlan, motus.",
+                "errorMessage": "Invalid tool name. Please see documentation for all supported profilers. Currently these classifers are included: bracken, centrifuge, diamond, ganon, kaiju, kmcp, kraken2, krakenuniq, malt, metaphlan, motus, melon.",
                 "meta": ["tool"]
             },
             "db_name": {
