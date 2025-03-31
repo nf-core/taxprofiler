@@ -583,7 +583,7 @@
                     "help_text": "Specify the minimum read length of 'synthetic' short reads. The reads post-splitting shorter than the defined value will be discarded. mOTUs has a default value 50`.\n\n> Modifies tool parameter(s):\n- motus prep_long: `--ml`",
                     "fa_icon": "fas fa-percent"
                 },
-                "motus_save_long_reads": {
+                "motus_save_split_longreads": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Turn on saving the output of synthetic long-reads",
