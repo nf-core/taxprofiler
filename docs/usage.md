@@ -259,7 +259,7 @@ nf-core/taxprofiler offers four main preprocessing steps for preprocessing raw s
 - [**Run merging**](#run-merging): concatenation of multiple FASTQ chunks/sequencing runs/libraries of a sample.
 
 :::info
-You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_reads`.
+You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_fastqs`.
 :::
 
 #### Read Processing
@@ -412,6 +412,7 @@ MetaPhlAn4 is compatible with the MetaPhlAn3 database by adding the `--mpa3` int
 ##### mOTUs
 
 mOTUs currently does not accept FASTA files as input, therefore no output will be produced for these input files.
+For long reads, the `motus prep_long` command will be being executed first to split long reads into shorter reads which can then be profiled with `motus profile` command.
 
 ##### ganon
 

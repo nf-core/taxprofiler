@@ -59,7 +59,7 @@ tar -xzf kaiju.tar.gz
 ```
 
 :::note
-You must provide these databases pre-built to the pipeline, nf-core/taxprofiler neither comes with default databases not can generate databases for you.
+You must provide these databases pre-built to the pipeline, nf-core/taxprofiler neither comes with default databases nor can generate databases for you.
 For guidance on how to build databases, see the [Retrieving databases or building custom databases](#retrieving-databases-or-building-custom-databases) tutorial.
 :::
 
