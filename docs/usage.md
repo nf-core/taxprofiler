@@ -276,6 +276,19 @@ You can also turn off clipping and only perform paired-end merging, if requested
 Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during classification/profiling, with minimal gain.
 
 There are currently two options for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop), [`porechop_abi`](https://github.com/bonsai-team/Porechop_ABI).
+You can enable on the `abi` option by turning on `--longread_qc_predictadapters` to predict adapters directly from the reads.
+Alternatively you can set `--longread_qc_adapterlist` to provide a custom adapter list instead of using the default adapters from the Porechop database.
+
+Below is a description of how a custom adapter list file should look like:
+
+```txt title="custom_adapters_list.txt"
+    line 1: Adapter name
+    line 2: Start adapter sequence
+    line 3: End adapter sequence
+    --- repeat for each adapter pair---
+```
+
+If your adapters do not contain the start or end sequence, just put an empty line.
 
 For both short-read and long-read preprocessing, you can optionally save the resulting processed reads with `--save_preprocessed_reads`.
 
