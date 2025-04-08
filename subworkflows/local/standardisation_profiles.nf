@@ -11,6 +11,7 @@ include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE 
 include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../modules/nf-core/metaphlan/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
 include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
+include { SYLPHTAX_MERGE                                                        } from '../../modules/nf-core/sylphtax/merge/main'
 
 // Custom Functions
 
@@ -94,16 +95,20 @@ workflow STANDARDISATION_PROFILES {
                         }
 
     ch_input_for_taxpasta_merge       = ch_input_for_taxpasta.merge
+                                            .filter { meta, profiles -> meta.tool != 'sylph' }
                                             .multiMap{ meta, profiles ->
                                                         profiles: [meta, profiles]
                                                         tool: meta.tool
                                                     }
 
+
     ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
+                                            .filter { meta, profiles -> meta.tool != 'sylph' }
                                             .multiMap{ meta, profiles ->
                                                         profiles: [meta, profiles]
                                                         tool: meta.tool
                                                     }
+
 
 
     TAXPASTA_MERGE       ( ch_input_for_taxpasta_merge.profiles      , ch_input_for_taxpasta_merge.tool      , params.standardisation_taxpasta_format, ch_taxpasta_tax_dir, [] )
@@ -126,7 +131,7 @@ workflow STANDARDISATION_PROFILES {
             kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
             metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
-            //sylph: it[0]['tool'] == 'sylph'
+            sylph: it[0]['tool'] == 'sylph'
             unknown: true
         }
 
@@ -225,6 +230,11 @@ workflow STANDARDISATION_PROFILES {
     GANON_TABLE ( ch_profiles_for_ganon )
     ch_multiqc_files = ch_multiqc_files.mix( GANON_TABLE.out.txt )
     ch_versions = ch_versions.mix( GANON_TABLE.out.versions )
+
+    // sylph
+    ch_profiles_for_sylph = groupProfiles(ch_input_profiles.sylph)
+    SYLPHTAX_MERGE ( ch_profiles_for_sylph, params.sylph_data_type)
+    ch_versions = ch_versions.mix( SYLPHTAX_MERGE.out.versions )
 
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles

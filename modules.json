@@ -370,6 +370,13 @@
                             "modules"
                         ]
                     },
+                    "sylphtax/merge": {
+                        "branch": "master",
+                        "git_sha": "635aec1a50ccbea3a89fa1b0956457606732f0f6",
+                        "installed_by": [
+                            "modules"
+                        ]
+                    },
                     "sylphtax/taxprof": {
                         "branch": "master",
                         "git_sha": "7775999243a584cb96a798fcda72947ca9e0caca",

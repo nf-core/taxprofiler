@@ -317,7 +317,7 @@ workflow TAXPROFILER {
     /*
         SUBWORKFLOW: PROFILING STANDARDISATION
     */
-    if ( params.run_profile_standardisation && !params.run_sylph) {
+    if ( params.run_profile_standardisation ) {
         STANDARDISATION_PROFILES ( PROFILING.out.classifications, PROFILING.out.profiles, ch_final_dbs, PROFILING.out.motus_version )
         ch_versions = ch_versions.mix( STANDARDISATION_PROFILES.out.versions )
     }
@@ -408,7 +408,7 @@ workflow TAXPROFILER {
 
     ch_multiqc_files = ch_multiqc_files.mix( PROFILING.out.mqc.collect{it[1]}.ifEmpty([]) )
 
-    if ( params.run_profile_standardisation && !params.run_sylph) {
+    if ( params.run_profile_standardisation ) {
         ch_multiqc_files = ch_multiqc_files.mix( STANDARDISATION_PROFILES.out.mqc.collect{it[1]}.ifEmpty([]) )
     }
 
