@@ -101,7 +101,6 @@ workflow STANDARDISATION_PROFILES {
                                                         tool: meta.tool
                                                     }
 
-
     ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
                                             .filter { meta, profiles -> meta.tool != 'sylph' }
                                             .multiMap{ meta, profiles ->
