@@ -110,7 +110,6 @@ workflow STANDARDISATION_PROFILES {
                                                     }
 
 
-
     TAXPASTA_MERGE       ( ch_input_for_taxpasta_merge.profiles      , ch_input_for_taxpasta_merge.tool      , params.standardisation_taxpasta_format, ch_taxpasta_tax_dir, [] )
     TAXPASTA_STANDARDISE ( ch_input_for_taxpasta_standardise.profiles, ch_input_for_taxpasta_standardise.tool, params.standardisation_taxpasta_format, ch_taxpasta_tax_dir     )
     ch_versions = ch_versions.mix( TAXPASTA_MERGE.out.versions.first() )
