@@ -315,7 +315,7 @@
                     },
                     "porechop/abi": {
                         "branch": "master",
-                        "git_sha": "ab862219035355ef67130f41f97ae3f0c4370741",
+                        "git_sha": "956a7c2d20df53c1e6acc05ca9dd5059bb9cca99",
                         "installed_by": [
                             "modules"
                         ]
