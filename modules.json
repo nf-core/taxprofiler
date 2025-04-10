@@ -257,12 +257,15 @@
                             "modules"
                         ]
                     },
+                    "motus/preplong": {
+                        "branch": "master",
+                        "git_sha": "44a142b45f70e3fbc80d0d0e38a8c788ec17545f",
+                        "installed_by": ["modules"]
+                    },
                     "motus/profile": {
                         "branch": "master",
-                        "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
-                        "installed_by": [
-                            "modules"
-                        ]
+                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "installed_by": ["modules"]
                     },
                     "multiqc": {
                         "branch": "master",
