@@ -688,6 +688,11 @@ The following report files are used for the taxpasta step:
 - MALT: `<sample_id>.txt.gz` Taxpasta uses the `count` (second) column from the output of MEGAN6's rma2info for the standardised profile.
 - MetaPhlAn: `<sample_id>_profile.txt` Taxpasta uses the `relative_abundance` column multiplied with a fixed number to yield an integer for the standardised profile.
 - mOTUs: `<sample_id>.out` Taxpasta uses the `read_count` column for the standardised profile.
+- ganon: `<sample_id>_<db_name>.tre` Taxpasta uses the `nr_unique` column for the standardised profile.
+- kmcp: `<sample_id>.profile` Taxpasta uses the `reads` column for the standardised profile.
+
+Sylph classifier is not yet supported in taxpasta.
+
 
 :::warning
 Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
