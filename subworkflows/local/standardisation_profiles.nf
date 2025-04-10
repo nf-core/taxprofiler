@@ -101,14 +101,12 @@ workflow STANDARDISATION_PROFILES {
                                                         tool: meta.tool
                                                     }
 
-
     ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
                                             .filter { meta, profiles -> meta.tool != 'sylph' }
                                             .multiMap{ meta, profiles ->
                                                         profiles: [meta, profiles]
                                                         tool: meta.tool
                                                     }
-
 
 
     TAXPASTA_MERGE       ( ch_input_for_taxpasta_merge.profiles      , ch_input_for_taxpasta_merge.tool      , params.standardisation_taxpasta_format, ch_taxpasta_tax_dir, [] )
