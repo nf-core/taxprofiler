@@ -603,7 +603,7 @@ workflow PROFILING {
 
         SYLPHTAX_TAXPROF (ch_input_for_sylphtax, file(params.sylph_taxonomy, checkExists: true) )
         ch_versions = ch_versions.mix( SYLPHTAX_TAXPROF.out.versions.first() )
-        ch_raw_profiles    = ch_raw_profiles.mix( SYLPHTAX_TAXPROF.out.taxprof_output )
+        ch_raw_profiles = ch_raw_profiles.mix( SYLPHTAX_TAXPROF.out.taxprof_output )
 
     }
 
