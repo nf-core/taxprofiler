@@ -598,7 +598,7 @@ workflow PROFILING {
         ch_versions = ch_versions.mix( SYLPH_PROFILE.out.versions.first() )
 
         ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
-                .map { meta, profile -> [meta,profile] }
+                .map { meta, profile -> [meta, profile] }
 
 
         SYLPHTAX_TAXPROF (ch_input_for_sylphtax, file(params.sylph_taxonomy, checkExists: true) )
