@@ -279,13 +279,25 @@ There are currently two options for long-read Oxford Nanopore processing: [`pore
 You can enable on the `abi` option by turning on `--longread_qc_predictadapters` to predict adapters directly from the reads.
 Alternatively you can set `--longread_qc_adapterlist` to provide a custom adapter list instead of using the default adapters from the Porechop database.
 
-Below is a description of how a custom adapter list file should look like:
+Below is a description of the format for a custom adapter list file:
 
 ```txt title="custom_adapters_list.txt"
     line 1: Adapter name
     line 2: Start adapter sequence
     line 3: End adapter sequence
     --- repeat for each adapter pair---
+```
+
+An example will be:
+
+```
+    custom_adapter_1
+    GGTTGTTTCTGTTGGTGCTGATATTGCT
+    GAAGATAGAGCGACAGGCAAGT
+    
+    custom_adapter_2
+    CACAAAGACACCGACAACTTTCTT
+    TTCGGATTCTATCGTGTTTCCCTA
 ```
 
 If your adapters do not contain the start or end sequence, just put an empty line.
