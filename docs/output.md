@@ -625,7 +625,7 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
 
 ### sylph
 
-[sylph](https://github.com/bluenote-1577/sylph) is a program that performs metagenomic profiling or containment average nucleotide identity(ANI) querying for metagenomic shotgun sequencing samples.
+[sylph](https://github.com/bluenote-1577/sylph) is a program that performs metagenomic profiling or containment average nucleotide identity (ANI) querying for metagenomic shotgun sequencing samples.
 
 <details markdown="1">
 <summary>Output files</summary>
