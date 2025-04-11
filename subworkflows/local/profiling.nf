@@ -584,7 +584,11 @@ workflow PROFILING {
 
     if ( params.run_sylph ) {
         ch_input_for_sylph = ch_input_for_profiling.sylph
-                            .multiMap {
+                                 .filter{
+                                    if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] sylph currently does not accept FASTA files as input. Skipping sylph for sample ${it[0].id}."
+                                    !it[0].is_fasta
+                                }
+				.multiMap {
                                 it ->
                                     reads: [it[0] + it[2], it[1]]
                                     db: it[3]
