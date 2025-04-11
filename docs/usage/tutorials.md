@@ -648,7 +648,6 @@ Classification using the sylph classifier consists of two steps: first running t
 `sylph-tax taxprof` command requires a taxonomy file. You can create your own taxonomy metadata file. A taxonomic metadata file is a two-column TSV file:
 
 - Column 1: the name of your genome's FASTA file: my_mag.fa
-
 - Column 2: a semicolon-delimited taxonomy string. d**Archaea;p**Methanobacteriota_B;c**Thermococci;o**Thermococcales;f**Thermococcaceae;g**Thermococcus_A;s\_\_Thermococcus_A alcaliphilus
 
 You can either use [taxonkit lineage](https://bioinf.shenwei.me/taxonkit/usage/#lineage) or [GDTBTk](https://github.com/Ecogenomics/GTDBTk) to retrieve the lineage from taxonomic IDs.
