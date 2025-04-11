@@ -93,7 +93,7 @@ include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
 workflow TAXPROFILER {
 
     adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
-    custom_adapters = params.longread_qc_adapterlist ? file(params.longread_qc_adapterlist) : []
+    custom_adapters = params.longread_qc_adapterlist ? file(params.longread_qc_adapterlist, checkIfExists: true) : []
 
     if ( params.shortread_qc_adapterlist ) {
         if ( params.shortread_qc_tool == 'adapterremoval' && !(adapterlist.extension == 'txt') ) error "[nf-core/taxprofiler] ERROR: AdapterRemoval2 adapter list requires a `.txt` format and extension. Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
