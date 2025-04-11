@@ -588,6 +588,23 @@ workflow PROFILING {
                                     if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] sylph currently does not accept FASTA files as input. Skipping sylph for sample ${it[0].id}."
                                     !it[0].is_fasta
                                 }
+				.map {
+                                    meta, reads, db_meta, db ->
+                                        def db_meta_keys = db_meta.keySet()
+                                        def db_meta_new = db_meta.subMap(db_meta_keys)
+
+                                        // Split the string, the arguments before semicolon should be parsed into sylph profile
+                                        def parsed_params = db_meta_new['db_params'].split(";")
+                                        if ( parsed_params.size() == 2 ) {
+                                            db_meta_new['db_params'] = parsed_params[0]
+                                        } else if ( parsed_params.size() == 0 ) {
+                                            db_meta_new['db_params'] = ""
+                                        } else {
+                                            db_meta_new['db_params'] = parsed_params[0]
+                                        }
+
+                                    [ meta, reads, db_meta_new, db ]
+                                }
 				.multiMap {
                                 it ->
                                     reads: [it[0] + it[2], it[1]]
@@ -597,11 +614,37 @@ workflow PROFILING {
         SYLPH_PROFILE ( ch_input_for_sylph.reads, ch_input_for_sylph.db)
         ch_versions = ch_versions.mix( SYLPH_PROFILE.out.versions.first() )
 
-        ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
-                .map { meta, profile -> [meta, profile] }
+	ch_database_for_sylph_profile = databases
+                                                .filter { meta, db -> meta.tool == 'sylph' }
+                                                .map { meta, db -> [meta.db_name, meta, db] }
 
+	ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
+                		.map { meta, report -> [meta.db_name, meta, report] }
+                		.combine(ch_database_for_sylph_profile, by: 0)
+                		.map {
+                    	            key, meta, reads, db_meta, db ->
 
-        SYLPHTAX_TAXPROF (ch_input_for_sylphtax, file(params.sylph_taxonomy, checkExists: true) )
+                        	// Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
+                        		def db_meta_keys = db_meta.keySet()
+                        		def db_meta_new = db_meta.subMap(db_meta_keys)
+
+                        		def parsed_params = db_meta['db_params'].split(";")
+
+                            		if ( parsed_params.size() == 2 ) {
+                                	    db_meta_new = db_meta + [ db_params: parsed_params[1] ]
+                            		} else {
+                                	    db_meta_new = db_meta + [ db_params: "" ]
+                            		}
+
+                    			[ key, meta, reads, db_meta_new, db ]
+
+            			    }
+            			    .multiMap { key, meta, report, db_meta, db ->
+                			report: [meta + db_meta, report]
+                			db: db
+            			}
+
+        SYLPHTAX_TAXPROF (ch_input_for_sylphtax.report, file(params.sylph_taxonomy, checkExists: true) )
         ch_versions = ch_versions.mix( SYLPHTAX_TAXPROF.out.versions.first() )
         ch_raw_profiles = ch_raw_profiles.mix( SYLPHTAX_TAXPROF.out.taxprof_output )
 
