@@ -288,7 +288,7 @@ Below is a description of the format for a custom adapter list file:
     --- repeat for each adapter pair---
 ```
 
-An example will be:
+An example is:
 
 ```
     custom_adapter_1
