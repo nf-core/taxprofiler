@@ -643,9 +643,13 @@ By default, the output database will be named `database.syldb`. If you prefer a 
 
 More information on custom sylph database construction can be found [here](https://sylph-docs.github.io/sylph-cookbook/#database-sketching-options).
 
-Classification using the sylph classifier consists of two steps: first running the `sylph profile` command, followed by the `sylph-tax taxprof` command.
+Classification using the sylph classifier consists of two steps: 
 
-`sylph-tax taxprof` command requires a taxonomy file. You can create your own taxonomy metadata file. A taxonomic metadata file is a two-column TSV file:
+1. running the `sylph profile` command 
+2. running the `sylph-tax taxprof` command
+
+The second `sylph-tax taxprof` command requires a taxonomy file.
+You can create your own taxonomy metadata file. A taxonomic metadata file is a two-column TSV file:
 
 - Column 1: the name of your genome's FASTA file: my_mag.fa
 - Column 2: a semicolon-delimited taxonomy string. d**Archaea;p**Methanobacteriota_B;c**Thermococci;o**Thermococcales;f**Thermococcaceae;g**Thermococcus_A;s\_\_Thermococcus_A alcaliphilus
