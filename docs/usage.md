@@ -137,6 +137,7 @@ metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
+sylph,db1,-m 80,/<path>/<to>/sylph/test-db-sylph.tar.gz
 ```
 
 ```csv
@@ -151,6 +152,7 @@ metaphlan,db1,,short,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,long,/<path>/<to>/motus/motus_database/
 ganon,db1,,short,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,short,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
+sylph,db1,-m 80,long,/<path>/<to>/sylph/test-db-sylph.tar.gz
 ```
 
 :::warning
@@ -199,6 +201,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
   - Note that you must use `motus downloadDB` and if installed via `conda`, will be placed in a specific `site-package` directory in the conda environment. For more details see the [mOTUs database tutorial](usage/tutorials.md#motus-custom-database).
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
+- [**sylph**:](usage/tutotials.md#sylph-custom-database) output of `sylph sketch` command.
 
 ## Running the pipeline
 
@@ -460,6 +463,7 @@ The following tools will produce multi-sample taxon tables:
 - **MetaPhlAn** (via MetaPhlAn's `merge_metaphlan_tables.py` script)
 - **mOTUs** (via the `motus merge` command)
 - **ganon** (via the `ganon table` command)
+- **sylph** (via the `sylphtax merge` command)
 
 Note that the multi-sample tables from the 'native' tools in each folders are [not inter-operable](https://taxpasta.readthedocs.io/en/latest/tutorials/getting-started/) with each other as they can have different formats and can contain additional and different data. In this case we refer you to use the standardised and merged output from Taxpasta, as described above.
 

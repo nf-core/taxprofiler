@@ -632,13 +632,13 @@ If all genomes are in the same file, you can run:
 sylph sketch all_genomes.fa
 ```
 
-You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
+By default, the output database will be named `database.syldb`. If you prefer a custom name, please use `--out-name-db <YOUR_DB_NAME>` flag.
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
 
 - `sylph`
-  - `.syldb`
+  - `database/custom_name.syldb`
   </details>
 
 More information on custom sylph database construction can be found [here](https://sylph-docs.github.io/sylph-cookbook/#database-sketching-options).
