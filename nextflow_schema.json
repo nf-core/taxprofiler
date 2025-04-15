@@ -246,6 +246,20 @@
                     "description": "Specify which tool to use for adapter trimming.",
                     "help_text": "The performance of Porechop and Porechop_ABI is same in terms of removing adapter reads. However Porechop is no longer updated, Porechop_ABI receives regular updates."
                 },
+                "longread_qc_predictadapters": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-dna",
+                    "description": "This option allows inference of adapters directly from the reads instead of relying on a static database.",
+                    "help_text": "Requires disabling default adapters from the Porechop database."
+                },
+                "longread_qc_adapterlist": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text",
+                    "fa_icon": "fas fa-file-alt",
+                    "description": "Path to a custom adapter text file, if you want to manually specify a list of adapters to remove.",
+                    "help_text": "Requires disabling default adapters from the Porechop database."
+                },
                 "longread_qc_skipadaptertrim": {
                     "type": "boolean",
                     "description": "Skip long-read trimming",

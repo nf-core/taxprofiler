@@ -268,6 +268,8 @@ Raw sequencing read processing in the form of adapter clipping and paired-end re
 
 It is highly recommended to run this on raw reads to remove artifacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles. If you have public data, normally these should have been corrected for, however you should still check that these steps have indeed been already performed.
 
+##### Short reads
+
 There are currently two options for short-read preprocessing: [`fastp`](https://github.com/OpenGene/fastp) or [`adapterremoval`](https://github.com/MikkelSchubert/adapterremoval).
 
 For adapter clipping, you can either rely on the tool's default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
@@ -275,7 +277,34 @@ By default, paired-end merging is not activated. In this case paired-end 'alignm
 You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
 Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during classification/profiling, with minimal gain.
 
+###### Long reads
+
 There are currently two options for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop), [`porechop_abi`](https://github.com/bonsai-team/Porechop_ABI).
+
+When using porechop_abi, you can enable on the `abi` option by turning on `--longread_qc_predictadapters` to predict adapters directly from the reads. Alternatively, you can set `--longread_qc_adapterlist` to provide a custom adapter list instead of using the default adapters from the Porechop database.
+
+Below is a description of the format for a custom adapter list file:
+
+```txt title="custom_adapters_list.txt"
+    line 1: Adapter name
+    line 2: Start adapter sequence
+    line 3: End adapter sequence
+    --- repeat for each adapter pair---
+```
+
+An example is:
+
+```
+    custom_adapter_1
+    GGTTGTTTCTGTTGGTGCTGATATTGCT
+    GAAGATAGAGCGACAGGCAAGT
+
+    custom_adapter_2
+    CACAAAGACACCGACAACTTTCTT
+    TTCGGATTCTATCGTGTTTCCCTA
+```
+
+If your adapters do not contain the start or end sequence, just put an empty line.
 
 For both short-read and long-read preprocessing, you can optionally save the resulting processed reads with `--save_preprocessed_reads`.
 
