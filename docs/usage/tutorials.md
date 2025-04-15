@@ -638,21 +638,30 @@ By default, the output database will be named `database.syldb`. If you prefer a 
 <summary>Expected files in database directory</summary>
 
 - `sylph`
-  - `database/custom_name.syldb`
+  - `database/<custom_name>.syldb`
   </details>
 
 More information on custom sylph database construction can be found [here](https://sylph-docs.github.io/sylph-cookbook/#database-sketching-options).
 
-Classification using the sylph classifier consists of two steps: 
+Classification using the sylph classifier consists of two steps:
 
-1. running the `sylph profile` command 
+1. running the `sylph profile` command
 2. running the `sylph-tax taxprof` command
 
 The second `sylph-tax taxprof` command requires a taxonomy file.
 You can create your own taxonomy metadata file. A taxonomic metadata file is a two-column TSV file:
 
 - Column 1: the name of your genome's FASTA file: my_mag.fa
-- Column 2: a semicolon-delimited taxonomy string. d**Archaea;p**Methanobacteriota_B;c**Thermococci;o**Thermococcales;f**Thermococcaceae;g**Thermococcus_A;s\_\_Thermococcus_A alcaliphilus
+- Column 2: a semicolon-delimited taxonomy string. For example:
+
+  ```bash
+  GCA_000005845.2	d__Bacteria;p__Pseudomonadota;c__Gammaproteobacteria;o__Enterobacterales;f__Enterobacteriaceae;g__Escherichia;s__Escherichia
+  GCA_000006805.1	d__Archaea;p__Halobacteriota;c__Halobacteria;o__Halobacteriales;f__Halobacteriaceae;g__Halobacterium;s__Halobacterium
+  GCA_000006985.1	d__Bacteria;p__Bacteroidota;c__Chlorobia;o__Chlorobiales;f__Chlorobiaceae;g__Chlorobaculum;s__Chlorobaculum
+  GCA_000007105.1	d__Bacteria;p__Pseudomonadota;c__Alphaproteobacteria;o__Sphingomonadales;f__Sphingomonadaceae;g__Zymomonas;s__Zymomonas
+  GCA_000007185.1	d__Archaea;p__Methanobacteriota;c__Methanopyri;o__Methanopyrales;f__Methanopyraceae;g__Methanopyrus;s__Methanopyrus
+  GCA_000007225.1	d__Archaea;p__Thermoproteota;c__Thermoprotei;o__Thermoproteales;f__Thermoproteaceae;g__Pyrobaculum;s__Pyrobaculum
+  ```
 
 You can either use [taxonkit lineage](https://bioinf.shenwei.me/taxonkit/usage/#lineage) or [GDTBTk](https://github.com/Ecogenomics/GTDBTk) to retrieve the lineage from taxonomic IDs.
 
