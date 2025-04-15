@@ -584,7 +584,7 @@ workflow PROFILING {
 
     if ( params.run_sylph ) {
         ch_input_for_sylph = ch_input_for_profiling.sylph
-                                 .filter{
+                                .filter{
                                     if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] sylph currently does not accept FASTA files as input. Skipping sylph for sample ${it[0].id}."
                                     !it[0].is_fasta
                                 }
@@ -619,30 +619,30 @@ workflow PROFILING {
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
 	ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
-                		.map { meta, report -> [meta.db_name, meta, report] }
-                		.combine(ch_database_for_sylph_profile, by: 0)
-                		.map {
-                    	            key, meta, reads, db_meta, db ->
+                .map { meta, report -> [meta.db_name, meta, report] }
+                .combine(ch_database_for_sylph_profile, by: 0)
+                .map {
+                    key, meta, reads, db_meta, db ->
 
                         	// Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
-                        		def db_meta_keys = db_meta.keySet()
-                        		def db_meta_new = db_meta.subMap(db_meta_keys)
+                        def db_meta_keys = db_meta.keySet()
+                        def db_meta_new = db_meta.subMap(db_meta_keys)
 
-                        		def parsed_params = db_meta['db_params'].split(";")
+                        def parsed_params = db_meta['db_params'].split(";")
 
-                            		if ( parsed_params.size() == 2 ) {
-                                	    db_meta_new = db_meta + [ db_params: parsed_params[1] ]
-                            		} else {
-                                	    db_meta_new = db_meta + [ db_params: "" ]
-                            		}
+                            if ( parsed_params.size() == 2 ) {
+                                db_meta_new = db_meta + [ db_params: parsed_params[1] ]
+                            } else {
+                                db_meta_new = db_meta + [ db_params: "" ]
+                            }
 
-                    			[ key, meta, reads, db_meta_new, db ]
+                    [ key, meta, reads, db_meta_new, db ]
 
-            			    }
-            			    .multiMap { key, meta, report, db_meta, db ->
-                			report: [meta + db_meta, report]
-                			db: db
-            			}
+                }
+            .multiMap { key, meta, report, db_meta, db ->
+                report: [meta + db_meta, report]
+                db: db
+            }
 
         SYLPHTAX_TAXPROF (ch_input_for_sylphtax.report, file(params.sylph_taxonomy, checkExists: true) )
         ch_versions = ch_versions.mix( SYLPHTAX_TAXPROF.out.versions.first() )
