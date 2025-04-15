@@ -620,7 +620,7 @@ More information on custom KMCP database construction can be found [here](https:
 
 #### sylph custom database
 
-To build a sylph database, it requires only fasta files.
+To build a sylph database, it only requires fasta files.
 
 ```bash
 sylph sketch genomes/*.fa.gz
