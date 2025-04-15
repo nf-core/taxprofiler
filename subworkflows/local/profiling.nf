@@ -589,7 +589,7 @@ workflow PROFILING {
                                     !it[0].is_fasta
                                 }
 				.map {
-                                    meta, reads, db_meta, db ->
+                                        meta, reads, db_meta, db ->
                                         def db_meta_keys = db_meta.keySet()
                                         def db_meta_new = db_meta.subMap(db_meta_keys)
 
@@ -605,7 +605,7 @@ workflow PROFILING {
 
                                     [ meta, reads, db_meta_new, db ]
                                 }
-				.multiMap {
+                .multiMap {
                                 it ->
                                     reads: [it[0] + it[2], it[1]]
                                     db: it[3]
@@ -614,17 +614,17 @@ workflow PROFILING {
         SYLPH_PROFILE ( ch_input_for_sylph.reads, ch_input_for_sylph.db)
         ch_versions = ch_versions.mix( SYLPH_PROFILE.out.versions.first() )
 
-	ch_database_for_sylph_profile = databases
+    ch_database_for_sylph_profile = databases
                                                 .filter { meta, db -> meta.tool == 'sylph' }
                                                 .map { meta, db -> [meta.db_name, meta, db] }
 
-	ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
+    ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
                 .map { meta, report -> [meta.db_name, meta, report] }
                 .combine(ch_database_for_sylph_profile, by: 0)
                 .map {
                     key, meta, reads, db_meta, db ->
 
-                        	// Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
+                // Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
                         def db_meta_keys = db_meta.keySet()
                         def db_meta_new = db_meta.subMap(db_meta_keys)
 
