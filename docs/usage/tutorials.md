@@ -663,6 +663,4 @@ You can create your own taxonomy metadata file. A taxonomic metadata file is a t
   GCA_000007225.1	d__Archaea;p__Thermoproteota;c__Thermoprotei;o__Thermoproteales;f__Thermoproteaceae;g__Pyrobaculum;s__Pyrobaculum
   ```
 
-You can either use [taxonkit lineage](https://bioinf.shenwei.me/taxonkit/usage/#lineage) or [GDTBTk](https://github.com/Ecogenomics/GTDBTk) to retrieve the lineage from taxonomic IDs.
-
 More information on custom taxonomies can be found [here](https://sylph-docs.github.io/sylph-tax-custom-taxonomies/)
