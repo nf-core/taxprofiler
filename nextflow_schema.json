@@ -662,7 +662,9 @@
                     "type": "string",
                     "default": "relative_abundance",
                     "description": "Specifies which abundance metric to use",
-                    "help_text": "Can be ANI, relative abundance, or sequence abundance. \n\n> Modifies tool parameter(s):\n- sylph-tax merge: `--column`"
+                    "help_text": "See the [sylph publication](https://www.nature.com/articles/s41587-024-02412-y) for more information.\n\n> Modifies tool parameter(s):\n- sylph-tax merge: `--column`",
+                    "enum": ["relative_abundance", "sequence_abundance", "ANI"],
+                    "fa_icon": "fas fa-file"
                 }
             },
             "fa_icon": "fas fa-align-center"
