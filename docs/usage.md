@@ -280,6 +280,7 @@ Both tools support length filtering of reads and can be tuned with `--shortread_
 ###### Long reads
 
 There are currently two options for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop), [`porechop_abi`](https://github.com/bonsai-team/Porechop_ABI).
+
 When using porechop_abi, you can enable on the `abi` option by turning on `--longread_qc_predictadapters` to predict adapters directly from the reads. Alternatively, you can set `--longread_qc_adapterlist` to provide a custom adapter list instead of using the default adapters from the Porechop database.
 
 Below is a description of the format for a custom adapter list file:
