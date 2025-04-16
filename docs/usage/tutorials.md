@@ -651,7 +651,7 @@ Classification using the sylph classifier consists of two steps:
 The second `sylph-tax taxprof` command also requires a taxonomy file that you must provide.
 You can create your own taxonomy metadata file via a two-column TSV file:
 
-- Column 1: the name of your genome's FASTA file: my_mag.fa
+- Column 1: the name of your genome's FASTA file
 - Column 2: a semicolon-delimited taxonomy string. For example:
 
   ```bash
