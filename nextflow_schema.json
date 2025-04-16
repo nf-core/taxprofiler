@@ -660,6 +660,25 @@
                     "description": "Specify a maximum number of reads a hit must have to be retained in the ganon report.",
                     "help_text": "Specify the maximum number of reads or percentage of counts a hit must have against a taxon to be retained. To specify a maximum percentage, specify between 0 and 1 (e.g. 0.9 for 90%), and more than 1 to specify a hard count cut off (e.g. 10000 for maximum of 10,000 reads).\n\n> Modifies tool parameter(s):\n- ganon report: `--max-count`",
                     "fa_icon": "fas fa-filter"
+                },
+                "run_sylph": {
+                    "type": "boolean",
+                    "description": "Turn on profiling with sylph. Requires database to be present CSV file passed to --databases",
+                    "fa_icon": "fas fa-toggle-on"
+                },
+                "sylph_taxonomy": {
+                    "type": "string",
+                    "fa_icon": "fas fa-folder-open",
+                    "description": "Specify path to sylph taxonomy to add taxonomic path to each hit.",
+                    "help_text": "Sylph's TSV outputs do not by default have taxonomic information against each hit (i.e., it will report simply that a hit to this genome file was found). To turn sylph's TSV output into a taxonomic profile like Kraken or MetaPhlAn, specify a path to a taxonomy file. More information can be found [here](https://sylph-docs.github.io/sylph-tax/)."
+                },
+                "sylph_data_type": {
+                    "type": "string",
+                    "default": "relative_abundance",
+                    "description": "Specifies which abundance metric to use",
+                    "help_text": "See the [sylph publication](https://www.nature.com/articles/s41587-024-02412-y) for more information.\n\n> Modifies tool parameter(s):\n- sylph-tax merge: `--column`",
+                    "enum": ["relative_abundance", "sequence_abundance", "ANI"],
+                    "fa_icon": "fas fa-file"
                 }
             },
             "fa_icon": "fas fa-align-center"

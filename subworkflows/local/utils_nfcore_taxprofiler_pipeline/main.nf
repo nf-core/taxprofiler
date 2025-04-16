@@ -209,6 +209,7 @@ def toolCitationText() {
             params.run_motus      ? "mOTUs (Ruscheweyh et al. 2022)," : "",
             params.run_ganon      ? "ganon (Piro et al. 2020)" : "",
             params.run_kmcp       ? "KMCP (Shen et al. 2023)" : "",
+            params.run_sylph      ? "sylph (Shaw et al. 2024)":"",
         "."
     ].join(' ').trim()
 
@@ -229,7 +230,7 @@ def toolCitationText() {
         params.perform_shortread_complexityfilter       ? text_shortreadcomplexity : "",
         params.perform_shortread_hostremoval            ? text_shortreadhostremoval : "",
         params.perform_longread_hostremoval             ? text_longreadhostremoval : "",
-        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp].any() ?
+        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp, params.run_sylph].any() ?
             text_classification : "",
         params.run_krona                                ? text_visualisation : "",
         params.run_profile_standardisation              ? text_postprocessing : "",
@@ -288,6 +289,7 @@ def toolBibliographyText() {
         params.run_motus      ? "<li>Ruscheweyh, H.-J., Milanese, A., Paoli, L., Karcher, N., Clayssen, Q., Keller, M. I., Wirbel, J., Bork, P., Mende, D. R., Zeller, G., & Sunagawa, S. (2022). Cultivation-independent genomes greatly expand taxonomic-profiling capabilities of mOTUs across various environments. Microbiome, 10(1), 212. <a href=\"https://doi.org/10.1186/s40168-022-01410-z\">10.1186/s40168-022-01410-z</a></li>" : "",
         params.run_ganon      ? "<li>Piro, V. C., Dadi, T. H., Seiler, E., Reinert, K., & Renard, B. Y. (2020). Ganon: Precise metagenomics classification against large and up-to-date sets of reference sequences. Bioinformatics (Oxford, England), 36(Suppl_1), i12–i20. <a href=\"https://doi.org/10.1093/bioinformatics/btaa458\">10.1093/bioinformatics/btaa458</a></li>" : "",
         params.run_kmcp       ? "<li>Shen, W., Xiang, H., Huang, T., Tang, H., Peng, M., Cai, D., Hu, P., & Ren, H. (2023). KMCP: accurate metagenomic profiling of both prokaryotic and viral populations by pseudo-mapping. Bioinformatics (Oxford, England), 39(1). <a href=\"https://doi.org/10.1093/bioinformatics/btac845\">10.1093/bioinformatics/btac845</a></li>" : "",
+        params.run_sylph          ? "<li>Shaw, J. & Yu, Y. W. (2024). Rapid species-level metagenome profiling and containment estimation with sylph. Nature Biotechnology. <a href=\"https://doi.org/10.1038/s41587-024-02412-y\">10.1038/s41587-024-02412-y</a></li>" : "",
     ].join(' ').trim()
 
     def text_visualisation = [

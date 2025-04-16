@@ -261,6 +261,21 @@
                         "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
                         "installed_by": ["modules"]
                     },
+                    "sylph/profile": {
+                        "branch": "master",
+                        "git_sha": "905850725a129463c8108efa952e5b1df62e3bb6",
+                        "installed_by": ["modules"]
+                    },
+                    "sylphtax/merge": {
+                        "branch": "master",
+                        "git_sha": "635aec1a50ccbea3a89fa1b0956457606732f0f6",
+                        "installed_by": ["modules"]
+                    },
+                    "sylphtax/taxprof": {
+                        "branch": "master",
+                        "git_sha": "635aec1a50ccbea3a89fa1b0956457606732f0f6",
+                        "installed_by": ["modules"]
+                    },
                     "taxpasta/merge": {
                         "branch": "master",
                         "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",

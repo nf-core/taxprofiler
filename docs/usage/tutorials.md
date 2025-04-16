@@ -617,3 +617,52 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 </details>
 
 More information on custom KMCP database construction can be found [here](https://bioinf.shenwei.me/kmcp/database/#building-custom-databases).
+
+#### sylph custom database
+
+To build a sylph database, it only requires fasta files.
+
+```bash
+sylph sketch genomes/*.fa.gz
+```
+
+If all genomes are in the same file, you can run:
+
+```bash
+sylph sketch all_genomes.fa
+```
+
+By default, the output database will be named `database.syldb`. If you prefer a custom name, please use `--out-name-db <YOUR_DB_NAME>` flag.
+
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `sylph`
+  - `database/<custom_name>.syldb`
+  </details>
+
+More information on custom sylph database construction can be found [here](https://sylph-docs.github.io/sylph-cookbook/#database-sketching-options).
+
+Classification using the sylph classifier consists of two steps:
+
+1. running the `sylph profile` command
+2. running the `sylph-tax taxprof` command
+
+The second `sylph-tax taxprof` command also requires a taxonomy file that you must provide.
+You can create your own taxonomy metadata file via a two-column TSV file:
+
+- Column 1: the name of your genome's FASTA file
+- Column 2: a semicolon-delimited taxonomy string.
+
+For example:
+
+```bash
+GCA_000005845.2	d__Bacteria;p__Pseudomonadota;c__Gammaproteobacteria;o__Enterobacterales;f__Enterobacteriaceae;g__Escherichia;s__Escherichia
+GCA_000006805.1	d__Archaea;p__Halobacteriota;c__Halobacteria;o__Halobacteriales;f__Halobacteriaceae;g__Halobacterium;s__Halobacterium
+GCA_000006985.1	d__Bacteria;p__Bacteroidota;c__Chlorobia;o__Chlorobiales;f__Chlorobiaceae;g__Chlorobaculum;s__Chlorobaculum
+GCA_000007105.1	d__Bacteria;p__Pseudomonadota;c__Alphaproteobacteria;o__Sphingomonadales;f__Sphingomonadaceae;g__Zymomonas;s__Zymomonas
+GCA_000007185.1	d__Archaea;p__Methanobacteriota;c__Methanopyri;o__Methanopyrales;f__Methanopyraceae;g__Methanopyrus;s__Methanopyrus
+GCA_000007225.1	d__Archaea;p__Thermoproteota;c__Thermoprotei;o__Thermoproteales;f__Thermoproteaceae;g__Pyrobaculum;s__Pyrobaculum
+```
+
+More information on custom taxonomies can be found [here](https://sylph-docs.github.io/sylph-tax-custom-taxonomies/)
