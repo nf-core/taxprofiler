@@ -156,13 +156,15 @@ sylph,db1,-m 80,long,/<path>/<to>/sylph/test-db-sylph.tar.gz
 ```
 
 :::warning
-For Bracken and KMCP, which are two step profilers, nf-core/taxprofiler has a special way of passing parameters to each steps!
+For Bracken, KMCP and sylph, which are two step profilers, nf-core/taxprofiler has a special way of passing parameters to each steps!
 
 For Bracken, if you wish to supply any parameters to both the Kraken or Bracken steps or just the Bracken step, you **must** have a _semi-colon_ `;` list in the `db_params` column. This allows you to specify the Kraken2 parameters before and Bracken parameters after the `;`. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this column empty. If you wish to provide settings to _just_ the Kraken2 step of the Bracken profiling, you can supply a normal string to the column without a semi-colon. If you wish to supply parameters to only Bracken (and keep default Kraken2 parameters), then you supply a string to the column starting with `;` and the Bracken parameters _after_.
 
 Similarly, for KMCP, if you want to supply parameters for both the first (KMCP search) and the _second step_ (KMCP profile) steps, you **must** have a _semi-colon_ separated`;` list in `db_params`. If you wish to provide parameters to just KMCP search, you do not need the `;`. If you want to supply parameters to just KMCP profile (and keep search parameters at default), then you must start the string with `;` and the KMCP profile parameters come _after_ the semi colon. If you do not wish to modify any parameters, you can leave the column empty (i.e. the `;` is not necessary).
 
 This allows you to specify the KMCP search and the KMCP profile parameters, separated by `;`. If you do not have any parameters to specify, you can leave this as empty.
+
+The logic is the same for sylph classifier. If you want to supply parameters for both the first (sylph profile) and the _second step_ (sylph-tax taxprof), you **must** have a _semi-colon_ separated`;` list in `db_params`. If you wish to provide parameters to just sylph profile, you do not need the `;`. If you want to supply parameters to just sylph-tax taxprof (and keep sylph profile parameters at default), then you must start the string with `;` and the sylph-tax taxprof parameters come _after_ the semi colon. If you do not wish to modify any parameters, you can leave the column empty (i.e. the `;` is not necessary).
 :::
 
 Column specifications are as follows:
