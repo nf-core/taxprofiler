@@ -655,7 +655,7 @@
                 "sylph_taxonomy": {
                     "type": "string",
                     "fa_icon": "fas fa-folder-open",
-                    "description": "Specify path to sylph taxonomy",
+                    "description": "Specify path to sylph taxonomy to add taxonomic path to each hit.",
                     "help_text": "Sylph's TSV outputs do not have taxonomic information. To turn sylph's TSV output into a taxonomic profile like Kraken or MetaPhlAn, specify a path to a taxonomy file.More information can be found [here](https://sylph-docs.github.io/sylph-tax/)."
                 },
                 "sylph_data_type": {
