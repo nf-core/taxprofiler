@@ -624,7 +624,7 @@ workflow PROFILING {
                 .map {
                     key, meta, reads, db_meta, db ->
 
-                // Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
+                        // Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
                         def db_meta_keys = db_meta.keySet()
                         def db_meta_new = db_meta.subMap(db_meta_keys)
 
