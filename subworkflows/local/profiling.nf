@@ -588,7 +588,7 @@ workflow PROFILING {
                                     if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] sylph currently does not accept FASTA files as input. Skipping sylph for sample ${it[0].id}."
                                     !it[0].is_fasta
                                 }
-				.map {
+                                .map {
                                         meta, reads, db_meta, db ->
                                         def db_meta_keys = db_meta.keySet()
                                         def db_meta_new = db_meta.subMap(db_meta_keys)
