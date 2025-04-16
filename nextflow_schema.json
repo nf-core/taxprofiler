@@ -348,7 +348,7 @@
                 },
                 "shortread_hostremoval_index": {
                     "type": "string",
-                    "format": "directory-path", 
+                    "format": "directory-path",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference",
                     "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.). These should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
