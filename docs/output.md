@@ -633,8 +633,8 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
 - `sylph/`
   - `<db_name>/`
     - `<sample_id>.sylph.tsv`: output of `sylph profile` containing taxonomic classifications where each row is one genome detected in the sample. This output does not have any information about the species, genus, order etc
-    - `<sample_id>.sylphmpa`: output of `sylph-tax taxprof containing a taxonomic profile like Kraken or MetaPhlan.
-
+    - `<sample_id>.sylphmpa`: output of `sylph-tax taxprof` containing a taxonomic profile like Kraken or MetaPhlan.
+    - `sylph_<sample_id>_combined_reports`: output of `sylph-tax merge` containing merged multiple taxonomic profiles into a TSV table.
 </details>
 
 For further descriptions of the contents of each file, see the [sylph documentation](https://sylph-docs.github.io/Output-format/).
