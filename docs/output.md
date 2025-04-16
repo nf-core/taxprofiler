@@ -38,7 +38,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
 - [KMCP](#kmcp) - Taxonomic classifier that utilizes genome coverage information by splitting the reference genomes into chunks and stores k-mers in a modified and optimized COBS index for fast alignment-free sequence searching.
 - [ganon](#ganon) - Taxonomic classifier and profile that uses Interleaved Bloom Filters as indices based on k-mers/minimizers.
-- [Sylph](#sylph) - Taxonomic classifier that performs ultrafast average nucleotide identity (ANI) querying or metagenomic profiling for metagenomic shotgun samples.
+- [sylph](#sylph) - Taxonomic classifier that performs ultrafast average nucleotide identity (ANI) querying or metagenomic profiling for metagenomic shotgun samples.
 - [TAXPASTA](#taxpasta) - Tool to standardise taxonomic profiles as well as merge profiles across samples from the same database and classifier/profiler.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
