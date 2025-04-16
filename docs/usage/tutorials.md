@@ -652,7 +652,9 @@ The second `sylph-tax taxprof` command also requires a taxonomy file that you mu
 You can create your own taxonomy metadata file via a two-column TSV file:
 
 - Column 1: the name of your genome's FASTA file
-- Column 2: a semicolon-delimited taxonomy string. For example:
+- Column 2: a semicolon-delimited taxonomy string.
+
+For example:
 
   ```bash
   GCA_000005845.2	d__Bacteria;p__Pseudomonadota;c__Gammaproteobacteria;o__Enterobacterales;f__Enterobacteriaceae;g__Escherichia;s__Escherichia
