@@ -656,7 +656,7 @@
                     "type": "string",
                     "fa_icon": "fas fa-folder-open",
                     "description": "Specify path to sylph taxonomy to add taxonomic path to each hit.",
-                    "help_text": "Sylph's TSV outputs do not have taxonomic information. To turn sylph's TSV output into a taxonomic profile like Kraken or MetaPhlAn, specify a path to a taxonomy file.More information can be found [here](https://sylph-docs.github.io/sylph-tax/)."
+                    "help_text": "Sylph's TSV outputs do not by default have taxonomic information against each hit (i.e., it will report simply that a hit to this genome file was found). To turn sylph's TSV output into a taxonomic profile like Kraken or MetaPhlAn, specify a path to a taxonomy file. More information can be found [here](https://sylph-docs.github.io/sylph-tax/)."
                 },
                 "sylph_data_type": {
                     "type": "string",
