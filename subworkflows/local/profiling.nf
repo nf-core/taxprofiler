@@ -611,7 +611,7 @@ workflow PROFILING {
                                     db: it[3]
                             }
 
-        SYLPH_PROFILE ( ch_input_for_sylph.reads, ch_input_for_sylph.db)
+        SYLPH_PROFILE ( ch_input_for_sylph.reads, ch_input_for_sylph.db )
         ch_versions = ch_versions.mix( SYLPH_PROFILE.out.versions.first() )
 
     ch_database_for_sylph_profile = databases
