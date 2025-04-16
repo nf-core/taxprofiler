@@ -615,8 +615,8 @@ workflow PROFILING {
         ch_versions = ch_versions.mix( SYLPH_PROFILE.out.versions.first() )
 
     ch_database_for_sylph_profile = databases
-                                                .filter { meta, db -> meta.tool == 'sylph' }
-                                                .map { meta, db -> [meta.db_name, meta, db] }
+                                        .filter { meta, db -> meta.tool == 'sylph' }
+                                        .map { meta, db -> [meta.db_name, meta, db] }
 
     ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
                 .map { meta, report -> [meta.db_name, meta, report] }
