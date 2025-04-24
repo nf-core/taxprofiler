@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v1.3.0dev [unreleased]
 
 ### `Added`
-- [#600](https://github.com/nf-core/taxprofiler/pull/600) Added metaphlan to multiqc report (❤️  to @harper357 for reporting and added by @sofstam)
+
+- [#600](https://github.com/nf-core/taxprofiler/pull/600) Added metaphlan to multiqc report (❤️ to @harper357 for reporting and added by @sofstam)
 
 ### `Fixed`
 
