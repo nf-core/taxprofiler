@@ -713,6 +713,7 @@ You can expect in the MultiQC reports either sections and/or general stats colum
 - diamond
 - malt
 - motus
+- metaphlan
 
 :::info
 The 'General Stats' table by default will only show statistics referring to pre-processing steps, and will not display possible values from each classifier/profiler, unless turned on by the user within the 'Configure Columns' menu or via a custom MultiQC config file (`--multiqc_config`).
