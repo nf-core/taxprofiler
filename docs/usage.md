@@ -46,8 +46,8 @@ The `sample` identifiers have to be the same when you have re-sequenced the same
 
 ```csv title="samplesheet.csv"
 sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
-2612,lane1,ILLUMINA,2612_lane1_R1.fq.gz,ILLUMINA,2612_lane1_R2.fq.gz,
-2612,lane2,ILLUMINA,2612_lane2_R1.fq.gz,ILLUMINA,2612_lane2_R2.fq.gz,
+2612,lane1,ILLUMINA,2612_lane1_R1.fq.gz,2612_lane1_R2.fq.gz,
+2612,lane2,ILLUMINA,2612_lane2_R1.fq.gz,2612_lane2_R2.fq.gz,
 2612,lane3,ILLUMINA,2612_lane3_R1.fq.gz,,
 ```
 
