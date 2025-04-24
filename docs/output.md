@@ -21,7 +21,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Porechop](#porechop) - Adapter removal for Oxford Nanopore data
 - [Porechop_ABI](#porechop_abi) - Adapter removal for Oxford Nanopore data
 - [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
-- [Nanoq] (#nanoq) - Quality trimming and filtering for Nanopore data
+- [Nanoq](#nanoq) - Quality trimming and filtering for Nanopore data
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [SAMtools stats](#samtools-stats) - Statistics from host removal
