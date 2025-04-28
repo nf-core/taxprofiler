@@ -3,6 +3,21 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.3.0dev [unreleased]
+
+### `Added`
+
+- [#600](https://github.com/nf-core/taxprofiler/pull/600) Added metaphlan to multiqc report (❤️ to @harper357 for reporting and added by @sofstam)
+
+### `Fixed`
+
+- [#592](https://github.com/nf-core/taxprofiler/pull/592) improved json schema (by @microlei)
+- [#604](https://github.com/nf-core/taxprofiler/pull/604) KrakenUniq no longer fails due to splitting pathnames (by @AlexHoratio)
+
+### `Dependencies`
+
+### `Deprecated`
+
 ## v1.2.3 - Bouncy Basenji Patch [2024-03-13]
 
 ### `Added`
