@@ -21,7 +21,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Porechop](#porechop) - Adapter removal for Oxford Nanopore data
 - [Porechop_ABI](#porechop_abi) - Adapter removal for Oxford Nanopore data
 - [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
-- [Nanoq] (#nanoq) - Quality trimming and filtering for Nanopore data
+- [Nanoq](#nanoq) - Quality trimming and filtering for Nanopore data
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [SAMtools stats](#samtools-stats) - Statistics from host removal
@@ -713,6 +713,7 @@ You can expect in the MultiQC reports either sections and/or general stats colum
 - diamond
 - malt
 - motus
+- metaphlan
 
 :::info
 The 'General Stats' table by default will only show statistics referring to pre-processing steps, and will not display possible values from each classifier/profiler, unless turned on by the user within the 'Configure Columns' menu or via a custom MultiQC config file (`--multiqc_config`).

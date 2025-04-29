@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#592](https://github.com/nf-core/taxprofiler/pull/592) improved json schema (by @microlei)
-- [#604](https://github.com/nf-core/taxprofiler/pull/604) KrakenUniq no longer fails due to splitting pathnames (by @AlexHoratio)
+- [#604](https://github.com/nf-core/taxprofiler/pull/604) KrakenUniq no longer fails due to pathname splitting during batching when only single sample supplied (by @AlexHoratio)
 
 ### `Dependencies`
 

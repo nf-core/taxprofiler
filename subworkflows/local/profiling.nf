@@ -311,6 +311,8 @@ workflow PROFILING {
         METAPHLAN_METAPHLAN ( ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db )
         ch_versions        = ch_versions.mix( METAPHLAN_METAPHLAN.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( METAPHLAN_METAPHLAN.out.profile )
+        ch_multiqc_files   = ch_multiqc_files.mix( METAPHLAN_METAPHLAN.out.profile )
+
 
     }
 
