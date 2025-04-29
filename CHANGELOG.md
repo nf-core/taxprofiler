@@ -11,7 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#602](https://github.com/nf-core/taxprofiler/pull/600) Fixed a typo in the run-merging table example in usage.md (❤️ to @ilight1542 for reporting and fixed by @jfy133)
 - [#592](https://github.com/nf-core/taxprofiler/pull/592) improved json schema (by @microlei)
+
+### `Changed`
+
+- [#602](https://github.com/nf-core/taxprofiler/pull/600) Rename (undocumented) `test_nothing` profile to `test_minimal` for consistency with other pipelines (by @jfy133)
 
 ### `Dependencies`
 
