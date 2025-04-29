@@ -377,6 +377,26 @@ It is unclear whether Bracken is suitable for running long reads, as it makes ce
 
 Therefore currently nf-core/taxprofiler does not run Bracken on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet.
 
+Bracken currently does support reporting of abundance stats for multiple taxonomic levels at once (by default, it only reports species level hits).
+You can change the reported taxonomic level by using Bracken's `-l` parameter (see Step 3 of the [Bracken documentation](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual)).
+If you want to report multiple taxonomic levels, you must specify your Bracken database multiple times in the database sheet, once for each taxonomic level you want to report, and each with a unique database name.
+For example:
+
+```csv title="databases.csv"
+tool,db_name,db_params,db_type,db_path
+bracken,db1-species,;-l S,short,https://github.com/nf-core/test-datasets/raw/taxprofiler/data/database/bracken/testdb-bracken.tar.gz
+bracken,db1-genus,;-l G,short,https://github.com/nf-core/test-datasets/raw/taxprofiler/data/database/bracken/testdb-bracken.tar.gz
+bracken,db1-phylum,;-l P,short,https://github.com/nf-core/test-datasets/raw/taxprofiler/data/database/bracken/testdb-bracken.tar.gz
+kraken2,db2,--quick,short,https://github.com/nf-core/test-datasets/raw/taxprofiler/data/database/kraken2/testdb-kraken2.tar.gz
+```
+
+This will produce independent Bracken output files for each taxonomic level, with the suffixes `db1-species`, `db1-genus` and `db1-phylum` respectively in the `bracken/<database_name>/` output directories.
+
+:::warning
+Do not forget to supply the Bracken parameters after the a `;` to ensure the `-l` parameter goes to Bracken and not Kraken!
+See [Full database sheet](#full-database-sheet) for more information.
+:::
+
 ##### Centrifuge
 
 Centrifuge currently does not accept FASTA files as input, therefore no output will be produced for these input files.
