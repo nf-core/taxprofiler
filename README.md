@@ -46,6 +46,7 @@
    - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
    - [KMCP](https://github.com/shenwei356/kmcp)
    - [ganon](https://pirovc.github.io/ganon/)
+   - [melon](https://github.com/xinehc/melon)
 5. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
 6. Standardises output tables ([`Taxpasta`](https://taxpasta.readthedocs.io))
@@ -122,6 +123,7 @@ We thank the following people for their contributions to the development of this
 - [Mahwash Jamy](https://github.com/mjamy)
 - [Alex Caswell](https://github.com/AlexHoratio)
 - [Aidan Epstein](https://github.com/epstein6)
+- [Efthymios Parisis](https://github.com/eparisis)
 
 ### Acknowledgments
 

@@ -137,6 +137,7 @@ metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
+melon,db1,,/<path>/<to>/melon/test-db-melon.tar.gz
 ```
 
 ```csv
@@ -151,6 +152,7 @@ metaphlan,db1,,short,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,long,/<path>/<to>/motus/motus_database/
 ganon,db1,,short,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,short,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
+melon,db1,,long,/<path>/<to>/melon/test-db-melon.tar.gz
 ```
 
 :::warning
@@ -199,6 +201,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
   - Note that you must use `motus downloadDB` and if installed via `conda`, will be placed in a specific `site-package` directory in the conda environment. For more details see the [mOTUs database tutorial](usage/tutorials.md#motus-custom-database).
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
+- [**melon**:](usage/tutorials.md#melon-custom-database) output of `diamond makedb` and `minimap2`.
 
 ## Running the pipeline
 
@@ -423,6 +426,9 @@ Therefore currently nf-core/taxprofiler does not run ganon on data specified as 
 
 KMCP is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Therefore, nf-core/taxprofiler does not currently run KMCP on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet.
 
+##### melon
+
+melon is only suitable for long-read metagenomic profiling. Therefore, nf-core/taxprofiler does not currently run melon on data specified as being sequenced with `ILLUMINA` in the input samplesheet.
 #### Post Processing
 
 ##### Visualisation

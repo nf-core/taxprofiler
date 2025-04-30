@@ -617,3 +617,52 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 </details>
 
 More information on custom KMCP database construction can be found [here](https://bioinf.shenwei.me/kmcp/database/#building-custom-databases).
+
+#### melon custom database
+
+melon does not provide the ability to construct custom databases. Therefore we recommend to use the the prebuilt database of marker genes provided by the developers.
+
+melon provides a pre-built database for long-read metagenomic data. A NCBI or a GTDB database can be used to build the database.
+
+To use the melon database, you need to download the pre-built database from the [melon GitHub repository](https://github.com/xinehc/melon#database-setup).
+
+After downloading the marker gene set provided in the github repository, you will need to have diamond and minimap2 installed to build the database.
+
+```bash
+## if you encounter memory issue please consider manually lowering cpu_count or simply set cpu_count=1
+cpu_count=$(python -c 'import os; print(os.cpu_count())')
+
+diamond makedb --in database/prot.fa --db database/prot --quiet
+ls database/nucl.*.fa | sort | xargs -P $cpu_count -I {} bash -c '
+    filename=${1%.fa*};
+    filename=${filename##*/};
+    minimap2 -x map-ont -d database/$filename.mmi ${1} 2> /dev/null;
+    echo "Indexed <database/$filename.fa>.";' - {}
+
+## remove unnecessary files to save space
+rm -rf database/*.fa
+```
+
+You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
+
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `melon`
+  - `metadata.tsv`
+  - `nucl.archaea.l15e.mmi`
+  - `nucl.archaea.s19e.mmi`
+  - `nucl.bacteria.l11.mmi`
+  - `nucl.bacteria.l27.mmi`
+  - `nucl.bacteria.s7.mmi`
+  - `nucl.archaea.l10e.mmi`
+  - `nucl.archaea.l18e.mmi`
+  - `nucl.archaea.s28e.mmi`
+  - `nucl.archaea.s3ae.mmi`
+  - `nucl.bacteria.l20.mmi`
+  - `nucl.bacteria.s2.mmi`
+  - `prot.dmnd`
+
+</details>
+
+More information on the melon database can be found [here](https://github.com/xinehc/melon#database-setup).
