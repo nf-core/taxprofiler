@@ -429,6 +429,7 @@ KMCP is only suitable for short-read metagenomic profiling, with much lower sens
 ##### melon
 
 melon is only suitable for long-read metagenomic profiling. Therefore, nf-core/taxprofiler does not currently run melon on data specified as being sequenced with `ILLUMINA` in the input samplesheet.
+
 #### Post Processing
 
 ##### Visualisation
