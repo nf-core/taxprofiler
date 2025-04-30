@@ -118,6 +118,10 @@
 
   > Piro, V. C., Dadi, T. H., Seiler, E., Reinert, K., & Renard, B. Y. (2020). Ganon: Precise metagenomics classification against large and up-to-date sets of reference sequences. Bioinformatics (Oxford, England), 36(Suppl_1), i12–i20. https://doi.org/10.1093/bioinformatics/btaa458
 
+- [melon](https://doi.org/10.1186/s13059-024-03363-y)
+
+  > Chen, X., Yin, X., Shi, X., Yan, W., Yang, Y., Liu, L., & Zhang, T. (2024). Melon: metagenomic long-read-based taxonomic identification and quantification using marker genes. Genome Biology, 25(1), 226. https://doi.org/10.1186/s13059-024-03363-y
+
 - [Krona](https://doi.org/10.1186/1471-2105-12-385)
 
   > Ondov, B. D., Bergman, N. H., & Phillippy, A. M. (2011). Interactive metagenomic visualization in a Web browser. BMC Bioinformatics, 12. https://doi.org/10.1186/1471-2105-12-385
