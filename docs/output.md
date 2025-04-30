@@ -38,6 +38,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
 - [KMCP](#kmcp) - Taxonomic classifier that utilizes genome coverage information by splitting the reference genomes into chunks and stores k-mers in a modified and optimized COBS index for fast alignment-free sequence searching.
 - [ganon](#ganon) - Taxonomic classifier and profile that uses Interleaved Bloom Filters as indices based on k-mers/minimizers.
+- [melon](#melon) - Taxonomic classifier that uses ribosomal marker genes to classify and quantify long-read metagenomic data.
 - [TAXPASTA](#taxpasta) - Tool to standardise taxonomic profiles as well as merge profiles across samples from the same database and classifier/profiler.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
@@ -620,6 +621,22 @@ The main taxonomic classification file from KMCP is the `*kmcp.profile` which is
 Generally you will want to refer to the `combined_reports.txt` or `_report.tre` file. For further descriptions of the contents of each file, see the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/).
 
 You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--ganon_save_readclassifications` parameter to the pipeline.
+
+### melon
+
+[melon](https://github.com/xinehc/melon) is a taxonomic classifier that uses ribosomal marker genes to classify and quantify long-read metagenomic data.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `melon/`
+  - `<db_name>/`
+    - `<sample_id>.tsv`: taxonomic profile in TSV format
+    - `<sample_id>.json`: json file containing per-read taxonomic classification results
+
+</details>
+
+The main taxonomic classification files from melon are the `*.tsv` and `*.json` files. For further descriptions of the contents of each file, see the [melon documentation](https://github.com/xinehc/melon#run-melon).
 
 ### Krona
 
