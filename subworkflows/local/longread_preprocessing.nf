@@ -11,6 +11,7 @@ include { LONGREAD_FILTERING               } from './longread_filtering.nf'
 workflow LONGREAD_PREPROCESSING {
     take:
     reads
+    custom_adapters
 
     main:
     ch_versions      = Channel.empty()
@@ -25,7 +26,7 @@ workflow LONGREAD_PREPROCESSING {
         ch_versions        = ch_versions.mix(LONGREAD_FILTERING.out.versions.first())
         ch_multiqc_files   =  ch_multiqc_files.mix( LONGREAD_FILTERING.out.mqc )
     } else {
-        LONGREAD_ADAPTERREMOVAL ( reads )
+        LONGREAD_ADAPTERREMOVAL ( reads, custom_adapters )
         ch_clipped_reads   = LONGREAD_ADAPTERREMOVAL.out.reads
             .map { meta, reads -> [ meta + [single_end: true], reads ] }
         ch_processed_reads = LONGREAD_FILTERING ( ch_clipped_reads ).reads

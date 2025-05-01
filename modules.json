@@ -190,9 +190,14 @@
                         "git_sha": "3cf419b5480c5ca8893f5ea6e1746d2b3a7c326d",
                         "installed_by": ["modules"]
                     },
+                    "motus/preplong": {
+                        "branch": "master",
+                        "git_sha": "44a142b45f70e3fbc80d0d0e38a8c788ec17545f",
+                        "installed_by": ["modules"]
+                    },
                     "motus/profile": {
                         "branch": "master",
-                        "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
+                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
@@ -227,7 +232,7 @@
                     },
                     "porechop/abi": {
                         "branch": "master",
-                        "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
+                        "git_sha": "956a7c2d20df53c1e6acc05ca9dd5059bb9cca99",
                         "installed_by": ["modules"]
                     },
                     "porechop/porechop": {
@@ -259,6 +264,21 @@
                     "samtools/view": {
                         "branch": "master",
                         "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
+                        "installed_by": ["modules"]
+                    },
+                    "sylph/profile": {
+                        "branch": "master",
+                        "git_sha": "905850725a129463c8108efa952e5b1df62e3bb6",
+                        "installed_by": ["modules"]
+                    },
+                    "sylphtax/merge": {
+                        "branch": "master",
+                        "git_sha": "635aec1a50ccbea3a89fa1b0956457606732f0f6",
+                        "installed_by": ["modules"]
+                    },
+                    "sylphtax/taxprof": {
+                        "branch": "master",
+                        "git_sha": "635aec1a50ccbea3a89fa1b0956457606732f0f6",
                         "installed_by": ["modules"]
                     },
                     "taxpasta/merge": {

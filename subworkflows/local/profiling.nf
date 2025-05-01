@@ -14,11 +14,14 @@ include { KAIJU_KAIJU                                   } from '../../modules/nf
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../modules/nf-core/kaiju/kaiju2table/main'
 include { DIAMOND_BLASTX                                } from '../../modules/nf-core/diamond/blastx/main'
 include { MOTUS_PROFILE                                 } from '../../modules/nf-core/motus/profile/main'
+include { MOTUS_PREPLONG                                } from '../../modules/nf-core/motus/preplong/main'
 include { KRAKENUNIQ_PRELOADEDKRAKENUNIQ                } from '../../modules/nf-core/krakenuniq/preloadedkrakenuniq/main'
 include { KMCP_SEARCH                                   } from '../../modules/nf-core/kmcp/search/main'
 include { KMCP_PROFILE                                  } from '../../modules/nf-core/kmcp/profile/main'
 include { GANON_CLASSIFY                                } from '../../modules/nf-core/ganon/classify/main'
 include { GANON_REPORT                                  } from '../../modules/nf-core/ganon/report/main'
+include { SYLPH_PROFILE                                 } from '../../modules/nf-core/sylph/profile/main'
+include { SYLPHTAX_TAXPROF                              } from '../../modules/nf-core/sylphtax/taxprof/main'
 include { MELON                                         } from '../../modules/nf-core/melon/main'
 
 
@@ -100,6 +103,7 @@ workflow PROFILING {
             motus:      db_meta.tool == 'motus'
             kmcp:       db_meta.tool == 'kmcp'
             ganon:      db_meta.tool == 'ganon'
+            sylph:      db_meta.tool == 'sylph'
             melon:      db_meta.tool == 'melon'
             unknown:    true
         }
@@ -373,13 +377,59 @@ workflow PROFILING {
                                     if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] mOTUs currently does not accept FASTA files as input. Skipping mOTUs for sample ${it[0].id}."
                                     !it[0].is_fasta
                                 }
-                                .multiMap {
-                                    it ->
-                                        reads: [it[0] + it[2], it[1]]
-                                        db: it[3]
+                                .branch {
+                                    longread: it[0].instrument_platform == 'OXFORD_NANOPORE'
+                                    shortread: it[0].instrument_platform != 'OXFORD_NANOPORE'
                                 }
+        ch_input_for_motus_longread = ch_input_for_motus.longread
+                                        .multiMap {
+                                            it ->
+                                                reads:[it[0] + it[2], it[1]]
+                                                db: it[3]
+                                        }
+        ch_input_for_motus_shortread = ch_input_for_motus.shortread.view()
+                                        .multiMap {
+                                            it ->
+                                                reads:[it[0] + it[2], it[1]]
+                                                db: it[3]
+                                        }
 
-        MOTUS_PROFILE ( ch_input_for_motus.reads, ch_input_for_motus.db )
+
+        MOTUS_PREPLONG ( ch_input_for_motus_longread.reads, ch_input_for_motus_longread.db )
+
+        ch_database_for_motus = databases
+                                    .filter { meta, db -> meta.tool == 'motus' }
+                                    .map { meta, db -> [meta.db_name, meta, db] }
+
+
+        ch_prepped_to_motus = MOTUS_PREPLONG.out.out
+                                    .map { meta, reads -> [meta.db_name, [meta, reads]] }
+                                    .combine(ch_database_for_motus, by:0)
+                                    .map { item ->
+                                        def db_name = item[0]
+                                        def meta = item[1][0]
+                                        def reads = item[1][1]
+                                        def db_meta = item[2]
+                                        def db = item[3]
+                                        def meta_keys = ['id', 'run_accession', 'instrument_platform', 'single_end', 'is_fasta', 'type']
+                                        def new_meta = meta.subMap(meta_keys)
+
+                                        def db_meta_keys = db_meta.keySet()
+                                        def new_db_meta = db_meta.subMap(db_meta_keys) + [type: meta.type]
+
+                                        [new_meta, [reads], new_db_meta, db]
+                            }
+                                    .mix(ch_input_for_motus.shortread)
+                                    .multiMap  {
+                                        it ->
+                                                reads:[it[0] + it[2], it[1]]
+                                                db: it[3]
+                                        }
+
+
+        MOTUS_PROFILE ( ch_prepped_to_motus.reads, ch_prepped_to_motus.db )
+
+        ch_versions        = ch_versions.mix( MOTUS_PREPLONG.out.versions.first() )
         ch_versions        = ch_versions.mix( MOTUS_PROFILE.out.versions.first() )
         ch_raw_profiles    = ch_raw_profiles.mix( MOTUS_PROFILE.out.out )
         ch_multiqc_files   = ch_multiqc_files.mix( MOTUS_PROFILE.out.log )
@@ -530,6 +580,74 @@ workflow PROFILING {
         // Might be flipped - check/define what is a profile vs raw classification
         ch_raw_profiles        = ch_raw_profiles.mix( GANON_REPORT.out.tre )
         ch_raw_classifications = ch_raw_classifications.mix( GANON_CLASSIFY.out.all )
+
+    }
+
+    if ( params.run_sylph ) {
+        ch_input_for_sylph = ch_input_for_profiling.sylph
+                                .filter{
+                                    if (it[0].is_fasta) log.warn "[nf-core/taxprofiler] sylph currently does not accept FASTA files as input. Skipping sylph for sample ${it[0].id}."
+                                    !it[0].is_fasta
+                                }
+                                .map {
+                                        meta, reads, db_meta, db ->
+                                        def db_meta_keys = db_meta.keySet()
+                                        def db_meta_new = db_meta.subMap(db_meta_keys)
+
+                                        // Split the string, the arguments before semicolon should be parsed into sylph profile
+                                        def parsed_params = db_meta_new['db_params'].split(";")
+                                        if ( parsed_params.size() == 2 ) {
+                                            db_meta_new['db_params'] = parsed_params[0]
+                                        } else if ( parsed_params.size() == 0 ) {
+                                            db_meta_new['db_params'] = ""
+                                        } else {
+                                            db_meta_new['db_params'] = parsed_params[0]
+                                        }
+
+                                    [ meta, reads, db_meta_new, db ]
+                                }
+                .multiMap {
+                                it ->
+                                    reads: [it[0] + it[2], it[1]]
+                                    db: it[3]
+                            }
+
+        SYLPH_PROFILE ( ch_input_for_sylph.reads, ch_input_for_sylph.db )
+        ch_versions = ch_versions.mix( SYLPH_PROFILE.out.versions.first() )
+
+    ch_database_for_sylph_profile = databases
+                                        .filter { meta, db -> meta.tool == 'sylph' }
+                                        .map { meta, db -> [meta.db_name, meta, db] }
+
+    ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
+                .map { meta, report -> [meta.db_name, meta, report] }
+                .combine(ch_database_for_sylph_profile, by: 0)
+                .map {
+                    key, meta, reads, db_meta, db ->
+
+                        // Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
+                        def db_meta_keys = db_meta.keySet()
+                        def db_meta_new = db_meta.subMap(db_meta_keys)
+
+                        def parsed_params = db_meta['db_params'].split(";")
+
+                            if ( parsed_params.size() == 2 ) {
+                                db_meta_new = db_meta + [ db_params: parsed_params[1] ]
+                            } else {
+                                db_meta_new = db_meta + [ db_params: "" ]
+                            }
+
+                    [ key, meta, reads, db_meta_new, db ]
+
+                }
+            .multiMap { key, meta, report, db_meta, db ->
+                report: [meta + db_meta, report]
+                db: db
+            }
+
+        SYLPHTAX_TAXPROF (ch_input_for_sylphtax.report, file(params.sylph_taxonomy, checkExists: true) )
+        ch_versions = ch_versions.mix( SYLPHTAX_TAXPROF.out.versions.first() )
+        ch_raw_profiles = ch_raw_profiles.mix( SYLPHTAX_TAXPROF.out.taxprof_output )
 
     }
 
