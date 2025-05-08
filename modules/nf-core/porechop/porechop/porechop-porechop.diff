@@ -1,0 +1,21 @@
+Changes in module 'nf-core/porechop/porechop'
+--- modules/nf-core/porechop/porechop/main.nf
++++ modules/nf-core/porechop/porechop/main.nf
+@@ -21,6 +21,7 @@
+     script:
+     def args = task.ext.args ?: ''
+     def prefix = task.ext.prefix ?: "${meta.id}"
++    if ("$reads" == "${prefix}.fastq.gz") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
+     """
+     porechop \\
+         -i $reads \\
+@@ -28,6 +29,7 @@
+         $args \\
+         -o ${prefix}.fastq.gz \\
+         > ${prefix}.log
++
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+         porechop: \$( porechop --version )
+
+************************************************************

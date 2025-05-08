@@ -25,6 +25,7 @@ jobs:
     if: "${{ github.event_name != 'push' || (github.event_name == 'push' && github.repository == 'nf-core/taxprofiler') }}"
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         NXF_VER:
           - "24.04.2"
@@ -35,6 +36,16 @@ jobs:
           - "singularity"
         test_name:
           - "test"
+          - "test_nopreprocessing"
+          - "test_noprofiling"
+          - "test_krakenuniq"
+          - "test_malt"
+          - "test_motus"
+          - "test_falco"
+          - "test_fastp"
+          - "test_alternativepreprocessing"
+          - "test_bbduk"
+          - "test_prinseqplusplus"
         isMaster:
           - ${{ github.base_ref == 'master' }}
         # Exclude conda and singularity on dev
@@ -85,4 +96,14 @@ jobs:
       - name: "Run pipeline with test data ${{ matrix.NXF_VER }} | ${{ matrix.test_name }} | ${{ matrix.profile }}"
         continue-on-error: ${{ matrix.NXF_VER == 'latest-everything' }}
         run: |
-          nextflow run ${GITHUB_WORKSPACE} -profile ${{ matrix.test_name }},${{ matrix.profile }} --outdir ./results
+          if [[ "${{ matrix.test_name }}" == "test_motus" ]]; then
+            wget https://raw.githubusercontent.com/motu-tool/mOTUs/master/motus/downloadDB.py
+            python downloadDB.py --no-download-progress
+            echo 'tool,db_name,db_params,db_type,db_path' > 'database_motus.csv'
+            echo "motus,db1_mOTU,,short,db_mOTU" >> 'database_motus.csv'
+            echo "motus,db2_mOTU,,long,db_mOTU" >> 'database_motus.csv'
+            echo "motus,db3_mOTU,,short;long,db_mOTU" >> 'database_motus.csv'
+            nextflow run ${GITHUB_WORKSPACE} -profile ${{ matrix.profile }},${{ matrix.test_name }} --databases ./database_motus.csv --outdir ./results_${{ matrix.test_name }};
+          else
+            nextflow run ${GITHUB_WORKSPACE} -profile ${{ matrix.profile }},${{ matrix.test_name }} --outdir ./results_${{ matrix.test_name }};
+          fi
