@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#614](https://github.com/nf-core/taxprofiler/pull/614) Updated module `krakenuniq/preloadedkrakenuniq` to fix preload mechanism. (added by @muniheart with help from / ❤️ to @jfy133)
 - [#600](https://github.com/nf-core/taxprofiler/pull/600) Added metaphlan to multiqc report (❤️ to @harper357 for reporting and added by @sofstam)
 - [#605](https://github.com/nf-core/taxprofiler/pull/605) Added documentation on how to generate Bracken reports for different taxonomic levels (❤️ to @MajoroMask for reporting and added by @jfy133)
 
@@ -21,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#602](https://github.com/nf-core/taxprofiler/pull/600) Rename (undocumented) `test_nothing` profile to `test_minimal` for consistency with other pipelines (by @jfy133)
 
 ### `Dependencies`
+
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| Nextflow | 24.10.0          | 25.04.2     |
 
 ### `Deprecated`
 
