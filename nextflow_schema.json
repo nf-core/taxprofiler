@@ -494,10 +494,9 @@
                 },
                 "krakenuniq_ram_chunk_size": {
                     "type": "string",
-                    "default": "16G",
-                    "description": "Specify how large to chunk the database when loading into memory for KrakenUniq.",
+                    "description": "Specify how large to chunk the database when loading into memory for KrakenUniq. Otherwise, entire database will be loaded.",
                     "fa_icon": "fas fa-database",
-                    "help_text": "nf-core/taxprofiler utilises a 'low memory' option for KrakenUniq that can reduce the amount of RAM the process requires.\n\nThis parameter specifies how large a chunk of the database should be loaded into memory at any one time. It is particularly useful for people with limited computational resources.  The RAM chunk size can be specified for a particular database by including the option `--preload-size $size` in the `db_params` column of the databases file.  Values in the databases file will take precedence over the value here.\n\nMore information about this parameter can be seen [here](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#new-release-v07).\n\n> Modifies KrakenUniq parameter: --preload-size\n\n"
+                    "help_text": "nf-core/taxprofiler can utilise a 'low memory' option for KrakenUniq that can reduce the amount of RAM the process requires.\n\nThis parameter specifies how large a chunk of the database should be loaded into memory at any one time. It is particularly useful for people with limited computational resources.  The RAM chunk size can be specified for a particular database by including the option `--preload-size $size` in the `db_params` column of the databases file. Values in the databases file will take precedence over the value via this parameter.\n\nMore information about this parameter can be seen [here](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#new-release-v07).\n\n> Modifies KrakenUniq parameter: --preload-size\n\n"
                 },
                 "krakenuniq_save_readclassifications": {
                     "type": "boolean",
