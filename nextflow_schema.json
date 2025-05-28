@@ -494,7 +494,6 @@
                 },
                 "krakenuniq_ram_chunk_size": {
                     "type": "string",
-                    "default": "16G",
                     "description": "Specify a RAM chunk size for all KrakenUniq databases when loading into memory when you want to load via chunks. Specify in `--databases` for per-database values.",
                     "fa_icon": "fas fa-database",
                     "help_text": "nf-core/taxprofiler utilises a 'low memory' option for KrakenUniq that can reduce the amount of RAM the process requires using the `--preloaded` option.\n\nA further extension to this option is that you can specify how large each chunk of the database should be that gets loaded into memory at any one time via this parameter. You can specify the amount of RAM to chunk the database to with this parameter, and is particularly useful for people with limited computational resources. You can also alternatively `--preload-size` in a database.csv file for per-database tweaks. Do not specify this parameter via custom config files.\n\nMore information about this parameter can be seen [here](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#new-release-v07).\n\n> Modifies KrakenUniq parameter: --preload-size\n\n"
