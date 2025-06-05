@@ -161,7 +161,7 @@ workflow PROFILING {
 
     }
 
-    if ( params.run_kraken2 || params.run_bracken ) {
+        if ( params.run_kraken2 || params.run_bracken ) {
         // Have to pick first element of db_params if using bracken,
         // as db sheet for bracken must have ; sep list to
         // distinguish between kraken and bracken parameters
@@ -204,13 +204,22 @@ workflow PROFILING {
 
     }
 
-    if ( params.run_kraken2 && params.run_bracken ) {
+   if ( params.run_kraken2 && params.run_bracken ) {
         // Remove files from 'pure' kraken2 runs, so only those aligned against Bracken & kraken2 database are used.
+        // Filter out Nanopore samples for bracken processing only, but keep them for MultiQC
         def ch_kraken2_output = KRAKEN2_KRAKEN2.out.report
             .filter {
                 meta, report ->
-                    if ( meta.instrument_platform == 'OXFORD_NANOPORE' ) log.warn "[nf-core/taxprofiler] Bracken has not been evaluated for Nanopore data. Skipping Bracken for sample ${meta.id}."
-                    meta.tool == 'bracken' && meta.instrument_platform != 'OXFORD_NANOPORE'
+                    // Only process samples with bracken databases
+                    if ( meta.tool == 'bracken' ) {
+                        // Warn about Nanopore + Bracken combination but still allow Kraken2 results
+                        if ( meta.instrument_platform == 'OXFORD_NANOPORE' ) {
+                            log.warn "[nf-core/taxprofiler] Bracken has not been evaluated for Nanopore data. Skipping Bracken for sample ${meta.id}, but keeping Kraken2 results."
+                            return false  // Don't process with bracken
+                        }
+                        return true  // Process with bracken for non-nanopore samples
+                    }
+                    return false  // Not a bracken database
             }
 
         // If necessary, convert the eight column output to six column output.
