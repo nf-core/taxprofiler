@@ -47,3 +47,4 @@ workflow SHORTREAD_HOSTREMOVAL {
     mqc      = ch_multiqc_files
 }
 
+
