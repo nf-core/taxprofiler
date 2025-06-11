@@ -108,4 +108,3 @@ workflow VISUALIZATION_KRONA {
     html = ch_krona_html
     versions = ch_versions
 }
-
