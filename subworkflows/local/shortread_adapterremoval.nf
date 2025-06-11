@@ -93,3 +93,4 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     mqc      = ch_multiqc_files
 }
 
+

@@ -229,3 +229,4 @@ workflow STANDARDISATION_PROFILES {
     versions = ch_versions
     mqc      = ch_multiqc_files
 }
+
