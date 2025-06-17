@@ -9,3 +9,10 @@ multiqc/multiqc_report.html
 fastqc/*_fastqc.{html,zip}
 pipeline_info/*.{html,json,txt,yml}
 bbduk/*.log
+nonpareil/*.{npa,npc,npl,npo,png,json,png,tsv,txt}
+centrifuge/*/*.mapped.fastq.gz
+diamond/*/*.{tsv,log}
+fastp/*.{html,zip}
+kaiju/*/*.tsv
+kaiju/*.txt
+krona/*.html
