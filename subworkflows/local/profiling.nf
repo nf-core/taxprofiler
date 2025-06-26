@@ -157,7 +157,7 @@ workflow PROFILING {
         // Have to pick first element of db_params if using bracken,
         // as db sheet for bracken must have ; sep list to
         // distinguish between kraken and bracken parameters
-        ch_forfiltering_for_kraken2 = ch_input_for_profiling.kraken2
+        def ch_prepare_for_kraken2 = ch_input_for_profiling.kraken2
             .map { meta, reads, db_meta, db ->
 
                 // Only take first element if one exists
@@ -174,25 +174,14 @@ workflow PROFILING {
 
                 [meta, reads, db_meta_new, db]
             }
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: it[3]
-            }
-
-        if (params.run_bracken) {
-            // Remove files from 'pure' kraken2 runs, so only those aligned against Bracken + Kraken2 database are used
-            ch_postfiltering_for_kraken2 = ch_forfiltering_for_kraken2.filter { meta, report ->
-                if (meta.tool == 'bracken' && meta.instrument_platform == 'OXFORD_NANOPORE') {
+            .filter { meta, reads, db_meta_new, db ->
+                if (db_meta_new.tool == 'bracken' && meta.instrument_platform == 'OXFORD_NANOPORE') {
                     log.warn("[nf-core/taxprofiler] Bracken has not been evaluated for Nanopore data. Skipping Bracken for sample ${meta.id}.")
                 }
-                meta.tool == 'kraken2' || (meta.tool == 'bracken' && meta.instrument_platform != 'OXFORD_NANOPORE')
+                db_meta_new.tool == 'kraken2' || (db_meta_new.tool == 'bracken' && meta.instrument_platform != 'OXFORD_NANOPORE')
             }
-        }
-        else {
-            ch_postfiltering_for_kraken2 = ch_forfiltering_for_kraken2
-        }
 
-        ch_input_for_kraken2 = ch_postfiltering_for_kraken2.multiMap { it ->
+        ch_input_for_kraken2 = ch_prepare_for_kraken2.multiMap { it ->
             reads: [it[0] + it[2], it[1]]
             db: it[3]
         }
