@@ -29,4 +29,3 @@ process KRAKEN2_STANDARD_REPORT {
     END_VERSIONS
     """
 }
-

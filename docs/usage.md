@@ -227,6 +227,7 @@ Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <
 
 > [!WARNING]
 > Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+> In particular do not use `-c` to provide `ext.args` for KrakenUniq for customising `--preload-size` values, as this will override any references to this parameter in `--databases`.
 
 The above pipeline run specified with a params file in yaml format:
 
@@ -557,6 +558,21 @@ Specify the path to a specific config file (this is a core Nextflow command). Se
 Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each step in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
 
 To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
+
+:::warning
+If modifying `--krakenuniq_ram_chunk_size` or KrakenUniq's `--preload-size` parameters in a `--databases` CSV file, make sure to update your workflow resources for the KRAKENUNIQ/PRELOADEDKRAKENUNIQ process to match the same value!
+For example, if you set your `--krakenuniq_ram_chunk_size` to `2G`, you should customise your resources with
+
+```groovy
+process {
+  withName: KRAKENUNIQ/PRELOADEDKRAKENUNIQ {
+    memory = '2.GB'
+  }
+}
+```
+
+Otherwise by default the pipeline will request 16GB of memory for this process but will only use 2GB of memory.
+:::
 
 ### Custom Containers
 
