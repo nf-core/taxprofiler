@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#602](https://github.com/nf-core/taxprofiler/pull/600) Fixed a typo in the run-merging table example in usage.md (❤️ to @ilight1542 for reporting and fixed by @jfy133)
 - [#592](https://github.com/nf-core/taxprofiler/pull/592) improved JSON schema for better validation (by @microlei)
 - [#604](https://github.com/nf-core/taxprofiler/pull/604) KrakenUniq no longer fails due to pathname splitting during batching when only single sample supplied (by @AlexHoratio)
+- [#612](https://github.com/nf-core/taxprofiler/pull/616) Fix bug for kraken2/bracken in multiqc (added by @jfy133)
 
 ### `Changed`
 
