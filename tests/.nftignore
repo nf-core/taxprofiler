@@ -12,6 +12,7 @@ fastqc/*/*fastqc.zip
 pipeline_info/*.{html,json,txt,yml}
 bbduk/*.log
 nonpareil/*.{npa,npc,npl,npo,png,json,png,tsv,txt,pdf,csv}
+bracken/*combined_reports.txt
 centrifuge/*/*.mapped.fastq.gz
 centrifuge/*/*results.txt
 centrifuge/*/*.unmapped.fastq.gz
@@ -23,5 +24,6 @@ krona/*.html
 ganon/*/*.log
 kraken2/*/*.fastq.gz
 metaphlan/*/*.{biom,txt}
-samtools/*.bam.bai"
+porechop_abi/*.log
+samtools/*.bam.bai
 taxpasta/*.tsv
