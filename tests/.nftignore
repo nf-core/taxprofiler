@@ -26,4 +26,5 @@ kraken2/*/*.fastq.gz
 metaphlan/*/*.{biom,txt}
 porechop_abi/*.log
 samtools/*.bam.bai
+samtools/*.unmapped.bam
 taxpasta/*.tsv

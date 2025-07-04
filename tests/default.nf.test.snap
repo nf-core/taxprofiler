@@ -951,7 +951,6 @@
                 "metaphlan_metaphlan3_combined_reports.txt:md5,2b3a29d19036090fc5aa0d1d1ed1f25c",
                 "metaphlan_metaphlan4_combined_reports.txt:md5,32c167494d4f9d6116469046a9b3b616",
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9",
-                "ERR3201952_ERR3201952.unmapped.bam:md5,8eed2e81a4d5c75aa0858fa006ae63b0",
                 "2612_ERR5766176.stats:md5,c3d2b46c22085705f49212c47cf83694",
                 "2612_ERR5766176_B.stats:md5,f73cce61c5bdcd4a2139ee419a6f95aa",
                 "2612_ERR5766180.stats:md5,fe6e3ffdcb2ef609611ce01e3879e022",
@@ -963,6 +962,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.2"
         },
-        "timestamp": "2025-07-04T08:29:50.084026096"
+        "timestamp": "2025-07-04T09:21:37.543615751"
     }
 }
