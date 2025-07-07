@@ -32,7 +32,7 @@ input:
           removal with one adapter per line. Otherwise will look for default adapters
           (see AdapterRemoval man page), or can be modified to remove user-specified
           adapters via ext.args.
-        ontologies: 
+        ontologies:
           - edam: "http://edamontology.org/format_2330" # Textual format
 output:
   - singles_truncated:
