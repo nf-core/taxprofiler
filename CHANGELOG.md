@@ -40,8 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | minimap2 | 2.28             | 2.29        |
 | motus    | 3.0.3            | 3.1.0       |
 | multiqc  | 1.27             | 1.29        |
-| samtools | 1.20             | 1.21       |
-
+| samtools | 1.20             | 1.21        |
 
 ### `Deprecated`
 
