@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#592](https://github.com/nf-core/taxprofiler/pull/592) improved JSON schema for better validation (by @microlei)
 - [#604](https://github.com/nf-core/taxprofiler/pull/604) KrakenUniq no longer fails due to pathname splitting during batching when only single sample supplied (by @AlexHoratio)
 - [#612](https://github.com/nf-core/taxprofiler/pull/616) Fix bug with bracken results being shown in MuktiQC for long read data every if bracken not supported for long reads (added by @jfy133 and @sofstam )
+- [#621](https://github.com/nf-core/taxprofiler/pull/621) Update all tools to the latest version (added by @sofstam)
 
 ### `Changed`
 
@@ -29,6 +30,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Tool     | Previous version | New version |
 | -------- | ---------------- | ----------- |
 | Nextflow | 24.10.0          | 25.04.2     |
+| bbmap    | 39.06            | 39.18       |
+| bowtie2  | 2.5.2            | 2.5.4       |
+| bracken  | 2.9              | 3.1         |
+| diamond  | 2.1.8            | 2.1.12      |
+| fastp    | 0.23.4           | 0.24.0      |
+| ganon    | 2.0.0            | 2.1.0       |
+| kraken2  | 2.1.3            | 2.1.5       |
+| minimap2 | 2.28             | 2.29        |
+| motus    | 3.0.3            | 3.1.0       |
+| multiqc  | 1.27             | 1.29        |
+| samtools | 1.20             | 1.21       |
+
 
 ### `Deprecated`
 
