@@ -17,7 +17,6 @@ nextflow_process {
                     [ id:'test'], // meta map
                     file(params.modules_testdata_base_path + 'genomics/sarscov2/nanopore/fastq/test.fastq.gz', checkIfExists: true)
                 ]
-		input[1] = []
                 """
             }
         }
@@ -46,7 +45,6 @@ nextflow_process {
                     [ id:'test'], // meta map
                     file(params.modules_testdata_base_path + 'genomics/sarscov2/nanopore/fastq/test.fastq.gz', checkIfExists: true)
                 ]
-		input[1] = []
                 """
             }
         }

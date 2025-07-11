@@ -9,7 +9,6 @@ process PORECHOP_ABI {
 
     input:
     tuple val(meta), path(reads)
-    path custom_adapters
 
     output:
     tuple val(meta), path("*.fastq.gz") , emit: reads
@@ -22,12 +21,10 @@ process PORECHOP_ABI {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}.porechop_abi"
-    def adapters_list = custom_adapters ? "--custom_adapters ${custom_adapters}" : ""
     if ("$reads" == "${prefix}.fastq.gz") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
     """
     porechop_abi \\
         --input $reads \\
-        $adapters_list \\
         --threads $task.cpus \\
         $args \\
         --output ${prefix}.fastq.gz \\
@@ -41,7 +38,6 @@ process PORECHOP_ABI {
     stub:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}.porechop_abi"
-    def adapters_list = custom_adapters ? "--custom_adapters ${custom_adapters}" : ""
     """
     echo "" | gzip > ${prefix}.fastq.gz
     touch ${prefix}.log
