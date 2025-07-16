@@ -47,7 +47,7 @@
    - [KMCP](https://github.com/shenwei356/kmcp)
    - [ganon](https://pirovc.github.io/ganon/)
    - [sylph](https://github.com/bluenote-1577/sylph)
-   - [melon](https://github.com/xinehc/melon)
+   - [Melon](https://github.com/xinehc/melon)
 5. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
 6. Standardises output tables ([`Taxpasta`](https://taxpasta.readthedocs.io))
