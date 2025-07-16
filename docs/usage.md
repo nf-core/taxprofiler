@@ -206,7 +206,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
 - [**sylph**:](usage/tutotials.md#sylph-custom-database) output of `sylph sketch` command.
-- [**melon**:](usage/tutorials.md#melon-custom-database) output of `diamond makedb` and `minimap2`.
+- [**Melon**:](usage/tutorials.md#melon-custom-database) output of `diamond makedb` and `minimap2`.
 
 ## Running the pipeline
 
