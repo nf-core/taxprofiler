@@ -675,7 +675,7 @@ melon provides a pre-built database for long-read metagenomic data. A NCBI or a 
 
 To use the melon database, you need to download the pre-built database from the [melon GitHub repository](https://github.com/xinehc/melon#database-setup).
 
-After downloading the marker gene set provided in the github repository, you will need to have diamond and minimap2 installed to build the database.
+After downloading the marker gene set provided in the github repository, you will need to have `DIAMOND` and `minimap2` installed to build the database.
 
 ```bash
 ## if you encounter memory issue please consider manually lowering cpu_count or simply set cpu_count=1
