@@ -714,4 +714,4 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 
 </details>
 
-More information on the melon database can be found [here](https://github.com/xinehc/melon#database-setup).
+More information on the Melon database can be found [here](https://github.com/xinehc/melon#database-setup).
