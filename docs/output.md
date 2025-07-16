@@ -640,7 +640,7 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
 
 For further descriptions of the contents of each file, see the [sylph documentation](https://sylph-docs.github.io/Output-format/).
 
-### melon
+### Melon
 
 [melon](https://github.com/xinehc/melon) is a taxonomic classifier that uses ribosomal marker genes to classify and quantify long-read metagenomic data.
 
