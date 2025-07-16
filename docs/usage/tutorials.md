@@ -673,7 +673,7 @@ Melon does not provide the ability to construct custom databases. Therefore we r
 
 Melon provides a pre-built database for long-read metagenomic data. A NCBI or a GTDB database can be used to build the database.
 
-To use the melon database, you need to download the pre-built database from the [melon GitHub repository](https://github.com/xinehc/melon#database-setup).
+To use the Melon database, you need to download the pre-built database from the [Melon GitHub repository](https://github.com/xinehc/melon#database-setup).
 
 After downloading the marker gene set provided in the github repository, you will need to have `DIAMOND` and `minimap2` installed to build the database.
 
