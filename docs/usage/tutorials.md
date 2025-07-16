@@ -671,7 +671,7 @@ More information on custom taxonomies can be found [here](https://sylph-docs.git
 
 Melon does not provide the ability to construct custom databases. Therefore we recommend to use the the prebuilt database of marker genes provided by the developers.
 
-melon provides a pre-built database for long-read metagenomic data. A NCBI or a GTDB database can be used to build the database.
+Melon provides a pre-built database for long-read metagenomic data. A NCBI or a GTDB database can be used to build the database.
 
 To use the melon database, you need to download the pre-built database from the [melon GitHub repository](https://github.com/xinehc/melon#database-setup).
 
