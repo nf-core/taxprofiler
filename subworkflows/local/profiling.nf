@@ -656,7 +656,7 @@ workflow PROFILING {
         ch_input_for_melon = ch_input_for_profiling.melon
                                 .filter {
                                     meta, reads, meta_db, db ->
-                                        if ( !meta['type'] == 'long' ) log.warn "[nf-core/taxprofiler] melon is only suitable for long-read metagenomic profiling. Skipping melon for sample ${meta.id}."
+                                        if ( meta['type'] != 'long' ) log.warn "[nf-core/taxprofiler] Melon is only suitable for long-read metagenomic profiling. Skipping Melon for sample ${meta.id}."
                                         meta_db['tool'] == 'melon' && meta['type'] == 'long'
                                 }
                                 .multiMap {
