@@ -95,7 +95,6 @@ workflow STANDARDISATION_PROFILES {
                         }
 
     ch_input_for_taxpasta_merge       = ch_input_for_taxpasta.merge
-                                          //  .filter { meta, profiles -> meta.tool != 'sylph' || meta.tool != 'melon' }
                                             .filter { meta, profiles -> !(meta.tool in ['sylph', 'melon']) }
                                             .multiMap{ meta, profiles ->
                                                         profiles: [meta, profiles]
@@ -103,7 +102,6 @@ workflow STANDARDISATION_PROFILES {
                                                     }
 
     ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
-                                            //.filter { meta, profiles -> meta.tool != 'sylph' || meta.tool != 'melon' }
                                             .filter { meta, profiles -> !(meta.tool in ['sylph', 'melon']) }
                                             .multiMap{ meta, profiles ->
                                                         profiles: [meta, profiles]
@@ -235,8 +233,8 @@ workflow STANDARDISATION_PROFILES {
     // sylph
     ch_profiles_for_sylph = groupProfiles(ch_input_profiles.sylph)
     SYLPHTAX_MERGE ( ch_profiles_for_sylph, params.sylph_data_type)
-    ch_versions = ch_versions.mix( SYLPHTAX_MERGE.out.versions ) 
-
+    ch_versions = ch_versions.mix( SYLPHTAX_MERGE.out.versions )
+    
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles
     versions = ch_versions
