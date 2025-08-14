@@ -323,7 +323,6 @@ workflow PROFILING {
     }
 
     if (params.run_diamond) {
-        ch_input_for_profiling.diamond.dump(tag:"diamond")
         ch_input_for_diamond = ch_input_for_profiling.diamond
             .filter { meta, reads, meta_db, db ->
                 if (!meta.single_end) {
@@ -335,7 +334,6 @@ workflow PROFILING {
                 reads: [it[0] + it[2], it[1][0]]
                 db: [it[2], it[3]]
             }
-        ch_input_for_diamond.reads.dump(tag:"reads")
         // diamond only accepts single output file specification, therefore
         // this will replace output file!
         ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format
@@ -374,7 +372,7 @@ workflow PROFILING {
                 // We bundle the sample identifier with the sequencing files to undergo batching.
                 def prefix = params.perform_runmerging ? meta.id : "${meta.id}_${meta.run_accession}"
                 prefix = meta.single_end ? "${prefix}.se" : "${prefix}.pe"
-                [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], [reads] + [prefix], db_meta, db]
+                [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], [reads].flatten() + [prefix], db_meta, db]
             }
             .groupTuple(by: [0, 2, 3])
             .flatMap { single_meta, reads, db_meta, db ->
