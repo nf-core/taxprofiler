@@ -349,7 +349,7 @@ This optional results directory will only be present in the pipeline results whe
 <details markdown="1">
 <summary>Output files</summary>
 
-- `samtools/stats/`
+- `analysis_ready_fastqs/`
   - `<sample_id>_{fq,fastq}.gz`: Final reads that underwent preprocessing and were sent for classification/profiling.
 
 </details>
