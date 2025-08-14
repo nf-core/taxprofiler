@@ -134,7 +134,6 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
 <summary>Output files</summary>
 
 - `nonpareil/`
-
   - `<sample_id>.npl` - log file of the nonpareil run.
   - `<sample_id>.npo` - redundancy summary file. This is the most useful file and contains the information for generating metagenome coverage curves. These six columns are: seq. effort (_n_ reads), average redundancy, standard deviation, quartile 1, median (quartile 2), and quartile 3.
   - `<sample_id>.npa` - raw version of npo but with all replicates not just a summary (average) at each point. These three columns are: seq. effort (_n_ reads), replicate ID, redundancy value.
@@ -583,7 +582,6 @@ You will receive the relative abundance instead of read counts if you provide th
 <summary>Output files</summary>
 
 - `kmcp/`
-
   - `<db_name>/`
     - `<sample_id>.gz`: output of `kmcp_search` containing search sequences against a database in tab-delimited format with 15 columns.
     - `<sample_id>_kmcp.profile`: output of `kmcp_profile` containing the taxonomic profile from search results.
@@ -602,9 +600,7 @@ The main taxonomic classification file from KMCP is the `*kmcp.profile` which is
 <summary>Output files</summary>
 
 - `ganon/`
-
   - `<db_name>/`
-
     - `<sample_id>_report.tre`: output of `ganon report` containing taxonomic classifications with possible formatting and/or filtering depending on options specified.
     - `<sample_id>`.tre: output of `ganon classify` containing raw taxonomic classifications and abundance estimations with no additional formatting or filtering.
     - `<sample_id>`.rep: 'raw' report of counts against each taxon.
@@ -645,7 +641,6 @@ The resulting HTML files can be loaded into your web browser for exploration. Ea
 <summary>Output files</summary>
 
 - `taxpasta/`
-
   - `<tool>_<database>*.{tsv,csv,arrow,parquet,biom}`: Standardised taxon table containing multiple samples. The standard format is the `tsv`.
     - The first column describes the taxonomy ID and the rest of the columns describe the read counts for each sample.
     - Note that the file naming scheme will apply regardless of whether `TAXPASTA_MERGE` (multiple sample run) or `TAXPASTA_STANDARDISE` (single sample run) are executed.
