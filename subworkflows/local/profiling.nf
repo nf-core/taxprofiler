@@ -326,7 +326,7 @@ workflow PROFILING {
         ch_input_for_diamond = ch_input_for_profiling.diamond
             .filter { meta, reads, meta_db, db ->
                 if (!meta.single_end) {
-                    log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. For this sample, please merge reads (e.g. with --shortread_qc_mergepairs --shortread_qc_includeunmerged) or only Read 1 will be used without merging. Running DIAMOND for sample ${meta.id} using only Read 1. ")
+                    log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. Only read 1 will be used for profiling. Running DIAMOND for sample ${meta.id} using only read 1.")
                 }
                 meta.single_end
             }
