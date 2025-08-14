@@ -1,7 +1,7 @@
 <h1>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/nf-core-taxprofiler_logo_custom_dark.png">
-    <img alt="nf-core/taxprofiler" src="docs/images/nf-core-taxprofiler_logo_custom_light.png.png">
+    <img alt="nf-core/taxprofiler" src="docs/images/nf-core-taxprofiler_logo_custom_light.png">
   </picture>
 </h1>
 
