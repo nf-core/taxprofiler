@@ -407,7 +407,6 @@ Centrifuge currently does not accept FASTA files as input, therefore no output w
 DIAMOND can only accept a single input read file. When run DIAMOND on paired-end reads without merging, only the `read1` file will be used.
 Alternatively, you can merge the reads using `--shortread_qc_mergepairs`.
 
-
 :::warning
 Note however that the merging approach only works when the vast majority of reads do actually merge.
 If your DNA molecules were too short, read pairs will not overlap and not merge - by default being discarded. While you have the option of retaining unmerged reads as well (with `--shortread_qc_includeunmerged`), be careful that including unmerged reads retains these as independent reads in the FASTQ file - thus you may get double counts on a taxon from a single read.
