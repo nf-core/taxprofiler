@@ -409,7 +409,8 @@ Alternatively, you can merge the reads using `--shortread_qc_mergepairs`.
 
 :::warning
 Note however that the merging approach only works when the vast majority of reads do actually merge.
-If your DNA molecules were too short, read pairs will not overlap and not merge - by default being discarded. While you have the option of retaining unmerged reads as well (with `--shortread_qc_includeunmerged`), be careful that including unmerged reads retains these as independent reads in the FASTQ file - thus you may get double counts on a taxon from a single read.
+If your DNA molecules were too short, read pairs will not overlap and not merge - by default being discarded.
+While you have the option of retaining unmerged reads as well (with `--shortread_qc_includeunmerged`), be careful that including unmerged reads retains these as _independent_ reads in the FASTQ file - thus you may get double counts on a taxon from a single read.
 :::
 
 DIAMOND only allows output of a single file format at a time, therefore parameters such `--diamond_save_reads` supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending on your particular use case.
