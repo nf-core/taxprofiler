@@ -423,7 +423,8 @@
                 "run_diamond": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turn on profiling with DIAMOND. Requires database to be present CSV file passed to --databases"
+                    "description": "Turn on profiling with DIAMOND. For unmerged paired-read libraries, only read1 will be used Requires database to be present CSV file passed to --databases",
+                    "help_text": "DIAMOND does not support paired-end input. By default if read pairs are unmerged, only read1 will be profiled.\n\nIf your reads are short enough, you can also merge reads to potentially have longer sequences. Be careful if you include remaining unmerged reads after merging as this may result in double read counts to a taxon versus a single count for merged reads."
                 },
                 "diamond_output_format": {
                     "type": "string",
