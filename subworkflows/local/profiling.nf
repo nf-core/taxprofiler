@@ -330,7 +330,6 @@ workflow PROFILING {
                 }
                 meta.single_end
             }
-            .dump(tag: 'premultimap')
             .multiMap { meta, reads, meta_db, db ->
                 reads: [meta + meta_db, meta.single_end ? reads : reads[0]]
                 db: [meta_db, db]
@@ -339,7 +338,7 @@ workflow PROFILING {
         // this will replace output file!
         ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format
 
-        DIAMOND_BLASTX(ch_input_for_diamond.reads.dump(tag: 'postmultimap'), ch_input_for_diamond.db, ch_diamond_reads_format, [])
+        DIAMOND_BLASTX(ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format, [])
         ch_versions = ch_versions.mix(DIAMOND_BLASTX.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(DIAMOND_BLASTX.out.tsv)
         ch_multiqc_files = ch_multiqc_files.mix(DIAMOND_BLASTX.out.log)
