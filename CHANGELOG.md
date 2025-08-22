@@ -10,10 +10,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
 - [#595](https://github.com/nf-core/taxprofiler/pull/595) **New classifier** [sylph](https://github.com/bluenote-1577/sylph) (added by @sofstam)
 - [#608](https://github.com/nf-core/taxprofiler/pull/608) **New classifier** [melon](https://github.com/xinehc/melon) (added by @parisis and @sofstam)
+- [#619](https://github.com/nf-core/taxprofiler/pull/619) Added default pipeline nf-test (added by @sofstam)
+- [#615](https://github.com/nf-core/taxprofiler/pull/615) Updated to nf-core pipeline template v3.3.1 (added by @sofstam)
+- [#614](https://github.com/nf-core/taxprofiler/pull/614) Updated module `krakenuniq/preloadedkrakenuniq` to fix preload mechanism. The RAM chunk size can now be customised on a per-database basis. (added by @muniheart with help from / ❤️ to @jfy133)
+- [#600](https://github.com/nf-core/taxprofiler/pull/600) Added metaphlan to multiqc report (❤️ to @harper357 for reporting and added by @sofstam)
+- [#605](https://github.com/nf-core/taxprofiler/pull/605) Added documentation on how to generate Bracken reports for different taxonomic levels (❤️ to @MajoroMask for reporting and added by @jfy133)
 
 ### `Fixed`
 
+- [#602](https://github.com/nf-core/taxprofiler/pull/600) Fixed a typo in the run-merging table example in usage.md (❤️ to @ilight1542 for reporting and fixed by @jfy133)
+- [#592](https://github.com/nf-core/taxprofiler/pull/592) improved JSON schema for better validation (by @microlei)
+- [#604](https://github.com/nf-core/taxprofiler/pull/604) KrakenUniq no longer fails due to pathname splitting during batching when only single sample supplied (by @AlexHoratio)
+- [#612](https://github.com/nf-core/taxprofiler/pull/616) Fix bug with bracken results being shown in MuktiQC for long read data every if bracken not supported for long reads (added by @jfy133 and @sofstam )
+- [#630](https://github.com/nf-core/taxprofiler/pull/630) Fix a bug in KRAKENUNIQ reads channel where a single-element list containing a / in the path was being split incorrectly, causing unexpected multiple list elements.
+
+### `Changed`
+
+- [#602](https://github.com/nf-core/taxprofiler/pull/600) Rename (undocumented) `test_nothing` profile to `test_minimal` for consistency with other pipelines (by @jfy133)
+- [#614](https://github.com/nf-core/taxprofiler/pull/614) There is now no default `krakenuniq_ram_chunk_size` value for KrakenUniq. By default now the entire database will be loaded into memory unless you use the parameter, or specify `--preload-size` in a database sheet. (added by @muniheart with help from / ❤️ to @jfy133)
+- [#624](https://github.com/nf-core/taxprofiler/pull/624) Updated all relevant nf-core modules to latest version (by @sofstam)
+
 ### `Dependencies`
+
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| Nextflow | 24.10.0          | 25.04.2     |
+| bbduk    | 39.06            | 39.18       |
+| bowtie2  | 2.5.2            | 2.5.4       |
+| bracken  | 2.9              | 3.1         |
+| diamond  | 2.1.8            | 2.1.12      |
+| fastp    | 0.23.0           | 0.24.0      |
+| ganon    | 2.0.0            | 2.1.0       |
+| kraken2  | 2.1.3            | 2.1.5       |
+| minimap2 | 2.28             | 2.29        |
+| motus    | 3.0.3            | 3.1.0       |
+| multiqc  | 1.27             | 1.30        |
 
 ### `Deprecated`
 
