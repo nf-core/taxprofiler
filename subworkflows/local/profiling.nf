@@ -324,16 +324,14 @@ workflow PROFILING {
 
     if (params.run_diamond) {
         ch_input_for_diamond = ch_input_for_profiling.diamond
-            .filter { meta, reads, meta_db, db ->
+            .multiMap { meta, reads, meta_db, db ->
                 if (!meta.single_end) {
                     log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. Only read 1 will be used for profiling. Running DIAMOND for sample ${meta.id} using only read 1.")
                 }
-                meta.single_end
-            }
-            .multiMap { meta, reads, meta_db, db ->
                 reads: [meta + meta_db, meta.single_end ? reads : reads[0]]
                 db: [meta_db, db]
             }
+
         // diamond only accepts single output file specification, therefore
         // this will replace output file!
         ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format
