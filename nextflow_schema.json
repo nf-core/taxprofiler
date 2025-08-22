@@ -32,7 +32,7 @@
                     "pattern": "^\\S+\\.csv$",
                     "fa_icon": "fas fa-database",
                     "description": "Path to comma-separated file containing information about databases and profiling parameters for each taxonomic profiler",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 4 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/dev/usage#full-database-sheet).\n\nProfilers will only be executed if a corresponding  database are supplied. \n\nWe recommend storing this database sheet somewhere centrally and accessible by others members of your lab/institutions, as this file will likely be regularly reused."
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 4 columns, and a header row. See [usage docs](https://nf-co.re/taxprofiler/usage#full-database-sheet).\n\nProfilers will only be executed if a corresponding  database are supplied. \n\nWe recommend storing this database sheet somewhere centrally and accessible by others members of your lab/institutions, as this file will likely be regularly reused."
                 },
                 "save_untarred_databases": {
                     "type": "boolean",
@@ -354,18 +354,23 @@
                 },
                 "hostremoval_reference": {
                     "type": "string",
+                    "format": "file-path",
+                    "exists": true,
                     "fa_icon": "fas fa-file-alt",
                     "description": "Specify path to single reference FASTA of host(s) genome(s)",
                     "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
                 },
                 "shortread_hostremoval_index": {
                     "type": "string",
+                    "format": "directory-path",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference",
                     "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.). These should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
                 },
                 "longread_hostremoval_index": {
                     "type": "string",
+                    "format": "file-path",
+                    "exists": true,
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference",
                     "help_text": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference file given to `--hostremoval_reference`.\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
@@ -503,10 +508,9 @@
                 },
                 "krakenuniq_ram_chunk_size": {
                     "type": "string",
-                    "default": "16G",
-                    "description": "Specify how large to chunk the database when loading into memory for KrakenUniq.",
+                    "description": "Specify a RAM chunk size for all KrakenUniq databases when loading into memory when you want to load via chunks. Specify in `--databases` for per-database values.",
                     "fa_icon": "fas fa-database",
-                    "help_text": "nf-core/taxprofiler utilises a 'low memory' option for KrakenUniq that can reduce the amount of RAM the process requires using the `--preloaded` option.\n\nA further extension to this option is that you can specify how large each chunk of the database should be that gets loaded into memory at any one time. You can specify the amount of RAM to chunk the database to with this parameter, and is particularly useful for people with limited computational resources.\n\nMore information about this parameter can be seen [here](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#new-release-v07).\n\n> Modifies KrakenUniq parameter: --preload-size\n\n"
+                    "help_text": "nf-core/taxprofiler utilises a 'low memory' option for KrakenUniq that can reduce the amount of RAM the process requires using the `--preloaded` option.\n\nA further extension to this option is that you can specify how large each chunk of the database should be that gets loaded into memory at any one time via this parameter. You can specify the amount of RAM to chunk the database to with this parameter, and is particularly useful for people with limited computational resources. You can also alternatively `--preload-size` in a database.csv file for per-database tweaks. Do not specify this parameter via custom config files.\n\nMore information about this parameter can be seen [here](https://github.com/fbreitwieser/krakenuniq/blob/master/README.md#new-release-v07).\n\n> Modifies KrakenUniq parameter: --preload-size\n\n"
                 },
                 "krakenuniq_save_readclassifications": {
                     "type": "boolean",
@@ -539,6 +543,7 @@
                 "malt_mode": {
                     "type": "string",
                     "default": "BlastN",
+                    "enum": ["Unknown", "BlastN", "BlastP", "BlastX", "Classifier"],
                     "fa_icon": "fas fa-check-square",
                     "description": "Specify which MALT alignment mode to use",
                     "help_text": "Specify which version of MALT alignment to use.\n\nBlastN is generally recommended (nucleotide-nucleotide alignment), but particularly for very short reads (such as aDNA), whereas BlastX mode is similar to DIAMOND and will translate the nucleotide to amino acid sequences. Note each type of alignment mode requires different parameters during database construction. Refer to the MALT manual for more information.\n\n> Modifies tool parameter(s):\n> - malt-run: `-mode` "
@@ -628,9 +633,9 @@
                 "ganon_report_type": {
                     "type": "string",
                     "default": "reads",
+                    "enum": ["abundance", "reads", "matches", "dist", "corr"],
                     "description": "Specify the type of ganon report to save.",
                     "help_text": "Specify the type of taxonomic report to produce from ganon report. This mainly refers to which form of 'value' to print: raw read counts, abundance estimates, genome-size normalised etc. \n\nSee the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/#ganon-report) for more information of each option.\n\n> Modifies tool parameter(s):\n- ganon report: `--report-type`\n",
-                    "enum": ["abundance", "reads", "matches", "dist", "corr"],
                     "fa_icon": "fas fa-file"
                 },
                 "ganon_report_rank": {
@@ -883,6 +888,7 @@
                 "multiqc_config": {
                     "type": "string",
                     "format": "file-path",
+                    "exists": true,
                     "description": "Custom config file to supply to MultiQC.",
                     "fa_icon": "fas fa-cog",
                     "hidden": true
