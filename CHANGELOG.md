@@ -23,7 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#631](https://github.com/nf-core/taxprofiler/pull/631) For paired-end reads, DIAMOND will use only the forward read file (read 1) unless reads are merged (❤️ to @sysbiocoder for reporting and fixed by @LilyAnderssonLee)
 - [#635](https://github.com/nf-core/taxprofiler/pull/635) Fix faulty parsing of memory request in BBDuk (❤️ to @Proton-NTA for reporting, fix by @mahesh-panchal)
 
-
 ### `Changed`
 
 - [#602](https://github.com/nf-core/taxprofiler/pull/600) Rename (undocumented) `test_nothing` profile to `test_minimal` for consistency with other pipelines (by @jfy133)
