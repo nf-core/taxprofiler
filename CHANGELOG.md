@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#612](https://github.com/nf-core/taxprofiler/pull/616) Fix bug with bracken results being shown in MuktiQC for long read data every if bracken not supported for long reads (added by @jfy133 and @sofstam )
 - [#630](https://github.com/nf-core/taxprofiler/pull/630) Fix a bug in KRAKENUNIQ reads channel where a single-element list containing a / in the path was being split incorrectly, causing unexpected multiple list elements (❤️ to @sysbiocoder for reporting and fixed by @LilyAnderssonLee)
 - [#631](https://github.com/nf-core/taxprofiler/pull/631) For paired-end reads, DIAMOND will use only the forward read file (read 1) unless reads are merged (❤️ to @sysbiocoder for reporting and fixed by @LilyAnderssonLee)
+- [#635](https://github.com/nf-core/taxprofiler/pull/635) Fix faulty parsing of memory request in BBDuk (❤️ to @Proton-NTA for reporting, fix by @mahesh-panchal)
+
 
 ### `Changed`
 
