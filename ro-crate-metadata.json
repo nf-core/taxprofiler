@@ -102,7 +102,7 @@
             },
             "mentions": [
                 {
-                    "@id": "#8d6346f7-4cff-47cf-9f03-56e4e0820802"
+                    "@id": "#444e1653-ac1b-407a-bed0-d7e244f34e8d"
                 }
             ],
             "name": "nf-core/taxprofiler"
@@ -144,7 +144,7 @@
                 }
             ],
             "dateCreated": "",
-            "dateModified": "2025-06-03T11:02:13Z",
+            "dateModified": "2025-07-08T11:39:06Z",
             "dct:conformsTo": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE/",
             "keywords": [
                 "nf-core",
@@ -202,14 +202,14 @@
             "url": {
                 "@id": "https://www.nextflow.io/"
             },
-            "version": "!>=24.04.2"
+            "version": "!>=24.10.5"
         },
         {
-            "@id": "#8d6346f7-4cff-47cf-9f03-56e4e0820802",
+            "@id": "#444e1653-ac1b-407a-bed0-d7e244f34e8d",
             "@type": "TestSuite",
             "instance": [
                 {
-                    "@id": "#41ce0134-cfd5-4b8f-a7e2-6ac9f0519ae0"
+                    "@id": "#0dc45d98-d925-47fd-bc53-7f782e866776"
                 }
             ],
             "mainEntity": {
@@ -218,7 +218,7 @@
             "name": "Test suite for nf-core/taxprofiler"
         },
         {
-            "@id": "#41ce0134-cfd5-4b8f-a7e2-6ac9f0519ae0",
+            "@id": "#0dc45d98-d925-47fd-bc53-7f782e866776",
             "@type": "TestInstance",
             "name": "GitHub Actions workflow for testing nf-core/taxprofiler",
             "resource": "repos/nf-core/taxprofiler/actions/workflows/nf-test.yml",
