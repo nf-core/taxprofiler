@@ -323,18 +323,15 @@ workflow PROFILING {
     }
 
     if (params.run_diamond) {
-
         ch_input_for_diamond = ch_input_for_profiling.diamond
-            .filter { meta, reads, meta_db, db ->
+            .multiMap { meta, reads, meta_db, db ->
                 if (!meta.single_end) {
-                    log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. To run DIAMOND on this sample, please merge reads (e.g. with --shortread_qc_mergepairs). Skipping DIAMOND for sample ${meta.id}.")
+                    log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. Only read 1 will be used for profiling. Running DIAMOND for sample ${meta.id} using only read 1.")
                 }
-                meta.single_end
+                reads: [meta + meta_db, meta.single_end ? reads : reads[0]]
+                db: [meta_db, db]
             }
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: [it[2], it[3]]
-            }
+
         // diamond only accepts single output file specification, therefore
         // this will replace output file!
         ch_diamond_reads_format = params.diamond_save_reads ? 'sam' : params.diamond_output_format
@@ -394,11 +391,11 @@ workflow PROFILING {
                 seqtype: meta.seqtype
             }
         // Hardcode to _always_ produce the report file (which is our basic output, and goes into)
-        KRAKENUNIQ_PRELOADEDKRAKENUNIQ ( ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.seqtype, ch_input_for_krakenuniq.db, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications )
-        ch_multiqc_files       = ch_multiqc_files.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report )
-        ch_versions            = ch_versions.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first() )
-        ch_raw_classifications = ch_raw_classifications.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment.map{meta, profiles -> [meta - meta.subMap('seqtype'), profiles]} )
-        ch_raw_profiles        = ch_raw_profiles.mix( KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report.map{meta, profiles -> [meta - meta.subMap('seqtype'), profiles]} )
+        KRAKENUNIQ_PRELOADEDKRAKENUNIQ(ch_input_for_krakenuniq.reads, ch_input_for_krakenuniq.seqtype, ch_input_for_krakenuniq.db, params.krakenuniq_save_reads, true, params.krakenuniq_save_readclassifications)
+        ch_multiqc_files = ch_multiqc_files.mix(KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report)
+        ch_versions = ch_versions.mix(KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.versions.first())
+        ch_raw_classifications = ch_raw_classifications.mix(KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.classified_assignment.map { meta, profiles -> [meta - meta.subMap('seqtype'), profiles] })
+        ch_raw_profiles = ch_raw_profiles.mix(KRAKENUNIQ_PRELOADEDKRAKENUNIQ.out.report.map { meta, profiles -> [meta - meta.subMap('seqtype'), profiles] })
     }
 
     if (params.run_kmcp) {
