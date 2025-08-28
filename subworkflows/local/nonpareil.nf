@@ -13,16 +13,16 @@ workflow NONPAREIL {
 
     ch_reads_for_nonpareil = reads
                                 .map {
-                                    meta, reads ->
-                                        def reads_new = meta.single_end ? reads : reads[0]
+                                    meta, input_reads ->
+                                        def reads_new = meta.single_end ? input_reads : input_reads[0]
                                         // taxprofiler only accepts gzipped input files,
                                         // so don't need to account for getBaseName removing all extensions
                                         def format = reads_new[0].getBaseName().split('\\.').last() in ['fasta', 'fna', 'fa', 'fas'] ? 'fasta' : 'fastq'
                                     [meta, reads_new, format]
                                 }
                                 .multiMap {
-                                    meta, reads, format ->
-                                        reads: [meta, reads]
+                                    meta, input_reads, format ->
+                                        reads: [meta, input_reads]
                                         format: format
                                 }
 
@@ -30,7 +30,7 @@ workflow NONPAREIL {
     NONPAREIL_NONPAREIL( ch_reads_for_nonpareil.reads, ch_reads_for_nonpareil.format, params.shortread_redundancyestimation_mode)
 
     ch_npos_for_nonparielset = NONPAREIL_NONPAREIL.out.npo
-                                .map {meta, npo -> [[id: 'all'], npo] }
+                                .map {_meta, npo -> [[id: 'all'], npo] }
                                 .groupTuple()
 
     // Plotting
