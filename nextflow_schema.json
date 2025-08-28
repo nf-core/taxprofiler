@@ -684,6 +684,16 @@
                     "help_text": "See the [sylph publication](https://www.nature.com/articles/s41587-024-02412-y) for more information.\n\n> Modifies tool parameter(s):\n- sylph-tax merge: `--column`",
                     "enum": ["relative_abundance", "sequence_abundance", "ANI"],
                     "fa_icon": "fas fa-file"
+                },
+                "run_melon": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with Melon. Requires a database to be present in the CSV file passed to `--databases`."
+                },
+                "melon_k2_db": {
+                    "type": "string",
+                    "fa_icon": "fas fa-database",
+                    "description": "Specify kraken2 database for prefiltering of non-prokaryotic reads with melon."
                 }
             },
             "fa_icon": "fas fa-align-center"

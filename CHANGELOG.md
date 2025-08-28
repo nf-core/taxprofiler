@@ -5,10 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v1.3.0dev [unreleased]
 
-- [595](https://github.com/nf-core/taxprofiler/pull/595) **New classifier** [sylph](https://github.com/bluenote-1577/sylph) (added by @sofstam)
-
 ### `Added`
 
+- [#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
+- [#595](https://github.com/nf-core/taxprofiler/pull/595) **New classifier** [sylph](https://github.com/bluenote-1577/sylph) (added by @sofstam)
+- [#608](https://github.com/nf-core/taxprofiler/pull/608) **New classifier** [melon](https://github.com/xinehc/melon) (added by @parisis and @sofstam)
 - [#619](https://github.com/nf-core/taxprofiler/pull/619) Added default pipeline nf-test (added by @sofstam)
 - [#615](https://github.com/nf-core/taxprofiler/pull/615) Updated to nf-core pipeline template v3.3.1 (added by @sofstam)
 - [#614](https://github.com/nf-core/taxprofiler/pull/614) Updated module `krakenuniq/preloadedkrakenuniq` to fix preload mechanism. The RAM chunk size can now be customised on a per-database basis. (added by @muniheart with help from / ❤️ to @jfy133)

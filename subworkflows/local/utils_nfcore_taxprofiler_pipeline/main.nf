@@ -207,9 +207,10 @@ def toolCitationText() {
             params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
             params.run_kaiju      ? "Kaiju (Menzel et al. 2016)," : "",
             params.run_motus      ? "mOTUs (Ruscheweyh et al. 2022)," : "",
-            params.run_ganon      ? "ganon (Piro et al. 2020)" : "",
-            params.run_kmcp       ? "KMCP (Shen et al. 2023)" : "",
-            params.run_sylph      ? "sylph (Shaw et al. 2024)":"",
+            params.run_ganon      ? "ganon (Piro et al. 2020)," : "",
+            params.run_kmcp       ? "KMCP (Shen et al. 2023)," : "",
+            params.run_sylph      ? "sylph (Shaw et al. 2024),":"",
+            params.run_melon      ? "melon (Chen et al. 2024)," : "",
         "."
     ].join(' ').trim()
 
@@ -230,7 +231,7 @@ def toolCitationText() {
         params.perform_shortread_complexityfilter       ? text_shortreadcomplexity : "",
         params.perform_shortread_hostremoval            ? text_shortreadhostremoval : "",
         params.perform_longread_hostremoval             ? text_longreadhostremoval : "",
-        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp, params.run_sylph].any() ?
+        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp, params.run_sylph, params.run_melon].any() ?
             text_classification : "",
         params.run_krona                                ? text_visualisation : "",
         params.run_profile_standardisation              ? text_postprocessing : "",
@@ -290,6 +291,7 @@ def toolBibliographyText() {
         params.run_ganon      ? "<li>Piro, V. C., Dadi, T. H., Seiler, E., Reinert, K., & Renard, B. Y. (2020). Ganon: Precise metagenomics classification against large and up-to-date sets of reference sequences. Bioinformatics (Oxford, England), 36(Suppl_1), i12–i20. <a href=\"https://doi.org/10.1093/bioinformatics/btaa458\">10.1093/bioinformatics/btaa458</a></li>" : "",
         params.run_kmcp       ? "<li>Shen, W., Xiang, H., Huang, T., Tang, H., Peng, M., Cai, D., Hu, P., & Ren, H. (2023). KMCP: accurate metagenomic profiling of both prokaryotic and viral populations by pseudo-mapping. Bioinformatics (Oxford, England), 39(1). <a href=\"https://doi.org/10.1093/bioinformatics/btac845\">10.1093/bioinformatics/btac845</a></li>" : "",
         params.run_sylph          ? "<li>Shaw, J. & Yu, Y. W. (2024). Rapid species-level metagenome profiling and containment estimation with sylph. Nature Biotechnology. <a href=\"https://doi.org/10.1038/s41587-024-02412-y\">10.1038/s41587-024-02412-y</a></li>" : "",
+        params.run_melon      ? "<li>Chen, X., Yin, X., Shi, X., Yan, W., Yang, Y., Liu, L., & Zhang, T. (2024). Melon: metagenomic long-read-based taxonomic identification and quantification using marker genes. Genome Biology, 25(1), 226. <a href=\"https://doi.org/10.1186/s13059-024-03363-y\">10.1186/s13059-024-03363-y</a></li>" : "",
     ].join(' ').trim()
 
     def text_visualisation = [

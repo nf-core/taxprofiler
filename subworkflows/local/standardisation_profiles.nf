@@ -95,14 +95,14 @@ workflow STANDARDISATION_PROFILES {
                         }
 
     ch_input_for_taxpasta_merge       = ch_input_for_taxpasta.merge
-                                            .filter { meta, profiles -> meta.tool != 'sylph' }
+                                            .filter { meta, profiles -> !(meta.tool in ['sylph', 'melon']) }
                                             .multiMap{ meta, profiles ->
                                                         profiles: [meta, profiles]
                                                         tool: meta.tool
                                                     }
 
     ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
-                                            .filter { meta, profiles -> meta.tool != 'sylph' }
+                                            .filter { meta, profiles -> !(meta.tool in ['sylph', 'melon']) }
                                             .multiMap{ meta, profiles ->
                                                         profiles: [meta, profiles]
                                                         tool: meta.tool
@@ -130,6 +130,7 @@ workflow STANDARDISATION_PROFILES {
             metaphlan: it[0]['tool'] == 'metaphlan'
             motus: it[0]['tool'] == 'motus'
             sylph: it[0]['tool'] == 'sylph'
+            melon: it[0]['tool'] == 'melon'
             unknown: true
         }
 
