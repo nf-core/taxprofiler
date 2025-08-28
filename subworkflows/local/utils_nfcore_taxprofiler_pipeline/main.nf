@@ -207,10 +207,10 @@ def toolCitationText() {
             params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
             params.run_kaiju      ? "Kaiju (Menzel et al. 2016)," : "",
             params.run_motus      ? "mOTUs (Ruscheweyh et al. 2022)," : "",
-            params.run_ganon      ? "ganon (Piro et al. 2020)" : "",
-            params.run_kmcp       ? "KMCP (Shen et al. 2023)" : "",
-            params.run_sylph      ? "sylph (Shaw et al. 2024)":"",
-            params.run_melon      ? "melon (Chen et al. 2024)" : "",
+            params.run_ganon      ? "ganon (Piro et al. 2020)," : "",
+            params.run_kmcp       ? "KMCP (Shen et al. 2023)," : "",
+            params.run_sylph      ? "sylph (Shaw et al. 2024),":"",
+            params.run_melon      ? "melon (Chen et al. 2024)," : "",
         "."
     ].join(' ').trim()
 
