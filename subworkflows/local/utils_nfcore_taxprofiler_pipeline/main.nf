@@ -69,14 +69,14 @@ workflow PIPELINE_INITIALISATION {
     //
 
     Channel
-        .fromList(samplesheetToList(params.input, "assets/schema_input.json"))
+        .fromList(samplesheetToList(input, "assets/schema_input.json"))
         .set { ch_samplesheet }
 
     //
     // Create channel from databases file provided through params.databases
     //
     Channel
-        .fromList(samplesheetToList(params.databases, "assets/schema_database.json"))
+        .fromList(samplesheetToList(databases, "assets/schema_database.json"))
         .set {ch_databases}
 
     emit:
@@ -309,6 +309,7 @@ def toolBibliographyText() {
         text_seq_qc,
         params.perform_shortread_qc               ? text_shortread_qc : "",
         params.perform_longread_qc                ? text_longread_qc : "",
+        params.perform_shortread_redundancyestimation ? text_shortread_redundancy : "",
         params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
         params.perform_shortread_hostremoval      ? text_shortreadhostremoval : "",
         params.perform_longread_hostremoval       ? text_longreadhostremoval : "",
