@@ -39,8 +39,8 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                 ADAPTERREMOVAL_PAIRED.out.singles_truncated,
                 ADAPTERREMOVAL_PAIRED.out.paired_truncated
             )
-            .map { meta, reads ->
-                [meta + [single_end: true], reads]
+            .map { meta, adapterremoved_reads ->
+                [meta + [single_end: true], adapterremoved_reads]
             }
             .groupTuple()
             // Paired-end reads cause a nested tuple during grouping.
