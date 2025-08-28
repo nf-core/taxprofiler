@@ -292,7 +292,7 @@ workflow PROFILING {
             db: it[3]
         }
 
-        METAPHLAN_METAPHLAN(ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db)
+        METAPHLAN_METAPHLAN(ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db, params.metaphlan_save_samfiles)
         ch_versions = ch_versions.mix(METAPHLAN_METAPHLAN.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(METAPHLAN_METAPHLAN.out.profile)
         ch_multiqc_files = ch_multiqc_files.mix(METAPHLAN_METAPHLAN.out.profile)
@@ -323,14 +323,13 @@ workflow PROFILING {
     }
 
     if (params.run_diamond) {
-        ch_input_for_diamond = ch_input_for_profiling.diamond
-            .multiMap { meta, reads, meta_db, db ->
-                if (!meta.single_end) {
-                    log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. Only read 1 will be used for profiling. Running DIAMOND for sample ${meta.id} using only read 1.")
-                }
-                reads: [meta + meta_db, meta.single_end ? reads : reads[0]]
-                db: [meta_db, db]
+        ch_input_for_diamond = ch_input_for_profiling.diamond.multiMap { meta, reads, meta_db, db ->
+            if (!meta.single_end) {
+                log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. Only read 1 will be used for profiling. Running DIAMOND for sample ${meta.id} using only read 1.")
             }
+            reads: [meta + meta_db, meta.single_end ? reads : reads[0]]
+            db: [meta_db, db]
+        }
 
         // diamond only accepts single output file specification, therefore
         // this will replace output file!

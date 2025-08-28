@@ -552,6 +552,12 @@
                     "description": "Turn on profiling with MetaPhlAn. Requires database to be present CSV file passed to --databases",
                     "fa_icon": "fas fa-toggle-on"
                 },
+                "metaphlan_save_samfiles": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of MetaPhlAn reads aligned against marker genes in SAM format",
+                    "help_text": "Can be used in downstream analysis such as for StrainPhlAn.\n\n> Modifies tool parameters(s):\n>\n> - `metaphlan`: `-s`"
+                },
                 "run_motus": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
