@@ -60,8 +60,8 @@ workflow SHORTREAD_ADAPTERREMOVAL {
                 ADAPTERREMOVAL_PAIRED.out.collapsed,
                 ADAPTERREMOVAL_PAIRED.out.collapsed_truncated
             )
-            .map { meta, reads ->
-                [meta + [single_end: true], reads]
+            .map { meta, input_reads ->
+                [meta + [single_end: true], input_reads]
             }
             .groupTuple()
             .map { meta, fastq -> [meta, fastq.flatten()] }
