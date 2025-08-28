@@ -1,7 +1,10 @@
-Changes in module 'nf-core/porechop/porechop'
+Changes in component 'nf-core/porechop/porechop'
+'modules/nf-core/porechop/porechop/environment.yml' is unchanged
+'modules/nf-core/porechop/porechop/meta.yml' is unchanged
+Changes in 'porechop/porechop/main.nf':
 --- modules/nf-core/porechop/porechop/main.nf
 +++ modules/nf-core/porechop/porechop/main.nf
-@@ -21,6 +21,7 @@
+@@ -22,6 +22,7 @@
      script:
      def args = task.ext.args ?: ''
      def prefix = task.ext.prefix ?: "${meta.id}"
@@ -9,7 +12,7 @@ Changes in module 'nf-core/porechop/porechop'
      """
      porechop \\
          -i $reads \\
-@@ -28,6 +29,7 @@
+@@ -29,6 +30,7 @@
          $args \\
          -o ${prefix}.fastq.gz \\
          > ${prefix}.log
@@ -18,4 +21,7 @@ Changes in module 'nf-core/porechop/porechop'
      "${task.process}":
          porechop: \$( porechop --version )
 
+'modules/nf-core/porechop/porechop/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/porechop/porechop/tests/nextflow.config' is unchanged
+'modules/nf-core/porechop/porechop/tests/main.nf.test' is unchanged
 ************************************************************

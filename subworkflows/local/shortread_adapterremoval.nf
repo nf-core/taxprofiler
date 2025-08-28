@@ -92,4 +92,3 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     versions = ch_versions  // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }
-

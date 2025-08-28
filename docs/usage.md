@@ -46,8 +46,8 @@ The `sample` identifiers have to be the same when you have re-sequenced the same
 
 ```csv title="samplesheet.csv"
 sample,run_accession,instrument_platform,fastq_1,fastq_2,fasta
-2612,lane1,ILLUMINA,2612_lane1_R1.fq.gz,ILLUMINA,2612_lane1_R2.fq.gz,
-2612,lane2,ILLUMINA,2612_lane2_R1.fq.gz,ILLUMINA,2612_lane2_R2.fq.gz,
+2612,lane1,ILLUMINA,2612_lane1_R1.fq.gz,2612_lane1_R2.fq.gz,
+2612,lane2,ILLUMINA,2612_lane2_R1.fq.gz,2612_lane2_R2.fq.gz,
 2612,lane3,ILLUMINA,2612_lane3_R1.fq.gz,,
 ```
 
@@ -227,6 +227,7 @@ Pipeline settings can be provided in a `yaml` or `json` file via `-params-file <
 
 > [!WARNING]
 > Do not use `-c <file>` to specify parameters as this will result in errors. Custom config files specified with `-c` must only be used for [tuning process resource specifications](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources), other infrastructural tweaks (such as output directories), or module arguments (args).
+> In particular do not use `-c` to provide `ext.args` for KrakenUniq for customising `--preload-size` values, as this will override any references to this parameter in `--databases`.
 
 The above pipeline run specified with a params file in yaml format:
 
@@ -377,13 +378,40 @@ It is unclear whether Bracken is suitable for running long reads, as it makes ce
 
 Therefore currently nf-core/taxprofiler does not run Bracken on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet.
 
+Bracken currently does support reporting of abundance stats for multiple taxonomic levels at once (by default, it only reports species level hits).
+You can change the reported taxonomic level by using Bracken's `-l` parameter (see Step 3 of the [Bracken documentation](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual)).
+If you want to report multiple taxonomic levels, you must specify your Bracken database multiple times in the database sheet, once for each taxonomic level you want to report, and each with a unique database name.
+For example:
+
+```csv title="databases.csv"
+tool,db_name,db_params,db_type,db_path
+bracken,db1-species,;-l S,short,https://github.com/nf-core/test-datasets/raw/taxprofiler/data/database/bracken/testdb-bracken.tar.gz
+bracken,db1-genus,;-l G,short,https://github.com/nf-core/test-datasets/raw/taxprofiler/data/database/bracken/testdb-bracken.tar.gz
+bracken,db1-phylum,;-l P,short,https://github.com/nf-core/test-datasets/raw/taxprofiler/data/database/bracken/testdb-bracken.tar.gz
+kraken2,db2,--quick,short,https://github.com/nf-core/test-datasets/raw/taxprofiler/data/database/kraken2/testdb-kraken2.tar.gz
+```
+
+This will produce independent Bracken output files for each taxonomic level, with the suffixes `db1-species`, `db1-genus` and `db1-phylum` respectively in the `bracken/<database_name>/` output directories.
+
+:::warning
+Do not forget to supply the Bracken parameters after the a `;` to ensure the `-l` parameter goes to Bracken and not Kraken!
+See [Full database sheet](#full-database-sheet) for more information.
+:::
+
 ##### Centrifuge
 
 Centrifuge currently does not accept FASTA files as input, therefore no output will be produced for these input files.
 
 ##### DIAMOND
 
-DIAMOND can only accept a single input read file. To run DIAMOND on paired-end reads, please merge the reads (e.g., using `--shortread_qc_mergepairs`).
+DIAMOND can only accept a single input read file. When run DIAMOND on paired-end reads without merging, only the `read1` file will be used.
+Alternatively, you can merge the reads using `--shortread_qc_mergepairs`.
+
+:::warning
+Note however that the merging approach only works when the vast majority of reads do actually merge.
+If your DNA molecules were too short, read pairs will not overlap and not merge - by default being discarded.
+While you have the option of retaining unmerged reads as well (with `--shortread_qc_includeunmerged`), be careful that including unmerged reads retains these as _independent_ reads in the FASTQ file - thus you may get double counts on a taxon from a single read.
+:::
 
 DIAMOND only allows output of a single file format at a time, therefore parameters such `--diamond_save_reads` supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending on your particular use case.
 
@@ -537,6 +565,21 @@ Specify the path to a specific config file (this is a core Nextflow command). Se
 Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each step in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
 
 To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
+
+:::warning
+If modifying `--krakenuniq_ram_chunk_size` or KrakenUniq's `--preload-size` parameters in a `--databases` CSV file, make sure to update your workflow resources for the KRAKENUNIQ/PRELOADEDKRAKENUNIQ process to match the same value!
+For example, if you set your `--krakenuniq_ram_chunk_size` to `2G`, you should customise your resources with
+
+```groovy
+process {
+  withName: KRAKENUNIQ/PRELOADEDKRAKENUNIQ {
+    memory = '2.GB'
+  }
+}
+```
+
+Otherwise by default the pipeline will request 16GB of memory for this process but will only use 2GB of memory.
+:::
 
 ### Custom Containers
 
