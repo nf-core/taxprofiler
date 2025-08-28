@@ -27,7 +27,7 @@ workflow LONGREAD_PREPROCESSING {
     } else {
         LONGREAD_ADAPTERREMOVAL ( reads )
         ch_clipped_reads   = LONGREAD_ADAPTERREMOVAL.out.reads
-            .map { meta, reads -> [ meta + [single_end: true], reads ] }
+            .map { meta, clipped_long_reads -> [ meta + [single_end: true], clipped_long_reads ] }
         ch_processed_reads = LONGREAD_FILTERING ( ch_clipped_reads ).reads
         ch_versions        = ch_versions.mix(LONGREAD_ADAPTERREMOVAL.out.versions.first())
         ch_versions        = ch_versions.mix(LONGREAD_FILTERING.out.versions.first())
