@@ -30,8 +30,8 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_versions        = ch_versions.mix( MINIMAP2_ALIGN.out.versions.first() )
     ch_minimap2_mapped = MINIMAP2_ALIGN.out.bam
         .map {
-            meta, reads ->
-                [ meta, reads, [] ]
+            meta, long_reads ->
+                [ meta, long_reads, [] ]
         }
 
     // Generate unmapped reads FASTQ for downstream taxprofiling

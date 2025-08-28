@@ -38,7 +38,7 @@ def combineProfilesWithDatabase(ch_profile, ch_database) {
     return ch_profile
         .map { meta, profile -> [meta.db_name, meta, profile] }
         .combine(ch_database, by: 0)
-        .multiMap { key, meta, profile, db_meta, db ->
+        .multiMap { _key, meta, profile, _db_meta, db ->
             profile: [meta, profile]
             db: db
         }
@@ -78,14 +78,14 @@ workflow PROFILING {
     // Final output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':false, 'is_fasta':false, 'type':'short'], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'malt95', 'db_params':'"-id 90"', 'type':'short'], <db_path>/malt95]
 
     ch_input_for_profiling = reads
-        .map { meta, reads ->
-            [[type: meta.type], meta, reads]
+        .map { meta, input_reads ->
+            [[type: meta.type], meta, input_reads]
         }
         .combine(ch_dbs, by: 0)
-        .map { db_type, meta, reads, db_meta, db ->
-            [meta, reads, db_meta, db]
+        .map { _db_type, meta, input_reads, db_meta, db ->
+            [meta, input_reads, db_meta, db]
         }
-        .branch { meta, reads, db_meta, db ->
+        .branch { _meta, _input_reads, db_meta, _db ->
             centrifuge: db_meta.tool == 'centrifuge'
             diamond: db_meta.tool == 'diamond'
             kaiju: db_meta.tool == 'kaiju'
@@ -113,7 +113,7 @@ workflow PROFILING {
         // MALT: We groupTuple to have all samples in one channel for MALT as database
         // loading takes a long time, so we only want to run it once per database
         ch_input_for_malt = ch_input_for_profiling.malt
-            .map { meta, reads, db_meta, db ->
+            .map { _meta, input_reads, db_meta, db ->
 
                 // Reset entire input meta for MALT to just database name,
                 // as we don't run run on a per-sample basis due to huge datbaases
@@ -125,11 +125,11 @@ workflow PROFILING {
                 def sam_format = params.malt_save_reads ? ' --alignments ./ -za false' : ""
                 new_meta.db_params = db_meta.db_params + sam_format
 
-                [new_meta, reads, db]
+                [new_meta, input_reads, db]
             }
             .groupTuple(by: [0, 2])
-            .multiMap { meta, reads, db ->
-                reads: [meta, reads.flatten()]
+            .multiMap { meta, input_reads, db ->
+                reads: [meta, input_reads.flatten()]
                 db: db
             }
 
@@ -158,10 +158,11 @@ workflow PROFILING {
         // as db sheet for bracken must have ; sep list to
         // distinguish between kraken and bracken parameters
         def ch_prepare_for_kraken2 = ch_input_for_profiling.kraken2
-            .map { meta, reads, db_meta, db ->
+            .map { meta, input_reads, db_meta, db ->
 
                 // Only take first element if one exists
                 def parsed_params = db_meta['db_params'].split(";")
+                def db_meta_new = [:]
                 if (parsed_params.size() == 2) {
                     db_meta_new = db_meta + [db_params: parsed_params[0]]
                 }
@@ -172,9 +173,9 @@ workflow PROFILING {
                     db_meta_new = db_meta + [db_params: parsed_params[0]]
                 }
 
-                [meta, reads, db_meta_new, db]
+                [meta, input_reads, db_meta_new, db]
             }
-            .filter { meta, reads, db_meta_new, db ->
+            .filter { meta, _input_reads, db_meta_new, _db ->
                 if (db_meta_new.tool == 'bracken' && meta.instrument_platform == 'OXFORD_NANOPORE') {
                     log.warn("[nf-core/taxprofiler] Bracken has not been evaluated for Nanopore data. Skipping Bracken for sample ${meta.id}.")
                 }
@@ -192,7 +193,7 @@ workflow PROFILING {
         ch_raw_classifications = ch_raw_classifications.mix(KRAKEN2_KRAKEN2.out.classified_reads_assignment)
         ch_raw_profiles = ch_raw_profiles.mix(
             KRAKEN2_KRAKEN2.out.report.map { meta, report ->
-                def new_tool = [meta + [tool: meta.tool == 'bracken' ? 'kraken2-bracken' : meta.tool], report]
+                [meta + [tool: meta.tool == 'bracken' ? 'kraken2-bracken' : meta.tool], report]
             }
         )
     }
@@ -208,14 +209,14 @@ workflow PROFILING {
 
         // Extract the database name to combine by.
         ch_bracken_databases = databases
-            .filter { meta, db -> meta.tool == 'bracken' }
+            .filter { meta, _db -> meta.tool == 'bracken' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
         // Combine back with the reads
         ch_input_for_bracken = ch_kraken2_output
             .map { meta, report -> [meta.db_name, meta, report] }
             .combine(ch_bracken_databases, by: 0)
-            .map { key, meta, reads, db_meta, db ->
+            .map { key, meta, _input_reads, db_meta, db ->
 
                 // // Have to make a completely fresh copy here as otherwise
                 // // was getting db_param loss due to upstream meta parsing at
@@ -243,7 +244,7 @@ workflow PROFILING {
 
                 [key, meta, reads, db_meta_new, db]
             }
-            .multiMap { key, meta, report, db_meta, db ->
+            .multiMap { _key, meta, report, db_meta, db ->
                 report: [meta + db_meta, report]
                 db: db
             }
@@ -273,7 +274,7 @@ workflow PROFILING {
 
         // Ensure the correct database goes with the generated report for KREPORT
         ch_database_for_centrifugekreport = databases
-            .filter { meta, db -> meta.tool == 'centrifuge' }
+            .filter { meta, _db -> meta.tool == 'centrifuge' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
         ch_input_for_centrifuge_kreport = combineProfilesWithDatabase(CENTRIFUGE_CENTRIFUGE.out.results, ch_database_for_centrifugekreport)
@@ -311,7 +312,7 @@ workflow PROFILING {
 
         // Ensure the correct database goes with the generated report for KAIJU2TABLE
         ch_database_for_kaiju2table = databases
-            .filter { meta, db -> meta.tool == 'kaiju' }
+            .filter { meta, _db -> meta.tool == 'kaiju' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
         ch_input_for_kaiju2table = combineProfilesWithDatabase(KAIJU_KAIJU.out.results, ch_database_for_kaiju2table)
@@ -324,11 +325,11 @@ workflow PROFILING {
 
     if (params.run_diamond) {
         ch_input_for_diamond = ch_input_for_profiling.diamond
-            .multiMap { meta, reads, meta_db, db ->
+            .multiMap { meta, input_reads, meta_db, db ->
                 if (!meta.single_end) {
                     log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. Only read 1 will be used for profiling. Running DIAMOND for sample ${meta.id} using only read 1.")
                 }
-                reads: [meta + meta_db, meta.single_end ? reads : reads[0]]
+                reads: [meta + meta_db, meta.single_end ? input_reads : input_reads[0]]
                 db: [meta_db, db]
             }
 
@@ -365,7 +366,7 @@ workflow PROFILING {
     if (params.run_krakenuniq) {
 
         ch_input_for_krakenuniq = ch_input_for_profiling.krakenuniq
-            .map { meta, reads, db_meta, db ->
+            .map { meta, _input_reads, db_meta, db ->
                 def seqtype = reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/ ? 'fasta' : 'fastq'
                 // We bundle the sample identifier with the sequencing files to undergo batching.
                 def prefix = params.perform_runmerging ? meta.id : "${meta.id}_${meta.run_accession}"
@@ -373,11 +374,11 @@ workflow PROFILING {
                 [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], [reads].flatten() + [prefix], db_meta, db]
             }
             .groupTuple(by: [0, 2, 3])
-            .flatMap { single_meta, reads, db_meta, db ->
+            .flatMap { single_meta, input_reads, db_meta, db ->
                 // Sort reads array by comparing last element, prefix. This will ensure batch membership remains
                 // constant across runs, enabling retrieval of cached tasks.
-                reads.sort { a, b -> a[-1] <=> b[-1] }
-                def batches = reads.collate(params.krakenuniq_batch_size)
+                input_reads.sort { a, b -> a[-1] <=> b[-1] }
+                def batches = input_reads.collate(params.krakenuniq_batch_size)
                 return batches.collect { batch ->
                     // We split the sample identifier from the reads again after batching.
                     def reads_batch = batch.collect { elements -> elements.take(elements.size() - 1) }.flatten()
@@ -385,8 +386,8 @@ workflow PROFILING {
                     return [single_meta + db_meta, reads_batch, prefixes, db]
                 }
             }
-            .multiMap { meta, reads, prefixes, db ->
-                reads: [meta, reads, prefixes]
+            .multiMap { meta, input_reads, prefixes, db ->
+                reads: [meta, input_reads, prefixes]
                 db: db
                 seqtype: meta.seqtype
             }
@@ -401,13 +402,13 @@ workflow PROFILING {
     if (params.run_kmcp) {
 
         ch_input_for_kmcp = ch_input_for_profiling.kmcp
-            .filter { meta, reads, meta_db, db ->
+            .filter { meta, _input_reads, meta_db, _db ->
                 if (meta['instrument_platform'] == 'OXFORD_NANOPORE') {
                     log.warn("[nf-core/taxprofiler] KMCP is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Skipping KMCP for sample ${meta.id}.")
                 }
                 meta_db['tool'] == 'kmcp' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
             }
-            .map { meta, reads, db_meta, db ->
+            .map { meta, input_reads, db_meta, db ->
                 def db_meta_keys = db_meta.keySet()
                 def db_meta_new = db_meta.subMap(db_meta_keys)
 
@@ -423,7 +424,7 @@ workflow PROFILING {
                     db_meta_new['db_params'] = parsed_params[0]
                 }
 
-                [meta, reads, db_meta_new, db]
+                [meta, input_reads, db_meta_new, db]
             }
             .multiMap { it ->
                 reads: [it[0] + it[2], it[1]]
@@ -436,13 +437,13 @@ workflow PROFILING {
         ch_raw_classifications = ch_raw_classifications.mix(KMCP_SEARCH.out.result)
 
         ch_database_for_kmcp_profile = databases
-            .filter { meta, db -> meta.tool == 'kmcp' }
+            .filter { meta, _db -> meta.tool == 'kmcp' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
         ch_input_for_kmcp_profile = KMCP_SEARCH.out.result
             .map { meta, report -> [meta.db_name, meta, report] }
             .combine(ch_database_for_kmcp_profile, by: 0)
-            .map { key, meta, reads, db_meta, db ->
+            .map { key, meta, input_reads, db_meta, db ->
 
                 // Same as kraken2/bracken logic here. Arguments after semicolon are going into KMCP_PROFILE
                 def db_meta_keys = db_meta.keySet()
@@ -457,9 +458,9 @@ workflow PROFILING {
                     db_meta_new = db_meta + [db_params: ""]
                 }
 
-                [key, meta, reads, db_meta_new, db]
+                [key, meta, input_reads, db_meta_new, db]
             }
-            .multiMap { key, meta, report, db_meta, db ->
+            .multiMap { _key, meta, report, db_meta, db ->
                 report: [meta + db_meta, report]
                 db: db
             }
@@ -475,7 +476,7 @@ workflow PROFILING {
     if (params.run_ganon) {
 
         ch_input_for_ganonclassify = ch_input_for_profiling.ganon
-            .filter { meta, reads, meta_db, db ->
+            .filter { meta, _input_reads, meta_db, _db ->
                 if (meta.instrument_platform == 'OXFORD_NANOPORE') {
                     log.warn("[nf-core/taxprofiler] Ganon has not been evaluated for Nanopore data. Skipping Ganon for sample ${meta.id}.")
                 }
@@ -492,7 +493,7 @@ workflow PROFILING {
         ch_versions = ch_versions.mix(GANON_CLASSIFY.out.versions.first())
 
         ch_database_for_ganonreport = databases
-            .filter { meta, db -> meta.tool == "ganon" }
+            .filter { meta, _db -> meta.tool == "ganon" }
             .map { meta, db -> [meta.db_name, meta, db] }
 
         ch_report_for_ganonreport = combineProfilesWithDatabase(GANON_CLASSIFY.out.report, ch_database_for_ganonreport)
