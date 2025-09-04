@@ -681,7 +681,7 @@ After downloading the marker gene set provided in the GitHub repository, you wil
 
 For example, if you have conda installed:
 
-```bash
+````bash
 ## -y means to automatically accept list of packages to install!
 conda create -n melon-db-build -c bioconda minimap2 diamond -y
 conda activate melon-db-build
@@ -699,7 +699,7 @@ ls database/nucl.*.fa | sort | xargs -P $cpu_count -I {} bash -c '
 
 ## remove unnecessary files to save space
 rm -rf database/*.fa
-```
+````
 
 You can then add the path to `<YOUR_DB_NAME>/` to your nf-core/taxprofiler database input sheet.
 
