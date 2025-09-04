@@ -650,7 +650,8 @@ For further descriptions of the contents of each file, see the [sylph documentat
 
 </details>
 
-The main taxonomic classification files from melon are the `*.tsv` and `*.json` files. For further descriptions of the contents of each file, see the [melon documentation](https://github.com/xinehc/melon#run-melon).
+The main taxonomic classification files from melon are the `*.tsv` and `*.json` files.
+For further descriptions of the contents of each file, see the [melon documentation](https://github.com/xinehc/melon#run-melon).
 
 ### Krona
 
