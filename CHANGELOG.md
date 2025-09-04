@@ -13,7 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-
 ## v1.2.4 - Bouncy Basenji Patch [2025-08-28]
 
 ### `Added`
