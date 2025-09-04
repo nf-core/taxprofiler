@@ -677,7 +677,14 @@ Sequences from either NCBI or GTDB can be used to build the database.
 
 To use the Melon database, you need to download one of pre-built databases from the [Melon GitHub repository](https://github.com/xinehc/melon#database-setup).
 
-After downloading the marker gene set provided in the github repository, you will need to have `DIAMOND` and `minimap2` installed to build the database.
+After downloading the marker gene set provided in the GitHub repository, you will need to have `DIAMOND` and `minimap2` installed to build the database.
+
+For example, if you have conda installed:
+
+```bash
+## -y means to automatically accept list of packages to install!
+conda create -n melon-db-build -c bioconda minimap2 diamond -y
+conda activate melon-db-build
 
 ```bash
 ## if you encounter memory issue please consider manually lowering cpu_count or simply set cpu_count=1
