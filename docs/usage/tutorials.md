@@ -675,7 +675,7 @@ Therefore we recommend to use the the prebuilt database of marker genes provided
 The pre-built database is specifically designed for long-read metagenomic data.
 Sequences from either NCBI or GTDB can be used to build the database.
 
-To use the Melon database, you need to download the pre-built database from the [Melon GitHub repository](https://github.com/xinehc/melon#database-setup).
+To use the Melon database, you need to download one of pre-built databases from the [Melon GitHub repository](https://github.com/xinehc/melon#database-setup).
 
 After downloading the marker gene set provided in the github repository, you will need to have `DIAMOND` and `minimap2` installed to build the database.
 
