@@ -669,13 +669,22 @@ More information on custom taxonomies can be found [here](https://sylph-docs.git
 
 #### Melon custom database
 
-Melon does not provide the ability to construct custom databases. Therefore we recommend to use the the prebuilt database of marker genes provided by the developers.
+Melon does not provide the ability to construct custom databases.
+Therefore we recommend to use the the prebuilt database of marker genes provided by the developers.
 
-Melon provides a pre-built database for long-read metagenomic data. A NCBI or a GTDB database can be used to build the database.
+The pre-built database is specifically designed for long-read metagenomic data.
+Sequences from either NCBI or GTDB can be used to build the database.
 
-To use the Melon database, you need to download the pre-built database from the [Melon GitHub repository](https://github.com/xinehc/melon#database-setup).
+To use the Melon database, you need to download one of pre-built databases from the [Melon GitHub repository](https://github.com/xinehc/melon#database-setup).
 
-After downloading the marker gene set provided in the github repository, you will need to have `DIAMOND` and `minimap2` installed to build the database.
+After downloading the marker gene set provided in the GitHub repository, you will need to have `DIAMOND` and `minimap2` installed to build the database.
+
+For example, if you have conda installed:
+
+```bash
+## -y means to automatically accept list of packages to install!
+conda create -n melon-db-build -c bioconda minimap2 diamond -y
+conda activate melon-db-build
 
 ```bash
 ## if you encounter memory issue please consider manually lowering cpu_count or simply set cpu_count=1
@@ -692,7 +701,7 @@ ls database/nucl.*.fa | sort | xargs -P $cpu_count -I {} bash -c '
 rm -rf database/*.fa
 ```
 
-You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
+You can then add the path to `<YOUR_DB_NAME>/` to your nf-core/taxprofiler database input sheet.
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
