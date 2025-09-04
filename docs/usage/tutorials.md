@@ -701,7 +701,7 @@ ls database/nucl.*.fa | sort | xargs -P $cpu_count -I {} bash -c '
 rm -rf database/*.fa
 ```
 
-You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database input sheet.
+You can then add the path to `<YOUR_DB_NAME>/` to your nf-core/taxprofiler database input sheet.
 
 <details markdown="1">
 <summary>Expected files in database directory</summary>
