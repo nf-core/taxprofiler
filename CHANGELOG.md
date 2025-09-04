@@ -3,6 +3,17 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.3.0dev - [unreleased]
+
+### `Added`
+
+### `Fixed`
+
+### `Changed`
+
+### `Dependencies`
+
+
 ## v1.2.4 - Bouncy Basenji Patch [2025-08-28]
 
 ### `Added`
