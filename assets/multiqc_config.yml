@@ -38,6 +38,8 @@ report_section_order:
     order: 200
   samtools:
     order: 100
+  hostile:
+    order: 95
   kraken:
     order: 90
   bracken:
@@ -74,6 +76,7 @@ run_modules:
   - nanoq
   - bowtie2
   - samtools
+  - hostile
   - kraken
   - kaiju
   - diamond
@@ -141,6 +144,8 @@ top_modules:
       name: "bowtie2"
   - "samtools":
       name: "Samtools Stats"
+  - "hostile":
+      name: "Hostile"
   - "kraken":
       name: "Kraken"
       path_filters:

@@ -31,6 +31,7 @@
   > Schubert, M., Lindgreen, S., & Orlando, L. (2016). AdapterRemoval v2: rapid adapter trimming, identification, and read merging. BMC Research Notes, 9, 88. https://doi.org/10.1186/s13104-016-1900-2
 
 - [Nonpareil](https://doi.org/10.1128/mSystems.00039-18)
+
   - Rodriguez-R, L. M., Gunturu, S., Tiedje, J. M., Cole, J. R., & Konstantinidis, K. T. (2018). Nonpareil 3: Fast Estimation of Metagenomic Coverage and Sequence Diversity. mSystems, 3(3). https://doi.org/10.1128/mSystems.00039-18
 
 - [Porechop](https://github.com/rrwick/Porechop)
@@ -68,6 +69,10 @@
 - [SAMTools](https://doi.org/10.1093/gigascience/giab008)
 
   > Danecek, P., Bonfield, J. K., Liddle, J., Marshall, J., Ohan, V., Pollard, M. O., Whitwham, A., Keane, T., McCarthy, S. A., Davies, R. M., & Li, H. (2021). Twelve years of SAMtools and BCFtools. GigaScience, 10(2). https://doi.org/10.1093/gigascience/giab008
+
+- [Hostile](https://doi.org/10.1093/bioinformatics/btad728)
+
+  > Constantinides, B., Hunt, M., Crook, D.W., 2023. Hostile: accurate decontamination of microbial host sequences. Bioinformatics 39. https://doi.org/10.1093/bioinformatics/btad728
 
 - [Bracken](https://doi.org/10.7717/peerj-cs.104)
 

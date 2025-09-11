@@ -95,6 +95,16 @@
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
                         "installed_by": ["modules"]
                     },
+                    "hostile/clean": {
+                        "branch": "master",
+                        "git_sha": "f9e0c7508d84c6bbb6aef566bb1f23cf44c2b5bf",
+                        "installed_by": ["modules"]
+                    },
+                    "hostile/fetch": {
+                        "branch": "master",
+                        "git_sha": "f9e0c7508d84c6bbb6aef566bb1f23cf44c2b5bf",
+                        "installed_by": ["modules"]
+                    },
                     "kaiju/kaiju": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",

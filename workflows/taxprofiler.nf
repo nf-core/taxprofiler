@@ -35,14 +35,6 @@ if (params.shortread_qc_includeunmerged && !params.shortread_qc_mergepairs) erro
 
 if (params.shortread_complexityfilter_tool == 'fastp' && ( params.perform_shortread_qc == false || params.shortread_qc_tool != 'fastp' ))  error("ERROR: [nf-core/taxprofiler] cannot use fastp complexity filtering if preprocessing not turned on and/or tool is not fastp. Please specify --perform_shortread_qc and/or --shortread_qc_tool 'fastp'")
 
-if (params.perform_shortread_hostremoval && !params.hostremoval_reference) { error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval requested but no --hostremoval_reference FASTA supplied. Check input.") }
-if (params.perform_shortread_hostremoval && !params.hostremoval_reference && params.shortread_hostremoval_index) { error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.") }
-if (params.perform_longread_hostremoval && !params.hostremoval_reference && params.longread_hostremoval_index) { error("ERROR: [nf-core/taxprofiler] --longread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.") }
-
-if (params.hostremoval_reference           ) { ch_reference = file(params.hostremoval_reference) }
-if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = Channel.fromPath(params.shortread_hostremoval_index).map{[[], it]} } else { ch_shortread_reference_index = [] }
-if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
-
 if (params.diamond_save_reads              ) log.warn "[nf-core/taxprofiler] DIAMOND only allows output of a single format. As --diamond_save_reads supplied, only aligned reads in SAM format will be produced, no taxonomic profiles will be available."
 
 if (params.run_malt && params.run_krona && !params.krona_taxonomy_directory) log.warn "[nf-core/taxprofiler] Krona can only be run on MALT output if path to Krona taxonomy database supplied to --krona_taxonomy_directory. Krona will not be executed in this run for MALT."
@@ -107,6 +99,23 @@ workflow TAXPROFILER {
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
+
+    // Prepare auxiliary files
+    if (params.hostremoval_reference) {
+        ch_reference = file(params.hostremoval_reference)
+    }
+    if (params.shortread_hostremoval_index) {
+        ch_shortread_reference_index = Channel.fromPath(params.shortread_hostremoval_index).map { [[], it] }
+    }
+    else {
+        ch_shortread_reference_index = []
+    }
+    if (params.longread_hostremoval_index) {
+        ch_longread_reference_index = file(params.longread_hostremoval_index)
+    }
+    else {
+        ch_longread_reference_index = []
+    }
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
     ch_input = samplesheet
