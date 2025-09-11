@@ -52,7 +52,7 @@ workflow SHORTREAD_HOSTREMOVAL {
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
     }
     else if (params.shortread_hostremoval_tool == 'hostile') {
-        // HOSTILE specifically needs a name of the reference to either download or 
+        // HOSTILE specifically needs a name of the reference to either download or
         // find the correct files in the index directory
         ch_hostremoval_index_hostile = ch_hostremoval_index.map { _meta, indexdir -> [params.hostremoval_hostile_referencename, indexdir] }
 
