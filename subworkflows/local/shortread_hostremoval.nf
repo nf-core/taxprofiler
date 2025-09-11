@@ -6,8 +6,8 @@ include { BOWTIE2_BUILD                             } from '../../modules/nf-cor
 include { BOWTIE2_ALIGN                             } from '../../modules/nf-core/bowtie2/align/main'
 include { SAMTOOLS_INDEX                            } from '../../modules/nf-core/samtools/index/main'
 include { SAMTOOLS_STATS                            } from '../../modules/nf-core/samtools/stats/main'
+include { HOSTILE_FETCH as HOSTILE_FETCH_SHORTREADS } from '../../modules/nf-core/hostile/fetch/main'
 include { HOSTILE_CLEAN as HOSTILE_CLEAN_SHORTREADS } from '../../modules/nf-core/hostile/clean/main'
-include { HOSTILE_FETCH                             } from '../../modules/nf-core/hostile/fetch/main'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:
@@ -24,9 +24,9 @@ workflow SHORTREAD_HOSTREMOVAL {
         ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
     }
     else if (!params.shortread_hostremoval_index && !index && params.shortread_hostremoval_tool == 'hostile') {
-        HOSTILE_FETCH(params.hostremoval_hostile_referencename)
-        ch_versions = ch_versions.mix(HOSTILE_FETCH.out.versions)
-        ch_hostremoval_index = HOSTILE_FETCH.out.reference
+        HOSTILE_FETCH_SHORTREADS(params.hostremoval_hostile_referencename)
+        ch_versions = ch_versions.mix(HOSTILE_FETCH_SHORTREADS.out.versions)
+        ch_hostremoval_index = HOSTILE_FETCH_SHORTREADS.out.reference
     }
     else {
         ch_hostremoval_index = index.first()

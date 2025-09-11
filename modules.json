@@ -97,7 +97,7 @@
                     },
                     "hostile/clean": {
                         "branch": "master",
-                        "git_sha": "f9e0c7508d84c6bbb6aef566bb1f23cf44c2b5bf",
+                        "git_sha": "cbe28fbf71fd3eddd868140ccd9c3456fa1df363",
                         "installed_by": ["modules"]
                     },
                     "hostile/fetch": {

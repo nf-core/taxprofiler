@@ -86,9 +86,6 @@ workflow PIPELINE_INITIALISATION {
         if (params.shortread_hostremoval_tool == 'bowtie2' && !params.hostremoval_reference && params.shortread_hostremoval_index) {
             error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.")
         }
-        if (params.shortread_hostremoval_tool == 'hostile' && !params.shortread_hostremoval_index) {
-            error("ERROR: [nf-core/taxprofiler] --perform_shortread_hostremoval specified but no --shortread_hostremoval_index provided. Check input.")
-        }
         if (params.shortread_hostremoval_tool == 'hostile' && !params.hostremoval_hostile_referencename) {
             error("ERROR: [nf-core/taxprofiler] --perform_shortread_hostremoval with hostile specified but no --hostremoval_hostile_referencename provided. Check input.")
         }

@@ -22,10 +22,9 @@ process HOSTILE_CLEAN {
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def reads_cmd = meta.single_end ? "--fastq1 input_reads/${reads.sort()[0]}" : "--fastq1 ${reads.sort()[0]} --fastq2 ${reads.sort()[1]}"
+    def reads_cmd = meta.single_end ? "--fastq1 ${[reads].flatten()[0]}" : "--fastq1 ${reads.sort()[0]} --fastq2 ${reads.sort()[1]}"
     """
     export HOSTILE_CACHE_DIR=${reference_dir}
-    mkdir cleaned_reads/
 
     ## Reorder the reads for reproducibility
     ## Set offline as we never want this process to auto-download reference files as required input channel
@@ -49,24 +48,26 @@ process HOSTILE_CLEAN {
     stub:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def reads_cmd = meta.single_end ? "echo '' | gzip -c > cleaned_reads/${prefix}.clean_2.fastq.gz" : ""
-
+    def reads_cmd = meta.single_end ? "--fastq1 ${reads}" : "--fastq1 ${reads.sort()[0]} --fastq2 ${reads.sort()[1]}"
+    def fake_read2 = !meta.single_end ? "echo '' | gzip -c > ${prefix}.clean_2.fastq.gz" : ""
     """
+    export HOSTILE_CACHE_DIR=${reference_dir}
+    
     echo "hostile \\
         clean \\
         ${args} \\
         --threads ${task.cpus} \\
         ${reads_cmd} \\
-        --index ${reference_dir}/${reference_name} \\
-        --output cleaned_reads/ \\
+        --index ${reference_name} \\
+        --output . \\
         --reorder \\
         --airplane \\
         | tee > ${prefix}.json"
 
     export HOSTILE_CACHE_DIR=${reference_dir}
-    mkdir cleaned_reads/
-    echo "" | gzip -c > cleaned_reads/${prefix}.clean_1.fastq.gz
-    ${reads_cmd}
+    echo "" | gzip -c > ${prefix}.clean_1.fastq.gz
+    ${fake_read2}
+
     touch ${prefix}.json
 
     cat <<-END_VERSIONS > versions.yml
