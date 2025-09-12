@@ -216,7 +216,7 @@ workflow PROFILING {
         ch_input_for_bracken = ch_kraken2_output
             .map { meta, report -> [meta.db_name, meta, report] }
             .combine(ch_bracken_databases, by: 0)
-            .map { key, meta, _input_reads, db_meta, db ->
+            .map { key, meta, input_reads, db_meta, db ->
 
                 // // Have to make a completely fresh copy here as otherwise
                 // // was getting db_param loss due to upstream meta parsing at
@@ -242,7 +242,7 @@ workflow PROFILING {
                     db_meta_new['db_params']
                 }
 
-                [key, meta, reads, db_meta_new, db]
+                [key, meta, input_reads, db_meta_new, db]
             }
             .multiMap { _key, meta, report, db_meta, db ->
                 report: [meta + db_meta, report]
@@ -324,14 +324,13 @@ workflow PROFILING {
     }
 
     if (params.run_diamond) {
-        ch_input_for_diamond = ch_input_for_profiling.diamond
-            .multiMap { meta, input_reads, meta_db, db ->
-                if (!meta.single_end) {
-                    log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. Only read 1 will be used for profiling. Running DIAMOND for sample ${meta.id} using only read 1.")
-                }
-                reads: [meta + meta_db, meta.single_end ? input_reads : input_reads[0]]
-                db: [meta_db, db]
+        ch_input_for_diamond = ch_input_for_profiling.diamond.multiMap { meta, input_reads, meta_db, db ->
+            if (!meta.single_end) {
+                log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. Only read 1 will be used for profiling. Running DIAMOND for sample ${meta.id} using only read 1.")
             }
+            reads: [meta + meta_db, meta.single_end ? input_reads : input_reads[0]]
+            db: [meta_db, db]
+        }
 
         // diamond only accepts single output file specification, therefore
         // this will replace output file!
