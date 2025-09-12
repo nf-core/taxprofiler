@@ -42,7 +42,8 @@ workflow SHORTREAD_ADAPTERREMOVAL {
             }
             .groupTuple()
             .map { meta, fastq -> [meta, fastq.flatten()] }
-
+        // Paired-end reads cause a nested tuple during grouping.
+        // We want to present a flat list of files to `CAT_FASTQ`, thus the flatten
 
         CAT_FASTQ(ch_concat_fastq)
 
