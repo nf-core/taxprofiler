@@ -82,7 +82,7 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate parameter inputs
     //
-    
+
     // Preprocessing
     if (params.shortread_qc_includeunmerged && !params.shortread_qc_mergepairs) error("ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging is not turned on. Please specify --shortread_qc_mergepairs")
 
