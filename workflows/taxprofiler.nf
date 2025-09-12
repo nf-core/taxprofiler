@@ -10,15 +10,6 @@ include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pi
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_taxprofiler_pipeline'
 
-
-
-
-if (params.hostremoval_reference           ) { ch_reference = file(params.hostremoval_reference) }
-if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = Channel.fromPath(params.shortread_hostremoval_index).map{[[], it]} } else { ch_shortread_reference_index = [] }
-if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
-
-
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
@@ -60,13 +51,6 @@ include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
 
 workflow TAXPROFILER {
 
-    adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
-
-    if ( params.shortread_qc_adapterlist ) {
-        if ( params.shortread_qc_tool == 'adapterremoval' && !(adapterlist.extension == 'txt') ) error "[nf-core/taxprofiler] ERROR: AdapterRemoval2 adapter list requires a `.txt` format and extension. Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
-        if ( params.shortread_qc_tool == 'fastp' && !adapterlist.extension.matches(".*(fa|fasta|fna|fas)") ) error "[nf-core/taxprofiler] ERROR: fastp adapter list requires a `.fasta` format and extension (or fa, fas, fna). Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
-    }
-
     take:
     samplesheet // channel: samplesheet read in from --input
     databases // channel: databases from --databases
@@ -75,6 +59,15 @@ workflow TAXPROFILER {
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
+
+    adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
+
+
+
+    if (params.hostremoval_reference           ) { ch_reference = file(params.hostremoval_reference) }
+    if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = Channel.fromPath(params.shortread_hostremoval_index).map{[[], it]} } else { ch_shortread_reference_index = [] }
+    if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
+
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
     ch_input = samplesheet
