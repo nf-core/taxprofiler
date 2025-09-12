@@ -89,7 +89,7 @@ workflow TAXPROFILER {
             }
             return [ meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ]
         }
-        .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+        .branch { meta, _run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             fastq: meta.single_end || fastq_2
                 return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
             nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
@@ -118,7 +118,7 @@ workflow TAXPROFILER {
     // Filter the channel to untar only those databases for tools that are selected to be run by the user.
     // Also, to ensure only untar once per file, group together all databases of one file
     ch_inputdb_untar = ch_dbs_for_untar.untar
-        .filter { db_meta, db_path ->
+        .filter { db_meta, _db_path ->
             params[ "run_${db_meta.tool}" ]
         }
         .groupTuple(by: 1)
@@ -331,7 +331,7 @@ workflow TAXPROFILER {
         if ( params.preprocessing_qc_tool == 'falco' ) {
             // only mix in files actually used by MultiQC
             ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt
-                                .map { meta, reports -> reports }
+                                .map { _meta, reports -> reports }
                                 .flatten()
                                 .filter { path -> path.name.endsWith('_data.txt')}
                                 .ifEmpty([]))
