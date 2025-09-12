@@ -60,14 +60,11 @@ workflow TAXPROFILER {
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
+    // Preprocessing auxiliary file input channel preperation
     adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
-
-
-
     if (params.hostremoval_reference           ) { ch_reference = file(params.hostremoval_reference) }
     if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = Channel.fromPath(params.shortread_hostremoval_index).map{[[], it]} } else { ch_shortread_reference_index = [] }
     if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
-
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
     ch_input = samplesheet
