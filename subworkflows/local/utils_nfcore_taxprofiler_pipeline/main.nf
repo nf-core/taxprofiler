@@ -65,7 +65,7 @@ workflow PIPELINE_INITIALISATION {
     )
 
     //
-    // Calidate and create channel from input file provided through params.input
+    // Validate and create channel from input file provided through params.input
     //
 
     Channel
