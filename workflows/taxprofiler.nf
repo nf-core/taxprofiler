@@ -10,47 +10,6 @@ include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pi
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_taxprofiler_pipeline'
 
-// Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.databases,
-                            params.longread_hostremoval_index,
-                            params.hostremoval_reference, params.shortread_hostremoval_index,
-                            params.multiqc_config, params.shortread_qc_adapterlist,
-                            params.krona_taxonomy_directory,
-                            params.taxpasta_taxonomy_dir,
-                            params.multiqc_logo, params.multiqc_methods_description
-                        ]
-for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
-
-// Check mandatory parameters
-if ( params.input ) {
-    ch_input              = file(params.input, checkIfExists: true)
-} else {
-    error("Input samplesheet not specified")
-}
-
-if (params.databases) { ch_databases = file(params.databases, checkIfExists: true) } else { error('Input database sheet not specified!') }
-
-if (!params.shortread_qc_mergepairs && params.run_malt ) log.warn "[nf-core/taxprofiler] MALT does not accept uncollapsed paired-reads. Pairs will be profiled as separate files."
-if (params.shortread_qc_includeunmerged && !params.shortread_qc_mergepairs) error("ERROR: [nf-core/taxprofiler] cannot include unmerged reads when merging is not turned on. Please specify --shortread_qc_mergepairs")
-
-if (params.shortread_complexityfilter_tool == 'fastp' && ( params.perform_shortread_qc == false || params.shortread_qc_tool != 'fastp' ))  error("ERROR: [nf-core/taxprofiler] cannot use fastp complexity filtering if preprocessing not turned on and/or tool is not fastp. Please specify --perform_shortread_qc and/or --shortread_qc_tool 'fastp'")
-
-if (params.perform_shortread_hostremoval && !params.hostremoval_reference) { error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval requested but no --hostremoval_reference FASTA supplied. Check input.") }
-if (params.perform_shortread_hostremoval && !params.hostremoval_reference && params.shortread_hostremoval_index) { error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.") }
-if (params.perform_longread_hostremoval && !params.hostremoval_reference && params.longread_hostremoval_index) { error("ERROR: [nf-core/taxprofiler] --longread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.") }
-
-if (params.hostremoval_reference           ) { ch_reference = file(params.hostremoval_reference) }
-if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = Channel.fromPath(params.shortread_hostremoval_index).map{[[], it]} } else { ch_shortread_reference_index = [] }
-if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
-
-if (params.diamond_save_reads              ) log.warn "[nf-core/taxprofiler] DIAMOND only allows output of a single format. As --diamond_save_reads supplied, only aligned reads in SAM format will be produced, no taxonomic profiles will be available."
-
-if (params.run_malt && params.run_krona && !params.krona_taxonomy_directory) log.warn "[nf-core/taxprofiler] Krona can only be run on MALT output if path to Krona taxonomy database supplied to --krona_taxonomy_directory. Krona will not be executed in this run for MALT."
-if (params.run_bracken && !params.run_kraken2) error('ERROR: [nf-core/taxprofiler] You are attempting to run Bracken without running kraken2. This is not possible! Please set --run_kraken2 as well.')
-
-if ( [params.taxpasta_add_name, params.taxpasta_add_rank, params.taxpasta_add_lineage, params.taxpasta_add_lineage, params.taxpasta_add_idlineage, params.taxpasta_add_ranklineage].any() && !params.taxpasta_taxonomy_dir ) error('ERROR: [nf-core/taxprofiler] All --taxpasta_add_* parameters require a taxonomy supplied to --taxpasta_taxonomy_dir. However the latter parameter was not detected. Please check input.')
-
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
@@ -92,13 +51,6 @@ include { CAT_FASTQ as MERGE_RUNS     } from '../modules/nf-core/cat/fastq/main'
 
 workflow TAXPROFILER {
 
-    adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
-
-    if ( params.shortread_qc_adapterlist ) {
-        if ( params.shortread_qc_tool == 'adapterremoval' && !(adapterlist.extension == 'txt') ) error "[nf-core/taxprofiler] ERROR: AdapterRemoval2 adapter list requires a `.txt` format and extension. Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
-        if ( params.shortread_qc_tool == 'fastp' && !adapterlist.extension.matches(".*(fa|fasta|fna|fas)") ) error "[nf-core/taxprofiler] ERROR: fastp adapter list requires a `.fasta` format and extension (or fa, fas, fna). Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
-    }
-
     take:
     samplesheet // channel: samplesheet read in from --input
     databases // channel: databases from --databases
@@ -107,6 +59,12 @@ workflow TAXPROFILER {
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
+
+    // Preprocessing auxiliary file input channel preperation
+    adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
+    if (params.hostremoval_reference           ) { ch_reference = file(params.hostremoval_reference) }
+    if (params.shortread_hostremoval_index     ) { ch_shortread_reference_index = Channel.fromPath(params.shortread_hostremoval_index).map{[[], it]} } else { ch_shortread_reference_index = [] }
+    if (params.longread_hostremoval_index      ) { ch_longread_reference_index  = file(params.longread_hostremoval_index     ) } else { ch_longread_reference_index  = [] }
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
     ch_input = samplesheet
@@ -131,7 +89,7 @@ workflow TAXPROFILER {
             }
             return [ meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ]
         }
-        .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+        .branch { meta, _run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             fastq: meta.single_end || fastq_2
                 return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
             nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
@@ -160,7 +118,7 @@ workflow TAXPROFILER {
     // Filter the channel to untar only those databases for tools that are selected to be run by the user.
     // Also, to ensure only untar once per file, group together all databases of one file
     ch_inputdb_untar = ch_dbs_for_untar.untar
-        .filter { db_meta, db_path ->
+        .filter { db_meta, _db_path ->
             params[ "run_${db_meta.tool}" ]
         }
         .groupTuple(by: 1)
@@ -373,7 +331,7 @@ workflow TAXPROFILER {
         if ( params.preprocessing_qc_tool == 'falco' ) {
             // only mix in files actually used by MultiQC
             ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt
-                                .map { meta, reports -> reports }
+                                .map { _meta, reports -> reports }
                                 .flatten()
                                 .filter { path -> path.name.endsWith('_data.txt')}
                                 .ifEmpty([]))
