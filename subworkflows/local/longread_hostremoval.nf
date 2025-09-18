@@ -21,11 +21,11 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    if (!params.longread_hostremoval_index) {
+    if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'minimap2') {
         ch_hostremoval_index = MINIMAP2_INDEX([[], reference]).index
         ch_versions = ch_versions.mix(MINIMAP2_INDEX.out.versions)
     }
-    else if (!params.longread_hostremoval_index && !index && params.longread_hostremoval_tool == 'hostile') {
+    else if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'hostile') {
         HOSTILE_FETCH_LONGREADS(params.hostremoval_hostile_referencename)
         ch_versions = ch_versions.mix(HOSTILE_FETCH_LONGREADS.out.versions)
         ch_hostremoval_index = HOSTILE_FETCH_LONGREADS.out.reference

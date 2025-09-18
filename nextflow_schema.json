@@ -369,7 +369,7 @@
                 },
                 "longread_hostremoval_index": {
                     "type": "string",
-                    "format": "file-path",
+                    "format": "path",
                     "exists": true,
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference",

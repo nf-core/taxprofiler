@@ -86,7 +86,7 @@ workflow PIPELINE_INITIALISATION {
             error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.")
         }
         if (params.shortread_hostremoval_tool == 'hostile' && !params.hostremoval_hostile_referencename) {
-            error("ERROR: [nf-core/taxprofiler] --perform_shortread_hostremoval with hostile specified but no --hostremoval_hostile_referencename provided. Check input.")
+            error("ERROR: [nf-core/taxprofiler] --perform_shortread_hostremoval or --perform_longread_hostremoval with hostile specified but no --hostremoval_hostile_referencename provided. Check input.")
         }
     }
 

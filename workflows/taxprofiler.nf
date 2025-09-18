@@ -71,7 +71,7 @@ workflow TAXPROFILER {
         ch_shortread_reference_index = []
     }
     if (params.longread_hostremoval_index) {
-        ch_longread_reference_index = file(params.longread_hostremoval_index)
+        ch_longread_reference_index = Channel.fromPath(params.longread_hostremoval_index).map { [[], it] }
     }
     else {
         ch_longread_reference_index = []

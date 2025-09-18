@@ -19,11 +19,11 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
 
-    if (!params.shortread_hostremoval_index && params.shortread_hostremoval_tool == 'bowtie2') {
+    if (reference && !index && params.shortread_hostremoval_tool == 'bowtie2') {
         ch_hostremoval_index = BOWTIE2_BUILD([[], reference]).index
         ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
     }
-    else if (!params.shortread_hostremoval_index && !index && params.shortread_hostremoval_tool == 'hostile') {
+    else if (!index && params.shortread_hostremoval_tool == 'hostile') {
         HOSTILE_FETCH_SHORTREADS(params.hostremoval_hostile_referencename)
         ch_versions = ch_versions.mix(HOSTILE_FETCH_SHORTREADS.out.versions)
         ch_hostremoval_index = HOSTILE_FETCH_SHORTREADS.out.reference
