@@ -260,9 +260,10 @@ def toolCitationText() {
     ].join(' ').trim()
 
     def text_longreadhostremoval = [
-        "Host read removal was performed for long reads with minimap2 (Li et al. 2018) and SAMtools (Danecek et al. 2021)."
+        "Host read removal was performed for long reads with:",
+        params.longread_hostremoval_tool == "minimap2" ? "minimap2 (Li et al. 2018) and SAMtools (Danecek et al. 2021)." : "",
+        params.longread_hostremoval_tool == "hostile" ? "Hostile (Constantinides et al. 2023)." : "",
     ].join(' ').trim()
-
 
     def text_classification = [
         "Taxonomic classification or profiling was carried out with:",
@@ -341,9 +342,9 @@ def toolBibliographyText() {
     ].join(' ').trim()
 
     def text_longreadhostremoval = [
-        "<li>Li, H. (2018). Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics , 34(18), 3094–3100. <a href=\"https://doi.org/10.1093/bioinformatics/bty191\">10.1093/bioinformatics/bty191</a></li>"
+        params.longread_hostremoval_tool == "minimap2" ? "Li, H. (2018). Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics , 34(18), 3094–3100. <a href=\"https://doi.org/10.1093/bioinformatics/bty191\">10.1093/bioinformatics/bty191</a></li>" : "",
+        params.longread_hostremoval_tool == "hostile" ? "<li>Constantinides, B., Hunt, M., Crook, D.W., 2023. Hostile: accurate decontamination of microbial host sequences. Bioinformatics 39. <a href=\"https://doi.org/10.1093/bioinformatics/btad728\">10.1093/bioinformatics/btad728</a></li>" : "",
     ].join(' ').trim()
-
 
     def text_classification = [
         params.run_bracken ? "<li>Lu, J., Breitwieser, F. P., Thielen, P., & Salzberg, S. L. (2017). Bracken: estimating species abundance in metagenomics data. PeerJ. Computer Science, 3(e104), e104. <a href=\"https://doi.org/10.7717/peerj-cs.104\">10.7717/peerj-cs.104</a></li>" : "",
