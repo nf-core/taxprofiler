@@ -54,7 +54,7 @@ workflow VISUALIZATION_KRONA {
         Combine Kaiju profiles with their databases
     */
     ch_input_for_kaiju2krona = ch_input_classifications.kaiju
-        .map{ meta, profiles -> [[meta['tool'], meta['db_name']], meta, profiles] }
+        .map{ meta, kaiju_profiles -> [[meta['tool'], meta['db_name']], meta, kaiju_profiles] }
         .combine( databases.map{ meta, db -> [[meta['tool'], meta['db_name']], db] }, by: 0 )
         .multiMap{
             it ->

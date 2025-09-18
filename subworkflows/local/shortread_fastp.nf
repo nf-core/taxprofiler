@@ -27,9 +27,8 @@ workflow SHORTREAD_FASTP {
     if ( params.shortread_qc_mergepairs ) {
         ch_fastp_reads_prepped_pe = FASTP_PAIRED.out.reads_merged
                                         .map {
-                                            meta, reads ->
-                                                def meta_new = meta + [single_end: true]
-                                                [ meta + [single_end:true], [ reads ].flatten() ]
+                                            meta, merged_reads ->
+                                                [ meta + [single_end:true], [ merged_reads ].flatten() ]
                                         }
 
         ch_fastp_reads_prepped = ch_fastp_reads_prepped_pe.mix( FASTP_SINGLE.out.reads )

@@ -48,7 +48,7 @@ def combineProfilesWithDatabase(ch_profiles, ch_database) {
         .map { meta, profile -> [meta.id, meta, profile] }
         .combine(ch_database.map { db_meta, db -> [db_meta.db_name, db] }, by: 0)
         .multiMap {
-            key, meta, profile, db ->
+            _key, meta, profile, db ->
                 profile: [meta, profile]
                 db: db
         }
@@ -76,32 +76,32 @@ workflow STANDARDISATION_PROFILES {
                             }
                             .groupTuple ()
                             .map {
-                                meta, profiles ->
+                                meta, input_profiles ->
                                     meta = meta + [
                                         tool: meta.tool == 'kraken2-bracken' ? 'kraken2' : meta.tool, // replace to get the right output-format description
                                         id: meta.tool == 'kraken2-bracken' ? "${meta.db_name}-bracken" : "${meta.db_name}" // append so to disambiguate when we have same databases for kraken2 step of bracken, with normal bracken
                                     ]
-                                [ meta, profiles.flatten() ]
+                                [ meta, input_profiles.flatten() ]
                             }
 
     ch_taxpasta_tax_dir = params.taxpasta_taxonomy_dir ? Channel.fromPath(params.taxpasta_taxonomy_dir, checkIfExists: true).collect() : []
 
     ch_input_for_taxpasta = ch_prepare_for_taxpasta
                         .branch {
-                            meta, profile ->
+                            _meta, profile ->
                                 merge:      profile.size() > 1
                                 standardise: true
                         }
 
     ch_input_for_taxpasta_merge       = ch_input_for_taxpasta.merge
-                                            .multiMap{ meta, profiles ->
-                                                        profiles: [meta, profiles]
+                                            .multiMap{ meta, input_profiles ->
+                                                        profiles: [meta, input_profiles]
                                                         tool: meta.tool
                                                     }
 
     ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
-                                            .multiMap{ meta, profiles ->
-                                                        profiles: [meta, profiles]
+                                            .multiMap{ meta, input_profiles ->
+                                                        profiles: [meta, input_profiles]
                                                         tool: meta.tool
                                                     }
 
