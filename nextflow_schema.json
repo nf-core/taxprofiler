@@ -357,7 +357,7 @@
                     "format": "directory-path",
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to the directory containing pre-made Bowtie2 or Hostile indexes of the host removal reference",
-                    "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 or Hostile reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.).\n\nIf running Bowtie2, these should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\nHostile does not require the reference file, and you should supply the Hostile cache directory ($HOSTILE_CACHE_DIR) containing the Hostile index files.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate (bowtie2) or download (Hostile) the indices for you."
+                    "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 or Hostile reference index files (i.e., the directory containing `.bt1`, `.bt2` files etc.).\n\nIf running Bowtie2, these should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\n\nHostile does not require the reference file, and you should supply the Hostile cache directory ($HOSTILE_CACHE_DIR) containing the Hostile index files.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate (bowtie2) or download (Hostile) the indices for you."
                 },
                 "hostremoval_reference": {
                     "type": "string",
@@ -373,7 +373,7 @@
                     "exists": true,
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference",
-                    "help_text": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference file given to `--hostremoval_reference`.\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
+                    "help_text": "Specify path to a pre-made Minimap2 index file or Hostile reference index (i.e., .mmi) .\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you.\n\nHostile does not require the reference file, and you should supply the Hostile cache directory ($HOSTILE_CACHE_DIR) containing the Hostile index files.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate (bowtie2) or download (Hostile) the indices for you."
                 },
                 "hostremoval_hostile_referencename": {
                     "type": "string",
