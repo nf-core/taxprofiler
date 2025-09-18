@@ -76,7 +76,6 @@ workflow PIPELINE_INITIALISATION {
     Channel.fromList(samplesheetToList(params.databases, "assets/schema_database.json"))
         .set { ch_databases }
 
-
     // Input parameter validation
 
     if (params.perform_shortread_hostremoval) {
