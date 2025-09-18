@@ -45,7 +45,7 @@ workflow LONGREAD_HOSTREMOVAL {
         SAMTOOLS_VIEW(ch_minimap2_mapped, [[], []], [])
         ch_versions = ch_versions.mix(SAMTOOLS_VIEW.out.versions.first())
 
-        SAMTOOLS_FASTQ(SAMTOOLS_VIEW.out.bam, false)
+        ch_cleaned_reads = SAMTOOLS_FASTQ(SAMTOOLS_VIEW.out.bam, false)
         ch_versions = ch_versions.mix(SAMTOOLS_FASTQ.out.versions.first())
 
         // Indexing whole BAM for host removal statistics
@@ -58,10 +58,19 @@ workflow LONGREAD_HOSTREMOVAL {
         ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
     }
+    else if (params.longread_hostremoval_tool == 'hostile') {
+        // HOSTILE specifically needs a name of the reference to either download or
+        // find the correct files in the index directory
+        ch_hostremoval_index_hostile = ch_hostremoval_index.map { _meta, indexdir -> [params.hostremoval_hostile_referencename, indexdir] }
+
+        HOSTILE_CLEAN_LONGREADS(reads, ch_hostremoval_index_hostile)
+        ch_versions = ch_versions.mix(HOSTILE_CLEAN_LONGREADS.out.versions)
+        ch_cleaned_reads = HOSTILE_CLEAN_LONGREADS.out.fastq
+        ch_multiqc_files = ch_multiqc_files.mix(HOSTILE_CLEAN_LONGREADS.out.json)
+    }
 
     emit:
-    stats    = SAMTOOLS_STATS.out.stats //channel: [val(meta), [reads  ] ]
-    reads    = SAMTOOLS_FASTQ.out.other // channel: [ val(meta), [ reads ] ]
+    reads    = ch_cleaned_reads // channel: [ val(meta), [ reads ] ]
     versions = ch_versions // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }
