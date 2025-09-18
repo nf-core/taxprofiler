@@ -33,7 +33,6 @@ workflow SHORTREAD_HOSTREMOVAL {
     }
 
     if (params.shortread_hostremoval_tool == 'bowtie2') {
-
         // Map, generate BAM with all reads and unmapped reads in FASTQ for downstream
         BOWTIE2_ALIGN(reads, ch_hostremoval_index, [[], reference], true, true)
         ch_versions = ch_versions.mix(BOWTIE2_ALIGN.out.versions.first())

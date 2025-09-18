@@ -249,6 +249,8 @@ workflow TAXPROFILER {
                 cat: (meta.single_end && reads.size() > 1) || (!meta.single_end && reads.size() > 2)
                 skip: true
             }
+        // we can't concatenate files if there is not a second run, so we branch
+        // here to separate them out, and mix back in after for efficiency
 
         ch_reads_runmerged = MERGE_RUNS(ch_reads_for_cat_branch.cat).reads
             .mix(ch_reads_for_cat_branch.skip)
