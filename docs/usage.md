@@ -138,6 +138,7 @@ motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 sylph,db1,-m 80,/<path>/<to>/sylph/test-db-sylph.tar.gz
+melon,db1,,/<path>/<to>/melon/test-db-melon.tar.gz
 ```
 
 ```csv
@@ -153,6 +154,7 @@ motus,db_mOTU,,long,/<path>/<to>/motus/motus_database/
 ganon,db1,,short,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,short,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 sylph,db1,-m 80,long,/<path>/<to>/sylph/test-db-sylph.tar.gz
+melon,db1,,long,/<path>/<to>/melon/test-db-melon.tar.gz
 ```
 
 :::warning
@@ -204,6 +206,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
 - [**sylph**:](usage/tutotials.md#sylph-custom-database) output of `sylph sketch` command.
+- [**Melon**:](usage/tutorials.md#melon-custom-database) output of `diamond makedb` and `minimap2`.
 
 ## Running the pipeline
 
@@ -482,6 +485,11 @@ KMCP is only suitable for short-read metagenomic profiling, with much lower sens
 ##### sylph
 
 Currently, no specific tips or suggestions.
+
+##### melon
+
+Melon is only suitable for long-read metagenomic profiling.
+Therefore, nf-core/taxprofiler does not currently run Melon on data specified as being sequenced with `illumina` or any other short-read platform in the input samplesheet.
 
 #### Post Processing
 
