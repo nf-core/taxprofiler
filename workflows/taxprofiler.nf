@@ -84,7 +84,7 @@ workflow TAXPROFILER {
             meta.instrument_platform = instrument_platform
 
             // Define single_end based on the conditions
-            meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE')
+            meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' && instrument_platform != 'PACBIO_SMRT')
 
             // Define is_fasta based on the presence of fasta
             meta.is_fasta = fasta ? true : false
@@ -115,7 +115,7 @@ workflow TAXPROFILER {
             fasta_short: meta.is_fasta && instrument_platform == 'ILLUMINA'
             meta.single_end = true
             return [meta + [type: "short"], [fasta]]
-            fasta_long: meta.is_fasta && instrument_platform == 'OXFORD_NANOPORE'
+            fasta_long: meta.is_fasta && (instrument_platform == 'OXFORD_NANOPORE' || instrument_platform == 'PACBIO_SMRT')
             meta.single_end = true
             return [meta + [type: "long"], [fasta]]
         }
