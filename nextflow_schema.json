@@ -338,28 +338,48 @@
                     "description": "Turn on long-read host removal",
                     "help_text": "Turns on the ability to remove long-reads from the that derived from a known organism, using minimap2 and samtools\n\nThis subworkflow is useful to remove reads that may come from a host, or a known contamination like the human reference genome. Human DNA contamination of (microbial) reference genomes is well known, so removal of these prior profiling both reduces the risks of false positives, and in _some cases_ a faster runtime (as less reads need to be profiled).\n\nAlternatively, you can include the reference genome within your profiling databases and can turn off this subworkflow, with the trade off of a larger taxonomic profiling database."
                 },
-                "hostremoval_reference": {
+                "shortread_hostremoval_tool": {
                     "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "fa_icon": "fas fa-file-alt",
-                    "description": "Specify path to single reference FASTA of host(s) genome(s)",
-                    "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
+                    "default": "bowtie2",
+                    "fa_icon": "fas fa-hammer",
+                    "description": "Specify which tool to use for short read host removal",
+                    "enum": ["bowtie2", "hostile", "deacon"]
+                },
+                "longread_hostremoval_tool": {
+                    "type": "string",
+                    "default": "minimap2",
+                    "fa_icon": "fas fa-hammer",
+                    "description": "Specify which tool to use for long read host removal",
+                    "enum": ["minimap2", "hostile", "deacon"]
                 },
                 "shortread_hostremoval_index": {
                     "type": "string",
                     "format": "directory-path",
                     "fa_icon": "fas fa-address-book",
-                    "description": "Specify path to the directory containing pre-made BowTie2 indexes of the host removal reference",
-                    "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 reference index files (i.e. the directory containing `.bt1`, `.bt2` files etc.). These should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
+                    "description": "Specify path to the directory containing pre-made Bowtie2 or Hostile indexes of the host removal reference",
+                    "help_text": "Specify the path to a _directory_ containing pre-made Bowtie2 or Hostile reference index files (i.e., the directory containing `.bt1`, `.bt2` files etc.).\n\nIf running Bowtie2, these should sit in the same directory alongside the the reference file specified in `--hostremoval_reference`.\n\nHostile does not require the reference file, and you should supply the Hostile cache directory ($HOSTILE_CACHE_DIR) containing the Hostile index files.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate (bowtie2) or download (Hostile) the indices for you."
                 },
-                "longread_hostremoval_index": {
+                "hostremoval_reference": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
+                    "fa_icon": "fas fa-file-alt",
+                    "description": "Specify path to the reference genome FASTA for Bowtie2 of host reads to remove (Bowtie2 only)",
+                    "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed using Bowtie2.\n\nThis is not required for Hostile.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
+                },
+                "longread_hostremoval_index": {
+                    "type": "string",
+                    "format": "path",
+                    "exists": true,
                     "fa_icon": "fas fa-address-book",
                     "description": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference",
-                    "help_text": "Specify path to a pre-made Minimap2 index file (.mmi) of the host removal reference file given to `--hostremoval_reference`.\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you."
+                    "help_text": "Specify path to a pre-made Minimap2 index file or Hostile reference index (i.e., .mmi) .\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you.\n\nHostile does not require the reference file, and you should supply the Hostile cache directory ($HOSTILE_CACHE_DIR) containing the Hostile index files.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate (bowtie2) or download (Hostile) the indices for you."
+                },
+                "hostremoval_hostile_referencename": {
+                    "type": "string",
+                    "description": "Specify the name of the hostile index supplied, or for Hostile to download",
+                    "help_text": "Hostile provides pre-build index of common organisms. \nIf you have not pre-downloaded the reference index, the pipeline can do this for you.\n\nHowever in both cases you (self-supply, or download) need to supply the name of the particular index that will be used. ",
+                    "fa_icon": "fas fa-address-book"
                 },
                 "save_hostremoval_index": {
                     "type": "boolean",

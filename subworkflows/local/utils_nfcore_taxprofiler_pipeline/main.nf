@@ -73,8 +73,28 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate and create channel from databases file provided through params.databases
     //
-    Channel.fromList(samplesheetToList(databases, "assets/schema_database.json"))
+    Channel.fromList(samplesheetToList(params.databases, "assets/schema_database.json"))
         .set { ch_databases }
+
+    // Input parameter validation
+
+    if (params.perform_shortread_hostremoval) {
+        if (params.shortread_hostremoval_tool == 'bowtie2' && !params.hostremoval_reference) {
+            error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval with Bowtie2 requested, but no --hostremoval_reference FASTA supplied. Check input.")
+        }
+        if (params.shortread_hostremoval_tool == 'bowtie2' && !params.hostremoval_reference && params.shortread_hostremoval_index) {
+            error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.")
+        }
+        if (params.shortread_hostremoval_tool == 'hostile' && !params.hostremoval_hostile_referencename) {
+            error("ERROR: [nf-core/taxprofiler] --perform_shortread_hostremoval or --perform_longread_hostremoval with hostile specified but no --hostremoval_hostile_referencename provided. Check input.")
+        }
+    }
+
+    if (params.perform_longread_hostremoval) {
+        if (!params.hostremoval_reference && params.longread_hostremoval_index) {
+            error("ERROR: [nf-core/taxprofiler] --longread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.")
+        }
+    }
 
     //
     // Validate parameter inputs
@@ -233,13 +253,16 @@ def toolCitationText() {
     ].join(' ').trim()
 
     def text_shortreadhostremoval = [
-        "Host read removal was performed for short reads with Bowtie2 (Langmead and Salzberg 2012) and SAMtools (Danecek et al. 2021)."
+        "Host read removal was performed for short reads with:",
+        params.shortread_hostremoval_tool == "bowtie2" ? "Bowtie2 (Langmead and Salzberg 2012) and SAMtools (Danecek et al. 2021)." : "",
+        params.shortread_hostremoval_tool == "hostile" ? "Hostile (Constantinides et al. 2023)." : "",
     ].join(' ').trim()
 
     def text_longreadhostremoval = [
-        "Host read removal was performed for long reads with minimap2 (Li et al. 2018) and SAMtools (Danecek et al. 2021)."
+        "Host read removal was performed for long reads with:",
+        params.longread_hostremoval_tool == "minimap2" ? "minimap2 (Li et al. 2018) and SAMtools (Danecek et al. 2021)." : "",
+        params.longread_hostremoval_tool == "hostile" ? "Hostile (Constantinides et al. 2023)." : "",
     ].join(' ').trim()
-
 
     def text_classification = [
         "Taxonomic classification or profiling was carried out with:",
@@ -313,13 +336,14 @@ def toolBibliographyText() {
     ].join(' ').trim()
 
     def text_shortreadhostremoval = [
-        "<li>Langmead, B., & Salzberg, S. L. (2012). Fast gapped-read alignment with Bowtie 2. Nature Methods, 9(4), 357–359. <a href=\"https://doi.org/10.1038/nmeth.1923\">10.1038/nmeth.1923</a></li>"
+        params.shortread_hostremoval_tool == "bowtie2" ? "<li>Langmead, B., & Salzberg, S. L. (2012). Fast gapped-read alignment with Bowtie 2. Nature Methods, 9(4), 357–359. <a href=\"https://doi.org/10.1038/nmeth.1923\">10.1038/nmeth.1923</a></li>" : "",
+        params.shortread_hostremoval_tool == "hostile" ? "<li>Constantinides, B., Hunt, M., Crook, D.W., 2023. Hostile: accurate decontamination of microbial host sequences. Bioinformatics 39. <a href=\"https://doi.org/10.1093/bioinformatics/btad728\">10.1093/bioinformatics/btad728</a></li>" : "",
     ].join(' ').trim()
 
     def text_longreadhostremoval = [
-        "<li>Li, H. (2018). Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics , 34(18), 3094–3100. <a href=\"https://doi.org/10.1093/bioinformatics/bty191\">10.1093/bioinformatics/bty191</a></li>"
+        params.longread_hostremoval_tool == "minimap2" ? "Li, H. (2018). Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics , 34(18), 3094–3100. <a href=\"https://doi.org/10.1093/bioinformatics/bty191\">10.1093/bioinformatics/bty191</a></li>" : "",
+        params.longread_hostremoval_tool == "hostile" ? "<li>Constantinides, B., Hunt, M., Crook, D.W., 2023. Hostile: accurate decontamination of microbial host sequences. Bioinformatics 39. <a href=\"https://doi.org/10.1093/bioinformatics/btad728\">10.1093/bioinformatics/btad728</a></li>" : "",
     ].join(' ').trim()
-
 
     def text_classification = [
         params.run_bracken ? "<li>Lu, J., Breitwieser, F. P., Thielen, P., & Salzberg, S. L. (2017). Bracken: estimating species abundance in metagenomics data. PeerJ. Computer Science, 3(e104), e104. <a href=\"https://doi.org/10.7717/peerj-cs.104\">10.7717/peerj-cs.104</a></li>" : "",
