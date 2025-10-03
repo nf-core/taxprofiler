@@ -121,7 +121,7 @@ workflow TAXPROFILER {
         }
 
     // Merge ch_input.fastq and ch_input.nanopore into a single channel
-    ch_input_for_fastqc = ch_input.fastq.mix(ch_input.nanopore)
+    ch_input_for_fastqc = ch_input.fastq.mix(ch_input.nanopore, ch_input.pacbio )
 
     // Validate and decompress databases
     ch_dbs_for_untar = databases.branch { db_meta, db_path ->
