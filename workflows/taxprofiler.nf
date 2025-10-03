@@ -84,7 +84,7 @@ workflow TAXPROFILER {
             meta.instrument_platform = instrument_platform
 
             // Define single_end based on the conditions
-            meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE')
+            meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' && instrument_platform != 'PACBIO_SMRT')
 
             // Define is_fasta based on the presence of fasta
             meta.is_fasta = fasta ? true : false
@@ -94,6 +94,9 @@ workflow TAXPROFILER {
             }
             if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
                 error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
+            }
+            if (meta.instrument_platform == 'PACBIO_SMRT' && fastq_2) {
+                error("Error: Please check input samplesheet: for PacBio reads entry `fastq_2` should be empty!")
             }
             if (meta.single_end && fastq_2) {
                 error("Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty")
@@ -106,16 +109,19 @@ workflow TAXPROFILER {
             nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
             meta.single_end = true
             return [meta + [type: "long"], [fastq_1]]
+            pacbio: instrument_platform == 'PACBIO_SMRT' && !meta.is_fasta
+            meta.single_end = true
+            return [meta + [type: "long"], [fastq_1]]
             fasta_short: meta.is_fasta && instrument_platform == 'ILLUMINA'
             meta.single_end = true
             return [meta + [type: "short"], [fasta]]
-            fasta_long: meta.is_fasta && instrument_platform == 'OXFORD_NANOPORE'
+            fasta_long: meta.is_fasta && (instrument_platform == 'OXFORD_NANOPORE' || instrument_platform == 'PACBIO_SMRT')
             meta.single_end = true
             return [meta + [type: "long"], [fasta]]
         }
 
     // Merge ch_input.fastq and ch_input.nanopore into a single channel
-    ch_input_for_fastqc = ch_input.fastq.mix(ch_input.nanopore)
+    ch_input_for_fastqc = ch_input.fastq.mix(ch_input.nanopore, ch_input.pacbio )
 
     // Validate and decompress databases
     ch_dbs_for_untar = databases.branch { db_meta, db_path ->
@@ -184,11 +190,11 @@ workflow TAXPROFILER {
     }
 
     if (params.perform_longread_qc) {
-        ch_longreads_preprocessed = LONGREAD_PREPROCESSING(ch_input.nanopore).reads.map { it -> [it[0], [it[1]]] }
+        ch_longreads_preprocessed_nanopore = LONGREAD_PREPROCESSING(ch_input.nanopore).reads.map { it -> [it[0], [it[1]]] }
         ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions)
     }
     else {
-        ch_longreads_preprocessed = ch_input.nanopore
+        ch_longreads_preprocessed_nanopore = ch_input.nanopore
     }
 
     /*
@@ -224,7 +230,7 @@ workflow TAXPROFILER {
     else {
         ch_shortreads_hostremoved = ch_shortreads_filtered
     }
-
+    ch_longreads_preprocessed = ch_longreads_preprocessed_nanopore.mix(ch_input.pacbio)
     if (params.perform_longread_hostremoval) {
         ch_longreads_hostremoved = LONGREAD_HOSTREMOVAL(ch_longreads_preprocessed, ch_reference, ch_longread_reference_index).reads
         ch_versions = ch_versions.mix(LONGREAD_HOSTREMOVAL.out.versions)
