@@ -29,6 +29,7 @@ include { SHORTREAD_COMPLEXITYFILTERING } from '../subworkflows/local/shortread_
 include { PROFILING                     } from '../subworkflows/local/profiling'
 include { VISUALIZATION_KRONA           } from '../subworkflows/local/visualization_krona'
 include { STANDARDISATION_PROFILES      } from '../subworkflows/local/standardisation_profiles'
+include { SAMPLESHEET_METAVAL           }  from '../subworkflows/local/samplesheet_metaval/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -213,6 +214,8 @@ workflow TAXPROFILER {
         ch_shortreads_filtered = ch_shortreads_preprocessed
     }
 
+    ch_processed_reads = ch_shortreads_filtered.mix(ch_longreads_preprocessed)
+
     /*
         SUBWORKFLOW: HOST REMOVAL
     */
@@ -287,6 +290,18 @@ workflow TAXPROFILER {
         STANDARDISATION_PROFILES(PROFILING.out.classifications, PROFILING.out.profiles, ch_final_dbs, PROFILING.out.motus_version)
         ch_versions = ch_versions.mix(STANDARDISATION_PROFILES.out.versions)
     }
+
+
+    /*
+        Generate metaval samplesheet
+    */
+
+    //SAMPLESHEET_METAVAL(
+    //    "${params.outdir}/processed_reads.csv",
+    //    "${params.outdir}/classifications.csv",
+    //    "${params.outdir}/profiles.csv",
+    //    "${params.outdir}/taxpasta.csv"
+    //)
 
     /*
         MODULE: MultiQC
@@ -393,7 +408,23 @@ workflow TAXPROFILER {
         [],
     )
 
+
     emit:
-    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
-    versions       = ch_versions // channel: [ path(versions.yml) ]
+    multiqc_report         = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
+    multiqc_data           = MULTIQC.out.data
+    multiqc_plots          = MULTIQC.out.plots
+    processed_reads        = ch_processed_reads
+    classifications        = PROFILING.out.classifications
+    profiles               = PROFILING.out.profiles
+    bracken_kraken2_report = PROFILING.out.bracken_kraken2_report
+    centrifuge_report      = PROFILING.out.centrifuge_report
+    diamond_log            = PROFILING.out.diamond_log
+    ganon_outputs          = PROFILING.out.ganon_outputs
+    kmcp_search            = PROFILING.out.kmcp_search
+    metaphlan_outputs      = PROFILING.out.metaphlan_outputs
+    profile_saved_reads    = PROFILING.out.profile_saved_reads
+    taxpasta               = STANDARDISATION_PROFILES.out.taxpasta
+    combined_report        = STANDARDISATION_PROFILES.out.combined_report
+    versions               = ch_versions // channel: [ path(versions.yml) ]
+
 }

@@ -31,7 +31,14 @@ workflow PROFILING {
     ch_raw_classifications = Channel.empty()
     // These per-read ID taxonomic assingment
     ch_raw_profiles = Channel.empty()
+    ch_bracken_kraken2_report = Channel.empty()
+    ch_centrifuge_report = Channel.empty()
+    ch_diamond_log = Channel.empty()
+    ch_ganon_outputs = Channel.empty()
+    ch_kmcp_search = Channel.empty()
+    ch_metaphlan_outputs = Channel.empty()
     // These are count tables
+    ch_save_reads = Channel.empty()
 
     /*
         COMBINE READS WITH POSSIBLE DATABASES
@@ -169,9 +176,12 @@ workflow PROFILING {
         ch_raw_classifications = ch_raw_classifications.mix(KRAKEN2_KRAKEN2.out.classified_reads_assignment)
         ch_raw_profiles = ch_raw_profiles.mix(
             KRAKEN2_KRAKEN2.out.report.map { meta, report ->
-                [meta + [tool: meta.tool == 'bracken' ? 'kraken2-bracken' : meta.tool], report]
+                [ meta + [tool: meta.tool == 'bracken' ? 'kraken2-bracken' : meta.tool], report]
             }
         )
+        if (params.kraken2_save_reads) {
+            ch_save_reads = ch_save_reads.mix( KRAKEN2_KRAKEN2.out.classified_reads_fastq, KRAKEN2_KRAKEN2.out.unclassified_reads_fastq )
+        }
     }
 
     if (params.run_kraken2 && params.run_bracken) {
@@ -228,6 +238,7 @@ workflow PROFILING {
         BRACKEN_BRACKEN(ch_input_for_bracken.report, ch_input_for_bracken.db)
         ch_versions = ch_versions.mix(BRACKEN_BRACKEN.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(BRACKEN_BRACKEN.out.reports)
+        ch_bracken_kraken2_report = ch_bracken_kraken2_report.mix(BRACKEN_BRACKEN.out.txt)
     }
 
     if (params.run_centrifuge) {
@@ -247,6 +258,7 @@ workflow PROFILING {
         CENTRIFUGE_CENTRIFUGE(ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads)
         ch_versions = ch_versions.mix(CENTRIFUGE_CENTRIFUGE.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(CENTRIFUGE_CENTRIFUGE.out.results)
+        ch_centrifuge_report = ch_centrifuge_report.mix(CENTRIFUGE_CENTRIFUGE.out.report)
 
         // Ensure the correct database goes with the generated report for KREPORT
         ch_database_for_centrifugekreport = databases
@@ -260,6 +272,9 @@ workflow PROFILING {
         ch_versions = ch_versions.mix(CENTRIFUGE_KREPORT.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(CENTRIFUGE_KREPORT.out.kreport)
         ch_multiqc_files = ch_multiqc_files.mix(CENTRIFUGE_KREPORT.out.kreport)
+        if (params.centrifuge_save_reads) {
+            ch_save_reads = ch_save_reads.mix ( CENTRIFUGE_CENTRIFUGE.out.fastq_mapped, CENTRIFUGE_CENTRIFUGE.out.fastq_unmapped )
+        }
     }
 
     if (params.run_metaphlan) {
@@ -273,6 +288,7 @@ workflow PROFILING {
         ch_versions = ch_versions.mix(METAPHLAN_METAPHLAN.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(METAPHLAN_METAPHLAN.out.profile)
         ch_multiqc_files = ch_multiqc_files.mix(METAPHLAN_METAPHLAN.out.profile)
+        ch_metaphlan_outputs = ch_metaphlan_outputs.mix(METAPHLAN_METAPHLAN.out.biom, METAPHLAN_METAPHLAN.out.bt2out)
     }
 
     if (params.run_kaiju) {
@@ -315,6 +331,7 @@ workflow PROFILING {
         DIAMOND_BLASTX(ch_input_for_diamond.reads, ch_input_for_diamond.db, ch_diamond_reads_format, [])
         ch_versions = ch_versions.mix(DIAMOND_BLASTX.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(DIAMOND_BLASTX.out.tsv)
+        ch_diamond_log = ch_diamond_log.mix(DIAMOND_BLASTX.out.log)
         ch_multiqc_files = ch_multiqc_files.mix(DIAMOND_BLASTX.out.log)
     }
 
@@ -410,6 +427,7 @@ workflow PROFILING {
 
         ch_versions = ch_versions.mix(KMCP_SEARCH.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(KMCP_SEARCH.out.result)
+        ch_kmcp_search = ch_kmcp_search.mix(KMCP_SEARCH.out.result)
 
         ch_database_for_kmcp_profile = databases
             .filter { meta, _db -> meta.tool == 'kmcp' }
@@ -465,6 +483,8 @@ workflow PROFILING {
         ch_input_for_ganonclassify.reads
 
         GANON_CLASSIFY(ch_input_for_ganonclassify.reads, ch_input_for_ganonclassify.db)
+        ch_ganon_outputs = ch_ganon_outputs.mix(GANON_CLASSIFY.out.tre, GANON_CLASSIFY.out.report,
+            GANON_CLASSIFY.out.unc, GANON_CLASSIFY.out.log)
         ch_versions = ch_versions.mix(GANON_CLASSIFY.out.versions.first())
 
         ch_database_for_ganonreport = databases
@@ -482,11 +502,18 @@ workflow PROFILING {
     }
 
     emit:
-    classifications = ch_raw_classifications
-    profiles        = ch_raw_profiles // channel: [ val(meta), [ reads ] ] - should be text files or biom
-    versions        = ch_versions // channel: [ versions.yml ]
-    motus_version   = params.run_motus ? MOTUS_PROFILE.out.versions.first() : Channel.empty()
-    mqc             = ch_multiqc_files
+    classifications         = ch_raw_classifications
+    profiles                = ch_raw_profiles // channel: [ val(meta), [ reads ] ] - should be text files or biom
+    bracken_kraken2_report  = ch_bracken_kraken2_report
+    centrifuge_report       = ch_centrifuge_report
+    diamond_log             = ch_diamond_log
+    ganon_outputs           = ch_ganon_outputs
+    kmcp_search             = ch_kmcp_search
+    metaphlan_outputs       = ch_metaphlan_outputs
+    profile_saved_reads     = ch_save_reads
+    versions                = ch_versions // channel: [ versions.yml ]
+    motus_version           = params.run_motus ? MOTUS_PROFILE.out.versions.first() : Channel.empty()
+    mqc                     = ch_multiqc_files
 }
 
 
