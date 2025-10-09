@@ -269,7 +269,7 @@ workflow PROFILING {
             db: it[3]
         }
 
-        METAPHLAN_METAPHLAN(ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db)
+        METAPHLAN_METAPHLAN(ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db, params.metaphlan_save_samfiles)
         ch_versions = ch_versions.mix(METAPHLAN_METAPHLAN.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(METAPHLAN_METAPHLAN.out.profile)
         ch_multiqc_files = ch_multiqc_files.mix(METAPHLAN_METAPHLAN.out.profile)
