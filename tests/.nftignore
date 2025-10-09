@@ -16,7 +16,6 @@ bracken/*combined_reports.txt
 centrifuge/*/*.mapped.fastq.gz
 centrifuge/*/*results.txt
 centrifuge/*/*.unmapped.fastq.gz
-diamond/*/*.{tsv,log,txt}
 fastp/*.{html,zip,json,log}
 kaiju/*/*.tsv
 kaiju/*.txt

@@ -340,6 +340,40 @@
         },
         "timestamp": "2025-10-09T11:24:08.67879396"
     },
+    "diamond": {
+        "content": [
+            [
+                
+            ],
+            [
+                "db1/2611_db1.diamond.log",
+                "db1/2611_db1.diamond.tsv",
+                "db1/2612_db1.diamond.log",
+                "db1/2612_db1.diamond.tsv",
+                "db1/2613_db1.diamond.log",
+                "db1/2613_db1.diamond.tsv",
+                "db2/2614_db2.diamond.log",
+                "db2/2614_db2.diamond.tsv",
+                "db2/ERR3201952_db2.diamond.log",
+                "db2/ERR3201952_db2.diamond.tsv",
+                "db3/2611_db3.diamond.log",
+                "db3/2611_db3.diamond.tsv",
+                "db3/2612_db3.diamond.log",
+                "db3/2612_db3.diamond.tsv",
+                "db3/2613_db3.diamond.log",
+                "db3/2613_db3.diamond.tsv",
+                "db3/2614_db3.diamond.log",
+                "db3/2614_db3.diamond.tsv",
+                "db3/ERR3201952_db3.diamond.log",
+                "db3/ERR3201952_db3.diamond.tsv"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.7"
+        },
+        "timestamp": "2025-10-09T14:43:40.65677498"
+    },
     "-profile test": {
         "content": [
             186,
