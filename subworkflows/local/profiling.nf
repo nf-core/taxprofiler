@@ -356,14 +356,14 @@ workflow PROFILING {
     }
 
     if (params.run_krakenuniq) {
-
+        ch_input_for_profiling.krakenuniq.dump(tag:"krakenuniq")
         ch_input_for_krakenuniq = ch_input_for_profiling.krakenuniq
-            .map { meta, _input_reads, db_meta, db ->
-                def seqtype = reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/ ? 'fasta' : 'fastq'
+            .map { meta, input_reads, db_meta, db ->
+                def seqtype = input_reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/ ? 'fasta' : 'fastq'
                 // We bundle the sample identifier with the sequencing files to undergo batching.
                 def prefix = params.perform_runmerging ? meta.id : "${meta.id}_${meta.run_accession}"
                 prefix = meta.single_end ? "${prefix}.se" : "${prefix}.pe"
-                [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], [reads].flatten() + [prefix], db_meta, db]
+                [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], [input_reads].flatten() + [prefix], db_meta, db]
             }
             .groupTuple(by: [0, 2, 3])
             .flatMap { single_meta, input_reads, db_meta, db ->

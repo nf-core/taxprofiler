@@ -286,22 +286,14 @@ workflow TAXPROFILER {
     /*
         SUBWORKFLOW: PROFILING STANDARDISATION
     */
+    ch_taxpasta = Channel.empty()
+    ch_combined_report = Channel.empty()
     if (params.run_profile_standardisation) {
         STANDARDISATION_PROFILES(PROFILING.out.classifications, PROFILING.out.profiles, ch_final_dbs, PROFILING.out.motus_version)
         ch_versions = ch_versions.mix(STANDARDISATION_PROFILES.out.versions)
+        ch_taxpasta = ch_taxpasta.mix(STANDARDISATION_PROFILES.out.taxpasta)
+        ch_combined_report = ch_combined_report.mix(STANDARDISATION_PROFILES.out.combined_report)
     }
-
-
-    /*
-        Generate metaval samplesheet
-    */
-
-    //SAMPLESHEET_METAVAL(
-    //    "${params.outdir}/processed_reads.csv",
-    //    "${params.outdir}/classifications.csv",
-    //    "${params.outdir}/profiles.csv",
-    //    "${params.outdir}/taxpasta.csv"
-    //)
 
     /*
         MODULE: MultiQC
@@ -423,8 +415,8 @@ workflow TAXPROFILER {
     kmcp_search            = PROFILING.out.kmcp_search
     metaphlan_outputs      = PROFILING.out.metaphlan_outputs
     profile_saved_reads    = PROFILING.out.profile_saved_reads
-    taxpasta               = STANDARDISATION_PROFILES.out.taxpasta
-    combined_report        = STANDARDISATION_PROFILES.out.combined_report
+    taxpasta               = ch_taxpasta
+    combined_report        = ch_combined_report
     versions               = ch_versions // channel: [ path(versions.yml) ]
 
 }

@@ -102,14 +102,20 @@ workflow {
                 file: file
             ]
         }
-    taxpasta = NFCORE_TAXPROFILER.out.taxpasta
-        .map { meta, file ->
-            [
-                tool: meta.tool,
-                db_name: meta.db_name,
-                file: file
-            ]
-        }
+
+    taxpasta = Channel.empty()
+    combined_report = Channel.empty()
+    if ( params.run_profile_standardisation ) {
+        taxpasta = taxpasta.mix(NFCORE_TAXPROFILER.out.taxpasta)
+            .map { meta, file ->
+                [
+                    tool: meta.tool,
+                    db_name: meta.db_name,
+                    file: file
+                ]
+            }
+        combined_report = combined_report.mix(NFCORE_TAXPROFILER.out.combined_report)
+    }
 
 
     publish:
@@ -124,7 +130,7 @@ workflow {
     metaphlan_outputs      = NFCORE_TAXPROFILER.out.metaphlan_outputs
     profile_saved_reads    = profile_saved_reads
     taxpasta               = taxpasta
-    combined_report        = NFCORE_TAXPROFILER.out.combined_report
+    combined_report        = combined_report
 }
 
 output {
@@ -138,7 +144,6 @@ output {
                 null
             }
         }
-        enabled false
         index {
             path 'processed_reads.csv'
             header true
@@ -148,7 +153,7 @@ output {
     'classifications' {
         path { rec ->
             if (rec.tool == "bracken") {
-                "kraken2/${rec.db_name}"
+                "kraken2/${rec.db_name}_bracken"
             } else {
                 "${rec.tool}/${rec.db_name}"
             }
@@ -162,7 +167,7 @@ output {
     'profiles' {
         path { rec ->
             if (rec.tool == "kraken2-bracken") {
-                "kraken2/${rec.db_name}"
+                "kraken2/${rec.db_name}_bracken"
             } else {
                 "${rec.tool}/${rec.db_name}"
             }
@@ -208,7 +213,7 @@ output {
     'profile_saved_reads' {
         path { rec ->
             if (rec.tool == "bracken") {
-                "kraken2/${rec.db_name}"
+                "kraken2/${rec.db_name}_bracken"
             } else {
                 "${rec.tool}/${rec.db_name}"
             }
@@ -216,6 +221,7 @@ output {
     }
     'taxpasta' {
         path "taxpasta"
+        enabled params.run_profile_standardisation
         index {
             path 'taxpasta.csv'
             header true
