@@ -22,6 +22,7 @@ workflow STANDARDISATION_PROFILES {
     main:
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
+    ch_combined_report = Channel.empty()
 
     //Taxpasta standardisation
     ch_prepare_for_taxpasta = profiles
@@ -101,6 +102,7 @@ workflow STANDARDISATION_PROFILES {
     ch_profiles_for_bracken = groupProfiles(ch_input_profiles.bracken)
 
     BRACKEN_COMBINEBRACKENOUTPUTS(ch_profiles_for_bracken)
+    ch_combined_report = ch_combined_report.mix( BRACKEN_COMBINEBRACKENOUTPUTS.out.txt )
 
     // CENTRIFUGE
 
@@ -113,6 +115,7 @@ workflow STANDARDISATION_PROFILES {
     )
 
     KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE(ch_profiles_for_centrifuge)
+    ch_combined_report = ch_combined_report.mix( KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt)
     ch_versions = ch_versions.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.versions)
 
@@ -124,6 +127,7 @@ workflow STANDARDISATION_PROFILES {
     ch_input_for_kaiju2tablecombine = combineProfilesWithDatabase(ch_profiles_for_kaiju, ch_input_databases.kaiju)
 
     KAIJU_KAIJU2TABLE_COMBINED(ch_input_for_kaiju2tablecombine.profile, ch_input_for_kaiju2tablecombine.db, params.kaiju_taxon_rank)
+    ch_combined_report = ch_combined_report.mix( KAIJU_KAIJU2TABLE_COMBINED.out.summary )
     ch_multiqc_files = ch_multiqc_files.mix(KAIJU_KAIJU2TABLE_COMBINED.out.summary)
     ch_versions = ch_versions.mix(KAIJU_KAIJU2TABLE_COMBINED.out.versions)
 
@@ -142,6 +146,7 @@ workflow STANDARDISATION_PROFILES {
     )
 
     KRAKENTOOLS_COMBINEKREPORTS_KRAKEN(ch_profiles_for_kraken2)
+    ch_combined_report = ch_combined_report.mix ( KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix(KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt)
     ch_versions = ch_versions.mix(KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.versions)
 
@@ -150,6 +155,7 @@ workflow STANDARDISATION_PROFILES {
     ch_profiles_for_metaphlan = groupProfiles(ch_input_profiles.metaphlan)
 
     METAPHLAN_MERGEMETAPHLANTABLES(ch_profiles_for_metaphlan)
+    ch_combined_report = ch_combined_report.mix( METAPHLAN_MERGEMETAPHLANTABLES.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix(METAPHLAN_MERGEMETAPHLANTABLES.out.txt)
     ch_versions = ch_versions.mix(METAPHLAN_MERGEMETAPHLANTABLES.out.versions)
 
@@ -164,6 +170,7 @@ workflow STANDARDISATION_PROFILES {
     ch_input_for_motusmerge = combineProfilesWithDatabase(ch_profiles_for_motus, ch_input_databases.motus)
 
     MOTUS_MERGE(ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, motu_version)
+    ch_combined_report = ch_combined_report.mix( MOTUS_MERGE.out.txt )
     ch_versions = ch_versions.mix(MOTUS_MERGE.out.versions)
 
     // Ganon
@@ -171,13 +178,15 @@ workflow STANDARDISATION_PROFILES {
     ch_profiles_for_ganon = groupProfiles(ch_input_profiles.ganon)
 
     GANON_TABLE(ch_profiles_for_ganon)
+    ch_combined_report = ch_combined_report.mix( GANON_TABLE.out.txt )
     ch_multiqc_files = ch_multiqc_files.mix(GANON_TABLE.out.txt)
     ch_versions = ch_versions.mix(GANON_TABLE.out.versions)
 
     emit:
-    taxpasta = TAXPASTA_MERGE.out.merged_profiles
-    versions = ch_versions
-    mqc      = ch_multiqc_files
+    taxpasta             = TAXPASTA_MERGE.out.merged_profiles
+    combined_report      = ch_combined_report
+    versions             = ch_versions
+    mqc                  = ch_multiqc_files
 }
 
 // Custom Functions
@@ -192,9 +201,13 @@ workflow STANDARDISATION_PROFILES {
 */
 def groupProfiles(ch_profiles, groupTupleOptions = [:]) {
     return ch_profiles
-        .map { meta, profile -> [meta.db_name, profile] }
+        .map { meta, profile ->
+            [ meta.db_name, meta.tool, profile]
+        }
         .groupTuple(groupTupleOptions)
-        .map { db_name, profiles -> [[id: db_name], profiles] }
+        .map { db_name, tool, profiles ->
+            [[ id: db_name, tool: tool[0] ], profiles]  // Take first element from tool list
+        }
 }
 
 /**
@@ -213,10 +226,10 @@ def groupProfiles(ch_profiles, groupTupleOptions = [:]) {
 */
 def combineProfilesWithDatabase(ch_profiles, ch_database) {
     return ch_profiles
-        .map { meta, profile -> [meta.id, meta, profile] }
-        .combine(ch_database.map { db_meta, db -> [db_meta.db_name, db] }, by: 0)
-        .multiMap { _key, meta, profile, db ->
-            profile: [meta, profile]
+        .map { meta, profile -> [ meta.id, meta.tool, profile] }
+        .combine(ch_database.map { db_meta, db -> [ db_meta.db_name, db_meta.tool, db ] }, by: 0)
+        .multiMap { db_id, profile_tool, profile, db_tool, db ->
+            profile: [[ id: db_id, tool: db_tool ], profile]
             db: db
         }
 }
