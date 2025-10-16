@@ -40,12 +40,11 @@ nextflow_pipeline {
 
             def unstable_patterns_multiqc = [
                 '**/multiqc_data/fastqc_top_overrepresented_sequences_table.txt',
-                '**/multiqc_data/multiqc_data/BETA-multiqc.parquet',
+                '**/multiqc_data/fastqc_top_overrepresented_sequences_table.txt',
                 '**/multiqc_data/multiqc.log',
                 '**/multiqc_data/multiqc_data.json',
                 '**/multiqc_data/multiqc_sources.txt',
                 '**/multiqc_data/multiqc_software_versions.txt',
-                '**/multiqc_data/*.txt',
                 '**/multiqc_plots/{svg,pdf,png}/*.{svg,pdf,png}',
                 '**/multiqc_report.html',
                 '**/multiqc_data/*.txt'
@@ -53,16 +52,18 @@ nextflow_pipeline {
 
               // Check that no files are missing/added
             // Command legend: Result directory to index, includeDir: include dirs?, ignore: exclude patterns                   , ignoreFile: exclude pattern list, include: include patterns
-            def stable_name_all        = getAllFilesFromDir("$outputDir/", relative: true, includeDir: false, ignore: ['pipeline_info/*.{html,json,txt}'], ignoreFile: null, include: ['*', '**/*'])
+            def stable_name_all         = getAllFilesFromDir("$outputDir/", relative: true, includeDir: false, ignore: ['pipeline_info/*.{html,json,txt}'], ignoreFile: null, include: ['*', '**/*'])
 
             //BBDuk
-            def stable_content_bbduk   = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: ['*.log'], ignoreFile: null, include: ['*','**/*'])
-            def stable_name_bbduk      = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.fastq.gz'] )
+            def stable_content_bbduk    = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: ['*.log'], ignoreFile: null, include: ['*','**/*'])
+            def stable_name_bbduk        = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.fastq.gz'] )
 
             //DIAMOND
-            def stable_content_diamond = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: ['*/*.{tsv,log,txt}'], ignoreFile: null, include: ['*','**/*'])
-            def stable_name_diamond    = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{tsv,log,txt}'] )
+            def stable_content_diamond   = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: ['*/*.{tsv,log,txt}'], ignoreFile: null, include: ['*','**/*'])
+            def stable_name_diamond      = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{tsv,log,txt}'] )
 
+            //nonpareil
+            def stable_content_nonpareil = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{npa,npc,npl,npo,png,json,png,tsv,txt,pdf,csv}'] )
 
             assertAll(
                 { assert workflow.success},
@@ -85,6 +86,7 @@ nextflow_pipeline {
                 //    Each section should first check stable_content, stable_name second (if applicable).
                 { assert snapshot ( stable_content_bbduk, stable_name_bbduk ).match("bbduk" ) },
                 { assert snapshot ( stable_content_diamond, stable_name_diamond ).match("diamond" ) },
+                { assert snapshot ( stable_content_nonpareil ).match("nonpareil" ) },
             )
         }
     }
