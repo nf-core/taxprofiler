@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#640](https://github.com/nf-core/taxprofiler/pull/640) Added support for saving Metaphlan SAM files (❤️ to @mr2raccoon for reporting and added by @jfy133)
+
 ### `Fixed`
+
+- [#653](https://github.com/nf-core/taxprofiler/pull/653) Enable runs for `PACBIO_SMRT`data (fixed by @LilyAnderssonLee)
 
 ### `Changed`
 

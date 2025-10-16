@@ -159,10 +159,10 @@ workflow PROFILING {
                 [meta, input_reads, db_meta_new, db]
             }
             .filter { meta, _input_reads, db_meta_new, _db ->
-                if (db_meta_new.tool == 'bracken' && meta.instrument_platform == 'OXFORD_NANOPORE') {
-                    log.warn("[nf-core/taxprofiler] Bracken has not been evaluated for Nanopore data. Skipping Bracken for sample ${meta.id}.")
+                if (db_meta_new.tool == 'bracken' && (meta.instrument_platform == 'OXFORD_NANOPORE' || meta.instrument_platform == 'PACBIO_SMRT')) {
+                    log.warn("[nf-core/taxprofiler] Bracken has not been evaluated for long-read datasets. Skipping Bracken for sample ${meta.id}.")
                 }
-                db_meta_new.tool == 'kraken2' || (db_meta_new.tool == 'bracken' && meta.instrument_platform != 'OXFORD_NANOPORE')
+                db_meta_new.tool == 'kraken2' || (db_meta_new.tool == 'bracken' && (meta.instrument_platform != 'OXFORD_NANOPORE' && meta.instrument_platform != 'PACBIO_SMRT'))
             }
 
         ch_input_for_kraken2 = ch_prepare_for_kraken2.multiMap { it ->
@@ -284,7 +284,7 @@ workflow PROFILING {
             db: it[3]
         }
 
-        METAPHLAN_METAPHLAN(ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db)
+        METAPHLAN_METAPHLAN(ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db, params.metaphlan_save_samfiles)
         ch_versions = ch_versions.mix(METAPHLAN_METAPHLAN.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(METAPHLAN_METAPHLAN.out.profile)
         ch_multiqc_files = ch_multiqc_files.mix(METAPHLAN_METAPHLAN.out.profile)
@@ -395,25 +395,25 @@ workflow PROFILING {
 
         ch_input_for_kmcp = ch_input_for_profiling.kmcp
             .filter { meta, _input_reads, meta_db, _db ->
-                if (meta['instrument_platform'] == 'OXFORD_NANOPORE') {
+                if (meta.instrument_platform == 'OXFORD_NANOPORE' || meta.instrument_platform == 'PACBIO_SMRT') {
                     log.warn("[nf-core/taxprofiler] KMCP is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Skipping KMCP for sample ${meta.id}.")
                 }
-                meta_db['tool'] == 'kmcp' && meta['instrument_platform'] != 'OXFORD_NANOPORE'
+                meta_db.tool == 'kmcp' && (meta.instrument_platform != 'OXFORD_NANOPORE' && meta.instrument_platform != 'PACBIO_SMRT')
             }
             .map { meta, input_reads, db_meta, db ->
                 def db_meta_keys = db_meta.keySet()
                 def db_meta_new = db_meta.subMap(db_meta_keys)
 
                 // Split the string, the arguments before semicolon should be parsed into kmcp search
-                def parsed_params = db_meta_new['db_params'].split(";")
+                def parsed_params = db_meta_new.db_params.split(";")
                 if (parsed_params.size() == 2) {
-                    db_meta_new['db_params'] = parsed_params[0]
+                    db_meta_new.db_params = parsed_params[0]
                 }
                 else if (parsed_params.size() == 0) {
-                    db_meta_new['db_params'] = ""
+                    db_meta_new.db_params = ""
                 }
                 else {
-                    db_meta_new['db_params'] = parsed_params[0]
+                    db_meta_new.db_params = parsed_params[0]
                 }
 
                 [meta, input_reads, db_meta_new, db]
@@ -442,7 +442,7 @@ workflow PROFILING {
                 def db_meta_keys = db_meta.keySet()
                 def db_meta_new = db_meta.subMap(db_meta_keys)
 
-                def parsed_params = db_meta['db_params'].split(";")
+                def parsed_params = db_meta.db_params.split(";")
 
                 if (parsed_params.size() == 2) {
                     db_meta_new = db_meta + [db_params: parsed_params[1]]
@@ -470,10 +470,10 @@ workflow PROFILING {
 
         ch_input_for_ganonclassify = ch_input_for_profiling.ganon
             .filter { meta, _input_reads, meta_db, _db ->
-                if (meta.instrument_platform == 'OXFORD_NANOPORE') {
-                    log.warn("[nf-core/taxprofiler] Ganon has not been evaluated for Nanopore data. Skipping Ganon for sample ${meta.id}.")
+                if (meta.instrument_platform == 'OXFORD_NANOPORE' || meta.instrument_platform == 'PACBIO_SMRT') {
+                    log.warn("[nf-core/taxprofiler] Ganon has not been evaluated for long-read datasets. Skipping Ganon for sample ${meta.id}.")
                 }
-                meta_db.tool == 'ganon' && meta.instrument_platform != 'OXFORD_NANOPORE'
+                meta_db.tool == 'ganon' && (meta.instrument_platform != 'OXFORD_NANOPORE' && meta.instrument_platform != 'PACBIO_SMRT')
             }
             .multiMap { it ->
                 reads: [it[0] + it[2], it[1]]
