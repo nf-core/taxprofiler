@@ -55,11 +55,11 @@ nextflow_pipeline {
             def stable_name_all         = getAllFilesFromDir("$outputDir/", relative: true, includeDir: false, ignore: ['pipeline_info/*.{html,json,txt}'], ignoreFile: null, include: ['*', '**/*'])
 
             //MultiQC
-            def stable_content_multiqc                   = getAllFilesFromDir("$outputDir/multiqc"                   , relative: true, includeDir: false, ignore: unstable_patterns_multiqc          , ignoreFile: null, include: ['*', '**/*'])
-            def stable_name_multiqc                      = getAllFilesFromDir("$outputDir/multiqc"                   , relative: true, includeDir: false, ignore:  null                              , ignoreFile: null, include: unstable_patterns_multiqc)
+            def stable_content_multiqc  = getAllFilesFromDir("$outputDir/multiqc", relative: true, includeDir: false, ignore: unstable_patterns_multiqc, ignoreFile: null, include: ['*', '**/*'])
+            def stable_name_multiqc     = getAllFilesFromDir("$outputDir/multiqc", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: unstable_patterns_multiqc)
 
             //BBDuk
-            def stable_content_bbduk    = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: ['*.log'], ignoreFile: null, include: ['*','**/*'])
+            def stable_content_bbduk     = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: ['*.log'], ignoreFile: null, include: ['*','**/*'])
             def stable_name_bbduk        = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.fastq.gz'] )
 
             //DIAMOND
