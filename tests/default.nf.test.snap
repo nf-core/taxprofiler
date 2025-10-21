@@ -525,6 +525,33 @@
     "nonpareil": {
         "content": [
             [
+                "2612_ERR5766176.npa",
+                "2612_ERR5766176.npc",
+                "2612_ERR5766176.npl",
+                "2612_ERR5766176.npo",
+                "2612_ERR5766176.png",
+                "2612_ERR5766176_B.npa",
+                "2612_ERR5766176_B.npc",
+                "2612_ERR5766176_B.npl",
+                "2612_ERR5766176_B.npo",
+                "2612_ERR5766176_B.png",
+                "2612_ERR5766180.npa",
+                "2612_ERR5766180.npc",
+                "2612_ERR5766180.npl",
+                "2612_ERR5766180.npo",
+                "2612_ERR5766180.png",
+                "2613_ERR5766181.npa",
+                "2613_ERR5766181.npc",
+                "2613_ERR5766181.npl",
+                "2613_ERR5766181.npo",
+                "2613_ERR5766181.png",
+                "nonpareil_all_samples.csv",
+                "nonpareil_all_samples.json",
+                "nonpareil_all_samples.pdf",
+                "nonpareil_all_samples.tsv",
+                "nonpareil_all_samples_mqc.png"
+            ],
+            [
                 
             ]
         ],
@@ -532,7 +559,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.7"
         },
-        "timestamp": "2025-10-16T10:24:21.782776637"
+        "timestamp": "2025-10-16T11:13:26.91290723"
     },
     "bbduk": {
         "content": [

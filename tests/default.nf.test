@@ -63,7 +63,9 @@ nextflow_pipeline {
             def stable_name_diamond      = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{tsv,log,txt}'] )
 
             //nonpareil
-            def stable_content_nonpareil = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{npa,npc,npl,npo,png,json,png,tsv,txt,pdf,csv}'] )
+            def stable_content_nonpareil = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: ['**/*.{svg,npa}'] , ignoreFile: null, include: ['*','**/*'])
+            def stable_name_nonpareil    = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{svg,npa}'] )
+
 
             assertAll(
                 { assert workflow.success},
@@ -86,7 +88,7 @@ nextflow_pipeline {
                 //    Each section should first check stable_content, stable_name second (if applicable).
                 { assert snapshot ( stable_content_bbduk, stable_name_bbduk ).match("bbduk" ) },
                 { assert snapshot ( stable_content_diamond, stable_name_diamond ).match("diamond" ) },
-                { assert snapshot ( stable_content_nonpareil ).match("nonpareil" ) },
+                { assert snapshot ( stable_content_nonpareil, stable_name_nonpareil ).match("nonpareil" ) },
             )
         }
     }
