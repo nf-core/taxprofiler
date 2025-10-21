@@ -53,7 +53,7 @@ nextflow_pipeline {
               // Check that no files are missing/added
             // Command legend: Result directory to index, includeDir: include dirs?, ignore: exclude patterns                   , ignoreFile: exclude pattern list, include: include patterns
             def stable_name_all         = getAllFilesFromDir("$outputDir/", relative: true, includeDir: false, ignore: ['pipeline_info/*.{html,json,txt}'], ignoreFile: null, include: ['*', '**/*'])
-            
+
             //MultiQC
             def stable_content_multiqc                   = getAllFilesFromDir("$outputDir/multiqc"                   , relative: true, includeDir: false, ignore: unstable_patterns_multiqc          , ignoreFile: null, include: ['*', '**/*'])
             def stable_name_multiqc                      = getAllFilesFromDir("$outputDir/multiqc"                   , relative: true, includeDir: false, ignore:  null                              , ignoreFile: null, include: unstable_patterns_multiqc)
