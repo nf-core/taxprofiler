@@ -11,7 +11,6 @@ multiqc/multiqc_report.html
 fastqc/*_fastqc.{html,zip}
 fastqc/*/*fastqc.zip
 pipeline_info/*.{html,json,txt,yml}
-bracken/*combined_reports.txt
 centrifuge/*/*.mapped.fastq.gz
 centrifuge/*/*results.txt
 centrifuge/*/*.unmapped.fastq.gz
