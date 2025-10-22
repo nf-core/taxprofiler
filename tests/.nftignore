@@ -10,9 +10,6 @@ multiqc/multiqc_report.html
 fastqc/*_fastqc.{html,zip}
 fastqc/*/*fastqc.zip
 pipeline_info/*.{html,json,txt,yml}
-centrifuge/*/*.mapped.fastq.gz
-centrifuge/*/*results.txt
-centrifuge/*/*.unmapped.fastq.gz
 fastp/*.{html,zip,json,log}
 kaiju/*/*.tsv
 kaiju/*.txt
