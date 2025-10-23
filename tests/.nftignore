@@ -9,15 +9,3 @@ multiqc/multiqc_data/*.txt
 multiqc/multiqc_report.html
 fastqc/*_fastqc.{html,zip}
 fastqc/*/*fastqc.zip
-pipeline_info/*.{html,json,txt,yml}
-fastp/*.{html,zip,json,log}
-kaiju/*/*.tsv
-kaiju/*.txt
-krona/*.html
-ganon/*/*.log
-kraken2/*/*.fastq.gz
-metaphlan/*/*.{biom,txt}
-porechop_abi/*.log
-samtools/*.bam.bai
-samtools/*.unmapped.bam
-taxpasta/*.tsv
