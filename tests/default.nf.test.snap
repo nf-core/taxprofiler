@@ -797,6 +797,68 @@
         },
         "timestamp": "2025-10-24T10:48:41.19898897"
     },
+    "nanoq": {
+        "content": [
+            [
+                "ERR3201952_ERR3201952_filtered.stats"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T14:24:38.133708137"
+    },
+    "samtools": {
+        "content": [
+            [
+                "2612_ERR5766176.bam.bai",
+                "2612_ERR5766176_B.bam.bai",
+                "2612_ERR5766180.bam.bai",
+                "2613_ERR5766181.bam.bai",
+                "ERR3201952_ERR3201952.bam.bai",
+                "ERR3201952_ERR3201952.unmapped.bam",
+                "stats/2612_ERR5766176.stats",
+                "stats/2612_ERR5766176_B.stats",
+                "stats/2612_ERR5766180.stats",
+                "stats/2613_ERR5766181.stats",
+                "stats/ERR3201952_ERR3201952.stats"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T14:46:31.918030073"
+    },
+    "taxpasta": {
+        "content": [
+            [
+                "bracken_db1.tsv",
+                "centrifuge_db3.tsv",
+                "diamond_db1.tsv",
+                "diamond_db2.tsv",
+                "diamond_db3.tsv",
+                "ganon_db1.tsv",
+                "kaiju_db5.tsv",
+                "kaiju_db6.tsv",
+                "kaiju_db7.tsv",
+                "kmcp_db1.tsv",
+                "kraken2_db1-bracken.tsv",
+                "kraken2_db2.tsv",
+                "metaphlan_metaphlan3.tsv",
+                "metaphlan_metaphlan4.tsv"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T14:46:31.957010581"
+    },
     "bbduk": {
         "content": [
             true
@@ -957,6 +1019,19 @@
             "nextflow": "25.04.8"
         },
         "timestamp": "2025-10-24T13:49:34.903136963"
+    },
+    "porechop_abi": {
+        "content": [
+            [
+                "ERR3201952_ERR3201952_porechop_abi.log"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T14:46:31.858865791"
     },
     "kraken2": {
         "content": [
