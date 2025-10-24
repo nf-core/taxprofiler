@@ -2,22 +2,29 @@
     "all_files": {
         "content": [
             [
+                "bbduk",
                 "bbduk/2612_ERR5766176.bbduk.log",
                 "bbduk/2612_ERR5766176_B.bbduk.log",
                 "bbduk/2612_ERR5766180.bbduk.log",
                 "bbduk/2613_ERR5766181.bbduk.log",
+                "bowtie2",
+                "bowtie2/align",
                 "bowtie2/align/2612_ERR5766176.bowtie2.log",
                 "bowtie2/align/2612_ERR5766176_B.bowtie2.log",
                 "bowtie2/align/2612_ERR5766180.bowtie2.log",
                 "bowtie2/align/2613_ERR5766181.bowtie2.log",
+                "bracken",
                 "bracken/bracken_db1_combined_reports.txt",
+                "bracken/db1",
                 "bracken/db1/2611_db1.bracken.kraken2.report_bracken.txt",
                 "bracken/db1/2611_db1.bracken.tsv",
                 "bracken/db1/2612_db1.bracken.kraken2.report_bracken.txt",
                 "bracken/db1/2612_db1.bracken.tsv",
                 "bracken/db1/2613_db1.bracken.kraken2.report_bracken.txt",
                 "bracken/db1/2613_db1.bracken.tsv",
+                "centrifuge",
                 "centrifuge/centrifuge_db3_combined_reports.txt",
+                "centrifuge/db3",
                 "centrifuge/db3/2612_db3.centrifuge.mapped.fastq.gz",
                 "centrifuge/db3/2612_db3.centrifuge.report.txt",
                 "centrifuge/db3/2612_db3.centrifuge.results.txt",
@@ -28,16 +35,20 @@
                 "centrifuge/db3/2613_db3.centrifuge.results.txt",
                 "centrifuge/db3/2613_db3.centrifuge.txt",
                 "centrifuge/db3/2613_db3.centrifuge.unmapped.fastq.gz",
+                "diamond",
+                "diamond/db1",
                 "diamond/db1/2611_db1.diamond.log",
                 "diamond/db1/2611_db1.diamond.tsv",
                 "diamond/db1/2612_db1.diamond.log",
                 "diamond/db1/2612_db1.diamond.tsv",
                 "diamond/db1/2613_db1.diamond.log",
                 "diamond/db1/2613_db1.diamond.tsv",
+                "diamond/db2",
                 "diamond/db2/2614_db2.diamond.log",
                 "diamond/db2/2614_db2.diamond.tsv",
                 "diamond/db2/ERR3201952_db2.diamond.log",
                 "diamond/db2/ERR3201952_db2.diamond.tsv",
+                "diamond/db3",
                 "diamond/db3/2611_db3.diamond.log",
                 "diamond/db3/2611_db3.diamond.tsv",
                 "diamond/db3/2612_db3.diamond.log",
@@ -48,6 +59,7 @@
                 "diamond/db3/2614_db3.diamond.tsv",
                 "diamond/db3/ERR3201952_db3.diamond.log",
                 "diamond/db3/ERR3201952_db3.diamond.tsv",
+                "fastp",
                 "fastp/2612_ERR5766176.fastp.html",
                 "fastp/2612_ERR5766176.fastp.json",
                 "fastp/2612_ERR5766176.fastp.log",
@@ -60,6 +72,8 @@
                 "fastp/2613_ERR5766181.fastp.html",
                 "fastp/2613_ERR5766181.fastp.json",
                 "fastp/2613_ERR5766181.fastp.log",
+                "fastqc",
+                "fastqc/processed",
                 "fastqc/processed/2612_ERR5766176_B_processed_fastqc.html",
                 "fastqc/processed/2612_ERR5766176_B_processed_fastqc.zip",
                 "fastqc/processed/2612_ERR5766176_processed_fastqc.html",
@@ -70,6 +84,7 @@
                 "fastqc/processed/2613_ERR5766181_processed_fastqc.zip",
                 "fastqc/processed/ERR3201952_ERR3201952_processed_fastqc.html",
                 "fastqc/processed/ERR3201952_ERR3201952_processed_fastqc.zip",
+                "fastqc/raw",
                 "fastqc/raw/2612_ERR5766176_B_raw_1_fastqc.html",
                 "fastqc/raw/2612_ERR5766176_B_raw_1_fastqc.zip",
                 "fastqc/raw/2612_ERR5766176_B_raw_2_fastqc.html",
@@ -86,6 +101,8 @@
                 "fastqc/raw/2613_ERR5766181_raw_2_fastqc.zip",
                 "fastqc/raw/ERR3201952_ERR3201952_raw_fastqc.html",
                 "fastqc/raw/ERR3201952_ERR3201952_raw_fastqc.zip",
+                "ganon",
+                "ganon/db1",
                 "ganon/db1/2611_db1.ganon.log",
                 "ganon/db1/2611_db1.ganon.rep",
                 "ganon/db1/2611_db1.ganon.tre",
@@ -99,16 +116,20 @@
                 "ganon/db1/2613_db1.ganon.tre",
                 "ganon/db1/2613_db1.ganon_report.tre",
                 "ganon/ganon_db1_combined_reports.txt",
+                "kaiju",
+                "kaiju/db5",
                 "kaiju/db5/2611_db5.kaiju.tsv",
                 "kaiju/db5/2611_db5.kaijutable.txt",
                 "kaiju/db5/2612_db5.kaiju.tsv",
                 "kaiju/db5/2612_db5.kaijutable.txt",
                 "kaiju/db5/2613_db5.kaiju.tsv",
                 "kaiju/db5/2613_db5.kaijutable.txt",
+                "kaiju/db6",
                 "kaiju/db6/2614_db6.kaiju.tsv",
                 "kaiju/db6/2614_db6.kaijutable.txt",
                 "kaiju/db6/ERR3201952_db6.kaiju.tsv",
                 "kaiju/db6/ERR3201952_db6.kaijutable.txt",
+                "kaiju/db7",
                 "kaiju/db7/2611_db7.kaiju.tsv",
                 "kaiju/db7/2611_db7.kaijutable.txt",
                 "kaiju/db7/2612_db7.kaiju.tsv",
@@ -122,9 +143,14 @@
                 "kaiju/kaiju_db5_combined_reports.txt",
                 "kaiju/kaiju_db6_combined_reports.txt",
                 "kaiju/kaiju_db7_combined_reports.txt",
+                "kmcp",
+                "kmcp/db1",
                 "kmcp/db1/2611_db1.kmcp.profile",
                 "kmcp/db1/2612_db1.kmcp.profile",
                 "kmcp/db1/2613_db1.kmcp.profile",
+                "kraken2",
+                "kraken2/db1",
+                "kraken2/db2",
                 "kraken2/db2/2611_db2.kraken2.classified.fastq.gz",
                 "kraken2/db2/2611_db2.kraken2.kraken2.report.txt",
                 "kraken2/db2/2611_db2.kraken2.unclassified.fastq.gz",
@@ -136,12 +162,15 @@
                 "kraken2/db2/2613_db2.kraken2.unclassified.fastq.gz",
                 "kraken2/kraken2_db1-bracken_combined_reports.txt",
                 "kraken2/kraken2_db2_combined_reports.txt",
+                "krona",
                 "krona/centrifuge_db3.html",
                 "krona/kaiju_db5.html",
                 "krona/kaiju_db6.html",
                 "krona/kaiju_db7.html",
                 "krona/kraken2-bracken_db1.html",
                 "krona/kraken2_db2.html",
+                "metaphlan",
+                "metaphlan/metaphlan3",
                 "metaphlan/metaphlan3/2611_metaphlan3.metaphlan.biom",
                 "metaphlan/metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
                 "metaphlan/metaphlan3/2611_metaphlan3.metaphlan.sam",
@@ -154,6 +183,7 @@
                 "metaphlan/metaphlan3/2613_metaphlan3.metaphlan.bowtie2out.txt",
                 "metaphlan/metaphlan3/2613_metaphlan3.metaphlan.sam",
                 "metaphlan/metaphlan3/2613_metaphlan3.metaphlan_profile.txt",
+                "metaphlan/metaphlan4",
                 "metaphlan/metaphlan4/2611_metaphlan4.metaphlan.biom",
                 "metaphlan/metaphlan4/2611_metaphlan4.metaphlan.bowtie2out.txt",
                 "metaphlan/metaphlan4/2611_metaphlan4.metaphlan.sam",
@@ -168,6 +198,8 @@
                 "metaphlan/metaphlan4/2613_metaphlan4.metaphlan_profile.txt",
                 "metaphlan/metaphlan_metaphlan3_combined_reports.txt",
                 "metaphlan/metaphlan_metaphlan4_combined_reports.txt",
+                "multiqc",
+                "multiqc/multiqc_data",
                 "multiqc/multiqc_data/BETA-multiqc.parquet",
                 "multiqc/multiqc_data/bbduk-filtered-barplot_Bases.txt",
                 "multiqc/multiqc_data/bbduk-filtered-barplot_Reads.txt",
@@ -278,6 +310,8 @@
                 "multiqc/multiqc_data/porechop_porechop_abi.txt",
                 "multiqc/multiqc_data/samtools-stats-dp.txt",
                 "multiqc/multiqc_data/samtools_alignment_plot.txt",
+                "multiqc/multiqc_plots",
+                "multiqc/multiqc_plots/pdf",
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-pct.pdf",
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Reads-cnt.pdf",
@@ -405,6 +439,7 @@
                 "multiqc/multiqc_plots/pdf/samtools-stats-dp.pdf",
                 "multiqc/multiqc_plots/pdf/samtools_alignment_plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/samtools_alignment_plot-pct.pdf",
+                "multiqc/multiqc_plots/png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-cnt.png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-pct.png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Reads-cnt.png",
@@ -532,6 +567,7 @@
                 "multiqc/multiqc_plots/png/samtools-stats-dp.png",
                 "multiqc/multiqc_plots/png/samtools_alignment_plot-cnt.png",
                 "multiqc/multiqc_plots/png/samtools_alignment_plot-pct.png",
+                "multiqc/multiqc_plots/svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-cnt.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-pct.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-cnt.svg",
@@ -660,7 +696,9 @@
                 "multiqc/multiqc_plots/svg/samtools_alignment_plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/samtools_alignment_plot-pct.svg",
                 "multiqc/multiqc_report.html",
+                "nanoq",
                 "nanoq/ERR3201952_ERR3201952_filtered.stats",
+                "nonpareil",
                 "nonpareil/2612_ERR5766176.npa",
                 "nonpareil/2612_ERR5766176.npc",
                 "nonpareil/2612_ERR5766176.npl",
@@ -686,19 +724,24 @@
                 "nonpareil/nonpareil_all_samples.pdf",
                 "nonpareil/nonpareil_all_samples.tsv",
                 "nonpareil/nonpareil_all_samples_mqc.png",
+                "pipeline_info",
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml",
+                "porechop_abi",
                 "porechop_abi/ERR3201952_ERR3201952_porechop_abi.log",
+                "samtools",
                 "samtools/2612_ERR5766176.bam.bai",
                 "samtools/2612_ERR5766176_B.bam.bai",
                 "samtools/2612_ERR5766180.bam.bai",
                 "samtools/2613_ERR5766181.bam.bai",
                 "samtools/ERR3201952_ERR3201952.bam.bai",
                 "samtools/ERR3201952_ERR3201952.unmapped.bam",
+                "samtools/stats",
                 "samtools/stats/2612_ERR5766176.stats",
                 "samtools/stats/2612_ERR5766176_B.stats",
                 "samtools/stats/2612_ERR5766180.stats",
                 "samtools/stats/2613_ERR5766181.stats",
                 "samtools/stats/ERR3201952_ERR3201952.stats",
+                "taxpasta",
                 "taxpasta/bracken_db1.tsv",
                 "taxpasta/centrifuge_db3.tsv",
                 "taxpasta/diamond_db1.tsv",
@@ -719,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-22T17:01:58.3053816"
+        "timestamp": "2025-10-23T16:45:10.666217606"
     },
     "diamond": {
         "content": [
@@ -754,6 +797,29 @@
             "nextflow": "25.04.7"
         },
         "timestamp": "2025-10-09T14:43:40.65677498"
+    },
+    "kraken2": {
+        "content": [
+            [
+                "db2/2611_db2.kraken2.classified.fastq.gz",
+                "db2/2611_db2.kraken2.kraken2.report.txt",
+                "db2/2611_db2.kraken2.unclassified.fastq.gz",
+                "db2/2612_db2.kraken2.classified.fastq.gz",
+                "db2/2612_db2.kraken2.kraken2.report.txt",
+                "db2/2612_db2.kraken2.unclassified.fastq.gz",
+                "db2/2613_db2.kraken2.classified.fastq.gz",
+                "db2/2613_db2.kraken2.kraken2.report.txt",
+                "db2/2613_db2.kraken2.unclassified.fastq.gz",
+                "kraken2_db1-bracken_combined_reports.txt",
+                "kraken2_db2_combined_reports.txt"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T10:05:02.095957795"
     },
     "-profile test": {
         "content": [
@@ -940,18 +1006,13 @@
     },
     "bbduk": {
         "content": [
-            [
-                
-            ],
-            [
-                
-            ]
+            true
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.7"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-09T11:36:26.17350197"
+        "timestamp": "2025-10-23T17:12:22.803193521"
     },
     "multiqc": {
         "content": [
@@ -1448,15 +1509,12 @@
                 "multiqc_plots/svg/samtools_alignment_plot-cnt.svg",
                 "multiqc_plots/svg/samtools_alignment_plot-pct.svg",
                 "multiqc_report.html"
-            ],
-            [
-                
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-22T17:01:58.38036783"
+        "timestamp": "2025-10-23T16:22:40.5867774"
     }
 }

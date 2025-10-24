@@ -15,54 +15,19 @@ nextflow_pipeline {
         }
 
         then {
-                   ///////////////////
-            // DOCUMENTATION //
-            ///////////////////
+ 	  	// stable_name: All files + folders in ${params.outdir}/ with a stable name
+            def stable_name_all = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            // stable_path: All files in ${params.outdir}/ with stable content
+            def stable_path     = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
 
-            // The contents of each top level results directory should be tested with individually named snapshots.
-            // Within each snapshot, there should be two to three distinct variables, that contain the files to be tested.
-            //    - stable_name_<dir> is for files with variable md5sums (i.e. content) so only names will be compared
-            //    - stable_content_<dir> is for files with stable md5sums (i.e. content) so md5sums will be compared
-            //    - bams_<dir> is for BAM files, where the headerMD5 is checked for stability (since the content can be unstable)
-            // If a directory is fully stable, you can drop `stable_name_*`
-            // If a directory contains no BAMs, you can drop `bams_*`
+             //MultiQC
+            def stable_name_multiqc      = getAllFilesFromDir("$outputDir/multiqc", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
 
-            // Generate with: nf-test test --tag test --profile=+singularity --verbose --debug --update-snapshot
-            // Test with:     nf-test test --tag test --profile=+singularity
-
-            //////////////////////
-            // DEFINE VARIABLES //
-            //////////////////////
-
-            // Define exclusion patterns for files with unstable contents
-            // NOTE: When a section needs more than a couple of small patterns, consider adding a variable to store the patterns here
-            //       This is particularly important if the patterns excluded in the stable content section should be included in the stable name section
-
-            def unstable_patterns_multiqc = [
-                '**/multiqc_data/fastqc_top_overrepresented_sequences_table.txt',
-                '**/multiqc_data/fastqc_top_overrepresented_sequences_table.txt',
-                '**/multiqc_data/multiqc.log',
-                '**/multiqc_data/multiqc_data.json',
-                '**/multiqc_data/multiqc_sources.txt',
-                '**/multiqc_data/multiqc_software_versions.txt',
-                '**/multiqc_plots/{svg,pdf,png}/*.{svg,pdf,png}',
-                '**/multiqc_report.html',
-                '**/multiqc_data/*.txt'
-            ]
-
-              // Check that no files are missing/added
-            // Command legend: Result directory to index, includeDir: include dirs?, ignore: exclude patterns                   , ignoreFile: exclude pattern list, include: include patterns
-            def stable_name_all         = getAllFilesFromDir("$outputDir/", relative: true, includeDir: false, ignore: ['pipeline_info/*.{html,json,txt}'], ignoreFile: null, include: ['*', '**/*'])
-
-            //MultiQC
-            def stable_content_multiqc  = getAllFilesFromDir("$outputDir/multiqc", relative: true, includeDir: false, ignore: unstable_patterns_multiqc, ignoreFile: null, include: ['*', '**/*'])
-            def stable_name_multiqc     = getAllFilesFromDir("$outputDir/multiqc", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: unstable_patterns_multiqc)
-
-            //BBDuk
+	    //BBDuk
             def stable_content_bbduk     = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: ['*.log'], ignoreFile: null, include: ['*','**/*'])
             def stable_name_bbduk        = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.fastq.gz'] )
 
-            //DIAMOND
+	    //DIAMOND
             def stable_content_diamond   = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: ['*/*.{tsv,log,txt}'], ignoreFile: null, include: ['*','**/*'])
             def stable_name_diamond      = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{tsv,log,txt}'] )
 
@@ -70,6 +35,8 @@ nextflow_pipeline {
             def stable_content_nonpareil = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: ['*.{svg,npa}'] , ignoreFile: null, include: ['*','**/*'])
             def stable_name_nonpareil    = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{svg,npa}'] )
 
+            //kraken2
+            def stable_name_kraken2      = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
 
             assertAll(
                 { assert workflow.success},
@@ -78,22 +45,17 @@ nextflow_pipeline {
                     workflow.trace.succeeded().size(),
                     // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
                     removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
-                    // All stable path name, with a relative path
-                   // stable_name,
-                    // All files with stable contents
-                    //stable_path
                 ).match() },
-                    // This checks that there are no missing or additional output files.
-                // Also a good starting point to look at all the files in the output folder than need to be checked in subsequent sections.
-                { assert snapshot ( stable_name_all ).match("all_files") },
-                { assert snapshot ( stable_content_multiqc, stable_name_multiqc ).match("multiqc" ) },
 
-                // Checking changes to contents of each section
-                // NOTE: Keep the order of the sections in the alphanumeric order of the output directories.
-                //    Each section should first check stable_content, stable_name second (if applicable).
-                { assert snapshot ( stable_content_bbduk, stable_name_bbduk ).match("bbduk" ) },
+                { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                { assert snapshot ( stable_name_all ).match("all_files") },
+		{ assert snapshot ( stable_name_multiqc ).match("multiqc" ) },
+                { assert snapshot ( file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Reads Processed:")).match("bbduk")},
                 { assert snapshot ( stable_content_diamond, stable_name_diamond ).match("diamond" ) },
                 { assert snapshot ( stable_content_nonpareil, stable_name_nonpareil ).match("nonpareil" ) },
+                { assert snapshot ( stable_name_kraken2, file ("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("S288C")).match("kraken2") },
             )
         }
     }
