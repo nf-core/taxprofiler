@@ -764,6 +764,109 @@
         },
         "timestamp": "2025-10-23T16:45:10.666217606"
     },
+    "krona": {
+        "content": [
+            [
+                "centrifuge_db3.html",
+                "kaiju_db5.html",
+                "kaiju_db6.html",
+                "kaiju_db7.html",
+                "kraken2-bracken_db1.html",
+                "kraken2_db2.html"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T13:40:32.296289239"
+    },
+    "bowtie2": {
+        "content": [
+            [
+                "align/2612_ERR5766176.bowtie2.log",
+                "align/2612_ERR5766176_B.bowtie2.log",
+                "align/2612_ERR5766180.bowtie2.log",
+                "align/2613_ERR5766181.bowtie2.log"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T10:48:41.19898897"
+    },
+    "bbduk": {
+        "content": [
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-23T17:12:22.803193521"
+    },
+    "ganon": {
+        "content": [
+            [
+                "db1/2611_db1.ganon.log",
+                "db1/2611_db1.ganon.rep",
+                "db1/2611_db1.ganon.tre",
+                "db1/2611_db1.ganon_report.tre",
+                "db1/2612_db1.ganon.log",
+                "db1/2612_db1.ganon.rep",
+                "db1/2612_db1.ganon.tre",
+                "db1/2612_db1.ganon_report.tre",
+                "db1/2613_db1.ganon.log",
+                "db1/2613_db1.ganon.rep",
+                "db1/2613_db1.ganon.tre",
+                "db1/2613_db1.ganon_report.tre",
+                "ganon_db1_combined_reports.txt"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T12:09:24.042467495"
+    },
+    "kaiju": {
+        "content": [
+            [
+                "db5/2611_db5.kaiju.tsv",
+                "db5/2611_db5.kaijutable.txt",
+                "db5/2612_db5.kaiju.tsv",
+                "db5/2612_db5.kaijutable.txt",
+                "db5/2613_db5.kaiju.tsv",
+                "db5/2613_db5.kaijutable.txt",
+                "db6/2614_db6.kaiju.tsv",
+                "db6/2614_db6.kaijutable.txt",
+                "db6/ERR3201952_db6.kaiju.tsv",
+                "db6/ERR3201952_db6.kaijutable.txt",
+                "db7/2611_db7.kaiju.tsv",
+                "db7/2611_db7.kaijutable.txt",
+                "db7/2612_db7.kaiju.tsv",
+                "db7/2612_db7.kaijutable.txt",
+                "db7/2613_db7.kaiju.tsv",
+                "db7/2613_db7.kaijutable.txt",
+                "db7/2614_db7.kaiju.tsv",
+                "db7/2614_db7.kaijutable.txt",
+                "db7/ERR3201952_db7.kaiju.tsv",
+                "db7/ERR3201952_db7.kaijutable.txt",
+                "kaiju_db5_combined_reports.txt",
+                "kaiju_db6_combined_reports.txt",
+                "kaiju_db7_combined_reports.txt"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T12:56:09.093907312"
+    },
     "diamond": {
         "content": [
             [
@@ -817,13 +920,35 @@
         },
         "timestamp": "2025-10-24T11:01:37.877650569"
     },
-    "bowtie2": {
+    "metaphlan": {
         "content": [
             [
-                "align/2612_ERR5766176.bowtie2.log",
-                "align/2612_ERR5766176_B.bowtie2.log",
-                "align/2612_ERR5766180.bowtie2.log",
-                "align/2613_ERR5766181.bowtie2.log"
+                "metaphlan3/2611_metaphlan3.metaphlan.biom",
+                "metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2611_metaphlan3.metaphlan.sam",
+                "metaphlan3/2611_metaphlan3.metaphlan_profile.txt",
+                "metaphlan3/2612_metaphlan3.metaphlan.biom",
+                "metaphlan3/2612_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2612_metaphlan3.metaphlan.sam",
+                "metaphlan3/2612_metaphlan3.metaphlan_profile.txt",
+                "metaphlan3/2613_metaphlan3.metaphlan.biom",
+                "metaphlan3/2613_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2613_metaphlan3.metaphlan.sam",
+                "metaphlan3/2613_metaphlan3.metaphlan_profile.txt",
+                "metaphlan4/2611_metaphlan4.metaphlan.biom",
+                "metaphlan4/2611_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2611_metaphlan4.metaphlan.sam",
+                "metaphlan4/2611_metaphlan4.metaphlan_profile.txt",
+                "metaphlan4/2612_metaphlan4.metaphlan.biom",
+                "metaphlan4/2612_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2612_metaphlan4.metaphlan.sam",
+                "metaphlan4/2612_metaphlan4.metaphlan_profile.txt",
+                "metaphlan4/2613_metaphlan4.metaphlan.biom",
+                "metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2613_metaphlan4.metaphlan.sam",
+                "metaphlan4/2613_metaphlan4.metaphlan_profile.txt",
+                "metaphlan_metaphlan3_combined_reports.txt",
+                "metaphlan_metaphlan4_combined_reports.txt"
             ],
             true
         ],
@@ -831,7 +956,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T10:48:41.19898897"
+        "timestamp": "2025-10-24T13:49:34.903136963"
     },
     "kraken2": {
         "content": [
@@ -1061,16 +1186,6 @@
             "nextflow": "25.04.8"
         },
         "timestamp": "2025-10-24T11:40:49.212864224"
-    },
-    "bbduk": {
-        "content": [
-            true
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-10-23T17:12:22.803193521"
     },
     "multiqc": {
         "content": [
@@ -1574,6 +1689,21 @@
             "nextflow": "25.04.8"
         },
         "timestamp": "2025-10-23T16:22:40.5867774"
+    },
+    "kmcp": {
+        "content": [
+            [
+                "db1/2611_db1.kmcp.profile",
+                "db1/2612_db1.kmcp.profile",
+                "db1/2613_db1.kmcp.profile"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T13:30:58.184445201"
     },
     "fastp": {
         "content": [
