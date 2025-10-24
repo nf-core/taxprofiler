@@ -41,6 +41,16 @@ nextflow_pipeline {
             //bowtie2
             def stable_name_bowtie2      = getAllFilesFromDir("$outputDir/bowtie2", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
 
+            //bracken
+            def stable_name_bracken      = getAllFilesFromDir("$outputDir/bracken", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
+
+            //centrifuge
+            def stable_name_centrifuge   = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
+
+            //fastp
+            def stable_name_fastp   = getAllFilesFromDir("$outputDir/fastp", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
+
+
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
@@ -54,12 +64,15 @@ nextflow_pipeline {
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
                 { assert snapshot ( stable_name_all ).match("all_files") },
-		{ assert snapshot ( stable_name_multiqc ).match("multiqc" ) },
+		        { assert snapshot ( stable_name_multiqc ).match("multiqc" ) },
                 { assert snapshot ( file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Reads Processed:")).match("bbduk")},
                 { assert snapshot ( stable_content_diamond, stable_name_diamond ).match("diamond" ) },
                 { assert snapshot ( stable_content_nonpareil, stable_name_nonpareil ).match("nonpareil" ) },
                 { assert snapshot ( stable_name_kraken2, file ("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("S288C")).match("kraken2") },
                 { assert snapshot ( stable_name_bowtie2, file ("$outputDir/bowtie2/align/2613_ERR5766181.bowtie2.log").text.contains("overall alignment rate")).match("bowtie2" ) },
+                { assert snapshot ( stable_name_bracken, file ("$outputDir/bracken/db1/2613_db1.bracken.tsv").text.contains("Homo sapiens")).match("bracken") },
+                { assert snapshot ( stable_name_centrifuge, file ("$outputDir/centrifuge/db3/2613_db3.centrifuge.report.txt").text.contains("Eucommia")).match("centrifuge") },
+                { assert snapshot ( stable_name_fastp, file ("$outputDir/fastp/2613_ERR5766181.fastp.log").text.contains("Read pairs merged")).match("fastp") },
             )
         }
     }

@@ -798,6 +798,25 @@
         },
         "timestamp": "2025-10-09T14:43:40.65677498"
     },
+    "bracken": {
+        "content": [
+            [
+                "bracken_db1_combined_reports.txt",
+                "db1/2611_db1.bracken.kraken2.report_bracken.txt",
+                "db1/2611_db1.bracken.tsv",
+                "db1/2612_db1.bracken.kraken2.report_bracken.txt",
+                "db1/2612_db1.bracken.tsv",
+                "db1/2613_db1.bracken.kraken2.report_bracken.txt",
+                "db1/2613_db1.bracken.tsv"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T11:01:37.877650569"
+    },
     "bowtie2": {
         "content": [
             [
@@ -1019,6 +1038,29 @@
             "nextflow": "25.04.7"
         },
         "timestamp": "2025-10-21T16:21:28.24278576"
+    },
+    "centrifuge": {
+        "content": [
+            [
+                "centrifuge_db3_combined_reports.txt",
+                "db3/2612_db3.centrifuge.mapped.fastq.gz",
+                "db3/2612_db3.centrifuge.report.txt",
+                "db3/2612_db3.centrifuge.results.txt",
+                "db3/2612_db3.centrifuge.txt",
+                "db3/2612_db3.centrifuge.unmapped.fastq.gz",
+                "db3/2613_db3.centrifuge.mapped.fastq.gz",
+                "db3/2613_db3.centrifuge.report.txt",
+                "db3/2613_db3.centrifuge.results.txt",
+                "db3/2613_db3.centrifuge.txt",
+                "db3/2613_db3.centrifuge.unmapped.fastq.gz"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T11:40:49.212864224"
     },
     "bbduk": {
         "content": [
@@ -1532,5 +1574,29 @@
             "nextflow": "25.04.8"
         },
         "timestamp": "2025-10-23T16:22:40.5867774"
+    },
+    "fastp": {
+        "content": [
+            [
+                "2612_ERR5766176.fastp.html",
+                "2612_ERR5766176.fastp.json",
+                "2612_ERR5766176.fastp.log",
+                "2612_ERR5766176_B.fastp.html",
+                "2612_ERR5766176_B.fastp.json",
+                "2612_ERR5766176_B.fastp.log",
+                "2612_ERR5766180.fastp.html",
+                "2612_ERR5766180.fastp.json",
+                "2612_ERR5766180.fastp.log",
+                "2613_ERR5766181.fastp.html",
+                "2613_ERR5766181.fastp.json",
+                "2613_ERR5766181.fastp.log"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T11:51:22.129160535"
     }
 }
