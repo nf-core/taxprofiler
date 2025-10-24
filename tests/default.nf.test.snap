@@ -798,6 +798,22 @@
         },
         "timestamp": "2025-10-09T14:43:40.65677498"
     },
+    "bowtie2": {
+        "content": [
+            [
+                "align/2612_ERR5766176.bowtie2.log",
+                "align/2612_ERR5766176_B.bowtie2.log",
+                "align/2612_ERR5766180.bowtie2.log",
+                "align/2613_ERR5766181.bowtie2.log"
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-24T10:48:41.19898897"
+    },
     "kraken2": {
         "content": [
             [
