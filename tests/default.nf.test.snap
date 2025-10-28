@@ -18,13 +18,13 @@
     },
     "kaiju_md5": {
         "content": [
-            "f210e9f50e9b35038df8c839db042cca"
+            "8fb489e520f5e9f5d01469fd2471037e"
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T14:43:21.522557803"
+        "timestamp": "2025-10-28T15:46:25.601962279"
     },
     "nanoq": {
         "content": [
@@ -837,27 +837,39 @@
     },
     "fastp": {
         "content": [
+            true,
             [
-                "2612_ERR5766176.fastp.html",
-                "2612_ERR5766176.fastp.json",
-                "2612_ERR5766176.fastp.log",
-                "2612_ERR5766176_B.fastp.html",
-                "2612_ERR5766176_B.fastp.json",
-                "2612_ERR5766176_B.fastp.log",
-                "2612_ERR5766180.fastp.html",
-                "2612_ERR5766180.fastp.json",
-                "2612_ERR5766180.fastp.log",
-                "2613_ERR5766181.fastp.html",
-                "2613_ERR5766181.fastp.json",
-                "2613_ERR5766181.fastp.log"
-            ],
-            true
+                [
+                    "2612_ERR5766176.fastp.html",
+                    "2612_ERR5766176.fastp.json",
+                    "2612_ERR5766176_B.fastp.html",
+                    "2612_ERR5766176_B.fastp.json",
+                    "2612_ERR5766180.fastp.html",
+                    "2612_ERR5766180.fastp.json",
+                    "2613_ERR5766181.fastp.html",
+                    "2613_ERR5766181.fastp.json"
+                ],
+                [
+                    "2612_ERR5766176.fastp.html",
+                    "2612_ERR5766176.fastp.json",
+                    "2612_ERR5766176.fastp.log",
+                    "2612_ERR5766176_B.fastp.html",
+                    "2612_ERR5766176_B.fastp.json",
+                    "2612_ERR5766176_B.fastp.log",
+                    "2612_ERR5766180.fastp.html",
+                    "2612_ERR5766180.fastp.json",
+                    "2612_ERR5766180.fastp.log",
+                    "2613_ERR5766181.fastp.html",
+                    "2613_ERR5766181.fastp.json",
+                    "2613_ERR5766181.fastp.log"
+                ]
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T11:51:22.129160535"
+        "timestamp": "2025-10-28T15:46:25.511527516"
     },
     "fastp_md5": {
         "content": [
@@ -1739,13 +1751,13 @@
     },
     "porechop_abi_md5": {
         "content": [
-            "79be7e03d6409d9f358c2d3d7d5cf7a1"
+            "83d6fbd9f7e58f9c789677c8ce022c70"
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T14:43:21.575936195"
+        "timestamp": "2025-10-28T15:46:25.657272605"
     },
     "centrifuge_md5": {
         "content": [
