@@ -160,16 +160,21 @@
     },
     "porechop_abi": {
         "content": [
+            true,
             [
-                "ERR3201952_ERR3201952_porechop_abi.log"
-            ],
-            true
+                [
+                    "ERR3201952_ERR3201952_porechop_abi.log"
+                ],
+                [
+                    
+                ]
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T14:46:31.858865791"
+        "timestamp": "2025-10-28T17:24:38.929392433"
     },
     "-profile test": {
         "content": [
