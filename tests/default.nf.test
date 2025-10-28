@@ -109,6 +109,7 @@ nextflow_pipeline {
                 { assert snapshot ( stable_name_porechopabi, file ("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("reads were split")).match("porechop_abi") },
                 { assert snapshot ( stable_name_samtools, file ("$outputDir/samtools/stats/2613_ERR5766181.stats").text.contains("mismatches:")).match("samtools") },
                 { assert snapshot ( stable_name_taxpasta, file ("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").text.contains("186803")).match("taxpasta") },
+                { assert snapshot(path("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").md5).match("taxpasta_md5") },
 
 
             )
