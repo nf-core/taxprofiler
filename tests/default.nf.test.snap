@@ -1768,13 +1768,13 @@
     },
     "porechop_abi_md5": {
         "content": [
-            "e430ae70d1560da583dd0fc04f2b4150"
+            "ebebfaf2a903681b4f9ce4298b5cc61d"
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T16:22:18.679720909"
+        "timestamp": "2025-10-28T16:32:24.627888757"
     },
     "centrifuge_md5": {
         "content": [
