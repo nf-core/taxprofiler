@@ -51,38 +51,55 @@
     },
     "kaiju": {
         "content": [
+            true,
             [
-                "db5/2611_db5.kaiju.tsv",
-                "db5/2611_db5.kaijutable.txt",
-                "db5/2612_db5.kaiju.tsv",
-                "db5/2612_db5.kaijutable.txt",
-                "db5/2613_db5.kaiju.tsv",
-                "db5/2613_db5.kaijutable.txt",
-                "db6/2614_db6.kaiju.tsv",
-                "db6/2614_db6.kaijutable.txt",
-                "db6/ERR3201952_db6.kaiju.tsv",
-                "db6/ERR3201952_db6.kaijutable.txt",
-                "db7/2611_db7.kaiju.tsv",
-                "db7/2611_db7.kaijutable.txt",
-                "db7/2612_db7.kaiju.tsv",
-                "db7/2612_db7.kaijutable.txt",
-                "db7/2613_db7.kaiju.tsv",
-                "db7/2613_db7.kaijutable.txt",
-                "db7/2614_db7.kaiju.tsv",
-                "db7/2614_db7.kaijutable.txt",
-                "db7/ERR3201952_db7.kaiju.tsv",
-                "db7/ERR3201952_db7.kaijutable.txt",
-                "kaiju_db5_combined_reports.txt",
-                "kaiju_db6_combined_reports.txt",
-                "kaiju_db7_combined_reports.txt"
-            ],
-            true
+                [
+                    "db5/2611_db5.kaiju.tsv",
+                    "db5/2611_db5.kaijutable.txt",
+                    "db5/2612_db5.kaiju.tsv",
+                    "db5/2612_db5.kaijutable.txt",
+                    "db5/2613_db5.kaiju.tsv",
+                    "db5/2613_db5.kaijutable.txt",
+                    "db6/2614_db6.kaiju.tsv",
+                    "db6/2614_db6.kaijutable.txt",
+                    "db6/ERR3201952_db6.kaiju.tsv",
+                    "db6/ERR3201952_db6.kaijutable.txt",
+                    "db7/2611_db7.kaiju.tsv",
+                    "db7/2611_db7.kaijutable.txt",
+                    "db7/2612_db7.kaiju.tsv",
+                    "db7/2612_db7.kaijutable.txt",
+                    "db7/2613_db7.kaiju.tsv",
+                    "db7/2613_db7.kaijutable.txt",
+                    "db7/2614_db7.kaiju.tsv",
+                    "db7/2614_db7.kaijutable.txt",
+                    "db7/ERR3201952_db7.kaiju.tsv",
+                    "db7/ERR3201952_db7.kaijutable.txt",
+                    "kaiju_db5_combined_reports.txt",
+                    "kaiju_db6_combined_reports.txt",
+                    "kaiju_db7_combined_reports.txt"
+                ],
+                [
+                    "db5/2611_db5.kaiju.tsv",
+                    "db5/2612_db5.kaiju.tsv",
+                    "db5/2613_db5.kaiju.tsv",
+                    "db6/2614_db6.kaiju.tsv",
+                    "db6/ERR3201952_db6.kaiju.tsv",
+                    "db7/2611_db7.kaiju.tsv",
+                    "db7/2612_db7.kaiju.tsv",
+                    "db7/2613_db7.kaiju.tsv",
+                    "db7/2614_db7.kaiju.tsv",
+                    "db7/ERR3201952_db7.kaiju.tsv",
+                    "kaiju_db5_combined_reports.txt",
+                    "kaiju_db6_combined_reports.txt",
+                    "kaiju_db7_combined_reports.txt"
+                ]
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T12:56:09.093907312"
+        "timestamp": "2025-10-28T16:22:18.585047606"
     },
     "bracken": {
         "content": [
@@ -1751,13 +1768,13 @@
     },
     "porechop_abi_md5": {
         "content": [
-            "83d6fbd9f7e58f9c789677c8ce022c70"
+            "e430ae70d1560da583dd0fc04f2b4150"
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T15:46:25.657272605"
+        "timestamp": "2025-10-28T16:22:18.679720909"
     },
     "centrifuge_md5": {
         "content": [
