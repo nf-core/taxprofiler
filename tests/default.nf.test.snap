@@ -18,13 +18,13 @@
     },
     "kaiju_md5": {
         "content": [
-            "54084beb0ad2dac96a3ba54b4b0e79f3"
+            "f210e9f50e9b35038df8c839db042cca"
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T13:29:16.028346015"
+        "timestamp": "2025-10-28T14:43:21.522557803"
     },
     "nanoq": {
         "content": [
@@ -861,13 +861,13 @@
     },
     "fastp_md5": {
         "content": [
-            "8439d7ad1026445b712c29c81433cf28"
+            "958d95a60b523884e02e605b518b4636"
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T13:29:15.943619865"
+        "timestamp": "2025-10-28T14:43:21.456332627"
     },
     "all_files": {
         "content": [
@@ -1721,23 +1721,31 @@
     },
     "bbduk": {
         "content": [
-            true
+            true,
+            [
+                [
+                    
+                ],
+                [
+                    
+                ]
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-23T17:12:22.803193521"
+        "timestamp": "2025-10-28T14:43:21.344429221"
     },
     "porechop_abi_md5": {
         "content": [
-            "8b1807a8700d953ab649e9a4e4551939"
+            "79be7e03d6409d9f358c2d3d7d5cf7a1"
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T13:29:16.15786791"
+        "timestamp": "2025-10-28T14:43:21.575936195"
     },
     "centrifuge_md5": {
         "content": [
