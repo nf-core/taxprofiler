@@ -1849,19 +1849,19 @@
                 "2611_db2.kraken2.classified.fastq.gz:md5,62950cb4cd6d634cb7ba76bfb8ff458f",
                 "2611_db2.kraken2.kraken2.report.txt:md5,6f4f889a483776922a0deede33260277",
                 "2611_db2.kraken2.unclassified.fastq.gz:md5,a9da767c8a36a801b428b4c0ab9e3f1c",
-                "2612_db2.kraken2.classified.fastq.gz:md5,f298c0d8e872dc4ae72edb176c54d7c6",
+                "2612_db2.kraken2.classified.fastq.gz:md5,1f0d82cf316fcb665d734daf7d71af14",
                 "2612_db2.kraken2.kraken2.report.txt:md5,4cd4fba2680a5465139e7424909799bb",
-                "2612_db2.kraken2.unclassified.fastq.gz:md5,75166726aa57979a58b4479ab13809bc",
-                "2613_db2.kraken2.classified.fastq.gz:md5,73e0e26e9cc268b0dc9e63da2733ed31",
+                "2612_db2.kraken2.unclassified.fastq.gz:md5,90fe2a8c8eedf44e5889d81bafba908a",
+                "2613_db2.kraken2.classified.fastq.gz:md5,114e28426b6794ece2eb91526fa24284",
                 "2613_db2.kraken2.kraken2.report.txt:md5,47f34be432964fda78116d7316b9cd92",
-                "2613_db2.kraken2.unclassified.fastq.gz:md5,62795ac998ca40531c178c7432ef8373"
+                "2613_db2.kraken2.unclassified.fastq.gz:md5,f7cb906168b4895e35d90c5a6913304a"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-29T12:07:47.771490795"
+        "timestamp": "2025-10-29T13:11:09.315161191"
     },
     "nonpareil": {
         "content": [

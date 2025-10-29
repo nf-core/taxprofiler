@@ -36,7 +36,7 @@ nextflow_pipeline {
             def stable_name_nonpareil    = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{svg,npa}'] )
 
             //kraken2
-            def stable_content_kraken2   = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: ['*.{fastq.gz}'] , ignoreFile: null, include: ['*','**/*'])
+            def stable_content_kraken2   = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: ['**/*.{fastq.gz}'] , ignoreFile: null, include: ['*','**/*'])
             def stable_name_kraken2      = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*.fastq.gz'])
 
             //bowtie2
