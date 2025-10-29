@@ -1842,6 +1842,13 @@
                 "kraken2_db1-bracken_combined_reports.txt",
                 "kraken2_db2_combined_reports.txt"
             ],
+            [
+                "db2/2611_db2.kraken2.kraken2.report.txt",
+                "db2/2612_db2.kraken2.kraken2.report.txt",
+                "db2/2613_db2.kraken2.kraken2.report.txt",
+                "kraken2_db1-bracken_combined_reports.txt",
+                "kraken2_db2_combined_reports.txt"
+            ],
             true,
             true,
             true,
@@ -1849,19 +1856,19 @@
                 "2611_db2.kraken2.classified.fastq.gz:md5,62950cb4cd6d634cb7ba76bfb8ff458f",
                 "2611_db2.kraken2.kraken2.report.txt:md5,6f4f889a483776922a0deede33260277",
                 "2611_db2.kraken2.unclassified.fastq.gz:md5,a9da767c8a36a801b428b4c0ab9e3f1c",
-                "2612_db2.kraken2.classified.fastq.gz:md5,5002cc82fce828f9cf5eb3eb3e136977",
+                "2612_db2.kraken2.classified.fastq.gz:md5,2e8d2e3669852d5d56926160ade1fc25",
                 "2612_db2.kraken2.kraken2.report.txt:md5,4cd4fba2680a5465139e7424909799bb",
-                "2612_db2.kraken2.unclassified.fastq.gz:md5,96c54937df386a8df3d264da629a535d",
-                "2613_db2.kraken2.classified.fastq.gz:md5,73e0e26e9cc268b0dc9e63da2733ed31",
+                "2612_db2.kraken2.unclassified.fastq.gz:md5,ddd0cef00901a1d7b5d1a98fdca643dc",
+                "2613_db2.kraken2.classified.fastq.gz:md5,01bd114c5f5be382a99791b51bc8a287",
                 "2613_db2.kraken2.kraken2.report.txt:md5,47f34be432964fda78116d7316b9cd92",
-                "2613_db2.kraken2.unclassified.fastq.gz:md5,82a8f7fb354cd4f85384fb56a02c2da8"
+                "2613_db2.kraken2.unclassified.fastq.gz:md5,12fa790a6a0f40a04108d4faa909280f"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-29T14:32:25.022376171"
+        "timestamp": "2025-10-29T15:35:51.881649221"
     },
     "nonpareil": {
         "content": [

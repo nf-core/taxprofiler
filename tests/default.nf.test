@@ -100,7 +100,7 @@ nextflow_pipeline {
                 { assert snapshot ( stable_content_diamond, stable_name_diamond ).match("diamond" ) },
                 { assert snapshot ( stable_content_nonpareil, stable_name_nonpareil ).match("nonpareil" ) },
                 { assert snapshot (
-                        stable_name_kraken2, file ("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("S288C"), file ("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").text.contains("S288C"), file ("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").text.contains("S288C"),
+                        stable_name_kraken2, stable_content_kraken2, file ("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("S288C"), file ("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").text.contains("S288C"), file ("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").text.contains("S288C"),
                         path("$outputDir/kraken2/db2/"))
                     .match("kraken2") },
                 { assert snapshot ( stable_name_bowtie2, file ("$outputDir/bowtie2/align/2613_ERR5766181.bowtie2.log").text.contains("overall alignment rate")).match("bowtie2" ) },
