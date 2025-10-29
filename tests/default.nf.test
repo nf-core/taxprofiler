@@ -23,11 +23,11 @@ nextflow_pipeline {
              //MultiQC
             def stable_name_multiqc      = getAllFilesFromDir("$outputDir/multiqc", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
 
-	    //BBDuk
+	         //BBDuk
             def stable_content_bbduk     = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: ['*.log'], ignoreFile: null, include: ['*','**/*'])
             def stable_name_bbduk        = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.fastq.gz'] )
 
-	    //DIAMOND
+	          //DIAMOND
             def stable_content_diamond   = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: ['*/*.{tsv,log,txt}'], ignoreFile: null, include: ['*','**/*'])
             def stable_name_diamond      = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{tsv,log,txt}'] )
 
