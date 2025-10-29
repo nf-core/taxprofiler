@@ -1656,13 +1656,22 @@
                 "align/2612_ERR5766180.bowtie2.log",
                 "align/2613_ERR5766181.bowtie2.log"
             ],
-            true
+            true,
+            true,
+            true,
+            true,
+            [
+                "2612_ERR5766176.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
+                "2612_ERR5766176_B.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
+                "2612_ERR5766180.bowtie2.log:md5,a7487ce9c549a7f8fb5694fd0889f929",
+                "2613_ERR5766181.bowtie2.log:md5,6cb148fdf3840de7a8a1f5315847817b"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T10:48:41.19898897"
+        "timestamp": "2025-10-29T17:29:06.127759931"
     },
     "samtools_md5": {
         "content": [
