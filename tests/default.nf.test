@@ -94,7 +94,7 @@ nextflow_pipeline {
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
                 { assert snapshot ( stable_name_all ).match("all_files") },
-		        { assert snapshot ( stable_name_multiqc ).match("multiqc" ) },
+		            { assert snapshot ( stable_name_multiqc ).match("multiqc" ) },
                 { assert snapshot( file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Reads Processed:"), [stable_content_bbduk, stable_name_bbduk]).match("bbduk")},
                 { assert snapshot ( stable_content_diamond, stable_name_diamond ).match("diamond" ) },
                 { assert snapshot ( stable_content_nonpareil, stable_name_nonpareil ).match("nonpareil" ) },
