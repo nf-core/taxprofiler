@@ -16,16 +16,6 @@
         },
         "timestamp": "2025-10-24T13:40:32.296289239"
     },
-    "kaiju_md5": {
-        "content": [
-            "8fb489e520f5e9f5d01469fd2471037e"
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-10-28T15:46:25.601962279"
-    },
     "nanoq": {
         "content": [
             [
@@ -892,16 +882,6 @@
             "nextflow": "25.04.8"
         },
         "timestamp": "2025-10-28T15:46:25.511527516"
-    },
-    "fastp_md5": {
-        "content": [
-            "958d95a60b523884e02e605b518b4636"
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-10-28T14:43:21.456332627"
     },
     "all_files": {
         "content": [
@@ -1771,16 +1751,6 @@
         },
         "timestamp": "2025-10-28T14:43:21.344429221"
     },
-    "porechop_abi_md5": {
-        "content": [
-            "ebebfaf2a903681b4f9ce4298b5cc61d"
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-10-28T16:32:24.627888757"
-    },
     "centrifuge_md5": {
         "content": [
             "51447b7c533fb23c1c5ffb18978662bc"
@@ -1882,16 +1852,6 @@
             "nextflow": "25.04.8"
         },
         "timestamp": "2025-10-24T10:05:02.095957795"
-    },
-    "bbduk_md5": {
-        "content": [
-            "52a4d54e31f1598835f5afe1e28fea1b"
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-10-28T13:29:15.708084607"
     },
     "nonpareil": {
         "content": [

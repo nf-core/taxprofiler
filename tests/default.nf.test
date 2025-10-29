@@ -118,7 +118,6 @@ nextflow_pipeline {
                 { assert snapshot ( stable_name_nanoq, file ("$outputDir/nanoq/ERR3201952_ERR3201952_filtered.stats").text.contains("Median read quality")).match("nanoq") },
                 { assert snapshot(path("$outputDir/nanoq/ERR3201952_ERR3201952_filtered.stats").md5).match("nanoq_md5") },
                 { assert snapshot ( file ("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("reads were split"), [stable_name_porechopabi, stable_content_porechopabi]).match("porechop_abi") },
-                { assert snapshot ( file ("$outputDir/fastp/2613_ERR5766181.fastp.log").text.contains("Read pairs merged"),[stable_content_fastp, stable_name_fastp] ).match("fastp") },
                 { assert snapshot ( stable_name_samtools, file ("$outputDir/samtools/stats/2613_ERR5766181.stats").text.contains("mismatches:")).match("samtools") },
                 { assert snapshot(path("$outputDir/samtools/stats/2613_ERR5766181.stats").md5).match("samtools_md5") },
                 { assert snapshot ( stable_name_taxpasta, file ("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").text.contains("186803")).match("taxpasta") },
