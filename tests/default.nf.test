@@ -15,7 +15,7 @@ nextflow_pipeline {
         }
 
         then {
- 	  	// stable_name: All files + folders in ${params.outdir}/ with a stable name
+ 	  	    // stable_name: All files + folders in ${params.outdir}/ with a stable name
             def stable_name_all = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path     = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
@@ -99,8 +99,8 @@ nextflow_pipeline {
                 { assert snapshot ( stable_content_diamond, stable_name_diamond ).match("diamond" ) },
                 { assert snapshot ( stable_content_nonpareil, stable_name_nonpareil ).match("nonpareil" ) },
                 { assert snapshot (
-                        stable_name_kraken2, file ("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("S288C")),
-                        path("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").md5)
+                        stable_name_kraken2, file ("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("S288C"),
+                        path("$outputDir/kraken2/db2/"))
                     .match("kraken2") },
                 { assert snapshot ( stable_name_bowtie2, file ("$outputDir/bowtie2/align/2613_ERR5766181.bowtie2.log").text.contains("overall alignment rate")).match("bowtie2" ) },
                 { assert snapshot(path("$outputDir/bowtie2/align/2613_ERR5766181.bowtie2.log").md5).match("bowtie2_md5") },
