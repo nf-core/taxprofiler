@@ -1833,12 +1833,6 @@
     "kraken2": {
         "content": [
             [
-                "db2/2611_db2.kraken2.classified.fastq.gz",
-                "db2/2611_db2.kraken2.unclassified.fastq.gz",
-                "db2/2612_db2.kraken2.classified.fastq.gz",
-                "db2/2612_db2.kraken2.unclassified.fastq.gz",
-                "db2/2613_db2.kraken2.classified.fastq.gz",
-                "db2/2613_db2.kraken2.unclassified.fastq.gz",
                 "kraken2_db1-bracken_combined_reports.txt",
                 "kraken2_db2_combined_reports.txt"
             ],
@@ -1849,19 +1843,19 @@
                 "2611_db2.kraken2.classified.fastq.gz:md5,62950cb4cd6d634cb7ba76bfb8ff458f",
                 "2611_db2.kraken2.kraken2.report.txt:md5,6f4f889a483776922a0deede33260277",
                 "2611_db2.kraken2.unclassified.fastq.gz:md5,a9da767c8a36a801b428b4c0ab9e3f1c",
-                "2612_db2.kraken2.classified.fastq.gz:md5,1f0d82cf316fcb665d734daf7d71af14",
+                "2612_db2.kraken2.classified.fastq.gz:md5,8d2a6a804d7d3a9ffa72ad7e0157c1f8",
                 "2612_db2.kraken2.kraken2.report.txt:md5,4cd4fba2680a5465139e7424909799bb",
-                "2612_db2.kraken2.unclassified.fastq.gz:md5,90fe2a8c8eedf44e5889d81bafba908a",
-                "2613_db2.kraken2.classified.fastq.gz:md5,114e28426b6794ece2eb91526fa24284",
+                "2612_db2.kraken2.unclassified.fastq.gz:md5,14734bc2459689ed5fb5daf757132a07",
+                "2613_db2.kraken2.classified.fastq.gz:md5,73e0e26e9cc268b0dc9e63da2733ed31",
                 "2613_db2.kraken2.kraken2.report.txt:md5,47f34be432964fda78116d7316b9cd92",
-                "2613_db2.kraken2.unclassified.fastq.gz:md5,f7cb906168b4895e35d90c5a6913304a"
+                "2613_db2.kraken2.unclassified.fastq.gz:md5,68e1690d2ae932c1bcc9b4d3f282dce4"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-29T13:11:09.315161191"
+        "timestamp": "2025-10-29T13:47:59.723496144"
     },
     "nonpareil": {
         "content": [
