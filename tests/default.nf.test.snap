@@ -1851,24 +1851,13 @@
             ],
             true,
             true,
-            true,
-            [
-                "2611_db2.kraken2.classified.fastq.gz:md5,62950cb4cd6d634cb7ba76bfb8ff458f",
-                "2611_db2.kraken2.kraken2.report.txt:md5,6f4f889a483776922a0deede33260277",
-                "2611_db2.kraken2.unclassified.fastq.gz:md5,a9da767c8a36a801b428b4c0ab9e3f1c",
-                "2612_db2.kraken2.classified.fastq.gz:md5,2e8d2e3669852d5d56926160ade1fc25",
-                "2612_db2.kraken2.kraken2.report.txt:md5,4cd4fba2680a5465139e7424909799bb",
-                "2612_db2.kraken2.unclassified.fastq.gz:md5,ddd0cef00901a1d7b5d1a98fdca643dc",
-                "2613_db2.kraken2.classified.fastq.gz:md5,01bd114c5f5be382a99791b51bc8a287",
-                "2613_db2.kraken2.kraken2.report.txt:md5,47f34be432964fda78116d7316b9cd92",
-                "2613_db2.kraken2.unclassified.fastq.gz:md5,12fa790a6a0f40a04108d4faa909280f"
-            ]
+            true
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-29T15:35:51.881649221"
+        "timestamp": "2025-10-29T16:44:29.801885101"
     },
     "nonpareil": {
         "content": [

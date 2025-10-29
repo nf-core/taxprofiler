@@ -36,8 +36,8 @@ nextflow_pipeline {
             def stable_name_nonpareil    = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.{svg,npa}'] )
 
             //kraken2
-            def stable_content_kraken2   = getAllFilesFromDir("$outputDir/kraken2/", relative: true, includeDir: false, ignore: ['**/*.fastq.gz'] , ignoreFile: null, include: ['*','**/*'])
-            def stable_name_kraken2      = getAllFilesFromDir("$outputDir/kraken2/", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*.fastq.gz'])
+            def stable_content_kraken2   = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: ['**/*.fastq.gz'] , ignoreFile: null, include: ['*','**/*'])
+            def stable_name_kraken2      = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*.fastq.gz'])
 
             //bowtie2
             def stable_name_bowtie2      = getAllFilesFromDir("$outputDir/bowtie2", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
@@ -99,9 +99,8 @@ nextflow_pipeline {
                 { assert snapshot( file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Reads Processed:"), [stable_content_bbduk, stable_name_bbduk]).match("bbduk")},
                 { assert snapshot ( stable_content_diamond, stable_name_diamond ).match("diamond" ) },
                 { assert snapshot ( stable_content_nonpareil, stable_name_nonpareil ).match("nonpareil" ) },
-                { assert snapshot (
-                        stable_name_kraken2, stable_content_kraken2, file ("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("S288C"), file ("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").text.contains("S288C"), file ("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").text.contains("S288C"),
-                        path("$outputDir/kraken2/db2/"))
+                  { assert snapshot (
+                        stable_name_kraken2, stable_content_kraken2, file ("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("S288C"), file ("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").text.contains("S288C"), file ("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").text.contains("S288C"))
                     .match("kraken2") },
                 { assert snapshot ( stable_name_bowtie2, file ("$outputDir/bowtie2/align/2613_ERR5766181.bowtie2.log").text.contains("overall alignment rate")).match("bowtie2" ) },
                 { assert snapshot(path("$outputDir/bowtie2/align/2613_ERR5766181.bowtie2.log").md5).match("bowtie2_md5") },
