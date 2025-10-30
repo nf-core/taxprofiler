@@ -46,6 +46,7 @@ nextflow_pipeline {
             def stable_name_bracken      = getAllFilesFromDir("$outputDir/bracken", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
 
             //centrifuge
+            def stable_content_centrifuge   = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: ['**/*.fastq.gz'] , ignoreFile: null, include: ['*','**/*'])
             def stable_name_centrifuge   = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
 
             //fastp
@@ -109,7 +110,7 @@ nextflow_pipeline {
                         path("$outputDir/bracken/db1"))
                         .match("bracken") },
                 { assert snapshot ( stable_name_centrifuge, file ("$outputDir/centrifuge/db3/2613_db3.centrifuge.report.txt").text.contains("Eucommia"), file ("$outputDir/centrifuge/db3/2612_db3.centrifuge.report.txt").text.contains("Eucommia"),
-                        path("$outputDir/centrifuge/db3"))
+                        stable_content_centrifuge)
                         .match("centrifuge") },
                 { assert snapshot ( file ("$outputDir/fastp/2613_ERR5766181.fastp.log").text.contains("Read pairs merged"),[stable_content_fastp, stable_name_fastp] ).match("fastp") },
                 { assert snapshot ( stable_name_ganon, file ("$outputDir/ganon/db1/2613_db1.ganon.tre").text.contains("Saccharomycetales")).match("ganon") },
