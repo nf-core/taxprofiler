@@ -102,13 +102,23 @@
                 "db1/2613_db1.bracken.kraken2.report_bracken.txt",
                 "db1/2613_db1.bracken.tsv"
             ],
-            true
+            true,
+            true,
+            true,
+            [
+                "2611_db1.bracken.kraken2.report_bracken.txt:md5,2d098b8c7767c2211984028877ebf977",
+                "2611_db1.bracken.tsv:md5,74af1e5c159628b9d746fc53be5409bf",
+                "2612_db1.bracken.kraken2.report_bracken.txt:md5,7087bcab68e936a8a9c67caafcbd6183",
+                "2612_db1.bracken.tsv:md5,330c1d6f98cbc6d44dec3e83d9eeccd7",
+                "2613_db1.bracken.kraken2.report_bracken.txt:md5,56647e7054f565a9affaabd5b18b4bd8",
+                "2613_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T11:01:37.877650569"
+        "timestamp": "2025-10-30T10:47:27.897443454"
     },
     "metaphlan": {
         "content": [
