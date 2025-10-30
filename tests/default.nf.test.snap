@@ -860,38 +860,38 @@
     "fastp": {
         "content": [
             true,
+            true,
+            false,
             [
-                [
-                    "2612_ERR5766176.fastp.html",
-                    "2612_ERR5766176.fastp.json",
-                    "2612_ERR5766176_B.fastp.html",
-                    "2612_ERR5766176_B.fastp.json",
-                    "2612_ERR5766180.fastp.html",
-                    "2612_ERR5766180.fastp.json",
-                    "2613_ERR5766181.fastp.html",
-                    "2613_ERR5766181.fastp.json"
-                ],
-                [
-                    "2612_ERR5766176.fastp.html",
-                    "2612_ERR5766176.fastp.json",
-                    "2612_ERR5766176.fastp.log",
-                    "2612_ERR5766176_B.fastp.html",
-                    "2612_ERR5766176_B.fastp.json",
-                    "2612_ERR5766176_B.fastp.log",
-                    "2612_ERR5766180.fastp.html",
-                    "2612_ERR5766180.fastp.json",
-                    "2612_ERR5766180.fastp.log",
-                    "2613_ERR5766181.fastp.html",
-                    "2613_ERR5766181.fastp.json",
-                    "2613_ERR5766181.fastp.log"
-                ]
+                "2612_ERR5766176.fastp.html",
+                "2612_ERR5766176.fastp.json",
+                "2612_ERR5766176_B.fastp.html",
+                "2612_ERR5766176_B.fastp.json",
+                "2612_ERR5766180.fastp.html",
+                "2612_ERR5766180.fastp.json",
+                "2613_ERR5766181.fastp.html",
+                "2613_ERR5766181.fastp.json"
+            ],
+            [
+                "2612_ERR5766176.fastp.html",
+                "2612_ERR5766176.fastp.json",
+                "2612_ERR5766176.fastp.log",
+                "2612_ERR5766176_B.fastp.html",
+                "2612_ERR5766176_B.fastp.json",
+                "2612_ERR5766176_B.fastp.log",
+                "2612_ERR5766180.fastp.html",
+                "2612_ERR5766180.fastp.json",
+                "2612_ERR5766180.fastp.log",
+                "2613_ERR5766181.fastp.html",
+                "2613_ERR5766181.fastp.json",
+                "2613_ERR5766181.fastp.log"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T15:46:25.511527516"
+        "timestamp": "2025-10-30T15:06:17.892477901"
     },
     "all_files": {
         "content": [

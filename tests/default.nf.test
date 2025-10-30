@@ -112,7 +112,7 @@ nextflow_pipeline {
                 { assert snapshot ( stable_name_centrifuge, file ("$outputDir/centrifuge/db3/2613_db3.centrifuge.report.txt").text.contains("Eucommia"), file ("$outputDir/centrifuge/db3/2612_db3.centrifuge.report.txt").text.contains("Eucommia"),
                         stable_content_centrifuge)
                         .match("centrifuge") },
-                { assert snapshot ( file ("$outputDir/fastp/2613_ERR5766181.fastp.log").text.contains("Read pairs merged"),[stable_content_fastp, stable_name_fastp] ).match("fastp") },
+                { assert snapshot ( file ("$outputDir/fastp/2613_ERR5766181.fastp.log").text.contains("Read pairs merged"),file ("$outputDir/fastp/2612_ERR5766176_B.fastp.log").text.contains("Read pairs merged"),file ("$outputDir/fastp/2612_ERR5766180.fastp.log").text.contains("Read pairs merged"),stable_content_fastp, stable_name_fastp ).match("fastp") },
                 { assert snapshot ( stable_name_ganon, file ("$outputDir/ganon/db1/2613_db1.ganon.tre").text.contains("Saccharomycetales")).match("ganon") },
                 { assert snapshot(path("$outputDir/ganon/db1/2613_db1.ganon.tre").md5).match("ganon_md5") },
                 { assert snapshot ( file ("$outputDir/kaiju/db6/2614_db6.kaiju.tsv").text.contains("ERR3201952.3225565"),[stable_content_kaiju, stable_name_kaiju] ).match("kaiju") },
