@@ -1928,13 +1928,26 @@
                 "db3/2613_db3.centrifuge.txt",
                 "db3/2613_db3.centrifuge.unmapped.fastq.gz"
             ],
-            true
+            true,
+            true,
+            [
+                "2612_db3.centrifuge.mapped.fastq.gz:md5,c8ddb0f980db049d033345bcfeca36ec",
+                "2612_db3.centrifuge.report.txt:md5,0a6f26622c27cfead610f61164e1c3be",
+                "2612_db3.centrifuge.results.txt:md5,b0483865427c2f1ba644a4625433542e",
+                "2612_db3.centrifuge.txt:md5,ff8aa36ddf249c159ae831e947009554",
+                "2612_db3.centrifuge.unmapped.fastq.gz:md5,26fd888c6f8a0b8f25f152f87f2d7d14",
+                "2613_db3.centrifuge.mapped.fastq.gz:md5,76b4dd538ad56c6b60782e22a3da1d73",
+                "2613_db3.centrifuge.report.txt:md5,51447b7c533fb23c1c5ffb18978662bc",
+                "2613_db3.centrifuge.results.txt:md5,8991900758b88ea63c90b92fcbb3b190",
+                "2613_db3.centrifuge.txt:md5,312542edb738972229695f68d2868019",
+                "2613_db3.centrifuge.unmapped.fastq.gz:md5,d04bfbd7e6912c02169af90005fe59a9"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T11:40:49.212864224"
+        "timestamp": "2025-10-30T11:45:39.167305465"
     },
     "kraken2_md5": {
         "content": [
