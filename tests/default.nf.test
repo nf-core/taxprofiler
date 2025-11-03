@@ -54,7 +54,8 @@ nextflow_pipeline {
             def stable_name_fastp        = getAllFilesFromDir("$outputDir/fastp", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*.log'])
 
             //ganon
-            def stable_name_ganon        = getAllFilesFromDir("$outputDir/ganon", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
+            def stable_content_ganon     = getAllFilesFromDir("$outputDir/ganon", relative: true, includeDir: false, ignore: ['*.{log}'] , ignoreFile: null, include: ['*','**/*'])
+            def stable_name_ganon        = getAllFilesFromDir("$outputDir/ganon", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*.log'])
 
             //kaiju
             def stable_content_kaiju     = getAllFilesFromDir("$outputDir/kaiju", relative: true, includeDir: false, ignore: ['*.{tsv}'] , ignoreFile: null, include: ['*','**/*'])
@@ -64,7 +65,8 @@ nextflow_pipeline {
             def stable_name_kmcp         = getAllFilesFromDir("$outputDir/kmcp", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
 
             // krona
-            def stable_name_krona        = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
+            def stable_content_krona     = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: ['*.{html}'] , ignoreFile: null, include: ['*','**/*'])
+            def stable_name_krona        = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*.html'])
 
             // metaphlan
             def stable_name_metaphlan    = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
@@ -113,14 +115,12 @@ nextflow_pipeline {
                         stable_content_centrifuge)
                         .match("centrifuge") },
                 { assert snapshot ( file ("$outputDir/fastp/2613_ERR5766181.fastp.log").text.contains("Read pairs merged"),file ("$outputDir/fastp/2612_ERR5766176_B.fastp.log").text.contains("Read pairs merged"),file ("$outputDir/fastp/2612_ERR5766180.fastp.log").text.contains("Read pairs merged"),stable_content_fastp, stable_name_fastp ).match("fastp") },
-                { assert snapshot ( stable_name_ganon, file ("$outputDir/ganon/db1/2613_db1.ganon.tre").text.contains("Saccharomycetales"),file ("$outputDir/ganon/db1/2612_db1.ganon.tre").text.contains("Saccharomycetales"), file ("$outputDir/ganon/db1/2611_db1.ganon.tre").text.contains("Saccharomycetales"),
-                        path("$outputDir/ganon/db1"))
-                        .match("ganon") },
+                { assert snapshot ( stable_name_ganon, stable_content_ganon, file ("$outputDir/ganon/db1/2613_db1.ganon.tre").text.contains("Saccharomycetales"),file ("$outputDir/ganon/db1/2612_db1.ganon.tre").text.contains("Saccharomycetales"), file ("$outputDir/ganon/db1/2611_db1.ganon.tre").text.contains("Saccharomycetales")).match("ganon") },
                 { assert snapshot ( file ("$outputDir/kaiju/db6/2614_db6.kaiju.tsv").text.contains("ERR3201952.3225565"),file ("$outputDir/kaiju/db6/ERR3201952_db6.kaiju.tsv").text.contains("ERR3201952.1159044"),stable_content_kaiju, stable_name_kaiju ).match("kaiju") },
                 { assert snapshot ( stable_name_kmcp, file ("$outputDir/kmcp/db1/2613_db1.kmcp.profile").text.contains("NW_024067565.1"),file ("$outputDir/kmcp/db1/2612_db1.kmcp.profile").text.contains("NW_024067565.1"),file ("$outputDir/kmcp/db1/2611_db1.kmcp.profile").text.contains("NW_024067565.1"),
                         path("$outputDir/kmcp/db1"))
                         .match("kmcp") },
-                { assert snapshot ( stable_name_krona, path("$outputDir/krona")).match("krona" ) },
+                { assert snapshot ( stable_name_krona, stable_content_krona).match("krona" ) },
                 { assert snapshot ( stable_name_metaphlan, file ("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan_profile.txt").text.contains("SGB4933_group")).match("metaphlan") },
                 { assert snapshot(path("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan_profile.txt").md5).match("metaphlan_profile_md5") },
                 { assert snapshot ( stable_name_nanoq, file ("$outputDir/nanoq/ERR3201952_ERR3201952_filtered.stats").text.contains("Median read quality")).match("nanoq") },
