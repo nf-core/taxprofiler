@@ -8,13 +8,21 @@
                 "kaiju_db7.html",
                 "kraken2-bracken_db1.html",
                 "kraken2_db2.html"
+            ],
+            [
+                "centrifuge_db3.html:md5,27ad612f2105ff533eed80d3447032bd",
+                "kaiju_db5.html:md5,5e47569d2da6ecc902e0915ddce400db",
+                "kaiju_db6.html:md5,6e44915cf25f108a6473c23d1250b713",
+                "kaiju_db7.html:md5,65ed0138fd22a9ec79c6225208ecbe6a",
+                "kraken2-bracken_db1.html:md5,a6bb2839e6c026d7af19d6891a5ba13b",
+                "kraken2_db2.html:md5,cbc99b1dd7be44a1c0a8573763f7be0f"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T13:40:32.296289239"
+        "timestamp": "2025-10-30T16:39:21.184177415"
     },
     "nanoq": {
         "content": [
@@ -42,54 +50,53 @@
     "kaiju": {
         "content": [
             true,
+            true,
             [
-                [
-                    "db5/2611_db5.kaiju.tsv",
-                    "db5/2611_db5.kaijutable.txt",
-                    "db5/2612_db5.kaiju.tsv",
-                    "db5/2612_db5.kaijutable.txt",
-                    "db5/2613_db5.kaiju.tsv",
-                    "db5/2613_db5.kaijutable.txt",
-                    "db6/2614_db6.kaiju.tsv",
-                    "db6/2614_db6.kaijutable.txt",
-                    "db6/ERR3201952_db6.kaiju.tsv",
-                    "db6/ERR3201952_db6.kaijutable.txt",
-                    "db7/2611_db7.kaiju.tsv",
-                    "db7/2611_db7.kaijutable.txt",
-                    "db7/2612_db7.kaiju.tsv",
-                    "db7/2612_db7.kaijutable.txt",
-                    "db7/2613_db7.kaiju.tsv",
-                    "db7/2613_db7.kaijutable.txt",
-                    "db7/2614_db7.kaiju.tsv",
-                    "db7/2614_db7.kaijutable.txt",
-                    "db7/ERR3201952_db7.kaiju.tsv",
-                    "db7/ERR3201952_db7.kaijutable.txt",
-                    "kaiju_db5_combined_reports.txt",
-                    "kaiju_db6_combined_reports.txt",
-                    "kaiju_db7_combined_reports.txt"
-                ],
-                [
-                    "db5/2611_db5.kaiju.tsv",
-                    "db5/2612_db5.kaiju.tsv",
-                    "db5/2613_db5.kaiju.tsv",
-                    "db6/2614_db6.kaiju.tsv",
-                    "db6/ERR3201952_db6.kaiju.tsv",
-                    "db7/2611_db7.kaiju.tsv",
-                    "db7/2612_db7.kaiju.tsv",
-                    "db7/2613_db7.kaiju.tsv",
-                    "db7/2614_db7.kaiju.tsv",
-                    "db7/ERR3201952_db7.kaiju.tsv",
-                    "kaiju_db5_combined_reports.txt",
-                    "kaiju_db6_combined_reports.txt",
-                    "kaiju_db7_combined_reports.txt"
-                ]
+                "db5/2611_db5.kaiju.tsv",
+                "db5/2611_db5.kaijutable.txt",
+                "db5/2612_db5.kaiju.tsv",
+                "db5/2612_db5.kaijutable.txt",
+                "db5/2613_db5.kaiju.tsv",
+                "db5/2613_db5.kaijutable.txt",
+                "db6/2614_db6.kaiju.tsv",
+                "db6/2614_db6.kaijutable.txt",
+                "db6/ERR3201952_db6.kaiju.tsv",
+                "db6/ERR3201952_db6.kaijutable.txt",
+                "db7/2611_db7.kaiju.tsv",
+                "db7/2611_db7.kaijutable.txt",
+                "db7/2612_db7.kaiju.tsv",
+                "db7/2612_db7.kaijutable.txt",
+                "db7/2613_db7.kaiju.tsv",
+                "db7/2613_db7.kaijutable.txt",
+                "db7/2614_db7.kaiju.tsv",
+                "db7/2614_db7.kaijutable.txt",
+                "db7/ERR3201952_db7.kaiju.tsv",
+                "db7/ERR3201952_db7.kaijutable.txt",
+                "kaiju_db5_combined_reports.txt",
+                "kaiju_db6_combined_reports.txt",
+                "kaiju_db7_combined_reports.txt"
+            ],
+            [
+                "db5/2611_db5.kaiju.tsv",
+                "db5/2612_db5.kaiju.tsv",
+                "db5/2613_db5.kaiju.tsv",
+                "db6/2614_db6.kaiju.tsv",
+                "db6/ERR3201952_db6.kaiju.tsv",
+                "db7/2611_db7.kaiju.tsv",
+                "db7/2612_db7.kaiju.tsv",
+                "db7/2613_db7.kaiju.tsv",
+                "db7/2614_db7.kaiju.tsv",
+                "db7/ERR3201952_db7.kaiju.tsv",
+                "kaiju_db5_combined_reports.txt",
+                "kaiju_db6_combined_reports.txt",
+                "kaiju_db7_combined_reports.txt"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T16:22:18.585047606"
+        "timestamp": "2025-10-30T16:39:21.048793505"
     },
     "bracken": {
         "content": [
@@ -1797,13 +1804,29 @@
                 "db1/2613_db1.ganon_report.tre",
                 "ganon_db1_combined_reports.txt"
             ],
-            true
+            true,
+            true,
+            true,
+            [
+                "2611_db1.ganon.log:md5,f162011089b4dec78c69c1211eac418c",
+                "2611_db1.ganon.rep:md5,b1be294d015636784dd66dbc7f3f0f47",
+                "2611_db1.ganon.tre:md5,79312ad176987ab97efe79274f9d03f2",
+                "2611_db1.ganon_report.tre:md5,f1ca195e1e4d5b82c1b59eca700bfe6b",
+                "2612_db1.ganon.log:md5,95ef10d8cd60314df7dfd70fe831893a",
+                "2612_db1.ganon.rep:md5,317abc9555fe15a76ccf21624f2bdf86",
+                "2612_db1.ganon.tre:md5,000eb2b555a822af4e811e777dca64cb",
+                "2612_db1.ganon_report.tre:md5,5dc60c860c9201a6addbf2a78e071cc3",
+                "2613_db1.ganon.log:md5,a736675e4222f69177d3400ffc01522b",
+                "2613_db1.ganon.rep:md5,b7022ac3a8694b0fcb167f7f93d1ceca",
+                "2613_db1.ganon.tre:md5,e3c066281504f20484a13d77155731b3",
+                "2613_db1.ganon_report.tre:md5,fbae3a22006f64dd08e860399af18e91"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T12:09:24.042467495"
+        "timestamp": "2025-10-30T16:39:20.940717916"
     },
     "diamond": {
         "content": [
@@ -1973,12 +1996,19 @@
                 "db1/2612_db1.kmcp.profile",
                 "db1/2613_db1.kmcp.profile"
             ],
-            true
+            true,
+            true,
+            true,
+            [
+                "2611_db1.kmcp.profile:md5,8b50fa20b6e60078b4e82ee56ad9a687",
+                "2612_db1.kmcp.profile:md5,59d06b55c1df0739e92ab6d8ce23cd83",
+                "2613_db1.kmcp.profile:md5,3d8c1e51679639d6011e3cb9b679485b"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T13:30:58.184445201"
+        "timestamp": "2025-10-30T16:39:21.102102895"
     }
 }
