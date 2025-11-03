@@ -130,6 +130,29 @@
             [
                 "metaphlan3/2611_metaphlan3.metaphlan.biom",
                 "metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2611_metaphlan3.metaphlan_profile.txt",
+                "metaphlan3/2612_metaphlan3.metaphlan.biom",
+                "metaphlan3/2612_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2612_metaphlan3.metaphlan_profile.txt",
+                "metaphlan3/2613_metaphlan3.metaphlan.biom",
+                "metaphlan3/2613_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2613_metaphlan3.metaphlan_profile.txt",
+                "metaphlan4/2611_metaphlan4.metaphlan.biom",
+                "metaphlan4/2611_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2611_metaphlan4.metaphlan_profile.txt",
+                "metaphlan4/2612_metaphlan4.metaphlan.biom",
+                "metaphlan4/2612_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2612_metaphlan4.metaphlan_profile.txt",
+                "metaphlan4/2613_metaphlan4.metaphlan.biom",
+                "metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2613_metaphlan4.metaphlan_profile.txt",
+                "metaphlan_metaphlan3_combined_reports.txt",
+                "metaphlan_metaphlan4_combined_reports.txt"
+            ],
+            true,
+            [
+                "metaphlan3/2611_metaphlan3.metaphlan.biom",
+                "metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
                 "metaphlan3/2611_metaphlan3.metaphlan.sam",
                 "metaphlan3/2611_metaphlan3.metaphlan_profile.txt",
                 "metaphlan3/2612_metaphlan3.metaphlan.biom",
@@ -151,49 +174,30 @@
                 "metaphlan4/2613_metaphlan4.metaphlan.biom",
                 "metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt",
                 "metaphlan4/2613_metaphlan4.metaphlan.sam",
-                "metaphlan4/2613_metaphlan4.metaphlan_profile.txt",
-                "metaphlan_metaphlan3_combined_reports.txt",
-                "metaphlan_metaphlan4_combined_reports.txt"
-            ],
-            true,
-            [
-                "2611_metaphlan4.metaphlan.biom:md5,9d59463b4da886386594b7fbc86e2786",
-                "2611_metaphlan4.metaphlan.bowtie2out.txt:md5,a093eab90d6b008846b210f264151e8f",
-                "2611_metaphlan4.metaphlan.sam:md5,79ac6b8433a0ce02df4895e346d9cdc8",
-                "2611_metaphlan4.metaphlan_profile.txt:md5,18971377bb1c208bce3ade4184b73aea",
-                "2612_metaphlan4.metaphlan.biom:md5,0a03c78b173d04d9d21d254f525c9450",
-                "2612_metaphlan4.metaphlan.bowtie2out.txt:md5,a82b02493e797ed48723f75c19c4fe57",
-                "2612_metaphlan4.metaphlan.sam:md5,4c16777bd3c97ba465be6a0a89d5a81f",
-                "2612_metaphlan4.metaphlan_profile.txt:md5,5da8c3bedb8272b7549c482744c3e5ce",
-                "2613_metaphlan4.metaphlan.biom:md5,4aadf0cc1b5451390507b41c45e6c34d",
-                "2613_metaphlan4.metaphlan.bowtie2out.txt:md5,667708f35e3e8359c13d2c1e11fada03",
-                "2613_metaphlan4.metaphlan.sam:md5,abd80886a8982d9a9a2d222dc57ef71f",
-                "2613_metaphlan4.metaphlan_profile.txt:md5,4dbfa9ab5d4068edd58125acbf3f3406"
+                "metaphlan4/2613_metaphlan4.metaphlan_profile.txt"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-03T14:04:46.612412176"
+        "timestamp": "2025-11-03T15:32:55.690722554"
     },
     "porechop_abi": {
         "content": [
             true,
             [
-                [
-                    "ERR3201952_ERR3201952_porechop_abi.log"
-                ],
-                [
-                    
-                ]
+                "ERR3201952_ERR3201952_porechop_abi.log"
+            ],
+            [
+                
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T17:24:38.929392433"
+        "timestamp": "2025-11-03T15:32:55.806738571"
     },
     "-profile test": {
         "content": [
@@ -1737,13 +1741,24 @@
                 "stats/2613_ERR5766181.stats",
                 "stats/ERR3201952_ERR3201952.stats"
             ],
-            true
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                "2612_ERR5766176.stats:md5,c3d2b46c22085705f49212c47cf83694",
+                "2612_ERR5766176_B.stats:md5,f73cce61c5bdcd4a2139ee419a6f95aa",
+                "2612_ERR5766180.stats:md5,fe6e3ffdcb2ef609611ce01e3879e022",
+                "2613_ERR5766181.stats:md5,4def2f487801141b82a7d98a9bc98ac2",
+                "ERR3201952_ERR3201952.stats:md5,12dfaee15c4fbf4efaa672ba26d2d85e"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T14:46:31.918030073"
+        "timestamp": "2025-11-03T16:19:21.981725774"
     },
     "taxpasta": {
         "content": [
@@ -1763,13 +1778,29 @@
                 "metaphlan_metaphlan3.tsv",
                 "metaphlan_metaphlan4.tsv"
             ],
-            true
+            true,
+            [
+                "bracken_db1.tsv:md5,8e938cc578ff054c2059cb4807839166",
+                "centrifuge_db3.tsv:md5,5352e2d3cae9adea40817a9baa74f962",
+                "diamond_db1.tsv:md5,8735a5a6548d7f9a4e2befba39003aa1",
+                "diamond_db2.tsv:md5,a88312576f51a60a0f71167ff10d19c1",
+                "diamond_db3.tsv:md5,6f7b3c87623aa46007a8bf40c7c2cf29",
+                "ganon_db1.tsv:md5,ef396446f0296614486d74b88a9cd95c",
+                "kaiju_db5.tsv:md5,09bf7e846247e9e8b87bd73db19c54e9",
+                "kaiju_db6.tsv:md5,f6983f8859a9f5bb4151bf938cf7e563",
+                "kaiju_db7.tsv:md5,e3a17976c25ed453f254f60e1aa8d74a",
+                "kmcp_db1.tsv:md5,733e420738e1349dce9233c3ccb90ca2",
+                "kraken2_db1-bracken.tsv:md5,474162f6a14859af1e21388f6666c681",
+                "kraken2_db2.tsv:md5,f512aa2220e8dfdd73b3a130abc8c6fd",
+                "metaphlan_metaphlan3.tsv:md5,5ae4d31cdfc3a522d919389bf4a63352",
+                "metaphlan_metaphlan4.tsv:md5,50bdade1400b44586926d58d4e7d00bd"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T14:46:31.957010581"
+        "timestamp": "2025-11-03T16:19:22.123214778"
     },
     "bbduk": {
         "content": [
