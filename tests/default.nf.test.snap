@@ -24,13 +24,16 @@
             [
                 "ERR3201952_ERR3201952_filtered.stats"
             ],
-            true
+            true,
+            [
+                "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T14:24:38.133708137"
+        "timestamp": "2025-11-03T14:04:46.711840678"
     },
     "nanoq_md5": {
         "content": [
@@ -152,13 +155,27 @@
                 "metaphlan_metaphlan3_combined_reports.txt",
                 "metaphlan_metaphlan4_combined_reports.txt"
             ],
-            true
+            true,
+            [
+                "2611_metaphlan4.metaphlan.biom:md5,9d59463b4da886386594b7fbc86e2786",
+                "2611_metaphlan4.metaphlan.bowtie2out.txt:md5,a093eab90d6b008846b210f264151e8f",
+                "2611_metaphlan4.metaphlan.sam:md5,79ac6b8433a0ce02df4895e346d9cdc8",
+                "2611_metaphlan4.metaphlan_profile.txt:md5,18971377bb1c208bce3ade4184b73aea",
+                "2612_metaphlan4.metaphlan.biom:md5,0a03c78b173d04d9d21d254f525c9450",
+                "2612_metaphlan4.metaphlan.bowtie2out.txt:md5,a82b02493e797ed48723f75c19c4fe57",
+                "2612_metaphlan4.metaphlan.sam:md5,4c16777bd3c97ba465be6a0a89d5a81f",
+                "2612_metaphlan4.metaphlan_profile.txt:md5,5da8c3bedb8272b7549c482744c3e5ce",
+                "2613_metaphlan4.metaphlan.biom:md5,4aadf0cc1b5451390507b41c45e6c34d",
+                "2613_metaphlan4.metaphlan.bowtie2out.txt:md5,667708f35e3e8359c13d2c1e11fada03",
+                "2613_metaphlan4.metaphlan.sam:md5,abd80886a8982d9a9a2d222dc57ef71f",
+                "2613_metaphlan4.metaphlan_profile.txt:md5,4dbfa9ab5d4068edd58125acbf3f3406"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-24T13:49:34.903136963"
+        "timestamp": "2025-11-03T14:04:46.612412176"
     },
     "porechop_abi": {
         "content": [

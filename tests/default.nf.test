@@ -121,15 +121,12 @@ nextflow_pipeline {
                         path("$outputDir/kmcp/db1"))
                         .match("kmcp") },
                 { assert snapshot ( stable_name_krona, stable_content_krona).match("krona" ) },
-                { assert snapshot ( stable_name_metaphlan, file ("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan_profile.txt").text.contains("SGB4933_group")).match("metaphlan") },
-                { assert snapshot(path("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan_profile.txt").md5).match("metaphlan_profile_md5") },
-                { assert snapshot ( stable_name_nanoq, file ("$outputDir/nanoq/ERR3201952_ERR3201952_filtered.stats").text.contains("Median read quality")).match("nanoq") },
-                { assert snapshot(path("$outputDir/nanoq/ERR3201952_ERR3201952_filtered.stats").md5).match("nanoq_md5") },
-                { assert snapshot ( file ("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("reads were split"), [stable_name_porechopabi, stable_content_porechopabi]).match("porechop_abi") },
-                { assert snapshot ( stable_name_samtools, file ("$outputDir/samtools/stats/2613_ERR5766181.stats").text.contains("mismatches:")).match("samtools") },
-                { assert snapshot(path("$outputDir/samtools/stats/2613_ERR5766181.stats").md5).match("samtools_md5") },
-                { assert snapshot ( stable_name_taxpasta, file ("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").text.contains("186803")).match("taxpasta") },
-                { assert snapshot(path("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").md5).match("taxpasta_md5") },
+                { assert snapshot ( stable_name_metaphlan,file ("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan_profile.txt").text.contains("SGB4933_group"),path("$outputDir/metaphlan/metaphlan4/")).match("metaphlan") },
+                { assert snapshot ( stable_name_nanoq, file ("$outputDir/nanoq/ERR3201952_ERR3201952_filtered.stats").text.contains("Median read quality"), path("$outputDir/nanoq/")).match("nanoq") },
+                { assert snapshot ( file ("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("reads were split"), stable_name_porechopabi, stable_content_porechopabi).match("porechop_abi") },
+                { assert snapshot ( stable_name_samtools, file ("$outputDir/samtools/stats/2613_ERR5766181.stats").text.contains("mismatches:"),file ("$outputDir/samtools/stats/2612_ERR5766176_B.stats"),file ("$outputDir/samtools/stats/2612_ERR5766176.stats"),file ("$outputDir/samtools/stats/2612_ERR5766180.stats"),file ("$outputDir/samtools/stats/ERR3201952_ERR3201952.stats").text.contains("mismatches:").text.contains("mismatches:"),
+                        path("$outputDir/samtools/stats/")).match("samtools") },
+                { assert snapshot ( stable_name_taxpasta, file ("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").text.contains("186803"), path("$outputDir/taxpasta/")).match("taxpasta") },
             )
         }
     }
