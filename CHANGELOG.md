@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#653](https://github.com/nf-core/taxprofiler/pull/653) Enable runs for `PACBIO_SMRT`data (fixed by @LilyAnderssonLee)
-- [#657](https://github.com/nf-core/taxprofiler/pull/657) Fix `--version` not printing version (❤️ to @fwa93 for reporting and added by @sofstam)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657) Fix `--version` not printing version (❤️ to @fwa93 for reporting and added by @jfy133 )
 
 ### `Changed`
 
