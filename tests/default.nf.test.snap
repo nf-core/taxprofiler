@@ -1782,13 +1782,13 @@
             [
                 "bracken_db1.tsv:md5,8e938cc578ff054c2059cb4807839166",
                 "centrifuge_db3.tsv:md5,5352e2d3cae9adea40817a9baa74f962",
-                "diamond_db1.tsv:md5,8735a5a6548d7f9a4e2befba39003aa1",
+                "diamond_db1.tsv:md5,967cd8a9ac70ec5db287672ce8bbbe04",
                 "diamond_db2.tsv:md5,a88312576f51a60a0f71167ff10d19c1",
-                "diamond_db3.tsv:md5,6f7b3c87623aa46007a8bf40c7c2cf29",
+                "diamond_db3.tsv:md5,74b5d9039b3b8702355802735de02e13",
                 "ganon_db1.tsv:md5,ef396446f0296614486d74b88a9cd95c",
                 "kaiju_db5.tsv:md5,09bf7e846247e9e8b87bd73db19c54e9",
                 "kaiju_db6.tsv:md5,f6983f8859a9f5bb4151bf938cf7e563",
-                "kaiju_db7.tsv:md5,e3a17976c25ed453f254f60e1aa8d74a",
+                "kaiju_db7.tsv:md5,ae38a9226959576933b6260ad56d3b7b",
                 "kmcp_db1.tsv:md5,733e420738e1349dce9233c3ccb90ca2",
                 "kraken2_db1-bracken.tsv:md5,474162f6a14859af1e21388f6666c681",
                 "kraken2_db2.tsv:md5,f512aa2220e8dfdd73b3a130abc8c6fd",
@@ -1800,7 +1800,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-03T16:19:22.123214778"
+        "timestamp": "2025-11-03T17:06:09.325463584"
     },
     "bbduk": {
         "content": [

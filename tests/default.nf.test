@@ -83,7 +83,8 @@ nextflow_pipeline {
             def stable_name_samtools     = getAllFilesFromDir("$outputDir/samtools", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
 
             //taxpasta
-            def stable_name_taxpasta     = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
+            def stable_content_taxpasta  = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: ['*.{tsv}'], ignoreFile: null, include: ['*', '**/*'])
+            def stable_name_taxpasta     = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*.tsv'])
 
 
             assertAll(
