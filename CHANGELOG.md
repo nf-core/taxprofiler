@@ -12,10 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#653](https://github.com/nf-core/taxprofiler/pull/653) Enable runs for `PACBIO_SMRT`data (fixed by @LilyAnderssonLee)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657) Fix `--version` not printing version (❤️ to @fwa93 for reporting and added by @sofstam)
 
 ### `Changed`
 
 ### `Dependencies`
+
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| nf-core |  3.3.2         | 3.4.1     |
 
 ## v1.2.4 - Bouncy Basenji Patch [2025-08-28]
 
