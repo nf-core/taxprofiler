@@ -1090,13 +1090,16 @@
             ],
             true,
             true,
-            true
+            true,
+            false,
+            false,
+            false
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-29T16:44:29.801885101"
+        "timestamp": "2025-11-05T16:25:06.830192867"
     },
     "-profile test": {
         "content": [
