@@ -1273,13 +1273,17 @@
             ],
             [
                 
-            ]
+            ],
+            true,
+            true,
+            true,
+            true
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.7"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-21T16:21:28.24278576"
+        "timestamp": "2025-11-05T15:32:06.208442425"
     },
     "centrifuge": {
         "content": [
