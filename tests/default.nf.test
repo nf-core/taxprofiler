@@ -15,13 +15,27 @@ nextflow_pipeline {
         }
 
         then {
+
+            def unstable_patterns_multiqc = [
+                '**/multiqc_data/fastqc_top_overrepresented_sequences_table.txt',
+                '**/multiqc_data/BETA-multiqc.parquet',
+                '**/multiqc_data/multiqc.log',
+                '**/multiqc_data/multiqc_data.json',
+                '**/multiqc_data/multiqc_sources.txt',
+                '**/multiqc_data/multiqc_software_versions.txt',
+                '**/multiqc_plots/{svg,pdf,png}/*.{svg,pdf,png}',
+                '**/multiqc_report.html',
+                '**/multiqc_data/*.txt'
+            ]
+
  	  	    // stable_name: All files + folders in ${params.outdir}/ with a stable name
             def stable_name_all = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path     = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
 
              //MultiQC
-            def stable_name_multiqc      = getAllFilesFromDir("$outputDir/multiqc", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: ['*', '**/*'])
+            def stable_content_multiqc   = getAllFilesFromDir("$outputDir/multiqc", relative: true, includeDir: false, ignore: unstable_patterns_multiqc, ignoreFile: null, include: ['*', '**/*'])
+            def stable_name_multiqc      = getAllFilesFromDir("$outputDir/multiqc", relative: true, includeDir: false, ignore: null, ignoreFile: null, include: unstable_patterns_multiqc)
 
 	         //BBDuk
             def stable_content_bbduk     = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: ['*.{log,fastq.gz}'], ignoreFile: null, include: ['*','**/*'])
