@@ -3,19 +3,25 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2.5dev - [unreleased]
+## v1.2.5dev - [date]
 
 ### `Added`
 
 - [#640](https://github.com/nf-core/taxprofiler/pull/640) Added support for saving Metaphlan SAM files (❤️ to @mr2raccoon for reporting and added by @jfy133)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657) Template update for nf-core/tools v3.4.1 (added by @sofstam and @jfy133)
 
 ### `Fixed`
 
 - [#653](https://github.com/nf-core/taxprofiler/pull/653) Enable runs for `PACBIO_SMRT`data (fixed by @LilyAnderssonLee)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657) Fix `--version` not printing version (❤️ to @fwa93 for reporting and added by @jfy133 )
 
 ### `Changed`
 
 ### `Dependencies`
+
+| Tool    | Previous version | New version |
+| ------- | ---------------- | ----------- |
+| nf-core | 3.3.2            | 3.4.1       |
 
 ## v1.2.4 - Bouncy Basenji Patch [2025-08-28]
 
