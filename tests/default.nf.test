@@ -144,7 +144,7 @@ nextflow_pipeline {
                 { assert snapshot ( file ("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("reads were split"), stable_name_porechopabi, stable_content_porechopabi).match("porechop_abi") },
                 { assert snapshot ( stable_name_samtools, file ("$outputDir/samtools/stats/2613_ERR5766181.stats").text.contains("mismatches:"),file ("$outputDir/samtools/stats/2612_ERR5766176_B.stats").text.contains("mismatches:"),file ("$outputDir/samtools/stats/2612_ERR5766176.stats").text.contains("mismatches:"),file ("$outputDir/samtools/stats/2612_ERR5766180.stats").text.contains("mismatches:"),file ("$outputDir/samtools/stats/ERR3201952_ERR3201952.stats").text.contains("mismatches:"),
                         path("$outputDir/samtools/stats/")).match("samtools") },
-                { assert snapshot ( stable_name_taxpasta, stable_content_taxpasta) },
+                { assert snapshot ( stable_name_taxpasta, stable_content_taxpasta, file("$outputDir/taxpasta/metaphplan_metaphlan4.tsv").text.contains("186801")).match("taxpasta") },
             )
         }
     }
