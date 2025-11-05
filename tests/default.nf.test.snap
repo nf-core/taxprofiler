@@ -1103,7 +1103,6 @@
     },
     "-profile test": {
         "content": [
-            186,
             {
                 "BBMAP_BBDUK": {
                     "bbmap": 39.18
@@ -1239,7 +1238,7 @@
                     "untar": 1.34
                 },
                 "Workflow": {
-                    "nf-core/taxprofiler": "v1.2.5dev"
+                    "nf-core/taxprofiler": "v1.2.5"
                 }
             }
         ],
