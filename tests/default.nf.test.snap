@@ -1091,13 +1091,17 @@
                 "db3/2614_db3.diamond.tsv",
                 "db3/ERR3201952_db3.diamond.log",
                 "db3/ERR3201952_db3.diamond.tsv"
-            ]
+            ],
+            true,
+            true,
+            true,
+            true
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.7"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-09T14:43:40.65677498"
+        "timestamp": "2025-11-06T11:12:22.91287969"
     },
     "kraken2": {
         "content": [
