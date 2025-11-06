@@ -200,7 +200,6 @@
                 "metaphlan/metaphlan_metaphlan4_combined_reports.txt",
                 "multiqc",
                 "multiqc/multiqc_data",
-                "multiqc/multiqc_data/BETA-multiqc.parquet",
                 "multiqc/multiqc_data/bbduk-filtered-barplot_Bases.txt",
                 "multiqc/multiqc_data/bbduk-filtered-barplot_Reads.txt",
                 "multiqc/multiqc_data/bbduk.txt",
@@ -280,6 +279,7 @@
                 "multiqc/multiqc_data/metaphlan-top-n-plot_Phylum.txt",
                 "multiqc/multiqc_data/metaphlan-top-n-plot_Species.txt",
                 "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc.parquet",
                 "multiqc/multiqc_data/multiqc_bowtie2.txt",
                 "multiqc/multiqc_data/multiqc_bracken_bracken.txt",
                 "multiqc/multiqc_data/multiqc_centrifuge_centrifuge.txt",
@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-23T16:45:10.666217606"
+        "timestamp": "2025-11-05T17:35:55.583846914"
     },
     "krona": {
         "content": [
@@ -858,6 +858,35 @@
             "nextflow": "25.04.8"
         },
         "timestamp": "2025-11-03T16:19:21.981725774"
+    },
+    "taxpasta": {
+        "content": [
+            [
+                "bracken_db1.tsv",
+                "centrifuge_db3.tsv",
+                "diamond_db1.tsv",
+                "diamond_db2.tsv",
+                "diamond_db3.tsv",
+                "ganon_db1.tsv",
+                "kaiju_db5.tsv",
+                "kaiju_db6.tsv",
+                "kaiju_db7.tsv",
+                "kmcp_db1.tsv",
+                "kraken2_db1-bracken.tsv",
+                "kraken2_db2.tsv",
+                "metaphlan_metaphlan3.tsv",
+                "metaphlan_metaphlan4.tsv"
+            ],
+            [
+                
+            ],
+            true
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-06T10:39:51.802883413"
     },
     "bbduk": {
         "content": [
