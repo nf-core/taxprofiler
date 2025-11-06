@@ -1032,6 +1032,8 @@
                 "metaphlan_metaphlan4_combined_reports.txt"
             ],
             true,
+            true,
+            true,
             [
                 "metaphlan3/2611_metaphlan3.metaphlan.sam",
                 "metaphlan3/2612_metaphlan3.metaphlan.sam",
@@ -1047,7 +1049,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-04T16:58:08.933656386"
+        "timestamp": "2025-11-06T11:23:21.904244007"
     },
     "porechop_abi": {
         "content": [
