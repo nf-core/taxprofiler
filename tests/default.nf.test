@@ -114,7 +114,7 @@ nextflow_pipeline {
 
                 { assert snapshot ( stable_name_all ).match("all_files") },
 		            { assert snapshot ( stable_name_multiqc ).match("multiqc" ) },
-                { assert snapshot( file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Reads Processed:"), [stable_content_bbduk, stable_name_bbduk]).match("bbduk")},
+                { assert snapshot( file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Reads Processed:"), file("$outputDir/bbduk/2612_ERR5766180.bbduk.log").text.contains("Reads Processed:"),file("$outputDir/bbduk/2612_ERR5766176.bbduk.log").text.contains("Reads Processed:"),file("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").text.contains("Reads Processed:"),stable_content_bbduk, stable_name_bbduk).match("bbduk")},
                 { assert snapshot ( stable_content_diamond, stable_name_diamond ).match("diamond" ) },
                 { assert snapshot ( stable_content_nonpareil, stable_name_nonpareil, file("$outputDir/nonpareil/2612_ERR5766176_B.npa").text.contains("0.00"), file("$outputDir/nonpareil/2612_ERR5766176.npa").text.contains("0.00"),file("$outputDir/nonpareil/2612_ERR5766180.npa").text.contains("0.00"),file("$outputDir/nonpareil/2613_ERR5766181.npa").text.contains("0.00")).match("nonpareil" ) },
                   { assert snapshot (

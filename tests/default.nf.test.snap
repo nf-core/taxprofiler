@@ -891,20 +891,21 @@
     "bbduk": {
         "content": [
             true,
+            true,
+            true,
+            true,
             [
-                [
-                    
-                ],
-                [
-                    
-                ]
+                
+            ],
+            [
+                
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-28T14:43:21.344429221"
+        "timestamp": "2025-11-06T10:55:58.123958351"
     },
     "ganon": {
         "content": [
