@@ -880,13 +880,27 @@
             [
                 
             ],
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
             true
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-06T10:39:51.802883413"
+        "timestamp": "2025-11-06T12:02:19.759564023"
     },
     "bbduk": {
         "content": [
