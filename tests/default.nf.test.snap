@@ -762,40 +762,30 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-05T17:35:55.583846914"
+        "timestamp": "2025-11-12T13:14:49.093487332"
     },
-    "krona": {
+    "bracken": {
         "content": [
             [
-                "centrifuge_db3.html",
-                "kaiju_db5.html",
-                "kaiju_db6.html",
-                "kaiju_db7.html",
-                "kraken2-bracken_db1.html",
-                "kraken2_db2.html"
-            ],
-            [
-                
+                "bracken_db1_combined_reports.txt:md5,b2ed57d8f683210cc0e306abdef12c3d",
+                [
+                    "2611_db1.bracken.kraken2.report_bracken.txt:md5,2d098b8c7767c2211984028877ebf977",
+                    "2611_db1.bracken.tsv:md5,74af1e5c159628b9d746fc53be5409bf",
+                    "2612_db1.bracken.kraken2.report_bracken.txt:md5,7087bcab68e936a8a9c67caafcbd6183",
+                    "2612_db1.bracken.tsv:md5,330c1d6f98cbc6d44dec3e83d9eeccd7",
+                    "2613_db1.bracken.kraken2.report_bracken.txt:md5,56647e7054f565a9affaabd5b18b4bd8",
+                    "2613_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b"
+                ]
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-03T11:52:45.939284375"
+        "timestamp": "2025-11-12T13:14:49.252830728"
     },
     "bowtie2": {
         "content": [
-            [
-                "align/2612_ERR5766176.bowtie2.log",
-                "align/2612_ERR5766176_B.bowtie2.log",
-                "align/2612_ERR5766180.bowtie2.log",
-                "align/2613_ERR5766181.bowtie2.log"
-            ],
-            true,
-            true,
-            true,
-            true,
             [
                 "2612_ERR5766176.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
                 "2612_ERR5766176_B.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
@@ -807,335 +797,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-29T17:29:06.127759931"
-    },
-    "nanoq": {
-        "content": [
-            [
-                "ERR3201952_ERR3201952_filtered.stats"
-            ],
-            true,
-            [
-                "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-03T14:04:46.711840678"
-    },
-    "samtools": {
-        "content": [
-            [
-                "2612_ERR5766176.bam.bai",
-                "2612_ERR5766176_B.bam.bai",
-                "2612_ERR5766180.bam.bai",
-                "2613_ERR5766181.bam.bai",
-                "ERR3201952_ERR3201952.bam.bai",
-                "ERR3201952_ERR3201952.unmapped.bam",
-                "stats/2612_ERR5766176.stats",
-                "stats/2612_ERR5766176_B.stats",
-                "stats/2612_ERR5766180.stats",
-                "stats/2613_ERR5766181.stats",
-                "stats/ERR3201952_ERR3201952.stats"
-            ],
-            true,
-            true,
-            true,
-            true,
-            true,
-            [
-                "2612_ERR5766176.stats:md5,c3d2b46c22085705f49212c47cf83694",
-                "2612_ERR5766176_B.stats:md5,f73cce61c5bdcd4a2139ee419a6f95aa",
-                "2612_ERR5766180.stats:md5,fe6e3ffdcb2ef609611ce01e3879e022",
-                "2613_ERR5766181.stats:md5,4def2f487801141b82a7d98a9bc98ac2",
-                "ERR3201952_ERR3201952.stats:md5,12dfaee15c4fbf4efaa672ba26d2d85e"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-03T16:19:21.981725774"
-    },
-    "taxpasta": {
-        "content": [
-            [
-                "bracken_db1.tsv",
-                "centrifuge_db3.tsv",
-                "diamond_db1.tsv",
-                "diamond_db2.tsv",
-                "diamond_db3.tsv",
-                "ganon_db1.tsv",
-                "kaiju_db5.tsv",
-                "kaiju_db6.tsv",
-                "kaiju_db7.tsv",
-                "kmcp_db1.tsv",
-                "kraken2_db1-bracken.tsv",
-                "kraken2_db2.tsv",
-                "metaphlan_metaphlan3.tsv",
-                "metaphlan_metaphlan4.tsv"
-            ],
-            [
-                
-            ],
-            true
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-06T10:39:51.802883413"
-    },
-    "bbduk": {
-        "content": [
-            true,
-            true,
-            true,
-            true,
-            [
-                
-            ],
-            [
-                
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-06T10:55:58.123958351"
-    },
-    "ganon": {
-        "content": [
-            [
-                "db1/2611_db1.ganon.log",
-                "db1/2612_db1.ganon.log",
-                "db1/2613_db1.ganon.log",
-                "ganon_db1_combined_reports.txt"
-            ],
-            [
-                "db1/2611_db1.ganon.rep",
-                "db1/2611_db1.ganon.tre",
-                "db1/2611_db1.ganon_report.tre",
-                "db1/2612_db1.ganon.rep",
-                "db1/2612_db1.ganon.tre",
-                "db1/2612_db1.ganon_report.tre",
-                "db1/2613_db1.ganon.rep",
-                "db1/2613_db1.ganon.tre",
-                "db1/2613_db1.ganon_report.tre",
-                "ganon_db1_combined_reports.txt"
-            ],
-            true,
-            true,
-            true
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-04T16:58:08.758087412"
-    },
-    "kaiju": {
-        "content": [
-            true,
-            true,
-            [
-                "db5/2611_db5.kaijutable.txt",
-                "db5/2612_db5.kaijutable.txt",
-                "db5/2613_db5.kaijutable.txt",
-                "db6/2614_db6.kaijutable.txt",
-                "db6/ERR3201952_db6.kaijutable.txt",
-                "db7/2611_db7.kaijutable.txt",
-                "db7/2612_db7.kaijutable.txt",
-                "db7/2613_db7.kaijutable.txt",
-                "db7/2614_db7.kaijutable.txt",
-                "db7/ERR3201952_db7.kaijutable.txt",
-                "kaiju_db5_combined_reports.txt",
-                "kaiju_db6_combined_reports.txt",
-                "kaiju_db7_combined_reports.txt"
-            ],
-            [
-                "db5/2611_db5.kaiju.tsv",
-                "db5/2612_db5.kaiju.tsv",
-                "db5/2613_db5.kaiju.tsv",
-                "db6/2614_db6.kaiju.tsv",
-                "db6/ERR3201952_db6.kaiju.tsv",
-                "db7/2611_db7.kaiju.tsv",
-                "db7/2612_db7.kaiju.tsv",
-                "db7/2613_db7.kaiju.tsv",
-                "db7/2614_db7.kaiju.tsv",
-                "db7/ERR3201952_db7.kaiju.tsv",
-                "kaiju_db5_combined_reports.txt",
-                "kaiju_db6_combined_reports.txt",
-                "kaiju_db7_combined_reports.txt"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-04T16:58:08.880914316"
-    },
-    "bracken": {
-        "content": [
-            [
-                "bracken_db1_combined_reports.txt",
-                "db1/2611_db1.bracken.kraken2.report_bracken.txt",
-                "db1/2611_db1.bracken.tsv",
-                "db1/2612_db1.bracken.kraken2.report_bracken.txt",
-                "db1/2612_db1.bracken.tsv",
-                "db1/2613_db1.bracken.kraken2.report_bracken.txt",
-                "db1/2613_db1.bracken.tsv"
-            ],
-            true,
-            true,
-            true,
-            [
-                "2611_db1.bracken.kraken2.report_bracken.txt:md5,2d098b8c7767c2211984028877ebf977",
-                "2611_db1.bracken.tsv:md5,74af1e5c159628b9d746fc53be5409bf",
-                "2612_db1.bracken.kraken2.report_bracken.txt:md5,7087bcab68e936a8a9c67caafcbd6183",
-                "2612_db1.bracken.tsv:md5,330c1d6f98cbc6d44dec3e83d9eeccd7",
-                "2613_db1.bracken.kraken2.report_bracken.txt:md5,56647e7054f565a9affaabd5b18b4bd8",
-                "2613_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-10-30T10:47:27.897443454"
-    },
-    "metaphlan": {
-        "content": [
-            [
-                "metaphlan3/2611_metaphlan3.metaphlan.biom",
-                "metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
-                "metaphlan3/2611_metaphlan3.metaphlan_profile.txt",
-                "metaphlan3/2612_metaphlan3.metaphlan.biom",
-                "metaphlan3/2612_metaphlan3.metaphlan.bowtie2out.txt",
-                "metaphlan3/2612_metaphlan3.metaphlan_profile.txt",
-                "metaphlan3/2613_metaphlan3.metaphlan.biom",
-                "metaphlan3/2613_metaphlan3.metaphlan.bowtie2out.txt",
-                "metaphlan3/2613_metaphlan3.metaphlan_profile.txt",
-                "metaphlan4/2611_metaphlan4.metaphlan.biom",
-                "metaphlan4/2611_metaphlan4.metaphlan.bowtie2out.txt",
-                "metaphlan4/2611_metaphlan4.metaphlan_profile.txt",
-                "metaphlan4/2612_metaphlan4.metaphlan.biom",
-                "metaphlan4/2612_metaphlan4.metaphlan.bowtie2out.txt",
-                "metaphlan4/2612_metaphlan4.metaphlan_profile.txt",
-                "metaphlan4/2613_metaphlan4.metaphlan.biom",
-                "metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt",
-                "metaphlan4/2613_metaphlan4.metaphlan_profile.txt",
-                "metaphlan_metaphlan3_combined_reports.txt",
-                "metaphlan_metaphlan4_combined_reports.txt"
-            ],
-            true,
-            true,
-            true,
-            [
-                "metaphlan3/2611_metaphlan3.metaphlan.sam",
-                "metaphlan3/2612_metaphlan3.metaphlan.sam",
-                "metaphlan3/2613_metaphlan3.metaphlan.sam",
-                "metaphlan4/2611_metaphlan4.metaphlan.sam",
-                "metaphlan4/2612_metaphlan4.metaphlan.sam",
-                "metaphlan4/2613_metaphlan4.metaphlan.sam",
-                "metaphlan_metaphlan3_combined_reports.txt",
-                "metaphlan_metaphlan4_combined_reports.txt"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-06T11:23:21.904244007"
-    },
-    "porechop_abi": {
-        "content": [
-            true,
-            [
-                "ERR3201952_ERR3201952_porechop_abi.log"
-            ],
-            [
-                
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-03T15:32:55.806738571"
-    },
-    "diamond": {
-        "content": [
-            [
-                
-            ],
-            [
-                "db1/2611_db1.diamond.log",
-                "db1/2611_db1.diamond.tsv",
-                "db1/2612_db1.diamond.log",
-                "db1/2612_db1.diamond.tsv",
-                "db1/2613_db1.diamond.log",
-                "db1/2613_db1.diamond.tsv",
-                "db2/2614_db2.diamond.log",
-                "db2/2614_db2.diamond.tsv",
-                "db2/ERR3201952_db2.diamond.log",
-                "db2/ERR3201952_db2.diamond.tsv",
-                "db3/2611_db3.diamond.log",
-                "db3/2611_db3.diamond.tsv",
-                "db3/2612_db3.diamond.log",
-                "db3/2612_db3.diamond.tsv",
-                "db3/2613_db3.diamond.log",
-                "db3/2613_db3.diamond.tsv",
-                "db3/2614_db3.diamond.log",
-                "db3/2614_db3.diamond.tsv",
-                "db3/ERR3201952_db3.diamond.log",
-                "db3/ERR3201952_db3.diamond.tsv"
-            ],
-            true,
-            true,
-            true,
-            true
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-06T11:12:22.91287969"
-    },
-    "kraken2": {
-        "content": [
-            [
-                "db2/2611_db2.kraken2.classified.fastq.gz",
-                "db2/2611_db2.kraken2.unclassified.fastq.gz",
-                "db2/2612_db2.kraken2.classified.fastq.gz",
-                "db2/2612_db2.kraken2.unclassified.fastq.gz",
-                "db2/2613_db2.kraken2.classified.fastq.gz",
-                "db2/2613_db2.kraken2.unclassified.fastq.gz",
-                "kraken2_db1-bracken_combined_reports.txt",
-                "kraken2_db2_combined_reports.txt"
-            ],
-            [
-                "db2/2611_db2.kraken2.kraken2.report.txt",
-                "db2/2612_db2.kraken2.kraken2.report.txt",
-                "db2/2613_db2.kraken2.kraken2.report.txt",
-                "kraken2_db1-bracken_combined_reports.txt",
-                "kraken2_db2_combined_reports.txt"
-            ],
-            true,
-            true,
-            true,
-            false,
-            false,
-            false
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-05T16:25:06.830192867"
+        "timestamp": "2025-11-12T13:14:49.201812902"
     },
     "-profile test": {
         "content": [
@@ -1279,151 +941,58 @@
             }
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-09-04T09:54:04.87601553"
-    },
-    "nonpareil": {
-        "content": [
-            [
-                "2612_ERR5766176.npc",
-                "2612_ERR5766176.npl",
-                "2612_ERR5766176.npo",
-                "2612_ERR5766176.png",
-                "2612_ERR5766176_B.npc",
-                "2612_ERR5766176_B.npl",
-                "2612_ERR5766176_B.npo",
-                "2612_ERR5766176_B.png",
-                "2612_ERR5766180.npc",
-                "2612_ERR5766180.npl",
-                "2612_ERR5766180.npo",
-                "2612_ERR5766180.png",
-                "2613_ERR5766181.npc",
-                "2613_ERR5766181.npl",
-                "2613_ERR5766181.npo",
-                "2613_ERR5766181.png",
-                "nonpareil_all_samples.csv",
-                "nonpareil_all_samples.json",
-                "nonpareil_all_samples.pdf",
-                "nonpareil_all_samples.tsv",
-                "nonpareil_all_samples_mqc.png"
-            ],
-            [
-                
-            ],
-            true,
-            true,
-            true,
-            true
-        ],
-        "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-05T15:32:06.208442425"
+        "timestamp": "2025-11-12T13:14:48.980895614"
     },
     "centrifuge": {
         "content": [
             [
-                "centrifuge_db3_combined_reports.txt",
-                "db3/2612_db3.centrifuge.mapped.fastq.gz",
-                "db3/2612_db3.centrifuge.report.txt",
-                "db3/2612_db3.centrifuge.results.txt",
-                "db3/2612_db3.centrifuge.txt",
-                "db3/2612_db3.centrifuge.unmapped.fastq.gz",
-                "db3/2613_db3.centrifuge.mapped.fastq.gz",
-                "db3/2613_db3.centrifuge.report.txt",
-                "db3/2613_db3.centrifuge.results.txt",
-                "db3/2613_db3.centrifuge.txt",
-                "db3/2613_db3.centrifuge.unmapped.fastq.gz"
-            ],
-            true,
-            true,
-            [
-                "centrifuge_db3_combined_reports.txt",
-                "db3/2612_db3.centrifuge.report.txt",
-                "db3/2612_db3.centrifuge.results.txt",
-                "db3/2612_db3.centrifuge.txt",
-                "db3/2613_db3.centrifuge.report.txt",
-                "db3/2613_db3.centrifuge.results.txt",
-                "db3/2613_db3.centrifuge.txt"
+                "centrifuge_db3_combined_reports.txt:md5,7812d1cbb6b48ab2af024769d11f247c",
+                [
+                    "2612_db3.centrifuge.mapped.fastq.gz:md5,88e70dcf75bfc391e02bd6951f3e5881",
+                    "2612_db3.centrifuge.report.txt:md5,0a6f26622c27cfead610f61164e1c3be",
+                    "2612_db3.centrifuge.results.txt:md5,a8a1523cbf20f99f27c73f430103c218",
+                    "2612_db3.centrifuge.txt:md5,ff8aa36ddf249c159ae831e947009554",
+                    "2612_db3.centrifuge.unmapped.fastq.gz:md5,927fcf34ef35bfa62fcd2221f6f8fd73",
+                    "2613_db3.centrifuge.mapped.fastq.gz:md5,4b1fa8283b30800753ed1ecb7eba79f4",
+                    "2613_db3.centrifuge.report.txt:md5,51447b7c533fb23c1c5ffb18978662bc",
+                    "2613_db3.centrifuge.results.txt:md5,58b37025c9600a6b3dbbf24822e26267",
+                    "2613_db3.centrifuge.txt:md5,312542edb738972229695f68d2868019",
+                    "2613_db3.centrifuge.unmapped.fastq.gz:md5,34fe46dd069822856a300a220f574e7b"
+                ]
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-30T12:55:53.039055693"
+        "timestamp": "2025-11-12T13:14:49.292036824"
     },
-    "multiqc": {
+    "bbduk": {
         "content": [
             [
-                
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-05T10:39:32.031419522"
-    },
-    "kmcp": {
-        "content": [
-            [
-                "db1/2611_db1.kmcp.profile",
-                "db1/2612_db1.kmcp.profile",
-                "db1/2613_db1.kmcp.profile"
+                "2612_ERR5766176.bbduk.log:md5,5435bb67ab029d92431240de676d5e91",
+                "2612_ERR5766176_B.bbduk.log:md5,ab1a6420e723581850fbd169f5cc3fb6",
+                "2612_ERR5766180.bbduk.log:md5,a4e94332e9e39257d07befd0d7ad1d54",
+                "2613_ERR5766181.bbduk.log:md5,4ca4e945acf355c4caed75f58fa3c8a6"
             ],
             true,
             true,
             true,
+            true,
             [
-                "2611_db1.kmcp.profile:md5,8b50fa20b6e60078b4e82ee56ad9a687",
-                "2612_db1.kmcp.profile:md5,59d06b55c1df0739e92ab6d8ce23cd83",
-                "2613_db1.kmcp.profile:md5,3d8c1e51679639d6011e3cb9b679485b"
+                "2612_ERR5766176.bbduk.log",
+                "2612_ERR5766176_B.bbduk.log",
+                "2612_ERR5766180.bbduk.log",
+                "2613_ERR5766181.bbduk.log"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-10-30T16:39:21.102102895"
-    },
-    "fastp": {
-        "content": [
-            true,
-            true,
-            false,
-            [
-                "2612_ERR5766176.fastp.html",
-                "2612_ERR5766176.fastp.json",
-                "2612_ERR5766176_B.fastp.html",
-                "2612_ERR5766176_B.fastp.json",
-                "2612_ERR5766180.fastp.html",
-                "2612_ERR5766180.fastp.json",
-                "2613_ERR5766181.fastp.html",
-                "2613_ERR5766181.fastp.json"
-            ],
-            [
-                "2612_ERR5766176.fastp.html",
-                "2612_ERR5766176.fastp.json",
-                "2612_ERR5766176.fastp.log",
-                "2612_ERR5766176_B.fastp.html",
-                "2612_ERR5766176_B.fastp.json",
-                "2612_ERR5766176_B.fastp.log",
-                "2612_ERR5766180.fastp.html",
-                "2612_ERR5766180.fastp.json",
-                "2612_ERR5766180.fastp.log",
-                "2613_ERR5766181.fastp.html",
-                "2613_ERR5766181.fastp.json",
-                "2613_ERR5766181.fastp.log"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-10-30T15:06:17.892477901"
+        "timestamp": "2025-11-12T13:14:49.164064894"
     }
 }
