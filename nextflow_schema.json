@@ -10,7 +10,11 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "databases", "outdir"],
+            "required": [
+                "input",
+                "databases",
+                "outdir"
+            ],
             "properties": {
                 "input": {
                     "type": "string",
@@ -75,7 +79,10 @@
                 "preprocessing_qc_tool": {
                     "type": "string",
                     "default": "fastqc",
-                    "enum": ["fastqc", "falco"],
+                    "enum": [
+                        "fastqc",
+                        "falco"
+                    ],
                     "help_text": "Falco is designed as a drop-in replacement for FastQC but written in C++ for faster computation. We particularly recommend using falco when using long reads (due to reduced memory constraints), however is also applicable for short reads.",
                     "description": "Specify the tool used for quality control of raw sequencing reads",
                     "fa_icon": "fas fa-tools"
@@ -110,7 +117,10 @@
                 "shortread_qc_tool": {
                     "type": "string",
                     "default": "fastp",
-                    "enum": ["fastp", "adapterremoval"],
+                    "enum": [
+                        "fastp",
+                        "adapterremoval"
+                    ],
                     "fa_icon": "fas fa-tools",
                     "description": "Specify which tool to use for short-read QC"
                 },
@@ -172,7 +182,11 @@
                 "shortread_complexityfilter_tool": {
                     "type": "string",
                     "default": "bbduk",
-                    "enum": ["bbduk", "prinseqplusplus", "fastp"],
+                    "enum": [
+                        "bbduk",
+                        "prinseqplusplus",
+                        "fastp"
+                    ],
                     "fa_icon": "fas fa-hammer",
                     "description": "Specify which tool to use for complexity filtering"
                 },
@@ -206,7 +220,10 @@
                 "shortread_complexityfilter_prinseqplusplus_mode": {
                     "type": "string",
                     "default": "entropy",
-                    "enum": ["entropy", "dust"],
+                    "enum": [
+                        "entropy",
+                        "dust"
+                    ],
                     "fa_icon": "fas fa-check-square",
                     "description": "Specify the complexity filter mode for PRINSEQ++"
                 },
@@ -241,7 +258,10 @@
                 "longread_adapterremoval_tool": {
                     "type": "string",
                     "default": "porechop_abi",
-                    "enum": ["porechop", "porechop_abi"],
+                    "enum": [
+                        "porechop",
+                        "porechop_abi"
+                    ],
                     "fa_icon": "fas fa-hammer",
                     "description": "Specify which tool to use for adapter trimming.",
                     "help_text": "The performance of Porechop and Porechop_ABI is same in terms of removing adapter reads. However Porechop is no longer updated, Porechop_ABI receives regular updates."
@@ -255,7 +275,10 @@
                 "longread_filter_tool": {
                     "type": "string",
                     "default": "nanoq",
-                    "enum": ["filtlong", "nanoq"],
+                    "enum": [
+                        "filtlong",
+                        "nanoq"
+                    ],
                     "fa_icon": "fas fa-hammer",
                     "description": "Specify which tool to use for long reads filtering",
                     "help_text": "Nanoq is a filtering tool only for Nanopore reads. Nanoq is faster and more memory-efficient than Filtlong. Nanoq also provides a summary of input read statistics; see [benchmarking](https://github.com/esteinig/nanoq?tab=readme-ov-file#benchmarks). \n\nFiltlong is a good option if you want to keep a certain percentage of reads after filtering, and you can also use it for non-Nanopore long reads."
@@ -313,7 +336,10 @@
                     "type": "string",
                     "default": "kmer",
                     "description": "Specify mode for identifying redundant reads",
-                    "enum": ["kmer", "alignment"],
+                    "enum": [
+                        "kmer",
+                        "alignment"
+                    ],
                     "fa_icon": "fas fa-align-left",
                     "help_text": "Specify which read-comparison mode to use to check for redundancy.\n\nk-mer is faster but less precise but is recommended for FASTQ files. Alignment is more precise but is slower, it is recommended for FASTA files.\n\n> Modifies tool parameter(s):\n> - Nonpareil: `-T`"
                 }
@@ -429,7 +455,15 @@
                 "diamond_output_format": {
                     "type": "string",
                     "default": "tsv",
-                    "enum": ["blast", "xml", "txt", "daa", "sam", "tsv", "paf"],
+                    "enum": [
+                        "blast",
+                        "xml",
+                        "txt",
+                        "daa",
+                        "sam",
+                        "tsv",
+                        "paf"
+                    ],
                     "fa_icon": "fas fa-file",
                     "description": "Specify output format from DIAMOND profiling.",
                     "help_text": "DIAMOND can produce output in a number of different formats, you can specify here which to produce.\n\nNote that DIAMOND can only produce one format at a time, and depending on which you pick, some downstream steps may not be executed. For example, selecting `daa` or `sam` will mean you will not get a tabular taxonomic profile as with the other tools.\n\nWill be overriden by `--diamond_save_reads.`\n\n> Modifies tool parameter(s):\n> - diamond blastx: `--outfmt`"
@@ -454,7 +488,14 @@
                 "kaiju_taxon_rank": {
                     "type": "string",
                     "default": "species",
-                    "enum": ["phylum", "class", "order", "family", "genus", "species"],
+                    "enum": [
+                        "phylum",
+                        "class",
+                        "order",
+                        "family",
+                        "genus",
+                        "species"
+                    ],
                     "fa_icon": "fas fa-tag",
                     "description": "Specify taxonomic rank to be displayed in Kaiju taxon table",
                     "help_text": "Specify the taxonomic level(s) to be displayed in the resulting Kaiju taxon table, as generated by the kaiju2table helper tool.\n\nThis can be only be a single level (e.g. `species`).\n\n> Modifies tool parameter(s):\n> - kaiju2table: `-l`"
@@ -530,7 +571,13 @@
                 "malt_mode": {
                     "type": "string",
                     "default": "BlastN",
-                    "enum": ["Unknown", "BlastN", "BlastP", "BlastX", "Classifier"],
+                    "enum": [
+                        "Unknown",
+                        "BlastN",
+                        "BlastP",
+                        "BlastX",
+                        "Classifier"
+                    ],
                     "fa_icon": "fas fa-check-square",
                     "description": "Specify which MALT alignment mode to use",
                     "help_text": "Specify which version of MALT alignment to use.\n\nBlastN is generally recommended (nucleotide-nucleotide alignment), but particularly for very short reads (such as aDNA), whereas BlastX mode is similar to DIAMOND and will translate the nucleotide to amino acid sequences. Note each type of alignment mode requires different parameters during database construction. Refer to the MALT manual for more information.\n\n> Modifies tool parameter(s):\n> - malt-run: `-mode` "
@@ -606,7 +653,13 @@
                 "ganon_report_type": {
                     "type": "string",
                     "default": "reads",
-                    "enum": ["abundance", "reads", "matches", "dist", "corr"],
+                    "enum": [
+                        "abundance",
+                        "reads",
+                        "matches",
+                        "dist",
+                        "corr"
+                    ],
                     "description": "Specify the type of ganon report to save.",
                     "help_text": "Specify the type of taxonomic report to produce from ganon report. This mainly refers to which form of 'value' to print: raw read counts, abundance estimates, genome-size normalised etc. \n\nSee the [ganon documentation](https://pirovc.github.io/ganon/outputfiles/#ganon-report) for more information of each option.\n\n> Modifies tool parameter(s):\n- ganon report: `--report-type`\n",
                     "fa_icon": "fas fa-file"
@@ -677,7 +730,13 @@
                     "default": "tsv",
                     "fa_icon": "fas fa-pastafarianism",
                     "description": "The desired output format.",
-                    "enum": ["tsv", "csv", "arrow", "parquet", "biom"]
+                    "enum": [
+                        "tsv",
+                        "csv",
+                        "arrow",
+                        "parquet",
+                        "biom"
+                    ]
                 },
                 "taxpasta_taxonomy_dir": {
                     "type": "string",
@@ -723,6 +782,23 @@
                 }
             },
             "fa_icon": "fas fa-chart-line"
+        },
+        "generate_samplesheet_options": {
+            "title": "Downstream pipeline samplesheet generation options",
+            "type": "object",
+            "fa_icon": "fas fa-university",
+            "description": "Options for generating input samplesheets for complementary downstream pipelines.",
+            "properties": {
+                "generate_downstream_samplesheets": {
+                    "type": "boolean",
+                    "description": "Turn on generation of samplesheets for downstream pipelines."
+                },
+                "generate_pipeline_samplesheets": {
+                    "type": "string",
+                    "description": "Specify a comma separated string in quotes to specify which pipeline to generate a samplesheet for.",
+                    "pattern": "^metaval$"
+                }
+            }
         },
         "institutional_config_options": {
             "title": "Institutional config options",
@@ -791,7 +867,14 @@
                     "description": "Method used to save pipeline results to output directory.",
                     "help_text": "The Nextflow `publishDir` option specifies which intermediate files should be saved to the output directory. This option tells the pipeline what method should be used to move these files. See [Nextflow docs](https://www.nextflow.io/docs/latest/process.html#publishdir) for details.",
                     "fa_icon": "fas fa-copy",
-                    "enum": ["symlink", "rellink", "link", "copy", "copyNoFollow", "move"],
+                    "enum": [
+                        "symlink",
+                        "rellink",
+                        "link",
+                        "copy",
+                        "copyNoFollow",
+                        "move"
+                    ],
                     "hidden": true
                 },
                 "email_on_fail": {
@@ -869,7 +952,10 @@
                     "hidden": true
                 },
                 "help": {
-                    "type": ["boolean", "string"],
+                    "type": [
+                        "boolean",
+                        "string"
+                    ],
                     "description": "Display the help message."
                 },
                 "help_full": {
@@ -910,6 +996,9 @@
         },
         {
             "$ref": "#/$defs/postprocessing_and_visualisation_options"
+        },
+        {
+            "$ref": "#/$defs/generate_samplesheet_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"
