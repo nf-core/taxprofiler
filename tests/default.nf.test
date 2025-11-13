@@ -22,7 +22,11 @@ nextflow_pipeline {
             def stable_content_bbduk          = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //centrifuge
-             def stable_content_centrifuge     = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_centrifuge     = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //diamond
+            def stable_content_diamond        = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
 
 
             assertAll(
@@ -51,6 +55,28 @@ nextflow_pipeline {
                                    file("$outputDir/centrifuge/db3/2613_db3.centrifuge.txt").text.contains("Homo sapiens"),
                                    file("$outputDir/centrifuge/centrifuge_db3_combined_reports.txt").text.contains("Homo sapiens"),
                                    stable_content_centrifuge).match("centrifuge") },
+
+                { assert snapshot( file("$outputDir/diamond/db1/2611_db1.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db1/2611_db1.diamond.tsv").text.contains("ERR5766174.77"),
+                                   file("$outputDir/diamond/db1/2612_db1.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db1/2612_db1.diamond.tsv").text.contains("ERR5766180.773"),
+                                   file("$outputDir/diamond/db1/2613_db1.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db1/2613_db1.diamond.tsv").text.contains("ERR5766181.59"),
+                                   file("$outputDir/diamond/db2/2614_db2.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db2/2614_db2.diamond.tsv").text.contains("ERR3201952.882919"),
+                                   file("$outputDir/diamond/db2/ERR3201952_db2.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db2/ERR3201952_db2.diamond.tsv").text.contains("ERR3201952.882919 "),
+                                   file("$outputDir/diamond/db3/2611_db3.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db3/2611_db3.diamond.tsv").text.contains("ERR5766174.77"),
+                                   file("$outputDir/diamond/db3/2612_db3.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db3/2612_db3.diamond.tsv").text.contains("ERR5766180.773"),
+                                   file("$outputDir/diamond/db3/2613_db3.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db3/2613_db3.diamond.tsv").text.contains("ERR5766181.59 "),
+                                   file("$outputDir/diamond/db3/2614_db3.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db3/2614_db3.diamond.tsv").text.contains("ERR3201952.882919 "),
+                                   file("$outputDir/diamond/db3/ERR3201952_db3.diamond.log").text.contains("queries aligned"),
+                                   file("$outputDir/diamond/db3/ERR3201952_db3.diamond.tsv").text.contains("ERR3201952.882919 "),
+                                   stable_content_diamond).match("diamond") },
             )
         }
     }

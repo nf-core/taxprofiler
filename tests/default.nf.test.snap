@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T14:35:07.94268134"
+        "timestamp": "2025-11-13T15:01:16.69632771"
     },
     "bracken": {
         "content": [
@@ -782,7 +782,58 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T14:35:08.07134838"
+        "timestamp": "2025-11-13T15:01:16.824350913"
+    },
+    "diamond": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            false,
+            true,
+            false,
+            [
+                "db1/2611_db1.diamond.log",
+                "db1/2611_db1.diamond.tsv",
+                "db1/2612_db1.diamond.log",
+                "db1/2612_db1.diamond.tsv",
+                "db1/2613_db1.diamond.log",
+                "db1/2613_db1.diamond.tsv",
+                "db2/2614_db2.diamond.log",
+                "db2/2614_db2.diamond.tsv",
+                "db2/ERR3201952_db2.diamond.log",
+                "db2/ERR3201952_db2.diamond.tsv",
+                "db3/2611_db3.diamond.log",
+                "db3/2611_db3.diamond.tsv",
+                "db3/2612_db3.diamond.log",
+                "db3/2612_db3.diamond.tsv",
+                "db3/2613_db3.diamond.log",
+                "db3/2613_db3.diamond.tsv",
+                "db3/2614_db3.diamond.log",
+                "db3/2614_db3.diamond.tsv",
+                "db3/ERR3201952_db3.diamond.log",
+                "db3/ERR3201952_db3.diamond.tsv"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-13T15:01:19.057321666"
     },
     "bowtie2": {
         "content": [
@@ -797,7 +848,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T14:35:08.03295118"
+        "timestamp": "2025-11-13T15:01:16.784140187"
     },
     "-profile test": {
         "content": [
@@ -944,7 +995,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T14:35:07.901032155"
+        "timestamp": "2025-11-13T15:01:16.64321276"
     },
     "centrifuge": {
         "content": [
@@ -973,7 +1024,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T14:35:08.40896863"
+        "timestamp": "2025-11-13T15:01:18.950965075"
     },
     "bbduk": {
         "content": [
@@ -992,6 +1043,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T14:35:08.002462412"
+        "timestamp": "2025-11-13T15:01:16.753430373"
     }
 }
