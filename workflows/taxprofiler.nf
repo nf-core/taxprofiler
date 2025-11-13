@@ -404,7 +404,12 @@ workflow TAXPROFILER {
         SUBWORKFLOW: GENERATE OWNSTREAM SAMPLESHEETS
     */
     if (params.generate_downstream_samplesheets && params.generate_pipeline_samplesheets == "metaval") {
-        GENERATE_DOWNSTREAM_SAMPLESHEETS( ch_shortreads_filtered, ch_longreads_preprocessed, PROFILING.out.profiles, PROFILING.out.classifications, STANDARDISATION_PROFILES.out.taxpasta )
+        GENERATE_DOWNSTREAM_SAMPLESHEETS ( 
+            ch_shortreads_filtered, 
+            ch_longreads_preprocessed,
+            PROFILING.out.profiles, PROFILING.out.classifications,
+            STANDARDISATION_PROFILES.out.taxpasta
+        )
     }
 
     emit:
