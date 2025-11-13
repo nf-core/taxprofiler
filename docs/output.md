@@ -733,7 +733,7 @@ pipelines:
 
 The `genomic-medicine-sweden/metaval` workflow only verifies the classification results produced by the three classifiers: `Kraken2`, `Centrifuge`, and `DIAMOND`.
 
-Each classifier can only be executed with a single database and the raw read files must be provided as `*.fastq.gz` files.
+Each classifier must only be executed with a single database and the raw read files must be provided as `*.fastq.gz` files.
 
 To generate the samplesheet for `genomic-medicine-sweden/metaval`, enable the following parameters:
 
