@@ -13,23 +13,26 @@ workflow LONGREAD_PREPROCESSING {
     reads
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     if (!params.longread_qc_skipadaptertrim && params.longread_qc_skipqualityfilter) {
-        ch_processed_reads = LONGREAD_ADAPTERREMOVAL(reads).reads
+        LONGREAD_ADAPTERREMOVAL(reads)
+        ch_processed_reads = LONGREAD_ADAPTERREMOVAL.out.reads
         ch_versions = ch_versions.mix(LONGREAD_ADAPTERREMOVAL.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_ADAPTERREMOVAL.out.mqc)
     }
     else if (params.longread_qc_skipadaptertrim && !params.longread_qc_skipqualityfilter) {
-        ch_processed_reads = LONGREAD_FILTERING(reads).reads
+        LONGREAD_FILTERING(reads)
+        ch_processed_reads = LONGREAD_FILTERING.out.reads
         ch_versions = ch_versions.mix(LONGREAD_FILTERING.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_FILTERING.out.mqc)
     }
     else {
         LONGREAD_ADAPTERREMOVAL(reads)
         ch_clipped_reads = LONGREAD_ADAPTERREMOVAL.out.reads.map { meta, clipped_long_reads -> [meta + [single_end: true], clipped_long_reads] }
-        ch_processed_reads = LONGREAD_FILTERING(ch_clipped_reads).reads
+        LONGREAD_FILTERING(ch_clipped_reads)
+        ch_processed_reads = LONGREAD_FILTERING.out.reads
         ch_versions = ch_versions.mix(LONGREAD_ADAPTERREMOVAL.out.versions.first())
         ch_versions = ch_versions.mix(LONGREAD_FILTERING.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_ADAPTERREMOVAL.out.mqc)
