@@ -1,7 +1,7 @@
 include { CAT_FASTQ as MERGE_RUNS } from '../../../modules/nf-core/cat/fastq/main'
 
 //
-// Subworkflow with functionality specific to the nf-core/createtaxdb pipeline
+// Subworkflow to create samplesheets for downstream pipelines
 //
 
 workflow SAMPLESHEET_METAVAL {
