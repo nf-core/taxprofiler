@@ -35,7 +35,7 @@ workflow SAMPLESHEET_METAVAL {
     ch_profiles_taxpasta = ch_profiles
         .filter { meta, profiles -> meta.tool in ['kraken2', 'centrifuge', 'diamond'] }
         .map { meta, profiles ->
-            def standardMeta = createStandardMeta(meta)
+            def standard_meta = createStandardMeta(meta)
             def db_info = [:]
             db_info["${meta.tool}_db"] = meta.db_name
             [meta.tool, standardMeta, profiles, meta.db_name]
