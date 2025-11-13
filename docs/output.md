@@ -727,7 +727,7 @@ pipelines:
 <summary>Output files</summary>
 
 - `downstream_samplesheets/`
-  - `metaval.csv`: Filled out `genomic-medicine-sweden/metaval` `--input` csv with paths to reads, classification tables and taxpasta files.
+  - `metaval.csv`: Filled out `genomic-medicine-sweden/metaval` `--input` csv with paths to reads based on the taxprofiler `--outdir` directory, classification tables and taxpasta files.
 
 </details>
 
