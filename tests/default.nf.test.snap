@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-12T13:14:49.093487332"
+        "timestamp": "2025-11-13T14:35:07.94268134"
     },
     "bracken": {
         "content": [
@@ -782,7 +782,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-12T13:14:49.252830728"
+        "timestamp": "2025-11-13T14:35:08.07134838"
     },
     "bowtie2": {
         "content": [
@@ -797,7 +797,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-12T13:14:49.201812902"
+        "timestamp": "2025-11-13T14:35:08.03295118"
     },
     "-profile test": {
         "content": [
@@ -944,40 +944,39 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-12T13:14:48.980895614"
+        "timestamp": "2025-11-13T14:35:07.901032155"
     },
     "centrifuge": {
         "content": [
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
             [
-                "centrifuge_db3_combined_reports.txt:md5,7812d1cbb6b48ab2af024769d11f247c",
-                [
-                    "2612_db3.centrifuge.mapped.fastq.gz:md5,88e70dcf75bfc391e02bd6951f3e5881",
-                    "2612_db3.centrifuge.report.txt:md5,0a6f26622c27cfead610f61164e1c3be",
-                    "2612_db3.centrifuge.results.txt:md5,a8a1523cbf20f99f27c73f430103c218",
-                    "2612_db3.centrifuge.txt:md5,ff8aa36ddf249c159ae831e947009554",
-                    "2612_db3.centrifuge.unmapped.fastq.gz:md5,927fcf34ef35bfa62fcd2221f6f8fd73",
-                    "2613_db3.centrifuge.mapped.fastq.gz:md5,4b1fa8283b30800753ed1ecb7eba79f4",
-                    "2613_db3.centrifuge.report.txt:md5,51447b7c533fb23c1c5ffb18978662bc",
-                    "2613_db3.centrifuge.results.txt:md5,58b37025c9600a6b3dbbf24822e26267",
-                    "2613_db3.centrifuge.txt:md5,312542edb738972229695f68d2868019",
-                    "2613_db3.centrifuge.unmapped.fastq.gz:md5,34fe46dd069822856a300a220f574e7b"
-                ]
+                "centrifuge_db3_combined_reports.txt",
+                "db3/2612_db3.centrifuge.mapped.fastq.gz",
+                "db3/2612_db3.centrifuge.report.txt",
+                "db3/2612_db3.centrifuge.results.txt",
+                "db3/2612_db3.centrifuge.txt",
+                "db3/2612_db3.centrifuge.unmapped.fastq.gz",
+                "db3/2613_db3.centrifuge.mapped.fastq.gz",
+                "db3/2613_db3.centrifuge.report.txt",
+                "db3/2613_db3.centrifuge.results.txt",
+                "db3/2613_db3.centrifuge.txt",
+                "db3/2613_db3.centrifuge.unmapped.fastq.gz"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-12T13:14:49.292036824"
+        "timestamp": "2025-11-13T14:35:08.40896863"
     },
     "bbduk": {
         "content": [
-            [
-                "2612_ERR5766176.bbduk.log:md5,5435bb67ab029d92431240de676d5e91",
-                "2612_ERR5766176_B.bbduk.log:md5,ab1a6420e723581850fbd169f5cc3fb6",
-                "2612_ERR5766180.bbduk.log:md5,a4e94332e9e39257d07befd0d7ad1d54",
-                "2613_ERR5766181.bbduk.log:md5,4ca4e945acf355c4caed75f58fa3c8a6"
-            ],
             true,
             true,
             true,
@@ -993,6 +992,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-12T13:14:49.164064894"
+        "timestamp": "2025-11-13T14:35:08.002462412"
     }
 }

@@ -10,5 +10,8 @@ multiqc/multiqc_data/llms-full.txt
 multiqc/multiqc_data/*.txt
 multiqc/multiqc_report.html
 bbduk/*.log
+centrifuge/*.{fastq.gz,txt}
+diamond/*/*.{tsv,log}
 fastqc/*_fastqc.{html,zip}
 fastqc/*/*fastqc.zip
+fastp/*.{html,zip,json,log}

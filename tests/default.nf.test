@@ -19,8 +19,10 @@ nextflow_pipeline {
             def stable_name_all = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
 
              //BBDuk
-            def stable_content_bbduk     = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            //def stable_name_bbduk        = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null , ignoreFile: null, include: ['**/*.log'] )
+            def stable_content_bbduk          = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //centrifuge
+             def stable_content_centrifuge     = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
 
             assertAll(
@@ -34,16 +36,21 @@ nextflow_pipeline {
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
                 { assert snapshot ( stable_name_all ).match("all_files") },
-                { assert snapshot( path("$outputDir/bbduk"),
-                                   file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Reads Processed:"),
+                { assert snapshot( file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Reads Processed:"),
                                    file("$outputDir/bbduk/2612_ERR5766180.bbduk.log").text.contains("Reads Processed:"),
                                    file("$outputDir/bbduk/2612_ERR5766176.bbduk.log").text.contains("Reads Processed:"),
                                    file("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").text.contains("Reads Processed:"),
                                    stable_content_bbduk).match("bbduk")},
                 { assert snapshot (path("$outputDir/bowtie2/align")).match("bowtie2")},
                 { assert snapshot (path("$outputDir/bracken")).match("bracken")},
-                { assert snapshot (path("$outputDir/centrifuge")).match("centrifuge")},
-
+                { assert snapshot( file("$outputDir/centrifuge/db3/2612_db3.centrifuge.report.txt").text.contains("Homo sapiens"),
+                                   file("$outputDir/centrifuge/db3/2612_db3.centrifuge.results.txt").text.contains("ERR5766180.602"),
+                                   file("$outputDir/centrifuge/db3/2612_db3.centrifuge.txt").text.contains("Centrifuge"),
+                                   file("$outputDir/centrifuge/db3/2613_db3.centrifuge.report.txt").text.contains("Homo sapiens"),
+                                   file("$outputDir/centrifuge/db3/2613_db3.centrifuge.results.txt").text.contains("ERR5766181.1"),
+                                   file("$outputDir/centrifuge/db3/2613_db3.centrifuge.txt").text.contains("Homo sapiens"),
+                                   file("$outputDir/centrifuge/centrifuge_db3_combined_reports.txt").text.contains("Homo sapiens"),
+                                   stable_content_centrifuge).match("centrifuge") },
             )
         }
     }
