@@ -110,9 +110,6 @@ workflow SAMPLESHEET_METAVAL {
                         file(params.outdir).toString() + '/filtered_reads_merged/' + it[4].getName() :
                         file(params.outdir).toString() + '/bbduk/' + it[4].getName())) : ""
 
-            //def fastq_2             = (!it[0] && it[4] && !(it[4] instanceof List)) ?
-            //    file(params.outdir).toString() + '/bbduk/' + it[4].getName() : ""
-
             // Fix: Check if kraken2 files exist before calling getName()
             def kraken2_report      = (it[5] && !(it[5] instanceof List)) ?
                 file(params.outdir).toString() + '/kraken2/' + it[8] + '/' + it[5].getName() : ""

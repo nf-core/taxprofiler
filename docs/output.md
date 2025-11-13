@@ -735,16 +735,7 @@ The `genomic-medicine-sweden/metaval` workflow only verifies the classification 
 
 Each classifier must only be executed with a single database and the raw read files must be provided as `*.fastq.gz` files.
 
-To generate the samplesheet for `genomic-medicine-sweden/metaval`, enable the following parameters:
-
-- `--generate_downstream_samplesheets`
-- `--generate_pipeline_samplesheets 'metaval'`
-- `--kraken2_save_readclassifications`
-- `--run_profile_standardisation`
-- `--save_complexityfiltered_reads`
-- `--perform_shortread_qc`
-- `--perform_shortread_complexityfilter`
-- `--perform_longread_qc`
+If multiple sequencing runs exist for the same sample, `nf-core/taxprofiler` performs read merging after host removal (and before profiling) when `params.perform_runmerging` is enabled. The merged reads are stored in the `run_merging/` folder if `params.save_runmerged_reads` is set, or in `analysis_ready_fastqs/` if `params.save_analysis_ready_fastqs` is set. However `genomic-medicine-sweden/metaval` takes filtered reads without host removal. In this case, reads from multiple runs belonging to the same sample are merged and stored in the `filtered_reads_merged/` directory.
 
 :::warning
 Any generated downstream samplesheet is provided as 'best effort' and are not guaranteed to work straight out of the box!
