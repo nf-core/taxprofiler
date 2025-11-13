@@ -38,7 +38,7 @@ workflow SAMPLESHEET_METAVAL {
             def standard_meta = createStandardMeta(meta)
             def db_info = [:]
             db_info["${meta.tool}_db"] = meta.db_name
-            [meta.tool, standardMeta, profiles, meta.db_name]
+            [meta.tool, standard_meta, profiles, meta.db_name]
         }
         .combine(
             ch_taxpasta
