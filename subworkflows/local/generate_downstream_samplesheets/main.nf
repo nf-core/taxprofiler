@@ -26,7 +26,8 @@ workflow SAMPLESHEET_METAVAL {
             skip: true
         }
 
-    ch_processed_reads_runmerged = MERGE_RUNS(ch_processed_reads.cat).reads
+    MERGE_RUNS(ch_processed_reads.cat)
+    ch_processed_reads_runmerged = MERGE_RUNS.out.reads
         .mix(ch_processed_reads.skip)
         .map { meta, reads -> [meta, [reads].flatten(), 1, [:]] } // Added empty db_info map
 
