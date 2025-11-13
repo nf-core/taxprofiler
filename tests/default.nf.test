@@ -27,6 +27,8 @@ nextflow_pipeline {
             //diamond
             def stable_content_diamond        = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            //fastp
+            def stable_content_fastp        = getAllFilesFromDir("$outputDir/fastp", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
 
             assertAll(
@@ -55,7 +57,6 @@ nextflow_pipeline {
                                    file("$outputDir/centrifuge/db3/2613_db3.centrifuge.txt").text.contains("Homo sapiens"),
                                    file("$outputDir/centrifuge/centrifuge_db3_combined_reports.txt").text.contains("Homo sapiens"),
                                    stable_content_centrifuge).match("centrifuge") },
-
                 { assert snapshot( file("$outputDir/diamond/db1/2611_db1.diamond.log").text.contains("queries aligned"),
                                    file("$outputDir/diamond/db1/2611_db1.diamond.tsv").text.contains("ERR5766174.77"),
                                    file("$outputDir/diamond/db1/2612_db1.diamond.log").text.contains("queries aligned"),
@@ -77,6 +78,16 @@ nextflow_pipeline {
                                    file("$outputDir/diamond/db3/ERR3201952_db3.diamond.log").text.contains("queries aligned"),
                                    file("$outputDir/diamond/db3/ERR3201952_db3.diamond.tsv").text.contains("ERR3201952.882919 "),
                                    stable_content_diamond).match("diamond") },
+               { assert snapshot( file("$outputDir/fastp/2612_ERR5766176_B.fastp.json").text.contains("fastp_version"),
+                                  file("$outputDir/fastp/2612_ERR5766176_B.fastp.log").text.contains("Detecting adapter sequence"),
+                                  file("$outputDir/fastp/2612_ERR5766176.fastp.json").text.contains("fastp_version"),
+                                  file("$outputDir/fastp/2612_ERR5766176.fastp.log").text.contains("Detecting adapter sequence"),
+                                  file("$outputDir/fastp/2612_ERR5766180.fastp.json").text.contains("fastp_version"),
+                                  file("$outputDir/fastp/2612_ERR5766180.fastp.log").text.contains("Detecting adapter sequence"),
+                                  file("$outputDir/fastp/2613_ERR5766181.fastp.json").text.contains("fastp_version"),
+                                  file("$outputDir/fastp/2613_ERR5766181.fastp.log").text.contains("Detecting adapter sequence"),
+                                  stable_content_fastp).match("fastp") },
+
             )
         }
     }

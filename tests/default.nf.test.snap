@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:01:16.69632771"
+        "timestamp": "2025-11-13T15:36:42.313265661"
     },
     "bracken": {
         "content": [
@@ -782,7 +782,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:01:16.824350913"
+        "timestamp": "2025-11-13T15:36:42.428970567"
     },
     "diamond": {
         "content": [
@@ -833,7 +833,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:01:19.057321666"
+        "timestamp": "2025-11-13T15:36:42.828800315"
     },
     "bowtie2": {
         "content": [
@@ -848,7 +848,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:01:16.784140187"
+        "timestamp": "2025-11-13T15:36:42.39155597"
     },
     "-profile test": {
         "content": [
@@ -995,7 +995,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:01:16.64321276"
+        "timestamp": "2025-11-13T15:36:42.276437201"
     },
     "centrifuge": {
         "content": [
@@ -1024,7 +1024,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:01:18.950965075"
+        "timestamp": "2025-11-13T15:36:42.7729566"
     },
     "bbduk": {
         "content": [
@@ -1043,6 +1043,37 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:01:16.753430373"
+        "timestamp": "2025-11-13T15:36:42.362112295"
+    },
+    "fastp": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                "2612_ERR5766176.fastp.html",
+                "2612_ERR5766176.fastp.json",
+                "2612_ERR5766176.fastp.log",
+                "2612_ERR5766176_B.fastp.html",
+                "2612_ERR5766176_B.fastp.json",
+                "2612_ERR5766176_B.fastp.log",
+                "2612_ERR5766180.fastp.html",
+                "2612_ERR5766180.fastp.json",
+                "2612_ERR5766180.fastp.log",
+                "2613_ERR5766181.fastp.html",
+                "2613_ERR5766181.fastp.json",
+                "2613_ERR5766181.fastp.log"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-13T15:36:42.863772774"
     }
 }
