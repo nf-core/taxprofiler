@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:36:42.313265661"
+        "timestamp": "2025-11-14T09:44:53.603909627"
     },
     "bracken": {
         "content": [
@@ -782,7 +782,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:36:42.428970567"
+        "timestamp": "2025-11-14T09:44:53.747241647"
     },
     "diamond": {
         "content": [
@@ -833,7 +833,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:36:42.828800315"
+        "timestamp": "2025-11-14T09:44:56.12137322"
     },
     "bowtie2": {
         "content": [
@@ -848,7 +848,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:36:42.39155597"
+        "timestamp": "2025-11-14T09:44:53.708496596"
     },
     "-profile test": {
         "content": [
@@ -995,7 +995,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:36:42.276437201"
+        "timestamp": "2025-11-14T09:44:53.516527422"
     },
     "centrifuge": {
         "content": [
@@ -1024,7 +1024,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:36:42.7729566"
+        "timestamp": "2025-11-14T09:44:55.822733405"
     },
     "bbduk": {
         "content": [
@@ -1043,7 +1043,44 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:36:42.362112295"
+        "timestamp": "2025-11-14T09:44:53.677303256"
+    },
+    "ganon": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                "db1/2611_db1.ganon.log",
+                "db1/2611_db1.ganon.rep",
+                "db1/2611_db1.ganon.tre",
+                "db1/2611_db1.ganon_report.tre",
+                "db1/2612_db1.ganon.log",
+                "db1/2612_db1.ganon.rep",
+                "db1/2612_db1.ganon.tre",
+                "db1/2612_db1.ganon_report.tre",
+                "db1/2613_db1.ganon.log",
+                "db1/2613_db1.ganon.rep",
+                "db1/2613_db1.ganon.tre",
+                "db1/2613_db1.ganon_report.tre",
+                "ganon_db1_combined_reports.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-14T10:02:58.883344155"
     },
     "fastp": {
         "content": [
@@ -1074,6 +1111,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-13T15:36:42.863772774"
+        "timestamp": "2025-11-14T09:44:56.202235079"
     }
 }
