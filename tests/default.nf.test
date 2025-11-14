@@ -106,8 +106,7 @@ nextflow_pipeline {
                                 file("$outputDir/ganon/db1/2613_db1.ganon_report.tre").text.contains("unclassified"),
                                 file("$outputDir/ganon/db1/2613_db1.ganon.tre").text.contains("Saccharomyces cerevisiae"),
                                 file("$outputDir/ganon/ganon_db1_combined_reports.txt").text.contains("root"),
-                            stable_content_ganon
-                        ).match("ganon") },
+                            stable_content_ganon).match("ganon") },
                 { assert snapshot( file("$outputDir/kaiju/db5/2611_db5.kaijutable.txt").text.contains("10239"),
                                 file("$outputDir/kaiju/db5/2611_db5.kaiju.tsv").text.contains("ERR5766174.4 "),
                                 file("$outputDir/kaiju/db5/2612_db5.kaijutable.txt").text.contains("10239"),
@@ -132,6 +131,8 @@ nextflow_pipeline {
                                 file("$outputDir/kaiju/db7/ERR3201952_db7.kaiju.tsv").text.contains("ERR3201952.1159044"),
                                 file("$outputDir/kaiju/kaiju_db7_combined_reports.txt").text.contains("10239"),
                                 stable_content_kaiju).match("kaiju") },
+
+                { assert snapshot (path("$outputDir/kmcp")).match("kmcp")},
             )
         }
     }
