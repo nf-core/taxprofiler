@@ -17,3 +17,4 @@ fastqc/*/*fastqc.zip
 fastp/*.{html,zip,json,log}
 ganon/*/*.log
 kaiju/*/*.{tsv,txt}
+kraken2/*/*.{fastq.gz,txt}

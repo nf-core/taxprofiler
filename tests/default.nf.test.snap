@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:16.771322222"
+        "timestamp": "2025-11-14T13:35:47.782551237"
     },
     "bracken": {
         "content": [
@@ -782,7 +782,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:16.903801931"
+        "timestamp": "2025-11-14T13:35:47.897522317"
     },
     "diamond": {
         "content": [
@@ -833,7 +833,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:17.323800957"
+        "timestamp": "2025-11-14T13:35:48.31195732"
     },
     "bowtie2": {
         "content": [
@@ -848,7 +848,38 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:16.847514805"
+        "timestamp": "2025-11-14T13:35:47.859819906"
+    },
+    "kraken2": {
+        "content": [
+            true,
+            false,
+            false,
+            true,
+            false,
+            false,
+            true,
+            false,
+            false,
+            [
+                "db2/2611_db2.kraken2.classified.fastq.gz",
+                "db2/2611_db2.kraken2.kraken2.report.txt",
+                "db2/2611_db2.kraken2.unclassified.fastq.gz",
+                "db2/2612_db2.kraken2.classified.fastq.gz",
+                "db2/2612_db2.kraken2.kraken2.report.txt",
+                "db2/2612_db2.kraken2.unclassified.fastq.gz",
+                "db2/2613_db2.kraken2.classified.fastq.gz",
+                "db2/2613_db2.kraken2.kraken2.report.txt",
+                "db2/2613_db2.kraken2.unclassified.fastq.gz",
+                "kraken2_db1-bracken_combined_reports.txt",
+                "kraken2_db2_combined_reports.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-14T13:35:53.170259648"
     },
     "-profile test": {
         "content": [
@@ -995,7 +1026,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:16.734254852"
+        "timestamp": "2025-11-14T13:35:47.746659514"
     },
     "centrifuge": {
         "content": [
@@ -1024,7 +1055,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:17.263480804"
+        "timestamp": "2025-11-14T13:35:48.255910331"
     },
     "bbduk": {
         "content": [
@@ -1043,7 +1074,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:16.817450492"
+        "timestamp": "2025-11-14T13:35:47.830276857"
     },
     "ganon": {
         "content": [
@@ -1080,7 +1111,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:17.451461906"
+        "timestamp": "2025-11-14T13:35:48.383443571"
     },
     "kmcp": {
         "content": [
@@ -1096,7 +1127,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:24.549122799"
+        "timestamp": "2025-11-14T13:35:48.783424342"
     },
     "fastp": {
         "content": [
@@ -1127,7 +1158,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:17.3875993"
+        "timestamp": "2025-11-14T13:35:48.346623596"
     },
     "kaiju": {
         "content": [
@@ -1184,6 +1215,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T11:41:24.518283635"
+        "timestamp": "2025-11-14T13:35:48.754146516"
     }
 }
