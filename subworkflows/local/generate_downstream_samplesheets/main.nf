@@ -84,32 +84,11 @@ workflow SAMPLESHEET_METAVAL {
         }
 
     // Make your samplesheet channel construct here depending on your downstream
+    // ch_metaval_input channel:  [single_end, sample, instrument_platform, fastq_1, fastq_2, kraken2_report, kraken2_results, kraken2_taxpasta, kraken2_db_name, centrifuge_report, centrifuge_result, centrifuge_taxpasta, centrifuge_db_name, diamond, diamond_pasta, diamond_db_name   ]
     ch_list_for_samplesheet = ch_metaval_input
         .map { it ->
-            //single_end, sample, instrument_platform, fastq_1, fastq_2, kraken2_report, kraken2_results, kraken2_taxpasta, kraken2_db_name,
-            //centrifuge_report, centrifuge_result, centrifuge_taxpasta, centrifuge_db_name, diamond, diamond_pasta, diamond_db_name
             def sample              = it[1]
             def instrument_platform = it[2]
-
-            // Define fastq_1 based on platform and merged status using ternary operators
-            //def fastq_1             = it[2] == "OXFORD_NANOPORE" ?
-            //    (it[3].getName().contains("merged") ?
-            //        file(params.outdir).toString() + '/filtered_reads_merged/' + it[3].getName() :
-            //        file(params.outdir).toString() + '/' + params.longread_filter_tool + '/' + it[3].getName()) :
-            //    (it[3].getName().contains("merged") ?
-            //        file(params.outdir).toString() + '/filtered_reads_merged/' + it[3].getName() :
-            //        file(params.outdir).toString() + '/bbduk/' + it[3].getName())
-//
-            //// Fix: Check if fastq_2 is empty list before calling getName()
-            //def fastq_2 = (!it[0] && it[4] && !(it[4] instanceof List)) ?
-            //    (it[2] == "OXFORD_NANOPORE" ?
-            //        (it[4].getName().contains("merged") ?
-            //            file(params.outdir).toString() + '/filtered_reads_merged/' + it[4].getName() :
-            //            file(params.outdir).toString() + '/' + params.longread_filter_tool + '/' + it[4].getName()) :
-            //        (it[4].getName().contains("merged") ?
-            //            file(params.outdir).toString() + '/filtered_reads_merged/' + it[4].getName() :
-            //            file(params.outdir).toString() + '/bbduk/' + it[4].getName())) : ""
-
             // Determine fastq_1 path
             def fastq1_name = it[3].getName()
 
