@@ -16,3 +16,4 @@ fastqc/*_fastqc.{html,zip}
 fastqc/*/*fastqc.zip
 fastp/*.{html,zip,json,log}
 ganon/*/*.log
+kaiju/*/*.{tsv,txt}

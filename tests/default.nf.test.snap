@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T09:44:53.603909627"
+        "timestamp": "2025-11-14T11:24:51.704261235"
     },
     "bracken": {
         "content": [
@@ -782,7 +782,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T09:44:53.747241647"
+        "timestamp": "2025-11-14T11:24:51.827464787"
     },
     "diamond": {
         "content": [
@@ -833,7 +833,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T09:44:56.12137322"
+        "timestamp": "2025-11-14T11:24:52.240372694"
     },
     "bowtie2": {
         "content": [
@@ -848,7 +848,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T09:44:53.708496596"
+        "timestamp": "2025-11-14T11:24:51.788026719"
     },
     "-profile test": {
         "content": [
@@ -995,7 +995,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T09:44:53.516527422"
+        "timestamp": "2025-11-14T11:24:51.627766343"
     },
     "centrifuge": {
         "content": [
@@ -1024,7 +1024,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T09:44:55.822733405"
+        "timestamp": "2025-11-14T11:24:52.16251097"
     },
     "bbduk": {
         "content": [
@@ -1043,7 +1043,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T09:44:53.677303256"
+        "timestamp": "2025-11-14T11:24:51.756877762"
     },
     "ganon": {
         "content": [
@@ -1080,7 +1080,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T10:02:58.883344155"
+        "timestamp": "2025-11-14T11:24:52.313848983"
     },
     "fastp": {
         "content": [
@@ -1111,6 +1111,63 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T09:44:56.202235079"
+        "timestamp": "2025-11-14T11:24:52.275218119"
+    },
+    "kaiju": {
+        "content": [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                "db5/2611_db5.kaiju.tsv",
+                "db5/2611_db5.kaijutable.txt",
+                "db5/2612_db5.kaiju.tsv",
+                "db5/2612_db5.kaijutable.txt",
+                "db5/2613_db5.kaiju.tsv",
+                "db5/2613_db5.kaijutable.txt",
+                "db6/2614_db6.kaiju.tsv",
+                "db6/2614_db6.kaijutable.txt",
+                "db6/ERR3201952_db6.kaiju.tsv",
+                "db6/ERR3201952_db6.kaijutable.txt",
+                "db7/2611_db7.kaiju.tsv",
+                "db7/2611_db7.kaijutable.txt",
+                "db7/2612_db7.kaiju.tsv",
+                "db7/2612_db7.kaijutable.txt",
+                "db7/2613_db7.kaiju.tsv",
+                "db7/2613_db7.kaijutable.txt",
+                "db7/2614_db7.kaiju.tsv",
+                "db7/2614_db7.kaijutable.txt",
+                "db7/ERR3201952_db7.kaiju.tsv",
+                "db7/ERR3201952_db7.kaijutable.txt",
+                "kaiju_db5_combined_reports.txt",
+                "kaiju_db6_combined_reports.txt",
+                "kaiju_db7_combined_reports.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-14T11:24:52.697245959"
     }
 }
