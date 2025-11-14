@@ -39,6 +39,9 @@ nextflow_pipeline {
             //kraken2
             def stable_content_kraken2        = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+             //krona
+            def stable_content_krona          = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
 
             assertAll(
                 { assert workflow.success},
@@ -145,7 +148,13 @@ nextflow_pipeline {
                                 file("$outputDir/kraken2/db2/2613_db2.kraken2.classified.fastq.gz").text.contains("@ERR5766181.6866"),
                                 file("$outputDir/kraken2/db2/2613_db2.kraken2.unclassified.fastq.gz").text.contains("@ERR5766181.1"),
                                 stable_content_kraken2).match("kraken2") },
-
+                { assert snapshot( file("$outputDir/krona/centrifuge_db3.html").exists(),
+                                file("$outputDir/krona/kaiju_db5.html").exists(),
+                                file("$outputDir/krona/kaiju_db6.html").exists(),
+                                file("$outputDir/krona/kaiju_db7.html").exists(),
+                                file("$outputDir/krona/kraken2-bracken_db1.html").exists(),
+                                file("$outputDir/krona/kraken2_db2.html").exists(),
+                                stable_content_krona).match("krona") },
             )
         }
     }

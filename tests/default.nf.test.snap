@@ -762,7 +762,158 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T13:35:47.782551237"
+        "timestamp": "2025-11-14T15:29:56.285553404"
+    },
+    "krona": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                "centrifuge_db3.html",
+                "kaiju_db5.html",
+                "kaiju_db6.html",
+                "kaiju_db7.html",
+                "kraken2-bracken_db1.html",
+                "kraken2_db2.html"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-14T15:30:08.728440828"
+    },
+    "bowtie2": {
+        "content": [
+            [
+                "2612_ERR5766176.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
+                "2612_ERR5766176_B.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
+                "2612_ERR5766180.bowtie2.log:md5,a7487ce9c549a7f8fb5694fd0889f929",
+                "2613_ERR5766181.bowtie2.log:md5,6cb148fdf3840de7a8a1f5315847817b"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-14T15:29:56.411435349"
+    },
+    "bbduk": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            [
+                "2612_ERR5766176.bbduk.log",
+                "2612_ERR5766176_B.bbduk.log",
+                "2612_ERR5766180.bbduk.log",
+                "2613_ERR5766181.bbduk.log"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-14T15:29:56.380133724"
+    },
+    "ganon": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                "db1/2611_db1.ganon.log",
+                "db1/2611_db1.ganon.rep",
+                "db1/2611_db1.ganon.tre",
+                "db1/2611_db1.ganon_report.tre",
+                "db1/2612_db1.ganon.log",
+                "db1/2612_db1.ganon.rep",
+                "db1/2612_db1.ganon.tre",
+                "db1/2612_db1.ganon_report.tre",
+                "db1/2613_db1.ganon.log",
+                "db1/2613_db1.ganon.rep",
+                "db1/2613_db1.ganon.tre",
+                "db1/2613_db1.ganon_report.tre",
+                "ganon_db1_combined_reports.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-14T15:29:57.075596176"
+    },
+    "kaiju": {
+        "content": [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                "db5/2611_db5.kaiju.tsv",
+                "db5/2611_db5.kaijutable.txt",
+                "db5/2612_db5.kaiju.tsv",
+                "db5/2612_db5.kaijutable.txt",
+                "db5/2613_db5.kaiju.tsv",
+                "db5/2613_db5.kaijutable.txt",
+                "db6/2614_db6.kaiju.tsv",
+                "db6/2614_db6.kaijutable.txt",
+                "db6/ERR3201952_db6.kaiju.tsv",
+                "db6/ERR3201952_db6.kaijutable.txt",
+                "db7/2611_db7.kaiju.tsv",
+                "db7/2611_db7.kaijutable.txt",
+                "db7/2612_db7.kaiju.tsv",
+                "db7/2612_db7.kaijutable.txt",
+                "db7/2613_db7.kaiju.tsv",
+                "db7/2613_db7.kaijutable.txt",
+                "db7/2614_db7.kaiju.tsv",
+                "db7/2614_db7.kaijutable.txt",
+                "db7/ERR3201952_db7.kaiju.tsv",
+                "db7/ERR3201952_db7.kaijutable.txt",
+                "kaiju_db5_combined_reports.txt",
+                "kaiju_db6_combined_reports.txt",
+                "kaiju_db7_combined_reports.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-14T15:30:00.647864481"
     },
     "bracken": {
         "content": [
@@ -782,7 +933,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T13:35:47.897522317"
+        "timestamp": "2025-11-14T15:29:56.467546305"
     },
     "diamond": {
         "content": [
@@ -833,22 +984,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T13:35:48.31195732"
-    },
-    "bowtie2": {
-        "content": [
-            [
-                "2612_ERR5766176.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
-                "2612_ERR5766176_B.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
-                "2612_ERR5766180.bowtie2.log:md5,a7487ce9c549a7f8fb5694fd0889f929",
-                "2613_ERR5766181.bowtie2.log:md5,6cb148fdf3840de7a8a1f5315847817b"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-14T13:35:47.859819906"
+        "timestamp": "2025-11-14T15:29:56.929277611"
     },
     "kraken2": {
         "content": [
@@ -879,7 +1015,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T13:35:53.170259648"
+        "timestamp": "2025-11-14T15:30:08.697172099"
     },
     "-profile test": {
         "content": [
@@ -1026,7 +1162,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T13:35:47.746659514"
+        "timestamp": "2025-11-14T15:29:56.190028365"
     },
     "centrifuge": {
         "content": [
@@ -1055,63 +1191,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T13:35:48.255910331"
-    },
-    "bbduk": {
-        "content": [
-            true,
-            true,
-            true,
-            true,
-            [
-                "2612_ERR5766176.bbduk.log",
-                "2612_ERR5766176_B.bbduk.log",
-                "2612_ERR5766180.bbduk.log",
-                "2613_ERR5766181.bbduk.log"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-14T13:35:47.830276857"
-    },
-    "ganon": {
-        "content": [
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            [
-                "db1/2611_db1.ganon.log",
-                "db1/2611_db1.ganon.rep",
-                "db1/2611_db1.ganon.tre",
-                "db1/2611_db1.ganon_report.tre",
-                "db1/2612_db1.ganon.log",
-                "db1/2612_db1.ganon.rep",
-                "db1/2612_db1.ganon.tre",
-                "db1/2612_db1.ganon_report.tre",
-                "db1/2613_db1.ganon.log",
-                "db1/2613_db1.ganon.rep",
-                "db1/2613_db1.ganon.tre",
-                "db1/2613_db1.ganon_report.tre",
-                "ganon_db1_combined_reports.txt"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-14T13:35:48.383443571"
+        "timestamp": "2025-11-14T15:29:56.825316449"
     },
     "kmcp": {
         "content": [
@@ -1127,7 +1207,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T13:35:48.783424342"
+        "timestamp": "2025-11-14T15:30:00.681148489"
     },
     "fastp": {
         "content": [
@@ -1158,63 +1238,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T13:35:48.346623596"
-    },
-    "kaiju": {
-        "content": [
-            true,
-            false,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            [
-                "db5/2611_db5.kaiju.tsv",
-                "db5/2611_db5.kaijutable.txt",
-                "db5/2612_db5.kaiju.tsv",
-                "db5/2612_db5.kaijutable.txt",
-                "db5/2613_db5.kaiju.tsv",
-                "db5/2613_db5.kaijutable.txt",
-                "db6/2614_db6.kaiju.tsv",
-                "db6/2614_db6.kaijutable.txt",
-                "db6/ERR3201952_db6.kaiju.tsv",
-                "db6/ERR3201952_db6.kaijutable.txt",
-                "db7/2611_db7.kaiju.tsv",
-                "db7/2611_db7.kaijutable.txt",
-                "db7/2612_db7.kaiju.tsv",
-                "db7/2612_db7.kaijutable.txt",
-                "db7/2613_db7.kaiju.tsv",
-                "db7/2613_db7.kaijutable.txt",
-                "db7/2614_db7.kaiju.tsv",
-                "db7/2614_db7.kaijutable.txt",
-                "db7/ERR3201952_db7.kaiju.tsv",
-                "db7/ERR3201952_db7.kaijutable.txt",
-                "kaiju_db5_combined_reports.txt",
-                "kaiju_db6_combined_reports.txt",
-                "kaiju_db7_combined_reports.txt"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2025-11-14T13:35:48.754146516"
+        "timestamp": "2025-11-14T15:29:57.019759933"
     }
 }
