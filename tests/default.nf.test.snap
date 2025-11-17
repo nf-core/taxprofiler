@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:41.684059232"
+        "timestamp": "2025-11-17T12:13:13.260745143"
     },
     "krona": {
         "content": [
@@ -785,7 +785,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:59.363330271"
+        "timestamp": "2025-11-17T12:13:33.763558108"
     },
     "bowtie2": {
         "content": [
@@ -800,7 +800,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:41.810121264"
+        "timestamp": "2025-11-17T12:13:13.350285882"
     },
     "nanoq": {
         "content": [
@@ -812,7 +812,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:59.686693384"
+        "timestamp": "2025-11-17T12:13:33.870393809"
     },
     "bbduk": {
         "content": [
@@ -831,7 +831,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:41.780164999"
+        "timestamp": "2025-11-17T12:13:13.321901272"
     },
     "ganon": {
         "content": [
@@ -868,7 +868,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:42.532371682"
+        "timestamp": "2025-11-17T12:13:15.857016538"
     },
     "kaiju": {
         "content": [
@@ -925,7 +925,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:51.270248553"
+        "timestamp": "2025-11-17T12:13:25.613282719"
     },
     "bracken": {
         "content": [
@@ -945,7 +945,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:41.869760183"
+        "timestamp": "2025-11-17T12:13:13.384714421"
     },
     "diamond": {
         "content": [
@@ -996,7 +996,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:42.331767593"
+        "timestamp": "2025-11-17T12:13:15.680377223"
     },
     "metaphlan": {
         "content": [
@@ -1053,7 +1053,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:59.65770681"
+        "timestamp": "2025-11-17T12:13:33.843189768"
     },
     "kraken2": {
         "content": [
@@ -1084,7 +1084,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:59.333839039"
+        "timestamp": "2025-11-17T12:13:33.735140966"
     },
     "-profile test": {
         "content": [
@@ -1231,7 +1231,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:41.593069283"
+        "timestamp": "2025-11-17T12:13:13.176534684"
     },
     "centrifuge": {
         "content": [
@@ -1260,7 +1260,69 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:42.211562836"
+        "timestamp": "2025-11-17T12:13:15.54093647"
+    },
+    "nonpareil": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                "metaphlan3/2611_metaphlan3.metaphlan.biom",
+                "metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2611_metaphlan3.metaphlan.sam",
+                "metaphlan3/2611_metaphlan3.metaphlan_profile.txt",
+                "metaphlan3/2612_metaphlan3.metaphlan.biom",
+                "metaphlan3/2612_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2612_metaphlan3.metaphlan.sam",
+                "metaphlan3/2612_metaphlan3.metaphlan_profile.txt",
+                "metaphlan3/2613_metaphlan3.metaphlan.biom",
+                "metaphlan3/2613_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2613_metaphlan3.metaphlan.sam",
+                "metaphlan3/2613_metaphlan3.metaphlan_profile.txt",
+                "metaphlan4/2611_metaphlan4.metaphlan.biom",
+                "metaphlan4/2611_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2611_metaphlan4.metaphlan.sam",
+                "metaphlan4/2611_metaphlan4.metaphlan_profile.txt",
+                "metaphlan4/2612_metaphlan4.metaphlan.biom",
+                "metaphlan4/2612_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2612_metaphlan4.metaphlan.sam",
+                "metaphlan4/2612_metaphlan4.metaphlan_profile.txt",
+                "metaphlan4/2613_metaphlan4.metaphlan.biom",
+                "metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2613_metaphlan4.metaphlan.sam",
+                "metaphlan4/2613_metaphlan4.metaphlan_profile.txt",
+                "metaphlan_metaphlan3_combined_reports.txt",
+                "metaphlan_metaphlan4_combined_reports.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-17T12:13:34.125370278"
     },
     "kmcp": {
         "content": [
@@ -1276,7 +1338,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:51.300241025"
+        "timestamp": "2025-11-17T12:13:25.641389165"
     },
     "fastp": {
         "content": [
@@ -1307,6 +1369,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T11:26:42.441318984"
+        "timestamp": "2025-11-17T12:13:15.752281726"
     }
 }

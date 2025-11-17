@@ -45,6 +45,9 @@ nextflow_pipeline {
             //metaphlan
             def stable_content_metaphlan      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            //nonpareil
+            def stable_content_nonpareil      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
 
             assertAll(
                 { assert workflow.success},
@@ -177,9 +180,36 @@ nextflow_pipeline {
                                 file("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt").text.contains("avg_read_length"),
                                 file("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan_profile.txt").text.contains("clade_name"),
                                 file("$outputDir/metaphlan/metaphlan_metaphlan3_combined_reports.txt").text.contains("UNCLASSIFIED"),
-                                 file("$outputDir/metaphlan/metaphlan_metaphlan4_combined_reports.txt").text.contains("t__SGB4933_group"),
+                                file("$outputDir/metaphlan/metaphlan_metaphlan4_combined_reports.txt").text.contains("t__SGB4933_group"),
                                 stable_content_metaphlan).match("metaphlan") },
                  { assert snapshot (path("$outputDir/nanoq")).match("nanoq")},
+                 { assert snapshot( file("$outputDir/nonpareil/2612_ERR5766176_B.npa").text.contains("0.00"),
+                                file("$outputDir/nonpareil/2612_ERR5766176_B.npc").text.contains("177104"),
+                                file("$outputDir/nonpareil/2612_ERR5766176_B.npl").text.contains("Average read length"),
+                                file("$outputDir/nonpareil/2612_ERR5766176_B.npo").text.contains("@version:"),
+                                file("$outputDir/nonpareil/2612_ERR5766176_B.png").exists(),
+                                file("$outputDir/nonpareil/2612_ERR5766176.npa").text.contains("0.00"),
+                                file("$outputDir/nonpareil/2612_ERR5766176.npc").text.contains("205699"),
+                                file("$outputDir/nonpareil/2612_ERR5766176.npl").text.contains("Average read length"),
+                                file("$outputDir/nonpareil/2612_ERR5766176.npo").text.contains("@version:"),
+                                file("$outputDir/nonpareil/2612_ERR5766176.png").exists(),
+                                file("$outputDir/nonpareil/2612_ERR5766180.npa").text.contains("0.00"),
+                                file("$outputDir/nonpareil/2612_ERR5766180.npc").text.contains("143862"),
+                                file("$outputDir/nonpareil/2612_ERR5766180.npl").text.contains("Average read length"),
+                                file("$outputDir/nonpareil/2612_ERR5766180.npo").text.contains("@version:"),
+                                file("$outputDir/nonpareil/2612_ERR5766180.png").exists(),
+                                file("$outputDir/nonpareil/2613_ERR5766181.npa").text.contains("0.00"),
+                                file("$outputDir/nonpareil/2613_ERR5766181.npc").text.contains("127039"),
+                                file("$outputDir/nonpareil/2613_ERR5766181.npl").text.contains("Average read length"),
+                                file("$outputDir/nonpareil/2613_ERR5766181.npo").text.contains("@version:"),
+                                file("$outputDir/nonpareil/2613_ERR5766181.png").exists(),
+                                file("$outputDir/nonpareil/nonpareil_all_samples.csv").text.contains("modelR"),
+                                file("$outputDir/nonpareil/nonpareil_all_samples.json").text.contains("log.sample"),
+                                file("$outputDir/nonpareil/nonpareil_all_samples_mqc.png").exists(),
+                                file("$outputDir/nonpareil/nonpareil_all_samples.pdf").exists(),
+                                file("$outputDir/nonpareil/nonpareil_all_samples.tsv").text.contains("diversity"),
+                                stable_content_nonpareil).match("nonpareil") },
+
 
             )
         }
