@@ -179,6 +179,7 @@ nextflow_pipeline {
                                 file("$outputDir/metaphlan/metaphlan_metaphlan3_combined_reports.txt").text.contains("UNCLASSIFIED"),
                                  file("$outputDir/metaphlan/metaphlan_metaphlan4_combined_reports.txt").text.contains("t__SGB4933_group"),
                                 stable_content_metaphlan).match("metaphlan") },
+                 { assert snapshot (path("$outputDir/nanoq")).match("nanoq")},
 
             )
         }
