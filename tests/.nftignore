@@ -19,3 +19,4 @@ ganon/*/*.log
 kaiju/*/*.{tsv,txt}
 kraken2/*/*.{fastq.gz,txt}
 krona/*.html
+metaphlan/*/*.{biom,txt,sam}

@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:29:56.285553404"
+        "timestamp": "2025-11-17T11:04:33.796592694"
     },
     "krona": {
         "content": [
@@ -785,7 +785,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:30:08.728440828"
+        "timestamp": "2025-11-17T11:05:00.884322733"
     },
     "bowtie2": {
         "content": [
@@ -800,7 +800,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:29:56.411435349"
+        "timestamp": "2025-11-17T11:04:33.885206628"
     },
     "bbduk": {
         "content": [
@@ -819,7 +819,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:29:56.380133724"
+        "timestamp": "2025-11-17T11:04:33.855425806"
     },
     "ganon": {
         "content": [
@@ -856,7 +856,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:29:57.075596176"
+        "timestamp": "2025-11-17T11:04:34.712940832"
     },
     "kaiju": {
         "content": [
@@ -913,7 +913,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:30:00.647864481"
+        "timestamp": "2025-11-17T11:04:49.762597395"
     },
     "bracken": {
         "content": [
@@ -933,7 +933,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:29:56.467546305"
+        "timestamp": "2025-11-17T11:04:33.940574458"
     },
     "diamond": {
         "content": [
@@ -984,7 +984,64 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:29:56.929277611"
+        "timestamp": "2025-11-17T11:04:34.47868447"
+    },
+    "metaphlan": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            [
+                "metaphlan3/2611_metaphlan3.metaphlan.biom",
+                "metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2611_metaphlan3.metaphlan.sam",
+                "metaphlan3/2611_metaphlan3.metaphlan_profile.txt",
+                "metaphlan3/2612_metaphlan3.metaphlan.biom",
+                "metaphlan3/2612_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2612_metaphlan3.metaphlan.sam",
+                "metaphlan3/2612_metaphlan3.metaphlan_profile.txt",
+                "metaphlan3/2613_metaphlan3.metaphlan.biom",
+                "metaphlan3/2613_metaphlan3.metaphlan.bowtie2out.txt",
+                "metaphlan3/2613_metaphlan3.metaphlan.sam",
+                "metaphlan3/2613_metaphlan3.metaphlan_profile.txt",
+                "metaphlan4/2611_metaphlan4.metaphlan.biom",
+                "metaphlan4/2611_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2611_metaphlan4.metaphlan.sam",
+                "metaphlan4/2611_metaphlan4.metaphlan_profile.txt",
+                "metaphlan4/2612_metaphlan4.metaphlan.biom",
+                "metaphlan4/2612_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2612_metaphlan4.metaphlan.sam",
+                "metaphlan4/2612_metaphlan4.metaphlan_profile.txt",
+                "metaphlan4/2613_metaphlan4.metaphlan.biom",
+                "metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt",
+                "metaphlan4/2613_metaphlan4.metaphlan.sam",
+                "metaphlan4/2613_metaphlan4.metaphlan_profile.txt",
+                "metaphlan_metaphlan3_combined_reports.txt",
+                "metaphlan_metaphlan4_combined_reports.txt"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-17T11:05:01.026843981"
     },
     "kraken2": {
         "content": [
@@ -1015,7 +1072,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:30:08.697172099"
+        "timestamp": "2025-11-17T11:05:00.854988043"
     },
     "-profile test": {
         "content": [
@@ -1162,7 +1219,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:29:56.190028365"
+        "timestamp": "2025-11-17T11:04:33.714102674"
     },
     "centrifuge": {
         "content": [
@@ -1191,7 +1248,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:29:56.825316449"
+        "timestamp": "2025-11-17T11:04:34.307779319"
     },
     "kmcp": {
         "content": [
@@ -1207,7 +1264,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:30:00.681148489"
+        "timestamp": "2025-11-17T11:04:49.793010188"
     },
     "fastp": {
         "content": [
@@ -1238,6 +1295,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-14T15:29:57.019759933"
+        "timestamp": "2025-11-17T11:04:34.637661878"
     }
 }

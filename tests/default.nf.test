@@ -39,8 +39,11 @@ nextflow_pipeline {
             //kraken2
             def stable_content_kraken2        = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
-             //krona
+            //krona
             def stable_content_krona          = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //metaphlan
+            def stable_content_metaphlan      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
 
             assertAll(
@@ -155,9 +158,29 @@ nextflow_pipeline {
                                 file("$outputDir/krona/kraken2-bracken_db1.html").exists(),
                                 file("$outputDir/krona/kraken2_db2.html").exists(),
                                 stable_content_krona).match("krona") },
+                { assert snapshot( file("$outputDir/metaphlan/metaphlan3/2611_metaphlan3.metaphlan.biom").text.contains("generated_by"),
+                                file("$outputDir/metaphlan/metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt").text.contains("avg_read_length"),
+                                file("$outputDir/metaphlan/metaphlan3/2611_metaphlan3.metaphlan_profile.txt").text.contains("clade_name"),
+                                file("$outputDir/metaphlan/metaphlan3/2612_metaphlan3.metaphlan.biom").text.contains("generated_by"),
+                                file("$outputDir/metaphlan/metaphlan3/2612_metaphlan3.metaphlan.bowtie2out.txt").text.contains("avg_read_length"),
+                                file("$outputDir/metaphlan/metaphlan3/2612_metaphlan3.metaphlan_profile.txt").text.contains("clade_name"),
+                                file("$outputDir/metaphlan/metaphlan3/2613_metaphlan3.metaphlan.biom").text.contains("generated_by"),
+                                file("$outputDir/metaphlan/metaphlan3/2613_metaphlan3.metaphlan.bowtie2out.txt").text.contains("overall"),
+                                file("$outputDir/metaphlan/metaphlan3/2613_metaphlan3.metaphlan_profile.txt").text.contains("clade_name"),
+                                file("$outputDir/metaphlan/metaphlan4/2611_metaphlan4.metaphlan.biom").text.contains("generated_by"),
+                                file("$outputDir/metaphlan/metaphlan4/2611_metaphlan4.metaphlan.bowtie2out.txt").text.contains("avg_read_length"),
+                                file("$outputDir/metaphlan/metaphlan4/2611_metaphlan4.metaphlan_profile.txt").text.contains("clade_name"),
+                                file("$outputDir/metaphlan/metaphlan4/2612_metaphlan4.metaphlan.biom").text.contains("generated_by"),
+                                file("$outputDir/metaphlan/metaphlan4/2612_metaphlan4.metaphlan.bowtie2out.txt").text.contains("avg_read_length"),
+                                file("$outputDir/metaphlan/metaphlan4/2612_metaphlan4.metaphlan_profile.txt").text.contains("clade_name"),
+                                file("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan.biom").text.contains("avg_read_length"),
+                                file("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt").text.contains("avg_read_length"),
+                                file("$outputDir/metaphlan/metaphlan4/2613_metaphlan4.metaphlan_profile.txt").text.contains("clade_name"),
+                                file("$outputDir/metaphlan/metaphlan_metaphlan3_combined_reports.txt").text.contains("UNCLASSIFIED"),
+                                 file("$outputDir/metaphlan/metaphlan_metaphlan4_combined_reports.txt").text.contains("t__SGB4933_group"),
+                                stable_content_metaphlan).match("metaphlan") },
+
             )
         }
     }
 }
-
-
