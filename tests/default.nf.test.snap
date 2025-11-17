@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:13.260745143"
+        "timestamp": "2025-11-17T15:14:14.912278249"
     },
     "krona": {
         "content": [
@@ -785,7 +785,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:33.763558108"
+        "timestamp": "2025-11-17T15:14:20.288230328"
     },
     "bowtie2": {
         "content": [
@@ -800,7 +800,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:13.350285882"
+        "timestamp": "2025-11-17T15:14:14.998276732"
     },
     "nanoq": {
         "content": [
@@ -812,7 +812,31 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:33.870393809"
+        "timestamp": "2025-11-17T15:14:20.364937706"
+    },
+    "samtools": {
+        "content": [
+            [
+                "2612_ERR5766176.bam.bai:md5,be1bd3ae46257048a445d7509b62180b",
+                "2612_ERR5766176_B.bam.bai:md5,72941737164f99ed84cbf050386fd56f",
+                "2612_ERR5766180.bam.bai:md5,57fa22bab0598591a56420d006ecb864",
+                "2613_ERR5766181.bam.bai:md5,77d3c7fd647637c680c0308f454e911d",
+                "ERR3201952_ERR3201952.bam.bai:md5,d740d498753f10a7724c7c0f67ea086a",
+                "ERR3201952_ERR3201952.unmapped.bam:md5,2dba250241b44872cbb8a60fab3aa083",
+                [
+                    "2612_ERR5766176.stats:md5,c3d2b46c22085705f49212c47cf83694",
+                    "2612_ERR5766176_B.stats:md5,f73cce61c5bdcd4a2139ee419a6f95aa",
+                    "2612_ERR5766180.stats:md5,fe6e3ffdcb2ef609611ce01e3879e022",
+                    "2613_ERR5766181.stats:md5,4def2f487801141b82a7d98a9bc98ac2",
+                    "ERR3201952_ERR3201952.stats:md5,12dfaee15c4fbf4efaa672ba26d2d85e"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-17T15:14:20.490486701"
     },
     "bbduk": {
         "content": [
@@ -831,7 +855,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:13.321901272"
+        "timestamp": "2025-11-17T15:14:14.966507264"
     },
     "ganon": {
         "content": [
@@ -868,7 +892,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:15.857016538"
+        "timestamp": "2025-11-17T15:14:15.523306151"
     },
     "kaiju": {
         "content": [
@@ -925,7 +949,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:25.613282719"
+        "timestamp": "2025-11-17T15:14:15.90605927"
     },
     "bracken": {
         "content": [
@@ -945,7 +969,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:13.384714421"
+        "timestamp": "2025-11-17T15:14:15.042262385"
     },
     "diamond": {
         "content": [
@@ -996,7 +1020,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:15.680377223"
+        "timestamp": "2025-11-17T15:14:15.449933793"
     },
     "metaphlan": {
         "content": [
@@ -1053,7 +1077,20 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:33.843189768"
+        "timestamp": "2025-11-17T15:14:20.333118051"
+    },
+    "porechop_abi": {
+        "content": [
+            true,
+            [
+                "ERR3201952_ERR3201952_porechop_abi.log"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-17T15:14:20.459337659"
     },
     "kraken2": {
         "content": [
@@ -1084,7 +1121,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:33.735140966"
+        "timestamp": "2025-11-17T15:14:20.255365828"
     },
     "-profile test": {
         "content": [
@@ -1231,7 +1268,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:13.176534684"
+        "timestamp": "2025-11-17T15:14:14.868664292"
     },
     "centrifuge": {
         "content": [
@@ -1260,7 +1297,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:15.54093647"
+        "timestamp": "2025-11-17T15:14:15.390107375"
     },
     "nonpareil": {
         "content": [
@@ -1322,7 +1359,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:34.125370278"
+        "timestamp": "2025-11-17T15:14:20.426983413"
     },
     "kmcp": {
         "content": [
@@ -1338,7 +1375,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:25.641389165"
+        "timestamp": "2025-11-17T15:14:15.93594698"
     },
     "fastp": {
         "content": [
@@ -1369,6 +1406,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T12:13:15.752281726"
+        "timestamp": "2025-11-17T15:14:15.485252284"
     }
 }

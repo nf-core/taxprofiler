@@ -20,4 +20,6 @@ kaiju/*/*.{tsv,txt}
 kraken2/*/*.{fastq.gz,txt}
 krona/*.html
 metaphlan/*/*.{biom,txt,sam}
-monpareil/*.{npa,npc,npl,npo,png,csv,json,pdf,}
+monpareil/*.{npa,npc,npl,npo,png,csv,json,pdf}
+pipeline_info/*.{html,yml,json}
+porechop_abi/*.log

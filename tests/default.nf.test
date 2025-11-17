@@ -48,6 +48,9 @@ nextflow_pipeline {
             //nonpareil
             def stable_content_nonpareil      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            //porechop_abi
+            def stable_content_porechopabi      = getAllFilesFromDir("$outputDir/porechop_abi", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
 
             assertAll(
                 { assert workflow.success},
@@ -209,8 +212,9 @@ nextflow_pipeline {
                                 file("$outputDir/nonpareil/nonpareil_all_samples.pdf").exists(),
                                 file("$outputDir/nonpareil/nonpareil_all_samples.tsv").text.contains("diversity"),
                                 stable_content_nonpareil).match("nonpareil") },
-
-
+                { assert snapshot (file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("Looking for known adapter"),
+                                stable_content_porechopabi).match("porechop_abi")},
+                { assert snapshot (path("$outputDir/samtools")).match("samtools")},
             )
         }
     }
