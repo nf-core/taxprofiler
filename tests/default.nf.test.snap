@@ -762,7 +762,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:14.912278249"
+        "timestamp": "2025-11-17T16:40:36.160090347"
     },
     "krona": {
         "content": [
@@ -785,7 +785,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:20.288230328"
+        "timestamp": "2025-11-17T16:41:08.967338692"
     },
     "bowtie2": {
         "content": [
@@ -800,7 +800,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:14.998276732"
+        "timestamp": "2025-11-17T16:40:36.258238301"
     },
     "nanoq": {
         "content": [
@@ -812,7 +812,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:20.364937706"
+        "timestamp": "2025-11-17T16:41:09.20237709"
     },
     "samtools": {
         "content": [
@@ -836,7 +836,46 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:20.490486701"
+        "timestamp": "2025-11-17T16:41:09.667566362"
+    },
+    "taxpasta": {
+        "content": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                "bracken_db1.tsv",
+                "centrifuge_db3.tsv",
+                "diamond_db1.tsv",
+                "diamond_db2.tsv",
+                "diamond_db3.tsv",
+                "ganon_db1.tsv",
+                "kaiju_db5.tsv",
+                "kaiju_db6.tsv",
+                "kaiju_db7.tsv",
+                "kmcp_db1.tsv",
+                "kraken2_db1-bracken.tsv",
+                "kraken2_db2.tsv",
+                "metaphlan_metaphlan3.tsv",
+                "metaphlan_metaphlan4.tsv"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-11-17T16:53:06.774901373"
     },
     "bbduk": {
         "content": [
@@ -855,7 +894,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:14.966507264"
+        "timestamp": "2025-11-17T16:40:36.228283554"
     },
     "ganon": {
         "content": [
@@ -892,12 +931,12 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:15.523306151"
+        "timestamp": "2025-11-17T16:40:39.025715784"
     },
     "kaiju": {
         "content": [
             true,
-            false,
+            true,
             true,
             true,
             true,
@@ -949,7 +988,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:15.90605927"
+        "timestamp": "2025-11-17T16:52:56.054025823"
     },
     "bracken": {
         "content": [
@@ -969,7 +1008,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:15.042262385"
+        "timestamp": "2025-11-17T16:40:36.305687769"
     },
     "diamond": {
         "content": [
@@ -982,17 +1021,17 @@
             true,
             true,
             true,
-            false,
             true,
             true,
             true,
             true,
             true,
-            false,
             true,
-            false,
             true,
-            false,
+            true,
+            true,
+            true,
+            true,
             [
                 "db1/2611_db1.diamond.log",
                 "db1/2611_db1.diamond.tsv",
@@ -1020,7 +1059,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:15.449933793"
+        "timestamp": "2025-11-17T17:04:29.370563741"
     },
     "metaphlan": {
         "content": [
@@ -1031,7 +1070,6 @@
             true,
             true,
             true,
-            false,
             true,
             true,
             true,
@@ -1039,7 +1077,8 @@
             true,
             true,
             true,
-            false,
+            true,
+            true,
             true,
             true,
             true,
@@ -1077,7 +1116,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:20.333118051"
+        "timestamp": "2025-11-17T17:04:38.087281639"
     },
     "porechop_abi": {
         "content": [
@@ -1090,19 +1129,33 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:20.459337659"
+        "timestamp": "2025-11-17T16:41:09.640256548"
     },
     "kraken2": {
         "content": [
             true,
-            false,
-            false,
+            [
+                ">ERR5766174.15494 kraken:taxid|559292"
+            ],
+            [
+                ">ERR5766174.184799"
+            ],
             true,
-            false,
-            false,
+            [
+                "@ERR5766180.35963 kraken:taxid|9606"
+            ],
+            [
+                "@ERR5766180.601927"
+            ],
             true,
-            false,
-            false,
+            [
+                "@ERR5766181.6866 kraken:taxid|9606"
+            ],
+            [
+                "@ERR5766181.108601"
+            ],
+            true,
+            true,
             [
                 "db2/2611_db2.kraken2.classified.fastq.gz",
                 "db2/2611_db2.kraken2.kraken2.report.txt",
@@ -1121,7 +1174,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:20.255365828"
+        "timestamp": "2025-11-18T11:27:10.664329162"
     },
     "-profile test": {
         "content": [
@@ -1268,13 +1321,13 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:14.868664292"
+        "timestamp": "2025-11-17T16:40:36.083345252"
     },
     "centrifuge": {
         "content": [
             true,
             true,
-            false,
+            true,
             true,
             true,
             true,
@@ -1297,7 +1350,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:15.390107375"
+        "timestamp": "2025-11-17T17:14:34.423931447"
     },
     "nonpareil": {
         "content": [
@@ -1359,7 +1412,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:20.426983413"
+        "timestamp": "2025-11-17T16:41:09.601487367"
     },
     "kmcp": {
         "content": [
@@ -1375,7 +1428,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:15.93594698"
+        "timestamp": "2025-11-17T16:40:57.773524345"
     },
     "fastp": {
         "content": [
@@ -1406,6 +1459,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2025-11-17T15:14:15.485252284"
+        "timestamp": "2025-11-17T16:40:38.951399846"
     }
 }
