@@ -19,9 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool    | Previous version | New version |
+| Tool   | Previous version | New version |
 | ------- | ---------------- | ----------- |
 | nf-core | 3.3.2            | 3.5.1       |
+| multiqc | 1.27             | 1.32        |
 
 ## v1.2.4 - Bouncy Basenji Patch [2025-08-28]
 
