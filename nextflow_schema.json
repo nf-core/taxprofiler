@@ -392,7 +392,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on run merging",
-                    "help_text": "Turns on the concatenation of sequencing runs or libraries with the same sample name.\n\nThis can be useful to ensure you get a single profile per sample, rather than one profile per run or library. Note that in some cases comparing profiles of independent _libraries_ may be useful, so this parameter may not always be suitable.  "
+                    "help_text": "Turns on the concatenation of sequencing runs or libraries with the same sample name.\n\nThis can be useful to ensure you get a single profile per sample, rather than one profile per run or library. Note that in some cases comparing profiles of independent _libraries_ may be useful, so this parameter may not always be suitable. \n\nNote: only FASTQ files are concatenated, not FASTA."
                 },
                 "save_runmerged_reads": {
                     "type": "boolean",
