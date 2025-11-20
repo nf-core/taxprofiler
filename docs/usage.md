@@ -355,6 +355,7 @@ Activating this functionality will concatenate the FASTQ files with the same sam
 You can optionally save the FASTQ output of the run merging with the `--save_runmerged_reads`.
 
 To avoid name conflicts during profiling and to maintain consistent naming, the following suffixes are added to profile and/or classification outputs (for both FASTQ and FASTA inputs):
+
 - `_srse`: short read FASTQ, single-end
 - `_srpe`: short read FASTQ, paired-end
 - `_srfa`: short read FASTA
