@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#640](https://github.com/nf-core/taxprofiler/pull/640) Added support for saving Metaphlan SAM files (❤️ to @mr2raccoon for reporting and added by @jfy133)
-- [#657](https://github.com/nf-core/taxprofiler/pull/657), [#667](https://github.com/nf-core/taxprofiler/pull/667)  Template update for nf-core/tools v3.4.1 and v3.5.1 (added by @sofstam and @jfy133)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657), [#667](https://github.com/nf-core/taxprofiler/pull/667) Template update for nf-core/tools v3.4.1 and v3.5.1 (added by @sofstam and @jfy133)
 
 ### `Fixed`
 
