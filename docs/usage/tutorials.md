@@ -119,7 +119,7 @@ Note that the each database of the same tool has a unique name.
 Furthermore, while the Kraken2 and Centrifuge databases have been supplied as `.tar.gz` archives, the Kaiju database has been supplied as a directory.
 
 :::note
-These databases only contain two reference genomes: the human mitochodnrial genome and _Penicillium roqueforti_.
+These databases only contain two reference genomes: the human mitochondrial genome and _Penicillium roqueforti_.
 These are not realistic databases, but rather small test databases to allow this tutorial to run quickly on laptops.
 :::
 
