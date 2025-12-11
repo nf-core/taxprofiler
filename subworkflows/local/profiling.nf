@@ -22,7 +22,7 @@ include { GANON_REPORT                                  } from '../../modules/nf
 
 workflow PROFILING {
     take:
-    reads     // [ [ meta ], [ reads ] ]
+    reads // [ [ meta ], [ reads ] ]
     databases // [ [ meta ], path ]
 
     main:
@@ -341,8 +341,8 @@ workflow PROFILING {
     if (params.run_krakenuniq) {
 
         ch_input_for_krakenuniq = ch_input_for_profiling.krakenuniq
-            .map { meta, _input_reads, db_meta, db ->
-                def seqtype = reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/ ? 'fasta' : 'fastq'
+            .map { meta, input_reads, db_meta, db ->
+                def seqtype = input_reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/ ? 'fasta' : 'fastq'
                 // We bundle the sample identifier with the sequencing files to undergo batching.
                 def prefix = params.perform_runmerging ? meta.id : "${meta.id}_${meta.run_accession}"
                 prefix = meta.single_end ? "${prefix}.se" : "${prefix}.pe"
