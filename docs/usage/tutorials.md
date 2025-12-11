@@ -10,7 +10,7 @@ The tutorial will help orient what you need to set up an nf-core/taxprofiler run
 
 :::warning
 This is not a fully-fledged tutorial, but rather a quick start guide to get you running with nf-core/taxprofiler.
-The output are not 'realistic' as we use very small test databases to allow this tutorial to run quickly on laptops.
+The output is not 'realistic' as we use very small test databases to allow this tutorial to run quickly on laptops.
 :::
 
 ### Preparation
