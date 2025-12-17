@@ -348,8 +348,8 @@ workflow PROFILING {
                 prefix = meta.single_end ? "${prefix}.se" : "${prefix}.pe"
                 [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], [input_reads].flatten() + [prefix], db_meta, db]
             }
-\            .groupTuple(by: [0, 2, 3])
-\            .flatMap { single_meta, input_reads, db_meta, db ->
+            .groupTuple(by: [0, 2, 3])
+            .flatMap { single_meta, input_reads, db_meta, db ->
                 // Sort reads array by comparing last element, prefix. This will ensure batch membership remains
                 // constant across runs, enabling retrieval of cached tasks.
                 input_reads.sort { a, b -> a[-1] <=> b[-1] }
