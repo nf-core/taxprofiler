@@ -309,7 +309,8 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
   - `build/`
     - `*.mmi2`: minimap2 indices of reference genome, only if `--save_hostremoval_index` supplied.
   - `align/`
-    - `<sample_id>.bam`: Alignment file in BAM format containing both mapped and unmapped reads.
+    - `<sample_id>.bam`: Alignment file in BAM format containing both mapped and unmapped reads (only if `--save_hostremoval_bam` supplied).
+    - `<sample_id>.bai`: Index file in BAI format containing both mapped and unmapped reads (only if `--save_hostremoval_bam` supplied).
 
 </details>
 
