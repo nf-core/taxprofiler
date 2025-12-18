@@ -248,8 +248,8 @@ def validateInputSamplesheet(input) {
 
     // Check that multiple runs of the same sample are of the same datatype i.e. single-end / paired-end
     def endedness_ok = single_end.collect().unique().size == 1
-    if (!endedness_ok && params.perform_runmerging && params.shortread_qc_mergepairs) {
-        error("Please check input samplesheet -> If run merging is activated, runs must be of same endedness. See https://nf-co.re/taxprofiler/usage#samplesheet-inputs. Check: ${meta}")
+    if (!endedness_ok && params.perform_runmerging && !params.shortread_qc_mergepairs) {
+        error("Please check input samplesheet -> If run merging is activated and short-read pair merging is disabled, all runs must be of same endedness. See https://nf-co.re/taxprofiler/usage#samplesheet-inputs. Check: ${meta}")
     }
 }
 
