@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+- [#676](https://github.com/nf-core/taxprofiler/pull/676) Turn off saving of BAM version of unmapped reads from long read host removal (❤️ to @sofstam for reporting, changed by @jfy133)
+
 ### `Dependencies`
 
 ## v1.2.5 - [2025-11-21]
