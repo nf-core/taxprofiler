@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#674](https://github.com/nf-core/taxprofiler/pull/674) Fixed bug where wrong variables names used for KrakenUniq input channel causing pipeline crash (❤️ to @pcantalupo for reporting, fixed by @jfy133)
+
 ### `Changed`
 
 ### `Dependencies`
