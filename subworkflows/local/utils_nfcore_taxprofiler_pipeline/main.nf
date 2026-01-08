@@ -123,6 +123,7 @@ workflow PIPELINE_INITIALISATION {
             }
         .set { ch_samplesheet }
 
+    // Perform cross-row input validation to ensure that all runs of a given sample share the same data type (single-end or paired-end).
     ch_samplesheet
         .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta -> [ meta.id, meta.single_end ] }  // Adjust field names
         .groupTuple()                                                                    // Groups by first element (id)
