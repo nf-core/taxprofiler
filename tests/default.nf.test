@@ -67,7 +67,7 @@ nextflow_pipeline {
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
                 { assert snapshot ( stable_name_all ).match("all_files") },
-                { assert snapshot( file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Reads Processed:"),
+                { assert snapshot( getAllFilesFromDir("$outputDir/bbduk", include: ['**/*.bbduk.log']).collect{file -> file.getName() + ' contains string:' + file.contains("Reads Processed:") },
                                 file("$outputDir/bbduk/2612_ERR5766180.bbduk.log").text.contains("Reads Processed:"),
                                 file("$outputDir/bbduk/2612_ERR5766176.bbduk.log").text.contains("Reads Processed:"),
                                 file("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").text.contains("Reads Processed:"),
