@@ -111,7 +111,7 @@ workflow PIPELINE_INITIALISATION {
                     error("[nf-core/taxprofiler] ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist for ${meta.run_accession}")
                 }
                 if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
-                    error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
+                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty for ${meta.run_accession}")
                 }
                 if (meta.instrument_platform == 'PACBIO_SMRT' && fastq_2) {
                     error("[nf-core/taxprofiler] Error: Please check input samplesheet: for PacBio reads entry `fastq_2` should be empty for ${meta.run_accession}")
