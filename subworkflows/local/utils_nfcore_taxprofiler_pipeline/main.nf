@@ -117,7 +117,7 @@ workflow PIPELINE_INITIALISATION {
                     error("[nf-core/taxprofiler] Error: Please check input samplesheet: for PacBio reads entry `fastq_2` should be empty for ${meta.run_accession}")
                 }
                 if (meta.single_end && fastq_2) {
-                    error("Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty")
+                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty for ${meta.run_accession}")
                 }
                 return [meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta]
             }
