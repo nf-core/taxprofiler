@@ -108,7 +108,7 @@ workflow PIPELINE_INITIALISATION {
                 meta.is_fasta = fasta ? true : false
 
                 if (!meta.is_fasta && !fastq_1) {
-                    error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
+                    error("[nf-core/taxprofiler] ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist for ${meta.run_accession}")
                 }
                 if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
                     error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
