@@ -10,11 +10,12 @@ multiqc/multiqc_data/llms-full.txt
 multiqc/multiqc_data/*.txt
 multiqc/multiqc_plots/{svg,pdf,png}/*.{svg,pdf,png}
 multiqc/multiqc_report.html
+fastqc/*_fastqc.{html,zip}
+fastqc/*/*fastqc.zip
+pipeline_info/*.{html,yml,json}
 bbduk/*.log
 centrifuge/*.{fastq.gz,txt}
 diamond/*/*.{tsv,log}
-fastqc/*_fastqc.{html,zip}
-fastqc/*/*fastqc.zip
 fastp/*.{html,zip,json,log}
 ganon/*/*.log
 kaiju/*/*.{tsv,txt}
