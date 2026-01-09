@@ -52,12 +52,12 @@ include { CAT_FASTQ as MERGE_RUNS       } from '../modules/nf-core/cat/fastq/mai
 workflow TAXPROFILER {
     take:
     samplesheet // channel: samplesheet read in from --input
-    databases   // channel: databases from --databases
+    databases // channel: databases from --databases
 
     main:
 
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     // Preprocessing auxiliary file input channel preperation
     adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
@@ -65,7 +65,7 @@ workflow TAXPROFILER {
         ch_reference = file(params.hostremoval_reference)
     }
     if (params.shortread_hostremoval_index) {
-        ch_shortread_reference_index = Channel.fromPath(params.shortread_hostremoval_index).map { [[], it] }
+        ch_shortread_reference_index = channel.fromPath(params.shortread_hostremoval_index).map { [[], it] }
     }
     else {
         ch_shortread_reference_index = []
@@ -121,7 +121,7 @@ workflow TAXPROFILER {
         }
 
     // Merge ch_input.fastq and ch_input.nanopore into a single channel
-    ch_input_for_fastqc = ch_input.fastq.mix(ch_input.nanopore, ch_input.pacbio )
+    ch_input_for_fastqc = ch_input.fastq.mix(ch_input.nanopore, ch_input.pacbio)
 
     // Validate and decompress databases
     ch_dbs_for_untar = databases.branch { db_meta, db_path ->
@@ -182,7 +182,8 @@ workflow TAXPROFILER {
     */
 
     if (params.perform_shortread_qc) {
-        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING(ch_input.fastq, adapterlist).reads
+        SHORTREAD_PREPROCESSING(ch_input.fastq, adapterlist)
+        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING.out.reads
         ch_versions = ch_versions.mix(SHORTREAD_PREPROCESSING.out.versions)
     }
     else {
@@ -212,7 +213,8 @@ workflow TAXPROFILER {
 
     // fastp complexity filtering is activated via modules.conf in shortread_preprocessing
     if (params.perform_shortread_complexityfilter && params.shortread_complexityfilter_tool != 'fastp') {
-        ch_shortreads_filtered = SHORTREAD_COMPLEXITYFILTERING(ch_shortreads_preprocessed).reads
+        SHORTREAD_COMPLEXITYFILTERING(ch_shortreads_preprocessed)
+        ch_shortreads_filtered = SHORTREAD_COMPLEXITYFILTERING.out.reads
         ch_versions = ch_versions.mix(SHORTREAD_COMPLEXITYFILTERING.out.versions)
     }
     else {
@@ -224,7 +226,8 @@ workflow TAXPROFILER {
     */
 
     if (params.perform_shortread_hostremoval) {
-        ch_shortreads_hostremoved = SHORTREAD_HOSTREMOVAL(ch_shortreads_filtered, ch_reference, ch_shortread_reference_index).reads
+        SHORTREAD_HOSTREMOVAL(ch_shortreads_filtered, ch_reference, ch_shortread_reference_index)
+        ch_shortreads_hostremoved = SHORTREAD_HOSTREMOVAL.out.reads
         ch_versions = ch_versions.mix(SHORTREAD_HOSTREMOVAL.out.versions)
     }
     else {
@@ -232,7 +235,8 @@ workflow TAXPROFILER {
     }
     ch_longreads_preprocessed = ch_longreads_preprocessed_nanopore.mix(ch_input.pacbio)
     if (params.perform_longread_hostremoval) {
-        ch_longreads_hostremoved = LONGREAD_HOSTREMOVAL(ch_longreads_preprocessed, ch_reference, ch_longread_reference_index).reads
+        LONGREAD_HOSTREMOVAL(ch_longreads_preprocessed, ch_reference, ch_longread_reference_index)
+        ch_longreads_hostremoved = LONGREAD_HOSTREMOVAL.out.reads
         ch_versions = ch_versions.mix(LONGREAD_HOSTREMOVAL.out.versions)
     }
     else {
@@ -257,8 +261,8 @@ workflow TAXPROFILER {
             }
         // we can't concatenate files if there is not a second run, so we branch
         // here to separate them out, and mix back in after for efficiency
-
-        ch_reads_runmerged = MERGE_RUNS(ch_reads_for_cat_branch.cat).reads
+        MERGE_RUNS(ch_reads_for_cat_branch.cat)
+        ch_reads_runmerged = MERGE_RUNS.out.reads
             .mix(ch_reads_for_cat_branch.skip)
             .map { meta, reads ->
                 [meta, [reads].flatten()]
@@ -301,7 +305,25 @@ workflow TAXPROFILER {
     //
     // Collate and save software versions
     //
-    softwareVersionsToYAML(ch_versions)
+    def topic_versions = Channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
+
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+        }
+        .groupTuple(by:0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
+
+    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
             name: 'nf_core_' + 'taxprofiler_software_' + 'mqc_' + 'versions.yml',
@@ -314,31 +336,25 @@ workflow TAXPROFILER {
     //
     // MODULE: MultiQC
     //
-    ch_multiqc_config = Channel.fromPath(
-        "${projectDir}/assets/multiqc_config.yml",
-        checkIfExists: true
-    )
-    ch_multiqc_custom_config = params.multiqc_config
-        ? Channel.fromPath(params.multiqc_config, checkIfExists: true)
-        : Channel.empty()
-    ch_multiqc_logo = params.multiqc_logo
-        ? Channel.fromPath(params.multiqc_logo, checkIfExists: true)
-        : Channel.fromPath("${workflow.projectDir}/docs/images/nf-core-taxprofiler_logo_custom_light.png", checkIfExists: true)
+    ch_multiqc_config        = channel.fromPath(
+        "$projectDir/assets/multiqc_config.yml", checkIfExists: true)
+    ch_multiqc_custom_config = params.multiqc_config ?
+        channel.fromPath(params.multiqc_config, checkIfExists: true) :
+        channel.empty()
+    ch_multiqc_logo          = params.multiqc_logo ?
+        channel.fromPath(params.multiqc_logo, checkIfExists: true) :
+        channel.empty()
 
-    summary_params = paramsSummaryMap(
-        workflow,
-        parameters_schema: "nextflow_schema.json"
-    )
-    ch_workflow_summary = Channel.value(paramsSummaryMultiqc(summary_params))
+    summary_params      = paramsSummaryMap(
+        workflow, parameters_schema: "nextflow_schema.json")
+    ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(
-        ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml')
-    )
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description
-        ? file(params.multiqc_methods_description, checkIfExists: true)
-        : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description = Channel.value(
-        methodsDescriptionText(ch_multiqc_custom_methods_description)
-    )
+        ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
+    ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
+        file(params.multiqc_methods_description, checkIfExists: true) :
+        file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)
+    ch_methods_description                = channel.value(
+        methodsDescriptionText(ch_multiqc_custom_methods_description))
 
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
     ch_multiqc_files = ch_multiqc_files.mix(

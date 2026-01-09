@@ -3,12 +3,26 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.2.5dev - [date]
+## v1.3.0dev - [unreleased]
+
+### `Added`
+
+### `Fixed`
+
+- [#674](https://github.com/nf-core/taxprofiler/pull/674) Fixed bug where wrong variables names used for KrakenUniq input channel causing pipeline crash (❤️ to @pcantalupo for reporting, fixed by @jfy133)
+
+### `Changed`
+
+- [#676](https://github.com/nf-core/taxprofiler/pull/676) Turn off saving of BAM version of unmapped reads from long read host removal (❤️ to @sofstam for reporting, changed by @jfy133)
+
+### `Dependencies`
+
+## v1.2.5 - [2025-11-21]
 
 ### `Added`
 
 - [#640](https://github.com/nf-core/taxprofiler/pull/640) Added support for saving Metaphlan SAM files (❤️ to @mr2raccoon for reporting and added by @jfy133)
-- [#657](https://github.com/nf-core/taxprofiler/pull/657) Template update for nf-core/tools v3.4.1 (added by @sofstam and @jfy133)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657), [#667](https://github.com/nf-core/taxprofiler/pull/667) Template update for nf-core/tools v3.4.1 and v3.5.1 (added by @sofstam and @jfy133)
 
 ### `Fixed`
 
@@ -21,7 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Tool    | Previous version | New version |
 | ------- | ---------------- | ----------- |
-| nf-core | 3.3.2            | 3.4.1       |
+| nf-core | 3.3.2            | 3.5.1       |
+| multiqc | 1.27             | 1.32        |
 
 ## v1.2.4 - Bouncy Basenji Patch [2025-08-28]
 
