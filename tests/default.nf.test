@@ -21,6 +21,10 @@ nextflow_pipeline {
              //BBDuk
             def stable_content_bbduk          = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            //bowtie2
+            def stable_content_bowtie2         = getAllFilesFromDir("$outputDir/bowtie2/align", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+
             //centrifuge
             def stable_content_centrifuge     = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
@@ -33,11 +37,11 @@ nextflow_pipeline {
             //ganon
             def stable_content_ganon          = getAllFilesFromDir("$outputDir/ganon", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
-            //kaiju
-            def stable_content_kaiju          = getAllFilesFromDir("$outputDir/kaiju", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-
             //kraken2
             def stable_content_kraken2        = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //kmcp
+            def stable_content_kmcp        = getAllFilesFromDir("$outputDir/kmcp", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //krona
             def stable_content_krona          = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
@@ -45,11 +49,18 @@ nextflow_pipeline {
             //metaphlan
             def stable_content_metaphlan      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            //nanoq
+            def stable_content_nanoq      = getAllFilesFromDir("$outputDir/nanoq", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
             //nonpareil
             def stable_content_nonpareil      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //porechop_abi
             def stable_content_porechopabi      = getAllFilesFromDir("$outputDir/porechop_abi", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //samtools
+            def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
 
             //taxpasta
             def stable_content_taxpasta      = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
@@ -69,7 +80,7 @@ nextflow_pipeline {
                 { assert snapshot ( stable_name_all ).match("all_files") },
                 { assert snapshot( getAllFilesFromDir("$outputDir/bbduk", include: ['**/*.bbduk.log']).collect{file -> file.getName() + ' contains string:' + file.contains("Reads Processed:") },
                                 stable_content_bbduk).match("bbduk")},
-                { assert snapshot (path("$outputDir/bowtie2/align")).match("bowtie2")},
+                { assert snapshot (stable_content_bowtie2).match("bowtie2")},
                 { assert snapshot (path("$outputDir/bracken")).match("bracken")},
                 { assert snapshot( getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*/*.txt']).collect{file -> file.getName() + ' contains string:' + file.contains("Homo sapiens") },
                                 file("$outputDir/centrifuge/db3/2612_db3.centrifuge.results.txt").text.contains("ERR5766180.602"),
@@ -116,9 +127,8 @@ nextflow_pipeline {
                                 file("$outputDir/kaiju/db7/2614_db7.kaiju.tsv").text.contains("ERR3201952.1794060"),
                                 file("$outputDir/kaiju/db7/ERR3201952_db7.kaijutable.txt").text.contains("10239"),
                                 file("$outputDir/kaiju/db7/ERR3201952_db7.kaiju.tsv").text.contains("ERR3201952.1159044"),
-                                file("$outputDir/kaiju/kaiju_db7_combined_reports.txt").text.contains("10239"),
-                                stable_content_kaiju).match("kaiju") },
-                { assert snapshot (path("$outputDir/kmcp")).match("kmcp")},
+                                file("$outputDir/kaiju/kaiju_db7_combined_reports.txt").text.contains("10239")).match("kaiju") },
+                { assert snapshot (stable_content_kmcp).match("kmcp")},
                 {  assert snapshot( path("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").text.contains("Homo sapiens"),
                                 path("$outputDir/kraken2/db2/2611_db2.kraken2.classified.fastq.gz").linesGzip.findAll { l -> l.contains('ERR5766174.15494 kraken:taxid|559292') },
                                 path("$outputDir/kraken2/db2/2611_db2.kraken2.unclassified.fastq.gz").linesGzip.findAll { l -> l.contains('>ERR5766174.184799') },
@@ -144,7 +154,7 @@ nextflow_pipeline {
                                 file("$outputDir/metaphlan/metaphlan_metaphlan3_combined_reports.txt").text.contains("UNCLASSIFIED"),
                                 file("$outputDir/metaphlan/metaphlan_metaphlan4_combined_reports.txt").text.contains("t__SGB4933_group"),
                                 stable_content_metaphlan).match("metaphlan") },
-                 { assert snapshot (path("$outputDir/nanoq")).match("nanoq")},
+                { assert snapshot (stable_content_nanoq).match("nanoq")},
                 { assert snapshot(getAllFilesFromDir("$outputDir/nonpareil", include: ['**/*.npa']).collect { file -> file.getName() + ' contains string:' + file.contains("0.00")},
                                 getAllFilesFromDir("$outputDir/nonpareil", include: ['**/*.npl']).collect { file -> file.getName() + ' contains string:' + file.contains("Average read length")},
                                 getAllFilesFromDir("$outputDir/nonpareil", include: ['**/*.npo']).collect { file -> file.getName() + ' contains string:' + file.contains("@version:")},
@@ -164,7 +174,7 @@ nextflow_pipeline {
                                 stable_content_nonpareil).match("nonpareil") },
                 { assert snapshot (file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("Looking for known adapter"),
                                 stable_content_porechopabi).match("porechop_abi")},
-                { assert snapshot (path("$outputDir/samtools")).match("samtools")},
+                { assert snapshot (stable_content_samtools).match("samtools")},
                 { assert snapshot(file("$outputDir/taxpasta/bracken_db1.tsv").text.contains("9606"),
                                 file("$outputDir/taxpasta/centrifuge_db3.tsv").text.contains("131567"),
                                 file("$outputDir/taxpasta/diamond_db1.tsv").text.contains("8058"),

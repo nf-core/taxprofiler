@@ -348,12 +348,6 @@
                 "porechop_abi",
                 "porechop_abi/ERR3201952_ERR3201952_porechop_abi.log",
                 "samtools",
-                "samtools/2612_ERR5766176.bam.bai",
-                "samtools/2612_ERR5766176_B.bam.bai",
-                "samtools/2612_ERR5766180.bam.bai",
-                "samtools/2613_ERR5766181.bam.bai",
-                "samtools/ERR3201952_ERR3201952.bam.bai",
-                "samtools/ERR3201952_ERR3201952.unmapped.bam",
                 "samtools/stats",
                 "samtools/stats/2612_ERR5766176.stats",
                 "samtools/stats/2612_ERR5766176_B.stats",
@@ -381,7 +375,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.098256891"
+        "timestamp": "2026-01-09T17:00:10.583250248"
     },
     "krona": {
         "content": [
@@ -404,58 +398,50 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:46.261725314"
+        "timestamp": "2026-01-09T17:00:15.837980598"
     },
     "bowtie2": {
         "content": [
             [
-                "2612_ERR5766176.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
-                "2612_ERR5766176_B.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
-                "2612_ERR5766180.bowtie2.log:md5,a7487ce9c549a7f8fb5694fd0889f929",
-                "2613_ERR5766181.bowtie2.log:md5,6cb148fdf3840de7a8a1f5315847817b"
+                "2612_ERR5766176.bowtie2.log",
+                "2612_ERR5766176_B.bowtie2.log",
+                "2612_ERR5766180.bowtie2.log",
+                "2613_ERR5766181.bowtie2.log"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.149291671"
+        "timestamp": "2026-01-09T17:00:10.637617848"
     },
     "nanoq": {
         "content": [
             [
-                "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
+                "ERR3201952_ERR3201952_filtered.stats"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:46.309285472"
+        "timestamp": "2026-01-09T17:00:15.883393907"
     },
     "samtools": {
         "content": [
             [
-                "2612_ERR5766176.bam.bai:md5,be1bd3ae46257048a445d7509b62180b",
-                "2612_ERR5766176_B.bam.bai:md5,72941737164f99ed84cbf050386fd56f",
-                "2612_ERR5766180.bam.bai:md5,57fa22bab0598591a56420d006ecb864",
-                "2613_ERR5766181.bam.bai:md5,77d3c7fd647637c680c0308f454e911d",
-                "ERR3201952_ERR3201952.bam.bai:md5,d740d498753f10a7724c7c0f67ea086a",
-                "ERR3201952_ERR3201952.unmapped.bam:md5,2dba250241b44872cbb8a60fab3aa083",
-                [
-                    "2612_ERR5766176.stats:md5,c3d2b46c22085705f49212c47cf83694",
-                    "2612_ERR5766176_B.stats:md5,f73cce61c5bdcd4a2139ee419a6f95aa",
-                    "2612_ERR5766180.stats:md5,fe6e3ffdcb2ef609611ce01e3879e022",
-                    "2613_ERR5766181.stats:md5,4def2f487801141b82a7d98a9bc98ac2",
-                    "ERR3201952_ERR3201952.stats:md5,12dfaee15c4fbf4efaa672ba26d2d85e"
-                ]
+                "stats/2612_ERR5766176.stats",
+                "stats/2612_ERR5766176_B.stats",
+                "stats/2612_ERR5766180.stats",
+                "stats/2613_ERR5766181.stats",
+                "stats/ERR3201952_ERR3201952.stats"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:46.382279788"
+        "timestamp": "2026-01-09T17:00:15.949221388"
     },
     "taxpasta": {
         "content": [
@@ -494,7 +480,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:46.481270186"
+        "timestamp": "2026-01-09T17:00:15.975962872"
     },
     "bbduk": {
         "content": [
@@ -512,7 +498,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.131115672"
+        "timestamp": "2026-01-09T17:00:10.618284435"
     },
     "ganon": {
         "content": [
@@ -545,7 +531,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.601254634"
+        "timestamp": "2026-01-09T17:00:11.092242105"
     },
     "kaiju": {
         "content": [
@@ -571,38 +557,13 @@
             true,
             true,
             true,
-            true,
-            [
-                "db5/2611_db5.kaiju.tsv",
-                "db5/2611_db5.kaijutable.txt",
-                "db5/2612_db5.kaiju.tsv",
-                "db5/2612_db5.kaijutable.txt",
-                "db5/2613_db5.kaiju.tsv",
-                "db5/2613_db5.kaijutable.txt",
-                "db6/2614_db6.kaiju.tsv",
-                "db6/2614_db6.kaijutable.txt",
-                "db6/ERR3201952_db6.kaiju.tsv",
-                "db6/ERR3201952_db6.kaijutable.txt",
-                "db7/2611_db7.kaiju.tsv",
-                "db7/2611_db7.kaijutable.txt",
-                "db7/2612_db7.kaiju.tsv",
-                "db7/2612_db7.kaijutable.txt",
-                "db7/2613_db7.kaiju.tsv",
-                "db7/2613_db7.kaijutable.txt",
-                "db7/2614_db7.kaiju.tsv",
-                "db7/2614_db7.kaijutable.txt",
-                "db7/ERR3201952_db7.kaiju.tsv",
-                "db7/ERR3201952_db7.kaijutable.txt",
-                "kaiju_db5_combined_reports.txt",
-                "kaiju_db6_combined_reports.txt",
-                "kaiju_db7_combined_reports.txt"
-            ]
+            true
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.943615831"
+        "timestamp": "2026-01-09T17:00:11.438547018"
     },
     "bracken": {
         "content": [
@@ -622,7 +583,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.179240341"
+        "timestamp": "2026-01-09T17:00:10.664883074"
     },
     "diamond": {
         "content": [
@@ -666,7 +627,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.554445671"
+        "timestamp": "2026-01-09T17:00:11.046779542"
     },
     "metaphlan": {
         "content": [
@@ -714,7 +675,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:46.290223283"
+        "timestamp": "2026-01-09T17:00:15.865835624"
     },
     "porechop_abi": {
         "content": [
@@ -727,7 +688,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:46.362240244"
+        "timestamp": "2026-01-09T17:00:15.931668156"
     },
     "kraken2": {
         "content": [
@@ -772,7 +733,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:46.240953932"
+        "timestamp": "2026-01-09T17:00:15.818466389"
     },
     "-profile test": {
         "content": [
@@ -919,7 +880,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.064113574"
+        "timestamp": "2026-01-09T17:00:10.534715109"
     },
     "centrifuge": {
         "content": [
@@ -946,7 +907,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.510546527"
+        "timestamp": "2026-01-09T17:00:11.002961619"
     },
     "nonpareil": {
         "content": [
@@ -1005,23 +966,21 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:46.341093811"
+        "timestamp": "2026-01-09T17:00:15.912365081"
     },
     "kmcp": {
         "content": [
             [
-                [
-                    "2611_db1.kmcp.profile:md5,8b50fa20b6e60078b4e82ee56ad9a687",
-                    "2612_db1.kmcp.profile:md5,59d06b55c1df0739e92ab6d8ce23cd83",
-                    "2613_db1.kmcp.profile:md5,3d8c1e51679639d6011e3cb9b679485b"
-                ]
+                "db1/2611_db1.kmcp.profile",
+                "db1/2612_db1.kmcp.profile",
+                "db1/2613_db1.kmcp.profile"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.963354944"
+        "timestamp": "2026-01-09T17:00:11.457326039"
     },
     "fastp": {
         "content": [
@@ -1050,6 +1009,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-09T14:49:41.576904764"
+        "timestamp": "2026-01-09T17:00:11.068407069"
     }
 }
