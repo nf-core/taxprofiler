@@ -9,13 +9,13 @@ include { SAMTOOLS_STATS } from '../../modules/nf-core/samtools/stats/main'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:
-    reads     // [ [ meta ], [ reads ] ]
+    reads // [ [ meta ], [ reads ] ]
     reference // /path/to/fasta
-    index     // /path/to/index
+    index // /path/to/index
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     if (!params.shortread_hostremoval_index) {
         ch_bowtie2_index = BOWTIE2_BUILD([[], reference]).index
