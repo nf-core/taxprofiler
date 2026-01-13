@@ -375,7 +375,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:20.213770703"
+        "timestamp": "2026-01-13T16:41:49.411340859"
     },
     "krona": {
         "content": [
@@ -398,7 +398,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:32.15021648"
+        "timestamp": "2026-01-13T16:41:54.848340606"
     },
     "bowtie2": {
         "content": [
@@ -413,7 +413,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:20.275672104"
+        "timestamp": "2026-01-13T16:41:49.474740159"
     },
     "nanoq": {
         "content": [
@@ -425,7 +425,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:32.220445988"
+        "timestamp": "2026-01-13T16:41:54.909672265"
     },
     "samtools": {
         "content": [
@@ -441,7 +441,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:32.33748294"
+        "timestamp": "2026-01-13T16:41:55.009542431"
     },
     "taxpasta": {
         "content": [
@@ -480,12 +480,15 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:32.362892251"
+        "timestamp": "2026-01-13T16:41:55.037760513"
     },
     "bbduk": {
         "content": [
             [
-                
+                "2612_ERR5766176.bbduk.log contains string:true",
+                "2612_ERR5766176_B.bbduk.log contains string:true",
+                "2612_ERR5766180.bbduk.log contains string:true",
+                "2613_ERR5766181.bbduk.log contains string:true"
             ],
             [
                 "2612_ERR5766176.bbduk.log",
@@ -498,19 +501,29 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:20.25637076"
+        "timestamp": "2026-01-13T16:41:49.454913934"
     },
     "ganon": {
         "content": [
             [
-                
+                "2611_db1.ganon.log contains string:true",
+                "2612_db1.ganon.log contains string:true",
+                "2613_db1.ganon.log contains string:true"
             ],
             [
-                
+                "2611_db1.ganon.rep contains string:true",
+                "2612_db1.ganon.rep contains string:true",
+                "2613_db1.ganon.rep contains string:true"
             ],
             [
-                
+                "2611_db1.ganon.tre contains string:true",
+                "2611_db1.ganon_report.tre contains string:false",
+                "2612_db1.ganon.tre contains string:true",
+                "2612_db1.ganon_report.tre contains string:false",
+                "2613_db1.ganon.tre contains string:true",
+                "2613_db1.ganon_report.tre contains string:false"
             ],
+            true,
             [
                 "db1/2611_db1.ganon.log",
                 "db1/2611_db1.ganon.rep",
@@ -531,7 +544,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:20.884727164"
+        "timestamp": "2026-01-13T16:41:50.222168429"
     },
     "kaiju": {
         "content": [
@@ -563,7 +576,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:27.494184126"
+        "timestamp": "2026-01-13T16:41:50.589161636"
     },
     "bracken": {
         "content": [
@@ -583,12 +596,21 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:20.293099527"
+        "timestamp": "2026-01-13T16:41:49.492593732"
     },
     "diamond": {
         "content": [
             [
-                
+                "2611_db1.diamond.log contains string:true",
+                "2612_db1.diamond.log contains string:true",
+                "2613_db1.diamond.log contains string:true",
+                "2614_db2.diamond.log contains string:true",
+                "ERR3201952_db2.diamond.log contains string:true",
+                "2611_db3.diamond.log contains string:true",
+                "2612_db3.diamond.log contains string:true",
+                "2613_db3.diamond.log contains string:true",
+                "2614_db3.diamond.log contains string:true",
+                "ERR3201952_db3.diamond.log contains string:true"
             ],
             true,
             true,
@@ -627,18 +649,33 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:20.838360661"
+        "timestamp": "2026-01-13T16:41:50.153752574"
     },
     "metaphlan": {
         "content": [
             [
-                
+                "2611_metaphlan3.metaphlan.biom contains string:true",
+                "2612_metaphlan3.metaphlan.biom contains string:true",
+                "2613_metaphlan3.metaphlan.biom contains string:true",
+                "2611_metaphlan4.metaphlan.biom contains string:true",
+                "2612_metaphlan4.metaphlan.biom contains string:true",
+                "2613_metaphlan4.metaphlan.biom contains string:true"
             ],
             [
-                
+                "2611_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
+                "2612_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
+                "2613_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
+                "2611_metaphlan4.metaphlan.bowtie2out.txt contains string:true",
+                "2612_metaphlan4.metaphlan.bowtie2out.txt contains string:true",
+                "2613_metaphlan4.metaphlan.bowtie2out.txt contains string:true"
             ],
             [
-                
+                "2611_metaphlan3.metaphlan.biom contains string:false",
+                "2612_metaphlan3.metaphlan.biom contains string:false",
+                "2613_metaphlan3.metaphlan.biom contains string:false",
+                "2611_metaphlan4.metaphlan.biom contains string:false",
+                "2612_metaphlan4.metaphlan.biom contains string:false",
+                "2613_metaphlan4.metaphlan.biom contains string:false"
             ],
             true,
             true,
@@ -675,7 +712,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:32.202438614"
+        "timestamp": "2026-01-13T16:41:54.88818554"
     },
     "porechop_abi": {
         "content": [
@@ -688,7 +725,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:32.318702613"
+        "timestamp": "2026-01-13T16:41:54.990206606"
     },
     "kraken2": {
         "content": [
@@ -733,7 +770,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:32.125611402"
+        "timestamp": "2026-01-13T16:41:54.804645919"
     },
     "-profile test": {
         "content": [
@@ -880,12 +917,17 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:20.110981532"
+        "timestamp": "2026-01-13T16:41:49.373803603"
     },
     "centrifuge": {
         "content": [
             [
-                
+                "2612_db3.centrifuge.report.txt contains string:true",
+                "2612_db3.centrifuge.results.txt contains string:false",
+                "2612_db3.centrifuge.txt contains string:true",
+                "2613_db3.centrifuge.report.txt contains string:true",
+                "2613_db3.centrifuge.results.txt contains string:false",
+                "2613_db3.centrifuge.txt contains string:true"
             ],
             true,
             true,
@@ -907,18 +949,27 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:20.627336269"
+        "timestamp": "2026-01-13T16:41:50.10114855"
     },
     "nonpareil": {
         "content": [
             [
-                
+                "2612_ERR5766176.npa contains string:true",
+                "2612_ERR5766176_B.npa contains string:true",
+                "2612_ERR5766180.npa contains string:true",
+                "2613_ERR5766181.npa contains string:true"
             ],
             [
-                
+                "2612_ERR5766176.npl contains string:true",
+                "2612_ERR5766176_B.npl contains string:true",
+                "2612_ERR5766180.npl contains string:true",
+                "2613_ERR5766181.npl contains string:true"
             ],
             [
-                
+                "2612_ERR5766176.npo contains string:true",
+                "2612_ERR5766176_B.npo contains string:true",
+                "2612_ERR5766180.npo contains string:true",
+                "2613_ERR5766181.npo contains string:true"
             ],
             true,
             true,
@@ -966,7 +1017,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:32.291362913"
+        "timestamp": "2026-01-13T16:41:54.958942758"
     },
     "kmcp": {
         "content": [
@@ -980,15 +1031,21 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:27.512393841"
+        "timestamp": "2026-01-13T16:41:50.607301883"
     },
     "fastp": {
         "content": [
             [
-                
+                "2612_ERR5766176.fastp.json contains string:true",
+                "2612_ERR5766176_B.fastp.json contains string:true",
+                "2612_ERR5766180.fastp.json contains string:true",
+                "2613_ERR5766181.fastp.json contains string:true"
             ],
             [
-                
+                "2612_ERR5766176.fastp.log contains string:true",
+                "2612_ERR5766176_B.fastp.log contains string:true",
+                "2612_ERR5766180.fastp.log contains string:true",
+                "2613_ERR5766181.fastp.log contains string:true"
             ],
             [
                 "2612_ERR5766176.fastp.html",
@@ -1009,6 +1066,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T09:16:20.861440042"
+        "timestamp": "2026-01-13T16:41:50.186222239"
     }
 }
