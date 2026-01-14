@@ -79,30 +79,6 @@ workflow TAXPROFILER {
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
     ch_input = samplesheet
-        .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
-            meta.run_accession = run_accession
-            meta.instrument_platform = instrument_platform
-
-            // Define single_end based on the conditions
-            meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' && instrument_platform != 'PACBIO_SMRT')
-
-            // Define is_fasta based on the presence of fasta
-            meta.is_fasta = fasta ? true : false
-
-            if (!meta.is_fasta && !fastq_1) {
-                error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
-            }
-            if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
-                error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
-            }
-            if (meta.instrument_platform == 'PACBIO_SMRT' && fastq_2) {
-                error("Error: Please check input samplesheet: for PacBio reads entry `fastq_2` should be empty!")
-            }
-            if (meta.single_end && fastq_2) {
-                error("Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty")
-            }
-            return [meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta]
-        }
         .branch { meta, _run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             fastq: meta.single_end || fastq_2
             return [meta + [type: "short"], fastq_2 ? [fastq_1, fastq_2] : [fastq_1]]
