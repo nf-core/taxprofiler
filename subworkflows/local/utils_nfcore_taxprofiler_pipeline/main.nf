@@ -97,7 +97,37 @@ workflow PIPELINE_INITIALISATION {
     //
 
     Channel.fromList(samplesheetToList(input, "assets/schema_input.json"))
+        .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+                meta.run_accession = run_accession
+                meta.instrument_platform = instrument_platform
+
+                // Define single_end based on the conditions
+                meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' && instrument_platform != 'PACBIO_SMRT')
+
+                // Define is_fasta based on the presence of fasta
+                meta.is_fasta = fasta ? true : false
+
+                if (!meta.is_fasta && !fastq_1) {
+                    error("[nf-core/taxprofiler] ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist for ${meta.run_accession}")
+                }
+                if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
+                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty for ${meta.run_accession}")
+                }
+                if (meta.instrument_platform == 'PACBIO_SMRT' && fastq_2) {
+                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for PacBio reads entry `fastq_2` should be empty for ${meta.run_accession}")
+                }
+                if (meta.single_end && fastq_2) {
+                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty for ${meta.run_accession}")
+                }
+                return [meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta]
+            }
         .set { ch_samplesheet }
+
+    // Perform cross-row input validation to ensure that all runs of a given sample share the same data type (single-end or paired-end).
+    ch_samplesheet
+        .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta -> [ meta.id, meta.single_end ] }  // Adjust field names
+        .groupTuple()                                                                    // Groups by first element (id)
+        .map { validateInputSamplesheet(it) }
 
     //
     // Validate and create channel from databases file provided through params.databases
@@ -215,15 +245,13 @@ workflow PIPELINE_COMPLETION {
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {
-    def (metas, fastqs, fasta) = input[1..3]
+    def (meta, single_end) = input[0..1]
 
     // Check that multiple runs of the same sample are of the same datatype i.e. single-end / paired-end
-    def endedness_ok = metas.collect { meta -> meta.single_end }.unique().size == 1
-    if (!endedness_ok) {
-        error("Please check input samplesheet -> Multiple runs of a sample must be of the same datatype i.e. single-end or paired-end: ${metas[0].id}")
+    def endedness_ok = single_end.collect().unique().size == 1
+    if (!endedness_ok && params.perform_runmerging && !params.shortread_qc_mergepairs) {
+        error("[nf-core/taxprofiler] ERROR: If run merging is activated and short-read pair merging is disabled, all runs must be of same endedness. See https://nf-co.re/taxprofiler/usage#samplesheet-inputs. Check samplesheet for: ${meta}")
     }
-
-    return [metas[0], fastqs, fasta]
 }
 
 //
