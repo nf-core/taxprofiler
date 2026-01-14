@@ -37,7 +37,6 @@ workflow SHORTREAD_HOSTREMOVAL {
     bam_bai = BOWTIE2_ALIGN.out.bam.join(SAMTOOLS_INDEX.out.bai, remainder: true)
 
     SAMTOOLS_STATS(bam_bai, [[], reference])
-    ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
     ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
 
     emit:
