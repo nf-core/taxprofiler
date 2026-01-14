@@ -36,7 +36,6 @@ workflow LONGREAD_HOSTREMOVAL {
     bam_bai = MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index)
 
     SAMTOOLS_STATS(bam_bai, [[], reference])
-    ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions.first())
     ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
 
     // Generate unmapped reads FASTQ for downstream taxprofiling
