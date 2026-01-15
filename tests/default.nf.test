@@ -54,7 +54,7 @@ nextflow_pipeline {
             def stable_content_nanoq      = getAllFilesFromDir("$outputDir/nanoq", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //nonpareil
-            def stable_content_nonpareil      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_nonpareil      = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //porechop_abi
             def stable_content_porechopabi      = getAllFilesFromDir("$outputDir/porechop_abi", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
