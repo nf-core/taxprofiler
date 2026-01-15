@@ -500,7 +500,9 @@ Note that the multi-sample tables from the 'native' tools in each folders are [n
 
 [genomic-medicine-sweden/metaval](https://github.com/genomic-medicine-sweden/metaval) is a Nextflow pipeline for post-processing the results from `nf-core/taxprofiler`. At the moment it verifies taxa classified by `Kraken2`, `Centrifuge` and `DIAMOND` for both Illumina and Nanopore sequencing data.
 
-To generate the required inputs for `genomic-medicine-sweden/metaval`, please include the metaval profile using `-profile metaval.config`.
+To generate the required inputs for `genomic-medicine-sweden/metaval`, please include the metaval profile using `-profile <your_other_configs>,metaval`.
+
+Do not modify any other parameters!
 
 ### Updating the pipeline
 
