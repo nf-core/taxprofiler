@@ -375,7 +375,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:11.642777575"
+        "timestamp": "2026-01-15T17:24:34.653107018"
     },
     "krona": {
         "content": [
@@ -400,7 +400,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:20.581334357"
+        "timestamp": "2026-01-15T17:25:08.591678437"
     },
     "bowtie2": {
         "content": [
@@ -415,7 +415,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:11.729274722"
+        "timestamp": "2026-01-15T17:24:34.813189509"
     },
     "nanoq": {
         "content": [
@@ -427,7 +427,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:20.656236029"
+        "timestamp": "2026-01-15T17:25:08.718782774"
     },
     "samtools": {
         "content": [
@@ -443,7 +443,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:20.750229402"
+        "timestamp": "2026-01-15T17:25:09.024439828"
     },
     "taxpasta": {
         "content": [
@@ -482,7 +482,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:20.778102122"
+        "timestamp": "2026-01-15T17:25:09.050964373"
     },
     "bbduk": {
         "content": [
@@ -503,7 +503,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:11.710536769"
+        "timestamp": "2026-01-15T17:24:34.797194801"
     },
     "ganon": {
         "content": [
@@ -546,39 +546,39 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:16.263118824"
+        "timestamp": "2026-01-15T17:24:39.612423105"
     },
     "kaiju": {
         "content": [
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true
+            "2611_db5.kaijutable.txt contains string '10239':true",
+            "2611_db5.kaiju.tsv contains string 'ERR5766174.4':true",
+            "2612_db5.kaijutable.txt contains string '10239':true",
+            "2612_db5.kaiju.tsv contains string 'ERR5766180.602':true",
+            "2613_db5.kaijutable.txt contains string '10239':true",
+            "2613_db5.kaiju.tsv contains string 'ERR5766181.1':true",
+            "kaiju_db5_combined_reports.txt contains string '10239':true",
+            "2614_db6.kaijutable.txt contains string '10239':true",
+            "2614_db6.kaiju.tsv contains string 'ERR3201952.1794060':true",
+            "ERR3201952_db6.kaijutable.txt contains string 'Viruses':true",
+            "ERR3201952_db6.kaiju.tsv contains string 'ERR3201952.1159044':true",
+            "kaiju_db6_combined_reports.txt contains string '10239':true",
+            "2611_db7.kaijutable.txt contains string '10239':true",
+            "2611_db7.kaiju.tsv contains string 'ERR5766174.4':true",
+            "2612_db7.kaijutable.txt contains string '10239':true",
+            "2612_db7.kaiju.tsv contains string 'ERR5766180.602':true",
+            "2613_db7.kaijutable.txt contains string '10239':true",
+            "2613_db7.kaiju.tsv contains string 'ERR5766181.2':true",
+            "2614_db7.kaijutable.txt contains string '10239':true",
+            "2614_db7.kaiju.tsv contains string 'ERR3201952.1794060':true",
+            "ERR3201952_db7.kaijutable.txt contains string '10239':true",
+            "ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.1159044':true",
+            "kaiju_db7_combined_reports.txt contains string '10239':true"
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:16.660923295"
+        "timestamp": "2026-01-15T17:24:58.450008835"
     },
     "bracken": {
         "content": [
@@ -598,7 +598,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:11.746434988"
+        "timestamp": "2026-01-15T17:24:34.827430993"
     },
     "diamond": {
         "content": [
@@ -651,7 +651,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:16.091176831"
+        "timestamp": "2026-01-15T17:24:39.480250149"
     },
     "metaphlan": {
         "content": [
@@ -686,8 +686,8 @@
                 "2612_metaphlan3.metaphlan.sam:md5,1d9a386aa3f52b1013a22180bcccc9d7",
                 "2613_metaphlan3.metaphlan.sam:md5,1d9a386aa3f52b1013a22180bcccc9d7",
                 "2611_metaphlan4.metaphlan.sam:md5,79ac6b8433a0ce02df4895e346d9cdc8",
-                "2612_metaphlan4.metaphlan.sam:md5,6536fb09527c46faa66b3ffd302c29a2",
-                "2613_metaphlan4.metaphlan.sam:md5,d25ffcf7747e4706cd838e1765b125cc"
+                "2612_metaphlan4.metaphlan.sam:md5,3fba6abf3c21e07ec98ed18c419b08d2",
+                "2613_metaphlan4.metaphlan.sam:md5,52f6f36e86306c4ca9e22cf8b67bdec7"
             ],
             [
                 "metaphlan3/2611_metaphlan3.metaphlan.biom",
@@ -722,7 +722,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:20.633556658"
+        "timestamp": "2026-01-15T17:25:08.697548439"
     },
     "porechop_abi": {
         "content": [
@@ -735,7 +735,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:20.730826232"
+        "timestamp": "2026-01-15T17:25:09.006623901"
     },
     "kraken2": {
         "content": [
@@ -780,7 +780,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:20.557953287"
+        "timestamp": "2026-01-15T17:25:08.569150603"
     },
     "-profile test": {
         "content": [
@@ -927,7 +927,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:11.545753064"
+        "timestamp": "2026-01-15T17:24:34.568104301"
     },
     "centrifuge": {
         "content": [
@@ -972,7 +972,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:16.039127458"
+        "timestamp": "2026-01-15T17:24:39.279834107"
     },
     "nonpareil": {
         "content": [
@@ -1039,7 +1039,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:20.703574938"
+        "timestamp": "2026-01-15T17:25:08.980451424"
     },
     "kmcp": {
         "content": [
@@ -1053,7 +1053,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:16.681244353"
+        "timestamp": "2026-01-15T17:24:58.471267105"
     },
     "fastp": {
         "content": [
@@ -1088,6 +1088,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T16:22:16.228127693"
+        "timestamp": "2026-01-15T17:24:39.545302347"
     }
 }
