@@ -494,6 +494,14 @@ The following tools will produce multi-sample taxon tables:
 
 Note that the multi-sample tables from the 'native' tools in each folders are [not inter-operable](https://taxpasta.readthedocs.io/en/latest/tutorials/getting-started/) with each other as they can have different formats and can contain additional and different data. In this case we refer you to use the standardised and merged output from Taxpasta, as described above.
 
+### Generate inputs for downstream pipeline
+
+#### genomic-medicine-sweden/metaval
+
+[genomic-medicine-sweden/metaval](https://github.com/genomic-medicine-sweden/metaval) is a Nextflow pipeline for post-processing the results from `nf-core/taxprofiler`. At the moment it verifies taxa classified by `Kraken2`, `Centrifuge` and `DIAMOND` for both Illumina and Nanopore sequencing data.
+
+To generate the required inputs for `genomic-medicine-sweden/metaval`, please include the metaval profile using `-profile metaval.config`.
+
 ### Updating the pipeline
 
 When you run the above command, Nextflow automatically pulls the pipeline code from GitHub and stores it as a cached version. When running the pipeline after this, it will always use the cached version if available - even if the pipeline has been updated since. To make sure that you're running the latest version of the pipeline, make sure that you regularly update the cached version of the pipeline:
