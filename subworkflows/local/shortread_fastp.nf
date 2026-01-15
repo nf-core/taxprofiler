@@ -7,12 +7,12 @@ include { FASTP as FASTP_PAIRED } from '../../modules/nf-core/fastp/main'
 
 workflow SHORTREAD_FASTP {
     take:
-    reads       // [[meta], [reads]]
+    reads // [[meta], [reads]]
     adapterlist
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     ch_input_for_fastp = reads.branch {
         single: it[0]['single_end'] == true

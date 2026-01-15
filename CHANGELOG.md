@@ -10,12 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#674](https://github.com/nf-core/taxprofiler/pull/674) Fixed bug where wrong variables names used for KrakenUniq input channel causing pipeline crash (❤️ to @pcantalupo for reporting, fixed by @jfy133)
+- [#675](https://github.com/nf-core/taxprofiler/pull/675) Prevent file name conflict with mixed SE and PE runs for a single sample with stricter validation (fixed by @LilyAnderssonLee and @jfy133)
 
 ### `Changed`
 
 - [#676](https://github.com/nf-core/taxprofiler/pull/676) Turn off saving of BAM version of unmapped reads from long read host removal (❤️ to @sofstam for reporting, changed by @jfy133)
 
 ### `Dependencies`
+
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| samtools | 1.20             | 1.22.1      |
 
 ## v1.2.5 - [2025-11-21]
 

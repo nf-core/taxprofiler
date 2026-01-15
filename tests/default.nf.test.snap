@@ -901,16 +901,16 @@
                     "porechop_abi": "0.5.0"
                 },
                 "SAMTOOLS_FASTQ": {
-                    "samtools": 1.2
+                    "samtools": "1.22.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": 1.2
+                    "samtools": "1.22.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": 1.2
+                    "samtools": "1.22.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": 1.2
+                    "samtools": "1.22.1"
                 },
                 "TAXPASTA_MERGE": {
                     "taxpasta": "0.7.0"
