@@ -375,7 +375,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:48.32441498"
+        "timestamp": "2026-01-15T15:07:24.612646908"
     },
     "krona": {
         "content": [
@@ -400,7 +400,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:40:03.668476091"
+        "timestamp": "2026-01-15T15:08:07.46425956"
     },
     "bowtie2": {
         "content": [
@@ -415,7 +415,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:48.423187527"
+        "timestamp": "2026-01-15T15:07:24.708566456"
     },
     "nanoq": {
         "content": [
@@ -427,7 +427,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:40:03.822420073"
+        "timestamp": "2026-01-15T15:08:07.747309247"
     },
     "samtools": {
         "content": [
@@ -443,7 +443,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:40:04.11130316"
+        "timestamp": "2026-01-15T15:08:08.066263172"
     },
     "taxpasta": {
         "content": [
@@ -482,7 +482,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:40:04.138545766"
+        "timestamp": "2026-01-15T15:08:08.09470852"
     },
     "bbduk": {
         "content": [
@@ -503,7 +503,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:48.39166873"
+        "timestamp": "2026-01-15T15:07:24.689118879"
     },
     "ganon": {
         "content": [
@@ -546,7 +546,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:54.76248618"
+        "timestamp": "2026-01-15T15:07:38.753224034"
     },
     "kaiju": {
         "content": [
@@ -578,7 +578,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:58.623381607"
+        "timestamp": "2026-01-15T15:07:49.978801718"
     },
     "bracken": {
         "content": [
@@ -598,7 +598,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:48.439601167"
+        "timestamp": "2026-01-15T15:07:24.72574422"
     },
     "diamond": {
         "content": [
@@ -651,7 +651,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:54.616943625"
+        "timestamp": "2026-01-15T15:07:38.534407475"
     },
     "metaphlan": {
         "content": [
@@ -686,8 +686,8 @@
                 "2612_metaphlan3.metaphlan.sam:md5,1d9a386aa3f52b1013a22180bcccc9d7",
                 "2613_metaphlan3.metaphlan.sam:md5,1d9a386aa3f52b1013a22180bcccc9d7",
                 "2611_metaphlan4.metaphlan.sam:md5,79ac6b8433a0ce02df4895e346d9cdc8",
-                "2612_metaphlan4.metaphlan.sam:md5,cbb1514572c5230e5ded9fb9dd725e14",
-                "2613_metaphlan4.metaphlan.sam:md5,bc40039823bf8fbdf98d89c85a67c7b6"
+                "2612_metaphlan4.metaphlan.sam:md5,505a199108d1d4937526459dc1dd4558",
+                "2613_metaphlan4.metaphlan.sam:md5,864cff70db518e08036582e50f5927c0"
             ],
             [
                 "metaphlan3/2611_metaphlan3.metaphlan.biom",
@@ -722,7 +722,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:40:03.800602018"
+        "timestamp": "2026-01-15T15:08:07.725114414"
     },
     "porechop_abi": {
         "content": [
@@ -735,7 +735,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:40:04.093000147"
+        "timestamp": "2026-01-15T15:08:08.047454692"
     },
     "kraken2": {
         "content": [
@@ -780,7 +780,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:40:03.646640703"
+        "timestamp": "2026-01-15T15:08:07.441927285"
     },
     "-profile test": {
         "content": [
@@ -927,20 +927,19 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:48.228377405"
+        "timestamp": "2026-01-15T15:07:24.521168937"
     },
     "centrifuge": {
         "content": [
             [
+                "centrifuge_db3_combined_reports.txt contains string:true",
                 "2612_db3.centrifuge.report.txt contains string:true",
-                "2612_db3.centrifuge.results.txt contains string:false",
+                "2612_db3.centrifuge.results.txt contains string:true",
                 "2612_db3.centrifuge.txt contains string:true",
                 "2613_db3.centrifuge.report.txt contains string:true",
-                "2613_db3.centrifuge.results.txt contains string:false",
+                "2613_db3.centrifuge.results.txt contains string:true",
                 "2613_db3.centrifuge.txt contains string:true"
             ],
-            true,
-            true,
             [
                 "@ERR5766176.5733",
                 "@ERR5766176.5733"
@@ -973,7 +972,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:54.382012964"
+        "timestamp": "2026-01-15T15:07:38.275353443"
     },
     "nonpareil": {
         "content": [
@@ -1009,39 +1008,38 @@
             true,
             true,
             [
-                "metaphlan3/2611_metaphlan3.metaphlan.biom",
-                "metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
-                "metaphlan3/2611_metaphlan3.metaphlan.sam",
-                "metaphlan3/2611_metaphlan3.metaphlan_profile.txt",
-                "metaphlan3/2612_metaphlan3.metaphlan.biom",
-                "metaphlan3/2612_metaphlan3.metaphlan.bowtie2out.txt",
-                "metaphlan3/2612_metaphlan3.metaphlan.sam",
-                "metaphlan3/2612_metaphlan3.metaphlan_profile.txt",
-                "metaphlan3/2613_metaphlan3.metaphlan.biom",
-                "metaphlan3/2613_metaphlan3.metaphlan.bowtie2out.txt",
-                "metaphlan3/2613_metaphlan3.metaphlan.sam",
-                "metaphlan3/2613_metaphlan3.metaphlan_profile.txt",
-                "metaphlan4/2611_metaphlan4.metaphlan.biom",
-                "metaphlan4/2611_metaphlan4.metaphlan.bowtie2out.txt",
-                "metaphlan4/2611_metaphlan4.metaphlan.sam",
-                "metaphlan4/2611_metaphlan4.metaphlan_profile.txt",
-                "metaphlan4/2612_metaphlan4.metaphlan.biom",
-                "metaphlan4/2612_metaphlan4.metaphlan.bowtie2out.txt",
-                "metaphlan4/2612_metaphlan4.metaphlan.sam",
-                "metaphlan4/2612_metaphlan4.metaphlan_profile.txt",
-                "metaphlan4/2613_metaphlan4.metaphlan.biom",
-                "metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt",
-                "metaphlan4/2613_metaphlan4.metaphlan.sam",
-                "metaphlan4/2613_metaphlan4.metaphlan_profile.txt",
-                "metaphlan_metaphlan3_combined_reports.txt",
-                "metaphlan_metaphlan4_combined_reports.txt"
+                "2612_ERR5766176.npa",
+                "2612_ERR5766176.npc",
+                "2612_ERR5766176.npl",
+                "2612_ERR5766176.npo",
+                "2612_ERR5766176.png",
+                "2612_ERR5766176_B.npa",
+                "2612_ERR5766176_B.npc",
+                "2612_ERR5766176_B.npl",
+                "2612_ERR5766176_B.npo",
+                "2612_ERR5766176_B.png",
+                "2612_ERR5766180.npa",
+                "2612_ERR5766180.npc",
+                "2612_ERR5766180.npl",
+                "2612_ERR5766180.npo",
+                "2612_ERR5766180.png",
+                "2613_ERR5766181.npa",
+                "2613_ERR5766181.npc",
+                "2613_ERR5766181.npl",
+                "2613_ERR5766181.npo",
+                "2613_ERR5766181.png",
+                "nonpareil_all_samples.csv",
+                "nonpareil_all_samples.json",
+                "nonpareil_all_samples.pdf",
+                "nonpareil_all_samples.tsv",
+                "nonpareil_all_samples_mqc.png"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:40:04.054587851"
+        "timestamp": "2026-01-15T15:08:07.97506883"
     },
     "kmcp": {
         "content": [
@@ -1055,7 +1053,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:58.641273998"
+        "timestamp": "2026-01-15T15:07:49.997103168"
     },
     "fastp": {
         "content": [
@@ -1090,6 +1088,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-15T11:39:54.668777138"
+        "timestamp": "2026-01-15T15:07:38.672240992"
     }
 }
