@@ -375,16 +375,18 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:49.411340859"
+        "timestamp": "2026-01-15T11:39:48.32441498"
     },
     "krona": {
         "content": [
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
+            [
+                "centrifuge_db3.html true",
+                "kaiju_db5.html true",
+                "kaiju_db6.html true",
+                "kaiju_db7.html true",
+                "kraken2-bracken_db1.html true",
+                "kraken2_db2.html true"
+            ],
             [
                 "centrifuge_db3.html",
                 "kaiju_db5.html",
@@ -398,7 +400,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:54.848340606"
+        "timestamp": "2026-01-15T11:40:03.668476091"
     },
     "bowtie2": {
         "content": [
@@ -413,7 +415,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:49.474740159"
+        "timestamp": "2026-01-15T11:39:48.423187527"
     },
     "nanoq": {
         "content": [
@@ -425,7 +427,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:54.909672265"
+        "timestamp": "2026-01-15T11:40:03.822420073"
     },
     "samtools": {
         "content": [
@@ -441,7 +443,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:55.009542431"
+        "timestamp": "2026-01-15T11:40:04.11130316"
     },
     "taxpasta": {
         "content": [
@@ -480,7 +482,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:55.037760513"
+        "timestamp": "2026-01-15T11:40:04.138545766"
     },
     "bbduk": {
         "content": [
@@ -501,7 +503,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:49.454913934"
+        "timestamp": "2026-01-15T11:39:48.39166873"
     },
     "ganon": {
         "content": [
@@ -544,7 +546,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:50.222168429"
+        "timestamp": "2026-01-15T11:39:54.76248618"
     },
     "kaiju": {
         "content": [
@@ -576,7 +578,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:50.589161636"
+        "timestamp": "2026-01-15T11:39:58.623381607"
     },
     "bracken": {
         "content": [
@@ -596,7 +598,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:49.492593732"
+        "timestamp": "2026-01-15T11:39:48.439601167"
     },
     "diamond": {
         "content": [
@@ -649,7 +651,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:50.153752574"
+        "timestamp": "2026-01-15T11:39:54.616943625"
     },
     "metaphlan": {
         "content": [
@@ -679,6 +681,14 @@
             ],
             true,
             true,
+            [
+                "2611_metaphlan3.metaphlan.sam:md5,f740fc2e9f305381755cad3aa562bd92",
+                "2612_metaphlan3.metaphlan.sam:md5,1d9a386aa3f52b1013a22180bcccc9d7",
+                "2613_metaphlan3.metaphlan.sam:md5,1d9a386aa3f52b1013a22180bcccc9d7",
+                "2611_metaphlan4.metaphlan.sam:md5,79ac6b8433a0ce02df4895e346d9cdc8",
+                "2612_metaphlan4.metaphlan.sam:md5,cbb1514572c5230e5ded9fb9dd725e14",
+                "2613_metaphlan4.metaphlan.sam:md5,bc40039823bf8fbdf98d89c85a67c7b6"
+            ],
             [
                 "metaphlan3/2611_metaphlan3.metaphlan.biom",
                 "metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
@@ -712,7 +722,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:54.88818554"
+        "timestamp": "2026-01-15T11:40:03.800602018"
     },
     "porechop_abi": {
         "content": [
@@ -725,7 +735,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:54.990206606"
+        "timestamp": "2026-01-15T11:40:04.093000147"
     },
     "kraken2": {
         "content": [
@@ -770,7 +780,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:54.804645919"
+        "timestamp": "2026-01-15T11:40:03.646640703"
     },
     "-profile test": {
         "content": [
@@ -917,7 +927,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:49.373803603"
+        "timestamp": "2026-01-15T11:39:48.228377405"
     },
     "centrifuge": {
         "content": [
@@ -931,6 +941,20 @@
             ],
             true,
             true,
+            [
+                "@ERR5766176.5733",
+                "@ERR5766176.5733"
+            ],
+            [
+                "@ERR5766176.191984",
+                "@ERR5766176.191984"
+            ],
+            [
+                "@ERR5766181.3868"
+            ],
+            [
+                "@ERR5766181.537239"
+            ],
             [
                 "centrifuge_db3_combined_reports.txt",
                 "db3/2612_db3.centrifuge.mapped.fastq.gz",
@@ -949,7 +973,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:50.10114855"
+        "timestamp": "2026-01-15T11:39:54.382012964"
     },
     "nonpareil": {
         "content": [
@@ -1017,7 +1041,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:54.958942758"
+        "timestamp": "2026-01-15T11:40:04.054587851"
     },
     "kmcp": {
         "content": [
@@ -1031,7 +1055,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:50.607301883"
+        "timestamp": "2026-01-15T11:39:58.641273998"
     },
     "fastp": {
         "content": [
@@ -1066,6 +1090,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-13T16:41:50.186222239"
+        "timestamp": "2026-01-15T11:39:54.668777138"
     }
 }

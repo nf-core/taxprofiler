@@ -48,6 +48,7 @@ nextflow_pipeline {
 
             //metaphlan
             def stable_content_metaphlan      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def sam_files                     = getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.sam'])
 
             //nanoq
             def stable_content_nanoq      = getAllFilesFromDir("$outputDir/nanoq", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
@@ -85,6 +86,10 @@ nextflow_pipeline {
                 { assert snapshot( getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*.txt']).collect{file -> file.getName() + ' contains string:' + file.text.contains("Homo sapiens") },
                                 file("$outputDir/centrifuge/db3/2612_db3.centrifuge.results.txt").text.contains("ERR5766180.602"),
                                 file("$outputDir/centrifuge/db3/2613_db3.centrifuge.results.txt").text.contains("ERR5766181.1"),
+                                path("$outputDir/centrifuge/db3/2612_db3.centrifuge.mapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.5733') },
+                                path("$outputDir/centrifuge/db3/2612_db3.centrifuge.unmapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.191984') },
+                                path("$outputDir/centrifuge/db3/2613_db3.centrifuge.mapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.3868') },
+                                path("$outputDir/centrifuge/db3/2613_db3.centrifuge.unmapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.537239') },
                                 stable_content_centrifuge).match("centrifuge") },
                  { assert snapshot( getAllFilesFromDir("$outputDir/diamond", include: ['**/*diamond.log']).collect{file -> file.getName() + ' contains string:' + file.text.contains("queries aligned") },
                                 file("$outputDir/diamond/db1/2611_db1.diamond.tsv").text.contains("ERR5766174.77"),
@@ -142,18 +147,13 @@ nextflow_pipeline {
                                 path("$outputDir/kraken2/kraken2_db1-bracken_combined_reports.txt").text.contains("Saccharomyces cerevisiae S288C"),
                                 path("$outputDir/kraken2/kraken2_db2_combined_reports.txt").text.contains("Saccharomyces cerevisiae S288C"),
                                 stable_content_kraken2).match("kraken2") },
-                { assert snapshot( file("$outputDir/krona/centrifuge_db3.html").exists(),
-                                file("$outputDir/krona/kaiju_db5.html").exists(),
-                                file("$outputDir/krona/kaiju_db6.html").exists(),
-                                file("$outputDir/krona/kaiju_db7.html").exists(),
-                                file("$outputDir/krona/kraken2-bracken_db1.html").exists(),
-                                file("$outputDir/krona/kraken2_db2.html").exists(),
-                                stable_content_krona).match("krona") },
+                { assert snapshot(getAllFilesFromDir("$outputDir/krona", include: ['*.html']).collect { file -> file.getName() + " "+ file.exists() }, stable_content_krona).match("krona") },
                 { assert snapshot(getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + ' contains string:' + file.text.contains("generated_by")},
                                 getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.bowtie2out.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("avg_read_length")},
                                 getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + ' contains string:' + file.text.contains("clade_name")},
                                 file("$outputDir/metaphlan/metaphlan_metaphlan3_combined_reports.txt").text.contains("UNCLASSIFIED"),
                                 file("$outputDir/metaphlan/metaphlan_metaphlan4_combined_reports.txt").text.contains("t__SGB4933_group"),
+                                sam_files.isEmpty() ? 'No SAM files' : sam_files.collect { file -> file.getName() + ":md5," + file.text.md5() },
                                 stable_content_metaphlan).match("metaphlan") },
                 { assert snapshot (stable_content_nanoq).match("nanoq")},
                 { assert snapshot(getAllFilesFromDir("$outputDir/nonpareil", include: ['*.npa']).collect { file -> file.getName() + ' contains string:' + file.text.contains("0.00")},
