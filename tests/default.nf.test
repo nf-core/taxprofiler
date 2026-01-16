@@ -148,7 +148,7 @@ nextflow_pipeline {
                 { assert snapshot(getAllFilesFromDir("$outputDir/krona", include: ['*.html']).collect { file -> file.getName() + " "+ file.exists() }, stable_content_krona).match("krona") },
                 { assert snapshot(getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + ' contains string:' + file.text.contains("generated_by")},
                                 getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.bowtie2out.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("avg_read_length")},
-                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + ' contains string:' + file.text.contains("clade_name")},
+                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*_profile.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("clade_name")},
                                 file("$outputDir/metaphlan/metaphlan_metaphlan3_combined_reports.txt").text.contains("UNCLASSIFIED"),
                                 file("$outputDir/metaphlan/metaphlan_metaphlan4_combined_reports.txt").text.contains("t__SGB4933_group"),
                                 sam_files.isEmpty() ? 'No SAM files' : sam_files.collect { file -> file.getName() + ":md5," + file.text.md5() },
