@@ -375,7 +375,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:31:58.783880001"
+        "timestamp": "2026-01-16T14:45:24.140320686"
     },
     "krona": {
         "content": [
@@ -400,22 +400,22 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:08.03866791"
+        "timestamp": "2026-01-16T14:45:33.564494384"
     },
     "bowtie2": {
         "content": [
             [
-                "2612_ERR5766176.bowtie2.log",
-                "2612_ERR5766176_B.bowtie2.log",
-                "2612_ERR5766180.bowtie2.log",
-                "2613_ERR5766181.bowtie2.log"
+                "2612_ERR5766176.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
+                "2612_ERR5766176_B.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
+                "2612_ERR5766180.bowtie2.log:md5,a7487ce9c549a7f8fb5694fd0889f929",
+                "2613_ERR5766181.bowtie2.log:md5,6cb148fdf3840de7a8a1f5315847817b"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:31:58.850186628"
+        "timestamp": "2026-01-16T14:45:24.205535958"
     },
     "nanoq": {
         "content": [
@@ -427,23 +427,23 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:08.113344691"
+        "timestamp": "2026-01-16T14:45:33.652170167"
     },
     "samtools": {
         "content": [
             [
-                "stats/2612_ERR5766176.stats",
-                "stats/2612_ERR5766176_B.stats",
-                "stats/2612_ERR5766180.stats",
-                "stats/2613_ERR5766181.stats",
-                "stats/ERR3201952_ERR3201952.stats"
+                "2612_ERR5766176.stats:md5,14ac2eb1b383e7f9be7514ebd1a39b0f",
+                "2612_ERR5766176_B.stats:md5,f1ab2d05e62dcafe2ac865318b6ef6bf",
+                "2612_ERR5766180.stats:md5,73eb6b8421a3c094a3bbb6667035bf10",
+                "2613_ERR5766181.stats:md5,d082f298244d082f095c1febb4c51ce4",
+                "ERR3201952_ERR3201952.stats:md5,4b27072b8c9224f1eefece14d3977d27"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:08.215193328"
+        "timestamp": "2026-01-16T14:45:33.754957743"
     },
     "taxpasta": {
         "content": [
@@ -482,7 +482,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:08.275369772"
+        "timestamp": "2026-01-16T14:45:33.817820158"
     },
     "bbduk": {
         "content": [
@@ -503,7 +503,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:31:58.830127369"
+        "timestamp": "2026-01-16T14:45:24.184668816"
     },
     "ganon": {
         "content": [
@@ -546,7 +546,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:03.53221881"
+        "timestamp": "2026-01-16T14:45:28.796149607"
     },
     "kaiju": {
         "content": [
@@ -578,27 +578,25 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:03.924401964"
+        "timestamp": "2026-01-16T14:45:29.195589155"
     },
     "bracken": {
         "content": [
             [
                 "bracken_db1_combined_reports.txt:md5,b2ed57d8f683210cc0e306abdef12c3d",
-                [
-                    "2611_db1.bracken.kraken2.report_bracken.txt:md5,2d098b8c7767c2211984028877ebf977",
-                    "2611_db1.bracken.tsv:md5,74af1e5c159628b9d746fc53be5409bf",
-                    "2612_db1.bracken.kraken2.report_bracken.txt:md5,7087bcab68e936a8a9c67caafcbd6183",
-                    "2612_db1.bracken.tsv:md5,330c1d6f98cbc6d44dec3e83d9eeccd7",
-                    "2613_db1.bracken.kraken2.report_bracken.txt:md5,56647e7054f565a9affaabd5b18b4bd8",
-                    "2613_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b"
-                ]
+                "2611_db1.bracken.kraken2.report_bracken.txt:md5,2d098b8c7767c2211984028877ebf977",
+                "2611_db1.bracken.tsv:md5,74af1e5c159628b9d746fc53be5409bf",
+                "2612_db1.bracken.kraken2.report_bracken.txt:md5,7087bcab68e936a8a9c67caafcbd6183",
+                "2612_db1.bracken.tsv:md5,330c1d6f98cbc6d44dec3e83d9eeccd7",
+                "2613_db1.bracken.kraken2.report_bracken.txt:md5,56647e7054f565a9affaabd5b18b4bd8",
+                "2613_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:31:58.879946602"
+        "timestamp": "2026-01-16T14:45:24.230182237"
     },
     "diamond": {
         "content": [
@@ -651,7 +649,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:03.463774328"
+        "timestamp": "2026-01-16T14:45:28.723437381"
     },
     "metaphlan": {
         "content": [
@@ -672,12 +670,12 @@
                 "2613_metaphlan4.metaphlan.bowtie2out.txt contains string:true"
             ],
             [
-                "2611_metaphlan3.metaphlan.biom contains string:false",
-                "2612_metaphlan3.metaphlan.biom contains string:false",
-                "2613_metaphlan3.metaphlan.biom contains string:false",
-                "2611_metaphlan4.metaphlan.biom contains string:false",
-                "2612_metaphlan4.metaphlan.biom contains string:false",
-                "2613_metaphlan4.metaphlan.biom contains string:false"
+                "2611_metaphlan3.metaphlan_profile.txt contains string:true",
+                "2612_metaphlan3.metaphlan_profile.txt contains string:true",
+                "2613_metaphlan3.metaphlan_profile.txt contains string:true",
+                "2611_metaphlan4.metaphlan_profile.txt contains string:true",
+                "2612_metaphlan4.metaphlan_profile.txt contains string:true",
+                "2613_metaphlan4.metaphlan_profile.txt contains string:true"
             ],
             true,
             true,
@@ -686,8 +684,8 @@
                 "2612_metaphlan3.metaphlan.sam:md5,1d9a386aa3f52b1013a22180bcccc9d7",
                 "2613_metaphlan3.metaphlan.sam:md5,1d9a386aa3f52b1013a22180bcccc9d7",
                 "2611_metaphlan4.metaphlan.sam:md5,79ac6b8433a0ce02df4895e346d9cdc8",
-                "2612_metaphlan4.metaphlan.sam:md5,c635deb37eb51c60f69b14c017a3f7bb",
-                "2613_metaphlan4.metaphlan.sam:md5,b811f4d9c7a1c0f5cab2d7f56f4a2d70"
+                "2612_metaphlan4.metaphlan.sam:md5,d5ec66207c97d0906ccbc6c345ae259b",
+                "2613_metaphlan4.metaphlan.sam:md5,8fa82d89807c6f7c8bdaa9bcb09cd3ad"
             ],
             [
                 "metaphlan3/2611_metaphlan3.metaphlan.biom",
@@ -722,7 +720,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:08.08787394"
+        "timestamp": "2026-01-16T14:45:33.624581614"
     },
     "porechop_abi": {
         "content": [
@@ -735,7 +733,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:08.194362006"
+        "timestamp": "2026-01-16T14:45:33.733742966"
     },
     "kraken2": {
         "content": [
@@ -780,7 +778,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:08.014296885"
+        "timestamp": "2026-01-16T14:45:33.537703097"
     },
     "-profile test": {
         "content": [
@@ -927,7 +925,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:31:58.745973599"
+        "timestamp": "2026-01-16T14:45:24.103777513"
     },
     "centrifuge": {
         "content": [
@@ -972,7 +970,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:03.409857475"
+        "timestamp": "2026-01-16T14:45:28.664173672"
     },
     "nonpareil": {
         "content": [
@@ -1039,21 +1037,21 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:08.164499366"
+        "timestamp": "2026-01-16T14:45:33.703952743"
     },
     "kmcp": {
         "content": [
             [
-                "db1/2611_db1.kmcp.profile",
-                "db1/2612_db1.kmcp.profile",
-                "db1/2613_db1.kmcp.profile"
+                "2611_db1.kmcp.profile:md5,8b50fa20b6e60078b4e82ee56ad9a687",
+                "2612_db1.kmcp.profile:md5,59d06b55c1df0739e92ab6d8ce23cd83",
+                "2613_db1.kmcp.profile:md5,3d8c1e51679639d6011e3cb9b679485b"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:03.946347961"
+        "timestamp": "2026-01-16T14:45:29.220529059"
     },
     "fastp": {
         "content": [
@@ -1088,6 +1086,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-16T13:32:03.496214094"
+        "timestamp": "2026-01-16T14:45:28.758199749"
     }
 }

@@ -21,9 +21,11 @@ nextflow_pipeline {
              //BBDuk
             def stable_content_bbduk          = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
-            //bowtie2
-            def stable_content_bowtie2         = getAllFilesFromDir("$outputDir/bowtie2/align", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+             //bracken
+            def stable_content_bracken         = getAllFilesFromDir("$outputDir/bracken", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            //bowtie2
+            def stable_content_bowtie2         = getAllFilesFromDir("$outputDir/bowtie2/align", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //centrifuge
             def stable_content_centrifuge     = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
@@ -41,7 +43,7 @@ nextflow_pipeline {
             def stable_content_kraken2        = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //kmcp
-            def stable_content_kmcp        = getAllFilesFromDir("$outputDir/kmcp", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_kmcp        = getAllFilesFromDir("$outputDir/kmcp", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //krona
             def stable_content_krona          = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
@@ -60,7 +62,7 @@ nextflow_pipeline {
             def stable_content_porechopabi      = getAllFilesFromDir("$outputDir/porechop_abi", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //samtools
-            def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
 
             //taxpasta
@@ -82,7 +84,7 @@ nextflow_pipeline {
                 { assert snapshot( getAllFilesFromDir("$outputDir/bbduk", include: ['*.bbduk.log']).collect{file -> file.getName() + ' contains string:' + file.text.contains("Reads Processed:") },
                                 stable_content_bbduk).match("bbduk")},
                 { assert snapshot (stable_content_bowtie2).match("bowtie2")},
-                { assert snapshot (path("$outputDir/bracken")).match("bracken")},
+                { assert snapshot (stable_content_bracken).match("bracken")},
                 { assert snapshot( getAllFilesFromDir("$outputDir/centrifuge", include: ['*.txt', '**/*.txt']).collect{file -> file.getName() + ' contains string:' + (file.text.contains("Homo sapiens") || file.text.contains("unclassified")) },
                                 path("$outputDir/centrifuge/db3/2612_db3.centrifuge.mapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.5733') },
                                 path("$outputDir/centrifuge/db3/2612_db3.centrifuge.unmapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.191984') },
