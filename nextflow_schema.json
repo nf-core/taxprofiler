@@ -392,7 +392,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
                     "description": "Turn on run merging",
-                    "help_text": "Turns on the concatenation of sequencing runs or libraries with the same sample name.\n\nThis can be useful to ensure you get a single profile per sample, rather than one profile per run or library. Note that in some cases comparing profiles of independent _libraries_ may be useful, so this parameter may not always be suitable.  "
+                    "help_text": "Turns on the concatenation of sequencing runs or libraries with the same sample name.\n\nThis can be useful to ensure you get a single profile per sample, rather than one profile per run or library. Note that in some cases comparing profiles of independent _libraries_ may be useful, so this parameter may not always be suitable. \n\nNote: only FASTQ files are concatenated, not FASTA."
                 },
                 "save_runmerged_reads": {
                     "type": "boolean",
@@ -724,6 +724,23 @@
             },
             "fa_icon": "fas fa-chart-line"
         },
+        "generate_samplesheet_options": {
+            "title": "Downstream pipeline samplesheet generation options",
+            "type": "object",
+            "fa_icon": "fas fa-university",
+            "description": "Options for generating input samplesheets for complementary downstream pipelines.",
+            "properties": {
+                "generate_downstream_samplesheets": {
+                    "type": "boolean",
+                    "description": "Turn on generation of samplesheets for downstream pipelines."
+                },
+                "generate_pipeline_samplesheets": {
+                    "type": "string",
+                    "description": "Specify a comma separated string in quotes to specify which pipeline to generate a samplesheet for.",
+                    "pattern": "^metaval$"
+                }
+            }
+        },
         "institutional_config_options": {
             "title": "Institutional config options",
             "type": "object",
@@ -910,6 +927,9 @@
         },
         {
             "$ref": "#/$defs/postprocessing_and_visualisation_options"
+        },
+        {
+            "$ref": "#/$defs/generate_samplesheet_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"

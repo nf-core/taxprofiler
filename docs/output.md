@@ -718,6 +718,32 @@ The 'General Stats' table by default will only show statistics referring to pre-
 For example, DIAMOND output does not have a dedicated section in the MultiQC HTML, only in the general stats table. To turn this on, copy the nf-core/taxprofiler [MultiQC config](https://github.com/nf-core/taxprofiler/blob/master/assets/multiqc_config.yml) and change the DIAMOND entry in `table_columns_visible:` to True.
 :::
 
+### Downstream samplesheets
+
+The pipeline can also generate input files for the following downstream
+pipelines:
+
+- [genomic-medicine-sweden/metaval](https://github.com/genomic-medicine-sweden/metaval)
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `downstream_samplesheets/`
+  - `metaval.csv`: Filled out `genomic-medicine-sweden/metaval` `--input` csv with paths to reads based on the taxprofiler `--outdir` directory, classification tables and taxpasta files.
+
+</details>
+
+The `genomic-medicine-sweden/metaval` workflow only verifies the classification results produced by the three classifiers: `Kraken2`, `Centrifuge`, and `DIAMOND`.
+
+Each classifier must only be executed with a single database and the raw read files must be provided as `*.fastq.gz` files.
+
+If multiple sequencing runs exist for the same sample, `nf-core/taxprofiler` performs read merging after host removal (and before profiling) when `params.perform_runmerging` is enabled. The merged reads are stored in the `run_merging/` folder if `params.save_runmerged_reads` is set, or in `analysis_ready_fastqs/` if `params.save_analysis_ready_fastqs` is set. However `genomic-medicine-sweden/metaval` takes filtered reads without host removal. In this case, reads from multiple runs belonging to the same sample are merged and stored in the `filtered_reads_merged/` directory.
+
+:::warning
+Any generated downstream samplesheet is provided as 'best effort' and are not guaranteed to work straight out of the box!
+They may not be complete (e.g. some columns may need to be manually filled in).
+:::
+
 ### Pipeline information
 
 <details markdown="1">

@@ -362,6 +362,14 @@ Activating this functionality will concatenate the FASTQ files with the same sam
 
 You can optionally save the FASTQ output of the run merging with the `--save_runmerged_reads`.
 
+To avoid name conflicts during profiling and to maintain consistent naming, the following suffixes are added to profile and/or classification outputs (for both FASTQ and FASTA inputs):
+
+- `_srse`: short read FASTQ, single-end
+- `_srpe`: short read FASTQ, paired-end
+- `_srfa`: short read FASTA
+- `_lrfq`: long read FASTQ
+- `_lrfa`: long read FASTA
+
 #### Classification and Profiling
 
 The following sections provide tips and suggestions for running the different taxonomic classification and profiling tools _within the pipeline_. For advice and/or guidance whether you should run a particular tool on your specific data, please see the documentation of each tool!
@@ -493,6 +501,19 @@ The following tools will produce multi-sample taxon tables:
 - **ganon** (via the `ganon table` command)
 
 Note that the multi-sample tables from the 'native' tools in each folders are [not inter-operable](https://taxpasta.readthedocs.io/en/latest/tutorials/getting-started/) with each other as they can have different formats and can contain additional and different data. In this case we refer you to use the standardised and merged output from Taxpasta, as described above.
+
+### Downstream samplesheets
+
+To generate the samplesheet for `genomic-medicine-sweden/metaval`, enable the following parameters:
+
+- `--generate_downstream_samplesheets`
+- `--generate_pipeline_samplesheets 'metaval'`
+- `--kraken2_save_readclassifications`
+- `--run_profile_standardisation`
+- `--save_complexityfiltered_reads`
+- `--perform_shortread_qc`
+- `--perform_shortread_complexityfilter`
+- `--perform_longread_qc`
 
 ### Updating the pipeline
 
