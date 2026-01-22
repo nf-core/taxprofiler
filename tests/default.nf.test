@@ -147,7 +147,7 @@ nextflow_pipeline {
                                file("$outputDir/kraken2/kraken2_db1-bracken_combined_reports.txt").getName() + " contains string:'Saccharomyces cerevisiae S288C':" + file("$outputDir/kraken2/kraken2_db1-bracken_combined_reports.txt").text.contains("Saccharomyces cerevisiae S288C"),
                                file("$outputDir/kraken2/kraken2_db2_combined_reports.txt").getName() + " contains string:'Saccharomyces cerevisiae S288C':" + file("$outputDir/kraken2/kraken2_db2_combined_reports.txt").text.contains("Saccharomyces cerevisiae S288C"),
                                 stable_content_kraken2).match("kraken2") },
-                { assert snapshot(getAllFilesFromDir("$outputDir/krona", include: ['*.html']).collect { file -> file.getName() + " "+ file.exists() }, stable_content_krona).match("krona") },
+                { assert snapshot(getAllFilesFromDir("$outputDir/krona", include: ['*.html']).collect { file -> file.getName() + " exists:"+ file.exists() }, stable_content_krona).match("krona") },
                 { assert snapshot(getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + ' contains string:' + file.text.contains("generated_by")},
                                 getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.bowtie2out.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("avg_read_length")},
                                 getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*_profile.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("clade_name")},
