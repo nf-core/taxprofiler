@@ -173,7 +173,7 @@ nextflow_pipeline {
                                 file("$outputDir/nonpareil/nonpareil_all_samples.pdf").exists(),
                                 file("$outputDir/nonpareil/nonpareil_all_samples.tsv").getName() + " contains string:'diversity':" + file("$outputDir/nonpareil/nonpareil_all_samples.tsv").text.contains("diversity"),
                                 stable_content_nonpareil).match("nonpareil") },
-                { assert snapshot (file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("Looking for known adapter"),
+                { assert snapshot (file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").getName() + " contains string: 'Looking for known adapter':" + file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("Looking for known adapter"),
                                 stable_content_porechopabi).match("porechop_abi")},
                 { assert snapshot (stable_content_samtools).match("samtools")},
                 { assert snapshot(file("$outputDir/taxpasta/bracken_db1.tsv").getName() + " contains string:'9606':" + file("$outputDir/taxpasta/bracken_db1.tsv").text.contains("9606"),
