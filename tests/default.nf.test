@@ -160,7 +160,7 @@ nextflow_pipeline {
                                 getAllFilesFromDir("$outputDir/nonpareil", include: ['*.npl']).collect { file -> file.getName() + ' contains string:' + file.text.contains("Average read length")},
                                 getAllFilesFromDir("$outputDir/nonpareil", include: ['*.npo']).collect { file -> file.getName() + ' contains string:' + file.text.contains("@version:")},
                                 file("$outputDir/nonpareil/2612_ERR5766176_B.npc").getName() + " contains string:'177104':" + file("$outputDir/nonpareil/2612_ERR5766176_B.npc").text.contains("177104"),
-                                file("$outputDir/nonpareil/2612_ERR5766176_B.png").exists(),
+                                "File 2612_ERR5766176_B.png exists:  " + file("$outputDir/nonpareil/2612_ERR5766176_B.png").exists(),
                                 file("$outputDir/nonpareil/2612_ERR5766176.npc").getName() + " contains string:'205699':" + file("$outputDir/nonpareil/2612_ERR5766176.npc").text.contains("205699"),
                                 file("$outputDir/nonpareil/2612_ERR5766176.png").exists(),
                                 file("$outputDir/nonpareil/2612_ERR5766180.npc").getName() + " contains string:'143862':" + file("$outputDir/nonpareil/2612_ERR5766180.npc").text.contains("143862"),
