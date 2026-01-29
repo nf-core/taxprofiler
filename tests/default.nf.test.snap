@@ -375,7 +375,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:43.648067999"
+        "timestamp": "2026-01-28T16:46:15.035661836"
     },
     "krona": {
         "content": [
@@ -400,7 +400,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:11:07.831225985"
+        "timestamp": "2026-01-28T16:46:24.210307271"
     },
     "bowtie2": {
         "content": [
@@ -415,7 +415,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:43.774015987"
+        "timestamp": "2026-01-28T16:46:15.101200677"
     },
     "nanoq": {
         "content": [
@@ -427,7 +427,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:11:07.963641013"
+        "timestamp": "2026-01-28T16:46:24.280527311"
     },
     "samtools": {
         "content": [
@@ -443,7 +443,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:11:08.289839348"
+        "timestamp": "2026-01-28T16:46:24.381476776"
     },
     "taxpasta": {
         "content": [
@@ -482,7 +482,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:11:08.430835891"
+        "timestamp": "2026-01-28T16:46:24.442180374"
     },
     "bbduk": {
         "content": [
@@ -503,7 +503,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:43.754703477"
+        "timestamp": "2026-01-28T16:46:15.08245804"
     },
     "ganon": {
         "content": [
@@ -546,7 +546,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:48.589022585"
+        "timestamp": "2026-01-28T16:46:19.57247613"
     },
     "kaiju": {
         "content": [
@@ -578,7 +578,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:57.723618355"
+        "timestamp": "2026-01-28T16:46:19.930657058"
     },
     "bracken": {
         "content": [
@@ -596,7 +596,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:43.812724538"
+        "timestamp": "2026-01-28T16:46:15.12463315"
     },
     "diamond": {
         "content": [
@@ -649,7 +649,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:48.363491588"
+        "timestamp": "2026-01-28T16:46:19.491100272"
     },
     "metaphlan": {
         "content": [
@@ -712,11 +712,11 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:11:07.938188092"
+        "timestamp": "2026-01-28T16:46:24.255641571"
     },
     "porechop_abi": {
         "content": [
-            true,
+            "ERR3201952_ERR3201952_porechop_abi.log contains string: 'Looking for known adapter':true",
             [
                 "ERR3201952_ERR3201952_porechop_abi.log"
             ]
@@ -725,31 +725,19 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:11:08.265263297"
+        "timestamp": "2026-01-28T16:46:24.359920904"
     },
     "kraken2": {
         "content": [
             "2611_db2.kraken2.kraken2.report.txt contains string:'Homo sapiens':true",
-            [
-                ">ERR5766174.15494 kraken:taxid|559292"
-            ],
-            [
-                ">ERR5766174.184799"
-            ],
+            "2611_db2.kraken2.classified.fastq.gz contains string 'ERR5766174.15494 kraken:taxid|559292':[>ERR5766174.15494 kraken:taxid|559292]",
+            "2611_db2.kraken2.unclassified.fastq.gz contains string '>ERR5766174.184799':[>ERR5766174.184799]",
             "2612_db2.kraken2.kraken2.report.txt contains string:'Saccharomyces cerevisiae S288C':true",
-            [
-                "@ERR5766180.35963 kraken:taxid|9606"
-            ],
-            [
-                "@ERR5766180.601927"
-            ],
+            "2612_db2.kraken2.classified.fastq.gz contains string:'@ERR5766180.35963':[@ERR5766180.35963 kraken:taxid|9606]",
+            "2612_db2.kraken2.unclassified.fastq.gz contains string:'@ERR5766180.601927':[@ERR5766180.601927]",
             "2613_db2.kraken2.kraken2.report.txt contains string:'Saccharomyces cerevisiae S288C':true",
-            [
-                "@ERR5766181.6866 kraken:taxid|9606"
-            ],
-            [
-                "@ERR5766181.108601"
-            ],
+            "2613_db2.kraken2.classified.fastq.gz contains string:'@ERR5766181.6866':[@ERR5766181.6866 kraken:taxid|9606]",
+            "2613_db2.kraken2.unclassified.fastq.gz contains string:'@ERR5766181.108601':[@ERR5766181.108601]",
             "kraken2_db1-bracken_combined_reports.txt contains string:'Saccharomyces cerevisiae S288C':true",
             "kraken2_db2_combined_reports.txt contains string:'Saccharomyces cerevisiae S288C':true",
             [
@@ -770,7 +758,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:11:07.804673386"
+        "timestamp": "2026-01-28T16:46:24.183676934"
     },
     "-profile test": {
         "content": [
@@ -917,7 +905,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:43.55200385"
+        "timestamp": "2026-01-28T16:46:15.001197704"
     },
     "centrifuge": {
         "content": [
@@ -930,20 +918,10 @@
                 "2613_db3.centrifuge.results.txt contains string:true",
                 "2613_db3.centrifuge.txt contains string:true"
             ],
-            [
-                "@ERR5766176.5733",
-                "@ERR5766176.5733"
-            ],
-            [
-                "@ERR5766176.191984",
-                "@ERR5766176.191984"
-            ],
-            [
-                "@ERR5766181.3868"
-            ],
-            [
-                "@ERR5766181.537239"
-            ],
+            "2612_db3.centrifuge.mapped.fastq.gz contains string '@ERR5766176.5733':[@ERR5766176.5733, @ERR5766176.5733]",
+            "2612_db3.centrifuge.unmapped.fastq.gz contains string '@ERR5766176.191984':[@ERR5766176.191984, @ERR5766176.191984]",
+            "2613_db3.centrifuge.mapped.fastq.gz contains string '@ERR5766181.3868':[@ERR5766181.3868]",
+            "2613_db3.centrifuge.unmapped.fastq.gz contains string '@ERR5766181.537239':[@ERR5766181.537239]",
             [
                 "centrifuge_db3_combined_reports.txt",
                 "db3/2612_db3.centrifuge.mapped.fastq.gz",
@@ -962,7 +940,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:48.151680045"
+        "timestamp": "2026-01-28T16:46:19.435972225"
     },
     "nonpareil": {
         "content": [
@@ -985,17 +963,17 @@
                 "2613_ERR5766181.npo contains string:true"
             ],
             "2612_ERR5766176_B.npc contains string:'177104':true",
-            true,
+            "File 2612_ERR5766176_B.png exists:  true",
             "2612_ERR5766176.npc contains string:'205699':true",
-            true,
+            "File 2612_ERR5766176.png exists:  true",
             "2612_ERR5766180.npc contains string:'143862':true",
-            true,
+            "File 2612_ERR5766180.png exists:  true",
             "2613_ERR5766181.npc contains string:'127039':true",
-            true,
+            "File 2613_ERR5766181.png exists:  true",
             "nonpareil_all_samples.csv contains string:'modelR':true",
             "nonpareil_all_samples.json contains string:'log.sample':true",
-            true,
-            true,
+            "File nonpareil_all_samples_mqc.png exists:  true",
+            "File nonpareil_all_samples.pdf exists:  true",
             "nonpareil_all_samples.tsv contains string:'diversity':true",
             [
                 "2612_ERR5766176.npa",
@@ -1029,7 +1007,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:11:08.216735698"
+        "timestamp": "2026-01-28T16:46:24.32971159"
     },
     "kmcp": {
         "content": [
@@ -1043,7 +1021,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:57.747287149"
+        "timestamp": "2026-01-28T16:46:19.954799738"
     },
     "fastp": {
         "content": [
@@ -1078,6 +1056,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-01-28T15:10:48.526673335"
+        "timestamp": "2026-01-28T16:46:19.535068755"
     }
 }
