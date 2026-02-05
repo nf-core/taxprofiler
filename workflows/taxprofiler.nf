@@ -50,7 +50,6 @@ include { CAT_FASTQ as MERGE_RUNS       } from '../modules/nf-core/cat/fastq/mai
 */
 
 workflow TAXPROFILER {
-<<<<<<< HEAD
 
     adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
     custom_adapters = params.longread_qc_adapterlist ? file(params.longread_qc_adapterlist, checkIfExists: true) : []
@@ -60,8 +59,6 @@ workflow TAXPROFILER {
         if ( params.shortread_qc_tool == 'fastp' && !adapterlist.extension.matches(".*(fa|fasta|fna|fas)") ) error "[nf-core/taxprofiler] ERROR: fastp adapter list requires a `.fasta` format and extension (or fa, fas, fna). Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
     }
 
-=======
->>>>>>> master
     take:
     samplesheet // channel: samplesheet read in from --input
     databases // channel: databases from --databases

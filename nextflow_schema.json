@@ -701,6 +701,42 @@
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Specify kraken2 database for prefiltering of non-prokaryotic reads with melon."
+                },
+                "run_metacache": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with metacache. Requires database to be present CSV file passed to --databases"
+                },
+                "metacache_lowest_rank": {
+                    "type": "string",
+                    "default": "sequence",
+                    "fa_icon": "fas fa-sort-amount-down-alt",
+                    "description": "Lowest taxonomic rank for classification.",
+                    "help_text": "The default lowest taxon rank is 'sequence'. If you do not want to classify at sequence-level, you can set a higher rank as lowest classification rank with the -lowest command line option: -lowest species or -lowest subspecies or -lowest genus, etc.\n\n> Modifies tool parameter(s):\n- metacache: `-lowest`"
+                },
+                "metacache_taxids": {
+                    "type": "boolean",
+                    "description": "Print taxon ids in addition to taxon names",
+                    "fa_icon": "fas fa-list-ul",
+                    "help_text": "Modifies tool parameter(s):\n- metacache: `-taxids`"
+                },
+                "metacache_separate_cols": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-columns",
+                    "description": "Print all mapping information in separate columns (rank, taxon name, taxon ids).",
+                    "help_text":"Modifies tool parameter(s):\n- metacache: `-separate-cols`"
+                },
+                "metacache_abundances": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-percent",
+                    "description": "Print all mapping information in separate columns (rank, taxon name, taxon ids).",
+                    "help_text":"Modifies tool parameter(s):\n- metacache: `-abundances`"
+                },
+                "metacache_abundance_per_rank": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-percentage",
+                    "description": "Print a table with the estimated abundance for a specific taxonomic rank.",
+                    "help_text":"For each taxon in the dataset the number of reads assigned to it is counted. Taxa on lower levels than the requested taxonomic rank are pruned and their read counts are added to their respective parents, while reads from taxa on higher levels are distributed among their children in proportion to the weights of the sub-trees rooted at each child. After the redistribution the estimated number of reads and abundance percentages are returned as outputs.\\n\\n>Modifies tool parameter(s):\n- metacache: `-abundance-per <rank>"
                 }
             },
             "fa_icon": "fas fa-align-center"

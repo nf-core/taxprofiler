@@ -23,6 +23,7 @@ include { GANON_REPORT                                  } from '../../modules/nf
 include { SYLPH_PROFILE                                 } from '../../modules/nf-core/sylph/profile/main'
 include { SYLPHTAX_TAXPROF                              } from '../../modules/nf-core/sylphtax/taxprof/main'
 include { MELON                                         } from '../../modules/nf-core/melon/main'
+include { METACACHE_QUERY                               } from '../../modules/nf-core/metacache/query/main'
 
 workflow PROFILING {
     take:
@@ -78,6 +79,7 @@ workflow PROFILING {
             ganon:      db_meta.tool == 'ganon'
             sylph:      db_meta.tool == 'sylph'
             melon:      db_meta.tool == 'melon'
+            metacache:  db_meta.tool == 'metacache'
             unknown:    true
         }
 
@@ -619,6 +621,20 @@ workflow PROFILING {
         ch_raw_classifications  = ch_raw_classifications.mix( MELON.out.json_output )
         ch_raw_profiles         = ch_raw_profiles.mix( MELON.out.tsv_output )
 
+
+    }
+
+
+    if (params.run_metacache) {
+
+        ch_input_for_metacache = ch_input_for_profiling.metacache.multiMap { it ->
+            reads: [it[0] + it[2], it[1]]
+            db: it[3]
+        }
+
+        METACACHE_QUERY(ch_input_for_metacache.reads, ch_input_for_metacache.db, params.metacache_abundances)
+        ch_versions = ch_versions.mix(METACACHE_QUERY.out.versions.first())
+        ch_raw_profiles = ch_raw_profiles.mix(METACACHE_QUERY.out.profile)
     }
 
     emit:

@@ -22,7 +22,8 @@
                     "metaphlan",
                     "motus",
                     "sylph",
-                    "melon"
+                    "melon",
+                    "metacache"
                 ],
                 "errorMessage": "Invalid tool name. Please see documentation for all supported profilers. Currently these classifers are included: bracken, centrifuge, diamond, ganon, kaiju, kmcp, kraken2, krakenuniq, malt, metaphlan, motus, sylph, melon.",
                 "meta": ["tool"]
