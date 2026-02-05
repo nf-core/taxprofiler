@@ -30,7 +30,7 @@ Please see the rest of this page for information about how to prepare input samp
 
 ## Samplesheet inputs
 
-nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers).
+nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers). For PACBIO_SMRT data, please convert BAM files to FASTQ format before input.
 
 You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row as shown in the examples below. Furthermore, nf-core/taxprofiler also requires a second comma-separated file of 3 columns with a header row as in the examples below.
 
@@ -441,7 +441,14 @@ Centrifuge currently does not accept FASTA files as input, therefore no output w
 
 ##### DIAMOND
 
-DIAMOND can only accept a single input read file. To run DIAMOND on paired-end reads, please merge the reads (e.g., using `--shortread_qc_mergepairs`).
+DIAMOND can only accept a single input read file. When run DIAMOND on paired-end reads without merging, only the `read1` file will be used.
+Alternatively, you can merge the reads using `--shortread_qc_mergepairs`.
+
+:::warning
+Note however that the merging approach only works when the vast majority of reads do actually merge.
+If your DNA molecules were too short, read pairs will not overlap and not merge - by default being discarded.
+While you have the option of retaining unmerged reads as well (with `--shortread_qc_includeunmerged`), be careful that including unmerged reads retains these as _independent_ reads in the FASTQ file - thus you may get double counts on a taxon from a single read.
+:::
 
 DIAMOND only allows output of a single file format at a time, therefore parameters such `--diamond_save_reads` supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending on your particular use case.
 
@@ -581,7 +588,7 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `shifter`
   - A generic configuration profile to be used with [Shifter](https://nersc.gitlab.io/development/shifter/how-to-use/)
 - `charliecloud`
-  - A generic configuration profile to be used with [Charliecloud](https://hpc.github.io/charliecloud/)
+  - A generic configuration profile to be used with [Charliecloud](https://charliecloud.io/)
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
 - `wave`
