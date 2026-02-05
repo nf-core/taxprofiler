@@ -11,14 +11,15 @@ workflow LONGREAD_ADAPTERREMOVAL {
     custom_adapters
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     if ( params.longread_adapterremoval_tool == 'porechop_abi' ) {
         PORECHOP_ABI ( reads, custom_adapters )
         ch_processed_reads = PORECHOP_ABI.out.reads.map { meta, chopped_reads -> [meta + [single_end: true], chopped_reads] }
         ch_versions = ch_versions.mix( PORECHOP_ABI.out.versions.first() )
         ch_multiqc_files = ch_multiqc_files.mix( PORECHOP_ABI.out.log )
+     }
     else if (params.longread_adapterremoval_tool == 'porechop') {
         PORECHOP_PORECHOP(reads)
         ch_processed_reads = PORECHOP_PORECHOP.out.reads.map { meta, chopped_reads -> [meta + [single_end: true], chopped_reads] }

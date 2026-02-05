@@ -634,7 +634,7 @@ workflow PROFILING {
 
         METACACHE_QUERY(ch_input_for_metacache.reads, ch_input_for_metacache.db, params.metacache_abundances)
         ch_versions = ch_versions.mix(METACACHE_QUERY.out.versions.first())
-        ch_raw_profiles = ch_raw_profiles.mix(METACACHE_QUERY.out.profile)
+        ch_raw_profiles = ch_raw_profiles.mix(METACACHE_QUERY.out.mapping_results)
     }
 
     emit:

@@ -200,10 +200,10 @@ workflow TAXPROFILER {
     }
 
     if ( params.perform_longread_qc ) {
-        ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( ch_input.nanopore, custom_adapters ).reads.map { it -> [ it[0], [it[1]] ] }
+        ch_longreads_preprocessed_nanopore = LONGREAD_PREPROCESSING ( ch_input.nanopore, custom_adapters ).reads.map { it -> [ it[0], [it[1]] ] }
         ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     } else {
-        ch_longreads_preprocessed = ch_input.nanopore
+        ch_longreads_preprocessed_nanopore = ch_input.nanopore
     }
 
     /*
