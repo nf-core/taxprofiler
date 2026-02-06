@@ -724,3 +724,23 @@ You can then add the path to `<YOUR_DB_NAME>/` to your nf-core/taxprofiler datab
 </details>
 
 More information on the Melon database can be found [here](https://github.com/xinehc/melon#database-setup).
+
+#### MetaCache custom database
+
+To build a custom MetaCache database, you need download the NCBI taxonomy. The fasta files can either be combined into a singile file or you can put them all together within a directory
+
+
+```bash
+download-ncbi-taxonomy ncbi_taxonomy
+metacache build metacache all_genomes.fasta -taxonomy ncbi_taxonomy
+```
+
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `metacache`
+  - `database/<custom_name>.meta`
+  - `database/<custom_name>.cache0`
+  </details>
+
+More information on custom MetaCache database construction can be found [here](https://github.com/muellan/metacache/blob/d7646eca4c4dc131262b16d2910923fce3f5d4fc/docs/building.md).
