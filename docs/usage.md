@@ -139,6 +139,7 @@ ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 sylph,db1,-m 80,/<path>/<to>/sylph/test-db-sylph.tar.gz
 melon,db1,,/<path>/<to>/melon/test-db-melon.tar.gz
+metacache,db1,,/<path>/<to>/metacache/test-db-metacache.tar.gz
 ```
 
 ```csv
@@ -155,6 +156,8 @@ ganon,db1,,short,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,short,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 sylph,db1,-m 80,long,/<path>/<to>/sylph/test-db-sylph.tar.gz
 melon,db1,,long,/<path>/<to>/melon/test-db-melon.tar.gz
+metacache,db1,,long,/<path>/<to>/metacache/test-db-metacache.tar.gz
+
 ```
 
 :::warning
@@ -207,6 +210,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
 - [**sylph**:](usage/tutotials.md#sylph-custom-database) output of `sylph sketch` command.
 - [**Melon**:](usage/tutorials.md#melon-custom-database) output of `diamond makedb` and `minimap2`.
+- [**MetaCache**:](usage/tutorials.md#metacache-custom-database) output of `metacache build` command
 
 ## Running the pipeline
 
@@ -497,6 +501,9 @@ Currently, no specific tips or suggestions.
 
 Melon is only suitable for long-read metagenomic profiling.
 Therefore, nf-core/taxprofiler does not currently run Melon on data specified as being sequenced with `illumina` or any other short-read platform in the input samplesheet.
+
+##### MetaCache
+Currently, no specific tips or suggestions.
 
 #### Post Processing
 
