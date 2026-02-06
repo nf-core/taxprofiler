@@ -40,6 +40,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [ganon](#ganon) - Taxonomic classifier and profile that uses Interleaved Bloom Filters as indices based on k-mers/minimizers.
 - [sylph](#sylph) - Taxonomic classifier that performs ultrafast average nucleotide identity (ANI) querying or metagenomic profiling for metagenomic shotgun samples.
 - [Melon](#Melon) - Taxonomic classifier that uses ribosomal marker genes to classify and quantify long-read metagenomic data.
+- [MetaCache](#metacache) - Taxonomic classifier using minhashing
 - [TAXPASTA](#taxpasta) - Tool to standardise taxonomic profiles as well as merge profiles across samples from the same database and classifier/profiler.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
@@ -652,6 +653,24 @@ For further descriptions of the contents of each file, see the [sylph documentat
 
 The main taxonomic classification files from melon are the `*.tsv` and `*.json` files.
 For further descriptions of the contents of each file, see the [melon documentation](https://github.com/xinehc/melon#run-melon).
+
+### MetaCache
+
+[MetaCache](https://github.com/muellan/metacache) is a taxonomic classifier that minhashing for the classification of reads
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `metacache/`
+  - `<db_name>/`
+    - `<sample_id>.txt`: taxonomic profile in txt format
+
+</details>
+
+MetaCache's default read mapping output format  is:
+    read_header | rank:taxon_name
+
+For further description see [MetaCache documentation](https://github.com/muellan/metacache/blob/d7646eca4c4dc131262b16d2910923fce3f5d4fc/docs/output.md#classification-output).
 
 ### Krona
 
