@@ -30,7 +30,7 @@ Please see the rest of this page for information about how to prepare input samp
 
 ## Samplesheet inputs
 
-nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers).
+nf-core/taxprofiler can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files, long-read FASTQ files (e.g. Oxford Nanopore), or FASTA sequences (available for a subset of profilers). For PACBIO_SMRT data, please convert BAM files to FASTQ format before input.
 
 You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 6 columns, and a header row as shown in the examples below. Furthermore, nf-core/taxprofiler also requires a second comma-separated file of 3 columns with a header row as in the examples below.
 
@@ -139,6 +139,7 @@ ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 sylph,db1,-m 80,/<path>/<to>/sylph/test-db-sylph.tar.gz
 melon,db1,,/<path>/<to>/melon/test-db-melon.tar.gz
+metacache,db1,,/<path>/<to>/metacache/test-db-metacache.tar.gz
 ```
 
 ```csv
@@ -155,6 +156,8 @@ ganon,db1,,short,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,short,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
 sylph,db1,-m 80,long,/<path>/<to>/sylph/test-db-sylph.tar.gz
 melon,db1,,long,/<path>/<to>/melon/test-db-melon.tar.gz
+metacache,db1,,long,/<path>/<to>/metacache/test-db-metacache.tar.gz
+
 ```
 
 :::warning
@@ -207,6 +210,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
 - [**sylph**:](usage/tutotials.md#sylph-custom-database) output of `sylph sketch` command.
 - [**Melon**:](usage/tutorials.md#melon-custom-database) output of `diamond makedb` and `minimap2`.
+- [**MetaCache**:](usage/tutorials.md#metacache-custom-database) output of `metacache build` command
 
 ## Running the pipeline
 
@@ -441,7 +445,14 @@ Centrifuge currently does not accept FASTA files as input, therefore no output w
 
 ##### DIAMOND
 
-DIAMOND can only accept a single input read file. To run DIAMOND on paired-end reads, please merge the reads (e.g., using `--shortread_qc_mergepairs`).
+DIAMOND can only accept a single input read file. When run DIAMOND on paired-end reads without merging, only the `read1` file will be used.
+Alternatively, you can merge the reads using `--shortread_qc_mergepairs`.
+
+:::warning
+Note however that the merging approach only works when the vast majority of reads do actually merge.
+If your DNA molecules were too short, read pairs will not overlap and not merge - by default being discarded.
+While you have the option of retaining unmerged reads as well (with `--shortread_qc_includeunmerged`), be careful that including unmerged reads retains these as _independent_ reads in the FASTQ file - thus you may get double counts on a taxon from a single read.
+:::
 
 DIAMOND only allows output of a single file format at a time, therefore parameters such `--diamond_save_reads` supplied will result in only aligned reads in SAM format will be produced, no taxonomic profiles will be available. Be aware of this when setting up your pipeline runs, depending on your particular use case.
 
@@ -490,6 +501,10 @@ Currently, no specific tips or suggestions.
 
 Melon is only suitable for long-read metagenomic profiling.
 Therefore, nf-core/taxprofiler does not currently run Melon on data specified as being sequenced with `illumina` or any other short-read platform in the input samplesheet.
+
+##### MetaCache
+
+Currently, no specific tips or suggestions.
 
 #### Post Processing
 
@@ -581,7 +596,7 @@ If `-profile` is not specified, the pipeline will run locally and expect all sof
 - `shifter`
   - A generic configuration profile to be used with [Shifter](https://nersc.gitlab.io/development/shifter/how-to-use/)
 - `charliecloud`
-  - A generic configuration profile to be used with [Charliecloud](https://hpc.github.io/charliecloud/)
+  - A generic configuration profile to be used with [Charliecloud](https://charliecloud.io/)
 - `apptainer`
   - A generic configuration profile to be used with [Apptainer](https://apptainer.org/)
 - `wave`

@@ -7,9 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#682](https://github.com/nf-core/taxprofiler/pull/682) Added metacache classifier and improved nf-tests (added by @sofstam)
 - [#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
 - [#595](https://github.com/nf-core/taxprofiler/pull/595) **New classifier** [sylph](https://github.com/bluenote-1577/sylph) (added by @sofstam)
 - [#608](https://github.com/nf-core/taxprofiler/pull/608) **New classifier** [melon](https://github.com/xinehc/melon) (added by @parisis and @sofstam)
+
+### `Fixed`
+
+### `Changed`
+
+### `Dependencies`
+
+## v1.2.5 - [2025-11-21]
+
+### `Added`
+
+- [#640](https://github.com/nf-core/taxprofiler/pull/640) Added support for saving Metaphlan SAM files (❤️ to @mr2raccoon for reporting and added by @jfy133)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657), [#667](https://github.com/nf-core/taxprofiler/pull/667) Template update for nf-core/tools v3.4.1 and v3.5.1 (added by @sofstam and @jfy133)
+
+### `Fixed`
+
+- [#653](https://github.com/nf-core/taxprofiler/pull/653) Enable runs for `PACBIO_SMRT`data (fixed by @LilyAnderssonLee)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657) Fix `--version` not printing version (❤️ to @fwa93 for reporting and added by @jfy133 )
+
+### `Changed`
+
+### `Dependencies`
+
+| Tool    | Previous version | New version |
+| ------- | ---------------- | ----------- |
+| nf-core | 3.3.2            | 3.5.1       |
+| multiqc | 1.27             | 1.32        |
+
+## v1.2.4 - Bouncy Basenji Patch [2025-08-28]
+
+### `Added`
+
 - [#619](https://github.com/nf-core/taxprofiler/pull/619) Added default pipeline nf-test (added by @sofstam)
 - [#615](https://github.com/nf-core/taxprofiler/pull/615) Updated to nf-core pipeline template v3.3.1 (added by @sofstam)
 - [#614](https://github.com/nf-core/taxprofiler/pull/614) Updated module `krakenuniq/preloadedkrakenuniq` to fix preload mechanism. The RAM chunk size can now be customised on a per-database basis. (added by @muniheart with help from / ❤️ to @jfy133)
@@ -23,7 +56,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#592](https://github.com/nf-core/taxprofiler/pull/592) improved JSON schema for better validation (by @microlei)
 - [#604](https://github.com/nf-core/taxprofiler/pull/604) KrakenUniq no longer fails due to pathname splitting during batching when only single sample supplied (by @AlexHoratio)
 - [#612](https://github.com/nf-core/taxprofiler/pull/616) Fix bug with bracken results being shown in MuktiQC for long read data every if bracken not supported for long reads (added by @jfy133 and @sofstam )
-- [#630](https://github.com/nf-core/taxprofiler/pull/630) Fix a bug in KRAKENUNIQ reads channel where a single-element list containing a / in the path was being split incorrectly, causing unexpected multiple list elements.
+- [#630](https://github.com/nf-core/taxprofiler/pull/630) Fix a bug in KRAKENUNIQ reads channel where a single-element list containing a / in the path was being split incorrectly, causing unexpected multiple list elements (❤️ to @sysbiocoder for reporting and fixed by @LilyAnderssonLee)
+- [#631](https://github.com/nf-core/taxprofiler/pull/631) For paired-end reads, DIAMOND will use only the forward read file (read 1) unless reads are merged (❤️ to @sysbiocoder for reporting and fixed by @LilyAnderssonLee)
+- [#635](https://github.com/nf-core/taxprofiler/pull/635) Fix faulty parsing of memory request in BBDuk (❤️ to @Proton-NTA for reporting, fix by @mahesh-panchal)
 
 ### `Changed`
 
