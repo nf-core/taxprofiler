@@ -663,7 +663,8 @@ For further descriptions of the contents of each file, see the [melon documentat
 
 - `metacache/`
   - `<db_name>/`
-    - `<sample_id>.txt`: taxonomic profile in txt format
+    - `<sample_id>.abundances.txt`: Absolute and relative abundance of each taxon on each rank in .txt format
+    - `<sample_id>.mspping.txt`: Mapping outout in .txt format
 
 </details>
 
