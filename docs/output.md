@@ -668,8 +668,8 @@ For further descriptions of the contents of each file, see the [melon documentat
 
 </details>
 
-MetaCache's default read mapping output format  is:
-    read_header | rank:taxon_name
+MetaCache's default read mapping output format is:
+read_header | rank:taxon_name
 
 For further description see [MetaCache documentation](https://github.com/muellan/metacache/blob/d7646eca4c4dc131262b16d2910923fce3f5d4fc/docs/output.md#classification-output).
 

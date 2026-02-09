@@ -729,7 +729,6 @@ More information on the Melon database can be found [here](https://github.com/xi
 
 To build a custom MetaCache database, you need download the NCBI taxonomy. The fasta files can either be combined into a singile file or you can put them all together within a directory
 
-
 ```bash
 download-ncbi-taxonomy ncbi_taxonomy
 metacache build metacache all_genomes.fasta -taxonomy ncbi_taxonomy
