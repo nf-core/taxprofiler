@@ -69,7 +69,7 @@ nextflow_pipeline {
             def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //sylph
-            def stable_content_sylph  = getAllFilesFromDir("$outputDir/sylph", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_sylph  = getAllFilesFromDir("$outputDir/sylph", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //taxpasta
             def stable_content_taxpasta      = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
@@ -154,7 +154,8 @@ nextflow_pipeline {
                                 file("$outputDir/kraken2/kraken2_db2_combined_reports.txt").getName() + " contains string:'Saccharomyces cerevisiae S288C':" + file("$outputDir/kraken2/kraken2_db2_combined_reports.txt").text.contains("Saccharomyces cerevisiae S288C"),
                                 stable_content_kraken2).match("kraken2") },
                 { assert snapshot(getAllFilesFromDir("$outputDir/krona", include: ['*.html']).collect { file -> file.getName() + " exists:"+ file.exists() }, stable_content_krona).match("krona") },
-                { assert snapshot (stable_content_metacache).match("metacache")},
+                { assert snapshot (getAllFilesFromDir("$outputDir/metacache", include: ['**/*.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("Penicillium roqueforti")},
+                                stable_content_metacache).match("metacache")},
                 { assert snapshot(getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + ' contains string:' + file.text.contains("generated_by")},
                                 getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.bowtie2out.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("avg_read_length")},
                                 getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*_profile.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("clade_name")},

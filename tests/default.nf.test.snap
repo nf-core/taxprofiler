@@ -401,7 +401,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:12.181521422"
+        "timestamp": "2026-02-09T16:15:33.854091864"
     },
     "krona": {
         "content": [
@@ -426,7 +426,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.47210458"
+        "timestamp": "2026-02-09T16:15:45.256158499"
     },
     "bowtie2": {
         "content": [
@@ -441,7 +441,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:12.255462862"
+        "timestamp": "2026-02-09T16:15:33.955298105"
     },
     "nanoq": {
         "content": [
@@ -453,7 +453,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.559501299"
+        "timestamp": "2026-02-09T16:15:45.349499508"
     },
     "samtools": {
         "content": [
@@ -475,7 +475,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.657306907"
+        "timestamp": "2026-02-09T16:15:45.476768941"
     },
     "taxpasta": {
         "content": [
@@ -514,7 +514,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.890427884"
+        "timestamp": "2026-02-09T16:15:45.662262406"
     },
     "bbduk": {
         "content": [
@@ -535,7 +535,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:12.236914365"
+        "timestamp": "2026-02-09T16:15:33.934984861"
     },
     "ganon": {
         "content": [
@@ -578,10 +578,14 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:16.825291991"
+        "timestamp": "2026-02-09T16:15:38.893876295"
     },
     "metacache": {
         "content": [
+            [
+                "2614_db1.mapping.txt contains string:true",
+                "ERR3201952_db1.mapping.txt contains string:true"
+            ],
             [
                 "db1/2614_db1.mapping.txt",
                 "db1/ERR3201952_db1.mapping.txt"
@@ -591,7 +595,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.49392238"
+        "timestamp": "2026-02-09T16:15:45.282635709"
     },
     "kaiju": {
         "content": [
@@ -623,7 +627,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:17.244235583"
+        "timestamp": "2026-02-09T16:15:40.89939993"
     },
     "bracken": {
         "content": [
@@ -641,7 +645,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:12.278744223"
+        "timestamp": "2026-02-09T16:15:33.981130698"
     },
     "diamond": {
         "content": [
@@ -694,7 +698,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:16.703265636"
+        "timestamp": "2026-02-09T16:15:38.728199618"
     },
     "metaphlan": {
         "content": [
@@ -757,7 +761,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.535187496"
+        "timestamp": "2026-02-09T16:15:45.324842762"
     },
     "porechop_abi": {
         "content": [
@@ -770,25 +774,25 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.636143912"
+        "timestamp": "2026-02-09T16:15:45.425996633"
     },
     "sylph": {
         "content": [
             "sylph_db1_combined_reports.tsv contains string:'Penicillium roqueforti':true",
             [
-                "2612_db1.sylph.tsv:md5,a84853a9ea0e88e62f3caa13f28ef945",
-                "2612_db1.sylphmpa:md5,a0832fc0d249a96e5c22afaa63e0bba8",
-                "2613_db1.sylph.tsv:md5,609a51bbcbbfe48ad780d0dadd1105e4",
-                "2613_db1.sylphmpa:md5,253491defa87230970e890256dc0cb02",
-                "ERR3201952_db1.sylph.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "sylph_db1_combined_reports.tsv:md5,32cbbeb3d7088729cf8cd644a4c4a5a1"
+                "db1/2612_db1.sylph.tsv",
+                "db1/2612_db1.sylphmpa",
+                "db1/2613_db1.sylph.tsv",
+                "db1/2613_db1.sylphmpa",
+                "db1/ERR3201952_db1.sylph.tsv",
+                "sylph_db1_combined_reports.tsv"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.772419965"
+        "timestamp": "2026-02-09T16:15:45.567820854"
     },
     "kraken2": {
         "content": [
@@ -821,7 +825,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.446821966"
+        "timestamp": "2026-02-09T16:15:45.230908304"
     },
     "-profile test": {
         "content": [
@@ -983,7 +987,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:12.117357703"
+        "timestamp": "2026-02-09T16:15:33.743246155"
     },
     "centrifuge": {
         "content": [
@@ -1018,7 +1022,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:16.648734852"
+        "timestamp": "2026-02-09T16:15:38.467749167"
     },
     "nonpareil": {
         "content": [
@@ -1085,7 +1089,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:21.6069895"
+        "timestamp": "2026-02-09T16:15:45.397494682"
     },
     "kmcp": {
         "content": [
@@ -1099,7 +1103,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:17.268211164"
+        "timestamp": "2026-02-09T16:15:40.924315068"
     },
     "fastp": {
         "content": [
@@ -1134,6 +1138,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-09T15:37:16.771074613"
+        "timestamp": "2026-02-09T16:15:38.85285044"
     }
 }
