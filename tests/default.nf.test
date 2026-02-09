@@ -48,6 +48,10 @@ nextflow_pipeline {
             //krona
             def stable_content_krona          = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            //metacache
+            def stable_content_metacache          = getAllFilesFromDir("$outputDir/metacache", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+
             //metaphlan
             def stable_content_metaphlan      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
             def sam_files                     = getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.sam'])
@@ -65,7 +69,7 @@ nextflow_pipeline {
             def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //sylph
-            def stable_content_sylph  = getAllFilesFromDir("$outputDir/sylph", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_sylph  = getAllFilesFromDir("$outputDir/sylph", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             //taxpasta
             def stable_content_taxpasta      = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
@@ -150,6 +154,7 @@ nextflow_pipeline {
                                 file("$outputDir/kraken2/kraken2_db2_combined_reports.txt").getName() + " contains string:'Saccharomyces cerevisiae S288C':" + file("$outputDir/kraken2/kraken2_db2_combined_reports.txt").text.contains("Saccharomyces cerevisiae S288C"),
                                 stable_content_kraken2).match("kraken2") },
                 { assert snapshot(getAllFilesFromDir("$outputDir/krona", include: ['*.html']).collect { file -> file.getName() + " exists:"+ file.exists() }, stable_content_krona).match("krona") },
+                { assert snapshot (stable_content_metacache).match("metacache")},
                 { assert snapshot(getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + ' contains string:' + file.text.contains("generated_by")},
                                 getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.bowtie2out.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("avg_read_length")},
                                 getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*_profile.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("clade_name")},
@@ -178,7 +183,8 @@ nextflow_pipeline {
                 { assert snapshot (file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").getName() + " contains string: 'Looking for known adapter':" + file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("Looking for known adapter"),
                                 stable_content_porechopabi).match("porechop_abi")},
                 { assert snapshot (stable_content_samtools).match("samtools")},
-                { assert snapshot (stable_content_sylph).match("sylph")},
+                { assert snapshot (file("$outputDir/sylph/sylph_db1_combined_reports.tsv").getName() + " contains string:'Penicillium roqueforti':" + file("$outputDir/sylph/sylph_db1_combined_reports.tsv").text.contains("Penicillium roqueforti"),
+                                stable_content_sylph).match("sylph")},
                 { assert snapshot(file("$outputDir/taxpasta/bracken_db1.tsv").getName() + " contains string:'9606':" + file("$outputDir/taxpasta/bracken_db1.tsv").text.contains("9606"),
                                 file("$outputDir/taxpasta/centrifuge_db3.tsv").getName() + " contains string:'131567':" + file("$outputDir/taxpasta/centrifuge_db3.tsv").text.contains("131567"),
                                 file("$outputDir/taxpasta/diamond_db1.tsv").getName() + " contains string:'8058':" + file("$outputDir/taxpasta/diamond_db1.tsv").text.contains("8058"),
