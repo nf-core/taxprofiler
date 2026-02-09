@@ -724,19 +724,19 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-columns",
                     "description": "Print all mapping information in separate columns (rank, taxon name, taxon ids).",
-                    "help_text":"Modifies tool parameter(s):\n- metacache: `-separate-cols`"
+                    "help_text": "Modifies tool parameter(s):\n- metacache: `-separate-cols`"
                 },
                 "metacache_abundances": {
                     "type": "boolean",
                     "fa_icon": "fas fa-percent",
                     "description": "Print all mapping information in separate columns (rank, taxon name, taxon ids).",
-                    "help_text":"Modifies tool parameter(s):\n- metacache: `-abundances`"
+                    "help_text": "Modifies tool parameter(s):\n- metacache: `-abundances`"
                 },
                 "metacache_abundance_per_rank": {
                     "type": "string",
                     "fa_icon": "fas fa-percentage",
                     "description": "Print a table with the estimated abundance for a specific taxonomic rank.",
-                    "help_text":"For each taxon in the dataset the number of reads assigned to it is counted. Taxa on lower levels than the requested taxonomic rank are pruned and their read counts are added to their respective parents, while reads from taxa on higher levels are distributed among their children in proportion to the weights of the sub-trees rooted at each child. After the redistribution the estimated number of reads and abundance percentages are returned as outputs.\\n\\n>Modifies tool parameter(s):\n- metacache: `-abundance-per <rank>"
+                    "help_text": "For each taxon in the dataset the number of reads assigned to it is counted. Taxa on lower levels than the requested taxonomic rank are pruned and their read counts are added to their respective parents, while reads from taxa on higher levels are distributed among their children in proportion to the weights of the sub-trees rooted at each child. After the redistribution the estimated number of reads and abundance percentages are returned as outputs.\\n\\n>Modifies tool parameter(s):\n- metacache: `-abundance-per <rank>"
                 }
             },
             "fa_icon": "fas fa-align-center"
