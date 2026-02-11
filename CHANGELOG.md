@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#674](https://github.com/nf-core/taxprofiler/pull/674) Fixed bug where wrong variables names used for KrakenUniq input channel causing pipeline crash (❤️ to @pcantalupo for reporting, fixed by @jfy133)
 - [#675](https://github.com/nf-core/taxprofiler/pull/675) Prevent file name conflict with mixed SE and PE runs for a single sample with stricter validation (fixed by @LilyAnderssonLee and @jfy133)
-- [#XXX](https://github.com/nf-core/taxprofiler/pull/XXX) Fix pre-supplied long-read host removal index not being compatible with MINIMAP2_ALIGN module (fixed by @jfy133)
+- [#683](https://github.com/nf-core/taxprofiler/pull/683) Fix pre-supplied long-read host removal index not being compatible with MINIMAP2_ALIGN module (fixed by @jfy133)
 
 ### `Changed`
 
