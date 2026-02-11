@@ -65,36 +65,35 @@ workflow TAXPROFILER {
         ch_reference = file(params.hostremoval_reference)
     }
     if (params.shortread_hostremoval_index) {
-        ch_shortread_reference_index = channel.fromPath(params.shortread_hostremoval_index).map { [[], it] }
+        ch_shortread_reference_index = channel.fromPath(params.shortread_hostremoval_index, checkIfExists: true).map { index -> [[], index] }
     }
     else {
         ch_shortread_reference_index = []
     }
     if (params.longread_hostremoval_index) {
-        ch_longread_reference_index = file(params.longread_hostremoval_index)
+        ch_longread_reference_index = channel.fromPath(params.longread_hostremoval_index, checkIfExists: true).map { index -> [[], index] }
     }
     else {
         ch_longread_reference_index = []
     }
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
-    ch_input = samplesheet
-        .branch { meta, _run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
-            fastq: meta.single_end || fastq_2
-            return [meta + [type: "short"], fastq_2 ? [fastq_1, fastq_2] : [fastq_1]]
-            nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
-            meta.single_end = true
-            return [meta + [type: "long"], [fastq_1]]
-            pacbio: instrument_platform == 'PACBIO_SMRT' && !meta.is_fasta
-            meta.single_end = true
-            return [meta + [type: "long"], [fastq_1]]
-            fasta_short: meta.is_fasta && instrument_platform == 'ILLUMINA'
-            meta.single_end = true
-            return [meta + [type: "short"], [fasta]]
-            fasta_long: meta.is_fasta && (instrument_platform == 'OXFORD_NANOPORE' || instrument_platform == 'PACBIO_SMRT')
-            meta.single_end = true
-            return [meta + [type: "long"], [fasta]]
-        }
+    ch_input = samplesheet.branch { meta, _run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+        fastq: meta.single_end || fastq_2
+        return [meta + [type: "short"], fastq_2 ? [fastq_1, fastq_2] : [fastq_1]]
+        nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
+        meta.single_end = true
+        return [meta + [type: "long"], [fastq_1]]
+        pacbio: instrument_platform == 'PACBIO_SMRT' && !meta.is_fasta
+        meta.single_end = true
+        return [meta + [type: "long"], [fastq_1]]
+        fasta_short: meta.is_fasta && instrument_platform == 'ILLUMINA'
+        meta.single_end = true
+        return [meta + [type: "short"], [fasta]]
+        fasta_long: meta.is_fasta && (instrument_platform == 'OXFORD_NANOPORE' || instrument_platform == 'PACBIO_SMRT')
+        meta.single_end = true
+        return [meta + [type: "long"], [fasta]]
+    }
 
     // Merge ch_input.fastq and ch_input.nanopore into a single channel
     ch_input_for_fastqc = ch_input.fastq.mix(ch_input.nanopore, ch_input.pacbio)
