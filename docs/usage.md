@@ -506,7 +506,11 @@ Note that the multi-sample tables from the 'native' tools in each folders are [n
 - One taxonomic classification table
 - one taxpasta table
 
-To generate the required inputs for `genomic-medicine-sweden/metaval`, include the metaval profile using `-profile <your_other_configs>,metaval`, and don't modify `--run_profile_standardisation` or `--taxpasta_add_lineage`.
+To generate the required inputs for `genomic-medicine-sweden/metaval`, include the `metaval` profile using `-profile <your_other_configs>,metaval`.
+
+> [!DANGER]
+> Do not modify `--run_profile_standardisation` or `--taxpasta_add_lineage`.
+> The output files from these flags are mandatory input for `metaval`
 
 If using filtered FASTA files as input reads, include `--perform_shortread_qc --perform_shortread_complexityfilter --save_complexityfiltered_reads` for short reads or `--perform_longread_qc --save_preprocessed_reads` for long reads. If using host-removal reads, include `--perform_shortread_hostremoval --perform_longread_hostremoval --save_hostremoval_unmapped --hostremoval_reference '/path/to/host/genome'`. To run specific classifiers, turn on `--run_kraken2 --kraken2_save_readclassifications`, `--run_centrifuge` or `--run_diamond`.
 
