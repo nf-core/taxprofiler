@@ -65,13 +65,13 @@ workflow TAXPROFILER {
         ch_reference = file(params.hostremoval_reference)
     }
     if (params.shortread_hostremoval_index) {
-        ch_shortread_reference_index = channel.fromPath(params.shortread_hostremoval_index, checkIfExists: true).map { index -> [[], index] }
+        ch_shortread_reference_index = channel.fromPath(params.shortread_hostremoval_index, checkIfExists: true).first().map { index -> [[], index] }
     }
     else {
         ch_shortread_reference_index = []
     }
     if (params.longread_hostremoval_index) {
-        ch_longread_reference_index = channel.fromPath(params.longread_hostremoval_index, checkIfExists: true).map { index -> [[], index] }
+        ch_longread_reference_index = channel.fromPath(params.longread_hostremoval_index, checkIfExists: true).first().map { index -> [[], index] }
     }
     else {
         ch_longread_reference_index = []
