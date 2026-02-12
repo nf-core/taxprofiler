@@ -502,7 +502,7 @@ Note that the multi-sample tables from the 'native' tools in each folders are [n
 
 `metaval` needs minimum following files:
 
-- FASTAQ reads (raw, filtered, or after host-removal)
+- FASTQ reads (raw, filtered, or after host-removal)
 - One taxonomic classification table
 - One taxpasta table
 
@@ -515,10 +515,10 @@ To generate the required inputs for `genomic-medicine-sweden/metaval`, include t
 We generally recommend cleaning up and preprocessing your reads prior passing to `metaval`.
 
 If you want to filter short FASTQ input files reads to `metaval` (as in, your reads are not already preprocessed), include `--perform_shortread_qc --perform_shortread_complexityfilter --save_complexityfiltered_reads`.
-If you want to filter long FASTQ input files reads, specify `--perform_longread_qc --save_preprocessed_reads` for long reads.
+If you want to filter long FASTQ input files reads, specify `--perform_longread_qc --save_preprocessed_reads`.
 
-If you want to use for short-read input to `metaval`  that has host reads removed, include `--perform_shortread_hostremoval`.
-If you want to use for long-read input to `metaval`  that has host reads removed, include `--perform_longread_hostremoval --save_hostremoval_unmapped --hostremoval_reference '/path/to/host/genome'`. 
+If you want to remove host reads from short-read input to `metaval`, include `--perform_shortread_hostremoval`.
+If you want to remove host reads from long-read input to `metaval`, include `--perform_longread_hostremoval --save_hostremoval_unmapped --hostremoval_reference '/path/to/host/genome'`.
 
 By default, the `metaval` config will turn on all of `--run_kraken2 --kraken2_save_readclassifications`, `--run_centrifuge` or `--run_diamond`.
 If you only wish to run one or two, specify `--run_<tool> false`
