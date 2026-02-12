@@ -504,7 +504,7 @@ Note that the multi-sample tables from the 'native' tools in each folders are [n
 
 - FASTAQ reads (raw, filtered, or after host-removal)
 - One taxonomic classification table
-- one taxpasta table
+- One taxpasta table
 
 To generate the required inputs for `genomic-medicine-sweden/metaval`, include the `metaval` profile using `-profile <your_other_configs>,metaval`.
 
