@@ -515,7 +515,7 @@ To generate the required inputs for `genomic-medicine-sweden/metaval`, include t
 We generally recommend cleaning up and preprocessing your reads prior passing to `metaval`.
 
 If you want to filter short FASTQ input files reads to `metaval` (as in, your reads are not already preprocessed), include `--perform_shortread_qc --perform_shortread_complexityfilter --save_complexityfiltered_reads`.
-If you want to filter long FASTQ input files reads, specify `--perform_longread_qc --save_preprocessed_reads`.
+If you want to filter your long FASTQ input files reads for use in `metaval`, additionally specify `--perform_longread_qc --save_preprocessed_reads`.
 
 If you want to remove host reads from short-read input to `metaval`, include `--perform_shortread_hostremoval`.
 If you want to remove host reads from long-read input to `metaval`, include `--perform_longread_hostremoval --save_hostremoval_unmapped --hostremoval_reference '/path/to/host/genome'`.
