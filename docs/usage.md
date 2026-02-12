@@ -518,7 +518,7 @@ If you want to filter your short FASTQ input files reads for use in `metaval` (a
 If you want to filter your long FASTQ input files reads for use in `metaval`, additionally specify `--perform_longread_qc --save_preprocessed_reads`.
 
 If you want to remove host reads from short-read input to `metaval`, include `--perform_shortread_hostremoval`.
-If you want to remove host reads from long-read input to `metaval`, include `--perform_longread_hostremoval --save_hostremoval_unmapped --hostremoval_reference '/path/to/host/genome'`.
+If you want to remove host reads from long-read input for use in `metaval`, additionally include `--perform_longread_hostremoval --save_hostremoval_unmapped --hostremoval_reference '/path/to/host/genome'`.
 
 By default, the `metaval` config will turn on all of `--run_kraken2 --kraken2_save_readclassifications`, `--run_centrifuge` or `--run_diamond`.
 If you only wish to run one or two, specify `--run_<tool> false`
