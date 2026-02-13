@@ -11,7 +11,6 @@ kraken2/*/*.{fastq.gz,txt}
 krona/*.html
 metaphlan/*/*.{biom,txt,sam}
 multiqc/multiqc_data/*.txt
-multiqc/multiqc_data/BETA-multiqc.parquet
 multiqc/multiqc_data/fastqc_top_overrepresented_sequences_table.txt
 multiqc/multiqc_data/llms-full.txt
 multiqc/multiqc_data/multiqc.log
