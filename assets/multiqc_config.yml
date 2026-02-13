@@ -321,7 +321,7 @@ table_columns_visible:
     nonpareil_diversity: true
   porechop:
     Input reads: false
-    Start Trimmed: null
+    Start Trimmed: false
     Start Trimmed Percent: true
     End Trimmed: false
     End Trimmed Percent: true
