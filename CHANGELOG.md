@@ -3,9 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.3.0dev - [unreleased]
+## v1.2.6 - [unreleased]
 
 ### `Added`
+
+- [#678](https://github.com/nf-core/taxprofiler/pull/678) Included metaval.config to generat input files for genomic-medicine-sweden/metaval (added by @LilyAnderssonLee)
+- [#655](https://github.com/nf-core/taxprofiler/pull/655) Added nf-tests for test profile (added by @sofstam)
 
 ### `Fixed`
 
