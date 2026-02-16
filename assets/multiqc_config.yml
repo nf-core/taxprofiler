@@ -329,7 +329,7 @@ table_columns_visible:
     Middle Split Percent: true
   porechop_abi:
     Input reads: false
-    Start Trimmed: null
+    Start Trimmed: false
     Start Trimmed Percent: true
     End Trimmed: false
     End Trimmed Percent: true
