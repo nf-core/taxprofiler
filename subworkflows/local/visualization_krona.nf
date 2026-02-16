@@ -17,9 +17,9 @@ workflow VISUALIZATION_KRONA {
     databases
 
     main:
-    ch_krona_text = Channel.empty()
-    ch_krona_html = Channel.empty()
-    ch_versions = Channel.empty()
+    ch_krona_text = channel.empty()
+    ch_krona_html = channel.empty()
+    ch_versions = channel.empty()
 
     /*
         Split profile results based on tool they come from

@@ -8,8 +8,8 @@ workflow NONPAREIL {
     reads // [ [ meta ], [ reads ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     ch_reads_for_nonpareil = reads
         .map { meta, input_reads ->

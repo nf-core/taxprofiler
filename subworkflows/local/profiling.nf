@@ -22,15 +22,15 @@ include { GANON_REPORT                                  } from '../../modules/nf
 
 workflow PROFILING {
     take:
-    reads     // [ [ meta ], [ reads ] ]
+    reads // [ [ meta ], [ reads ] ]
     databases // [ [ meta ], path ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
-    ch_raw_classifications = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
+    ch_raw_classifications = channel.empty()
     // These per-read ID taxonomic assingment
-    ch_raw_profiles = Channel.empty()
+    ch_raw_profiles = channel.empty()
     // These are count tables
 
     /*
@@ -341,12 +341,12 @@ workflow PROFILING {
     if (params.run_krakenuniq) {
 
         ch_input_for_krakenuniq = ch_input_for_profiling.krakenuniq
-            .map { meta, _input_reads, db_meta, db ->
-                def seqtype = reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/ ? 'fasta' : 'fastq'
+            .map { meta, input_reads, db_meta, db ->
+                def seqtype = input_reads[0].name ==~ /.+?\.f\w{0,3}a(\.gz)?$/ ? 'fasta' : 'fastq'
                 // We bundle the sample identifier with the sequencing files to undergo batching.
                 def prefix = params.perform_runmerging ? meta.id : "${meta.id}_${meta.run_accession}"
                 prefix = meta.single_end ? "${prefix}.se" : "${prefix}.pe"
-                [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], [reads].flatten() + [prefix], db_meta, db]
+                [[id: db_meta.db_name, single_end: meta.single_end, seqtype: seqtype], [input_reads].flatten() + [prefix], db_meta, db]
             }
             .groupTuple(by: [0, 2, 3])
             .flatMap { single_meta, input_reads, db_meta, db ->
@@ -485,7 +485,7 @@ workflow PROFILING {
     classifications = ch_raw_classifications
     profiles        = ch_raw_profiles // channel: [ val(meta), [ reads ] ] - should be text files or biom
     versions        = ch_versions // channel: [ versions.yml ]
-    motus_version   = params.run_motus ? MOTUS_PROFILE.out.versions.first() : Channel.empty()
+    motus_version   = params.run_motus ? MOTUS_PROFILE.out.versions.first() : channel.empty()
     mqc             = ch_multiqc_files
 }
 

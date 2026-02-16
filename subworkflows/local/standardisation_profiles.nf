@@ -20,8 +20,8 @@ workflow STANDARDISATION_PROFILES {
     motu_version
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     //Taxpasta standardisation
     ch_prepare_for_taxpasta = profiles
@@ -39,10 +39,10 @@ workflow STANDARDISATION_PROFILES {
             ]
             [meta, input_profiles.flatten()]
         }
-        // We replace kraken2-bracken to kraken2 replace to get the right output-format description (as it's Kraken style)
-        // Bracken to id append so to disambiguate when we have same databases for kraken2 step of bracken, with normal bracken
+    // We replace kraken2-bracken to kraken2 replace to get the right output-format description (as it's Kraken style)
+    // Bracken to id append so to disambiguate when we have same databases for kraken2 step of bracken, with normal bracken
 
-    ch_taxpasta_tax_dir = params.taxpasta_taxonomy_dir ? Channel.fromPath(params.taxpasta_taxonomy_dir, checkIfExists: true).collect() : []
+    ch_taxpasta_tax_dir = params.taxpasta_taxonomy_dir ? channel.fromPath(params.taxpasta_taxonomy_dir, checkIfExists: true).collect() : []
 
     ch_input_for_taxpasta = ch_prepare_for_taxpasta.branch { _meta, profile ->
         merge: profile.size() > 1

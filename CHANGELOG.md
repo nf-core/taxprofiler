@@ -3,6 +3,29 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2.6 - [2026-02-16]
+
+### `Added`
+
+- [#678](https://github.com/nf-core/taxprofiler/pull/678) Included metaval.config to generat input files for genomic-medicine-sweden/metaval (added by @LilyAnderssonLee)
+- [#655](https://github.com/nf-core/taxprofiler/pull/655) Added nf-tests for test profile (added by @sofstam)
+
+### `Fixed`
+
+- [#674](https://github.com/nf-core/taxprofiler/pull/674) Fixed bug where wrong variables names used for KrakenUniq input channel causing pipeline crash (❤️ to @pcantalupo for reporting, fixed by @jfy133)
+- [#675](https://github.com/nf-core/taxprofiler/pull/675) Prevent file name conflict with mixed SE and PE runs for a single sample with stricter validation (fixed by @LilyAnderssonLee and @jfy133)
+- [#683](https://github.com/nf-core/taxprofiler/pull/683) Fix pre-supplied long-read host removal index not being compatible with MINIMAP2_ALIGN module (fixed by @jfy133)
+
+### `Changed`
+
+- [#676](https://github.com/nf-core/taxprofiler/pull/676) Turn off saving of BAM version of unmapped reads from long read host removal (❤️ to @sofstam for reporting, changed by @jfy133)
+
+### `Dependencies`
+
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| samtools | 1.20             | 1.22.1      |
+
 ## v1.2.5 - [2025-11-21]
 
 ### `Added`

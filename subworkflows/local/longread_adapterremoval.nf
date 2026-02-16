@@ -10,8 +10,8 @@ workflow LONGREAD_ADAPTERREMOVAL {
     reads
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     if (params.longread_adapterremoval_tool == 'porechop_abi') {
         PORECHOP_ABI(reads)
