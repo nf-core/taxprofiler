@@ -382,16 +382,16 @@
                 "2612_db1.bracken.tsv:md5,330c1d6f98cbc6d44dec3e83d9eeccd7",
                 "2613_db1.bracken.kraken2.report_bracken.txt:md5,56647e7054f565a9affaabd5b18b4bd8",
                 "2613_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b",
-                "2612_db3.centrifuge.mapped.fastq.gz:md5,a5fb6fe9d59cacf39b2e37b637d6ef66",
+                "2612_db3.centrifuge.mapped.fastq.gz:md5,3ed7220a14f7923efca1c5677d752370",
                 "2612_db3.centrifuge.report.txt:md5,0a6f26622c27cfead610f61164e1c3be",
-                "2612_db3.centrifuge.results.txt:md5,ba5cf7f9690973ab765cff18b424979c",
+                "2612_db3.centrifuge.results.txt:md5,44bd604824fd87c7f9433c0a41f70c72",
                 "2612_db3.centrifuge.txt:md5,ff8aa36ddf249c159ae831e947009554",
-                "2612_db3.centrifuge.unmapped.fastq.gz:md5,0c9bea3f607105f3dcd35b0daef43fdf",
-                "2613_db3.centrifuge.mapped.fastq.gz:md5,fc1c7a454ac54fb5c056b40a0600b834",
+                "2612_db3.centrifuge.unmapped.fastq.gz:md5,2ad9939d4ab0e12f7ef304b65e349c2d",
+                "2613_db3.centrifuge.mapped.fastq.gz:md5,880371f282c32c5666206cd8853ad0dd",
                 "2613_db3.centrifuge.report.txt:md5,51447b7c533fb23c1c5ffb18978662bc",
-                "2613_db3.centrifuge.results.txt:md5,7757428fefc495390dafa4e1c14ecc1e",
+                "2613_db3.centrifuge.results.txt:md5,078d3c09e4423412fe0763dadd56edb4",
                 "2613_db3.centrifuge.txt:md5,312542edb738972229695f68d2868019",
-                "2613_db3.centrifuge.unmapped.fastq.gz:md5,14cfb4f02fd3b890f8ae093045b81c9d",
+                "2613_db3.centrifuge.unmapped.fastq.gz:md5,f6e8ffabcca406ac8a01c111807bc758",
                 "2612_ERR5766176_B_processed_fastqc.html:md5,b94d9842ebc604657e97400138b84f14",
                 "2612_ERR5766176_processed_fastqc.html:md5,ff1bae9c66ee5b172e83a0240a678375",
                 "2612_ERR5766180_processed_fastqc.html:md5,0590b05b8eba4ffd40f7a1c89fc09bce",
@@ -426,7 +426,7 @@
                 "metaphlan_metaphlan3_combined_reports.txt:md5,2b3a29d19036090fc5aa0d1d1ed1f25c",
                 "metaphlan_metaphlan4_combined_reports.txt:md5,32c167494d4f9d6116469046a9b3b616",
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9",
-                "nonpareil_all_samples.tsv:md5,a4b3dba2be363f5f70d32e24ef10ae96",
+                "nonpareil_all_samples.tsv:md5,2122f11c12624460cdd8f5f1f602165f",
                 "2612_ERR5766176.stats:md5,14ac2eb1b383e7f9be7514ebd1a39b0f",
                 "2612_ERR5766176_B.stats:md5,f1ab2d05e62dcafe2ac865318b6ef6bf",
                 "2612_ERR5766180.stats:md5,73eb6b8421a3c094a3bbb6667035bf10",
@@ -438,7 +438,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-02-17T12:04:18.419053566"
+        "timestamp": "2026-02-17T13:10:14.610697324"
     },
     "krona": {
         "content": [
