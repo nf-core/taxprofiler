@@ -17,7 +17,6 @@ nextflow_pipeline {
         then {
 
             def stable_name_all               = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
-            def stable_path                   = getAllFilesFromDir( params.outdir,ignoreFile: 'tests/.nftignore')
 
              //BBDuk
             def stable_content_bbduk          = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
@@ -81,7 +80,7 @@ nextflow_pipeline {
                 { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
 
-                { assert snapshot ( stable_name_all, stable_path ).match("all_files") },
+                { assert snapshot ( stable_name_all ).match("all_files") },
                 { assert snapshot( getAllFilesFromDir("$outputDir/bbduk", include: ['*.bbduk.log']).collect{file -> file.getName() + ' contains string:' + file.text.contains("Reads Processed:") },
                                 stable_content_bbduk).match("bbduk")},
                 { assert snapshot (stable_content_bowtie2).match("bowtie2")},
