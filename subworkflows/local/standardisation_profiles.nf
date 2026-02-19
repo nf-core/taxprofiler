@@ -11,6 +11,7 @@ include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE 
 include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../modules/nf-core/metaphlan/mergemetaphlantables/main'
 include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
 include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
+include { SYLPHTAX_MERGE                                                        } from '../../modules/nf-core/sylphtax/merge/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -49,15 +50,19 @@ workflow STANDARDISATION_PROFILES {
         standardise: true
     }
 
-    ch_input_for_taxpasta_merge = ch_input_for_taxpasta.merge.multiMap { meta, input_profiles ->
-        profiles: [meta, input_profiles]
-        tool: meta.tool
-    }
+    ch_input_for_taxpasta_merge = ch_input_for_taxpasta.merge
+        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon']) }
+        .multiMap { meta, input_profiles ->
+            profiles: [meta, input_profiles]
+            tool: meta.tool
+        }
 
-    ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise.multiMap { meta, input_profiles ->
-        profiles: [meta, input_profiles]
-        tool: meta.tool
-    }
+    ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
+        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon']) }
+        .multiMap { meta, input_profiles ->
+            profiles: [meta, input_profiles]
+            tool: meta.tool
+        }
 
 
     TAXPASTA_MERGE(ch_input_for_taxpasta_merge.profiles, ch_input_for_taxpasta_merge.tool, params.standardisation_taxpasta_format, ch_taxpasta_tax_dir, [])
@@ -70,25 +75,27 @@ workflow STANDARDISATION_PROFILES {
     /*
         Split profile results based on tool they come from
     */
-    ch_input_profiles = profiles.branch {
-        bracken: it[0]['tool'] == 'bracken'
-        centrifuge: it[0]['tool'] == 'centrifuge'
-        ganon: it[0]['tool'] == 'ganon'
-        kmcp: it[0]['tool'] == 'kmcp'
-        kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
-        metaphlan: it[0]['tool'] == 'metaphlan'
-        motus: it[0]['tool'] == 'motus'
+    ch_input_profiles = profiles.branch { entry ->
+        bracken: entry[0]['tool'] == 'bracken'
+        centrifuge: entry[0]['tool'] == 'centrifuge'
+        ganon: entry[0]['tool'] == 'ganon'
+        kmcp: entry[0]['tool'] == 'kmcp'
+        kraken2: entry[0]['tool'] == 'kraken2' || entry[0]['tool'] == 'kraken2-bracken'
+        metaphlan: entry[0]['tool'] == 'metaphlan'
+        motus: entry[0]['tool'] == 'motus'
+        melon: entry[0]['tool'] == 'melon'
+        sylph: entry[0]['tool'] == 'sylph'
         unknown: true
     }
 
-    ch_input_classifications = classifications.branch {
-        kaiju: it[0]['tool'] == 'kaiju'
+    ch_input_classifications = classifications.branch { entry ->
+        kaiju: entry[0]['tool'] == 'kaiju'
         unknown: true
     }
 
-    ch_input_databases = databases.branch {
-        motus: it[0]['tool'] == 'motus'
-        kaiju: it[0]['tool'] == 'kaiju'
+    ch_input_databases = databases.branch { entry ->
+        motus: entry[0]['tool'] == 'motus'
+        kaiju: entry[0]['tool'] == 'kaiju'
         unknown: true
     }
 
@@ -109,7 +116,7 @@ workflow STANDARDISATION_PROFILES {
     // the script fails
     ch_profiles_for_centrifuge = groupProfiles(
         ch_input_profiles.centrifuge,
-        [sort: { -it.size() }],
+        [sort: { rows -> -rows.size() }],
     )
 
     KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE(ch_profiles_for_centrifuge)
@@ -138,7 +145,7 @@ workflow STANDARDISATION_PROFILES {
             def db_name = meta.tool == 'kraken2-bracken' ? "${meta.db_name}-bracken" : "${meta.db_name}"
             return [meta + [db_name: db_name], profile]
         },
-        [sort: { -it.size() }],
+        [sort: { rows -> -rows.size() }],
     )
 
     KRAKENTOOLS_COMBINEKREPORTS_KRAKEN(ch_profiles_for_kraken2)
@@ -173,6 +180,11 @@ workflow STANDARDISATION_PROFILES {
     GANON_TABLE(ch_profiles_for_ganon)
     ch_multiqc_files = ch_multiqc_files.mix(GANON_TABLE.out.txt)
     ch_versions = ch_versions.mix(GANON_TABLE.out.versions)
+
+    // sylph
+    ch_profiles_for_sylph = groupProfiles(ch_input_profiles.sylph)
+    SYLPHTAX_MERGE(ch_profiles_for_sylph, params.sylph_data_type)
+    ch_versions = ch_versions.mix(SYLPHTAX_MERGE.out.versions)
 
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles

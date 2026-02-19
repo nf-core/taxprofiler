@@ -145,6 +145,8 @@ metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
+sylph,db1,-m 80,/<path>/<to>/sylph/test-db-sylph.tar.gz
+melon,db1,,/<path>/<to>/melon/test-db-melon.tar.gz
 ```
 
 ```csv
@@ -159,16 +161,20 @@ metaphlan,db1,,short,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,long,/<path>/<to>/motus/motus_database/
 ganon,db1,,short,/<path>/<to>/ganon/test-db-ganon.tar.gz
 kmcp,db1,;-I 20,short,/<path>/<to>/kmcp/test-db-kmcp.tar.gz
+sylph,db1,-m 80,long,/<path>/<to>/sylph/test-db-sylph.tar.gz
+melon,db1,,long,/<path>/<to>/melon/test-db-melon.tar.gz
 ```
 
 :::warning
-For Bracken and KMCP, which are two step profilers, nf-core/taxprofiler has a special way of passing parameters to each steps!
+For Bracken, KMCP and sylph, which are two step profilers, nf-core/taxprofiler has a special way of passing parameters to each steps!
 
 For Bracken, if you wish to supply any parameters to both the Kraken or Bracken steps or just the Bracken step, you **must** have a _semi-colon_ `;` list in the `db_params` column. This allows you to specify the Kraken2 parameters before and Bracken parameters after the `;`. This is particularly important if you supply a Bracken database with a non-default read length parameter. If you do not have any parameters to specify, you can leave this column empty. If you wish to provide settings to _just_ the Kraken2 step of the Bracken profiling, you can supply a normal string to the column without a semi-colon. If you wish to supply parameters to only Bracken (and keep default Kraken2 parameters), then you supply a string to the column starting with `;` and the Bracken parameters _after_.
 
 Similarly, for KMCP, if you want to supply parameters for both the first (KMCP search) and the _second step_ (KMCP profile) steps, you **must** have a _semi-colon_ separated`;` list in `db_params`. If you wish to provide parameters to just KMCP search, you do not need the `;`. If you want to supply parameters to just KMCP profile (and keep search parameters at default), then you must start the string with `;` and the KMCP profile parameters come _after_ the semi colon. If you do not wish to modify any parameters, you can leave the column empty (i.e. the `;` is not necessary).
 
 This allows you to specify the KMCP search and the KMCP profile parameters, separated by `;`. If you do not have any parameters to specify, you can leave this as empty.
+
+The logic is the same for sylph classifier. If you want to supply parameters for both the first (sylph profile) and the _second step_ (sylph-tax taxprof), you **must** have a _semi-colon_ separated`;` list in `db_params`. If you wish to provide parameters to just sylph profile, you do not need the `;`. If you want to supply parameters to just sylph-tax taxprof (and keep sylph profile parameters at default), then you must start the string with `;` and the sylph-tax taxprof parameters come _after_ the semi colon. If you do not wish to modify any parameters, you can leave the column empty (i.e. the `;` is not necessary).
 :::
 
 Column specifications are as follows:
@@ -207,6 +213,8 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
   - Note that you must use `motus downloadDB` and if installed via `conda`, will be placed in a specific `site-package` directory in the conda environment. For more details see the [mOTUs database tutorial](usage/tutorials.md#motus-custom-database).
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
+- [**sylph**:](usage/tutotials.md#sylph-custom-database) output of `sylph sketch` command.
+- [**Melon**:](usage/tutorials.md#melon-custom-database) output of `diamond makedb` and `minimap2`.
 
 ## Running the pipeline
 
@@ -277,6 +285,8 @@ Raw sequencing read processing in the form of adapter clipping and paired-end re
 
 It is highly recommended to run this on raw reads to remove artifacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles. If you have public data, normally these should have been corrected for, however you should still check that these steps have indeed been already performed.
 
+##### Short reads
+
 There are currently two options for short-read preprocessing: [`fastp`](https://github.com/OpenGene/fastp) or [`adapterremoval`](https://github.com/MikkelSchubert/adapterremoval).
 
 For adapter clipping, you can either rely on the tool's default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
@@ -284,7 +294,34 @@ By default, paired-end merging is not activated. In this case paired-end 'alignm
 You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
 Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during classification/profiling, with minimal gain.
 
+###### Long reads
+
 There are currently two options for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop), [`porechop_abi`](https://github.com/bonsai-team/Porechop_ABI).
+
+When using porechop_abi, you can enable on the `abi` option by turning on `--longread_qc_predictadapters` to predict adapters directly from the reads. Alternatively, you can set `--longread_qc_adapterlist` to provide a custom adapter list instead of using the default adapters from the Porechop database.
+
+Below is a description of the format for a custom adapter list file:
+
+```txt title="custom_adapters_list.txt"
+    line 1: Adapter name
+    line 2: Start adapter sequence
+    line 3: End adapter sequence
+    --- repeat for each adapter pair---
+```
+
+An example is:
+
+```
+    custom_adapter_1
+    GGTTGTTTCTGTTGGTGCTGATATTGCT
+    GAAGATAGAGCGACAGGCAAGT
+
+    custom_adapter_2
+    CACAAAGACACCGACAACTTTCTT
+    TTCGGATTCTATCGTGTTTCCCTA
+```
+
+If your adapters do not contain the start or end sequence, just put an empty line.
 
 For both short-read and long-read preprocessing, you can optionally save the resulting processed reads with `--save_preprocessed_reads`.
 
@@ -448,6 +485,7 @@ MetaPhlAn4 is compatible with the MetaPhlAn3 database by adding the `--mpa3` int
 ##### mOTUs
 
 mOTUs currently does not accept FASTA files as input, therefore no output will be produced for these input files.
+For long reads, the `motus prep_long` command will be being executed first to split long reads into shorter reads which can then be profiled with `motus profile` command.
 
 ##### ganon
 
@@ -458,6 +496,15 @@ Therefore currently nf-core/taxprofiler does not run ganon on data specified as 
 ##### KMCP
 
 KMCP is only suitable for short-read metagenomic profiling, with much lower sensitivity on long-read datasets. Therefore, nf-core/taxprofiler does not currently run KMCP on data specified as being sequenced with `OXFORD_NANOPORE` in the input samplesheet.
+
+##### sylph
+
+Currently, no specific tips or suggestions.
+
+##### melon
+
+Melon is only suitable for long-read metagenomic profiling.
+Therefore, nf-core/taxprofiler does not currently run Melon on data specified as being sequenced with `illumina` or any other short-read platform in the input samplesheet.
 
 #### Post Processing
 
@@ -491,6 +538,7 @@ The following tools will produce multi-sample taxon tables:
 - **MetaPhlAn** (via MetaPhlAn's `merge_metaphlan_tables.py` script)
 - **mOTUs** (via the `motus merge` command)
 - **ganon** (via the `ganon table` command)
+- **sylph** (via the `sylphtax merge` command)
 
 Note that the multi-sample tables from the 'native' tools in each folders are [not inter-operable](https://taxpasta.readthedocs.io/en/latest/tutorials/getting-started/) with each other as they can have different formats and can contain additional and different data. In this case we refer you to use the standardised and merged output from Taxpasta, as described above.
 

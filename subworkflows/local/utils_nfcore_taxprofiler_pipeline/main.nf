@@ -28,7 +28,7 @@ workflow PIPELINE_INITIALISATION {
     take:
     version // boolean: Display version and exit
     validate_params // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs // boolean: Do not use coloured log outputs
+    _monochrome_logs // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir //  string: The output directory where the results will be saved
     input //  string: Path to input samplesheet
@@ -98,36 +98,36 @@ workflow PIPELINE_INITIALISATION {
 
     channel.fromList(samplesheetToList(input, "assets/schema_input.json"))
         .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
-                meta.run_accession = run_accession
-                meta.instrument_platform = instrument_platform
+            meta.run_accession = run_accession
+            meta.instrument_platform = instrument_platform
 
-                // Define single_end based on the conditions
-                meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' && instrument_platform != 'PACBIO_SMRT')
+            // Define single_end based on the conditions
+            meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' && instrument_platform != 'PACBIO_SMRT')
 
-                // Define is_fasta based on the presence of fasta
-                meta.is_fasta = fasta ? true : false
+            // Define is_fasta based on the presence of fasta
+            meta.is_fasta = fasta ? true : false
 
-                if (!meta.is_fasta && !fastq_1) {
-                    error("[nf-core/taxprofiler] ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist for ${meta.run_accession}")
-                }
-                if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
-                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty for ${meta.run_accession}")
-                }
-                if (meta.instrument_platform == 'PACBIO_SMRT' && fastq_2) {
-                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for PacBio reads entry `fastq_2` should be empty for ${meta.run_accession}")
-                }
-                if (meta.single_end && fastq_2) {
-                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty for ${meta.run_accession}")
-                }
-                return [meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta]
+            if (!meta.is_fasta && !fastq_1) {
+                error("[nf-core/taxprofiler] ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist for ${meta.run_accession}")
             }
+            if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
+                error("[nf-core/taxprofiler] Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty for ${meta.run_accession}")
+            }
+            if (meta.instrument_platform == 'PACBIO_SMRT' && fastq_2) {
+                error("[nf-core/taxprofiler] Error: Please check input samplesheet: for PacBio reads entry `fastq_2` should be empty for ${meta.run_accession}")
+            }
+            if (meta.single_end && fastq_2) {
+                error("[nf-core/taxprofiler] Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty for ${meta.run_accession}")
+            }
+            return [meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta]
+        }
         .set { ch_samplesheet }
 
     // Perform cross-row input validation to ensure that all runs of a given sample share the same data type (single-end or paired-end).
     ch_samplesheet
-        .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta -> [ meta.id, meta.single_end ] }  // Adjust field names
-        .groupTuple()                                                                    // Groups by first element (id)
-        .map { validateInputSamplesheet(it) }
+        .map { meta, _run_accession, _instrument_platform, _fastq_1, _fastq_2, _fasta -> [meta.id, meta.single_end] }
+        .groupTuple()
+        .map { input_samplesheet -> validateInputSamplesheet(input_samplesheet) }
 
     //
     // Validate and create channel from databases file provided through params.databases
@@ -311,6 +311,8 @@ def toolCitationText() {
         params.run_motus ? "mOTUs (Ruscheweyh et al. 2022)," : "",
         params.run_ganon ? "ganon (Piro et al. 2020)" : "",
         params.run_kmcp ? "KMCP (Shen et al. 2023)" : "",
+        params.run_sylph ? "sylph (Shaw et al. 2024)," : "",
+        params.run_melon ? "melon (Chen et al. 2024)," : "",
         ".",
     ].join(' ').trim()
 
@@ -331,7 +333,7 @@ def toolCitationText() {
         params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
         params.perform_shortread_hostremoval ? text_shortreadhostremoval : "",
         params.perform_longread_hostremoval ? text_longreadhostremoval : "",
-        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp].any()
+        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp, params.run_sylph, params.run_melon].any()
             ? text_classification
             : "",
         params.run_krona ? text_visualisation : "",
@@ -391,6 +393,8 @@ def toolBibliographyText() {
         params.run_motus ? "<li>Ruscheweyh, H.-J., Milanese, A., Paoli, L., Karcher, N., Clayssen, Q., Keller, M. I., Wirbel, J., Bork, P., Mende, D. R., Zeller, G., & Sunagawa, S. (2022). Cultivation-independent genomes greatly expand taxonomic-profiling capabilities of mOTUs across various environments. Microbiome, 10(1), 212. <a href=\"https://doi.org/10.1186/s40168-022-01410-z\">10.1186/s40168-022-01410-z</a></li>" : "",
         params.run_ganon ? "<li>Piro, V. C., Dadi, T. H., Seiler, E., Reinert, K., & Renard, B. Y. (2020). Ganon: Precise metagenomics classification against large and up-to-date sets of reference sequences. Bioinformatics (Oxford, England), 36(Suppl_1), i12–i20. <a href=\"https://doi.org/10.1093/bioinformatics/btaa458\">10.1093/bioinformatics/btaa458</a></li>" : "",
         params.run_kmcp ? "<li>Shen, W., Xiang, H., Huang, T., Tang, H., Peng, M., Cai, D., Hu, P., & Ren, H. (2023). KMCP: accurate metagenomic profiling of both prokaryotic and viral populations by pseudo-mapping. Bioinformatics (Oxford, England), 39(1). <a href=\"https://doi.org/10.1093/bioinformatics/btac845\">10.1093/bioinformatics/btac845</a></li>" : "",
+        params.run_sylph ? "<li>Shaw, J. & Yu, Y. W. (2024). Rapid species-level metagenome profiling and containment estimation with sylph. Nature Biotechnology. <a href=\"https://doi.org/10.1038/s41587-024-02412-y\">10.1038/s41587-024-02412-y</a></li>" : "",
+        params.run_melon ? "<li>Chen, X., Yin, X., Shi, X., Yan, W., Yang, Y., Liu, L., & Zhang, T. (2024). Melon: metagenomic long-read-based taxonomic identification and quantification using marker genes. Genome Biology, 25(1), 226. <a href=\"https://doi.org/10.1186/s13059-024-03363-y\">10.1186/s13059-024-03363-y</a></li>" : "",
     ].join(' ').trim()
 
     def text_visualisation = [

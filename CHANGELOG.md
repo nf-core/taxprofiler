@@ -67,11 +67,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
+- [#595](https://github.com/nf-core/taxprofiler/pull/595) **New classifier** [sylph](https://github.com/bluenote-1577/sylph) (added by @sofstam)
+- [#608](https://github.com/nf-core/taxprofiler/pull/608) **New classifier** [melon](https://github.com/xinehc/melon) (added by @parisis and @sofstam)
 - [#619](https://github.com/nf-core/taxprofiler/pull/619) Added default pipeline nf-test (added by @sofstam)
 - [#615](https://github.com/nf-core/taxprofiler/pull/615) Updated to nf-core pipeline template v3.3.1 (added by @sofstam)
 - [#614](https://github.com/nf-core/taxprofiler/pull/614) Updated module `krakenuniq/preloadedkrakenuniq` to fix preload mechanism. The RAM chunk size can now be customised on a per-database basis. (added by @muniheart with help from / ❤️ to @jfy133)
 - [#600](https://github.com/nf-core/taxprofiler/pull/600) Added metaphlan to multiqc report (❤️ to @harper357 for reporting and added by @sofstam)
 - [#605](https://github.com/nf-core/taxprofiler/pull/605) Added documentation on how to generate Bracken reports for different taxonomic levels (❤️ to @MajoroMask for reporting and added by @jfy133)
+- -[#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
 
 ### `Fixed`
 
@@ -114,7 +118,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#576](https://github.com/nf-core/taxprofiler/pull/576) Sort input to krakenuniq to enable retrieval of cached batch tasks (❤️ to @muniheart for reporting and fix)
 - [#569](https://github.com/nf-core/taxprofiler/pull/569) Updated to nf-core pipeline template v3.1.2 (added by @sofstam)
 - [#571](https://github.com/nf-core/taxprofiler/pull/571) Updated to nf-core pipeline template v3.2.0 (added by @sofstam)
--
+- [#591](https://github.com/nf-core/taxprofiler/pull/591) Add options to enable the `abi` option to predict adapters or provide a custom adapter list for `porechop_abi` (❤️ to @AlexHoratio
+  for suggesting, fix by @LilyAnderssonLee and @sofstam)
 
 ### `Fixed`
 

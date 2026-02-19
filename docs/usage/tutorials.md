@@ -633,3 +633,110 @@ You can then add the `<YOUR_DB_NAME>/` path to your nf-core/taxprofiler database
 </details>
 
 More information on custom KMCP database construction can be found [here](https://bioinf.shenwei.me/kmcp/database/#building-custom-databases).
+
+#### sylph custom database
+
+To build a sylph database, it only requires fasta files.
+
+```bash
+sylph sketch genomes/*.fa.gz
+```
+
+If all genomes are in the same file, you can run:
+
+```bash
+sylph sketch all_genomes.fa
+```
+
+By default, the output database will be named `database.syldb`. If you prefer a custom name, please use `--out-name-db <YOUR_DB_NAME>` flag.
+
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `sylph`
+  - `database/<custom_name>.syldb`
+  </details>
+
+More information on custom sylph database construction can be found [here](https://sylph-docs.github.io/sylph-cookbook/#database-sketching-options).
+
+Classification using the sylph classifier consists of two steps:
+
+1. running the `sylph profile` command
+2. running the `sylph-tax taxprof` command
+
+The second `sylph-tax taxprof` command also requires a taxonomy file that you must provide.
+You can create your own taxonomy metadata file via a two-column TSV file:
+
+- Column 1: the name of your genome's FASTA file
+- Column 2: a semicolon-delimited taxonomy string.
+
+For example:
+
+```bash
+GCA_000005845.2	d__Bacteria;p__Pseudomonadota;c__Gammaproteobacteria;o__Enterobacterales;f__Enterobacteriaceae;g__Escherichia;s__Escherichia
+GCA_000006805.1	d__Archaea;p__Halobacteriota;c__Halobacteria;o__Halobacteriales;f__Halobacteriaceae;g__Halobacterium;s__Halobacterium
+GCA_000006985.1	d__Bacteria;p__Bacteroidota;c__Chlorobia;o__Chlorobiales;f__Chlorobiaceae;g__Chlorobaculum;s__Chlorobaculum
+GCA_000007105.1	d__Bacteria;p__Pseudomonadota;c__Alphaproteobacteria;o__Sphingomonadales;f__Sphingomonadaceae;g__Zymomonas;s__Zymomonas
+GCA_000007185.1	d__Archaea;p__Methanobacteriota;c__Methanopyri;o__Methanopyrales;f__Methanopyraceae;g__Methanopyrus;s__Methanopyrus
+GCA_000007225.1	d__Archaea;p__Thermoproteota;c__Thermoprotei;o__Thermoproteales;f__Thermoproteaceae;g__Pyrobaculum;s__Pyrobaculum
+```
+
+More information on custom taxonomies can be found [here](https://sylph-docs.github.io/sylph-tax-custom-taxonomies/)
+
+#### Melon custom database
+
+Melon does not provide the ability to construct custom databases.
+Therefore we recommend to use the the prebuilt database of marker genes provided by the developers.
+
+The pre-built database is specifically designed for long-read metagenomic data.
+Sequences from either NCBI or GTDB can be used to build the database.
+
+To use the Melon database, you need to download one of pre-built databases from the [Melon GitHub repository](https://github.com/xinehc/melon#database-setup).
+
+After downloading the marker gene set provided in the GitHub repository, you will need to have `DIAMOND` and `minimap2` installed to build the database.
+
+For example, if you have conda installed:
+
+````bash
+## -y means to automatically accept list of packages to install!
+conda create -n melon-db-build -c bioconda minimap2 diamond -y
+conda activate melon-db-build
+
+```bash
+## if you encounter memory issue please consider manually lowering cpu_count or simply set cpu_count=1
+cpu_count=$(python -c 'import os; print(os.cpu_count())')
+
+diamond makedb --in database/prot.fa --db database/prot --quiet
+ls database/nucl.*.fa | sort | xargs -P $cpu_count -I {} bash -c '
+    filename=${1%.fa*};
+    filename=${filename##*/};
+    minimap2 -x map-ont -d database/$filename.mmi ${1} 2> /dev/null;
+    echo "Indexed <database/$filename.fa>.";' - {}
+
+## remove unnecessary files to save space
+rm -rf database/*.fa
+````
+
+You can then add the path to `<YOUR_DB_NAME>/` to your nf-core/taxprofiler database input sheet.
+
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `melon`
+  - `metadata.tsv`
+  - `nucl.archaea.l15e.mmi`
+  - `nucl.archaea.s19e.mmi`
+  - `nucl.bacteria.l11.mmi`
+  - `nucl.bacteria.l27.mmi`
+  - `nucl.bacteria.s7.mmi`
+  - `nucl.archaea.l10e.mmi`
+  - `nucl.archaea.l18e.mmi`
+  - `nucl.archaea.s28e.mmi`
+  - `nucl.archaea.s3ae.mmi`
+  - `nucl.bacteria.l20.mmi`
+  - `nucl.bacteria.s2.mmi`
+  - `prot.dmnd`
+
+</details>
+
+More information on the Melon database can be found [here](https://github.com/xinehc/melon#database-setup).

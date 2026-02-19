@@ -61,6 +61,8 @@ workflow TAXPROFILER {
 
     // Preprocessing auxiliary file input channel preperation
     adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
+    custom_adapters = params.longread_qc_adapterlist ? file(params.longread_qc_adapterlist, checkIfExists: true) : []
+
     if (params.hostremoval_reference) {
         ch_reference = file(params.hostremoval_reference)
     }
@@ -166,7 +168,7 @@ workflow TAXPROFILER {
     }
 
     if (params.perform_longread_qc) {
-        ch_longreads_preprocessed_nanopore = LONGREAD_PREPROCESSING(ch_input.nanopore).reads.map { it -> [it[0], [it[1]]] }
+        ch_longreads_preprocessed_nanopore = LONGREAD_PREPROCESSING(ch_input.nanopore, custom_adapters).reads.map { it -> [it[0], [it[1]]] }
         ch_versions = ch_versions.mix(LONGREAD_PREPROCESSING.out.versions)
     }
     else {
@@ -353,38 +355,38 @@ workflow TAXPROFILER {
             )
         }
         else {
-            ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect { it[1] }.ifEmpty([]))
+            ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect { zips -> zips[1] }.ifEmpty([]))
         }
     }
 
     if (params.perform_shortread_qc) {
-        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_PREPROCESSING.out.mqc.collect { it[1] }.ifEmpty([]))
+        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_PREPROCESSING.out.mqc.collect { mqc -> mqc[1] }.ifEmpty([]))
     }
 
     if (params.perform_longread_qc) {
-        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_PREPROCESSING.out.mqc.collect { it[1] }.ifEmpty([]))
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_PREPROCESSING.out.mqc.collect { mqc -> mqc[1] }.ifEmpty([]))
     }
 
     if (params.perform_shortread_redundancyestimation) {
-        ch_multiqc_files = ch_multiqc_files.mix(NONPAREIL.out.mqc.collect { it[1] }.ifEmpty([]))
+        ch_multiqc_files = ch_multiqc_files.mix(NONPAREIL.out.mqc.collect { mqc -> mqc[1] }.ifEmpty([]))
     }
 
     if (params.perform_shortread_complexityfilter && params.shortread_complexityfilter_tool != 'fastp') {
-        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect { it[1] }.ifEmpty([]))
+        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_COMPLEXITYFILTERING.out.mqc.collect { mqc -> mqc[1] }.ifEmpty([]))
     }
 
     if (params.perform_shortread_hostremoval) {
-        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect { it[1] }.ifEmpty([]))
+        ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_HOSTREMOVAL.out.mqc.collect { mqc -> mqc[1] }.ifEmpty([]))
     }
 
     if (params.perform_longread_hostremoval) {
-        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_HOSTREMOVAL.out.mqc.collect { it[1] }.ifEmpty([]))
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_HOSTREMOVAL.out.mqc.collect { mqc -> mqc[1] }.ifEmpty([]))
     }
 
-    ch_multiqc_files = ch_multiqc_files.mix(PROFILING.out.mqc.collect { it[1] }.ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(PROFILING.out.mqc.collect { mqc -> mqc[1] }.ifEmpty([]))
 
     if (params.run_profile_standardisation) {
-        ch_multiqc_files = ch_multiqc_files.mix(STANDARDISATION_PROFILES.out.mqc.collect { it[1] }.ifEmpty([]))
+        ch_multiqc_files = ch_multiqc_files.mix(STANDARDISATION_PROFILES.out.mqc.collect { mqc -> mqc[1] }.ifEmpty([]))
     }
 
     MULTIQC(

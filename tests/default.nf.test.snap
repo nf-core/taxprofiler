@@ -169,6 +169,14 @@
                 "krona/kaiju_db7.html",
                 "krona/kraken2-bracken_db1.html",
                 "krona/kraken2_db2.html",
+                "melon",
+                "melon/db1",
+                "melon/db1/2614_db1",
+                "melon/db1/2614_db1/ERR3201952_dup.json",
+                "melon/db1/2614_db1/ERR3201952_dup.tsv",
+                "melon/db1/ERR3201952_db1",
+                "melon/db1/ERR3201952_db1/ERR3201952_ERR3201952.unmapped_other.json",
+                "melon/db1/ERR3201952_db1/ERR3201952_ERR3201952.unmapped_other.tsv",
                 "metaphlan",
                 "metaphlan/metaphlan3",
                 "metaphlan/metaphlan3/2611_metaphlan3.metaphlan.biom",
@@ -729,6 +737,14 @@
                 "samtools/stats/2612_ERR5766180.stats",
                 "samtools/stats/2613_ERR5766181.stats",
                 "samtools/stats/ERR3201952_ERR3201952.stats",
+                "sylph",
+                "sylph/db1",
+                "sylph/db1/2612_db1.sylph.tsv",
+                "sylph/db1/2612_db1.sylphmpa",
+                "sylph/db1/2613_db1.sylph.tsv",
+                "sylph/db1/2613_db1.sylphmpa",
+                "sylph/db1/ERR3201952_db1.sylph.tsv",
+                "sylph/sylph_db1_combined_reports.tsv",
                 "taxpasta",
                 "taxpasta/bracken_db1.tsv",
                 "taxpasta/centrifuge_db3.tsv",
@@ -747,10 +763,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-02-12T14:29:46.792909691"
+        "timestamp": "2026-02-19T10:08:59.368334792"
     },
     "krona": {
         "content": [
@@ -1102,6 +1118,23 @@
         },
         "timestamp": "2026-01-28T16:46:24.359920904"
     },
+    "sylph": {
+        "content": [
+            [
+                "2612_db1.sylph.tsv:md5,a84853a9ea0e88e62f3caa13f28ef945",
+                "2612_db1.sylphmpa:md5,a0832fc0d249a96e5c22afaa63e0bba8",
+                "2613_db1.sylph.tsv:md5,609a51bbcbbfe48ad780d0dadd1105e4",
+                "2613_db1.sylphmpa:md5,253491defa87230970e890256dc0cb02",
+                "ERR3201952_db1.sylph.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "sylph_db1_combined_reports.tsv:md5,32cbbeb3d7088729cf8cd644a4c4a5a1"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-02-19T09:39:54.865795009"
+    },
     "kraken2": {
         "content": [
             "2611_db2.kraken2.kraken2.report.txt contains string:'Homo sapiens':true",
@@ -1219,6 +1252,9 @@
                 "KRONA_KTIMPORTTEXT": {
                     "krona": "2.8.1"
                 },
+                "MELON": {
+                    "melon": "0.2.5"
+                },
                 "MERGE_RUNS": {
                     "cat": 9.5
                 },
@@ -1264,6 +1300,15 @@
                 },
                 "SAMTOOLS_VIEW": {
                     "samtools": "1.22.1"
+                },
+                "SYLPHTAX_MERGE": {
+                    "sylph-tax": "1.2.0"
+                },
+                "SYLPHTAX_TAXPROF": {
+                    "sylph-tax": "1.2.0"
+                },
+                "SYLPH_PROFILE": {
+                    "sylph": "0.7.0"
                 },
                 "TAXPASTA_MERGE": {
                     "taxpasta": "0.7.0"
@@ -1383,6 +1428,21 @@
             "nextflow": "25.04.8"
         },
         "timestamp": "2026-01-28T16:46:24.32971159"
+    },
+    "melon": {
+        "content": [
+            [
+                "ERR3201952_dup.json:md5,293a437efc4be9d8b34fa05acb292828",
+                "ERR3201952_dup.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799",
+                "ERR3201952_ERR3201952.unmapped_other.json:md5,293a437efc4be9d8b34fa05acb292828",
+                "ERR3201952_ERR3201952.unmapped_other.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-02-19T09:39:54.822703698"
     },
     "kmcp": {
         "content": [
