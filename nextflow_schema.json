@@ -437,7 +437,8 @@
                 "run_diamond": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
-                    "description": "Turn on profiling with DIAMOND. Requires database to be present CSV file passed to --databases"
+                    "description": "Turn on profiling with DIAMOND. For unmerged paired-read libraries, only read1 will be used Requires database to be present CSV file passed to --databases",
+                    "help_text": "DIAMOND does not support paired-end input. By default if read pairs are unmerged, only read1 will be profiled.\n\nIf your reads are short enough, you can also merge reads to potentially have longer sequences. Be careful if you include remaining unmerged reads after merging as this may result in double read counts to a taxon versus a single count for merged reads."
                 },
                 "diamond_output_format": {
                     "type": "string",
@@ -564,6 +565,12 @@
                     "type": "boolean",
                     "description": "Turn on profiling with MetaPhlAn. Requires database to be present CSV file passed to --databases",
                     "fa_icon": "fas fa-toggle-on"
+                },
+                "metaphlan_save_samfiles": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of MetaPhlAn reads aligned against marker genes in SAM format",
+                    "help_text": "Can be used in downstream analysis such as for StrainPhlAn.\n\n> Modifies tool parameters(s):\n>\n> - `metaphlan`: `-s`"
                 },
                 "run_motus": {
                     "type": "boolean",
@@ -923,6 +930,18 @@
                     "fa_icon": "far calendar",
                     "description": "Suffix to add to the trace report filename. Default is the date and time in the format yyyy-MM-dd_HH-mm-ss.",
                     "hidden": true
+                },
+                "help": {
+                    "type": ["boolean", "string"],
+                    "description": "Display the help message."
+                },
+                "help_full": {
+                    "type": "boolean",
+                    "description": "Display the full detailed help message."
+                },
+                "show_hidden": {
+                    "type": "boolean",
+                    "description": "Display hidden parameters in the help message (only works when --help or --help_full are provided)."
                 }
             }
         }

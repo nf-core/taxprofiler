@@ -12,7 +12,7 @@
                     },
                     "bbmap/bbduk": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "3351c212144fc8aab0e595165bf447ebecfebd8a",
                         "installed_by": ["modules"]
                     },
                     "bowtie2/align": {
@@ -52,7 +52,7 @@
                     },
                     "diamond/blastx": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "c44e4bb090eb4c9136f6d3f786285e4a9000f38f",
                         "installed_by": ["modules"]
                     },
                     "falco": {
@@ -172,7 +172,7 @@
                     },
                     "metaphlan/metaphlan": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "45b4cc676741a553e703bbef7d31c020fc66c6aa",
                         "installed_by": ["modules"]
                     },
                     "minimap2/align": {
@@ -202,7 +202,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "c9a31c472ef2d86802eb44f27322955849859361",
+                        "git_sha": "af27af1be706e6a2bb8fe454175b0cdf77f47b49",
                         "installed_by": ["modules"]
                     },
                     "nanoq": {
@@ -238,8 +238,7 @@
                     "porechop/porechop": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
-                        "installed_by": ["modules"],
-                        "patch": "modules/nf-core/porechop/porechop/porechop-porechop.diff"
+                        "installed_by": ["modules"]
                     },
                     "prinseqplusplus": {
                         "branch": "master",
@@ -248,22 +247,22 @@
                     },
                     "samtools/fastq": {
                         "branch": "master",
-                        "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
+                        "git_sha": "c8be52dba1166c678e74cda9c3a3c221635c8bb1",
                         "installed_by": ["modules"]
                     },
                     "samtools/index": {
                         "branch": "master",
-                        "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
+                        "git_sha": "c8be52dba1166c678e74cda9c3a3c221635c8bb1",
                         "installed_by": ["modules"]
                     },
                     "samtools/stats": {
                         "branch": "master",
-                        "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
+                        "git_sha": "5cb9a8694da0a0e550921636bb60bc8c56445fd7",
                         "installed_by": ["modules"]
                     },
                     "samtools/view": {
                         "branch": "master",
-                        "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
+                        "git_sha": "5cb9a8694da0a0e550921636bb60bc8c56445fd7",
                         "installed_by": ["modules"]
                     },
                     "sylph/profile": {
@@ -283,12 +282,12 @@
                     },
                     "taxpasta/merge": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "f9aa121d8b7f3b01d052ecac9175145592eb6041",
                         "installed_by": ["modules"]
                     },
                     "taxpasta/standardise": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "f9aa121d8b7f3b01d052ecac9175145592eb6041",
                         "installed_by": ["modules"]
                     },
                     "untar": {
@@ -302,17 +301,17 @@
                 "nf-core": {
                     "utils_nextflow_pipeline": {
                         "branch": "master",
-                        "git_sha": "c2b22d85f30a706a3073387f30380704fcae013b",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "51ae5406a030d4da1e49e4dab49756844fdd6c7a",
+                        "git_sha": "65f5e638d901a51534c68fd5c1c19e8112fb4df1",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfschema_plugin": {
                         "branch": "master",
-                        "git_sha": "2fd2cd6d0e7b273747f32e465fdc6bcc3ae0814e",
+                        "git_sha": "fdc08b8b1ae74f56686ce21f7ea11ad11990ce57",
                         "installed_by": ["subworkflows"]
                     }
                 }

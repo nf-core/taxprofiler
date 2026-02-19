@@ -3,6 +3,7 @@ nextflow_pipeline {
     name "Test pipeline"
     script "../main.nf"
     tag "pipeline"
+    tag "test"
     profile "test"
 
     test("-profile test") {
@@ -14,22 +15,182 @@ nextflow_pipeline {
         }
 
         then {
-            // stable_name: All files + folders in ${params.outdir}/ with a stable name
-           // def stable_name = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
-            // stable_path: All files in ${params.outdir}/ with stable content
-           // def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
+
+            def stable_name_all = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+
+             //BBDuk
+            def stable_content_bbduk          = getAllFilesFromDir("$outputDir/bbduk", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+             //bracken
+            def stable_content_bracken         = getAllFilesFromDir("$outputDir/bracken", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //bowtie2
+            def stable_content_bowtie2         = getAllFilesFromDir("$outputDir/bowtie2/align", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //centrifuge
+            def stable_content_centrifuge     = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //diamond
+            def stable_content_diamond        = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //fastp
+            def stable_content_fastp          = getAllFilesFromDir("$outputDir/fastp", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //ganon
+            def stable_content_ganon          = getAllFilesFromDir("$outputDir/ganon", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //kraken2
+            def stable_content_kraken2        = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //kmcp
+            def stable_content_kmcp        = getAllFilesFromDir("$outputDir/kmcp", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //krona
+            def stable_content_krona          = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //metaphlan
+            def stable_content_metaphlan      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def sam_files                     = getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.sam'])
+
+            //nanoq
+            def stable_content_nanoq      = getAllFilesFromDir("$outputDir/nanoq", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //nonpareil
+            def stable_content_nonpareil      = getAllFilesFromDir("$outputDir/nonpareil", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //porechop_abi
+            def stable_content_porechopabi      = getAllFilesFromDir("$outputDir/porechop_abi", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            //samtools
+            def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+
+            //taxpasta
+            def stable_content_taxpasta      = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+
+
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
-                    // Number of successful tasks
-                    workflow.trace.succeeded().size(),
                     // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
                     removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
-                    // All stable path name, with a relative path
-                   // stable_name,
-                    // All files with stable contents
-                    //stable_path
-                ).match() }
+                ).match() },
+
+                { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                { assert snapshot ( stable_name_all ).match("all_files") },
+                { assert snapshot( getAllFilesFromDir("$outputDir/bbduk", include: ['*.bbduk.log']).collect{file -> file.getName() + ' contains string:' + file.text.contains("Reads Processed:") },
+                                stable_content_bbduk).match("bbduk")},
+                { assert snapshot (stable_content_bowtie2).match("bowtie2")},
+                { assert snapshot (stable_content_bracken).match("bracken")},
+                { assert snapshot( getAllFilesFromDir("$outputDir/centrifuge", include: ['*.txt', '**/*.txt']).collect{file -> file.getName() + ' contains string:' + (file.text.contains("Homo sapiens") || file.text.contains("unclassified")) },
+                                file("$outputDir/centrifuge/db3/2612_db3.centrifuge.mapped.fastq.gz").getName() + " contains string '@ERR5766176.5733':" + path("$outputDir/centrifuge/db3/2612_db3.centrifuge.mapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.5733') },
+                                file("$outputDir/centrifuge/db3/2612_db3.centrifuge.unmapped.fastq.gz").getName() + " contains string '@ERR5766176.191984':" + path("$outputDir/centrifuge/db3/2612_db3.centrifuge.unmapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.191984') },
+                                file("$outputDir/centrifuge/db3/2613_db3.centrifuge.mapped.fastq.gz").getName() + " contains string '@ERR5766181.3868':" + path("$outputDir/centrifuge/db3/2613_db3.centrifuge.mapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.3868') },
+                                file("$outputDir/centrifuge/db3/2613_db3.centrifuge.unmapped.fastq.gz").getName() + " contains string '@ERR5766181.537239':" + path("$outputDir/centrifuge/db3/2613_db3.centrifuge.unmapped.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.537239') },
+                                stable_content_centrifuge).match("centrifuge") },
+                 { assert snapshot( getAllFilesFromDir("$outputDir/diamond", include: ['**/*diamond.log']).collect{file -> file.getName() + ' contains string:' + file.text.contains("queries aligned") },
+                                file("$outputDir/diamond/db1/2611_db1.diamond.tsv").getName() + " contains string 'ERR5766174.77':" + file("$outputDir/diamond/db1/2611_db1.diamond.tsv").text.contains("ERR5766174.77"),
+                                file("$outputDir/diamond/db1/2612_db1.diamond.tsv").getName() + " contains string 'ERR5766180.773':" + file("$outputDir/diamond/db1/2612_db1.diamond.tsv").text.contains("ERR5766180.773"),
+                                file("$outputDir/diamond/db1/2613_db1.diamond.tsv").getName() + " contains string 'ERR5766181.59':" + file("$outputDir/diamond/db1/2613_db1.diamond.tsv").text.contains("ERR5766181.59"),
+                                file("$outputDir/diamond/db1/2614_db2.diamond.tsv").getName() + " contains string 'ERR3201952.882919':" + file("$outputDir/diamond/db2/2614_db2.diamond.tsv").text.contains("ERR3201952.882919"),
+                                file("$outputDir/diamond/db2/ERR3201952_db2.diamond.tsv").getName() + " contains string 'ERR3201952.882919':" + file("$outputDir/diamond/db2/ERR3201952_db2.diamond.tsv").text.contains("ERR3201952.882919"),
+                                file("$outputDir/diamond/db3/2611_db3.diamond.tsv").getName() + " contains string 'ERR5766174.77':" +  file("$outputDir/diamond/db3/2611_db3.diamond.tsv").text.contains("ERR5766174.77"),
+                                file("$outputDir/diamond/db3/2612_db3.diamond.tsv").getName() + " contains string 'ERR5766180.773':" + file("$outputDir/diamond/db3/2612_db3.diamond.tsv").text.contains("ERR5766180.773"),
+                                file("$outputDir/diamond/db3/2613_db3.diamond.tsv").getName() + " contains string 'ERR5766181.59':" + file("$outputDir/diamond/db3/2613_db3.diamond.tsv").text.contains("ERR5766181.59"),
+                                file("$outputDir/diamond/db3/2614_db3.diamond.tsv").getName() + " contains string 'ERR3201952.882919':" +file("$outputDir/diamond/db3/2614_db3.diamond.tsv").text.contains("ERR3201952.882919"),
+                                file("$outputDir/diamond/db3/ERR3201952_db3.diamond.tsv").getName() + " contains string 'ERR3201952.882919':" +file("$outputDir/diamond/db3/ERR3201952_db3.diamond.tsv").text.contains("ERR3201952.882919"),
+                                stable_content_diamond).match("diamond") },
+                { assert snapshot(getAllFilesFromDir("$outputDir/fastp", include: ['*.fastp.json']).collect { file -> file.getName() + ' contains string:' + file.text.contains("fastp_version")},
+                                  getAllFilesFromDir("$outputDir/fastp", include: ['*.fastp.log']).collect { file -> file.getName() + ' contains string:' + file.text.contains("Detecting adapter sequence")},
+                                  stable_content_fastp).match("fastp") },
+                { assert snapshot(getAllFilesFromDir("$outputDir/ganon", include: ['**/*.ganon.log']).collect { file -> file.getName() + ' contains string:' + file.text.contains("entries reported")},
+                                  getAllFilesFromDir("$outputDir/ganon", include: ['**/*.ganon.rep']).collect { file -> file.getName() + ' contains string:' + file.text.contains("NC_001148.4")},
+                                  getAllFilesFromDir("$outputDir/ganon", include: ['**/*.tre']).collect { file -> file.getName() + ' contains string:' + file.text.contains("root")},
+                                  file("$outputDir/ganon/ganon_db1_combined_reports.txt").getName() + " contains string 'root':" + file("$outputDir/ganon/ganon_db1_combined_reports.txt").text.contains("root"),
+                                  stable_content_ganon).match("ganon") },
+                { assert snapshot( file("$outputDir/kaiju/db5/2611_db5.kaijutable.txt").getName() + " contains string '10239':" +file("$outputDir/kaiju/db5/2611_db5.kaijutable.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db5/2611_db5.kaiju.tsv").getName()+ " contains string 'ERR5766174.4':" + file("$outputDir/kaiju/db5/2611_db5.kaiju.tsv").text.contains("ERR5766174.4"),
+                                file("$outputDir/kaiju/db5/2612_db5.kaijutable.txt").getName()+ " contains string '10239':" + file("$outputDir/kaiju/db5/2612_db5.kaijutable.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db5/2612_db5.kaiju.tsv").getName() + " contains string 'ERR5766180.602':" + file("$outputDir/kaiju/db5/2612_db5.kaiju.tsv").text.contains("ERR5766180.602"),
+                                file("$outputDir/kaiju/db5/2613_db5.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db5/2613_db5.kaijutable.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db5/2613_db5.kaiju.tsv").getName() + " contains string 'ERR5766181.1':" + file("$outputDir/kaiju/db5/2613_db5.kaiju.tsv").text.contains("ERR5766181.1"),
+                                file("$outputDir/kaiju/kaiju_db5_combined_reports.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/kaiju_db5_combined_reports.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db6/2614_db6.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db6/2614_db6.kaijutable.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db6/2614_db6.kaiju.tsv").getName() + " contains string 'ERR3201952.1794060':" + file("$outputDir/kaiju/db6/2614_db6.kaiju.tsv").text.contains("ERR3201952.1794060"),
+                                file("$outputDir/kaiju/db6/ERR3201952_db6.kaijutable.txt").getName() + " contains string 'Viruses':" + file("$outputDir/kaiju/db6/ERR3201952_db6.kaijutable.txt").text.contains("Viruses"),
+                                file("$outputDir/kaiju/db6/ERR3201952_db6.kaiju.tsv").getName() + " contains string 'ERR3201952.1159044':" + file("$outputDir/kaiju/db6/ERR3201952_db6.kaiju.tsv").text.contains("ERR3201952.1159044"),
+                                file("$outputDir/kaiju/kaiju_db6_combined_reports.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/kaiju_db6_combined_reports.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db7/2611_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/2611_db7.kaijutable.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db7/2611_db7.kaiju.tsv").getName() + " contains string 'ERR5766174.4':" + file("$outputDir/kaiju/db7/2611_db7.kaiju.tsv").text.contains("ERR5766174.4"),
+                                file("$outputDir/kaiju/db7/2612_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/2612_db7.kaijutable.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db7/2612_db7.kaiju.tsv").getName() + " contains string 'ERR5766180.602':" + file("$outputDir/kaiju/db7/2612_db7.kaiju.tsv").text.contains("ERR5766180.602"),
+                                file("$outputDir/kaiju/db7/2613_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/2613_db7.kaijutable.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db7/2613_db7.kaiju.tsv").getName() + " contains string 'ERR5766181.2':" + file("$outputDir/kaiju/db7/2613_db7.kaiju.tsv").text.contains("ERR5766181.2"),
+                                file("$outputDir/kaiju/db7/2614_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/2614_db7.kaijutable.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db7/2614_db7.kaiju.tsv").getName() + " contains string 'ERR3201952.1794060':" + file("$outputDir/kaiju/db7/2614_db7.kaiju.tsv").text.contains("ERR3201952.1794060"),
+                                file("$outputDir/kaiju/db7/ERR3201952_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/ERR3201952_db7.kaijutable.txt").text.contains("10239"),
+                                file("$outputDir/kaiju/db7/ERR3201952_db7.kaiju.tsv").getName() + " contains string 'ERR3201952.1159044':" + file("$outputDir/kaiju/db7/ERR3201952_db7.kaiju.tsv").text.contains("ERR3201952.1159044"),
+                                file("$outputDir/kaiju/kaiju_db7_combined_reports.txt").getName() + " contains string '10239':" +  file("$outputDir/kaiju/kaiju_db7_combined_reports.txt").text.contains("10239")).match("kaiju") },
+                { assert snapshot (stable_content_kmcp).match("kmcp")},
+                {  assert snapshot(file("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").getName() + " contains string:'Homo sapiens':" + file("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").text.contains("Homo sapiens"),
+                                file("$outputDir/kraken2/db2/2611_db2.kraken2.classified.fastq.gz").getName() + " contains string 'ERR5766174.15494 kraken:taxid|559292':" + path("$outputDir/kraken2/db2/2611_db2.kraken2.classified.fastq.gz").linesGzip.findAll { l -> l.contains('ERR5766174.15494 kraken:taxid|559292') },
+                                file("$outputDir/kraken2/db2/2611_db2.kraken2.unclassified.fastq.gz").getName() + " contains string '>ERR5766174.184799':" + path("$outputDir/kraken2/db2/2611_db2.kraken2.unclassified.fastq.gz").linesGzip.findAll { l -> l.contains('>ERR5766174.184799') },
+                                file("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").getName() + " contains string:'Saccharomyces cerevisiae S288C':" + file("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").text.contains("Saccharomyces cerevisiae S288C"),
+                                file("$outputDir/kraken2/db2/2612_db2.kraken2.classified.fastq.gz").getName() + " contains string:'@ERR5766180.35963':" + path("$outputDir/kraken2/db2/2612_db2.kraken2.classified.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766180.35963') },
+                                file("$outputDir/kraken2/db2/2612_db2.kraken2.unclassified.fastq.gz").getName() + " contains string:'@ERR5766180.601927':" + path("$outputDir/kraken2/db2/2612_db2.kraken2.unclassified.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766180.601927') },
+                                file("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").getName() + " contains string:'Saccharomyces cerevisiae S288C':" + file("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("Saccharomyces cerevisiae S288C"),
+                                file("$outputDir/kraken2/db2/2613_db2.kraken2.classified.fastq.gz").getName() + " contains string:'@ERR5766181.6866':" + path("$outputDir/kraken2/db2/2613_db2.kraken2.classified.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.6866') },
+                                file("$outputDir/kraken2/db2/2613_db2.kraken2.unclassified.fastq.gz").getName() + " contains string:'@ERR5766181.108601':" + path("$outputDir/kraken2/db2/2613_db2.kraken2.unclassified.fastq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.108601') },
+                                file("$outputDir/kraken2/kraken2_db1-bracken_combined_reports.txt").getName() + " contains string:'Saccharomyces cerevisiae S288C':" + file("$outputDir/kraken2/kraken2_db1-bracken_combined_reports.txt").text.contains("Saccharomyces cerevisiae S288C"),
+                                file("$outputDir/kraken2/kraken2_db2_combined_reports.txt").getName() + " contains string:'Saccharomyces cerevisiae S288C':" + file("$outputDir/kraken2/kraken2_db2_combined_reports.txt").text.contains("Saccharomyces cerevisiae S288C"),
+                                stable_content_kraken2).match("kraken2") },
+                { assert snapshot(getAllFilesFromDir("$outputDir/krona", include: ['*.html']).collect { file -> file.getName() + " exists:"+ file.exists() }, stable_content_krona).match("krona") },
+                { assert snapshot(getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + ' contains string:' + file.text.contains("generated_by")},
+                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.bowtie2out.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("avg_read_length")},
+                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*_profile.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("clade_name")},
+                                file("$outputDir/metaphlan/metaphlan_metaphlan3_combined_reports.txt").getName() + " contains string: 'UNCLASSIFIED':" + file("$outputDir/metaphlan/metaphlan_metaphlan3_combined_reports.txt").text.contains("UNCLASSIFIED"),
+                                file("$outputDir/metaphlan/metaphlan_metaphlan4_combined_reports.txt").getName() + " contains string: 't__SGB4933_group':" + file("$outputDir/metaphlan/metaphlan_metaphlan4_combined_reports.txt").text.contains("t__SGB4933_group"),
+                                //sam_files.isEmpty() ? 'No SAM files' : sam_files.collect { file -> file.getName() + ":md5," + sam(file).getHeaderMD5() },
+                                stable_content_metaphlan).match("metaphlan") },
+                { assert snapshot (stable_content_nanoq).match("nanoq")},
+                { assert snapshot(getAllFilesFromDir("$outputDir/nonpareil", include: ['*.npa']).collect { file -> file.getName() + ' contains string:' + file.text.contains("0.00")},
+                                getAllFilesFromDir("$outputDir/nonpareil", include: ['*.npl']).collect { file -> file.getName() + ' contains string:' + file.text.contains("Average read length")},
+                                getAllFilesFromDir("$outputDir/nonpareil", include: ['*.npo']).collect { file -> file.getName() + ' contains string:' + file.text.contains("@version:")},
+                                file("$outputDir/nonpareil/2612_ERR5766176_B.npc").getName() + " contains string:'177104':" + file("$outputDir/nonpareil/2612_ERR5766176_B.npc").text.contains("177104"),
+                                "File 2612_ERR5766176_B.png exists:  " + file("$outputDir/nonpareil/2612_ERR5766176_B.png").exists(),
+                                file("$outputDir/nonpareil/2612_ERR5766176.npc").getName() + " contains string:'205699':" + file("$outputDir/nonpareil/2612_ERR5766176.npc").text.contains("205699"),
+                                "File 2612_ERR5766176.png exists:  " + file("$outputDir/nonpareil/2612_ERR5766176.png").exists(),
+                                file("$outputDir/nonpareil/2612_ERR5766180.npc").getName() + " contains string:'143862':" + file("$outputDir/nonpareil/2612_ERR5766180.npc").text.contains("143862"),
+                                "File 2612_ERR5766180.png exists:  " + file("$outputDir/nonpareil/2612_ERR5766180.png").exists(),
+                                file("$outputDir/nonpareil/2613_ERR5766181.npc").getName() + " contains string:'127039':" + file("$outputDir/nonpareil/2613_ERR5766181.npc").text.contains("127039"),
+                                "File 2613_ERR5766181.png exists:  " + file("$outputDir/nonpareil/2613_ERR5766181.png").exists(),
+                                file("$outputDir/nonpareil/nonpareil_all_samples.csv").getName() + " contains string:'modelR':" + file("$outputDir/nonpareil/nonpareil_all_samples.csv").text.contains("modelR"),
+                                file("$outputDir/nonpareil/nonpareil_all_samples.json").getName() + " contains string:'log.sample':" + file("$outputDir/nonpareil/nonpareil_all_samples.json").text.contains("log.sample"),
+                                "File nonpareil_all_samples_mqc.png exists:  " + file("$outputDir/nonpareil/nonpareil_all_samples_mqc.png").exists(),
+                                "File nonpareil_all_samples.pdf exists:  " + file("$outputDir/nonpareil/nonpareil_all_samples.pdf").exists(),
+                                file("$outputDir/nonpareil/nonpareil_all_samples.tsv").getName() + " contains string:'diversity':" + file("$outputDir/nonpareil/nonpareil_all_samples.tsv").text.contains("diversity"),
+                                stable_content_nonpareil).match("nonpareil") },
+                { assert snapshot (file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").getName() + " contains string: 'Looking for known adapter':" + file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("Looking for known adapter"),
+                                stable_content_porechopabi).match("porechop_abi")},
+                { assert snapshot (stable_content_samtools).match("samtools")},
+                { assert snapshot(file("$outputDir/taxpasta/bracken_db1.tsv").getName() + " contains string:'9606':" + file("$outputDir/taxpasta/bracken_db1.tsv").text.contains("9606"),
+                                file("$outputDir/taxpasta/centrifuge_db3.tsv").getName() + " contains string:'131567':" + file("$outputDir/taxpasta/centrifuge_db3.tsv").text.contains("131567"),
+                                file("$outputDir/taxpasta/diamond_db1.tsv").getName() + " contains string:'8058':" + file("$outputDir/taxpasta/diamond_db1.tsv").text.contains("8058"),
+                                file("$outputDir/taxpasta/diamond_db2.tsv").getName() + " contains string:'taxonomy_id':" + file("$outputDir/taxpasta/diamond_db2.tsv").text.contains("taxonomy_id"),
+                                file("$outputDir/taxpasta/diamond_db3.tsv").getName() + " contains string:'8058':" + file("$outputDir/taxpasta/diamond_db3.tsv").text.contains("8058"),
+                                file("$outputDir/taxpasta/ganon_db1.tsv").getName() + " contains string:'taxonomy_id':" + file("$outputDir/taxpasta/ganon_db1.tsv").text.contains("taxonomy_id"),
+                                file("$outputDir/taxpasta/kaiju_db5.tsv").getName() + " contains string:'10239':" + file("$outputDir/taxpasta/kaiju_db5.tsv").text.contains("10239"),
+                                file("$outputDir/taxpasta/kaiju_db6.tsv").getName() + " contains string:'10239':" + file("$outputDir/taxpasta/kaiju_db6.tsv").text.contains("10239"),
+                                file("$outputDir/taxpasta/kaiju_db7.tsv").getName() + " contains string:'10239':" + file("$outputDir/taxpasta/kaiju_db7.tsv").text.contains("10239"),
+                                file("$outputDir/taxpasta/kmcp_db1.tsv").getName() + " contains string:'9606':" + file("$outputDir/taxpasta/kmcp_db1.tsv").text.contains("9606"),
+                                file("$outputDir/taxpasta/kraken2_db1-bracken.tsv").getName() + " contains string:'131567':" + file("$outputDir/taxpasta/kraken2_db1-bracken.tsv").text.contains("131567"),
+                                file("$outputDir/taxpasta/kraken2_db2.tsv").getName() + " contains string:'131567':" + file("$outputDir/taxpasta/kraken2_db2.tsv").text.contains("131567"),
+                                file("$outputDir/taxpasta/metaphlan_metaphlan3.tsv").getName() + " contains string:'taxonomy_id':" + file("$outputDir/taxpasta/metaphlan_metaphlan3.tsv").text.contains("taxonomy_id"),
+                                file("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").getName() + " contains string:'1239':" + file("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").text.contains("1239"),
+                                stable_content_taxpasta).match("taxpasta") },
             )
         }
     }

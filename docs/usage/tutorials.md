@@ -4,8 +4,14 @@ This page provides a range of tutorials to help give you a bit more guidance on 
 
 ## Simple Tutorial
 
-In this tutorial we will run you through a simple set up of a small nf-core/taxprofiler run.
+In this tutorial we will run you through a simple set up of a nf-core/taxprofiler run.
 It assumes that you have basic knowledge of metagenomic classification input and output files.
+The tutorial will help orient what you need to set up an nf-core/taxprofiler run, and point at the location of the most important output files.
+
+:::warning
+This is not a fully-fledged tutorial, but rather a quick start guide to get you running with nf-core/taxprofiler.
+The output is not 'realistic' as we use very small test databases to allow this tutorial to run quickly on laptops.
+:::
 
 ### Preparation
 
@@ -112,6 +118,11 @@ If we don't specify this, the pipeline will assume all databases (and their sett
 Note that the each database of the same tool has a unique name.
 Furthermore, while the Kraken2 and Centrifuge databases have been supplied as `.tar.gz` archives, the Kaiju database has been supplied as a directory.
 
+:::note
+These databases only contain two reference genomes: the human mitochondrial genome and _Penicillium roqueforti_.
+These are not realistic databases, but rather small test databases to allow this tutorial to run quickly on laptops.
+:::
+
 ### Running the pipeline
 
 Now that we have the sequencing reads (in FASTQ format), the databases (directory or `.tar.gz`), and a reference genome (FASTA, optionally gzipped), we can now run them with the pipeline. The following command will perform short read quality control, remove contaminant reads, merge multiple libraries for each sample, run the three profilers, and finally generate standardised profiles.
@@ -211,8 +222,13 @@ To follow the same order as the command construction above
 - Short-read QC results are found in `fastqc/` and `fastp/`
 - Host/contaminant removal results are found in `bowtie2/` and `samtools/`
 - Lane merged preprocessed reads are found in `run_merging/`
-- Raw profiling results are found in `kraken2/`, `centrifuge/`, and `kaiju/`
-- Standardised profiles for all profiling tools and databases are found in `taxpasta`
+- Raw taxonomic profiles are found in `kraken2/`, `centrifuge/`, and `kaiju/`
+- Standardised taxonomic profiles for all profiling tools and databases are found in `taxpasta`
+
+:::warning
+The raw and standarised taxonomic profiles will contain very few assigned reads.
+**This is expected**, as we use extremely small test databases to allow this tutorial to run quickly on laptops.
+:::
 
 :::info
 Within each classifier results directory, there will be one directory and 'combined samples table' per database.
@@ -223,7 +239,7 @@ For read-preprocessing steps, only log files are stored in the `results/` direct
 :::
 
 The general 'workflow' of going through the results will typically be reviewing the `multiqc/multiqc_report.html` file to get general statistics of the entire run, particularly of the preprocessing.
-You would then use the taxon tables in the `taxpasta/` directory for downstream analysis, but referring to the classifier specific results directories when you require more detailed information on each classification.
+You would then either use the standardised taxon tables in the `taxpasta/` directory for downstream analysis, or the per-tool specific taxonomic profiles in each classifier's dedicated directory if you require more detailed information on each classification.
 
 Detailed descriptions of all results files can be found in the output tab of the [nf-core/taxprofiler documentation](https://nf-co.re/taxprofiler/).
 

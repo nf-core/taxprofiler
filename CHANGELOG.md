@@ -3,7 +3,67 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.3.0dev [unreleased]
+## dev - [unreleased]
+
+### `Added`
+
+### `Fixed`
+
+### `Changed`
+
+### `Dependencies`
+
+| Tool | Previous version | New version |
+| ---- | ---------------- | ----------- |
+|      |                  |             |
+
+### `Deprecated`
+
+## v1.2.6 - [2026-02-16]
+
+### `Added`
+
+- [#678](https://github.com/nf-core/taxprofiler/pull/678) Included metaval.config to generat input files for genomic-medicine-sweden/metaval (added by @LilyAnderssonLee)
+- [#655](https://github.com/nf-core/taxprofiler/pull/655) Added nf-tests for test profile (added by @sofstam)
+
+### `Fixed`
+
+- [#674](https://github.com/nf-core/taxprofiler/pull/674) Fixed bug where wrong variables names used for KrakenUniq input channel causing pipeline crash (❤️ to @pcantalupo for reporting, fixed by @jfy133)
+- [#675](https://github.com/nf-core/taxprofiler/pull/675) Prevent file name conflict with mixed SE and PE runs for a single sample with stricter validation (fixed by @LilyAnderssonLee and @jfy133)
+- [#683](https://github.com/nf-core/taxprofiler/pull/683) Fix pre-supplied long-read host removal index not being compatible with MINIMAP2_ALIGN module (fixed by @jfy133)
+
+### `Changed`
+
+- [#676](https://github.com/nf-core/taxprofiler/pull/676) Turn off saving of BAM version of unmapped reads from long read host removal (❤️ to @sofstam for reporting, changed by @jfy133)
+
+### `Dependencies`
+
+| Tool     | Previous version | New version |
+| -------- | ---------------- | ----------- |
+| samtools | 1.20             | 1.22.1      |
+
+## v1.2.5 - [2025-11-21]
+
+### `Added`
+
+- [#640](https://github.com/nf-core/taxprofiler/pull/640) Added support for saving Metaphlan SAM files (❤️ to @mr2raccoon for reporting and added by @jfy133)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657), [#667](https://github.com/nf-core/taxprofiler/pull/667) Template update for nf-core/tools v3.4.1 and v3.5.1 (added by @sofstam and @jfy133)
+
+### `Fixed`
+
+- [#653](https://github.com/nf-core/taxprofiler/pull/653) Enable runs for `PACBIO_SMRT`data (fixed by @LilyAnderssonLee)
+- [#657](https://github.com/nf-core/taxprofiler/pull/657) Fix `--version` not printing version (❤️ to @fwa93 for reporting and added by @jfy133 )
+
+### `Changed`
+
+### `Dependencies`
+
+| Tool    | Previous version | New version |
+| ------- | ---------------- | ----------- |
+| nf-core | 3.3.2            | 3.5.1       |
+| multiqc | 1.27             | 1.32        |
+
+## v1.2.4 - Bouncy Basenji Patch [2025-08-28]
 
 ### `Added`
 
@@ -23,7 +83,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#592](https://github.com/nf-core/taxprofiler/pull/592) improved JSON schema for better validation (by @microlei)
 - [#604](https://github.com/nf-core/taxprofiler/pull/604) KrakenUniq no longer fails due to pathname splitting during batching when only single sample supplied (by @AlexHoratio)
 - [#612](https://github.com/nf-core/taxprofiler/pull/616) Fix bug with bracken results being shown in MuktiQC for long read data every if bracken not supported for long reads (added by @jfy133 and @sofstam )
-- [#630](https://github.com/nf-core/taxprofiler/pull/630) Fix a bug in KRAKENUNIQ reads channel where a single-element list containing a / in the path was being split incorrectly, causing unexpected multiple list elements.
+- [#630](https://github.com/nf-core/taxprofiler/pull/630) Fix a bug in KRAKENUNIQ reads channel where a single-element list containing a / in the path was being split incorrectly, causing unexpected multiple list elements (❤️ to @sysbiocoder for reporting and fixed by @LilyAnderssonLee)
+- [#631](https://github.com/nf-core/taxprofiler/pull/631) For paired-end reads, DIAMOND will use only the forward read file (read 1) unless reads are merged (❤️ to @sysbiocoder for reporting and fixed by @LilyAnderssonLee)
+- [#635](https://github.com/nf-core/taxprofiler/pull/635) Fix faulty parsing of memory request in BBDuk (❤️ to @Proton-NTA for reporting, fix by @mahesh-panchal)
 
 ### `Changed`
 

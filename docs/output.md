@@ -275,11 +275,12 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) and/
 
 - `bowtie2/`
   - `build/`
-    - `*.bt2`: Bowtie2 indicies of reference genome, only if `--save_hostremoval_index` supplied.
+    - `*.bt2`: Bowtie2 indices of reference genome, only if `--save_hostremoval_index` supplied.
   - `align/`
-    - `<sample_id>.bam`: BAM file containing reads that aligned against the user-supplied reference genome as well as unmapped reads
-    - `<sample_id>.bowtie2.log`: log file about the mapped reads
-    - `<sample_id>.unmapped.fastq.gz`: the off-target reads from the mapping that is used in downstream steps.
+  - `<sample_id>.bam`: Alignment file in BAM format containing both mapped and unmapped reads (only if `--save_hostremoval_bam` supplied).
+  - `<sample_id>.bai`: Index file in BAI format containing both mapped and unmapped reads (only if `--save_hostremoval_bam` supplied).
+  - `<sample_id>.bowtie2.log`: log file about the mapped reads
+  - `<sample_id>.unmapped.fastq.gz`: the off-target reads from the mapping that is used in downstream steps (only if `--save_hostremoval_unmapped` supplied).
 
 </details>
 
@@ -310,7 +311,8 @@ It is used with nf-core/taxprofiler to allow removal of 'host' (e.g. human) or o
   - `build/`
     - `*.mmi2`: minimap2 indices of reference genome, only if `--save_hostremoval_index` supplied.
   - `align/`
-    - `<sample_id>.bam`: Alignment file in BAM format containing both mapped and unmapped reads.
+    - `<sample_id>.bam`: Alignment file in BAM format containing both mapped and unmapped reads (only if `--save_hostremoval_bam` supplied).
+    - `<sample_id>.bai`: Index file in BAI format containing both mapped and unmapped reads (only if `--save_hostremoval_bam` supplied).
 
 </details>
 
