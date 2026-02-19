@@ -129,7 +129,7 @@
                 "SoftwareSourceCode",
                 "ComputationalWorkflow"
             ],
-            "creator": [
+            "creator": [​​​​pip install python-openstackclient
                 {
                     "@id": "#jfy133@gmail.com"
                 },
