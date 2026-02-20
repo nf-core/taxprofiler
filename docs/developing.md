@@ -70,6 +70,6 @@ This page can act as a reference for new developers who wish to contribute to th
   - [ ] Once built and test, upload to iGenomes s3 (Ask James)
   - [ ] Update `database_full_vX.X.csv` and README to include the new s3 URI and instructions
   - [ ] Open PR against test-datasets, taxprofiler branch
-- [ ] Add a MultiQC module
-- [ ] Make a Taxpasta module
+- [ ] Add a [MultiQC](https://github.com/multiqc/multiqc) module
+- [ ] Make a [Taxpasta](https://github.com/taxprofiler/taxpasta) module
 - [ ] Add the database building module to nf-core/createtaxdb (where possible)
