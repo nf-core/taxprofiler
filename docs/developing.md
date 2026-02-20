@@ -34,7 +34,7 @@ This page can act as a reference for new developers who wish to contribute to th
   - [ ] Added the tool to the read-database combining section (if necessary)
   - [ ] Invoke module(s)
   - [ ] Version and MultiQC (if available) channels mixed
-- [ ] If necessary, added any profiler-specific parameter validation checks at the top of `taxprofiler.nf`
+- [ ] If necessary, added any profiler-specific parameter validation checks within the top of `utils_nfcore_taxprofiler_pipeline/main.nf`
 - [ ] Updated Documentation
   - [ ] `nf-core pipelines schema build` has been run and updated
     - [ ] All additional tool specific pipeline parameters have a additional help entry with the `Modifies tool parameter(s)` quote block
