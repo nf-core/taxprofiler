@@ -1,0 +1,108 @@
+%%metro title: nf-core/taxprofiler
+%%metro style: dark
+%%metro line: shortreads | Short reads  | #004b86
+%%metro line: longreads | Long reads | #d9aa00
+%%metro line: allreads | All reads | #005032
+
+%%metro file: input_fastq | .fq
+%%metro file: input_fasta | .fa
+%%metro file: output_tsv | .tsv
+
+graph LR
+    subgraph input [Input Processing]
+        %%metro exit: right | shortreads, longreads
+        input_fastq[.fq]
+        input_fasta[.fa]
+        short_clipper[fastp/AdapterRemoval]
+        long_clipper[Porechop ABI/Porechop]
+        short_seqqc[FastqQC/FALCO]
+        long_seqqc[FastqQC/FALCO]
+        
+
+        input_fastq -->|shortreads| short_clipper
+        input_fastq -->|longreads| long_clipper
+
+        short_clipper -->|shortreads| short_seqqc
+        long_clipper -->|longreads| long_seqqc
+
+    end
+
+    subgraph coverage_estimation [Coverage Estimation]
+        %%metro exit: right | shortreads, longreads
+        nonpareil[Nonpareil]
+        short_seqqc -->|shortreads| nonpareil
+    end
+
+    subgraph complexity_filtering [Complexity Filtering]
+        %%metro exit: right | shortreads, longreads
+        short_complexityfilter[BBDuk/PRINSEQ++]
+        long_complexityfilter[nanoq/Filtlong]
+
+        nonpareil -->|shortreads| short_complexityfilter
+        long_seqqc -->|longreads| long_complexityfilter
+
+    end
+
+    subgraph host_removal[Host sequences removal]
+        %%metro exit: right | shortreads, longreads
+        short_hostremoval[Bowtie2]
+        long_hostremoval[Minimap2]
+
+        short_complexityfilter -->|shortreads| short_hostremoval
+        long_complexityfilter -->|longreads| long_hostremoval
+
+    end
+
+    subgraph run_merging [Run Merging]
+        %%metro exit: right | allreads
+        cat[cat]
+
+        short_hostremoval -->|shortreads| cat
+        long_hostremoval -->|longreads| cat
+        input_fasta -->|longreads| cat
+        
+    end
+
+    subgraph taxonomic_profiling [Taxonomic Profiling]
+        %%metro exit: right | allreads
+        bracken[Bracken]
+        centrifuge[Centrifuge]
+        diamond[DIAMOND]
+        ganon[ganon]
+        kaiju[Kaiju]
+        kmcp[KMCP]
+        kraken2[Kraken2]
+        malt[MALT]
+        metaphlan3[MetaPhlAn]
+        motus[mOTUs]
+
+        cat -->|allreads| centrifuge
+        cat -->|allreads| diamond
+        cat -->|allreads| ganon
+        cat -->|allreads| kaiju
+        cat -->|allreads| kmcp
+        cat -->|allreads| kraken2
+        cat -->|allreads| malt
+        cat -->|allreads| metaphlan
+        cat -->|allreads| motus
+        kraken2 -->|allreads| bracken
+
+    end
+
+    subgraph standardisation [Standardisation]
+        taxpasta[taxpasta]
+        output_tsv[ ]
+
+        bracken  -->|allreads| taxpasta
+        centrifuge -->|allreads| taxpasta
+        diamond -->|allreads| taxpasta
+        ganon -->|allreads| taxpasta
+        kaiju -->|allreads| taxpasta
+        kmcp -->|allreads| taxpasta
+        kraken2 -->|allreads| taxpasta
+        malt -->|allreads| taxpasta
+        metaphlan -->|allreads| taxpasta
+        motus -->|allreads| taxpasta
+
+        taxpasta -->|allreads| output_tsv
+    end
