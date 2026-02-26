@@ -504,7 +504,7 @@ Currently, no specific tips or suggestions.
 ##### melon
 
 Melon is only suitable for long-read metagenomic profiling.
-Therefore, nf-core/taxprofiler does not currently run Melon on data specified as being sequenced with `illumina` or any other short-read platform in the input samplesheet.
+Therefore, nf-core/taxprofiler does not currently run Melon on data specified as being sequenced with `Illumina` or any other short-read platform in the input samplesheet.
 
 #### Post Processing
 
