@@ -334,8 +334,10 @@ workflow PROFILING {
                 !it[0].is_fasta
             }
             .branch {
-                longread: it[0].instrument_platform == 'OXFORD_NANOPORE'
-                shortread: it[0].instrument_platform != 'OXFORD_NANOPORE'
+                longread: it[0].instrument_platform == 'OXFORD_NANOPORE' || it[0].instrument_platform == 'PACBIO_SMRT'
+}
+
+                shortread: it[0].instrument_platform != 'OXFORD_NANOPORE' && it[0].instrument_platform != 'PACBIO_SMRT'
             }
         ch_input_for_motus_longread = ch_input_for_motus.longread.multiMap { it ->
             reads: [it[0] + it[2], it[1]]
