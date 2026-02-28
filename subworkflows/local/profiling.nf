@@ -71,14 +71,14 @@ workflow PROFILING {
             kaiju: db_meta.tool == 'kaiju'
             kraken2: db_meta.tool == 'kraken2' || db_meta.tool == 'bracken'
             krakenuniq: db_meta.tool == 'krakenuniq'
-            malt:       db_meta.tool == 'malt'
-            metaphlan:  db_meta.tool == 'metaphlan'
-            motus:      db_meta.tool == 'motus'
-            kmcp:       db_meta.tool == 'kmcp'
-            ganon:      db_meta.tool == 'ganon'
-            sylph:      db_meta.tool == 'sylph'
-            melon:      db_meta.tool == 'melon'
-            unknown:    true
+            malt: db_meta.tool == 'malt'
+            metaphlan: db_meta.tool == 'metaphlan'
+            motus: db_meta.tool == 'motus'
+            kmcp: db_meta.tool == 'kmcp'
+            ganon: db_meta.tool == 'ganon'
+            sylph: db_meta.tool == 'sylph'
+            melon: db_meta.tool == 'melon'
+            unknown: true
         }
 
     /*
@@ -335,14 +335,13 @@ workflow PROFILING {
             }
             .branch {
                 longread: it[0].instrument_platform == 'OXFORD_NANOPORE' || it[0].instrument_platform == 'PACBIO_SMRT'
-}
-
                 shortread: it[0].instrument_platform != 'OXFORD_NANOPORE' && it[0].instrument_platform != 'PACBIO_SMRT'
             }
         ch_input_for_motus_longread = ch_input_for_motus.longread.multiMap { it ->
             reads: [it[0] + it[2], it[1]]
             db: it[3]
         }
+
         ch_input_for_motus_shortread = ch_input_for_motus.shortread
             .view()
             .multiMap { it ->
@@ -359,12 +358,12 @@ workflow PROFILING {
 
 
         ch_prepped_to_motus = MOTUS_PREPLONG.out.out
-            .map { meta, reads -> [meta.db_name, [meta, reads]] }
+            .map { meta, in_reads -> [meta.db_name, [meta, in_reads]] }
             .combine(ch_database_for_motus, by: 0)
             .map { item ->
-                def db_name = item[0]
+                def _db_name = item[0]
                 def meta = item[1][0]
-                def reads = item[1][1]
+                def in_reads = item[1][1]
                 def db_meta = item[2]
                 def db = item[3]
                 def meta_keys = ['id', 'run_accession', 'instrument_platform', 'single_end', 'is_fasta', 'type']
@@ -373,7 +372,7 @@ workflow PROFILING {
                 def db_meta_keys = db_meta.keySet()
                 def new_db_meta = db_meta.subMap(db_meta_keys) + [type: meta.type]
 
-                [new_meta, [reads], new_db_meta, db]
+                [new_meta, [in_reads], new_db_meta, db]
             }
             .mix(ch_input_for_motus.shortread)
             .multiMap { it ->
@@ -541,7 +540,7 @@ workflow PROFILING {
                 }
                 !it[0].is_fasta
             }
-            .map { meta, reads, db_meta, db ->
+            .map { meta, in_reads, db_meta, db ->
                 def db_meta_keys = db_meta.keySet()
                 def db_meta_new = db_meta.subMap(db_meta_keys)
 
@@ -557,7 +556,7 @@ workflow PROFILING {
                     db_meta_new['db_params'] = parsed_params[0]
                 }
 
-                [meta, reads, db_meta_new, db]
+                [meta, in_reads, db_meta_new, db]
             }
             .multiMap { it ->
                 reads: [it[0] + it[2], it[1]]
@@ -574,7 +573,7 @@ workflow PROFILING {
         ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
             .map { meta, report -> [meta.db_name, meta, report] }
             .combine(ch_database_for_sylph_profile, by: 0)
-            .map { key, meta, reads, db_meta, db ->
+            .map { key, meta, in_reads, db_meta, db ->
 
                 // Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
                 def db_meta_keys = db_meta.keySet()
@@ -596,31 +595,29 @@ workflow PROFILING {
                 db: db
             }
 
-        SYLPHTAX_TAXPROF (ch_input_for_sylphtax.report, file(params.sylph_taxonomy, checkExists: true) )
-        ch_versions = ch_versions.mix( SYLPHTAX_TAXPROF.out.versions.first() )
-        ch_raw_profiles = ch_raw_profiles.mix( SYLPHTAX_TAXPROF.out.taxprof_output )
-
+        SYLPHTAX_TAXPROF(ch_input_for_sylphtax.report, file(params.sylph_taxonomy, checkExists: true))
+        ch_versions = ch_versions.mix(SYLPHTAX_TAXPROF.out.versions.first())
+        ch_raw_profiles = ch_raw_profiles.mix(SYLPHTAX_TAXPROF.out.taxprof_output)
     }
 
-    if ( params.run_melon ) {
+    if (params.run_melon) {
 
         ch_input_for_melon = ch_input_for_profiling.melon
-                                .filter {
-                                    meta, reads, meta_db, db ->
-                                        if ( meta['type'] != 'long' ) log.warn "[nf-core/taxprofiler] Melon is only suitable for long-read metagenomic profiling. Skipping Melon for sample ${meta.id}."
-                                        meta_db['tool'] == 'melon' && meta['type'] == 'long'
-                                }
-                                .multiMap {
-                                    it ->
-                                        reads: [ it[0] + it[2], it[1] ]
-                                        db: it[3]
-                                }
+            .filter { meta, _in_reads, meta_db, _db ->
+                if (meta['type'] != 'long') {
+                    log.warn("[nf-core/taxprofiler] Melon is only suitable for long-read metagenomic profiling. Skipping Melon for sample ${meta.id}.")
+                }
+                meta_db['tool'] == 'melon' && meta['type'] == 'long'
+            }
+            .multiMap { it ->
+                reads: [it[0] + it[2], it[1]]
+                db: it[3]
+            }
 
-        MELON( ch_input_for_melon.reads, ch_input_for_melon.db, [] )
-        ch_versions             = ch_versions.mix( MELON.out.versions.first() )
-        ch_raw_classifications  = ch_raw_classifications.mix( MELON.out.json_output )
-        ch_raw_profiles         = ch_raw_profiles.mix( MELON.out.tsv_output )
-
+        MELON(ch_input_for_melon.reads, ch_input_for_melon.db, [])
+        ch_versions = ch_versions.mix(MELON.out.versions.first())
+        ch_raw_classifications = ch_raw_classifications.mix(MELON.out.json_output)
+        ch_raw_profiles = ch_raw_profiles.mix(MELON.out.tsv_output)
     }
 
     emit:
