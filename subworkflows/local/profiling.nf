@@ -353,7 +353,7 @@ workflow PROFILING {
         MOTUS_PREPLONG(ch_input_for_motus_longread.reads, ch_input_for_motus_longread.db)
 
         ch_database_for_motus = databases
-            .filter { meta, db -> meta.tool == 'motus' }
+            .filter { meta, _db -> meta.tool == 'motus' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
 
@@ -567,13 +567,13 @@ workflow PROFILING {
         ch_versions = ch_versions.mix(SYLPH_PROFILE.out.versions.first())
 
         ch_database_for_sylph_profile = databases
-            .filter { meta, db -> meta.tool == 'sylph' }
+            .filter { meta, _db -> meta.tool == 'sylph' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
         ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
             .map { meta, report -> [meta.db_name, meta, report] }
             .combine(ch_database_for_sylph_profile, by: 0)
-            .map { key, meta, in_reads, db_meta, db ->
+            .map { key, meta, _in_reads, db_meta, db ->
 
                 // Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
                 def db_meta_keys = db_meta.keySet()
@@ -590,7 +590,7 @@ workflow PROFILING {
 
                 [key, meta, reads, db_meta_new, db]
             }
-            .multiMap { key, meta, report, db_meta, db ->
+            .multiMap { _key, meta, report, db_meta, db ->
                 report: [meta + db_meta, report]
                 db: db
             }

@@ -701,6 +701,11 @@
                     "type": "string",
                     "fa_icon": "fas fa-database",
                     "description": "Specify kraken2 database for prefiltering of non-prokaryotic reads with melon."
+                },
+                "run_metacache": {
+                    "type": "boolean",
+                    "description": "Turn on profiling with metacache. Requires database to be present CSV file passed to --databases",
+                    "fa_icon": "fas fa-toggle-on"
                 }
             },
             "fa_icon": "fas fa-align-center"
