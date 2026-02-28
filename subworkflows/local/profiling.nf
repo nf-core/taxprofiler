@@ -374,7 +374,7 @@ workflow PROFILING {
 
                 [new_meta, [in_reads], new_db_meta, db]
             }
-            .mix(ch_input_for_motus.shortread)
+            .mix(ch_input_for_motus_shortread)
             .multiMap { it ->
                 reads: [it[0] + it[2], it[1]]
                 db: it[3]
