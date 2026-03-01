@@ -82,7 +82,9 @@ This page can act as a reference for new developers who wish to contribute to th
 When writing a new pipeline-level nf-tests for nf-core/taxprofiler, we recommend the following procedure:
 
 1. Run the test profile locally to have a copy of the expected output files and the results directory structure
-2. Check the contents of files are expected (one or two files per directory should be enough)
+2. Check the expected results directories and contents of files are expected
+  - Check that the results directory reflects parameters specified in the test config itself
+  - One or two files per directory should be enough
 2. Write the base nf-test file structure, assuming _all_ files are stable (following the specifications below)
 3. Run `nf-test --tag <test_name> --profile +docker` once to write the first snapshot
 4. Run command above to get the `diff` of unstable files
@@ -110,15 +112,20 @@ nf-test file contents:
   - [ ] Specify when block with single param, `outdir`
     - All other parameters should be specified in the config itself
 - Then block
-- [ ] Specify on the first line, a `stable_name_all` variable to list all file names with the nft-utils `getAllFilesFromDir` function
-- [ ] For each top-level output directory under `results` (typically, one per tool), specify a comment with the tool name and a `stable_content_<tool name>` variable
+  - [ ] Specify on the first line, a `stable_name_all` variable to list all file names with the nft-utils `getAllFilesFromDir` function
+  - [ ] For each top-level output directory under `results` (typically, one per tool), specify a `stable_content_<tool name>` variable (exceptions: `multiqc` and `pipeline_info`) in alphabetical order
+    - [ ] If no stable files, leave comment for that directory
 - `assertAll` block
   - [ ] Use the `removeNextflowVersion` function
   - [ ] Check existance of `nf_core_taxprofiler_software_mqc_versions.yml` file
   - [ ] Check existance of  `multiqc_report.html` file
   - [ ] Snapshot `stable_name_all` with a `.match()` name of `all_files`
-  - [ ] For each results directory, make a snapshot with a `.match()` name of `directory_name` (typically the tool name all lower case). Inside this:
+  - [ ] For each results directory:
+    - [ ] Add a comment of the directory name
+    - [ ] Specify an assert closure with a snapshot and `.match()` name of `directory_name` (typically the tool name all lower case). Exceptions: MultiQC, Pipeline info. Inside this:
+    - [ ] Each `match()` should be in alphabetical order (same as order in the `--outdir`)
     - [ ] Specify the `stable_content_<tool_name>` variable
     - [ ] For each unstable file, specify specific path in `.nftignore`
     - [ ] For each unstable file, specify an alternative method of file checks (e.g. sorted file, file size check, contains string, nft-plugin function)
     - [ ] For each unstable file assertion, include a string before the assertion itself with the file name and type of check
+    - [ ] If multiple assertions in snapshot, ensure closing `.match()` and closing `{}` are one and two less indents as the assertions
