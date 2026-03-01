@@ -465,52 +465,52 @@
         "content": [
             [
                 "2612_ERR5766176_B_processed_1_fastqc.html:md5,536b717696ab8457a5344af21586078c",
-                "2612_ERR5766176_B_processed_1_fastqc.zip:md5,a5227f2f1f4413b0bfab97d2356f3996",
+                "2612_ERR5766176_B_processed_1_fastqc.zip:md5,bb9dc349f33664b68462e10ad2e27747",
                 "2612_ERR5766176_B_processed_2_fastqc.html:md5,9eb5c85e6645216663c87978d220d7ec",
-                "2612_ERR5766176_B_processed_2_fastqc.zip:md5,4411cc08dce757872e7bcf1e79310466",
+                "2612_ERR5766176_B_processed_2_fastqc.zip:md5,0e9fbe04261fbc04f7cb8901a0381a32",
                 "2612_ERR5766176_processed_1_fastqc.html:md5,e38eddb6281ff39adc657864fa384ab3",
-                "2612_ERR5766176_processed_1_fastqc.zip:md5,636762618cdff9734583e25920402995",
+                "2612_ERR5766176_processed_1_fastqc.zip:md5,07990be258f4a06fe58f13d5e57b81e5",
                 "2612_ERR5766176_processed_2_fastqc.html:md5,55a36789f3b2e47777b612d1b5daab18",
-                "2612_ERR5766176_processed_2_fastqc.zip:md5,81fb7846eecec54776a86c3f4ed18b70",
+                "2612_ERR5766176_processed_2_fastqc.zip:md5,28a16ca2a32987bc2d133cb8b6c1108a",
                 "2613_ERR5766181_processed_1_fastqc.html:md5,fe872e028850dc6e4e5a5ded27839ab7",
-                "2613_ERR5766181_processed_1_fastqc.zip:md5,1e2714df9a2679e604d3d031fa38f8be",
+                "2613_ERR5766181_processed_1_fastqc.zip:md5,dca45e5a5082f194b2441ab2a3e2e1f9",
                 "2613_ERR5766181_processed_2_fastqc.html:md5,1a0570375c75053e8a60a1b6b59b1e00",
-                "2613_ERR5766181_processed_2_fastqc.zip:md5,08e16faaa16bfd5a17337899f6b43b63",
+                "2613_ERR5766181_processed_2_fastqc.zip:md5,b4ce5f906f4c9beac26cf5fe672be380",
                 "ERR3201952_ERR3201952_processed_fastqc.html:md5,d49864cbc71f4ad4ae10c507d93442a1",
-                "ERR3201952_ERR3201952_processed_fastqc.zip:md5,41694ad8e22c1a063cf5f356b7f8bff4",
+                "ERR3201952_ERR3201952_processed_fastqc.zip:md5,c12749002ec837661f71f39f7c6b1786",
                 "2612_ERR5766176_B_raw_1_fastqc.html:md5,28875ba7357ff5cdb2b9d646ee77069c",
-                "2612_ERR5766176_B_raw_1_fastqc.zip:md5,48aeafc1a9b530ba74c6101a12cedea0",
+                "2612_ERR5766176_B_raw_1_fastqc.zip:md5,632b96b7df0d19435647a4b50ae903c7",
                 "2612_ERR5766176_B_raw_2_fastqc.html:md5,fd2d0f8a94006af6452d573747d51e40",
-                "2612_ERR5766176_B_raw_2_fastqc.zip:md5,cf7dfe7129e886db01900ee95f5c46ff",
+                "2612_ERR5766176_B_raw_2_fastqc.zip:md5,effb56e5900c60bf0622f97fb7ec74af",
                 "2612_ERR5766176_raw_1_fastqc.html:md5,044344e280370241a1de8ddd6e17900a",
-                "2612_ERR5766176_raw_1_fastqc.zip:md5,0c22cea9093f476f34c4cffe102f970f",
+                "2612_ERR5766176_raw_1_fastqc.zip:md5,909776aa6fe72b451306b9a73c7ae5f8",
                 "2612_ERR5766176_raw_2_fastqc.html:md5,1fdc4bdd1e61e6e52e0848fa6810d83f",
-                "2612_ERR5766176_raw_2_fastqc.zip:md5,55cebc2378fb83da4eb498a418ef0569",
+                "2612_ERR5766176_raw_2_fastqc.zip:md5,b4da824a0a68e54fa7aad0f4a2329224",
                 "2613_ERR5766181_raw_1_fastqc.html:md5,95680592bd58d8ddfc6b5e233fb69ec2",
-                "2613_ERR5766181_raw_1_fastqc.zip:md5,189ad9414bfcd659801018fba4546b6a",
+                "2613_ERR5766181_raw_1_fastqc.zip:md5,70450bbe7beaf966444c16c64d75e548",
                 "2613_ERR5766181_raw_2_fastqc.html:md5,70ed091b5d4116d43d84d0e02e84721d",
-                "2613_ERR5766181_raw_2_fastqc.zip:md5,f3e1523be12caa01811bd865467c7c03",
+                "2613_ERR5766181_raw_2_fastqc.zip:md5,7586f10e58eae4ff300d9d3eaf064e6f",
                 "ERR3201952_ERR3201952_raw_fastqc.html:md5,e872072e13e7658691db2cee8767640a",
-                "ERR3201952_ERR3201952_raw_fastqc.zip:md5,398edb74db75d486c335f48389eb7c67"
+                "ERR3201952_ERR3201952_raw_fastqc.zip:md5,b388f4c2d04b8ff6f87a0b9817a80def"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-01T14:31:56.893438976"
+        "timestamp": "2026-03-01T14:59:00.427328054"
     },
     "porechop": {
         "content": [
             [
-                "ERR3201952_ERR3201952_porechop.log:md5,606ba8bb9af753badeec562ba71eb44f"
+                "ERR3201952_ERR3201952_porechop.log:md5,ef941fb44b49187b60c464941cad12b4"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-01T14:31:58.650738467"
+        "timestamp": "2026-03-01T14:59:01.496754483"
     },
     "samtools": {
         "content": [
@@ -530,51 +530,53 @@
     "bbduk": {
         "content": [
             [
-                "2612_ERR5766176.bbduk.log:md5,ae3df3c8a7b6d581887983f52a524876",
-                "2612_ERR5766176_B.bbduk.log:md5,c6f7a13844f3146ca87557b982a7d145",
-                "2613_ERR5766181.bbduk.log:md5,d9cfebc033a5e166d0a83aeba14f53cb"
+                "2612_ERR5766176.bbduk.log:md5,3df2f74e68656a30c049ae08989e350b",
+                "2612_ERR5766176_B.bbduk.log:md5,f34d18e68420b4a12a54f37f0524a07f",
+                "2613_ERR5766181.bbduk.log:md5,e9c8eedb7cc0b9f055a3c28a41e6b0b1"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-01T14:31:56.734775183"
+        "timestamp": "2026-03-01T14:59:00.340611645"
     },
     "adapterremoval": {
         "content": [
             [
-                
+                "2612_ERR5766176.settings:md5,26cec2a6c8e1210372464bacc0388c28",
+                "2612_ERR5766176_B.settings:md5,26cec2a6c8e1210372464bacc0388c28",
+                "2613_ERR5766181.settings:md5,30814271ddb4303ecca729fd725ba819"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-01T14:16:28.703035373"
+        "timestamp": "2026-03-01T14:59:00.282197904"
     },
     "kaiju": {
         "content": [
             [
-                "2611_db5.kaiju.tsv:md5,169bf70883c97d708c1a9510a34fff5d",
+                "2611_db5.kaiju.tsv:md5,87657ec12f25d2993f1f8fd1b94bf218",
                 "2611_db5.kaijutable.txt:md5,f3214a5018e28f797b021b8432e2eb87",
-                "2612_db5.kaiju.tsv:md5,c1274df4d4b0b637956124859922d6d9",
+                "2612_db5.kaiju.tsv:md5,d2fbb469561e917b67c83ebe6f9259e0",
                 "2612_db5.kaijutable.txt:md5,d7c0f09fabdfa3cc6f7878c0f7dbe408",
-                "2613_db5.kaiju.tsv:md5,ee8ec490e6fcf3c1299e8e39e5ed71c4",
+                "2613_db5.kaiju.tsv:md5,b338e6464932fda98ffe0587e5f87049",
                 "2613_db5.kaijutable.txt:md5,d5a22db1c5371fa7d0d5bf64cc16acf3",
-                "2614_db6.kaiju.tsv:md5,004458a6b043130ef254a8f74795b33c",
+                "2614_db6.kaiju.tsv:md5,017c042d0a812a46c1f94eed226ed4dc",
                 "2614_db6.kaijutable.txt:md5,c04c99ac5df9ef889b046063d1c88821",
-                "ERR3201952_db6.kaiju.tsv:md5,65ee4e24f7524779bcc7cd8ac2cdbc2e",
+                "ERR3201952_db6.kaiju.tsv:md5,dbdd408e929b880b9bf6afefad8a264e",
                 "ERR3201952_db6.kaijutable.txt:md5,c1bd1def7129462d268be511a1fcb3ec",
-                "2611_db7.kaiju.tsv:md5,9d5c2ea7b0187eb3715637df4c31e705",
+                "2611_db7.kaiju.tsv:md5,e6554065e14b5d36260e5e271051fb85",
                 "2611_db7.kaijutable.txt:md5,b224e2c7fec77b34102941db87502360",
-                "2612_db7.kaiju.tsv:md5,1b344d3c8df8710ef18e485f109c80c9",
+                "2612_db7.kaiju.tsv:md5,672c12ca20778441d8122ba63893104e",
                 "2612_db7.kaijutable.txt:md5,cdb6309da83c9ff17149b7b4c65cf380",
-                "2613_db7.kaiju.tsv:md5,97e818419b59222d699ed2bb72d05ee1",
+                "2613_db7.kaiju.tsv:md5,67ecc351bc6afcf33a3d13f4db7b0202",
                 "2613_db7.kaijutable.txt:md5,c5161d05672820b7e1db405b15d92f18",
-                "2614_db7.kaiju.tsv:md5,3fc9923c386f4d75fed738082e1bee9c",
+                "2614_db7.kaiju.tsv:md5,92011bb199dadd5f872bd3a9aed282b9",
                 "2614_db7.kaijutable.txt:md5,064d7008d4d7c4969baa150274e2cfb3",
-                "ERR3201952_db7.kaiju.tsv:md5,0e6febbc3248f5a117f6253e84485eff",
+                "ERR3201952_db7.kaiju.tsv:md5,d088f62f15940e80cf19cc22ed14cee9",
                 "ERR3201952_db7.kaijutable.txt:md5,aaf26e21460fd8fbd8d3fccf3eb37666"
             ]
         ],
@@ -582,6 +584,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-01T14:31:57.513865021"
+        "timestamp": "2026-03-01T14:59:00.892884101"
     }
 }
