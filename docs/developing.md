@@ -115,6 +115,7 @@ nf-test file contents:
   - [ ] Specify on the first line, a `stable_name_all` variable to list all file names with the nft-utils `getAllFilesFromDir` function
   - [ ] For each top-level output directory under `results` (typically, one per tool), specify a `stable_content_<tool name>` variable (exceptions: `multiqc` and `pipeline_info`) in alphabetical order
     - [ ] If no stable files, leave comment for that directory
+    - [ ] Make sure `relative: false` in function, to capture md5sums 
 - `assertAll` block
   - [ ] Use the `removeNextflowVersion` function
   - [ ] Check existance of `nf_core_taxprofiler_software_mqc_versions.yml` file
