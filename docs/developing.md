@@ -39,7 +39,7 @@ This page can act as a reference for new developers who wish to contribute to th
   - [ ] `nf-core pipelines schema build` has been run and updated
     - [ ] All additional tool specific pipeline parameters have a additional help entry with the `Modifies tool parameter(s)` quote block
   - [ ] Added citation to `citations.md` (citation style: APA 7th edition)
-  - [ ] Add citation to the toolCitation/BibliographyText functions in `subworkflows/local/utils_nfcore/taxprofiler_pipeline
+  - [ ] Add citation to the toolCitation/BibliographyText functions in `subworkflows/local/utils_nfcore_taxprofiler_pipeline/main.nf`
     - [ ] Added in-text citation
     - [ ] Added bibliography (citation style: APA 7th edition)
   - [ ] Added relevant documentation to `usage.md`
