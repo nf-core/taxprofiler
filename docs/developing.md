@@ -60,6 +60,7 @@ This page can act as a reference for new developers who wish to contribute to th
 - [ ] Updated `test*.config`s
   - [ ] Added `database_vX.X.csv` to all test configs (only once per release with first profiler!)
   - [ ] Added `run_<profiler>` to test configs (where applicable)
+- [ ] Add nf-test file and snapshot. See [nf-test specifications](#new-nf-test-procedure-and-specifications) for more information.
 - [ ] Test(s) pass
 
 ## Outside of pipeline repository
@@ -73,3 +74,51 @@ This page can act as a reference for new developers who wish to contribute to th
 - [ ] Add a [MultiQC](https://github.com/multiqc/multiqc) module
 - [ ] Make a [Taxpasta](https://github.com/taxprofiler/taxpasta) module
 - [ ] Add the database building module to nf-core/createtaxdb (where possible)
+
+## New nf-test procedure and specifications
+
+### Procedure
+
+When writing a new pipeline-level nf-tests for nf-core/taxprofiler, we recommend the following procedure:
+
+1. Run the test profile locally to have a copy of the expected output files and the results directory structure
+2. Check the contents of files are expected (one or two files per directory should be enough)
+2. Write the base nf-test file structure, assuming _all_ files are stable (following the specifications below)
+3. Run `nf-test --tag <test_name> --profile +docker` once to write the first snapshot
+4. Run command above to get the `diff` of unstable files
+5. Update the assertions in each directories `.match()` snapshot for unstable files
+
+### Specifications
+
+Write the test files following the specifications below.
+
+The necessary files are are follows:
+
+- [ ] New test files should go under `tests/`
+- [ ] Test file should be called `<test_config_name>.nf.test`
+- [ ] Snapshot file should be called `<test_config_name>.nf.test.snap`
+
+nf-test file contents:
+
+- Test file header
+  - [ ] Specify name as: `Test <config name>` 
+  - [ ] Specify two tags: `pipeline` and `<config_name>`
+  - [ ] Specify profile as `<config_name>`
+- Test block
+  - [ ] Specify the name of the test block as `test("-profile <config name>")`
+- When block
+  - [ ] Specify when block with single param, `outdir`
+    - All other parameters should be specified in the config itself
+- Then block
+- [ ] Specify on the first line, a `stable_name_all` variable to list all file names with the nft-utils `getAllFilesFromDir` function
+- [ ] For each top-level output directory under `results` (typically, one per tool), specify a comment with the tool name and a `stable_content_<tool name>` variable
+- `assertAll` block
+  - [ ] Use the `removeNextflowVersion` function
+  - [ ] Check existance of `nf_core_taxprofiler_software_mqc_versions.yml` file
+  - [ ] Check existance of  `multiqc_report.html` file
+  - [ ] Snapshot `stable_name_all` with a `.match()` name of `all_files`
+  - [ ] For each results directory, make a snapshot with a `.match()` name of `directory_name` (typically the tool name all lower case). Inside this:
+    - [ ] Specify the `stable_content_<tool_name>` variable
+    - [ ] For each unstable file, specify specific path in `.nftignore`
+    - [ ] For each unstable file, specify an alternative method of file checks (e.g. sorted file, file size check, contains string, nft-plugin function)
+    - [ ] For each unstable file assertion, include a string before the assertion itself with the file name and type of check
