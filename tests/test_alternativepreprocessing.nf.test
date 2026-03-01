@@ -1,12 +1,12 @@
 nextflow_pipeline {
 
-    name "Test pipeline"
+    name "Test alternative preprocessing"
     script "../main.nf"
     tag "pipeline"
-    tag "test"
-    profile "test"
+    tag "test_alternativepreprocessing"
+    profile "test_alternativepreprocessing"
 
-    test("-profile test") {
+    test("-profile test_alternativepreprocessing") {
 
         when {
             params {
@@ -15,7 +15,56 @@ nextflow_pipeline {
         }
 
         then {
+            def stable_name_all               = getAllFilesFromDir(params.outdir              , relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_content_adapterremoval = getAllFilesFromDir("$outputDir/adapterremoval", relative: false, includeDir: true, ignore: ['*', '**.*'])
+            def stable_content_bbduk          = getAllFilesFromDir("$outputDir/bbduk"         , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_contents_bowtie2       = getAllFilesFromDir("$outputDir/bowtie2"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_contents_fastqc        = getAllFilesFromDir("$outputDir/fastqc"        , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_contents_filtlong      = getAllFilesFromDir("$outputDir/filtlong"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_contents_kaiju         = getAllFilesFromDir("$outputDir/kaiju"         , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_contents_kraken2       = getAllFilesFromDir("$outputDir/kraken2"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_contents_porechop      = getAllFilesFromDir("$outputDir/porechop"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_contents_samtools      = getAllFilesFromDir("$outputDir/samtools"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
+                ).match() },
+
+                { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                { assert snapshot ( stable_name_all ).match("all_files") },
+
+                // adapterremoval
+                { assert snapshot ( stable_content_adapterremoval ).match("adapterremoval") },
+
+                // bbduk
+                { assert snapshot ( stable_content_bbduk ).match("bbduk") },
+                
+                // bowtie2
+                { assert snapshot ( stable_contents_bowtie2 ).match("bowtie2") },
+
+                // fastqc
+                { assert snapshot ( stable_contents_fastqc ).match("fastqc") },
+
+                // filtlong
+                { assert snapshot ( stable_contents_filtlong ).match("filtlong") },
+
+                // kaiju
+                { assert snapshot ( stable_contents_kaiju ).match("kaiju") },
+
+                // Kraken2
+                { assert snapshot ( stable_contents_kraken2 ).match("kraken2") },
+
+                // porechop
+                { assert snapshot ( stable_contents_porechop ).match("porechop") },
+
+                // samtools
+                { assert snapshot ( stable_contents_samtools ).match("samtools") },
+            )
 
         }
     }
