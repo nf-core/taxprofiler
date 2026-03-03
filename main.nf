@@ -57,7 +57,6 @@ workflow {
         params.plaintext_email,
         params.outdir,
         params.monochrome_logs,
-        params.hook_url,
         NFCORE_TAXPROFILER.out.multiqc_report,
     )
 }
@@ -75,7 +74,7 @@ workflow {
 workflow NFCORE_TAXPROFILER {
     take:
     samplesheet // channel: samplesheet read in from --input
-    databases   // channel: databases in from --databases
+    databases // channel: databases in from --databases
 
     main:
 
