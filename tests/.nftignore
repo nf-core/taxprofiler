@@ -3,8 +3,7 @@ bbduk/*.log
 centrifuge/*.{fastq.gz,txt}
 diamond/*/*.{tsv,log}
 fastp/*.{html,zip,json,log}
-fastqc/*_fastqc.{html,zip}
-fastqc/*/*fastqc.zip
+fastqc/*/*_fastqc.{html,zip}
 ganon/*/*.log
 kaiju/*/*.{tsv,txt}
 kraken2/*/*.{fastq.gz,txt}

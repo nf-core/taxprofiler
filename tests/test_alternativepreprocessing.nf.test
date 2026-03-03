@@ -18,13 +18,13 @@ nextflow_pipeline {
             def stable_name_all               = getAllFilesFromDir(params.outdir              , relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             def stable_content_adapterremoval = getAllFilesFromDir("$outputDir/adapterremoval", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*', '**/*'])
             def stable_content_bbduk          = getAllFilesFromDir("$outputDir/bbduk"         , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_content_bowtie2       = getAllFilesFromDir("$outputDir/bowtie2"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_content_fastqc        = getAllFilesFromDir("$outputDir/fastqc"        , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_content_filtlong      = getAllFilesFromDir("$outputDir/filtlong"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_content_kaiju         = getAllFilesFromDir("$outputDir/kaiju"         , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_content_kraken2       = getAllFilesFromDir("$outputDir/kraken2"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_content_porechop      = getAllFilesFromDir("$outputDir/porechop"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_bowtie2       = getAllFilesFromDir("$outputDir/bowtie2"        , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_fastqc        = getAllFilesFromDir("$outputDir/fastqc"         , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_filtlong      = getAllFilesFromDir("$outputDir/filtlong"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_kaiju         = getAllFilesFromDir("$outputDir/kaiju"          , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_kraken2       = getAllFilesFromDir("$outputDir/kraken2"        , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_porechop      = getAllFilesFromDir("$outputDir/porechop"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             assertAll(
                 { assert workflow.success},
