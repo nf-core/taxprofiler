@@ -43,7 +43,7 @@ nextflow_pipeline {
 
                 // bbduk
                 { assert snapshot ( stable_content_bbduk ).match("bbduk") },
-                
+
                 // bowtie2
                 { assert snapshot ( stable_content_bowtie2 ).match("bowtie2") },
 
