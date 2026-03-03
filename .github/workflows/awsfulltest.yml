@@ -47,7 +47,7 @@ jobs:
                 message = ':white_check_mark: *taxprofiler/test_full* completed successfully! :tada:'
               }
               onError {
-                message = ':x: *taxprofiler/taxprofiler/test_full* failed :crying_cat_face:'
+                message = ':x: */taxprofiler/test_full* failed :crying_cat_face:'
               }
             }
           parameters: |
