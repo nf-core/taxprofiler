@@ -573,7 +573,7 @@ workflow PROFILING {
         ch_input_for_sylphtax = SYLPH_PROFILE.out.profile_out
             .map { meta, report -> [meta.db_name, meta, report] }
             .combine(ch_database_for_sylph_profile, by: 0)
-            .map { key, meta, _in_reads, db_meta, db ->
+            .map { key, meta, in_reads, db_meta, db ->
 
                 // Same as kraken2/bracken logic here. Arguments after semicolon are going into sylph-tax taxprof
                 def db_meta_keys = db_meta.keySet()
@@ -588,7 +588,7 @@ workflow PROFILING {
                     db_meta_new = db_meta + [db_params: ""]
                 }
 
-                [key, meta, reads, db_meta_new, db]
+                [key, meta, in_reads, db_meta_new, db]
             }
             .multiMap { _key, meta, report, db_meta, db ->
                 report: [meta + db_meta, report]
