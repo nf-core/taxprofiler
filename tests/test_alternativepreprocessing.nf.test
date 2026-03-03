@@ -18,13 +18,13 @@ nextflow_pipeline {
             def stable_name_all               = getAllFilesFromDir(params.outdir              , relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             def stable_content_adapterremoval = getAllFilesFromDir("$outputDir/adapterremoval", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*', '**/*'])
             def stable_content_bbduk          = getAllFilesFromDir("$outputDir/bbduk"         , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_contents_bowtie2       = getAllFilesFromDir("$outputDir/bowtie2"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_contents_fastqc        = getAllFilesFromDir("$outputDir/fastqc"        , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_contents_filtlong      = getAllFilesFromDir("$outputDir/filtlong"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_contents_kaiju         = getAllFilesFromDir("$outputDir/kaiju"         , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_contents_kraken2       = getAllFilesFromDir("$outputDir/kraken2"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_contents_porechop      = getAllFilesFromDir("$outputDir/porechop"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            def stable_contents_samtools      = getAllFilesFromDir("$outputDir/samtools"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_bowtie2       = getAllFilesFromDir("$outputDir/bowtie2"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_fastqc        = getAllFilesFromDir("$outputDir/fastqc"        , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_filtlong      = getAllFilesFromDir("$outputDir/filtlong"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_kaiju         = getAllFilesFromDir("$outputDir/kaiju"         , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_kraken2       = getAllFilesFromDir("$outputDir/kraken2"       , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_porechop      = getAllFilesFromDir("$outputDir/porechop"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools"      , relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
             assertAll(
                 { assert workflow.success},
@@ -45,25 +45,25 @@ nextflow_pipeline {
                 { assert snapshot ( stable_content_bbduk ).match("bbduk") },
                 
                 // bowtie2
-                { assert snapshot ( stable_contents_bowtie2 ).match("bowtie2") },
+                { assert snapshot ( stable_content_bowtie2 ).match("bowtie2") },
 
                 // fastqc
-                { assert snapshot ( stable_contents_fastqc ).match("fastqc") },
+                { assert snapshot ( stable_content_fastqc ).match("fastqc") },
 
                 // filtlong
-                { assert snapshot ( stable_contents_filtlong ).match("filtlong") },
+                { assert snapshot ( stable_content_filtlong ).match("filtlong") },
 
                 // kaiju
-                { assert snapshot ( stable_contents_kaiju ).match("kaiju") },
+                { assert snapshot ( stable_content_kaiju ).match("kaiju") },
 
                 // Kraken2
-                { assert snapshot ( stable_contents_kraken2 ).match("kraken2") },
+                { assert snapshot ( stable_content_kraken2 ).match("kraken2") },
 
                 // porechop
-                { assert snapshot ( stable_contents_porechop ).match("porechop") },
+                { assert snapshot ( stable_content_porechop ).match("porechop") },
 
                 // samtools
-                { assert snapshot ( stable_contents_samtools ).match("samtools") },
+                { assert snapshot ( stable_content_samtools ).match("samtools") },
             )
 
         }
