@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Deprecated`
 
-- [#XXX](https://github.com/nf-core/taxprofiler/pull/XXX) Remove hook_url from the pipeline configuration, cf[tools#4051](https://github.com/nf-core/tools/pull/4051) (by @jfy133 and @FriederikeHanssen)
+- [#696](https://github.com/nf-core/taxprofiler/pull/696) Remove hook_url from the pipeline configuration, cf[tools#4051](https://github.com/nf-core/tools/pull/4051) (by @jfy133 and @FriederikeHanssen)
 
 ## v1.2.6 - [2026-02-16]
 

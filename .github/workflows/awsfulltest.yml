@@ -38,16 +38,16 @@ jobs:
               enabled = true
               bot {
                 token = '${{ secrets.NFSLACK_BOT_TOKEN }}'
-                channel = 'seqinspector'
+                channel = 'taxprofiler'
               }
               onStart {
                 enabled = false
               }
               onComplete {
-                message = ':white_check_mark: *seqinspector/test_full* completed successfully! :tada:'
+                message = ':white_check_mark: *taxprofiler/test_full* completed successfully! :tada:'
               }
               onError {
-                message = ':x: *seqinspector/seqinspector/test_full* failed :crying_cat_face:'
+                message = ':x: *taxprofiler/taxprofiler/test_full* failed :crying_cat_face:'
               }
             }
           parameters: |
