@@ -23,7 +23,7 @@ nextflow_pipeline {
             def stable_content_filtlong       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["filtlong/**"]      , ignoreFile: 'tests/.nftignore')
             // kaiju: partly unstable files, see custom assertions
             def stable_content_kraken2        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["kraken2/**"]       , ignoreFile: 'tests/.nftignore')
-            def stable_content_porechop       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["porechop/**"]      , ignoreFile: 'tests/.nftignore')
+            // porechop: partly unstable files, see custom assertions
             def stable_content_samtools       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]      , ignoreFile: 'tests/.nftignore')
             
             assertAll(
@@ -90,7 +90,10 @@ nextflow_pipeline {
                 },
 
                 // porechop
-                { assert snapshot ( stable_content_porechop ).match("porechop") },
+                { assert snapshot ( 
+                        file("$outputDir/porechop/ERR3201952_ERR3201952_porechop.log").getName() + " contains string '7 / 10,000': " + file("$outputDir/porechop/ERR3201952_ERR3201952_porechop.log").text.contains("7 / 10,000"),
+                    ).match("porechop")
+                },
 
                 // samtools
                 { assert snapshot ( stable_content_samtools ).match("samtools") },
