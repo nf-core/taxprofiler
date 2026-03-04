@@ -23,8 +23,9 @@ nextflow_pipeline {
             def stable_content_centrifuge  = getAllFilesFromDir("$outputDir/centrifuge", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
             def stable_content_diamond     = getAllFilesFromDir("$outputDir/diamond", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
             def stable_content_fastp       = getAllFilesFromDir("$outputDir/fastp", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            // fastqc: no stable files, see stable_name_all
             def stable_content_ganon       = getAllFilesFromDir("$outputDir/ganon", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
-            // Kaiju: no stable files
+            // kaiju: no stable files, see stable_name_all
             def stable_content_kraken2     = getAllFilesFromDir("$outputDir/kraken2", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
             def stable_content_kmcp        = getAllFilesFromDir("$outputDir/kmcp", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
             def stable_content_krona       = getAllFilesFromDir("$outputDir/krona", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
@@ -139,7 +140,8 @@ nextflow_pipeline {
                 { assert snapshot (stable_content_kmcp).match("kmcp")},
 
                 // kraken2
-                { assert snapshot(file("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").getName() + " contains string:'Homo sapiens':" + file("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").text.contains("Homo sapiens"),
+                { assert snapshot (
+                                file("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").getName() + " contains string:'Homo sapiens':" + file("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").text.contains("Homo sapiens"),
                                 file("$outputDir/kraken2/db2/2611_db2.kraken2.classified.fastq.gz").getName() + " contains string 'ERR5766174.15494 kraken:taxid|559292':" + path("$outputDir/kraken2/db2/2611_db2.kraken2.classified.fastq.gz").linesGzip.findAll { l -> l.contains('ERR5766174.15494 kraken:taxid|559292') },
                                 file("$outputDir/kraken2/db2/2611_db2.kraken2.unclassified.fastq.gz").getName() + " contains string '>ERR5766174.184799':" + path("$outputDir/kraken2/db2/2611_db2.kraken2.unclassified.fastq.gz").linesGzip.findAll { l -> l.contains('>ERR5766174.184799') },
                                 file("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").getName() + " contains string:'Saccharomyces cerevisiae S288C':" + file("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").text.contains("Saccharomyces cerevisiae S288C"),
