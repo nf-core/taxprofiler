@@ -90,7 +90,7 @@ nextflow_pipeline {
                 },
 
                 // porechop
-                { assert snapshot ( 
+                { assert snapshot (
                         file("$outputDir/porechop/ERR3201952_ERR3201952_porechop.log").getName() + " contains string '7 / 10,000': " + file("$outputDir/porechop/ERR3201952_ERR3201952_porechop.log").text.contains("7 / 10,000"),
                     ).match("porechop")
                 },
