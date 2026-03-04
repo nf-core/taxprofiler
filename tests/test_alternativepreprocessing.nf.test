@@ -25,7 +25,7 @@ nextflow_pipeline {
             def stable_content_kraken2        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["kraken2/**"]       , ignoreFile: 'tests/.nftignore')
             // porechop: partly unstable files, see custom assertions
             def stable_content_samtools       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]      , ignoreFile: 'tests/.nftignore')
-            
+
             assertAll(
                 { assert workflow.success},
                 { assert snapshot(
@@ -42,11 +42,11 @@ nextflow_pipeline {
                 { assert snapshot ( stable_content_adapterremoval ).match("adapterremoval") },
 
                 // bbduk
-                { assert snapshot ( 
+                { assert snapshot (
                         file("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").getName() + " contains string 'Bases Processed:        134m': " + file("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").text.contains("Bases Processed:        134m"),
                         file("$outputDir/bbduk/2612_ERR5766176.bbduk.log").getName() + " contains string 'Bases Processed:        134m': " + file("$outputDir/bbduk/2612_ERR5766176.bbduk.log").text.contains("Bases Processed:        134m"),
                         file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").getName() + " contains string 'Bases Processed:        103m': " + file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Bases Processed:        103m")
-                    ).match("bbduk") 
+                    ).match("bbduk")
                 },
 
                 // bowtie2
@@ -56,7 +56,7 @@ nextflow_pipeline {
                 { assert snapshot ( stable_content_filtlong ).match("filtlong") },
 
                 // kaiju
-                { assert snapshot ( 
+                { assert snapshot (
                         file("$outputDir/kaiju/db5/2611_db5.kaijutable.txt").getName() + " contains string '10239':" +file("$outputDir/kaiju/db5/2611_db5.kaijutable.txt").text.contains("10239"),
                         file("$outputDir/kaiju/db5/2611_db5.kaiju.tsv").getName()+ " contains string 'ERR5766174.4':" + file("$outputDir/kaiju/db5/2611_db5.kaiju.tsv").text.contains("ERR5766174.4"),
                         file("$outputDir/kaiju/db5/2612_db5.kaijutable.txt").getName()+ " contains string '10239':" + file("$outputDir/kaiju/db5/2612_db5.kaijutable.txt").text.contains("10239"),
@@ -77,7 +77,7 @@ nextflow_pipeline {
                         file("$outputDir/kaiju/db7/2614_db7.kaiju.tsv").getName() + " contains string 'ERR3201952.1794060':" + file("$outputDir/kaiju/db7/2614_db7.kaiju.tsv").text.contains("ERR3201952.1794060"),
                         file("$outputDir/kaiju/db7/ERR3201952_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/ERR3201952_db7.kaijutable.txt").text.contains("10239"),
                         file("$outputDir/kaiju/db7/ERR3201952_db7.kaiju.tsv").getName() + " contains string 'ERR3201952.1159044':" + file("$outputDir/kaiju/db7/ERR3201952_db7.kaiju.tsv").text.contains("ERR3201952.1159044")
-                    ).match("kaiju") 
+                    ).match("kaiju")
                 },
 
                 // Kraken2
