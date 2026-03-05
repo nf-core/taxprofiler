@@ -83,8 +83,10 @@ When writing a new pipeline-level nf-tests for nf-core/taxprofiler, we recommend
 
 1. Run the test profile locally to have a copy of the expected output files and the results directory structure
 2. Check the expected results directories and contents of files are expected
-  - Check that the results directory reflects parameters specified in the test config itself
-  - One or two files per directory should be enough
+
+- Check that the results directory reflects parameters specified in the test config itself
+- One or two files per directory should be enough
+
 2. Write the base nf-test file structure, assuming _all_ files are stable (following the specifications below)
 3. Run `nf-test --tag <test_name> --profile +docker` once to write the first snapshot
 4. Run command above to get the `diff` of unstable files
@@ -103,7 +105,7 @@ The necessary files are are follows:
 nf-test file contents:
 
 - Test file header
-  - [ ] Specify name as: `Test <config name>` 
+  - [ ] Specify name as: `Test <config name>`
   - [ ] Specify two tags: `pipeline` and `<config_name>`
   - [ ] Specify profile as `<config_name>`
 - Test block
@@ -115,11 +117,11 @@ nf-test file contents:
   - [ ] Specify on the first line, a `stable_name_all` variable to list all file names with the nft-utils `getAllFilesFromDir` function
   - [ ] For each top-level output directory under `results` (typically, one per tool), specify a `stable_content_<tool name>` variable (exceptions: `multiqc` and `pipeline_info`) in alphabetical order
     - [ ] If no stable files, leave comment for that directory
-    - [ ] Make sure `relative: false` in function, to capture md5sums 
+    - [ ] Make sure `relative: false` in function, to capture md5sums
 - `assertAll` block
   - [ ] Use the `removeNextflowVersion` function
   - [ ] Check existance of `nf_core_taxprofiler_software_mqc_versions.yml` file
-  - [ ] Check existance of  `multiqc_report.html` file
+  - [ ] Check existance of `multiqc_report.html` file
   - [ ] Snapshot `stable_name_all` with a `.match()` name of `all_files`
   - [ ] For each results directory:
     - [ ] Add a comment of the directory name
