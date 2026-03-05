@@ -150,5 +150,7 @@ Reviewing:
   - `*.nf.test.snap`
     - [ ] All `.match()` sections defined in `*.nf.test` represented
     - [ ] No empty `match()` blocks
+    - [ ] All files in `--outdir` listed in each `.match()` section (except if explicitly excluded due to completely unstable files)
+      - Comparing with the output of `tree <--outdir>` can be helpful!
     - [ ] No empty `md5sums` (`d41d8cd98f00b204e9800998ecf8427e`)
     - [ ] No custom boolean assertions set as `false` 
