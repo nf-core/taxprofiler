@@ -36,6 +36,9 @@ nextflow_pipeline {
             def stable_content_porechopabi = getAllFilesFromDir("$outputDir/porechop_abi", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
             def stable_content_samtools    = getAllFilesFromDir("$outputDir/samtools", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
             def stable_content_taxpasta    = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_melon      = getAllFilesFromDir("$outputDir/melon", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+            def stable_content_sylph      = getAllFilesFromDir("$outputDir/sylph", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
 
             assertAll(
 
@@ -221,6 +224,12 @@ nextflow_pipeline {
                                 stable_content_taxpasta
                         ).match("taxpasta")
                 },
+                
+                // melon
+                { assert snapshot (stable_content_melon).match("melon")},
+                
+                // sylph
+                { assert snapshot (stable_content_sylph).match("sylph") },
             )
         }
     }
