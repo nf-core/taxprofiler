@@ -224,10 +224,10 @@ nextflow_pipeline {
                                 stable_content_taxpasta
                         ).match("taxpasta")
                 },
-                
+
                 // melon
                 { assert snapshot (stable_content_melon).match("melon")},
-                
+
                 // sylph
                 { assert snapshot (stable_content_sylph).match("sylph") },
             )
