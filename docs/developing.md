@@ -112,12 +112,15 @@ nf-test file contents:
   - [ ] Specify the name of the test block as `test("-profile <config name>")`
 - When block
   - [ ] Specify when block with single param, `outdir`
-    - All other parameters should be specified in the config itself
+    - All other parameters should be specified in the config `.conf` file itself
 - Then block
   - [ ] Specify on the first line, a `stable_name_all` variable to list all file names with the nft-utils `getAllFilesFromDir` function
-  - [ ] For each top-level output directory under `results` (typically, one per tool), specify a `stable_content_<tool name>` variable (exceptions: `multiqc` and `pipeline_info`) in alphabetical order
+  - [ ] For each top-level output directory under `results` (typically, one per tool), specify a `stable_content_<dir name>` variable (exceptions: `multiqc` and `pipeline_info`) in alphabetical order
+    - Use syntax: `def stable_content_<dir name> = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["<dir name>/**"], ignoreFile: 'tests/.nftignore')`
     - [ ] If no stable files, leave comment for that directory
-    - [ ] Make sure `relative: false` in function, to capture md5sums
+      - All files unstable `// <dir name>: all unstable files, see stable_name_all`
+      - Partly unstable (using custom assertions): `// <dir name>: partly unstable files, see custom assertions`
+    - [ ] Make sure `relative: false` in function, to capture md5sums 
 - `assertAll` block
   - [ ] Use the `removeNextflowVersion` function
   - [ ] Check existance of `nf_core_taxprofiler_software_mqc_versions.yml` file
@@ -125,10 +128,27 @@ nf-test file contents:
   - [ ] Snapshot `stable_name_all` with a `.match()` name of `all_files`
   - [ ] For each results directory:
     - [ ] Add a comment of the directory name
-    - [ ] Specify an assert closure with a snapshot and `.match()` name of `directory_name` (typically the tool name all lower case). Exceptions: MultiQC, Pipeline info. Inside this:
-    - [ ] Each `match()` should be in alphabetical order (same as order in the `--outdir`)
-    - [ ] Specify the `stable_content_<tool_name>` variable
-    - [ ] For each unstable file, specify specific path in `.nftignore`
-    - [ ] For each unstable file, specify an alternative method of file checks (e.g. sorted file, file size check, contains string, nft-plugin function)
-    - [ ] For each unstable file assertion, include a string before the assertion itself with the file name and type of check
-    - [ ] If multiple assertions in snapshot, ensure closing `.match()` and closing `{}` are one and two less indents as the assertions
+    - [ ] Specify an assert closure with a snapshot and `.match()` name of `directory_name` (typically the tool name all lower case). Exceptions: MultiQC, Pipeline info.
+    - [ ] Each `.match()` should be in alphabetical order (same as order in the `--outdir`)
+    - [ ] Inside `.match()` assertion, secify the `stable_content_<dir name>` variable (if available), then:
+      - [ ] For each unstable file, specify specific path in `.nftignore` including the tool directory prefix
+      - [ ] For each unstable file, if the contents are partly stable, specify an alternative method of file checks (e.g. sorted file, file size check, contains string, nft-plugin function)
+      - [ ] For each unstable file assertion, include a string before the assertion itself with the file name and type of check (with what being checked for)
+      - [ ] If multiple assertions in snapshot, ensure closing `.match()` and closing `{}` are one and two less indents as the assertions
+
+Reviewing:
+
+  - `*.conf` local test run
+    - [ ] File contents of all files are as expected
+  - `*.nf.test`
+    - [ ] All test names, tags, profiles correct
+    - [ ] Structure matches structure described above
+    - [ ] All output directories of the `-profile test_<name>` are covered via a `stable_contents_*` variable and an assertions
+    - [ ] Non-stable directories not using `stable_contents_*` replaced with a comment
+    - [ ] All unstable files covered in custom snapshots
+    - [ ] Custom assertion specifies right file name in both sentence and in the file check itself 
+  - `*.nf.test.snap`
+    - [ ] All `.match()` sections defined in `*.nf.test` represented
+    - [ ] No empty `match()` blocks
+    - [ ] No empty `md5sums` (`d41d8cd98f00b204e9800998ecf8427e`)
+    - [ ] No custom boolean assertions set as `false` 
