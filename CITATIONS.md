@@ -117,6 +117,10 @@
 
   > Piro, V. C., Dadi, T. H., Seiler, E., Reinert, K., & Renard, B. Y. (2020). Ganon: Precise metagenomics classification against large and up-to-date sets of reference sequences. Bioinformatics (Oxford, England), 36(Suppl_1), i12–i20. https://doi.org/10.1093/bioinformatics/btaa458
 
+- [melon](https://doi.org/10.1186/s13059-024-03363-y)
+
+  > Chen, X., Yin, X., Shi, X., Yan, W., Yang, Y., Liu, L., & Zhang, T. (2024). Melon: metagenomic long-read-based taxonomic identification and quantification using marker genes. Genome Biology, 25(1), 226. https://doi.org/10.1186/s13059-024-03363-y
+
 - [Krona](https://doi.org/10.1186/1471-2105-12-385)
 
   > Ondov, B. D., Bergman, N. H., & Phillippy, A. M. (2011). Interactive metagenomic visualization in a Web browser. BMC Bioinformatics, 12. https://doi.org/10.1186/1471-2105-12-385
@@ -124,6 +128,10 @@
 - [TAXPASTA](https://doi.org/10.21105/joss.05627)
 
   > Beber, M. E., Borry, M., Stamouli, S., & Fellows Yates, J. A. (2023). TAXPASTA: TAXonomic Profile Aggregation and STAndardisation. Journal of Open Source Software, 8(87), 5627. https://doi.org/10.21105/joss.05627
+
+- [sylph](https://doi.org/10.1038/s41587-024-02412-y)
+
+  > Shaw, J., & Yu, Y. W. (2024). Rapid species-level metagenome profiling and containment estimation with Sylph. Nature Biotechnology. https://doi.org/10.1038/s41587-024-02412-y
 
 ## Software packaging/containerisation tools
 
