@@ -60,7 +60,7 @@ nextflow_pipeline {
                 { assert snapshot ( stable_content_fastp ).match("fastp") },
 
                 // falco
-                { assert snapshot ( 
+                { assert snapshot (
                         stable_content_falco,
                         file("$outputDir/falco/processed/2612_ERR5766176_1.fastp.fastq.gz_fastqc_data.txt").getName()   + " contains string '151	0.177308': " + file("$outputDir/falco/processed/2612_ERR5766176_1.fastp.fastq.gz_fastqc_data.txt").text.contains("151	0.177308"),
                         file("$outputDir/falco/processed/2612_ERR5766176_2.fastp.fastq.gz_fastqc_data.txt").getName()   + " contains string '151	0.173329': " + file("$outputDir/falco/processed/2612_ERR5766176_2.fastp.fastq.gz_fastqc_data.txt").text.contains("151	0.173329"),
@@ -75,7 +75,7 @@ nextflow_pipeline {
                         file("$outputDir/falco/raw/ERX5474932_ERR5766176_B_2.fastq.gz_fastqc_data.txt").getName() + " contains string '151	57.2648': " + file("$outputDir/falco/raw/ERX5474932_ERR5766176_B_2.fastq.gz_fastqc_data.txt").text.contains("151	57.2648"),
                         file("$outputDir/falco/raw/ERX5474937_ERR5766181_1.fastq.gz_fastqc_data.txt").getName()   + " contains string '151	64.4773': " + file("$outputDir/falco/raw/ERX5474937_ERR5766181_1.fastq.gz_fastqc_data.txt").text.contains("151	64.4773"),
                         file("$outputDir/falco/raw/ERX5474937_ERR5766181_2.fastq.gz_fastqc_data.txt").getName()   + " contains string '151	63.5701': " + file("$outputDir/falco/raw/ERX5474937_ERR5766181_2.fastq.gz_fastqc_data.txt").text.contains("151	63.5701")
-                    ).match("falco") 
+                    ).match("falco")
                 },
 
                 // kaiju
