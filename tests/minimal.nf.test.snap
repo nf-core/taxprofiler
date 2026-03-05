@@ -1,0 +1,19 @@
+{
+    "-profile test_minimal": {
+        "content": [
+            {
+                "FASTQC": {
+                    "fastqc": "0.12.1"
+                },
+                "Workflow": {
+                    "nf-core/taxprofiler": "v1.3.0dev"
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2026-02-12T11:37:27.223573232"
+    }
+}
