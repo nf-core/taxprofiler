@@ -342,14 +342,6 @@ workflow PROFILING {
             db: it[3]
         }
 
-        ch_input_for_motus_shortread = ch_input_for_motus.shortread
-            .view()
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: it[3]
-            }
-
-
         MOTUS_PREPLONG(ch_input_for_motus_longread.reads, ch_input_for_motus_longread.db)
 
         ch_database_for_motus = databases
@@ -374,7 +366,7 @@ workflow PROFILING {
 
                 [new_meta, [in_reads], new_db_meta, db]
             }
-            .mix(ch_input_for_motus_shortread)
+            .mix(ch_input_for_motus.shortread)
             .multiMap { it ->
                 reads: [it[0] + it[2], it[1]]
                 db: it[3]
