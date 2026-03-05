@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#694](https://github.com/nf-core/taxprofiler/pull/694) Developer and contributor documentation (by @jfy133)
+- [#698](https://github.com/nf-core/taxprofiler/pull/698) Add new config and nf-test for `test_falcobbduk` (by @jfy133)
+
 ### `Fixed`
 
 ### `Changed`
+
+- [#696](https://github.com/nf-core/taxprofiler/pull/696) Switch Slack channel reporting to nf-slack plugin for AWS Megatests (by @jfy133)
 
 ### `Dependencies`
 
@@ -19,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Deprecated`
 
+- [#698](https://github.com/nf-core/taxprofiler/pull/698) Deprecate `test_bbduk` and `test_falco` test profiles (merged into `test_falcobduk) (by @jfy133)
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Remove hook_url from the pipeline configuration, cf[tools#4051](https://github.com/nf-core/tools/pull/4051) (by @jfy133 and @FriederikeHanssen)
 
 ## v1.2.6 - [2026-02-16]
