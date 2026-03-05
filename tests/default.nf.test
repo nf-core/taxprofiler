@@ -64,10 +64,14 @@ nextflow_pipeline {
             //samtools
             def stable_content_samtools      = getAllFilesFromDir("$outputDir/samtools", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
-
             //taxpasta
             def stable_content_taxpasta      = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            // melon
+            def stable_content_melon      = getAllFilesFromDir("$outputDir/melon", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
+
+            // sylph
+            def stable_content_sylph      = getAllFilesFromDir("$outputDir/sylph", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
 
             assertAll(
@@ -191,6 +195,8 @@ nextflow_pipeline {
                                 file("$outputDir/taxpasta/metaphlan_metaphlan3.tsv").getName() + " contains string:'taxonomy_id':" + file("$outputDir/taxpasta/metaphlan_metaphlan3.tsv").text.contains("taxonomy_id"),
                                 file("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").getName() + " contains string:'1239':" + file("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").text.contains("1239"),
                                 stable_content_taxpasta).match("taxpasta") },
+                { assert snapshot (stable_content_melon).match("melon")},
+                { assert snapshot (stable_content_sylph).match("sylph") },
             )
         }
     }
