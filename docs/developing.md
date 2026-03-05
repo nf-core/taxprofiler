@@ -120,7 +120,7 @@ nf-test file contents:
     - [ ] If no stable files, leave comment for that directory
       - All files unstable `// <dir name>: all unstable files, see stable_name_all`
       - Partly unstable (using custom assertions): `// <dir name>: partly unstable files, see custom assertions`
-    - [ ] Make sure `relative: false` in function, to capture md5sums 
+    - [ ] Make sure `relative: false` in function, to capture md5sums
 - `assertAll` block
   - [ ] Use the `removeNextflowVersion` function
   - [ ] Check existance of `nf_core_taxprofiler_software_mqc_versions.yml` file
@@ -138,19 +138,19 @@ nf-test file contents:
 
 Reviewing:
 
-  - `*.conf` local test run
-    - [ ] File contents of all files are as expected
-  - `*.nf.test`
-    - [ ] All test names, tags, profiles correct
-    - [ ] Structure matches structure described above
-    - [ ] All output directories of the `-profile test_<name>` are covered via a `stable_contents_*` variable and an assertions
-    - [ ] Non-stable directories not using `stable_contents_*` replaced with a comment
-    - [ ] All unstable files covered in custom snapshots
-    - [ ] Custom assertion specifies right file name in both sentence and in the file check itself 
-  - `*.nf.test.snap`
-    - [ ] All `.match()` sections defined in `*.nf.test` represented
-    - [ ] No empty `match()` blocks
-    - [ ] All files in `--outdir` listed in each `.match()` section (except if explicitly excluded due to completely unstable files)
-      - Comparing with the output of `tree <--outdir>` can be helpful!
-    - [ ] No empty `md5sums` (`d41d8cd98f00b204e9800998ecf8427e`)
-    - [ ] No custom boolean assertions set as `false` 
+- `*.conf` local test run
+  - [ ] File contents of all files are as expected
+- `*.nf.test`
+  - [ ] All test names, tags, profiles correct
+  - [ ] Structure matches structure described above
+  - [ ] All output directories of the `-profile test_<name>` are covered via a `stable_contents_*` variable and an assertions
+  - [ ] Non-stable directories not using `stable_contents_*` replaced with a comment
+  - [ ] All unstable files covered in custom snapshots
+  - [ ] Custom assertion specifies right file name in both sentence and in the file check itself
+- `*.nf.test.snap`
+  - [ ] All `.match()` sections defined in `*.nf.test` represented
+  - [ ] No empty `match()` blocks
+  - [ ] All files in `--outdir` listed in each `.match()` section (except if explicitly excluded due to completely unstable files)
+    - Comparing with the output of `tree <--outdir>` can be helpful!
+  - [ ] No empty `md5sums` (`d41d8cd98f00b204e9800998ecf8427e`)
+  - [ ] No custom boolean assertions set as `false`
