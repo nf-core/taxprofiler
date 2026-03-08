@@ -91,7 +91,7 @@ nextflow_pipeline {
                         stable_content_nonpareil
                     ).match("nonpareil")
                 },
-                
+
                 // porechop_abi
                 { assert snapshot (
                         file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").getName() + " contains string '7 / 10,000': " + file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("7 / 10,000"),
