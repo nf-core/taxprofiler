@@ -23,6 +23,7 @@ include { GANON_REPORT                                  } from '../../modules/nf
 include { SYLPH_PROFILE                                 } from '../../modules/nf-core/sylph/profile/main'
 include { SYLPHTAX_TAXPROF                              } from '../../modules/nf-core/sylphtax/taxprof/main'
 include { MELON                                         } from '../../modules/nf-core/melon/main'
+include { SINGLEM_PIPE                                  } from '../../modules/nf-core/singlem/singlem/main'
 
 workflow PROFILING {
     take:
@@ -78,6 +79,7 @@ workflow PROFILING {
             ganon: db_meta.tool == 'ganon'
             sylph: db_meta.tool == 'sylph'
             melon: db_meta.tool == 'melon'
+            singlem: db_meta.tool == 'singlem'
             unknown: true
         }
 
@@ -610,6 +612,22 @@ workflow PROFILING {
         ch_versions = ch_versions.mix(MELON.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(MELON.out.json_output)
         ch_raw_profiles = ch_raw_profiles.mix(MELON.out.tsv_output)
+    }
+
+    if (params.run_singlem) {
+            ch_input_for_singlem = ch_input_for_profiling.singlem
+            .filter { meta, _in_reads, meta_db, _db ->
+                     meta_db['tool'] == 'singlem'
+                    }
+            .multiMap { it ->
+                reads: [it[0] + it[2], it[1]]
+                db: it[3]
+            }
+
+        SINGLEM_PIPE(ch_input_for_singlem.reads, ch_input_for_singlem.db)
+        ch_raw_profiles = ch_raw_profiles.mix(SINGLEM_PIPE.out.profile)
+        ch_versions     = ch_versions.mix(SINGLEM_PIPE.out.versions.first())
+        ch_multiqc_files = ch_multiqc_files.mix(SINGLEM_PIPE.out.log)
     }
 
     emit:
