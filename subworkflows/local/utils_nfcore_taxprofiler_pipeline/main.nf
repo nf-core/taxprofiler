@@ -14,7 +14,6 @@ include { samplesheetToList       } from 'plugin/nf-schema'
 include { paramsHelp              } from 'plugin/nf-schema'
 include { completionEmail         } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary       } from '../../nf-core/utils_nfcore_pipeline'
-include { imNotification          } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE   } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NEXTFLOW_PIPELINE } from '../../nf-core/utils_nextflow_pipeline'
 
@@ -28,7 +27,7 @@ workflow PIPELINE_INITIALISATION {
     take:
     version // boolean: Display version and exit
     validate_params // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs // boolean: Do not use coloured log outputs
+    _monochrome_logs // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir //  string: The output directory where the results will be saved
     input //  string: Path to input samplesheet
@@ -98,36 +97,36 @@ workflow PIPELINE_INITIALISATION {
 
     channel.fromList(samplesheetToList(input, "assets/schema_input.json"))
         .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
-                meta.run_accession = run_accession
-                meta.instrument_platform = instrument_platform
+            meta.run_accession = run_accession
+            meta.instrument_platform = instrument_platform
 
-                // Define single_end based on the conditions
-                meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' && instrument_platform != 'PACBIO_SMRT')
+            // Define single_end based on the conditions
+            meta.single_end = (fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' && instrument_platform != 'PACBIO_SMRT')
 
-                // Define is_fasta based on the presence of fasta
-                meta.is_fasta = fasta ? true : false
+            // Define is_fasta based on the presence of fasta
+            meta.is_fasta = fasta ? true : false
 
-                if (!meta.is_fasta && !fastq_1) {
-                    error("[nf-core/taxprofiler] ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist for ${meta.run_accession}")
-                }
-                if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
-                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty for ${meta.run_accession}")
-                }
-                if (meta.instrument_platform == 'PACBIO_SMRT' && fastq_2) {
-                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for PacBio reads entry `fastq_2` should be empty for ${meta.run_accession}")
-                }
-                if (meta.single_end && fastq_2) {
-                    error("[nf-core/taxprofiler] Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty for ${meta.run_accession}")
-                }
-                return [meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta]
+            if (!meta.is_fasta && !fastq_1) {
+                error("[nf-core/taxprofiler] ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist for ${meta.run_accession}")
             }
+            if (meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2) {
+                error("[nf-core/taxprofiler] Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty for ${meta.run_accession}")
+            }
+            if (meta.instrument_platform == 'PACBIO_SMRT' && fastq_2) {
+                error("[nf-core/taxprofiler] Error: Please check input samplesheet: for PacBio reads entry `fastq_2` should be empty for ${meta.run_accession}")
+            }
+            if (meta.single_end && fastq_2) {
+                error("[nf-core/taxprofiler] Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty for ${meta.run_accession}")
+            }
+            return [meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta]
+        }
         .set { ch_samplesheet }
 
     // Perform cross-row input validation to ensure that all runs of a given sample share the same data type (single-end or paired-end).
     ch_samplesheet
-        .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta -> [ meta.id, meta.single_end ] }  // Adjust field names
-        .groupTuple()                                                                    // Groups by first element (id)
-        .map { validateInputSamplesheet(it) }
+        .map { meta, _run_accession, _instrument_platform, _fastq_1, _fastq_2, _fasta -> [meta.id, meta.single_end] }
+        .groupTuple()
+        .map { input_samplesheet -> validateInputSamplesheet(input_samplesheet) }
 
     //
     // Validate and create channel from databases file provided through params.databases
@@ -203,7 +202,6 @@ workflow PIPELINE_COMPLETION {
     plaintext_email // boolean: Send plain-text email instead of HTML
     outdir //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
-    hook_url //  string: hook URL for notifications
     multiqc_report //  string: Path to MultiQC report
 
     main:
@@ -227,9 +225,6 @@ workflow PIPELINE_COMPLETION {
         }
 
         completionSummary(monochrome_logs)
-        if (hook_url) {
-            imNotification(summary_params, hook_url)
-        }
     }
 
     workflow.onError {

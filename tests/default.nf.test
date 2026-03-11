@@ -74,6 +74,8 @@ nextflow_pipeline {
             //taxpasta
             def stable_content_taxpasta      = getAllFilesFromDir("$outputDir/taxpasta", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
+            // melon
+            def stable_content_melon      = getAllFilesFromDir("$outputDir/melon", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
 
             assertAll(
@@ -184,11 +186,8 @@ nextflow_pipeline {
                 { assert snapshot (file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").getName() + " contains string: 'Looking for known adapter':" + file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("Looking for known adapter"),
                                 stable_content_porechopabi).match("porechop_abi")},
                 { assert snapshot (stable_content_samtools).match("samtools")},
-<<<<<<< HEAD
                 { assert snapshot (file("$outputDir/sylph/sylph_db1_combined_reports.tsv").getName() + " contains string:'Penicillium roqueforti':" + file("$outputDir/sylph/sylph_db1_combined_reports.tsv").text.contains("Penicillium roqueforti"),
                                 stable_content_sylph).match("sylph")},
-=======
->>>>>>> origin
                 { assert snapshot(file("$outputDir/taxpasta/bracken_db1.tsv").getName() + " contains string:'9606':" + file("$outputDir/taxpasta/bracken_db1.tsv").text.contains("9606"),
                                 file("$outputDir/taxpasta/centrifuge_db3.tsv").getName() + " contains string:'131567':" + file("$outputDir/taxpasta/centrifuge_db3.tsv").text.contains("131567"),
                                 file("$outputDir/taxpasta/diamond_db1.tsv").getName() + " contains string:'8058':" + file("$outputDir/taxpasta/diamond_db1.tsv").text.contains("8058"),
@@ -204,6 +203,7 @@ nextflow_pipeline {
                                 file("$outputDir/taxpasta/metaphlan_metaphlan3.tsv").getName() + " contains string:'taxonomy_id':" + file("$outputDir/taxpasta/metaphlan_metaphlan3.tsv").text.contains("taxonomy_id"),
                                 file("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").getName() + " contains string:'1239':" + file("$outputDir/taxpasta/metaphlan_metaphlan4.tsv").text.contains("1239"),
                                 stable_content_taxpasta).match("taxpasta") },
+                { assert snapshot (stable_content_melon).match("melon")},
             )
         }
     }

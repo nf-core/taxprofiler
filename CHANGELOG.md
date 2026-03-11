@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
+### `Deprecated`
+
+- [#696](https://github.com/nf-core/taxprofiler/pull/696) Remove hook_url from the pipeline configuration, cf[tools#4051](https://github.com/nf-core/tools/pull/4051) (by @jfy133 and @FriederikeHanssen)
+
 ## v1.2.6 - [2026-02-16]
 
 ### `Added`
@@ -71,7 +75,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#614](https://github.com/nf-core/taxprofiler/pull/614) Updated module `krakenuniq/preloadedkrakenuniq` to fix preload mechanism. The RAM chunk size can now be customised on a per-database basis. (added by @muniheart with help from / ❤️ to @jfy133)
 - [#600](https://github.com/nf-core/taxprofiler/pull/600) Added metaphlan to multiqc report (❤️ to @harper357 for reporting and added by @sofstam)
 - [#605](https://github.com/nf-core/taxprofiler/pull/605) Added documentation on how to generate Bracken reports for different taxonomic levels (❤️ to @MajoroMask for reporting and added by @jfy133)
-- -[#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
 
 ### `Fixed`
 
