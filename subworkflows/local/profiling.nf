@@ -614,20 +614,21 @@ workflow PROFILING {
         ch_raw_profiles = ch_raw_profiles.mix(MELON.out.tsv_output)
     }
 
-    if (params.run_singlem) {
-       // Construct a channel of tuples (meta, reads, db)
-    ch_input_for_singlem = ch_input_for_profiling
-    .map { meta, reads, meta_db, db ->
-        tuple(meta, reads, null)   // db = null since SingleM doesn't need it
-    }
+if (params.run_singlem) {
 
-    // Call the process with the channel
+    ch_input_for_singlem = ch_input_for_profiling.singlem
+        .map { meta, input_reads, db_meta, db ->
+            // Keep only meta and input_reads
+            tuple(meta, input_reads)
+        }
+
+    // call the process
     SINGLEM_PIPE(ch_input_for_singlem)
-        ch_raw_profiles = ch_raw_profiles.mix(SINGLEM_PIPE.out.profile)
-        ch_versions     = ch_versions.mix(SINGLEM_PIPE.out.versions.first())
-        ch_multiqc_files = ch_multiqc_files.mix(SINGLEM_PIPE.out.log)
-    }
 
+    // collect outputs
+    ch_raw_profiles   = ch_raw_profiles.mix(SINGLEM_PIPE.out.results)
+    ch_versions       = ch_versions.mix(SINGLEM_PIPE.out.versions)}
+    
     emit:
     classifications = ch_raw_classifications
     profiles        = ch_raw_profiles // channel: [ val(meta), [ reads ] ] - should be text files or biom

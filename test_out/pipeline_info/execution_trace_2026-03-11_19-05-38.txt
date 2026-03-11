@@ -1,3 +1,0 @@
-task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-7	2d/8d8fdc	-	NFCORE_TAXPROFILER:TAXPROFILER:LONGREAD_HOSTREMOVAL:MINIMAP2_INDEX	FAILED	-	-	-	-	-	-	-	-	-
-18	dd/5550f1	602	NFCORE_TAXPROFILER:TAXPROFILER:UNTAR (metaphlan_database.tar.gz)	COMPLETED	0	2026-03-11 19:07:49.915	1.6s	1.1s	31.3%	1.4 MB	4 MB	16.3 MB	24.1 MB
