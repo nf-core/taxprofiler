@@ -10,7 +10,7 @@ process SINGLEM_PIPE {
 
     input:
     tuple val(meta), path(reads)
-    path(db)  // optional if you want to provide a SingleM DB
+    // path(db)  // optional if you want to provide a SingleM DB
 
     output:
     tuple val(meta), path('*.profile.tsv'), emit: results

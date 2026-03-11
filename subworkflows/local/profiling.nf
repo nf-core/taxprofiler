@@ -615,16 +615,14 @@ workflow PROFILING {
     }
 
     if (params.run_singlem) {
-            ch_input_for_singlem = ch_input_for_profiling.singlem
-            .filter { meta, _in_reads, meta_db, _db ->
-                     meta_db['tool'] == 'singlem'
-                    }
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: it[3]
-            }
+       // Construct a channel of tuples (meta, reads, db)
+    ch_input_for_singlem = ch_input_for_profiling
+    .map { meta, reads, meta_db, db ->
+        tuple(meta, reads, null)   // db = null since SingleM doesn't need it
+    }
 
-        SINGLEM_PIPE(ch_input_for_singlem.reads, ch_input_for_singlem.db)
+    // Call the process with the channel
+    SINGLEM_PIPE(ch_input_for_singlem)
         ch_raw_profiles = ch_raw_profiles.mix(SINGLEM_PIPE.out.profile)
         ch_versions     = ch_versions.mix(SINGLEM_PIPE.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(SINGLEM_PIPE.out.log)
