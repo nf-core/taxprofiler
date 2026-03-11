@@ -8,12 +8,12 @@ include { CAT_FASTQ                               } from '../../modules/nf-core/
 
 workflow SHORTREAD_ADAPTERREMOVAL {
     take:
-    reads       // [[meta], [reads]]
+    reads // [[meta], [reads]]
     adapterlist // file
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     ch_input_for_adapterremoval = reads.branch {
         single: it[0].single_end
@@ -30,7 +30,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
 
     if (params.shortread_qc_mergepairs && params.shortread_qc_includeunmerged) {
 
-        ch_concat_fastq = Channel.empty()
+        ch_concat_fastq = channel.empty()
             .mix(
                 ADAPTERREMOVAL_PAIRED.out.collapsed,
                 ADAPTERREMOVAL_PAIRED.out.collapsed_truncated,
@@ -51,7 +51,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     }
     else if (params.shortread_qc_mergepairs && !params.shortread_qc_includeunmerged) {
 
-        ch_concat_fastq = Channel.empty()
+        ch_concat_fastq = channel.empty()
             .mix(
                 ADAPTERREMOVAL_PAIRED.out.collapsed,
                 ADAPTERREMOVAL_PAIRED.out.collapsed_truncated,

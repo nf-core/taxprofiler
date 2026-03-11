@@ -10,8 +10,8 @@ workflow SHORTREAD_COMPLEXITYFILTERING {
     reads // [ [ meta ], [ reads ] ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     // fastp complexity filtering is activated via modules.conf in shortread_preprocessing
     if (params.shortread_complexityfilter_tool == 'bbduk') {

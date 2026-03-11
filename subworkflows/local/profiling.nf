@@ -27,15 +27,15 @@ include { METACACHE_QUERY                               } from '../../modules/nf
 
 workflow PROFILING {
     take:
-    reads     // [ [ meta ], [ reads ] ]
+    reads // [ [ meta ], [ reads ] ]
     databases // [ [ meta ], path ]
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
-    ch_raw_classifications = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
+    ch_raw_classifications = channel.empty()
     // These per-read ID taxonomic assingment
-    ch_raw_profiles = Channel.empty()
+    ch_raw_profiles = channel.empty()
     // These are count tables
 
     /*
@@ -641,7 +641,7 @@ workflow PROFILING {
     classifications = ch_raw_classifications
     profiles        = ch_raw_profiles // channel: [ val(meta), [ reads ] ] - should be text files or biom
     versions        = ch_versions // channel: [ versions.yml ]
-    motus_version   = params.run_motus ? MOTUS_PROFILE.out.versions.first() : Channel.empty()
+    motus_version   = params.run_motus ? MOTUS_PROFILE.out.versions.first() : channel.empty()
     mqc             = ch_multiqc_files
 }
 
