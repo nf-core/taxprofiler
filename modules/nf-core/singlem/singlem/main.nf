@@ -24,17 +24,29 @@ process SINGLEM_PIPE {
 
     """
     MP_DIR="$metapackage_dir"
-    MP_FILE=\$(find "\$MP_DIR" -maxdepth 2 -type f -name '*.smpkg.zb' | head -n 1)
 
-    echo "Metapackage directory: \$MP_DIR"
-    echo "Using metapackage file: \$MP_FILE"
+    echo "Metapackage root directory: \$MP_DIR"
+    echo "Directory tree (max depth 3):"
+    find "\$MP_DIR" -maxdepth 3 -print
 
-    if [ -z "\$MP_FILE" ]; then
-        echo "ERROR: No .smpkg.zb metapackage file found under \$MP_DIR" >&2
+    # Find directory that looks like a SingleM metapackage (*.smpkg.zb)
+    MP_CAND=\$(find "\$MP_DIR" -maxdepth 3 -type d -name '*.smpkg.zb' | head -n 1)
+
+    # Fallback: maybe MP_DIR itself is the metapackage
+    if [ -z "\$MP_CAND" ]; then
+        if [ -f "\$MP_DIR/CONTENTS.json" ] && [ -d "\$MP_DIR/payload_directory" ]; then
+            MP_CAND="\$MP_DIR"
+        fi
+    fi
+
+    echo "Using SingleM metapackage path: \$MP_CAND"
+
+    if [ -z "\$MP_CAND" ]; then
+        echo "ERROR: Could not locate SingleM metapackage directory under \$MP_DIR" >&2
         exit 1
     fi
 
-    export SINGLEM_METAPACKAGE_PATH="\$MP_FILE"
+    export SINGLEM_METAPACKAGE_PATH="\$MP_CAND"
 
     singlem pipe \\
         $input_args \\

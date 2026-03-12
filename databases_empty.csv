@@ -1,2 +1,2 @@
 tool,db_name,db_params,db_path
-singlem,GTDB_r226,,https://zenodo.org/api/records/15232972/files/S5.4.0.GTDB_r226.metapackage_20250331.smpkg.zb.tar.gz/content
+singlem,GTDB_r226,,/projectnb/bf528/students/dennig2/singlem_db/S5.4.0.GTDB_r226.metapackage_20250331.smpkg.zb
