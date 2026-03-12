@@ -8,7 +8,7 @@ process SINGLEM_PIPE {
         'docker://wwood/singlem:0.20.3' }"
 
     input:
-    tuple val(meta), path(reads)
+    tuple val(meta), path(reads), path(metapackage_dir)
 
     output:
     tuple val(meta), path('*.profile.tsv'), emit: results
@@ -23,8 +23,19 @@ process SINGLEM_PIPE {
     def input_args = meta.single_end ? "-1 ${reads[0]}" : "-1 ${reads[0]} -2 ${reads[1]}"
 
     """
-    singlem data
-    export SINGLEM_METAPACKAGE_PATH=~/.singlem
+    MP_DIR="$metapackage_dir"
+    MP_FILE=\$(find "\$MP_DIR" -maxdepth 2 -type f -name '*.smpkg.zb' | head -n 1)
+
+    echo "Metapackage directory: \$MP_DIR"
+    echo "Using metapackage file: \$MP_FILE"
+
+    if [ -z "\$MP_FILE" ]; then
+        echo "ERROR: No .smpkg.zb metapackage file found under \$MP_DIR" >&2
+        exit 1
+    fi
+
+    export SINGLEM_METAPACKAGE_PATH="\$MP_FILE"
+
     singlem pipe \\
         $input_args \\
         -p ${prefix}.profile.tsv \\

@@ -79,7 +79,7 @@ workflow PROFILING {
             ganon: db_meta.tool == 'ganon'
             sylph: db_meta.tool == 'sylph'
             melon: db_meta.tool == 'melon'
-            // singlem: db_meta.tool == 'singlem'
+            singlem: db_meta.tool == 'singlem'
             unknown: true
         }
 
@@ -615,14 +615,17 @@ workflow PROFILING {
     }
 
 if (params.run_singlem) {
-    ch_input_for_singlem = reads
-        .map { meta, input_reads -> tuple(meta, input_reads) }
+
+    ch_input_for_singlem = ch_input_for_profiling.singlem
+        .map { meta, input_reads, db_meta, db ->
+            // pass read meta, reads, and the database path to the module
+            tuple(meta, input_reads, db)
+        }
 
     SINGLEM_PIPE(ch_input_for_singlem)
 
-    // Collect outputs
-    ch_raw_profiles   = ch_raw_profiles.mix(SINGLEM_PIPE.out.results)
-    ch_versions       = ch_versions.mix(SINGLEM_PIPE.out.versions)
+    ch_raw_profiles = ch_raw_profiles.mix(SINGLEM_PIPE.out.results)
+    ch_versions     = ch_versions.mix(SINGLEM_PIPE.out.versions)
 }
     
     emit:
