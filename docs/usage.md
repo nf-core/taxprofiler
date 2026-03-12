@@ -12,6 +12,7 @@ In addition to this page, you can find additional usage information on the follo
 
 - [Tutorials](usage/tutorials.md)
 - [FAQ and Troubleshooting](usage/faq-troubleshooting.md)
+- [Developing](usage/developing.md)
 
 ## General Usage
 
