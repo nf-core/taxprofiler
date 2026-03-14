@@ -23,6 +23,7 @@ include { GANON_REPORT                                  } from '../../modules/nf
 include { SYLPH_PROFILE                                 } from '../../modules/nf-core/sylph/profile/main'
 include { SYLPHTAX_TAXPROF                              } from '../../modules/nf-core/sylphtax/taxprof/main'
 include { MELON                                         } from '../../modules/nf-core/melon/main'
+include { SINGLEM_PIPE                                  } from '../../modules/nf-core/singlem/singlem/main'
 
 workflow PROFILING {
     take:
@@ -78,6 +79,7 @@ workflow PROFILING {
             ganon: db_meta.tool == 'ganon'
             sylph: db_meta.tool == 'sylph'
             melon: db_meta.tool == 'melon'
+            singlem: db_meta.tool == 'singlem'
             unknown: true
         }
 
@@ -612,6 +614,24 @@ workflow PROFILING {
         ch_raw_profiles = ch_raw_profiles.mix(MELON.out.tsv_output)
     }
 
+if (params.run_singlem) {
+
+    ch_input_for_singlem = ch_input_for_profiling.singlem
+        .map { sample_meta, input_reads, db_meta, db ->
+            def meta = sample_meta + [
+                tool    : 'singlem',           // profiler name expected by Taxpasta
+                db_name : db_meta.db_name,     // for grouping/ID
+                db_type : db_meta.type ?: null // optional, if you use it elsewhere
+            ]
+            tuple(meta, input_reads, db)
+        }
+
+    SINGLEM_PIPE(ch_input_for_singlem)
+
+    ch_raw_profiles = ch_raw_profiles.mix(SINGLEM_PIPE.out.results)
+    ch_versions     = ch_versions.mix(SINGLEM_PIPE.out.versions)
+    }
+    
     emit:
     classifications = ch_raw_classifications
     profiles        = ch_raw_profiles // channel: [ val(meta), [ reads ] ] - should be text files or biom
