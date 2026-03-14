@@ -3,10 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## dev - [unreleased]
+## v1.3.0dev [unreleased]
 
 ### `Added`
 
+- [#682](https://github.com/nf-core/taxprofiler/pull/682) Added metacache classifier and improved nf-tests (added by @sofstam)
 - [#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
 - [#595](https://github.com/nf-core/taxprofiler/pull/595) **New classifier** [sylph](https://github.com/bluenote-1577/sylph) (added by @sofstam)
 - [#608](https://github.com/nf-core/taxprofiler/pull/608) **New classifier** [melon](https://github.com/xinehc/melon) (added by @parisis and @sofstam)
@@ -16,10 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Changed`
 
 ### `Dependencies`
-
-| Tool | Previous version | New version |
-| ---- | ---------------- | ----------- |
-|      |                  |             |
 
 ### `Deprecated`
 
