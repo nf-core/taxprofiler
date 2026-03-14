@@ -617,8 +617,12 @@ workflow PROFILING {
 if (params.run_singlem) {
 
     ch_input_for_singlem = ch_input_for_profiling.singlem
-        .map { meta, input_reads, db_meta, db ->
-            // pass read meta, reads, and the database path to the module
+        .map { sample_meta, input_reads, db_meta, db ->
+            def meta = sample_meta + [
+                tool    : 'singlem',           // profiler name expected by Taxpasta
+                db_name : db_meta.db_name,     // for grouping/ID
+                db_type : db_meta.type ?: null // optional, if you use it elsewhere
+            ]
             tuple(meta, input_reads, db)
         }
 
@@ -626,7 +630,7 @@ if (params.run_singlem) {
 
     ch_raw_profiles = ch_raw_profiles.mix(SINGLEM_PIPE.out.results)
     ch_versions     = ch_versions.mix(SINGLEM_PIPE.out.versions)
-}
+    }
     
     emit:
     classifications = ch_raw_classifications
