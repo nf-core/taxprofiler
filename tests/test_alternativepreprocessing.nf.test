@@ -1,0 +1,104 @@
+nextflow_pipeline {
+
+    name "Test alternative preprocessing"
+    script "../main.nf"
+    tag "pipeline"
+    tag "test_alternativepreprocessing"
+    profile "test_alternativepreprocessing"
+
+    test("-profile test_alternativepreprocessing") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            def stable_name_all               = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_content_adapterremoval = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["adapterremoval/**"], ignoreFile: 'tests/.nftignore')
+            // bbduk: partly unstable files, see custom assertions
+            def stable_content_bowtie2        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["bowtie2/**"]       , ignoreFile: 'tests/.nftignore')
+            // fastqc: all unstable files, see stable_name_all
+            def stable_content_filtlong       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["filtlong/**"]      , ignoreFile: 'tests/.nftignore')
+            // kaiju: partly unstable files, see custom assertions
+            def stable_content_kraken2        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["kraken2/**"]       , ignoreFile: 'tests/.nftignore')
+            // porechop: partly unstable files, see custom assertions
+            def stable_content_samtools       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]      , ignoreFile: 'tests/.nftignore')
+
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
+                ).match() },
+
+                { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                { assert snapshot ( stable_name_all ).match("all_files") },
+
+                // adapterremoval
+                { assert snapshot ( stable_content_adapterremoval ).match("adapterremoval") },
+
+                // bbduk
+                { assert snapshot (
+                        file("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").getName() + " contains string 'Bases Processed:        134m': " + file("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").text.contains("Bases Processed:        134m"),
+                        file("$outputDir/bbduk/2612_ERR5766176.bbduk.log").getName() + " contains string 'Bases Processed:        134m': " + file("$outputDir/bbduk/2612_ERR5766176.bbduk.log").text.contains("Bases Processed:        134m"),
+                        file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").getName() + " contains string 'Bases Processed:        103m': " + file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Bases Processed:        103m")
+                    ).match("bbduk")
+                },
+
+                // bowtie2
+                { assert snapshot ( stable_content_bowtie2 ).match("bowtie2") },
+
+                // filtlong
+                { assert snapshot ( stable_content_filtlong ).match("filtlong") },
+
+                // kaiju
+                { assert snapshot (
+                        file("$outputDir/kaiju/db5/2611_db5.kaijutable.txt").getName() + " contains string '10239':" +file("$outputDir/kaiju/db5/2611_db5.kaijutable.txt").text.contains("10239"),
+                        file("$outputDir/kaiju/db5/2611_db5.kaiju.tsv").getName()+ " contains string 'ERR5766174.4':" + file("$outputDir/kaiju/db5/2611_db5.kaiju.tsv").text.contains("ERR5766174.4"),
+                        file("$outputDir/kaiju/db5/2612_db5.kaijutable.txt").getName()+ " contains string '10239':" + file("$outputDir/kaiju/db5/2612_db5.kaijutable.txt").text.contains("10239"),
+                        file("$outputDir/kaiju/db5/2612_db5.kaiju.tsv").getName() + " contains string 'ERR5766176.2':" + file("$outputDir/kaiju/db5/2612_db5.kaiju.tsv").text.contains("ERR5766176.2"),
+                        file("$outputDir/kaiju/db5/2613_db5.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db5/2613_db5.kaijutable.txt").text.contains("10239"),
+                        file("$outputDir/kaiju/db5/2613_db5.kaiju.tsv").getName() + " contains string 'ERR5766181.1':" + file("$outputDir/kaiju/db5/2613_db5.kaiju.tsv").text.contains("ERR5766181.1"),
+                        file("$outputDir/kaiju/db6/2614_db6.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db6/2614_db6.kaijutable.txt").text.contains("10239"),
+                        file("$outputDir/kaiju/db6/2614_db6.kaiju.tsv").getName() + " contains string 'ERR3201952.1794060':" + file("$outputDir/kaiju/db6/2614_db6.kaiju.tsv").text.contains("ERR3201952.1794060"),
+                        file("$outputDir/kaiju/db6/ERR3201952_db6.kaijutable.txt").getName() + " contains string 'Viruses':" + file("$outputDir/kaiju/db6/ERR3201952_db6.kaijutable.txt").text.contains("Viruses"),
+                        file("$outputDir/kaiju/db6/ERR3201952_db6.kaiju.tsv").getName() + " contains string 'ERR3201952.1159044':" + file("$outputDir/kaiju/db6/ERR3201952_db6.kaiju.tsv").text.contains("ERR3201952.1159044"),
+                        file("$outputDir/kaiju/db7/2611_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/2611_db7.kaijutable.txt").text.contains("10239"),
+                        file("$outputDir/kaiju/db7/2611_db7.kaiju.tsv").getName() + " contains string 'ERR5766174.4':" + file("$outputDir/kaiju/db7/2611_db7.kaiju.tsv").text.contains("ERR5766174.4"),
+                        file("$outputDir/kaiju/db7/2612_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/2612_db7.kaijutable.txt").text.contains("10239"),
+                        file("$outputDir/kaiju/db7/2612_db7.kaiju.tsv").getName() + " contains string 'ERR5766176.3':" + file("$outputDir/kaiju/db7/2612_db7.kaiju.tsv").text.contains("ERR5766176.3"),
+                        file("$outputDir/kaiju/db7/2613_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/2613_db7.kaijutable.txt").text.contains("10239"),
+                        file("$outputDir/kaiju/db7/2613_db7.kaiju.tsv").getName() + " contains string 'ERR5766181.2':" + file("$outputDir/kaiju/db7/2613_db7.kaiju.tsv").text.contains("ERR5766181.2"),
+                        file("$outputDir/kaiju/db7/2614_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/2614_db7.kaijutable.txt").text.contains("10239"),
+                        file("$outputDir/kaiju/db7/2614_db7.kaiju.tsv").getName() + " contains string 'ERR3201952.1794060':" + file("$outputDir/kaiju/db7/2614_db7.kaiju.tsv").text.contains("ERR3201952.1794060"),
+                        file("$outputDir/kaiju/db7/ERR3201952_db7.kaijutable.txt").getName() + " contains string '10239':" + file("$outputDir/kaiju/db7/ERR3201952_db7.kaijutable.txt").text.contains("10239"),
+                        file("$outputDir/kaiju/db7/ERR3201952_db7.kaiju.tsv").getName() + " contains string 'ERR3201952.1159044':" + file("$outputDir/kaiju/db7/ERR3201952_db7.kaiju.tsv").text.contains("ERR3201952.1159044")
+                    ).match("kaiju")
+                },
+
+                // Kraken2
+                { assert snapshot (
+                        stable_content_kraken2,
+                        file("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").getName() + " contains string 'Saccharomyces cerevisiae S288C': " + file("$outputDir/kraken2/db2/2611_db2.kraken2.kraken2.report.txt").text.contains("Saccharomyces cerevisiae S288C"),
+                        file("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").getName() + " contains string 'Saccharomyces cerevisiae S288C': " + file("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").text.contains("Saccharomyces cerevisiae S288C"),
+                        file("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").getName() + " contains string 'Saccharomyces cerevisiae S288C': " + file("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("Saccharomyces cerevisiae S288C")
+                    ).match("kraken2")
+                },
+
+                // porechop
+                { assert snapshot (
+                        file("$outputDir/porechop/ERR3201952_ERR3201952_porechop.log").getName() + " contains string '7 / 10,000': " + file("$outputDir/porechop/ERR3201952_ERR3201952_porechop.log").text.contains("7 / 10,000"),
+                    ).match("porechop")
+                },
+
+                // samtools
+                { assert snapshot ( stable_content_samtools ).match("samtools") },
+            )
+
+        }
+    }
+}
