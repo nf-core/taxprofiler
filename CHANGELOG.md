@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
 - [#595](https://github.com/nf-core/taxprofiler/pull/595) **New classifier** [sylph](https://github.com/bluenote-1577/sylph) (added by @sofstam)
 - [#608](https://github.com/nf-core/taxprofiler/pull/608) **New classifier** [melon](https://github.com/xinehc/melon) (added by @parisis and @sofstam)
+- [#699](https://github.com/nf-core/taxprofiler/pull/699) Add new config and nf-test for `test_fastpnonpareilkrakenuniq` (by @jfy133)
 
 ### `Fixed`
 
@@ -24,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Deprecated`
 
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Remove hook_url from the pipeline configuration, cf[tools#4051](https://github.com/nf-core/tools/pull/4051) (by @jfy133 and @FriederikeHanssen)
+- [#699](https://github.com/nf-core/taxprofiler/pull/699) Deprecate `test_fastp` and `test_krakenuniq` test profiles (merged into `test_fastpnonpareilkrakenuniq`) (by @jfy133)
 
 ## v1.2.6 - [2026-02-16]
 
