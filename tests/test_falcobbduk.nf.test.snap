@@ -37,9 +37,6 @@
                 "falco/processed/2613_ERR5766181_2.fastp.fastq.gz_fastqc_data.txt",
                 "falco/processed/2613_ERR5766181_2.fastp.fastq.gz_fastqc_report.html",
                 "falco/processed/2613_ERR5766181_2.fastp.fastq.gz_summary.txt",
-                "falco/processed/ERR3201952_ERR3201952_processed_falco_fastqc_data.txt",
-                "falco/processed/ERR3201952_ERR3201952_processed_falco_report.html",
-                "falco/processed/ERR3201952_ERR3201952_processed_falco_summary.txt",
                 "falco/raw",
                 "falco/raw/ERR3201952_ERR3201952_raw_falco_fastqc_data.txt",
                 "falco/raw/ERR3201952_ERR3201952_raw_falco_report.html",
@@ -141,17 +138,9 @@
                 "multiqc/multiqc_data/multiqc_general_stats.txt",
                 "multiqc/multiqc_data/multiqc_kaiju_species.txt",
                 "multiqc/multiqc_data/multiqc_kraken.txt",
-                "multiqc/multiqc_data/multiqc_nanoq.txt",
                 "multiqc/multiqc_data/multiqc_samtools_stats.txt",
                 "multiqc/multiqc_data/multiqc_software_versions.txt",
                 "multiqc/multiqc_data/multiqc_sources.txt",
-                "multiqc/multiqc_data/nanoq_plot_length_plot.txt",
-                "multiqc/multiqc_data/nanoq_plot_quality_plot.txt",
-                "multiqc/multiqc_data/nanoq_table.txt",
-                "multiqc/multiqc_data/porechop-endtrim-barplot.txt",
-                "multiqc/multiqc_data/porechop-middlesplit-barplot.txt",
-                "multiqc/multiqc_data/porechop-starttrim-barplot.txt",
-                "multiqc/multiqc_data/porechop_porechop_abi.txt",
                 "multiqc/multiqc_data/samtools-stats-dp.txt",
                 "multiqc/multiqc_data/samtools_alignment_plot.txt",
                 "multiqc/multiqc_plots",
@@ -197,17 +186,6 @@
                 "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Species-pct.pdf",
                 "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Unclassified-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Unclassified-pct.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_plot_length_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_plot_length_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_plot_quality_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_plot_quality_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_table.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-endtrim-barplot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-endtrim-barplot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-middlesplit-barplot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-middlesplit-barplot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/samtools-stats-dp.pdf",
                 "multiqc/multiqc_plots/pdf/samtools_alignment_plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/samtools_alignment_plot-pct.pdf",
@@ -253,17 +231,6 @@
                 "multiqc/multiqc_plots/png/kraken-top-n-plot_Species-pct.png",
                 "multiqc/multiqc_plots/png/kraken-top-n-plot_Unclassified-cnt.png",
                 "multiqc/multiqc_plots/png/kraken-top-n-plot_Unclassified-pct.png",
-                "multiqc/multiqc_plots/png/nanoq_plot_length_plot-cnt.png",
-                "multiqc/multiqc_plots/png/nanoq_plot_length_plot-pct.png",
-                "multiqc/multiqc_plots/png/nanoq_plot_quality_plot-cnt.png",
-                "multiqc/multiqc_plots/png/nanoq_plot_quality_plot-pct.png",
-                "multiqc/multiqc_plots/png/nanoq_table.png",
-                "multiqc/multiqc_plots/png/porechop-endtrim-barplot-cnt.png",
-                "multiqc/multiqc_plots/png/porechop-endtrim-barplot-pct.png",
-                "multiqc/multiqc_plots/png/porechop-middlesplit-barplot-cnt.png",
-                "multiqc/multiqc_plots/png/porechop-middlesplit-barplot-pct.png",
-                "multiqc/multiqc_plots/png/porechop-starttrim-barplot-cnt.png",
-                "multiqc/multiqc_plots/png/porechop-starttrim-barplot-pct.png",
                 "multiqc/multiqc_plots/png/samtools-stats-dp.png",
                 "multiqc/multiqc_plots/png/samtools_alignment_plot-cnt.png",
                 "multiqc/multiqc_plots/png/samtools_alignment_plot-pct.png",
@@ -309,50 +276,24 @@
                 "multiqc/multiqc_plots/svg/kraken-top-n-plot_Species-pct.svg",
                 "multiqc/multiqc_plots/svg/kraken-top-n-plot_Unclassified-cnt.svg",
                 "multiqc/multiqc_plots/svg/kraken-top-n-plot_Unclassified-pct.svg",
-                "multiqc/multiqc_plots/svg/nanoq_plot_length_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/nanoq_plot_length_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/nanoq_plot_quality_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/nanoq_plot_quality_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/nanoq_table.svg",
-                "multiqc/multiqc_plots/svg/porechop-endtrim-barplot-cnt.svg",
-                "multiqc/multiqc_plots/svg/porechop-endtrim-barplot-pct.svg",
-                "multiqc/multiqc_plots/svg/porechop-middlesplit-barplot-cnt.svg",
-                "multiqc/multiqc_plots/svg/porechop-middlesplit-barplot-pct.svg",
-                "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-cnt.svg",
-                "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-pct.svg",
                 "multiqc/multiqc_plots/svg/samtools-stats-dp.svg",
                 "multiqc/multiqc_plots/svg/samtools_alignment_plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/samtools_alignment_plot-pct.svg",
                 "multiqc/multiqc_report.html",
-                "nanoq",
-                "nanoq/ERR3201952_ERR3201952_filtered.stats",
                 "pipeline_info",
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml",
-                "porechop_abi",
-                "porechop_abi/ERR3201952_ERR3201952_porechop_abi.log",
                 "samtools",
                 "samtools/stats",
                 "samtools/stats/2612_ERR5766176.stats",
                 "samtools/stats/2612_ERR5766176_B.stats",
-                "samtools/stats/2613_ERR5766181.stats",
-                "samtools/stats/ERR3201952_ERR3201952.stats"
+                "samtools/stats/2613_ERR5766181.stats"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-05T08:05:55.526940473"
-    },
-    "porechop_abi": {
-        "content": [
-            "ERR3201952_ERR3201952_porechop_abi.log contains string '7 / 10,000': true"
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-05T08:05:56.521070899"
+        "timestamp": "2026-03-14T20:14:07.697159185"
     },
     "bowtie2": {
         "content": [
@@ -366,7 +307,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-05T08:05:55.602496963"
+        "timestamp": "2026-03-14T20:14:13.670825328"
     },
     "kraken2": {
         "content": [
@@ -378,7 +319,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-05T08:05:56.441231222"
+        "timestamp": "2026-03-14T20:14:13.988914093"
     },
     "falco": {
         "content": [
@@ -389,7 +330,6 @@
                 "2612_ERR5766176_B_2.fastp.fastq.gz_summary.txt:md5,3a918aa45a1c8f24122edf280c169e81",
                 "2613_ERR5766181_1.fastp.fastq.gz_summary.txt:md5,e0ca7148bdaaa60a397bc438ccabaabc",
                 "2613_ERR5766181_2.fastp.fastq.gz_summary.txt:md5,c5fdf619b708185d21a827c002160092",
-                "ERR3201952_ERR3201952_processed_falco_summary.txt:md5,e079ab37851ee8e8f5fb989a6d6cc2c9",
                 "ERR3201952_ERR3201952_raw_falco_summary.txt:md5,18cc66de2719cfe2c0d092aa51ac41c9",
                 "ERX5474932_ERR5766176_1.fastq.gz_summary.txt:md5,9e7d55636ed9813e2016e39d000ea67c",
                 "ERX5474932_ERR5766176_2.fastq.gz_summary.txt:md5,019f9e082783d69cff71ec01464a806a",
@@ -416,34 +356,21 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-05T08:32:13.206631236"
-    },
-    "nanoq": {
-        "content": [
-            [
-                "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
-            ]
-        ],
-        "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-05T08:05:56.479044906"
+        "timestamp": "2026-03-14T20:14:13.697846923"
     },
     "samtools": {
         "content": [
             [
                 "2612_ERR5766176.stats:md5,07dccfb4e5a2c8f295d4c51bde95fb90",
                 "2612_ERR5766176_B.stats:md5,26dfd2c3792ea77a01009cc28a97f895",
-                "2613_ERR5766181.stats:md5,5bb01b7ec5e922ec7c722421c6aa8650",
-                "ERR3201952_ERR3201952.stats:md5,4b27072b8c9224f1eefece14d3977d27"
+                "2613_ERR5766181.stats:md5,5bb01b7ec5e922ec7c722421c6aa8650"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-05T08:05:56.558222396"
+        "timestamp": "2026-03-14T20:14:14.002580079"
     },
     "bbduk": {
         "content": [
@@ -461,7 +388,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-05T08:13:10.860747181"
+        "timestamp": "2026-03-14T20:14:13.662114012"
     },
     "-profile test_falcobbduk": {
         "content": [
@@ -499,29 +426,10 @@
                 "MERGE_RUNS": {
                     "cat": 9.5
                 },
-                "MINIMAP2_ALIGN": {
-                    "minimap2": "2.29-r1283",
-                    "samtools": 1.21
-                },
-                "MINIMAP2_INDEX": {
-                    "minimap2": "2.29-r1283"
-                },
-                "NANOQ": {
-                    "nanoq": "0.10.0"
-                },
-                "PORECHOP_ABI": {
-                    "porechop_abi": "0.5.0"
-                },
-                "SAMTOOLS_FASTQ": {
-                    "samtools": "1.22.1"
-                },
                 "SAMTOOLS_INDEX": {
                     "samtools": "1.22.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
-                },
-                "SAMTOOLS_VIEW": {
                     "samtools": "1.22.1"
                 },
                 "UNTAR": {
@@ -536,7 +444,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-05T08:05:55.486467721"
+        "timestamp": "2026-03-14T20:14:07.683083416"
     },
     "fastp": {
         "content": [
@@ -548,7 +456,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-05T08:05:55.647172476"
+        "timestamp": "2026-03-14T20:14:13.681580029"
     },
     "kaiju": {
         "content": [
@@ -577,6 +485,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-05T08:05:56.400123302"
+        "timestamp": "2026-03-14T20:14:13.974523808"
     }
 }

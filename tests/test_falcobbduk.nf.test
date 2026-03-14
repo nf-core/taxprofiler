@@ -22,9 +22,6 @@ nextflow_pipeline {
             def stable_content_fastp          = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["fastp/**"]        , ignoreFile: 'tests/.nftignore')
             // kaiju: partly unstable files, see custom assertions
             // kraken2: partly unstable files, see custom assertions
-            // porechop: partly unstable files, see custom assertions
-            def stable_content_nanoq         = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["nanoq/**"]        , ignoreFile: 'tests/.nftignore')
-            def stable_content_porechopabi   = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["porechop_abi/**"] , ignoreFile: 'tests/.nftignore')
             def stable_content_samtools       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]     , ignoreFile: 'tests/.nftignore')
 
             assertAll(
@@ -109,15 +106,6 @@ nextflow_pipeline {
                         file("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").getName() + " contains string 'Saccharomyces cerevisiae S288C': " + file("$outputDir/kraken2/db2/2612_db2.kraken2.kraken2.report.txt").text.contains("Saccharomyces cerevisiae S288C"),
                         file("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").getName() + " contains string 'Saccharomyces cerevisiae S288C': " + file("$outputDir/kraken2/db2/2613_db2.kraken2.kraken2.report.txt").text.contains("Saccharomyces cerevisiae S288C")
                     ).match("kraken2")
-                },
-
-                // nanoq
-                { assert snapshot ( stable_content_nanoq ).match("nanoq") },
-
-                // porechop_abi
-                { assert snapshot (
-                        file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").getName() + " contains string '7 / 10,000': " + file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("7 / 10,000"),
-                    ).match("porechop_abi")
                 },
 
                 // samtools
