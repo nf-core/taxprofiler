@@ -11,6 +11,6 @@ template:
   skip_features:
     - igenomes
   version: 1.2.7dev
-  lint:
-    files_unchanged:
-      - .github/PULL_REQUEST_TEMPLATE.md
+lint:
+  files_unchanged:
+    - .github/PULL_REQUEST_TEMPLATE.md
