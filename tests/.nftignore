@@ -1,4 +1,17 @@
 .DS_Store
+bbduk/*.log
+bbduk/*.fastq.gz
+centrifuge/*.{fastq.gz,txt}
+diamond/*/*.{tsv,log}
+falco/*/*{_fastqc_data.txt,_report.html}
+fastp/*.{html,zip,json,log}
+fastqc/*_fastqc.{html,zip}
+fastqc/*/*fastqc.zip
+ganon/*/*.log
+kaiju/*/*.{tsv,txt}
+kraken2/*/*.{fastq.gz,txt}
+krona/*.html
+metaphlan/*/*.{biom,txt,sam}
 multiqc/multiqc_data/*.txt
 multiqc/multiqc_data/fastqc_top_overrepresented_sequences_table.txt
 multiqc/multiqc_data/llms-full.txt
