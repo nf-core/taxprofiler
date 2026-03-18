@@ -8,13 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Added`
 
 - [#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
+- [#591](https://github.com/nf-core/taxprofiler/pull/591) Add options to enable the `abi` option to predict adapters or provide a custom adapter list for `porechop_abi` (❤️ to @AlexHoratio for suggesting, fix by @LilyAnderssonLee and @sofstam)
 - [#595](https://github.com/nf-core/taxprofiler/pull/595) **New classifier** [sylph](https://github.com/bluenote-1577/sylph) (added by @sofstam)
 - [#608](https://github.com/nf-core/taxprofiler/pull/608) **New classifier** [melon](https://github.com/xinehc/melon) (added by @parisis and @sofstam)
+- [#694](https://github.com/nf-core/taxprofiler/pull/694) Developer and contributor documentation (by @jfy133)
+- [#698](https://github.com/nf-core/taxprofiler/pull/698) Add new config and nf-test for `test_falcobbduk` (by @jfy133)
 - [#699](https://github.com/nf-core/taxprofiler/pull/699) Add new config and nf-test for `test_fastpnonpareilkrakenuniq` (by @jfy133)
 
 ### `Fixed`
 
 ### `Changed`
+
+- [#696](https://github.com/nf-core/taxprofiler/pull/696) Switch Slack channel reporting to nf-slack plugin for AWS Megatests (by @jfy133)
 
 ### `Dependencies`
 
@@ -24,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Deprecated`
 
+- [#698](https://github.com/nf-core/taxprofiler/pull/698) Deprecate `test_bbduk` and `test_falco` test profiles (merged into `test_falcobduk) (by @jfy133)
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Remove hook_url from the pipeline configuration, cf[tools#4051](https://github.com/nf-core/tools/pull/4051) (by @jfy133 and @FriederikeHanssen)
 - [#699](https://github.com/nf-core/taxprofiler/pull/699) Deprecate `test_fastp` and `test_krakenuniq` test profiles (merged into `test_fastpnonpareilkrakenuniq`) (by @jfy133)
 
@@ -122,8 +128,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#576](https://github.com/nf-core/taxprofiler/pull/576) Sort input to krakenuniq to enable retrieval of cached batch tasks (❤️ to @muniheart for reporting and fix)
 - [#569](https://github.com/nf-core/taxprofiler/pull/569) Updated to nf-core pipeline template v3.1.2 (added by @sofstam)
 - [#571](https://github.com/nf-core/taxprofiler/pull/571) Updated to nf-core pipeline template v3.2.0 (added by @sofstam)
-- [#591](https://github.com/nf-core/taxprofiler/pull/591) Add options to enable the `abi` option to predict adapters or provide a custom adapter list for `porechop_abi` (❤️ to @AlexHoratio
-  for suggesting, fix by @LilyAnderssonLee and @sofstam)
 
 ### `Fixed`
 
