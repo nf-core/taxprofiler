@@ -51,7 +51,6 @@ nextflow_pipeline {
             //metacache
             def stable_content_metacache          = getAllFilesFromDir("$outputDir/metacache", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
-
             //metaphlan
             def stable_content_metaphlan      = getAllFilesFromDir("$outputDir/metaphlan", relative: true, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
             def sam_files                     = getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.sam'])
