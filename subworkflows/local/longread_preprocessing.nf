@@ -11,13 +11,14 @@ include { LONGREAD_FILTERING         } from './longread_filtering.nf'
 workflow LONGREAD_PREPROCESSING {
     take:
     reads
+    custom_adapters
 
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
     if (!params.longread_qc_skipadaptertrim && params.longread_qc_skipqualityfilter) {
-        LONGREAD_ADAPTERREMOVAL(reads)
+        LONGREAD_ADAPTERREMOVAL(reads, custom_adapters)
         ch_processed_reads = LONGREAD_ADAPTERREMOVAL.out.reads
         ch_versions = ch_versions.mix(LONGREAD_ADAPTERREMOVAL.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_ADAPTERREMOVAL.out.mqc)
@@ -29,7 +30,7 @@ workflow LONGREAD_PREPROCESSING {
         ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_FILTERING.out.mqc)
     }
     else {
-        LONGREAD_ADAPTERREMOVAL(reads)
+        LONGREAD_ADAPTERREMOVAL(reads, custom_adapters)
         ch_clipped_reads = LONGREAD_ADAPTERREMOVAL.out.reads.map { meta, clipped_long_reads -> [meta + [single_end: true], clipped_long_reads] }
         LONGREAD_FILTERING(ch_clipped_reads)
         ch_processed_reads = LONGREAD_FILTERING.out.reads
