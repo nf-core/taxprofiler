@@ -324,383 +324,8 @@
                 "multiqc/multiqc_data/samtools_alignment_plot.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
-                "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Reads-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Reads-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bowtie2_se_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bowtie2_se_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Class-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Class-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Domain-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Domain-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Family-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Family-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Genus-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Genus-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Kingdom-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Kingdom-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Order-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Order-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Phylum-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Phylum-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Species-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Species-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Unclassified-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Unclassified-pct.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Class-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Class-pct.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Domain-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Domain-pct.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Family-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Family-pct.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Genus-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Genus-pct.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Kingdom-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Kingdom-pct.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Order-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Order-pct.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Phylum-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Phylum-pct.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Species-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Species-pct.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Unclassified-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Unclassified-pct.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-insert-size-plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Merged_and_filtered.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_1_After_filtering.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_1_Before_filtering.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_2_Before_filtering.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-content-n-plot_Merged_and_filtered.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-content-n-plot_Read_1_After_filtering.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-content-n-plot_Read_1_Before_filtering.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-content-n-plot_Read_2_Before_filtering.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-quality-plot_Merged_and_filtered.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-quality-plot_Read_1_After_filtering.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-quality-plot_Read_1_Before_filtering.pdf",
-                "multiqc/multiqc_plots/pdf/fastp-seq-quality-plot_Read_2_Before_filtering.pdf",
-                "multiqc/multiqc_plots/pdf/fastp_filtered_reads_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/fastp_filtered_reads_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_adapter_content_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_overrepresented_sequences_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_per_base_n_content_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_per_base_sequence_quality_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_per_sequence_gc_content_plot_Counts.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_per_sequence_gc_content_plot_Percentages.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_per_sequence_quality_scores_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_sequence_counts_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_sequence_counts_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_sequence_duplication_levels_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc-1_top_overrepresented_sequences_table.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_adapter_content_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_overrepresented_sequences_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_per_base_n_content_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_per_base_sequence_quality_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_per_sequence_gc_content_plot_Counts.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_per_sequence_gc_content_plot_Percentages.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_per_sequence_quality_scores_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_sequence_counts_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_sequence_counts_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_sequence_duplication_levels_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_sequence_length_distribution_plot.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_top_overrepresented_sequences_table.pdf",
-                "multiqc/multiqc_plots/pdf/kaiju-topfive-plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kaiju-topfive-plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Class-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Class-pct.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Domain-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Domain-pct.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Family-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Family-pct.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Genus-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Genus-pct.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Kingdom-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Kingdom-pct.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Order-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Order-pct.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Phylum-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Phylum-pct.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Species-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Species-pct.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Unclassified-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Unclassified-pct.pdf",
-                "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Class.pdf",
-                "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Family.pdf",
-                "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Genus.pdf",
-                "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Kingdom.pdf",
-                "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Order.pdf",
-                "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Phylum.pdf",
-                "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Species.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_plot_length_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_plot_length_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_plot_quality_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_plot_quality_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/nanoq_table.pdf",
-                "multiqc/multiqc_plots/pdf/nonpareil-redundancy-plot_Combined.pdf",
-                "multiqc/multiqc_plots/pdf/nonpareil-redundancy-plot_Model.pdf",
-                "multiqc/multiqc_plots/pdf/nonpareil-redundancy-plot_Observed.pdf",
-                "multiqc/multiqc_plots/pdf/nonpareil-table.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-endtrim-barplot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-endtrim-barplot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-middlesplit-barplot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-middlesplit-barplot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/samtools-stats-dp.pdf",
-                "multiqc/multiqc_plots/pdf/samtools_alignment_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/samtools_alignment_plot-pct.pdf",
                 "multiqc/multiqc_plots/png",
-                "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-cnt.png",
-                "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-pct.png",
-                "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Reads-cnt.png",
-                "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Reads-pct.png",
-                "multiqc/multiqc_plots/png/bowtie2_se_plot-cnt.png",
-                "multiqc/multiqc_plots/png/bowtie2_se_plot-pct.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Class-cnt.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Class-pct.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Domain-cnt.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Domain-pct.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Family-cnt.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Family-pct.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Genus-cnt.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Genus-pct.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Kingdom-cnt.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Kingdom-pct.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Order-cnt.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Order-pct.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Phylum-cnt.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Phylum-pct.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Species-cnt.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Species-pct.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Unclassified-cnt.png",
-                "multiqc/multiqc_plots/png/bracken-top-n-plot_Unclassified-pct.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Class-cnt.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Class-pct.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Domain-cnt.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Domain-pct.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Family-cnt.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Family-pct.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Genus-cnt.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Genus-pct.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Kingdom-cnt.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Kingdom-pct.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Order-cnt.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Order-pct.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Phylum-cnt.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Phylum-pct.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Species-cnt.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Species-pct.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Unclassified-cnt.png",
-                "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Unclassified-pct.png",
-                "multiqc/multiqc_plots/png/fastp-insert-size-plot.png",
-                "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Merged_and_filtered.png",
-                "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Read_1_After_filtering.png",
-                "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Read_1_Before_filtering.png",
-                "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Read_2_Before_filtering.png",
-                "multiqc/multiqc_plots/png/fastp-seq-content-n-plot_Merged_and_filtered.png",
-                "multiqc/multiqc_plots/png/fastp-seq-content-n-plot_Read_1_After_filtering.png",
-                "multiqc/multiqc_plots/png/fastp-seq-content-n-plot_Read_1_Before_filtering.png",
-                "multiqc/multiqc_plots/png/fastp-seq-content-n-plot_Read_2_Before_filtering.png",
-                "multiqc/multiqc_plots/png/fastp-seq-quality-plot_Merged_and_filtered.png",
-                "multiqc/multiqc_plots/png/fastp-seq-quality-plot_Read_1_After_filtering.png",
-                "multiqc/multiqc_plots/png/fastp-seq-quality-plot_Read_1_Before_filtering.png",
-                "multiqc/multiqc_plots/png/fastp-seq-quality-plot_Read_2_Before_filtering.png",
-                "multiqc/multiqc_plots/png/fastp_filtered_reads_plot-cnt.png",
-                "multiqc/multiqc_plots/png/fastp_filtered_reads_plot-pct.png",
-                "multiqc/multiqc_plots/png/fastqc-1_adapter_content_plot.png",
-                "multiqc/multiqc_plots/png/fastqc-1_overrepresented_sequences_plot.png",
-                "multiqc/multiqc_plots/png/fastqc-1_per_base_n_content_plot.png",
-                "multiqc/multiqc_plots/png/fastqc-1_per_base_sequence_quality_plot.png",
-                "multiqc/multiqc_plots/png/fastqc-1_per_sequence_gc_content_plot_Counts.png",
-                "multiqc/multiqc_plots/png/fastqc-1_per_sequence_gc_content_plot_Percentages.png",
-                "multiqc/multiqc_plots/png/fastqc-1_per_sequence_quality_scores_plot.png",
-                "multiqc/multiqc_plots/png/fastqc-1_sequence_counts_plot-cnt.png",
-                "multiqc/multiqc_plots/png/fastqc-1_sequence_counts_plot-pct.png",
-                "multiqc/multiqc_plots/png/fastqc-1_sequence_duplication_levels_plot.png",
-                "multiqc/multiqc_plots/png/fastqc-1_top_overrepresented_sequences_table.png",
-                "multiqc/multiqc_plots/png/fastqc_adapter_content_plot.png",
-                "multiqc/multiqc_plots/png/fastqc_overrepresented_sequences_plot.png",
-                "multiqc/multiqc_plots/png/fastqc_per_base_n_content_plot.png",
-                "multiqc/multiqc_plots/png/fastqc_per_base_sequence_quality_plot.png",
-                "multiqc/multiqc_plots/png/fastqc_per_sequence_gc_content_plot_Counts.png",
-                "multiqc/multiqc_plots/png/fastqc_per_sequence_gc_content_plot_Percentages.png",
-                "multiqc/multiqc_plots/png/fastqc_per_sequence_quality_scores_plot.png",
-                "multiqc/multiqc_plots/png/fastqc_sequence_counts_plot-cnt.png",
-                "multiqc/multiqc_plots/png/fastqc_sequence_counts_plot-pct.png",
-                "multiqc/multiqc_plots/png/fastqc_sequence_duplication_levels_plot.png",
-                "multiqc/multiqc_plots/png/fastqc_sequence_length_distribution_plot.png",
-                "multiqc/multiqc_plots/png/fastqc_top_overrepresented_sequences_table.png",
-                "multiqc/multiqc_plots/png/kaiju-topfive-plot-cnt.png",
-                "multiqc/multiqc_plots/png/kaiju-topfive-plot-pct.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Class-cnt.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Class-pct.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Domain-cnt.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Domain-pct.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Family-cnt.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Family-pct.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Genus-cnt.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Genus-pct.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Kingdom-cnt.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Kingdom-pct.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Order-cnt.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Order-pct.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Phylum-cnt.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Phylum-pct.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Species-cnt.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Species-pct.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Unclassified-cnt.png",
-                "multiqc/multiqc_plots/png/kraken-top-n-plot_Unclassified-pct.png",
-                "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Class.png",
-                "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Family.png",
-                "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Genus.png",
-                "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Kingdom.png",
-                "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Order.png",
-                "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Phylum.png",
-                "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Species.png",
-                "multiqc/multiqc_plots/png/nanoq_plot_length_plot-cnt.png",
-                "multiqc/multiqc_plots/png/nanoq_plot_length_plot-pct.png",
-                "multiqc/multiqc_plots/png/nanoq_plot_quality_plot-cnt.png",
-                "multiqc/multiqc_plots/png/nanoq_plot_quality_plot-pct.png",
-                "multiqc/multiqc_plots/png/nanoq_table.png",
-                "multiqc/multiqc_plots/png/nonpareil-redundancy-plot_Combined.png",
-                "multiqc/multiqc_plots/png/nonpareil-redundancy-plot_Model.png",
-                "multiqc/multiqc_plots/png/nonpareil-redundancy-plot_Observed.png",
-                "multiqc/multiqc_plots/png/nonpareil-table.png",
-                "multiqc/multiqc_plots/png/porechop-endtrim-barplot-cnt.png",
-                "multiqc/multiqc_plots/png/porechop-endtrim-barplot-pct.png",
-                "multiqc/multiqc_plots/png/porechop-middlesplit-barplot-cnt.png",
-                "multiqc/multiqc_plots/png/porechop-middlesplit-barplot-pct.png",
-                "multiqc/multiqc_plots/png/porechop-starttrim-barplot-cnt.png",
-                "multiqc/multiqc_plots/png/porechop-starttrim-barplot-pct.png",
-                "multiqc/multiqc_plots/png/samtools-stats-dp.png",
-                "multiqc/multiqc_plots/png/samtools_alignment_plot-cnt.png",
-                "multiqc/multiqc_plots/png/samtools_alignment_plot-pct.png",
                 "multiqc/multiqc_plots/svg",
-                "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-cnt.svg",
-                "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-pct.svg",
-                "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-cnt.svg",
-                "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-pct.svg",
-                "multiqc/multiqc_plots/svg/bowtie2_se_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/bowtie2_se_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Class-cnt.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Class-pct.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Domain-cnt.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Domain-pct.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Family-cnt.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Family-pct.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Genus-cnt.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Genus-pct.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Kingdom-cnt.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Kingdom-pct.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Order-cnt.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Order-pct.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Phylum-cnt.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Phylum-pct.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Species-cnt.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Species-pct.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Unclassified-cnt.svg",
-                "multiqc/multiqc_plots/svg/bracken-top-n-plot_Unclassified-pct.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Class-cnt.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Class-pct.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Domain-cnt.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Domain-pct.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Family-cnt.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Family-pct.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Genus-cnt.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Genus-pct.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Kingdom-cnt.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Kingdom-pct.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Order-cnt.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Order-pct.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Phylum-cnt.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Phylum-pct.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Species-cnt.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Species-pct.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Unclassified-cnt.svg",
-                "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Unclassified-pct.svg",
-                "multiqc/multiqc_plots/svg/fastp-insert-size-plot.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Merged_and_filtered.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Read_1_After_filtering.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Read_1_Before_filtering.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Read_2_Before_filtering.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-content-n-plot_Merged_and_filtered.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-content-n-plot_Read_1_After_filtering.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-content-n-plot_Read_1_Before_filtering.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-content-n-plot_Read_2_Before_filtering.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-quality-plot_Merged_and_filtered.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-quality-plot_Read_1_After_filtering.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-quality-plot_Read_1_Before_filtering.svg",
-                "multiqc/multiqc_plots/svg/fastp-seq-quality-plot_Read_2_Before_filtering.svg",
-                "multiqc/multiqc_plots/svg/fastp_filtered_reads_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/fastp_filtered_reads_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_adapter_content_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_overrepresented_sequences_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_per_base_n_content_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_per_base_sequence_quality_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_per_sequence_gc_content_plot_Counts.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_per_sequence_gc_content_plot_Percentages.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_per_sequence_quality_scores_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_sequence_counts_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_sequence_counts_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_sequence_duplication_levels_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc-1_top_overrepresented_sequences_table.svg",
-                "multiqc/multiqc_plots/svg/fastqc_adapter_content_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc_overrepresented_sequences_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc_per_base_n_content_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc_per_base_sequence_quality_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc_per_sequence_gc_content_plot_Counts.svg",
-                "multiqc/multiqc_plots/svg/fastqc_per_sequence_gc_content_plot_Percentages.svg",
-                "multiqc/multiqc_plots/svg/fastqc_per_sequence_quality_scores_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc_sequence_counts_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/fastqc_sequence_counts_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/fastqc_sequence_duplication_levels_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc_sequence_length_distribution_plot.svg",
-                "multiqc/multiqc_plots/svg/fastqc_top_overrepresented_sequences_table.svg",
-                "multiqc/multiqc_plots/svg/kaiju-topfive-plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/kaiju-topfive-plot-pct.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Class-cnt.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Class-pct.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Domain-cnt.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Domain-pct.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Family-cnt.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Family-pct.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Genus-cnt.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Genus-pct.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Kingdom-cnt.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Kingdom-pct.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Order-cnt.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Order-pct.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Phylum-cnt.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Phylum-pct.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Species-cnt.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Species-pct.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Unclassified-cnt.svg",
-                "multiqc/multiqc_plots/svg/kraken-top-n-plot_Unclassified-pct.svg",
-                "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Class.svg",
-                "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Family.svg",
-                "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Genus.svg",
-                "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Kingdom.svg",
-                "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Order.svg",
-                "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Phylum.svg",
-                "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Species.svg",
-                "multiqc/multiqc_plots/svg/nanoq_plot_length_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/nanoq_plot_length_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/nanoq_plot_quality_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/nanoq_plot_quality_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/nanoq_table.svg",
-                "multiqc/multiqc_plots/svg/nonpareil-redundancy-plot_Combined.svg",
-                "multiqc/multiqc_plots/svg/nonpareil-redundancy-plot_Model.svg",
-                "multiqc/multiqc_plots/svg/nonpareil-redundancy-plot_Observed.svg",
-                "multiqc/multiqc_plots/svg/nonpareil-table.svg",
-                "multiqc/multiqc_plots/svg/porechop-endtrim-barplot-cnt.svg",
-                "multiqc/multiqc_plots/svg/porechop-endtrim-barplot-pct.svg",
-                "multiqc/multiqc_plots/svg/porechop-middlesplit-barplot-cnt.svg",
-                "multiqc/multiqc_plots/svg/porechop-middlesplit-barplot-pct.svg",
-                "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-cnt.svg",
-                "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-pct.svg",
-                "multiqc/multiqc_plots/svg/samtools-stats-dp.svg",
-                "multiqc/multiqc_plots/svg/samtools_alignment_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/samtools_alignment_plot-pct.svg",
                 "multiqc/multiqc_report.html",
                 "nanoq",
                 "nanoq/ERR3201952_ERR3201952_filtered.stats",
@@ -770,7 +395,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:44:58.350644671"
+        "timestamp": "2026-03-19T13:01:04.70189172"
     },
     "krona": {
         "content": [
@@ -795,7 +420,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:54.345068219"
+        "timestamp": "2026-03-19T13:01:14.793699377"
     },
     "bowtie2": {
         "content": [
@@ -810,7 +435,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:44:58.462479091"
+        "timestamp": "2026-03-19T13:01:04.780736199"
     },
     "nanoq": {
         "content": [
@@ -822,7 +447,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:54.613645269"
+        "timestamp": "2026-03-19T13:01:14.928623929"
     },
     "samtools": {
         "content": [
@@ -838,7 +463,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:55.323141881"
+        "timestamp": "2026-03-19T13:01:15.028344526"
     },
     "taxpasta": {
         "content": [
@@ -877,7 +502,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:55.513064568"
+        "timestamp": "2026-03-19T13:01:15.188461855"
     },
     "bbduk": {
         "content": [
@@ -898,7 +523,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:44:58.442201511"
+        "timestamp": "2026-03-19T13:01:04.761591285"
     },
     "ganon": {
         "content": [
@@ -941,7 +566,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:14.699607189"
+        "timestamp": "2026-03-19T13:01:09.37693826"
     },
     "metacache": {
         "content": [
@@ -958,7 +583,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:54.423886332"
+        "timestamp": "2026-03-19T13:01:14.855620504"
     },
     "kaiju": {
         "content": [
@@ -990,7 +615,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:35.32391489"
+        "timestamp": "2026-03-19T13:01:10.530146615"
     },
     "bracken": {
         "content": [
@@ -1008,7 +633,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:44:58.489362361"
+        "timestamp": "2026-03-19T13:01:04.804436372"
     },
     "diamond": {
         "content": [
@@ -1061,7 +686,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:14.365350539"
+        "timestamp": "2026-03-19T13:01:09.264275172"
     },
     "metaphlan": {
         "content": [
@@ -1124,7 +749,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:54.587253212"
+        "timestamp": "2026-03-19T13:01:14.905095979"
     },
     "porechop_abi": {
         "content": [
@@ -1137,25 +762,25 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:55.30033572"
+        "timestamp": "2026-03-19T13:01:15.006663323"
     },
     "sylph": {
         "content": [
             "sylph_db1_combined_reports.tsv contains string:'Penicillium roqueforti':true",
             [
-                "db1/2612_db1.sylph.tsv",
-                "db1/2612_db1.sylphmpa",
-                "db1/2613_db1.sylph.tsv",
-                "db1/2613_db1.sylphmpa",
-                "db1/ERR3201952_db1.sylph.tsv",
-                "sylph_db1_combined_reports.tsv"
+                "2612_db1.sylph.tsv:md5,a84853a9ea0e88e62f3caa13f28ef945",
+                "2612_db1.sylphmpa:md5,a0832fc0d249a96e5c22afaa63e0bba8",
+                "2613_db1.sylph.tsv:md5,609a51bbcbbfe48ad780d0dadd1105e4",
+                "2613_db1.sylphmpa:md5,253491defa87230970e890256dc0cb02",
+                "ERR3201952_db1.sylph.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                "sylph_db1_combined_reports.tsv:md5,32cbbeb3d7088729cf8cd644a4c4a5a1"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:55.452982335"
+        "timestamp": "2026-03-19T13:01:15.092875334"
     },
     "kraken2": {
         "content": [
@@ -1188,7 +813,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:54.318014781"
+        "timestamp": "2026-03-19T13:01:14.767722336"
     },
     "-profile test": {
         "content": [
@@ -1350,7 +975,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:44:58.271650694"
+        "timestamp": "2026-03-19T13:01:04.615510602"
     },
     "centrifuge": {
         "content": [
@@ -1385,7 +1010,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:13.649515473"
+        "timestamp": "2026-03-19T13:01:09.114119677"
     },
     "nonpareil": {
         "content": [
@@ -1452,7 +1077,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:55.267544024"
+        "timestamp": "2026-03-19T13:01:14.978131667"
     },
     "melon": {
         "content": [
@@ -1467,7 +1092,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:55.567359531"
+        "timestamp": "2026-03-19T13:01:15.244729751"
     },
     "kmcp": {
         "content": [
@@ -1481,7 +1106,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:35.348580499"
+        "timestamp": "2026-03-19T13:01:10.554211743"
     },
     "fastp": {
         "content": [
@@ -1516,6 +1141,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-11T16:45:14.525606805"
+        "timestamp": "2026-03-19T13:01:09.327042303"
     }
 }
