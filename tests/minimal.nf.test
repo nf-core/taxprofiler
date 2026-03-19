@@ -17,8 +17,9 @@ nextflow_pipeline {
         then {
 
             def stable_name_all = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
-
-
+            // fastqc: all unstable files, see stable_name_all
+            // multiqc: all unstable files, see custom assertion
+            // pipeline_info: all unstable files, see custom assertion
 
             assertAll(
                 { assert workflow.success},
@@ -26,6 +27,11 @@ nextflow_pipeline {
                     // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
                     removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
                 ).match() },
+
+                { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+                { assert snapshot ( stable_name_all ).match("all_files") },
+
             )
         }
     }
