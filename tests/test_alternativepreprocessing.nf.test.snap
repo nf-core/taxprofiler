@@ -5,9 +5,6 @@
                 "ADAPTERREMOVAL_PAIRED": {
                     "adapterremoval": "2.3.2"
                 },
-                "BBMAP_BBDUK": {
-                    "bbmap": 39.18
-                },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
                     "samtools": 1.21,
@@ -48,6 +45,9 @@
                 "PORECHOP_PORECHOP": {
                     "porechop": "0.2.4"
                 },
+                "PRINSEQPLUSPLUS": {
+                    "prinseqplusplus": 1.2
+                },
                 "SAMTOOLS_FASTQ": {
                     "samtools": "1.22.1"
                 },
@@ -72,7 +72,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-04T10:03:03.413130389"
+        "timestamp": "2026-03-19T09:11:43.67531342"
     },
     "all_files": {
         "content": [
@@ -81,10 +81,6 @@
                 "adapterremoval/2612_ERR5766176.settings",
                 "adapterremoval/2612_ERR5766176_B.settings",
                 "adapterremoval/2613_ERR5766181.settings",
-                "bbduk",
-                "bbduk/2612_ERR5766176.bbduk.log",
-                "bbduk/2612_ERR5766176_B.bbduk.log",
-                "bbduk/2613_ERR5766181.bbduk.log",
                 "bowtie2",
                 "bowtie2/align",
                 "bowtie2/align/2612_ERR5766176.bowtie2.log",
@@ -160,9 +156,6 @@
                 "multiqc/multiqc_data/ar_length_count_plot_Mate2.txt",
                 "multiqc/multiqc_data/ar_length_count_plot_Singleton.txt",
                 "multiqc/multiqc_data/ar_retained_plot.txt",
-                "multiqc/multiqc_data/bbduk-filtered-barplot_Bases.txt",
-                "multiqc/multiqc_data/bbduk-filtered-barplot_Reads.txt",
-                "multiqc/multiqc_data/bbduk.txt",
                 "multiqc/multiqc_data/bowtie2_pe_plot.txt",
                 "multiqc/multiqc_data/fastqc-1-status-check-heatmap.txt",
                 "multiqc/multiqc_data/fastqc-1_adapter_content_plot.txt",
@@ -224,10 +217,6 @@
                 "multiqc/multiqc_plots/pdf/ar_length_count_plot_Singleton.pdf",
                 "multiqc/multiqc_plots/pdf/ar_retained_plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/ar_retained_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Reads-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Reads-pct.pdf",
                 "multiqc/multiqc_plots/pdf/bowtie2_pe_plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/bowtie2_pe_plot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc-1_adapter_content_plot.pdf",
@@ -286,10 +275,6 @@
                 "multiqc/multiqc_plots/png/ar_length_count_plot_Singleton.png",
                 "multiqc/multiqc_plots/png/ar_retained_plot-cnt.png",
                 "multiqc/multiqc_plots/png/ar_retained_plot-pct.png",
-                "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-cnt.png",
-                "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-pct.png",
-                "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Reads-cnt.png",
-                "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Reads-pct.png",
                 "multiqc/multiqc_plots/png/bowtie2_pe_plot-cnt.png",
                 "multiqc/multiqc_plots/png/bowtie2_pe_plot-pct.png",
                 "multiqc/multiqc_plots/png/fastqc-1_adapter_content_plot.png",
@@ -348,10 +333,6 @@
                 "multiqc/multiqc_plots/svg/ar_length_count_plot_Singleton.svg",
                 "multiqc/multiqc_plots/svg/ar_retained_plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/ar_retained_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-cnt.svg",
-                "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-pct.svg",
-                "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-cnt.svg",
-                "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-pct.svg",
                 "multiqc/multiqc_plots/svg/bowtie2_pe_plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/bowtie2_pe_plot-pct.svg",
                 "multiqc/multiqc_plots/svg/fastqc-1_adapter_content_plot.svg",
@@ -407,6 +388,10 @@
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml",
                 "porechop",
                 "porechop/ERR3201952_ERR3201952_porechop.log",
+                "prinseqplusplus",
+                "prinseqplusplus/2612_ERR5766176.log",
+                "prinseqplusplus/2612_ERR5766176_B.log",
+                "prinseqplusplus/2613_ERR5766181.log",
                 "samtools",
                 "samtools/stats",
                 "samtools/stats/2612_ERR5766176.stats",
@@ -419,7 +404,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-04T10:03:03.484749672"
+        "timestamp": "2026-03-19T09:11:43.742710405"
     },
     "filtlong": {
         "content": [
@@ -431,21 +416,21 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-01T14:31:57.013508838"
+        "timestamp": "2026-03-19T09:11:43.957876537"
     },
     "bowtie2": {
         "content": [
             [
-                "2612_ERR5766176.bowtie2.log:md5,2d4b3eab5d01108f4f1e80be44c616bf",
-                "2612_ERR5766176_B.bowtie2.log:md5,2d4b3eab5d01108f4f1e80be44c616bf",
-                "2613_ERR5766181.bowtie2.log:md5,19c9593963acbe0f842c3f6900541d7a"
+                "2612_ERR5766176.bowtie2.log:md5,93cf0b7f6cc9fdcc11ffbb305f3ba8a1",
+                "2612_ERR5766176_B.bowtie2.log:md5,93cf0b7f6cc9fdcc11ffbb305f3ba8a1",
+                "2613_ERR5766181.bowtie2.log:md5,26de2294e2e3de4c0458ef06e23395e9"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-04T04:27:40.42375588"
+        "timestamp": "2026-03-19T09:11:43.903687862"
     },
     "kraken2": {
         "content": [
@@ -460,7 +445,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-04T04:59:00.988108765"
+        "timestamp": "2026-03-19T09:11:44.362584893"
     },
     "porechop": {
         "content": [
@@ -470,14 +455,14 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-04T09:38:35.991272798"
+        "timestamp": "2026-03-19T09:11:44.377728595"
     },
     "samtools": {
         "content": [
             [
-                "2612_ERR5766176.stats:md5,ff644cfdff8e805684cf67a34e9c25b4",
-                "2612_ERR5766176_B.stats:md5,dde31aab94370c6a59579eb6d3054891",
-                "2613_ERR5766181.stats:md5,bdd10283d442cc2433c88b41b62955a7",
+                "2612_ERR5766176.stats:md5,058a9c8df01b2f114d859d9f8bc1f709",
+                "2612_ERR5766176_B.stats:md5,61547d1296cf569c2953c73384f9d075",
+                "2613_ERR5766181.stats:md5,86b9b4cfc5e6efc05985406451d20670",
                 "ERR3201952_ERR3201952.stats:md5,ea9e19c0ad0ebf6c02c6fd5f0f1ff7cf"
             ]
         ],
@@ -485,19 +470,21 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-04T10:03:03.984436915"
+        "timestamp": "2026-03-19T09:11:44.48603885"
     },
-    "bbduk": {
+    "prinseqplusplus": {
         "content": [
-            "2612_ERR5766176_B.bbduk.log contains string 'Bases Processed:        134m': true",
-            "2612_ERR5766176.bbduk.log contains string 'Bases Processed:        134m': true",
-            "2613_ERR5766181.bbduk.log contains string 'Bases Processed:        103m': true"
+            [
+                "2612_ERR5766176.log:md5,3c39b03a20cd482c53e826cf64e8dbc9",
+                "2612_ERR5766176_B.log:md5,3c39b03a20cd482c53e826cf64e8dbc9",
+                "2613_ERR5766181.log:md5,af5912aea0917f53d7bf98060b1992a8"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-04T04:59:00.563215617"
+        "timestamp": "2026-03-19T09:11:43.853025033"
     },
     "adapterremoval": {
         "content": [
@@ -511,7 +498,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-01T14:59:00.282197904"
+        "timestamp": "2026-03-19T09:11:43.794710997"
     },
     "kaiju": {
         "content": [
@@ -540,6 +527,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-04T05:13:30.892111873"
+        "timestamp": "2026-03-19T09:11:44.347045748"
     }
 }

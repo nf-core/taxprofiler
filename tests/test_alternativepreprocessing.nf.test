@@ -15,18 +15,18 @@ nextflow_pipeline {
         }
 
         then {
-            def stable_name_all               = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
-            def stable_content_adapterremoval = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["adapterremoval/**"], ignoreFile: 'tests/.nftignore')
-            // bbduk: partly unstable files, see custom assertions
-            def stable_content_bowtie2        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["bowtie2/**"]       , ignoreFile: 'tests/.nftignore')
+            def stable_name_all                = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_content_adapterremoval  = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["adapterremoval/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_bowtie2         = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["bowtie2/**"]       , ignoreFile: 'tests/.nftignore')
             // fastqc: all unstable files, see stable_name_all
-            def stable_content_filtlong       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["filtlong/**"]      , ignoreFile: 'tests/.nftignore')
+            def stable_content_filtlong        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["filtlong/**"]      , ignoreFile: 'tests/.nftignore')
             // kaiju: partly unstable files, see custom assertions
-            def stable_content_kraken2        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["kraken2/**"]       , ignoreFile: 'tests/.nftignore')
+            def stable_content_kraken2         = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["kraken2/**"]       , ignoreFile: 'tests/.nftignore')
             // multiqc: all unstable files, see custom assertions from template at top
             // porechop: partly unstable files, see custom assertions
             // pipeline_info: all unstable files, custom assertions from template at top
-            def stable_content_samtools       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]      , ignoreFile: 'tests/.nftignore')
+            def stable_content_prinseqplusplus = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["prinseqplusplus/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_samtools        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]      , ignoreFile: 'tests/.nftignore')
 
             assertAll(
                 { assert workflow.success},
@@ -42,14 +42,6 @@ nextflow_pipeline {
 
                 // adapterremoval
                 { assert snapshot ( stable_content_adapterremoval ).match("adapterremoval") },
-
-                // bbduk
-                { assert snapshot (
-                        file("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").getName() + " contains string 'Bases Processed:        134m': " + file("$outputDir/bbduk/2612_ERR5766176_B.bbduk.log").text.contains("Bases Processed:        134m"),
-                        file("$outputDir/bbduk/2612_ERR5766176.bbduk.log").getName() + " contains string 'Bases Processed:        134m': " + file("$outputDir/bbduk/2612_ERR5766176.bbduk.log").text.contains("Bases Processed:        134m"),
-                        file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").getName() + " contains string 'Bases Processed:        103m': " + file("$outputDir/bbduk/2613_ERR5766181.bbduk.log").text.contains("Bases Processed:        103m")
-                    ).match("bbduk")
-                },
 
                 // bowtie2
                 { assert snapshot ( stable_content_bowtie2 ).match("bowtie2") },
@@ -96,6 +88,9 @@ nextflow_pipeline {
                         file("$outputDir/porechop/ERR3201952_ERR3201952_porechop.log").getName() + " contains string '7 / 10,000': " + file("$outputDir/porechop/ERR3201952_ERR3201952_porechop.log").text.contains("7 / 10,000"),
                     ).match("porechop")
                 },
+
+                // prinseqplusplus
+                { assert snapshot ( stable_content_prinseqplusplus ).match("prinseqplusplus") },
 
                 // samtools
                 { assert snapshot ( stable_content_samtools ).match("samtools") },
