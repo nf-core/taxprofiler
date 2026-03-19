@@ -23,7 +23,9 @@ nextflow_pipeline {
             def stable_content_filtlong       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["filtlong/**"]      , ignoreFile: 'tests/.nftignore')
             // kaiju: partly unstable files, see custom assertions
             def stable_content_kraken2        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["kraken2/**"]       , ignoreFile: 'tests/.nftignore')
+            // multiqc: all unstable files, see custom assertions from template at top
             // porechop: partly unstable files, see custom assertions
+            // pipeline_info: all unstable files, custom assertions from template at top
             def stable_content_samtools       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]      , ignoreFile: 'tests/.nftignore')
 
             assertAll(

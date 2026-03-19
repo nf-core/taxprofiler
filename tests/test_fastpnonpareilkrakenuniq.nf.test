@@ -20,10 +20,10 @@ nextflow_pipeline {
             // fastqc: all unstable files, see stable_name_all
             def stable_content_fastp        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["fastp/**"]        , ignoreFile: 'tests/.nftignore')
             def stable_content_krakenuniq   = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["krakenuniq/**"]        , ignoreFile: 'tests/.nftignore')
-            // multiqc: all unstable files, see custom assertion
+            // multiqc: all unstable files, see custom assertions from template at top
             def stable_content_nanoq        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["nanoq/**"]        , ignoreFile: 'tests/.nftignore')
             def stable_content_nonpareil    = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["nonpareil/**"]        , ignoreFile: 'tests/.nftignore')
-           // pipeline_info: all unstable files, see custom assertion
+            // pipeline_info: all unstable files, custom assertions from template at top
             def stable_content_porechopabi  = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["porechop_abi/**"] , ignoreFile: 'tests/.nftignore')
             def stable_content_samtools     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]     , ignoreFile: 'tests/.nftignore')
             def stable_content_taxpasta     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["taxpasta/**"]     , ignoreFile: 'tests/.nftignore')
