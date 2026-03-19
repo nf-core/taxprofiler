@@ -1,0 +1,159 @@
+{
+    "all_files": {
+        "content": [
+            [
+                "fastqc",
+                "fastqc/raw",
+                "fastqc/raw/2612_ERR5766176_B_raw_1_fastqc.html",
+                "fastqc/raw/2612_ERR5766176_B_raw_1_fastqc.zip",
+                "fastqc/raw/2612_ERR5766176_B_raw_2_fastqc.html",
+                "fastqc/raw/2612_ERR5766176_B_raw_2_fastqc.zip",
+                "fastqc/raw/2612_ERR5766176_raw_1_fastqc.html",
+                "fastqc/raw/2612_ERR5766176_raw_1_fastqc.zip",
+                "fastqc/raw/2612_ERR5766176_raw_2_fastqc.html",
+                "fastqc/raw/2612_ERR5766176_raw_2_fastqc.zip",
+                "malt",
+                "malt/malt85",
+                "malt/malt85/2612_1.merged.rma6",
+                "malt/malt85/2612_1.merged.txt.gz",
+                "malt/malt85/2612_2.merged.rma6",
+                "malt/malt85/2612_2.merged.txt.gz",
+                "malt/malt85/malt85-malt-run.log",
+                "malt/malt95",
+                "malt/malt95/2612_1.merged.rma6",
+                "malt/malt95/2612_1.merged.txt.gz",
+                "malt/malt95/2612_2.merged.rma6",
+                "malt/malt95/2612_2.merged.txt.gz",
+                "malt/malt95/malt95-malt-run.log",
+                "multiqc",
+                "multiqc/multiqc_data",
+                "multiqc/multiqc_data/fastqc-status-check-heatmap.txt",
+                "multiqc/multiqc_data/fastqc_adapter_content_plot.txt",
+                "multiqc/multiqc_data/fastqc_per_base_n_content_plot.txt",
+                "multiqc/multiqc_data/fastqc_per_base_sequence_quality_plot.txt",
+                "multiqc/multiqc_data/fastqc_per_sequence_gc_content_plot_Counts.txt",
+                "multiqc/multiqc_data/fastqc_per_sequence_gc_content_plot_Percentages.txt",
+                "multiqc/multiqc_data/fastqc_per_sequence_quality_scores_plot.txt",
+                "multiqc/multiqc_data/fastqc_sequence_counts_plot.txt",
+                "multiqc/multiqc_data/fastqc_sequence_duplication_levels_plot.txt",
+                "multiqc/multiqc_data/llms-full.txt",
+                "multiqc/multiqc_data/malt-mappability-plot.txt",
+                "multiqc/multiqc_data/malt-taxonomic-success-plot.txt",
+                "multiqc/multiqc_data/malt.txt",
+                "multiqc/multiqc_data/multiqc.log",
+                "multiqc/multiqc_data/multiqc.parquet",
+                "multiqc/multiqc_data/multiqc_citations.txt",
+                "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_fastqc.txt",
+                "multiqc/multiqc_data/multiqc_general_stats.txt",
+                "multiqc/multiqc_data/multiqc_software_versions.txt",
+                "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_plots",
+                "multiqc/multiqc_plots/pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_adapter_content_plot.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_per_base_n_content_plot.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_per_base_sequence_quality_plot.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_per_sequence_gc_content_plot_Counts.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_per_sequence_gc_content_plot_Percentages.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_per_sequence_quality_scores_plot.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_sequence_counts_plot-cnt.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_sequence_counts_plot-pct.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_sequence_duplication_levels_plot.pdf",
+                "multiqc/multiqc_plots/pdf/malt-mappability-plot-cnt.pdf",
+                "multiqc/multiqc_plots/pdf/malt-mappability-plot-pct.pdf",
+                "multiqc/multiqc_plots/pdf/malt-taxonomic-success-plot-cnt.pdf",
+                "multiqc/multiqc_plots/pdf/malt-taxonomic-success-plot-pct.pdf",
+                "multiqc/multiqc_plots/png",
+                "multiqc/multiqc_plots/png/fastqc_adapter_content_plot.png",
+                "multiqc/multiqc_plots/png/fastqc_per_base_n_content_plot.png",
+                "multiqc/multiqc_plots/png/fastqc_per_base_sequence_quality_plot.png",
+                "multiqc/multiqc_plots/png/fastqc_per_sequence_gc_content_plot_Counts.png",
+                "multiqc/multiqc_plots/png/fastqc_per_sequence_gc_content_plot_Percentages.png",
+                "multiqc/multiqc_plots/png/fastqc_per_sequence_quality_scores_plot.png",
+                "multiqc/multiqc_plots/png/fastqc_sequence_counts_plot-cnt.png",
+                "multiqc/multiqc_plots/png/fastqc_sequence_counts_plot-pct.png",
+                "multiqc/multiqc_plots/png/fastqc_sequence_duplication_levels_plot.png",
+                "multiqc/multiqc_plots/png/malt-mappability-plot-cnt.png",
+                "multiqc/multiqc_plots/png/malt-mappability-plot-pct.png",
+                "multiqc/multiqc_plots/png/malt-taxonomic-success-plot-cnt.png",
+                "multiqc/multiqc_plots/png/malt-taxonomic-success-plot-pct.png",
+                "multiqc/multiqc_plots/svg",
+                "multiqc/multiqc_plots/svg/fastqc_adapter_content_plot.svg",
+                "multiqc/multiqc_plots/svg/fastqc_per_base_n_content_plot.svg",
+                "multiqc/multiqc_plots/svg/fastqc_per_base_sequence_quality_plot.svg",
+                "multiqc/multiqc_plots/svg/fastqc_per_sequence_gc_content_plot_Counts.svg",
+                "multiqc/multiqc_plots/svg/fastqc_per_sequence_gc_content_plot_Percentages.svg",
+                "multiqc/multiqc_plots/svg/fastqc_per_sequence_quality_scores_plot.svg",
+                "multiqc/multiqc_plots/svg/fastqc_sequence_counts_plot-cnt.svg",
+                "multiqc/multiqc_plots/svg/fastqc_sequence_counts_plot-pct.svg",
+                "multiqc/multiqc_plots/svg/fastqc_sequence_duplication_levels_plot.svg",
+                "multiqc/multiqc_plots/svg/malt-mappability-plot-cnt.svg",
+                "multiqc/multiqc_plots/svg/malt-mappability-plot-pct.svg",
+                "multiqc/multiqc_plots/svg/malt-taxonomic-success-plot-cnt.svg",
+                "multiqc/multiqc_plots/svg/malt-taxonomic-success-plot-pct.svg",
+                "multiqc/multiqc_report.html",
+                "pipeline_info",
+                "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-19T04:57:13.7489916"
+    },
+    "-profile test_malt": {
+        "content": [
+            {
+                "FASTQC": {
+                    "fastqc": "0.12.1"
+                },
+                "MALT_RUN": {
+                    "malt": "0.6.1"
+                },
+                "MEGAN_RMA2INFO_TSV": {
+                    "megan": "6.25.9"
+                },
+                "MERGE_RUNS": {
+                    "cat": 9.5
+                },
+                "UNTAR": {
+                    "untar": 1.34
+                },
+                "Workflow": {
+                    "nf-core/taxprofiler": "v1.2.7dev"
+                }
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-19T04:57:13.737718228"
+    },
+    "malt": {
+        "content": [
+            [
+                "2612_1.merged.txt.gz:md5,374064ca95f0092ef210a02fb3673884",
+                "2612_2.merged.txt.gz:md5,694f5a1b0d201ea5d5de99e4368f36b2",
+                "2612_1.merged.txt.gz:md5,d2eeeeacf5ff1981ab31faac19afe8f1",
+                "2612_2.merged.txt.gz:md5,789880e3969b14c0f2be4c7f9c0b77f2"
+            ],
+            [
+                "malt85-malt-run.log contains string 'Peak memory:': true",
+                "malt95-malt-run.log contains string 'Peak memory:': true"
+            ],
+            [
+                "2612_1.merged.rma6 file size more than '600000': true",
+                "2612_2.merged.rma6 file size more than '600000': true",
+                "2612_1.merged.rma6 file size more than '600000': true",
+                "2612_2.merged.rma6 file size more than '600000': true"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-03-19T07:47:10.510915006"
+    }
+}
