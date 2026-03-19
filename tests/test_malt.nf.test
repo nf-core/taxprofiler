@@ -28,7 +28,7 @@ nextflow_pipeline {
                 { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
                 { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
                 { assert snapshot ( stable_name_all ).match("all_files") },
-                { assert snapshot ( 
+                { assert snapshot (
                         stable_content_malt,
                         getAllFilesFromDir("$outputDir/malt", include: ['**.log']).collect { file -> "${file.getName()} contains string 'Peak memory:': " + file.text.contains("Peak memory:")},
                         getAllFilesFromDir("$outputDir/malt", include: ['**.rma6']).collect { file -> "${file.getName()} file size more than '600000': " + "${file.length() > 600000}" },
