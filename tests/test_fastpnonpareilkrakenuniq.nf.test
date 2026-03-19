@@ -1,0 +1,111 @@
+nextflow_pipeline {
+
+    name "Test fastp nonpareil krakenuniq"
+    script "../main.nf"
+    tag "pipeline"
+    tag "test_fastpnonpareilkrakenuniq"
+    profile "test_fastpnonpareilkrakenuniq"
+
+    test("-profile test_fastpnonpareilkrakenuniq") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            def stable_name_all             = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_content_bowtie2      = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["bowtie2/**"]      , ignoreFile: 'tests/.nftignore')
+            // fastqc: all unstable files, see stable_name_all
+            def stable_content_fastp        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["fastp/**"]        , ignoreFile: 'tests/.nftignore')
+            def stable_content_krakenuniq   = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["krakenuniq/**"]        , ignoreFile: 'tests/.nftignore')
+            // multiqc: all unstable files, see custom assertion
+            def stable_content_nanoq        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["nanoq/**"]        , ignoreFile: 'tests/.nftignore')
+            def stable_content_nonpareil    = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["nonpareil/**"]        , ignoreFile: 'tests/.nftignore')
+           // pipeline_info: all unstable files, see custom assertion
+            def stable_content_porechopabi  = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["porechop_abi/**"] , ignoreFile: 'tests/.nftignore')
+            def stable_content_samtools     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]     , ignoreFile: 'tests/.nftignore')
+            def stable_content_taxpasta     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["taxpasta/**"]     , ignoreFile: 'tests/.nftignore')
+
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
+                ).match() },
+
+                { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+
+                { assert snapshot ( stable_name_all ).match("all_files") },
+
+                // bowtie2
+                { assert snapshot ( stable_content_bowtie2 ).match("bowtie2") },
+
+                // fastp
+                { assert snapshot(
+                        getAllFilesFromDir("$outputDir/fastp", include: ['*.fastp.json']).collect { file -> file.getName() + " contains string 'fastp_version': " + file.text.contains("fastp_version")},
+                        getAllFilesFromDir("$outputDir/fastp", include: ['*.fastp.log']).collect { file -> file.getName() + " contains string 'Detecting adapter sequence': " + file.text.contains("Detecting adapter sequence")},
+                        stable_content_fastp
+                    ).match("fastp")
+                },
+
+                // krakenuniq
+                { assert snapshot (
+                        file("$outputDir/krakenuniq/db6/2611.se.krakenuniq.classified.txt").getName() + " contains string 'ERR5766174.25	2697049': " + file("$outputDir/krakenuniq/db6/2611.se.krakenuniq.classified.txt").text.contains("ERR5766174.25	2697049"),
+                        file("$outputDir/krakenuniq/db6/2611.se.krakenuniq.report.txt").getName() + " contains string 'Severe acute respiratory syndrome coronavirus 2': " + file("$outputDir/krakenuniq/db6/2611.se.krakenuniq.report.txt").text.contains("Severe acute respiratory syndrome coronavirus 2"),
+                        file("$outputDir/krakenuniq/db6/2612.se.krakenuniq.classified.txt").getName() + " contains string 'ERR5766176.114	2697049': " + file("$outputDir/krakenuniq/db6/2612.se.krakenuniq.classified.txt").text.contains("ERR5766176.114	2697049"),
+                        file("$outputDir/krakenuniq/db6/2612.se.krakenuniq.report.txt").getName() + " contains string 'Severe acute respiratory syndrome coronavirus 2    ': " + file("$outputDir/krakenuniq/db6/2612.se.krakenuniq.report.txt").text.contains("Severe acute respiratory syndrome coronavirus 2"),
+                        file("$outputDir/krakenuniq/db6/2613.se.krakenuniq.classified.txt").getName() + " contains string 'ERR5766181.92	2697049': " + file("$outputDir/krakenuniq/db6/2613.se.krakenuniq.classified.txt").text.contains("ERR5766181.92	2697049"),
+                        file("$outputDir/krakenuniq/db6/2613.se.krakenuniq.report.txt").getName() + " contains string 'Severe acute respiratory syndrome coronavirus 2    ': " + file("$outputDir/krakenuniq/db6/2613.se.krakenuniq.report.txt").text.contains("Severe acute respiratory syndrome coronavirus 2"),
+                        file("$outputDir/krakenuniq/db6/2614.se.krakenuniq.classified.txt").getName() + " contains string 'ERR3201952.1159044	2697049': " + file("$outputDir/krakenuniq/db6/2614.se.krakenuniq.classified.txt").text.contains("ERR3201952.1159044	2697049"),
+                        file("$outputDir/krakenuniq/db6/2614.se.krakenuniq.report.txt").getName() + " contains string 'Severe acute respiratory syndrome coronavirus 2    ': " + file("$outputDir/krakenuniq/db6/2614.se.krakenuniq.report.txt").text.contains("Severe acute respiratory syndrome coronavirus 2"),
+                        file("$outputDir/krakenuniq/db6/ERR3201952.se.krakenuniq.classified.txt").getName() + " contains string 'ERR3201952.1159044	2697049': " + file("$outputDir/krakenuniq/db6/ERR3201952.se.krakenuniq.classified.txt").text.contains("ERR3201952.1159044	2697049"),
+                        file("$outputDir/krakenuniq/db6/ERR3201952.se.krakenuniq.report.txt").getName() + " contains string 'Severe acute respiratory syndrome coronavirus 2    ': " + file("$outputDir/krakenuniq/db6/ERR3201952.se.krakenuniq.report.txt").text.contains("Severe acute respiratory syndrome coronavirus 2")
+                    ).match("krakenuniq")
+                },
+
+                // nanoq
+                { assert snapshot ( stable_content_nanoq ).match("nanoq") },
+
+                // nonpareil
+                { assert snapshot(
+                        getAllFilesFromDir("$outputDir/nonpareil", include: ['*.npa']).collect { file -> file.getName() + " contains string '0.00': " + file.text.contains("0.00")},
+                        getAllFilesFromDir("$outputDir/nonpareil", include: ['*.npl']).collect { file -> file.getName() + " contains string 'Average read length':" + file.text.contains("Average read length")},
+                        getAllFilesFromDir("$outputDir/nonpareil", include: ['*.npo']).collect { file -> file.getName() + " contains string '@version:':" + file.text.contains("@version:")},
+                        file("$outputDir/nonpareil/2612_ERR5766176_B.npc").getName()            + " contains string:'177104':" + file("$outputDir/nonpareil/2612_ERR5766176_B.npc").text.contains("177104"),
+                        file("$outputDir/nonpareil/2612_ERR5766176_B.png").getName()            + " exists:  " + file("$outputDir/nonpareil/2612_ERR5766176_B.png").exists(),
+                        file("$outputDir/nonpareil/2612_ERR5766176.npc").getName()              + " contains string:'74240':" + file("$outputDir/nonpareil/2612_ERR5766176.npc").text.contains("74240"),
+                        file("$outputDir/nonpareil/2612_ERR5766176.png").getName()              + " exists:  " + file("$outputDir/nonpareil/2612_ERR5766176.png").exists(),
+                        file("$outputDir/nonpareil/2612_ERR5766180.npc").getName()              + " contains string:'143862':" + file("$outputDir/nonpareil/2612_ERR5766180.npc").text.contains("143862"),
+                        file("$outputDir/nonpareil/2612_ERR5766180.png").getName()              + " exists:  " + file("$outputDir/nonpareil/2612_ERR5766180.png").exists(),
+                        file("$outputDir/nonpareil/2613_ERR5766181.npc").getName()              + " contains string:'127039':" + file("$outputDir/nonpareil/2613_ERR5766181.npc").text.contains("127039"),
+                        file("$outputDir/nonpareil/2613_ERR5766181.png").getName()              + " exists:  " + file("$outputDir/nonpareil/2613_ERR5766181.png").exists(),
+                        file("$outputDir/nonpareil/nonpareil_all_samples.csv").getName()        + " contains string:'modelR':" + file("$outputDir/nonpareil/nonpareil_all_samples.csv").text.contains("modelR"),
+                        file("$outputDir/nonpareil/nonpareil_all_samples.json").getName()       + " contains string:'log.sample':" + file("$outputDir/nonpareil/nonpareil_all_samples.json").text.contains("log.sample"),
+                        file("$outputDir/nonpareil/nonpareil_all_samples_mqc.png").getName()    + " exists:  " + file("$outputDir/nonpareil/nonpareil_all_samples_mqc.png").exists(),
+                        file("$outputDir/nonpareil/nonpareil_all_samples.pdf").getName()        + " exists:  " + file("$outputDir/nonpareil/nonpareil_all_samples.pdf").exists(),
+                        file("$outputDir/nonpareil/nonpareil_all_samples.tsv").getName()        + " contains string:'diversity':" + file("$outputDir/nonpareil/nonpareil_all_samples.tsv").text.contains("diversity"),
+                        file("$outputDir/nonpareil/nonpareil_all_samples.tsv").getName()        + " contains string:'58407442.425':" + file("$outputDir/nonpareil/nonpareil_all_samples.tsv").text.contains("58407442.425"),
+                        stable_content_nonpareil
+                    ).match("nonpareil")
+                },
+
+                // porechop_abi
+                { assert snapshot (
+                        file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").getName() + " contains string '7 / 10,000': " + file("$outputDir/porechop_abi/ERR3201952_ERR3201952_porechop_abi.log").text.contains("7 / 10,000"),
+                    ).match("porechop_abi")
+                },
+
+                // samtools
+                { assert snapshot ( stable_content_samtools ).match("samtools") },
+
+                // taxpasta
+                { assert snapshot ( stable_content_taxpasta ).match("taxpasta") },
+
+            )
+
+        }
+    }
+}
