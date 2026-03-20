@@ -1,0 +1,49 @@
+nextflow_pipeline {
+
+    name "Test motus"
+    script "../main.nf"
+    tag "pipeline"
+    tag "test_motus"
+    profile "test_motus"
+
+    test("-profile test_motus") {
+
+        setup {
+            curlAndExtract("s3://nf-core-awsmegatests/taxprofiler/input/db_mOTU.tar.gz", "${launchDir}/db_mOTU/")
+            generate_custom_samplesheet = ["printf 'tool,db_name,db_params,db_path\nmotus,db1,,${launchDir}/db_mOTU/\n' > database.csv"]
+            generate_custom_samplesheet_execute = generate_custom_samplesheet.execute()
+            generate_custom_samplesheet_execute.waitFor()
+        }
+
+        when {
+            params {
+                outdir = "$outputDir"
+                databases = "${launchDir}/database.csv"
+            }
+        }
+
+        then {
+            def stable_name_all     = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_content_motus = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["motus/**"], ignoreFile: 'tests/.nftignore')
+
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
+                ).match() },
+
+                { assert snapshot ( stable_name_all ).match("all_files") },
+
+                // motus
+                { assert snapshot ( stable_content_motus ).match("motus") },
+            )
+
+        }
+
+
+        cleanup {
+            new File("${launchDir}/db_mOTU").deleteDir()
+        }
+    }
+}
