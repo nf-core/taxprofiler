@@ -25,6 +25,8 @@ nextflow_pipeline {
         then {
             def stable_name_all     = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             def stable_content_motus = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["motus/**"], ignoreFile: 'tests/.nftignore')
+            // taxpasta: partly unstable files, see custom assertions
+
 
             assertAll(
                 { assert workflow.success},
@@ -40,6 +42,7 @@ nextflow_pipeline {
                         stable_content_motus,
                         getAllFilesFromDir("$outputDir/motus", include: ['**.log']).collect { file -> "${file.getName()} contains string 'Finished computation': " + file.text.contains("Finished computation")},
                         file("$outputDir/motus/motus_db1_combined_reports.txt").getName() + " contains string 'unassigned': " + file("$outputDir/motus/motus_db1_combined_reports.txt").text.contains("unassigned"),
+                        file("$outputDir/taxpasta/motus_db1.tsv").getName() + " contains string '165179': " + file("$outputDir/taxpasta/motus_db1.tsv").text.contains("165179"),
                     ).match("motus")
                 },
             )
