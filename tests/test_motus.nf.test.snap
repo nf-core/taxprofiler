@@ -180,12 +180,13 @@
                 "2613_ERR5766181_db1.log contains string 'Finished computation': true",
                 "ERR3201952_ERR3201952_db1.log contains string 'Finished computation': true"
             ],
-            "motus_db1_combined_reports.txt contains string 'unassigned': true"
+            "motus_db1_combined_reports.txt contains string 'unassigned': true",
+            "motus_db1.tsv contains string '165179': true"
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-21T16:46:46.691253181"
+        "timestamp": "2026-03-22T05:13:41.788244427"
     }
 }

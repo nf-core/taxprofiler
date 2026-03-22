@@ -38,7 +38,7 @@ nextflow_pipeline {
                 { assert snapshot ( stable_name_all ).match("all_files") },
 
                 // motus
-                { assert snapshot ( 
+                { assert snapshot (
                         stable_content_motus,
                         getAllFilesFromDir("$outputDir/motus", include: ['**.log']).collect { file -> "${file.getName()} contains string 'Finished computation': " + file.text.contains("Finished computation")},
                         file("$outputDir/motus/motus_db1_combined_reports.txt").getName() + " contains string 'unassigned': " + file("$outputDir/motus/motus_db1_combined_reports.txt").text.contains("unassigned"),
@@ -49,9 +49,8 @@ nextflow_pipeline {
 
         }
 
-
-        // cleanup {
-        //     new File("${launchDir}/db_mOTU").deleteDir()
-        // }
+        cleanup {
+            new File("${launchDir}/db_mOTU").deleteDir()
+        }
     }
 }
