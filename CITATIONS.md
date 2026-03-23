@@ -133,6 +133,10 @@
 
   > Shaw, J., & Yu, Y. W. (2024). Rapid species-level metagenome profiling and containment estimation with Sylph. Nature Biotechnology. https://doi.org/10.1038/s41587-024-02412-y
 
+- [MetaCachae](https://doi.org/10.1093/bioinformatics/btx520)
+
+  > Müller, A., Hundt, C., Hildebrandt, A., Hankeln, T., & Schmidt, B.(2017). MetaCache: context-aware classification of metagenomic reads using minhashing. Bioinformatics, 33(23), 3740–3748. https://doi.org/10.1093/bioinformatics/btx520
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)

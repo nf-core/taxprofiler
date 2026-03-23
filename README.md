@@ -49,6 +49,7 @@
    - [ganon](https://pirovc.github.io/ganon/)
    - [sylph](https://github.com/bluenote-1577/sylph)
    - [Melon](https://github.com/xinehc/melon)
+   - [MetaCache](https://github.com/muellan/metacache)
 5. Perform optional post-processing with:
    - [bracken](https://ccb.jhu.edu/software/bracken/)
 6. Standardises output tables ([`Taxpasta`](https://taxpasta.readthedocs.io))
