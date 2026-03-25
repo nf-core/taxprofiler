@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#694](https://github.com/nf-core/taxprofiler/pull/694) Developer and contributor documentation (by @jfy133)
 - [#698](https://github.com/nf-core/taxprofiler/pull/698) Add new config and nf-test for `test_falcobbduk` (by @jfy133)
 - [#699](https://github.com/nf-core/taxprofiler/pull/699) Add new config and nf-test for `test_fastpnonpareilkrakenuniq` (by @jfy133)
+- [#709](https://github.com/nf-core/taxprofiler/pull/709) Add new config and nf-test for `test_nopreprocessing` (by @jfy133)
 
 ### `Fixed`
 
