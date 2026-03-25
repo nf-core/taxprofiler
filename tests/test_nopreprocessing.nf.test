@@ -1,0 +1,50 @@
+nextflow_pipeline {
+
+    name "Test pipeline"
+    script "../main.nf"
+    tag "pipeline"
+    tag "test_nopreprocessing"
+    profile "test_nopreprocessing"
+
+    test("-profile test_nopreprocessing") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+
+            def stable_name_all = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_content_bracken = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["bracken/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_centrifuge = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["centrifuge/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_diamond = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["diamond/**"], ignoreFile: 'tests/.nftignore')
+            // fastqc: all files stable unstale
+            def stable_content_ganon = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["ganon/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_kaiju = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["kaiju/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_kmcp = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["kmcp/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_kraken2 = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["kraken2/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_krona = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["krona/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_melon = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["melon/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_metacatch = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["metacatch/**"], ignoreFile: 'tests/.nftignore')
+            def stable_content_metaphlan = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["metaphlan/**"], ignoreFile: 'tests/.nftignore')
+            // multiqc: all unstable files, see custom assertion
+            // pipeline_info: all unstable files, see custom assertion
+            def stable_content_sylph = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["sylph/**"], ignoreFile: 'tests/.nftignore')
+
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
+                ).match() },
+
+                { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+                { assert snapshot ( stable_name_all ).match("all_files") },
+
+            )
+        }
+    }
+}
