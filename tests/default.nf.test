@@ -40,7 +40,6 @@ nextflow_pipeline {
             def stable_content_melon       = getAllFilesFromDir("$outputDir/melon", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
             def stable_content_sylph       = getAllFilesFromDir("$outputDir/sylph", relative: false, includeDir: false, ignore: null, ignoreFile: 'tests/.nftignore', include: ['*','**/*'])
 
-
             assertAll(
 
                 // Workflow success
@@ -236,7 +235,11 @@ nextflow_pipeline {
                 },
 
                 // sylph
-                { assert snapshot (stable_content_sylph).match("sylph") },
+                { assert snapshot (
+                                file("$outputDir/sylph/sylph_db1_combined_reports.tsv").getName() + " contains string:'Penicillium roqueforti':" + file("$outputDir/sylph/sylph_db1_combined_reports.tsv").text.contains("Penicillium roqueforti"),
+                                stable_content_sylph
+                        ).match("sylph")
+                },
                 )
                 }
         }
