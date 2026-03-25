@@ -294,21 +294,22 @@ def toolCitationText() {
 
 
     def text_classification = [
-        "Taxonomic classification or profiling was carried out with:",
-        params.run_bracken ? "Bracken (Lu et al. 2017)," : "",
-        params.run_kraken2 ? "Kraken2 (Wood et al. 2019)," : "",
-        params.run_krakenuniq ? "KrakenUniq (Breitwieser et al. 2018)," : "",
-        params.run_metaphlan ? "MetaPhlAn (Blanco-Míguez et al. 2023)," : "",
-        params.run_malt ? "MALT (Vågene et al. 2018) and MEGAN6 CE (Huson et al. 2016)," : "",
-        params.run_diamond ? "DIAMOND (Buchfink et al. 2015)," : "",
-        params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
-        params.run_kaiju ? "Kaiju (Menzel et al. 2016)," : "",
-        params.run_motus ? "mOTUs (Ruscheweyh et al. 2022)," : "",
-        params.run_ganon ? "ganon (Piro et al. 2020)" : "",
-        params.run_kmcp ? "KMCP (Shen et al. 2023)" : "",
-        params.run_sylph ? "sylph (Shaw et al. 2024)," : "",
-        params.run_melon ? "melon (Chen et al. 2024)," : "",
-        ".",
+            "Taxonomic classification or profiling was carried out with:",
+            params.run_bracken    ? "Bracken (Lu et al. 2017)," : "",
+            params.run_kraken2    ? "Kraken2 (Wood et al. 2019)," : "",
+            params.run_krakenuniq ? "KrakenUniq (Breitwieser et al. 2018)," : "",
+            params.run_metaphlan  ? "MetaPhlAn (Blanco-Míguez et al. 2023)," : "",
+            params.run_malt       ? "MALT (Vågene et al. 2018) and MEGAN6 CE (Huson et al. 2016)," : "",
+            params.run_diamond    ? "DIAMOND (Buchfink et al. 2015)," : "",
+            params.run_centrifuge ? "Centrifuge (Kim et al. 2016)," : "",
+            params.run_kaiju      ? "Kaiju (Menzel et al. 2016)," : "",
+            params.run_motus      ? "mOTUs (Ruscheweyh et al. 2022)," : "",
+            params.run_ganon      ? "ganon (Piro et al. 2020)," : "",
+            params.run_kmcp       ? "KMCP (Shen et al. 2023)," : "",
+            params.run_sylph      ? "sylph (Shaw et al. 2024),":"",
+            params.run_melon      ? "melon (Chen et al. 2024)," : "",
+            params.run_metacache  ? "MetaCache (Müller et al. 2017)," : "",
+        "."
     ].join(' ').trim()
 
     def text_visualisation = [
@@ -322,18 +323,17 @@ def toolCitationText() {
     def citation_text = [
         "Tools used in the workflow included:",
         text_seq_qc,
-        params.perform_shortread_qc ? text_shortread_qc : "",
-        params.perform_shortread_redundancyestimation ? text_shortread_redundancy : "",
-        params.perform_longread_qc ? text_longread_qc : "",
-        params.perform_shortread_complexityfilter ? text_shortreadcomplexity : "",
-        params.perform_shortread_hostremoval ? text_shortreadhostremoval : "",
-        params.perform_longread_hostremoval ? text_longreadhostremoval : "",
-        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp, params.run_sylph, params.run_melon].any()
-            ? text_classification
-            : "",
-        params.run_krona ? text_visualisation : "",
-        params.run_profile_standardisation ? text_postprocessing : "",
-        "Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016).",
+        params.perform_shortread_qc                     ? text_shortread_qc : "",
+        params.perform_shortread_redundancyestimation   ? text_shortread_redundancy : "",
+        params.perform_longread_qc                      ? text_longread_qc : "",
+        params.perform_shortread_complexityfilter       ? text_shortreadcomplexity : "",
+        params.perform_shortread_hostremoval            ? text_shortreadhostremoval : "",
+        params.perform_longread_hostremoval             ? text_longreadhostremoval : "",
+        [params.run_bracken, params.run_kraken2, params.run_krakenuniq, params.run_metaphlan, params.run_malt, params.run_diamond, params.run_centrifuge, params.run_kaiju, params.run_motus, params.run_ganon, params.run_kmcp, params.run_sylph, params.run_melon, params.run_metacache].any() ?
+            text_classification : "",
+        params.run_krona                                ? text_visualisation : "",
+        params.run_profile_standardisation              ? text_postprocessing : "",
+        "Pipeline results statistics were summarised with MultiQC (Ewels et al. 2016)."
     ].join(' ').trim().replaceAll("[,|.] +\\.", ".")
 
     return citation_text
@@ -384,12 +384,14 @@ def toolBibliographyText() {
         params.run_malt ? "<li>Huson, D. H., Beier, S., Flade, I., Górska, A., El-Hadidi, M., Mitra, S., Ruscheweyh, H.-J., & Tappu, R. (2016). MEGAN Community Edition - Interactive Exploration and Analysis of Large-Scale Microbiome Sequencing Data. PLoS Computational Biology, 12(6), e1004957. <a href=\"https://doi.org/10.1371/journal.pcbi.1004957\">10.1371/journal.pcbi.1004957</a></li>" : "",
         params.run_diamond ? "<li>Buchfink, B., Xie, C., & Huson, D. H. (2015). Fast and sensitive protein alignment using DIAMOND. Nature Methods, 12(1), 59–60. <a href=\"https://doi.org/10.1038/nmeth.3176\">10.1038/nmeth.3176</a></li>" : "",
         params.run_centrifuge ? "<li>Kim, D., Song, L., Breitwieser, F. P., & Salzberg, S. L. (2016). Centrifuge: rapid and sensitive classification of metagenomic sequences. Genome Research, 26(12), 1721–1729.  <a href=\"https://doi.org/10.1101/gr.210641.116\">10.1101/gr.210641.116</a></li>" : "",
-        params.run_kaiju ? "<li>Menzel, P., Ng, K. L., & Krogh, A. (2016). Fast and sensitive taxonomic classification for metagenomics with Kaiju. Nature Communications, 7, 11257. <a href=\"https://doi.org/10.1038/ncomms11257\">10.1038/ncomms11257</a></li>" : "",
-        params.run_motus ? "<li>Ruscheweyh, H.-J., Milanese, A., Paoli, L., Karcher, N., Clayssen, Q., Keller, M. I., Wirbel, J., Bork, P., Mende, D. R., Zeller, G., & Sunagawa, S. (2022). Cultivation-independent genomes greatly expand taxonomic-profiling capabilities of mOTUs across various environments. Microbiome, 10(1), 212. <a href=\"https://doi.org/10.1186/s40168-022-01410-z\">10.1186/s40168-022-01410-z</a></li>" : "",
-        params.run_ganon ? "<li>Piro, V. C., Dadi, T. H., Seiler, E., Reinert, K., & Renard, B. Y. (2020). Ganon: Precise metagenomics classification against large and up-to-date sets of reference sequences. Bioinformatics (Oxford, England), 36(Suppl_1), i12–i20. <a href=\"https://doi.org/10.1093/bioinformatics/btaa458\">10.1093/bioinformatics/btaa458</a></li>" : "",
-        params.run_kmcp ? "<li>Shen, W., Xiang, H., Huang, T., Tang, H., Peng, M., Cai, D., Hu, P., & Ren, H. (2023). KMCP: accurate metagenomic profiling of both prokaryotic and viral populations by pseudo-mapping. Bioinformatics (Oxford, England), 39(1). <a href=\"https://doi.org/10.1093/bioinformatics/btac845\">10.1093/bioinformatics/btac845</a></li>" : "",
-        params.run_sylph ? "<li>Shaw, J. & Yu, Y. W. (2024). Rapid species-level metagenome profiling and containment estimation with sylph. Nature Biotechnology. <a href=\"https://doi.org/10.1038/s41587-024-02412-y\">10.1038/s41587-024-02412-y</a></li>" : "",
-        params.run_melon ? "<li>Chen, X., Yin, X., Shi, X., Yan, W., Yang, Y., Liu, L., & Zhang, T. (2024). Melon: metagenomic long-read-based taxonomic identification and quantification using marker genes. Genome Biology, 25(1), 226. <a href=\"https://doi.org/10.1186/s13059-024-03363-y\">10.1186/s13059-024-03363-y</a></li>" : "",
+        params.run_kaiju      ? "<li>Menzel, P., Ng, K. L., & Krogh, A. (2016). Fast and sensitive taxonomic classification for metagenomics with Kaiju. Nature Communications, 7, 11257. <a href=\"https://doi.org/10.1038/ncomms11257\">10.1038/ncomms11257</a></li>" : "",
+        params.run_motus      ? "<li>Ruscheweyh, H.-J., Milanese, A., Paoli, L., Karcher, N., Clayssen, Q., Keller, M. I., Wirbel, J., Bork, P., Mende, D. R., Zeller, G., & Sunagawa, S. (2022). Cultivation-independent genomes greatly expand taxonomic-profiling capabilities of mOTUs across various environments. Microbiome, 10(1), 212. <a href=\"https://doi.org/10.1186/s40168-022-01410-z\">10.1186/s40168-022-01410-z</a></li>" : "",
+        params.run_ganon      ? "<li>Piro, V. C., Dadi, T. H., Seiler, E., Reinert, K., & Renard, B. Y. (2020). Ganon: Precise metagenomics classification against large and up-to-date sets of reference sequences. Bioinformatics (Oxford, England), 36(Suppl_1), i12–i20. <a href=\"https://doi.org/10.1093/bioinformatics/btaa458\">10.1093/bioinformatics/btaa458</a></li>" : "",
+        params.run_kmcp       ? "<li>Shen, W., Xiang, H., Huang, T., Tang, H., Peng, M., Cai, D., Hu, P., & Ren, H. (2023). KMCP: accurate metagenomic profiling of both prokaryotic and viral populations by pseudo-mapping. Bioinformatics (Oxford, England), 39(1). <a href=\"https://doi.org/10.1093/bioinformatics/btac845\">10.1093/bioinformatics/btac845</a></li>" : "",
+        params.run_sylph      ? "<li>Shaw, J. & Yu, Y. W. (2024). Rapid species-level metagenome profiling and containment estimation with sylph. Nature Biotechnology. <a href=\"https://doi.org/10.1038/s41587-024-02412-y\">10.1038/s41587-024-02412-y</a></li>" : "",
+        params.run_melon      ? "<li>Chen, X., Yin, X., Shi, X., Yan, W., Yang, Y., Liu, L., & Zhang, T. (2024). Melon: metagenomic long-read-based taxonomic identification and quantification using marker genes. Genome Biology, 25(1), 226. <a href=\"https://doi.org/10.1186/s13059-024-03363-y\">10.1186/s13059-024-03363-y</a></li>" : "",
+        params.run_metacache  ? "<li>Müller, A., Hundt, C., Hildebrandt, A., Hankeln, T., & Schmidt, B. (2017). MetaCache: context-aware classification of metagenomic reads using minhashing. Bioinformatics, 33(23), 3740–3748. <a href=\"https://doi.org/10.1093/bioinformatics/btx520\">10.1093/bioinformatics/btx520</a></li>" : "",
+
     ].join(' ').trim()
 
     def text_visualisation = [

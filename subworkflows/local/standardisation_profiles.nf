@@ -51,14 +51,14 @@ workflow STANDARDISATION_PROFILES {
     }
 
     ch_input_for_taxpasta_merge = ch_input_for_taxpasta.merge
-        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon']) }
+        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache']) }
         .multiMap { meta, input_profiles ->
             profiles: [meta, input_profiles]
             tool: meta.tool
         }
 
     ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
-        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon']) }
+        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache']) }
         .multiMap { meta, input_profiles ->
             profiles: [meta, input_profiles]
             tool: meta.tool
@@ -85,6 +85,8 @@ workflow STANDARDISATION_PROFILES {
         motus: entry[0]['tool'] == 'motus'
         melon: entry[0]['tool'] == 'melon'
         sylph: entry[0]['tool'] == 'sylph'
+        metacache: entry[0]['tool'] == 'sylph'
+
         unknown: true
     }
 
@@ -227,8 +229,9 @@ def combineProfilesWithDatabase(ch_profiles, ch_database) {
     return ch_profiles
         .map { meta, profile -> [meta.id, meta, profile] }
         .combine(ch_database.map { db_meta, db -> [db_meta.db_name, db] }, by: 0)
-        .multiMap { _key, meta, profile, db ->
-            profile: [meta, profile]
-            db: db
+        .multiMap {
+            key, meta, profile, db ->
+                profile: [meta, profile]
+                db: db
         }
 }
