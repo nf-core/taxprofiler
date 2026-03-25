@@ -32,9 +32,7 @@
                 "motus/db1/2613_ERR5766181_db1.out",
                 "motus/db1/ERR3201952_ERR3201952_db1.log",
                 "motus/db1/ERR3201952_ERR3201952_db1.out",
-                "motus/db1/versions.yml",
                 "motus/motus_db1_combined_reports.txt",
-                "motus/versions.yml",
                 "multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/fastqc-status-check-heatmap.txt",
@@ -170,8 +168,6 @@
                 "2612_ERR5766180_db1.out:md5,f94badab8dfc949fcf92a3a04c03b58d",
                 "2613_ERR5766181_db1.out:md5,615b11613a3cb618a4725bcbd9e4450c",
                 "ERR3201952_ERR3201952_db1.out:md5,e4d56ed888060b6518b4d88feb51cf39",
-                "versions.yml:md5,a62e8333944645e0e982d44344b930b1",
-                "versions.yml:md5,294c45f6c6c5f9635b63e71efed31ea2"
             ],
             [
                 "2612_ERR5766176_B_db1.log contains string 'Finished computation': true",
