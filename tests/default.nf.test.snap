@@ -1147,8 +1147,7 @@
                 "2612_db1.sylphmpa:md5,a0832fc0d249a96e5c22afaa63e0bba8",
                 "2613_db1.sylph.tsv:md5,609a51bbcbbfe48ad780d0dadd1105e4",
                 "2613_db1.sylphmpa:md5,253491defa87230970e890256dc0cb02",
-                "ERR3201952_db1.sylph.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "sylph_db1_combined_reports.tsv:md5,32cbbeb3d7088729cf8cd644a4c4a5a1"
+                "ERR3201952_db1.sylph.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
         "meta": {

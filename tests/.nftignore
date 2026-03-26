@@ -42,4 +42,5 @@ nonpareil/*.{npa,npc,npl,npo,png,csv,json,pdf}
 nonpareil/nonpareil_all_samples.tsv
 pipeline_info/*.{html,json,txt,yml}
 porechop_abi/*.log
+sylph/*.tsv
 taxpasta/*.tsv
