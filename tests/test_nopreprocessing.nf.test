@@ -18,7 +18,7 @@ nextflow_pipeline {
 
             def stable_name_all = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             def stable_content_bracken = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["bracken/**"], ignoreFile: 'tests/.nftignore')
-            def stable_content_centrifuge = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["centrifuge/**"], ignoreFile: 'tests/.nftignore')
+            // centrifuge:  partly unstable files, see custom assertions
             // diamond:  partly unstable files, see custom assertions
             // fastqc: all files unstable
             def stable_content_ganon = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["ganon/**"], ignoreFile: 'tests/.nftignore')
@@ -27,7 +27,7 @@ nextflow_pipeline {
             // kraken2:  partly unstable files, see custom assertions
             // krona: all files unstable
             def stable_content_melon = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["melon/**"], ignoreFile: 'tests/.nftignore')
-            def stable_content_metacache = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["metacache/**"], ignoreFile: 'tests/.nftignore')
+            // metacache:  partly unstable files, see custom assertions
             // metaphlan: all files unstable
             // multiqc: all unstable files, see custom assertion
             // pipeline_info: all unstable files, see custom assertion
@@ -49,8 +49,9 @@ nextflow_pipeline {
 
                 // centrifuge
                 { assert snapshot(
-                        getAllFilesFromDir("$outputDir/centrifuge", include: ['*.txt', '**/*.txt']).collect{file -> file.getName() + ' contains string:' + (file.text.contains("Homo sapiens") || file.text.contains("unclassified")) },
-                        stable_content_centrifuge
+                        getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*.centrifuge.report.txt']).collect{file -> file.getName() + " contains string 'Homo sapiens': " + file.text.contains("Homo sapiens") },
+                        getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*.centrifuge.results.txt']).collect{file -> file.getName() + " contains string '4392': " + file.text.contains("4392") },
+                        getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*.centrifuge.txt']).collect{file -> file.getName() + " contains string 'Homo sapiens': " + file.text.contains("Homo sapiens") },
                     ).match("centrifuge")
                 },
 
@@ -132,16 +133,15 @@ nextflow_pipeline {
 
                 // metacache
                 { assert snapshot (
-                                getAllFilesFromDir("$outputDir/metacache", include: ['**/*.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("Penicillium roqueforti")},
-                                stable_content_metacache
+                                getAllFilesFromDir("$outputDir/metacache", include: ['**/*.txt']).collect { file -> file.getName() + " contains string 'Penicillium roqueforti': " + file.text.contains("Penicillium roqueforti")},
                         ).match("metacache")
                 },
 
                 // metaphlan
                 { assert snapshot(
-                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + ' contains string:' + file.text.contains("generated_by")},
-                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.bowtie2out.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("avg_read_length")},
-                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*_profile.txt']).collect { file -> file.getName() + ' contains string:' + file.text.contains("clade_name")},
+                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.biom']).collect { file -> file.getName() + " contains string 'generated_by': " + file.text.contains("generated_by")},
+                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*.metaphlan.bowtie2out.txt']).collect { file -> file.getName() + " contains string 'avg_read_length': " + file.text.contains("avg_read_length")},
+                                getAllFilesFromDir("$outputDir/metaphlan", include: ['**/*_profile.txt']).collect { file -> file.getName() + " contains string 'clade_name': " + file.text.contains("clade_name")},
                                 //metaphlan_sam_files.isEmpty() ? 'No SAM files' : metaphlan_sam_files.collect { file -> file.getName() + ":md5," + sam(file).getHeaderMD5() },
                         ).match("metaphlan")
                 },

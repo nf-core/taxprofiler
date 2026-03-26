@@ -570,19 +570,15 @@
     "metacache": {
         "content": [
             [
-                "2614_ERR3201952_db1.mapping.txt contains string:true",
-                "ERR3201952_ERR3201952_db1.mapping.txt contains string:true"
-            ],
-            [
-                "2614_ERR3201952_db1.mapping.txt:md5,c133b0c100e17cd4ec5f0182f868e596",
-                "ERR3201952_ERR3201952_db1.mapping.txt:md5,5e8ff6a1bf2950ec7c0d928f5394dbe7"
+                "2614_ERR3201952_db1.mapping.txt contains string 'Penicillium roqueforti': true",
+                "ERR3201952_ERR3201952_db1.mapping.txt contains string 'Penicillium roqueforti': true"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-25T12:19:00.132269854"
+        "timestamp": "2026-03-26T05:19:49.095172156"
     },
     "kaiju": {
         "content": [
@@ -673,54 +669,51 @@
             "2612_ERR5766180_db3.diamond.tsv contains string 'ERR5766180.801451':true",
             "2613_ERR5766181_db3.diamond.tsv contains string 'ERR5766181.537534':true",
             "2614_ERR3201952_db3.diamond.tsv contains string 'ERR3201952.1276975':true",
-            "ERR3201952_ERR3201952_db3.diamond.tsv contains string 'ERR3201952.1276975':true",
-            [
-                
-            ]
+            "ERR3201952_ERR3201952_db3.diamond.tsv contains string 'ERR3201952.1276975':true"
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-25T10:40:50.369152459"
+        "timestamp": "2026-03-26T05:19:48.665438887"
     },
     "metaphlan": {
         "content": [
             [
-                "2611_ERR5766174_metaphlan3.metaphlan.biom contains string:true",
-                "2612_ERR5766176_B_metaphlan3.metaphlan.biom contains string:true",
-                "2612_ERR5766176_metaphlan3.metaphlan.biom contains string:true",
-                "2612_ERR5766180_metaphlan3.metaphlan.biom contains string:true",
-                "2613_ERR5766181_metaphlan3.metaphlan.biom contains string:true",
-                "2611_ERR5766174_metaphlan4.metaphlan.biom contains string:true",
-                "2612_ERR5766176_B_metaphlan4.metaphlan.biom contains string:true",
-                "2612_ERR5766176_metaphlan4.metaphlan.biom contains string:true",
-                "2612_ERR5766180_metaphlan4.metaphlan.biom contains string:true",
-                "2613_ERR5766181_metaphlan4.metaphlan.biom contains string:true"
+                "2611_ERR5766174_metaphlan3.metaphlan.biom contains string 'generated_by': true",
+                "2612_ERR5766176_B_metaphlan3.metaphlan.biom contains string 'generated_by': true",
+                "2612_ERR5766176_metaphlan3.metaphlan.biom contains string 'generated_by': true",
+                "2612_ERR5766180_metaphlan3.metaphlan.biom contains string 'generated_by': true",
+                "2613_ERR5766181_metaphlan3.metaphlan.biom contains string 'generated_by': true",
+                "2611_ERR5766174_metaphlan4.metaphlan.biom contains string 'generated_by': true",
+                "2612_ERR5766176_B_metaphlan4.metaphlan.biom contains string 'generated_by': true",
+                "2612_ERR5766176_metaphlan4.metaphlan.biom contains string 'generated_by': true",
+                "2612_ERR5766180_metaphlan4.metaphlan.biom contains string 'generated_by': true",
+                "2613_ERR5766181_metaphlan4.metaphlan.biom contains string 'generated_by': true"
             ],
             [
-                "2611_ERR5766174_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
-                "2612_ERR5766176_B_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
-                "2612_ERR5766176_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
-                "2612_ERR5766180_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
-                "2613_ERR5766181_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
-                "2611_ERR5766174_metaphlan4.metaphlan.bowtie2out.txt contains string:true",
-                "2612_ERR5766176_B_metaphlan4.metaphlan.bowtie2out.txt contains string:true",
-                "2612_ERR5766176_metaphlan4.metaphlan.bowtie2out.txt contains string:true",
-                "2612_ERR5766180_metaphlan4.metaphlan.bowtie2out.txt contains string:true",
-                "2613_ERR5766181_metaphlan4.metaphlan.bowtie2out.txt contains string:true"
+                "2611_ERR5766174_metaphlan3.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2612_ERR5766176_B_metaphlan3.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2612_ERR5766176_metaphlan3.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2612_ERR5766180_metaphlan3.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2613_ERR5766181_metaphlan3.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2611_ERR5766174_metaphlan4.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2612_ERR5766176_B_metaphlan4.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2612_ERR5766176_metaphlan4.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2612_ERR5766180_metaphlan4.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2613_ERR5766181_metaphlan4.metaphlan.bowtie2out.txt contains string 'avg_read_length': true"
             ],
             [
-                "2611_ERR5766174_metaphlan3.metaphlan_profile.txt contains string:true",
-                "2612_ERR5766176_B_metaphlan3.metaphlan_profile.txt contains string:true",
-                "2612_ERR5766176_metaphlan3.metaphlan_profile.txt contains string:true",
-                "2612_ERR5766180_metaphlan3.metaphlan_profile.txt contains string:true",
-                "2613_ERR5766181_metaphlan3.metaphlan_profile.txt contains string:true",
-                "2611_ERR5766174_metaphlan4.metaphlan_profile.txt contains string:true",
-                "2612_ERR5766176_B_metaphlan4.metaphlan_profile.txt contains string:true",
-                "2612_ERR5766176_metaphlan4.metaphlan_profile.txt contains string:true",
-                "2612_ERR5766180_metaphlan4.metaphlan_profile.txt contains string:true",
-                "2613_ERR5766181_metaphlan4.metaphlan_profile.txt contains string:true"
+                "2611_ERR5766174_metaphlan3.metaphlan_profile.txt contains string 'clade_name': true",
+                "2612_ERR5766176_B_metaphlan3.metaphlan_profile.txt contains string 'clade_name': true",
+                "2612_ERR5766176_metaphlan3.metaphlan_profile.txt contains string 'clade_name': true",
+                "2612_ERR5766180_metaphlan3.metaphlan_profile.txt contains string 'clade_name': true",
+                "2613_ERR5766181_metaphlan3.metaphlan_profile.txt contains string 'clade_name': true",
+                "2611_ERR5766174_metaphlan4.metaphlan_profile.txt contains string 'clade_name': true",
+                "2612_ERR5766176_B_metaphlan4.metaphlan_profile.txt contains string 'clade_name': true",
+                "2612_ERR5766176_metaphlan4.metaphlan_profile.txt contains string 'clade_name': true",
+                "2612_ERR5766180_metaphlan4.metaphlan_profile.txt contains string 'clade_name': true",
+                "2613_ERR5766181_metaphlan4.metaphlan_profile.txt contains string 'clade_name': true"
             ]
         ],
         "meta": {
@@ -774,13 +767,13 @@
                 "GANON_REPORT": {
                     "ganon": "2.1.0"
                 },
+                "KAIJU_KAIJU": {
+                    "kaiju": "1.10.0"
+                },
                 "KAIJU_KAIJU2KRONA": {
                     "kaiju": "1.10.0"
                 },
                 "KAIJU_KAIJU2TABLE_SINGLE": {
-                    "kaiju": "1.10.0"
-                },
-                "KAIJU_KAIJU": {
                     "kaiju": "1.10.0"
                 },
                 "KMCP_PROFILE": {
@@ -829,7 +822,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-25T10:40:49.18965743"
+        "timestamp": "2026-03-26T05:19:48.221390154"
     },
     "kraken2": {
         "content": [
@@ -848,39 +841,29 @@
     "centrifuge": {
         "content": [
             [
-                "2612_ERR5766176_B_db3.centrifuge.report.txt contains string:true",
-                "2612_ERR5766176_B_db3.centrifuge.results.txt contains string:true",
-                "2612_ERR5766176_B_db3.centrifuge.txt contains string:true",
-                "2612_ERR5766176_db3.centrifuge.report.txt contains string:true",
-                "2612_ERR5766176_db3.centrifuge.results.txt contains string:true",
-                "2612_ERR5766176_db3.centrifuge.txt contains string:true",
-                "2612_ERR5766180_db3.centrifuge.report.txt contains string:true",
-                "2612_ERR5766180_db3.centrifuge.results.txt contains string:true",
-                "2612_ERR5766180_db3.centrifuge.txt contains string:true",
-                "2613_ERR5766181_db3.centrifuge.report.txt contains string:true",
-                "2613_ERR5766181_db3.centrifuge.results.txt contains string:true",
-                "2613_ERR5766181_db3.centrifuge.txt contains string:true"
+                "2612_ERR5766176_B_db3.centrifuge.report.txt contains string 'Homo sapiens': true",
+                "2612_ERR5766176_db3.centrifuge.report.txt contains string 'Homo sapiens': true",
+                "2612_ERR5766180_db3.centrifuge.report.txt contains string 'Homo sapiens': true",
+                "2613_ERR5766181_db3.centrifuge.report.txt contains string 'Homo sapiens': true"
             ],
             [
-                "2612_ERR5766176_B_db3.centrifuge.report.txt:md5,bcf120e621fa3ae19bf18322b9c5a038",
-                "2612_ERR5766176_B_db3.centrifuge.results.txt:md5,b465a3805c62aff65c01efae9195605c",
-                "2612_ERR5766176_B_db3.centrifuge.txt:md5,dbf2c4eb51508916b0214aac55237499",
-                "2612_ERR5766176_db3.centrifuge.report.txt:md5,bcf120e621fa3ae19bf18322b9c5a038",
-                "2612_ERR5766176_db3.centrifuge.results.txt:md5,192b5168274eaef95e3f8dce1114d226",
-                "2612_ERR5766176_db3.centrifuge.txt:md5,dbf2c4eb51508916b0214aac55237499",
-                "2612_ERR5766180_db3.centrifuge.report.txt:md5,0bee04070623da1cc2dff2a7744720bf",
-                "2612_ERR5766180_db3.centrifuge.results.txt:md5,5a95600aeb4cb41d57010ef80ab1d822",
-                "2612_ERR5766180_db3.centrifuge.txt:md5,28844ead6ae381e61b7329cc49733299",
-                "2613_ERR5766181_db3.centrifuge.report.txt:md5,b300981818f487f2f3f58200cd62796d",
-                "2613_ERR5766181_db3.centrifuge.results.txt:md5,5dc24ecbab5af76deb554d47858a2285",
-                "2613_ERR5766181_db3.centrifuge.txt:md5,ef0fff1eab60c00567bc6001699b5128"
+                "2612_ERR5766176_B_db3.centrifuge.results.txt contains string '4392': true",
+                "2612_ERR5766176_db3.centrifuge.results.txt contains string '4392': true",
+                "2612_ERR5766180_db3.centrifuge.results.txt contains string '4392': true",
+                "2613_ERR5766181_db3.centrifuge.results.txt contains string '4392': true"
+            ],
+            [
+                "2612_ERR5766176_B_db3.centrifuge.txt contains string 'Homo sapiens': true",
+                "2612_ERR5766176_db3.centrifuge.txt contains string 'Homo sapiens': true",
+                "2612_ERR5766180_db3.centrifuge.txt contains string 'Homo sapiens': true",
+                "2613_ERR5766181_db3.centrifuge.txt contains string 'Homo sapiens': true"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-25T12:18:53.964364518"
+        "timestamp": "2026-03-26T05:19:48.592093542"
     },
     "melon": {
         "content": [
