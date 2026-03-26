@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#711](https://github.com/nf-core/taxprofiler/pulls/711) Better error strategy for the sylph classifier steps so it doesn't fail if sylph finds no hits (by @sofstam)
+
 ### `Changed`
 
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Switch Slack channel reporting to nf-slack plugin for AWS Megatests (by @jfy133)
