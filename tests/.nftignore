@@ -44,4 +44,3 @@ pipeline_info/*.{html,json,txt,yml}
 porechop_abi/*.log
 sylph/*.tsv
 taxpasta/*.tsv
-**/sylph_db1_combined_reports.tsv
