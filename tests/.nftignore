@@ -1,7 +1,8 @@
 .DS_Store
 bbduk/*.log
 bbduk/*.fastq.gz
-centrifuge/*.{fastq.gz,txt}
+centrifuge/*/*.fastq.gz
+centrifuge/*.txt
 diamond/*/*.{tsv,log}
 falco/*/*{_fastqc_data.txt,_report.html}
 fastp/*.{html,zip,json,log}
@@ -41,4 +42,5 @@ nonpareil/*.{npa,npc,npl,npo,png,csv,json,pdf}
 nonpareil/nonpareil_all_samples.tsv
 pipeline_info/*.{html,json,txt,yml}
 porechop_abi/*.log
+sylph/*.tsv
 taxpasta/*.tsv

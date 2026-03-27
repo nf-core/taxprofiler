@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#703](https://github.com/nf-core/taxprofiler/pull/703) Change stable branch name from `master` to `main` (by @jfy133)
 - [#705](https://github.com/nf-core/taxprofiler/pull/705) Add new config and nf-test for `test_malt` (by @jfy133)
 - [#707](https://github.com/nf-core/taxprofiler/pull/707) Add new config and nf-test for `test_motus` (by @jfy133)
+- [#709](https://github.com/nf-core/taxprofiler/pull/709) Add new config and nf-test for `test_nopreprocessing` (by @jfy133)
 
 ### `Fixed`
 
