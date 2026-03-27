@@ -63,8 +63,11 @@ workflow TAXPROFILER {
     adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
     custom_adapters = params.longread_qc_adapterlist ? file(params.longread_qc_adapterlist, checkIfExists: true) : []
 
-    if (params.hostremoval_reference) {
+    if (params.hostremoval_reference && !params.hostremoval_hostile_referencename) {
         ch_reference = file(params.hostremoval_reference)
+    }
+    else if (!params.hostremoval_reference && params.hostremoval_hostile_referencename) {
+        ch_reference = []
     }
     if (params.shortread_hostremoval_index) {
         ch_shortread_reference_index = channel.fromPath(params.shortread_hostremoval_index, checkIfExists: true).first().map { index -> [[], index] }
