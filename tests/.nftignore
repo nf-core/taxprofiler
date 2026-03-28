@@ -8,6 +8,7 @@ fastp/*.{html,zip,json,log}
 fastqc/*_fastqc.{html,zip}
 fastqc/*/*fastqc.zip
 ganon/*/*.log
+hostile/*/*.{json,fastq.gz}
 kaiju/*/*.{tsv,txt}
 kraken2/*/*.{fastq.gz,txt}
 krakenuniq/*/*.txt
