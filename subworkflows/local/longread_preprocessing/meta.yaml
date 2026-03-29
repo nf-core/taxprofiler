@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: longread_preprocessing
+description: Subworkflow for sequencing read QC, adapter removal, and quality filtering of long reads
+keywords:
+  - qc
+  - adapter removal
+  - quality filtering
+  - preprocessing
+  - long reads
+components:
+  - longread_adapterremoval
+  - longread_filtering
+  - fastqc
+  - falco
+input:
+  - ch_reads:
+      type: file
+      description: |
+        Long-read sequencing reads from ONT sequencer.
+        Structure: [ val(meta), path(reads) ]
+  - ch_custom_adapters:
+      type: file
+      description: |
+        Optional file containing list of adapters to remove.
+        Structure: [ val(meta), path(custom_adapters) ]
+output:
+  - reads:
+      type: file
+      description: |
+        Adapter removed and processed reads
+        Structure: [ val(meta), path(reads) ]
+      pattern: "*.fastq.gz"
+  - mqc:
+      type: file
+      description: |
+        Log files for MultiQC 
+        Structure: [ path(files) ]
+      pattern: "*"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: path(versions.yml)
+      pattern: "versions.yml"
+authors:
+  - "@ljmesi"
+maintainers:
+  - "@jfy133"

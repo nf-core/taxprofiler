@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: nonpareil
+description: Subworkflow for all nonpareil operations
+keywords:
+  - nonpareil
+  - complexity estimation
+  - sequencing depth
+components:
+  - nonpareil/nonpareil
+  - nonpareil/curve
+  - nonpareil/set
+  - nonpareil/nonpareilcurvesr
+input:
+  - ch_reads:
+      type: file
+      description: |
+        Short read sequencing reads
+        Structure: [ val(meta), path(file) ]
+      pattern: "*.fastq.gz"
+output:
+  - npo:
+      type: file
+      description: |
+        Nonpareil NPO file used for plotting
+        Structure: [ val(meta), path(file) ]
+      pattern: "*.npo"
+  - curve_pngs:
+      type: file
+      description: |
+        PNG image of nonpareil single-sample diagram
+        Structure: [ val(meta), path(file) ]
+      pattern: "*.png"
+  - set_pngs:
+      type: file
+      description: |
+        PNG image of nonpareil multi-sample diagram
+        Structure: [ val(meta), path(file) ]
+      pattern: "*.png"
+  - nonpareilcurvesr:
+      type: file
+      description: |
+        TSV with summary stats of nonopareil curves
+        Structure: [ val(meta), path(file) ]
+      pattern: "*.tsv"
+  - mqc:
+      type: file
+      description: |
+        Log files for MultiQC 
+        Structure: [ path(files) ]
+      pattern: "*"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: path(versions.yml)
+      pattern: "versions.yml"
+authors:
+  - "@jfy133"
+maintainers:
+  - "@jfy133"

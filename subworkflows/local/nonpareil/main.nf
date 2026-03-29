@@ -5,13 +5,13 @@ include { NONPAREIL_NONPAREILCURVESR } from '../../../modules/nf-core/nonpareil/
 
 workflow NONPAREIL {
     take:
-    reads // [ [ meta ], [ reads ] ]
+    ch_reads // [ [ meta ], [ reads ] ]
 
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    ch_reads_for_nonpareil = reads
+    ch_reads_for_nonpareil = ch_reads
         .map { meta, input_reads ->
             def reads_new = meta.single_end ? input_reads : input_reads[0]
             // taxprofiler only accepts gzipped input files,
