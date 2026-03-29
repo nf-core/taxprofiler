@@ -20,7 +20,7 @@ input:
   - ch_reference:
       type: file
       description: |
-        Reference genome of host sequences to be removed 
+        Reference genome of host sequences to be removed
         Structure: [ path(fasta) ]
   - ch_index:
       type: file
@@ -43,7 +43,7 @@ output:
   - mqc:
       type: file
       description: |
-        Log files for MultiQC 
+        Log files for MultiQC
         Structure: [ path(files) ]
       pattern: "*"
   - versions:

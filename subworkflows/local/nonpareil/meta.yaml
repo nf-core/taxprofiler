@@ -45,7 +45,7 @@ output:
   - mqc:
       type: file
       description: |
-        Log files for MultiQC 
+        Log files for MultiQC
         Structure: [ path(files) ]
       pattern: "*"
   - versions:

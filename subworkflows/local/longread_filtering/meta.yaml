@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
 name: longread_adapterremoval
-description: Filter long-reads for quality 
+description: Filter long-reads for quality
 keywords:
   - quality filtering
   - preprocessing
@@ -18,13 +18,13 @@ output:
   - reads:
       type: file
       description: |
-       Quality filtered reads
-        Structure: [ val(meta), path(reads) ]
+        Quality filtered reads
+         Structure: [ val(meta), path(reads) ]
       pattern: "*.fastq.gz"
   - mqc:
       type: file
       description: |
-        Log files for MultiQC 
+        Log files for MultiQC
         Structure: [ path(files) ]
       pattern: "*"
   - versions:
