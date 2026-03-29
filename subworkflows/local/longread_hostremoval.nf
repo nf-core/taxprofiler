@@ -48,11 +48,10 @@ workflow LONGREAD_HOSTREMOVAL {
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
 
         // Generate unmapped reads FASTQ for downstream taxprofiling
-        SAMTOOLS_VIEW(ch_minimap2_mapped, [[], [], []], [[], []], [[], []])
-
+        SAMTOOLS_VIEW(ch_minimap2_mapped, [[], [], []], [[], []], [[], []], 'bai')
         SAMTOOLS_FASTQ(SAMTOOLS_VIEW.out.bam, false)
 
-        ch_cleaned_reads = SAMTOOLS_FASTQ(SAMTOOLS_VIEW.out.bam, false).other
+        ch_cleaned_reads = SAMTOOLS_FASTQ.out.other
     }
     else if (params.longread_hostremoval_tool == 'hostile') {
         // HOSTILE specifically needs a name of the reference to either download or

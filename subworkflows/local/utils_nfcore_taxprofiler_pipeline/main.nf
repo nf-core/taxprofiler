@@ -166,14 +166,19 @@ workflow PIPELINE_INITIALISATION {
         if (params.shortread_hostremoval_tool == 'bowtie2' && !params.hostremoval_reference && params.shortread_hostremoval_index) {
             error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.")
         }
-        if (params.shortread_hostremoval_tool == 'hostile' && !params.hostremoval_hostile_referencename) {
-            error("ERROR: [nf-core/taxprofiler] --perform_shortread_hostremoval or --perform_longread_hostremoval with hostile specified but no --hostremoval_hostile_referencename provided. Check input.")
+
+        if (params.shortread_hostremoval_tool == 'hostile' && (!params.shortread_hostremoval_index || !params.hostremoval_hostile_referencename)) {
+            error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval with Hostile requested, but neither --hostremoval_hostile_referencename nor --shortread_hostremoval_index supplied. Check input.")
         }
     }
 
     if (params.perform_longread_hostremoval) {
         if (!params.hostremoval_reference && params.longread_hostremoval_index) {
             error("ERROR: [nf-core/taxprofiler] --longread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.")
+        }
+
+        if (params.longread_hostremoval_tool == 'hostile' && (!params.longread_hostremoval_index || !params.hostremoval_hostile_referencename)) {
+            error("ERROR: [nf-core/taxprofiler] --longread_hostremoval with Hostile requested, but neither --hostremoval_hostile_referencename nor --longread_hostremoval_index supplied. Check input.")
         }
     }
 

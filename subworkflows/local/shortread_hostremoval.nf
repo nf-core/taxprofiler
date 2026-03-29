@@ -29,7 +29,7 @@ workflow SHORTREAD_HOSTREMOVAL {
         ch_hostremoval_index = HOSTILE_FETCH_SHORTREADS.out.reference
     }
     else {
-        ch_hostremoval_index = index.first()
+        ch_hostremoval_index = index
     }
 
     if (params.shortread_hostremoval_tool == 'bowtie2') {
@@ -38,11 +38,13 @@ workflow SHORTREAD_HOSTREMOVAL {
         ch_versions = ch_versions.mix(BOWTIE2_ALIGN.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(BOWTIE2_ALIGN.out.log)
 
+        ch_cleaned_reads = BOWTIE2_ALIGN.out.fastq
+
         // Indexing whole BAM for host removal statistics
         SAMTOOLS_INDEX(BOWTIE2_ALIGN.out.bam)
         ch_bam_bai = BOWTIE2_ALIGN.out.bam.join(SAMTOOLS_INDEX.out.index, remainder: true)
 
-        SAMTOOLS_STATS(ch_bam_bai, [[], reference])
+        SAMTOOLS_STATS(ch_bam_bai, [[], reference, []])
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
     }
     else if (params.shortread_hostremoval_tool == 'hostile') {
