@@ -2,16 +2,16 @@
 // Standardise output files e.g. aggregation
 //
 
-include { TAXPASTA_MERGE                                                        } from '../../modules/nf-core/taxpasta/merge/main'
-include { TAXPASTA_STANDARDISE                                                  } from '../../modules/nf-core/taxpasta/standardise/main'
-include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../modules/nf-core/bracken/combinebrackenoutputs/main'
-include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../modules/nf-core/kaiju/kaiju2table/main'
-include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
-include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
-include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../modules/nf-core/metaphlan/mergemetaphlantables/main'
-include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
-include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
-include { SYLPHTAX_MERGE                                                        } from '../../modules/nf-core/sylphtax/merge/main'
+include { TAXPASTA_MERGE                                                        } from '../../../modules/nf-core/taxpasta/merge/main'
+include { TAXPASTA_STANDARDISE                                                  } from '../../../modules/nf-core/taxpasta/standardise/main'
+include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../../modules/nf-core/bracken/combinebrackenoutputs/main'
+include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../../modules/nf-core/kaiju/kaiju2table/main'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../../modules/nf-core/krakentools/combinekreports/main'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../../modules/nf-core/krakentools/combinekreports/main'
+include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../../modules/nf-core/metaphlan/mergemetaphlantables/main'
+include { MOTUS_MERGE                                                           } from '../../../modules/nf-core/motus/merge/main'
+include { GANON_TABLE                                                           } from '../../../modules/nf-core/ganon/table/main'
+include { SYLPHTAX_MERGE                                                        } from '../../../modules/nf-core/sylphtax/merge/main'
 
 workflow STANDARDISATION_PROFILES {
     take:
