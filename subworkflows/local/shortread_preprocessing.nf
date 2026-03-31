@@ -5,8 +5,8 @@
 
 include { SHORTREAD_FASTP            } from './shortread_fastp'
 include { SHORTREAD_ADAPTERREMOVAL   } from './shortread_adapterremoval'
-include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/fastqc/main'
-include { FALCO as FALCO_PROCESSED   } from '../../modules/nf-core/falco/main'
+include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/fastqc'
+include { FALCO as FALCO_PROCESSED   } from '../../modules/nf-core/falco'
 
 workflow SHORTREAD_PREPROCESSING {
     take:

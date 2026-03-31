@@ -2,14 +2,14 @@
 // Remove host reads via alignment and export off-target reads
 //
 
-include { MINIMAP2_INDEX                           } from '../../modules/nf-core/minimap2/index/main'
-include { MINIMAP2_ALIGN                           } from '../../modules/nf-core/minimap2/align/main'
-include { SAMTOOLS_VIEW                            } from '../../modules/nf-core/samtools/view/main'
-include { SAMTOOLS_FASTQ                           } from '../../modules/nf-core/samtools/fastq/main'
-include { SAMTOOLS_INDEX                           } from '../../modules/nf-core/samtools/index/main'
-include { SAMTOOLS_STATS                           } from '../../modules/nf-core/samtools/stats/main'
-include { HOSTILE_FETCH as HOSTILE_FETCH_LONGREADS } from '../../modules/nf-core/hostile/fetch/main'
-include { HOSTILE_CLEAN as HOSTILE_CLEAN_LONGREADS } from '../../modules/nf-core/hostile/clean/main'
+include { MINIMAP2_INDEX                           } from '../../modules/nf-core/minimap2/index'
+include { MINIMAP2_ALIGN                           } from '../../modules/nf-core/minimap2/align'
+include { SAMTOOLS_VIEW                            } from '../../modules/nf-core/samtools/view'
+include { SAMTOOLS_FASTQ                           } from '../../modules/nf-core/samtools/fastq'
+include { SAMTOOLS_INDEX                           } from '../../modules/nf-core/samtools/index'
+include { SAMTOOLS_STATS                           } from '../../modules/nf-core/samtools/stats'
+include { HOSTILE_FETCH as HOSTILE_FETCH_LONGREADS } from '../../modules/nf-core/hostile/fetch'
+include { HOSTILE_CLEAN as HOSTILE_CLEAN_LONGREADS } from '../../modules/nf-core/hostile/clean'
 
 workflow LONGREAD_HOSTREMOVAL {
     take:

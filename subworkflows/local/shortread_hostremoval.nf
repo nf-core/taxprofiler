@@ -2,12 +2,12 @@
 // Remove host reads via alignment and export off-target reads
 //
 
-include { BOWTIE2_BUILD                             } from '../../modules/nf-core/bowtie2/build/main'
-include { BOWTIE2_ALIGN                             } from '../../modules/nf-core/bowtie2/align/main'
-include { SAMTOOLS_INDEX                            } from '../../modules/nf-core/samtools/index/main'
-include { SAMTOOLS_STATS                            } from '../../modules/nf-core/samtools/stats/main'
-include { HOSTILE_FETCH as HOSTILE_FETCH_SHORTREADS } from '../../modules/nf-core/hostile/fetch/main'
-include { HOSTILE_CLEAN as HOSTILE_CLEAN_SHORTREADS } from '../../modules/nf-core/hostile/clean/main'
+include { BOWTIE2_BUILD                             } from '../../modules/nf-core/bowtie2/build'
+include { BOWTIE2_ALIGN                             } from '../../modules/nf-core/bowtie2/align'
+include { SAMTOOLS_INDEX                            } from '../../modules/nf-core/samtools/index'
+include { SAMTOOLS_STATS                            } from '../../modules/nf-core/samtools/stats'
+include { HOSTILE_FETCH as HOSTILE_FETCH_SHORTREADS } from '../../modules/nf-core/hostile/fetch'
+include { HOSTILE_CLEAN as HOSTILE_CLEAN_SHORTREADS } from '../../modules/nf-core/hostile/clean'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:

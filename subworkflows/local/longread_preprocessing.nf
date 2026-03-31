@@ -2,8 +2,8 @@
 // Perform read trimming and filtering
 //
 
-include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/fastqc/main'
-include { FALCO as FALCO_PROCESSED   } from '../../modules/nf-core/falco/main'
+include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/fastqc'
+include { FALCO as FALCO_PROCESSED   } from '../../modules/nf-core/falco'
 
 include { LONGREAD_ADAPTERREMOVAL    } from './longread_adapterremoval.nf'
 include { LONGREAD_FILTERING         } from './longread_filtering.nf'
