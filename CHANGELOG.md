@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Changed`
 
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Switch Slack channel reporting to nf-slack plugin for AWS Megatests (by @jfy133)
-- [#714](https://github.com/nf-core/taxprofiler/pull/714) Module name changes for KRAKEN2*STANDARD_REPORT and KRONA_CLEANUP (both remove `*`) (by @jfy133)
+- [#714](https://github.com/nf-core/taxprofiler/pull/714) Module name changes for KRAKEN2_STANDARD_REPORT and KRONA_CLEANUP (both remove `*`) (by @jfy133)
 
 ### `Dependencies`
 
