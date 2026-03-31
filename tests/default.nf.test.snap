@@ -1112,7 +1112,7 @@
                     "bracken": "3.0.1"
                 },
                 "BRACKEN_COMBINEBRACKENOUTPUTS": {
-                    "combine_bracken_output": ".9
+                    "combine_bracken_output": 2.9
                 },
                 "CENTRIFUGE_CENTRIFUGE": {
                     "centrifuge": "1.0.4"
