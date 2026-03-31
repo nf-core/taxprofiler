@@ -9,24 +9,24 @@ include { SAMTOOLS_STATS } from '../../../modules/nf-core/samtools/stats'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:
-    reads // [ [ meta ], [ reads ] ]
-    reference // /path/to/fasta
-    index // /path/to/index
+    ch_reads // [ [ meta ], [ reads ] ]
+    ch_reference // /path/to/fasta
+    ch_index // /path/to/index
 
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
     if (!params.shortread_hostremoval_index) {
-        ch_bowtie2_index = BOWTIE2_BUILD([[], reference]).index
+        ch_bowtie2_index = BOWTIE2_BUILD([[], ch_reference]).index
         ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
     }
     else {
-        ch_bowtie2_index = index.first()
+        ch_bowtie2_index = ch_index.first()
     }
 
     // Map, generate BAM with all reads and unmapped reads in FASTQ for downstream
-    BOWTIE2_ALIGN(reads, ch_bowtie2_index, [[], reference], true, true)
+    BOWTIE2_ALIGN(ch_reads, ch_bowtie2_index, [[], ch_reference], true, true)
     ch_versions = ch_versions.mix(BOWTIE2_ALIGN.out.versions.first())
     ch_multiqc_files = ch_multiqc_files.mix(BOWTIE2_ALIGN.out.log)
 
@@ -36,7 +36,7 @@ workflow SHORTREAD_HOSTREMOVAL {
 
     bam_bai = BOWTIE2_ALIGN.out.bam.join(SAMTOOLS_INDEX.out.bai, remainder: true)
 
-    SAMTOOLS_STATS(bam_bai, [[], reference])
+    SAMTOOLS_STATS(bam_bai, [[], ch_reference])
     ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
 
     emit:

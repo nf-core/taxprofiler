@@ -1,25 +1,26 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
-name: xx
-description: xx
+name: longread_filtering
+description: Filter long-reads for quality
 keywords:
-  - xx
-  - xx
-  - xx
+  - quality filtering
+  - preprocessing
+  - long reads
 components:
-  - xx/xx
+  - filtlong
+  - nanoq
 input:
-  - ch_xx:
-      type: xx
+  - ch_reads:
+      type: file
       description: |
-        x
-        Structure: [ val(xx), path(x) ]
+        Long-read sequencing reads from ONT sequencer.
+        Structure: [ val(meta), path(reads) ]
 output:
-  - xx:
-      type: x
+  - reads:
+      type: file
       description: |
-        xx
-        Structure: [ val(xx), path(xx) ]
-      pattern: "*.xx"
+        Quality filtered reads
+         Structure: [ val(meta), path(reads) ]
+      pattern: "*.fastq.gz"
   - mqc:
       type: file
       description: |
@@ -27,12 +28,12 @@ output:
         Structure: [ path(files) ]
       pattern: "*"
   - versions:
-      type: x
+      type: file
       description: |
         File containing software versions
         Structure: path(versions.yml)
       pattern: "versions.yml"
 authors:
-  - "@xx"
+  - "@LilyAnderssonLee"
 maintainers:
-  - "@xx"
+  - "@LilyAnderssonLee"

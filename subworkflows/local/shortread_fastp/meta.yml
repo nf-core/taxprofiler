@@ -1,25 +1,31 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
-name: longread_adapterremoval
-description: Filter long-reads for quality
+name: shortread_fastp
+description: Remove adapters from (Illumina) short-read sequencing data with fastp
 keywords:
-  - quality filtering
+  - adapter removal
   - preprocessing
-  - long reads
+  - short reads
 components:
-  - filtlong
-  - nanoq
+  - fastp
 input:
   - ch_reads:
       type: file
       description: |
-        Long-read sequencing reads from ONT sequencer.
+        Short-read sequencing reads from typically Illumina sequencers in FASTQ format.
         Structure: [ val(meta), path(reads) ]
+      pattern: "*.{fastq,fastq.gz,fq,fq.gz}"
+  - ch_adapterlist:
+      type: file
+      description: |
+        Optional file containing list of adapters to remove.
+        Structure: [ val(meta), path(custom_adapters) ]
+      pattern: "*"
 output:
   - reads:
       type: file
       description: |
-        Quality filtered reads
-         Structure: [ val(meta), path(reads) ]
+        Adapter removed and processed reads
+        Structure: [ val(meta), path(reads) ]
       pattern: "*.fastq.gz"
   - mqc:
       type: file
@@ -34,6 +40,6 @@ output:
         Structure: path(versions.yml)
       pattern: "versions.yml"
 authors:
-  - "@LilyAnderssonLee"
+  - "@jfy133"
 maintainers:
-  - "@LilyAnderssonLee"
+  - "@jfy133"

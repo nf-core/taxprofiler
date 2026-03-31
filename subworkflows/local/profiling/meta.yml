@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: profiling
+description: Taxonomically sequencing reads against multiple taxonomic classifiers and their databases
+keywords:
+  - taxonomic classification
+  - taxonomic profiling
+  - metagenomics
+components:
+  - malt/run
+  - megan/rma2info
+  - kraken2/kraken2
+  - kraken2standardreport
+  - bracken/bracken
+  - centrifuge/centrifuge
+  - centrifuge/kreport
+  - metaphlan/metaphlan
+  - kaiju/kaiju
+  - kaiju/kaiju2table
+  - diamond/blastx
+  - motus/profile
+  - motus/preplong
+  - krakenuniq/preloadedkrakenuniq
+  - kmcp/search
+  - kmcp/profile
+  - ganon/classify
+  - ganon/report
+  - sylph/profile
+  - sylphtax/taxprof
+  - melon
+  - metacache/query
+input:
+  - ch_reads:
+      type: file
+      description: |
+        Short or long read sequencing reads
+        Structure: [ val(meta), path(file) ]
+      pattern: "*.fastq.gz"
+  - ch_databases:
+      type: file
+      description: |
+        Taxonomic databases
+        Structure: [ val(meta), path(file) ]
+      pattern: "*"
+output:
+  - classifications:
+      type: file
+      description: |
+        Per-read ID taxonomic assignment tables
+        Structure: [ val(meta), path(file) ]
+      pattern: "*"
+  - profiles:
+      type: file
+      description: |
+        Count tables of reads to taxa reference genome sequences
+        Structure: [ val(meta), path(file) ]
+      pattern: "*"
+  - motus_version:
+      type: string
+      description: |
+        Version of mOTUs used for downstream modules, taken from an input parameter.
+        Structure: [ string ]
+      pattern: "*"
+  - mqc:
+      type: file
+      description: |
+        Log files for MultiQC
+        Structure: [ path(files) ]
+      pattern: "*"
+  - versions:
+      type: x
+      description: |
+        File containing software versions
+        Structure: path(versions.yml)
+      pattern: "versions.yml"
+authors:
+  - "@jfy133"
+  - "@SofStam"
+  - "@LilyAnderssonLi"
+  - "@Midnighter"
+maintainers:
+  - "@jfy133"
+  - "@SofStam"
+  - "@LilyAnderssonLi"
