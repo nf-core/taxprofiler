@@ -2,9 +2,9 @@
 // Process short raw reads with AdapterRemoval
 //
 
-include { ADAPTERREMOVAL as ADAPTERREMOVAL_SINGLE } from '../../../modules/nf-core/adapterremoval/main'
-include { ADAPTERREMOVAL as ADAPTERREMOVAL_PAIRED } from '../../../modules/nf-core/adapterremoval/main'
-include { CAT_FASTQ                               } from '../../../modules/nf-core/cat/fastq/main'
+include { ADAPTERREMOVAL as ADAPTERREMOVAL_SINGLE } from '../../../modules/nf-core/adapterremoval'
+include { ADAPTERREMOVAL as ADAPTERREMOVAL_PAIRED } from '../../../modules/nf-core/adapterremoval'
+include { CAT_FASTQ                               } from '../../../modules/nf-core/cat/fastq'
 
 workflow SHORTREAD_ADAPTERREMOVAL {
     take:
