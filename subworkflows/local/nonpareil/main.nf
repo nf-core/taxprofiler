@@ -1,7 +1,7 @@
-include { NONPAREIL_NONPAREIL        } from '../../modules/nf-core/nonpareil/nonpareil/main'
-include { NONPAREIL_CURVE            } from '../../modules/nf-core/nonpareil/curve/main'
-include { NONPAREIL_SET              } from '../../modules/nf-core/nonpareil/set/main'
-include { NONPAREIL_NONPAREILCURVESR } from '../../modules/nf-core/nonpareil/nonpareilcurvesr/main'
+include { NONPAREIL_NONPAREIL        } from '../../../modules/nf-core/nonpareil/nonpareil'
+include { NONPAREIL_CURVE            } from '../../../modules/nf-core/nonpareil/curve'
+include { NONPAREIL_SET              } from '../../../modules/nf-core/nonpareil/set'
+include { NONPAREIL_NONPAREILCURVESR } from '../../../modules/nf-core/nonpareil/nonpareilcurvesr'
 
 workflow NONPAREIL {
     take:
