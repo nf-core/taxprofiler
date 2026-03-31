@@ -2,16 +2,16 @@
 // Standardise output files e.g. aggregation
 //
 
-include { TAXPASTA_MERGE                                                        } from '../../modules/nf-core/taxpasta/merge/main'
-include { TAXPASTA_STANDARDISE                                                  } from '../../modules/nf-core/taxpasta/standardise/main'
-include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../modules/nf-core/bracken/combinebrackenoutputs/main'
-include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../modules/nf-core/kaiju/kaiju2table/main'
-include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
-include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
-include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../modules/nf-core/metaphlan/mergemetaphlantables/main'
-include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
-include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
-include { SYLPHTAX_MERGE                                                        } from '../../modules/nf-core/sylphtax/merge/main'
+include { TAXPASTA_MERGE                                                        } from '../../../modules/nf-core/taxpasta/merge'
+include { TAXPASTA_STANDARDISE                                                  } from '../../../modules/nf-core/taxpasta/standardise'
+include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../../modules/nf-core/bracken/combinebrackenoutputs'
+include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../../modules/nf-core/kaiju/kaiju2table'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../../modules/nf-core/krakentools/combinekreports'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../../modules/nf-core/krakentools/combinekreports'
+include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../../modules/nf-core/metaphlan/mergemetaphlantables'
+include { MOTUS_MERGE                                                           } from '../../../modules/nf-core/motus/merge'
+include { GANON_TABLE                                                           } from '../../../modules/nf-core/ganon/table'
+include { SYLPHTAX_MERGE                                                        } from '../../../modules/nf-core/sylphtax/merge'
 
 workflow STANDARDISATION_PROFILES {
     take:
@@ -86,7 +86,6 @@ workflow STANDARDISATION_PROFILES {
         melon: entry[0]['tool'] == 'melon'
         sylph: entry[0]['tool'] == 'sylph'
         metacache: entry[0]['tool'] == 'sylph'
-
         unknown: true
     }
 
@@ -229,9 +228,8 @@ def combineProfilesWithDatabase(ch_profiles, ch_database) {
     return ch_profiles
         .map { meta, profile -> [meta.id, meta, profile] }
         .combine(ch_database.map { db_meta, db -> [db_meta.db_name, db] }, by: 0)
-        .multiMap {
-            key, meta, profile, db ->
-                profile: [meta, profile]
-                db: db
+        .multiMap { key, meta, profile, db ->
+            profile: [meta, profile]
+            db: db
         }
 }
