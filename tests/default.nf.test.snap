@@ -1111,6 +1111,9 @@
                 "BRACKEN_BRACKEN": {
                     "bracken": "3.0.1"
                 },
+                "BRACKEN_COMBINEBRACKENOUTPUTS": {
+                    "combine_bracken_output": ".9
+                },
                 "CENTRIFUGE_CENTRIFUGE": {
                     "centrifuge": "1.0.4"
                 },
@@ -1172,7 +1175,7 @@
                 "KRAKENTOOLS_KREPORT2KRONA": {
                     "kreport2krona.py": 1.2
                 },
-                "KRONA_CLEANUP": {
+                "KRONACLEANUP": {
                     "sed": 4.7
                 },
                 "KRONA_KTIMPORTTEXT": {
