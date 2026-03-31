@@ -22,9 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#713](https://github.com/nf-core/taxprofiler/pull/713) Improve Nextflow syntax compliance in `.nf` file structure (by @jfy133)
+- [#714](https://github.com/nf-core/taxprofiler/pull/714) Improve nf-core linting compliance with `meta.yaml` files for all local subworkflows (by @jfy133)
+
 ### `Changed`
 
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Switch Slack channel reporting to nf-slack plugin for AWS Megatests (by @jfy133)
+- [#714](https://github.com/nf-core/taxprofiler/pull/714) Module name changes for KRAKEN2*STANDARD_REPORT and KRONA_CLEANUP (both remove `*`) (by @jfy133)
 
 ### `Dependencies`
 
