@@ -2,8 +2,8 @@
 // Perform filtering
 //
 
-include { FILTLONG } from '../../modules/nf-core/filtlong'
-include { NANOQ    } from '../../modules/nf-core/nanoq'
+include { FILTLONG } from '../../../modules/nf-core/filtlong'
+include { NANOQ    } from '../../../modules/nf-core/nanoq'
 
 workflow LONGREAD_FILTERING {
     take:

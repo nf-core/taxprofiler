@@ -2,8 +2,8 @@
 // Process long raw reads with porechop or porechop_abi
 //
 
-include { PORECHOP_PORECHOP } from '../../modules/nf-core/porechop/porechop'
-include { PORECHOP_ABI      } from '../../modules/nf-core/porechop/abi'
+include { PORECHOP_PORECHOP } from '../../../modules/nf-core/porechop/porechop'
+include { PORECHOP_ABI      } from '../../../modules/nf-core/porechop/abi'
 
 workflow LONGREAD_ADAPTERREMOVAL {
     take:
