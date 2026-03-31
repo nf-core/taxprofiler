@@ -66,14 +66,12 @@ workflow TAXPROFILER {
     if (params.shortread_hostremoval_tool == 'bowtie2' || params.longread_hostremoval_tool == 'bowtie2') {
         ch_reference = file(params.hostremoval_reference)
     }
-    else if (params.shortread_hostremoval_tool == 'bowtie2' || params.longread_hostremoval_tool == 'hostile') {
-        ch_reference = file(params.hostremoval_reference)
+    else if (params.shortread_hostremoval_tool == 'hostile' && params.longread_hostremoval_tool == 'hostile') {
+        // Hostile does not accept references directly
+        ch_reference = channel.empty()
     }
-    else if (params.shortread_hostremoval_tool == 'hostile' || params.longread_hostremoval_tool == 'bowtie2') {
-        ch_reference = file(params.hostremoval_reference)
-    }
-    else if (params.shortread_hostremoval_tool == 'hostile' || params.longread_hostremoval_tool == 'hostile') {
-        ch_reference = []
+    else {
+        error('[nf-core/taxprofiler] Invalid host removal parameters selected. Please select check host removal parameter inputs.')
     }
 
     if (params.shortread_hostremoval_index) {
