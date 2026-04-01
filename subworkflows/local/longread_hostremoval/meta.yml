@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
 name: longread_hostremoval
-description: Removal of potential contaminating reads from long-read sequencing libraries
+description: Removal of potential contaminating or host reads from long-read sequencing libraries
 keywords:
   - host removal
   - preprocessing

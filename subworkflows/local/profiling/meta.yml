@@ -51,7 +51,7 @@ output:
   - profiles:
       type: file
       description: |
-        Count tables of reads to taxa reference genome sequences
+        Count tables of reads assigned to taxon reference genomes.
         Structure: [ val(meta), path(file) ]
       pattern: "*"
   - motus_version:
