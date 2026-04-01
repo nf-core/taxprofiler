@@ -24,7 +24,7 @@ input:
   - ch_index:
       type: file
       description: |
-        Aligner or decontamination tool index files of reference genome of host sequences to be removed
+        Pre-built bowtie2 index of host reference genome for host decontamination.
         Structure: [ path(index_files) ]
 output:
   - stats:
@@ -36,7 +36,7 @@ output:
   - reads:
       type: file
       description: |
-        Short read reads with host-like reads removed
+        Short-read reads with host-like reads removed
         Structure: [ val(meta), path(reads) ]
       pattern: "*.fastq.gz"
   - mqc:

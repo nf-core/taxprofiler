@@ -25,7 +25,7 @@ input:
   - ch_profiles:
       type: file
       description: |
-        Count tables of reads to taxa reference genome sequences
+        Count tables of reads assigned to taxa reference genomes
         Structure: [ val(meta), path(file) ]
   - ch_databases:
       type: file
