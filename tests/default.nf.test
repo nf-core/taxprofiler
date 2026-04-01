@@ -71,7 +71,7 @@ nextflow_pipeline {
                 { assert snapshot(
                         getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*.centrifuge.report.txt']).collect{file -> file.getName() + " contains string 'Homo sapiens': " + file.text.contains("Homo sapiens") },
                         getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*.centrifuge.results.txt']).collect{file -> file.getName() + " contains string '4392': " + file.text.contains("4392") },
-                        getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*.centrifuge.txt']).collect{file -> file.getName() + " contains string 'Homo sapiens': " + file.text.contains("Homo sapiens") },
+                        getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*.centrifuge.txt']).collect{file -> file.getName() + " contains string 'Homo sapiens': " + file.text.contains("Homo sapiens") }
                     ).match("centrifuge")
                 },
 

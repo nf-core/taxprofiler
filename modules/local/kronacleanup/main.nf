@@ -1,4 +1,4 @@
-process KRONA_CLEANUP {
+process KRONACLEANUP {
     tag "${meta.id}"
     label 'process_low'
 
