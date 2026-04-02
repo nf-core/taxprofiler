@@ -11,9 +11,9 @@ include { GUNZIP                                 } from '../../../modules/nf-cor
 
 workflow VISUALIZATION_KRONA {
     take:
-    classifications
-    profiles
-    databases
+    ch_classifications
+    ch_profiles
+    ch_databases
 
     main:
     ch_krona_text = channel.empty()
@@ -23,12 +23,12 @@ workflow VISUALIZATION_KRONA {
     /*
         Split profile results based on tool they come from
     */
-    ch_input_profiles = profiles.branch {
+    ch_input_profiles = ch_profiles.branch {
         centrifuge: it[0]['tool'] == 'centrifuge'
         kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
         unknown: true
     }
-    ch_input_classifications = classifications.branch {
+    ch_input_classifications = ch_classifications.branch {
         kaiju: it[0]['tool'] == 'kaiju'
         malt: it[0]['tool'] == 'malt'
         unknown: true
@@ -51,7 +51,7 @@ workflow VISUALIZATION_KRONA {
     */
     ch_input_for_kaiju2krona = ch_input_classifications.kaiju
         .map { meta, kaiju_profiles -> [[meta['tool'], meta['db_name']], meta, kaiju_profiles] }
-        .combine(databases.map { meta, db -> [[meta['tool'], meta['db_name']], db] }, by: 0)
+        .combine(ch_databases.map { meta, db -> [[meta['tool'], meta['db_name']], db] }, by: 0)
         .multiMap { it ->
             profiles: [it[1], it[2]]
             db: it[3]

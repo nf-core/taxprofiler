@@ -5,7 +5,7 @@
 include { MALT_RUN                                      } from '../../../modules/nf-core/malt/run'
 include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_TSV          } from '../../../modules/nf-core/megan/rma2info'
 include { KRAKEN2_KRAKEN2                               } from '../../../modules/nf-core/kraken2/kraken2'
-include { KRAKEN2_STANDARD_REPORT                       } from '../../../modules/local/kraken2_standard_report'
+include { KRAKEN2STANDARDREPORT                         } from '../../../modules/local/kraken2standardreport'
 include { BRACKEN_BRACKEN                               } from '../../../modules/nf-core/bracken/bracken'
 include { CENTRIFUGE_CENTRIFUGE                         } from '../../../modules/nf-core/centrifuge/centrifuge'
 include { CENTRIFUGE_KREPORT                            } from '../../../modules/nf-core/centrifuge/kreport'
@@ -28,8 +28,8 @@ include { METACACHE_QUERY                               } from '../../../modules
 
 workflow PROFILING {
     take:
-    reads // [ [ meta ], [ reads ] ]
-    databases // [ [ meta ], path ]
+    ch_reads // [ [ meta ], [ reads ] ]
+    ch_databases // [ [ meta ], path ]
 
     main:
     ch_versions = channel.empty()
@@ -44,7 +44,7 @@ workflow PROFILING {
     */
 
     // Separate default 'short;long' (when necessary) databases when short/long specified in database sheet
-    ch_dbs = databases
+    ch_dbs = ch_databases
         .map { meta_db, db ->
             [[meta_db.db_type.split(";")].flatten(), meta_db, db]
         }
@@ -59,7 +59,7 @@ workflow PROFILING {
     //  will have nothing to join to and will be discarded
     // Final output [DUMP: reads_plus_db] [['id':'2612', 'run_accession':'combined', 'instrument_platform':'ILLUMINA', 'single_end':false, 'is_fasta':false, 'type':'short'], <reads_path>/2612.merged.fastq.gz, ['tool':'malt', 'db_name':'malt95', 'db_params':'"-id 90"', 'type':'short'], <db_path>/malt95]
 
-    ch_input_for_profiling = reads
+    ch_input_for_profiling = ch_reads
         .map { meta, input_reads ->
             [[type: meta.type], meta, input_reads]
         }
@@ -189,11 +189,12 @@ workflow PROFILING {
 
         // If necessary, convert the eight column output to six column output.
         if (params.kraken2_save_minimizers) {
-            ch_kraken2_output = KRAKEN2_STANDARD_REPORT(ch_kraken2_output).report
+            ch_kraken2_output = KRAKEN2STANDARDREPORT(ch_kraken2_output).report
+            ch_versions = ch_versions.mix(KRAKEN2STANDARDREPORT.out.versions)
         }
 
         // Extract the database name to combine by.
-        ch_bracken_databases = databases
+        ch_bracken_databases = ch_databases
             .filter { meta, _db -> meta.tool == 'bracken' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
@@ -258,7 +259,7 @@ workflow PROFILING {
         ch_raw_classifications = ch_raw_classifications.mix(CENTRIFUGE_CENTRIFUGE.out.results)
 
         // Ensure the correct database goes with the generated report for KREPORT
-        ch_database_for_centrifugekreport = databases
+        ch_database_for_centrifugekreport = ch_databases
             .filter { meta, _db -> meta.tool == 'centrifuge' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
@@ -296,7 +297,7 @@ workflow PROFILING {
         ch_raw_classifications = ch_raw_classifications.mix(KAIJU_KAIJU.out.results)
 
         // Ensure the correct database goes with the generated report for KAIJU2TABLE
-        ch_database_for_kaiju2table = databases
+        ch_database_for_kaiju2table = ch_databases
             .filter { meta, _db -> meta.tool == 'kaiju' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
@@ -347,7 +348,7 @@ workflow PROFILING {
 
         MOTUS_PREPLONG(ch_input_for_motus_longread.reads, ch_input_for_motus_longread.db)
 
-        ch_database_for_motus = databases
+        ch_database_for_motus = ch_databases
             .filter { meta, _db -> meta.tool == 'motus' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
@@ -457,7 +458,7 @@ workflow PROFILING {
         ch_versions = ch_versions.mix(KMCP_SEARCH.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(KMCP_SEARCH.out.result)
 
-        ch_database_for_kmcp_profile = databases
+        ch_database_for_kmcp_profile = ch_databases
             .filter { meta, _db -> meta.tool == 'kmcp' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
@@ -513,7 +514,7 @@ workflow PROFILING {
         GANON_CLASSIFY(ch_input_for_ganonclassify.reads, ch_input_for_ganonclassify.db)
         ch_versions = ch_versions.mix(GANON_CLASSIFY.out.versions.first())
 
-        ch_database_for_ganonreport = databases
+        ch_database_for_ganonreport = ch_databases
             .filter { meta, _db -> meta.tool == "ganon" }
             .map { meta, db -> [meta.db_name, meta, db] }
 
@@ -561,7 +562,7 @@ workflow PROFILING {
         SYLPH_PROFILE(ch_input_for_sylph.reads, ch_input_for_sylph.db)
         ch_versions = ch_versions.mix(SYLPH_PROFILE.out.versions.first())
 
-        ch_database_for_sylph_profile = databases
+        ch_database_for_sylph_profile = ch_databases
             .filter { meta, _db -> meta.tool == 'sylph' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
