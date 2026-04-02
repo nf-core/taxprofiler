@@ -789,7 +789,7 @@
                 "KRAKENTOOLS_KREPORT2KRONA": {
                     "kreport2krona.py": 1.2
                 },
-                "KRONA_CLEANUP": {
+                "KRONACLEANUP": {
                     "sed": 4.7
                 },
                 "KRONA_KTIMPORTTEXT": {
