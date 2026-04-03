@@ -32,8 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Deprecated`
 
-- [#710](https://github.com/nf-core/taxprofiler/pull/710) Removed the custom script krona_cleanup due to hardcoded taxonomic ranks causing krona plots to not being properly updated.(by @sofstam)
-- 
+- [#710](https://github.com/nf-core/taxprofiler/pull/710) Removed the custom script krona_cleanup due to hardcoded taxonomic ranks causing krona plots to not being properly updated. (by @sofstam)
+
 ### `Dependencies`
 
 | Tool | Previous version | New version |
