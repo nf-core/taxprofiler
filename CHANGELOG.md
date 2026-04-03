@@ -22,7 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
-- [#710](https://github.com/nf-core/taxprofiler/pull/710) Removed the custom script krona_cleanup (by @sofstam)
 - [#713](https://github.com/nf-core/taxprofiler/pull/713) Improve Nextflow syntax compliance in `.nf` file structure (by @jfy133)
 - [#714](https://github.com/nf-core/taxprofiler/pull/714) Improve nf-core linting compliance with `meta.yaml` files for all local subworkflows (by @jfy133)
 
@@ -31,6 +30,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Switch Slack channel reporting to nf-slack plugin for AWS Megatests (by @jfy133)
 - [#714](https://github.com/nf-core/taxprofiler/pull/714) Module name changes for KRAKEN2_STANDARD_REPORT and KRONA_CLEANUP (both remove `*`) (by @jfy133)
 
+### `Deprecated`
+- [#710](https://github.com/nf-core/taxprofiler/pull/710) Removed the custom script krona_cleanup due to hardcoded taxonomic ranks causing krona plots to not being properly updated.(by @sofstam)
+- 
 ### `Dependencies`
 
 | Tool | Previous version | New version |
