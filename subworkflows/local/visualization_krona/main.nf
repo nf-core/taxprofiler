@@ -5,7 +5,6 @@
 include { MEGAN_RMA2INFO as MEGAN_RMA2INFO_KRONA } from '../../../modules/nf-core/megan/rma2info'
 include { KAIJU_KAIJU2KRONA                      } from '../../../modules/nf-core/kaiju/kaiju2krona'
 include { KRAKENTOOLS_KREPORT2KRONA              } from '../../../modules/nf-core/krakentools/kreport2krona'
-include { KRONACLEANUP                           } from '../../../modules/local/kronacleanup'
 include { KRONA_KTIMPORTTEXT                     } from '../../../modules/nf-core/krona/ktimporttext'
 include { KRONA_KTIMPORTTAXONOMY                 } from '../../../modules/nf-core/krona/ktimporttaxonomy'
 include { GUNZIP                                 } from '../../../modules/nf-core/gunzip'
@@ -66,16 +65,10 @@ workflow VISUALIZATION_KRONA {
     ch_versions = ch_versions.mix(KAIJU_KAIJU2KRONA.out.versions.first())
 
     /*
-        Remove taxonomy level annotations from the Krona text files
-    */
-    KRONACLEANUP(ch_krona_text)
-    ch_cleaned_krona_text = KRONACLEANUP.out.txt
-    ch_versions = ch_versions.mix(KRONACLEANUP.out.versions.first())
-
-    /*
         Convert Krona text files into html Krona visualizations
     */
-    ch_krona_text_for_import = ch_cleaned_krona_text
+
+    ch_krona_text_for_import = ch_krona_text
         .map { [[id: it[0]['db_name'], tool: it[0]['tool']], it[1]] }
         .groupTuple()
 
