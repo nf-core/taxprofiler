@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#714](https://github.com/nf-core/taxprofiler/pull/714) Module name changes for KRAKEN2_STANDARD_REPORT and KRONA_CLEANUP (both remove `*`) (by @jfy133)
 
 ### `Deprecated`
+
 - [#710](https://github.com/nf-core/taxprofiler/pull/710) Removed the custom script krona_cleanup due to hardcoded taxonomic ranks causing krona plots to not being properly updated.(by @sofstam)
 - 
 ### `Dependencies`
