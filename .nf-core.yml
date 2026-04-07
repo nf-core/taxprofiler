@@ -14,3 +14,6 @@ template:
 lint:
   files_unchanged:
     - .github/PULL_REQUEST_TEMPLATE.md
+  files_exist:
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config

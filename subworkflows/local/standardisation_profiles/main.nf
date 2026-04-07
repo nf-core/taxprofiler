@@ -2,30 +2,30 @@
 // Standardise output files e.g. aggregation
 //
 
-include { TAXPASTA_MERGE                                                        } from '../../modules/nf-core/taxpasta/merge/main'
-include { TAXPASTA_STANDARDISE                                                  } from '../../modules/nf-core/taxpasta/standardise/main'
-include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../modules/nf-core/bracken/combinebrackenoutputs/main'
-include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../modules/nf-core/kaiju/kaiju2table/main'
-include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../modules/nf-core/krakentools/combinekreports/main'
-include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../modules/nf-core/krakentools/combinekreports/main'
-include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../modules/nf-core/metaphlan/mergemetaphlantables/main'
-include { MOTUS_MERGE                                                           } from '../../modules/nf-core/motus/merge/main'
-include { GANON_TABLE                                                           } from '../../modules/nf-core/ganon/table/main'
-include { SYLPHTAX_MERGE                                                        } from '../../modules/nf-core/sylphtax/merge/main'
+include { TAXPASTA_MERGE                                                        } from '../../../modules/nf-core/taxpasta/merge'
+include { TAXPASTA_STANDARDISE                                                  } from '../../../modules/nf-core/taxpasta/standardise'
+include { BRACKEN_COMBINEBRACKENOUTPUTS                                         } from '../../../modules/nf-core/bracken/combinebrackenoutputs'
+include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../../modules/nf-core/kaiju/kaiju2table'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../../modules/nf-core/krakentools/combinekreports'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../../modules/nf-core/krakentools/combinekreports'
+include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../../modules/nf-core/metaphlan/mergemetaphlantables'
+include { MOTUS_MERGE                                                           } from '../../../modules/nf-core/motus/merge'
+include { GANON_TABLE                                                           } from '../../../modules/nf-core/ganon/table'
+include { SYLPHTAX_MERGE                                                        } from '../../../modules/nf-core/sylphtax/merge'
 
 workflow STANDARDISATION_PROFILES {
     take:
-    classifications
-    profiles
-    databases
-    motu_version
+    ch_classifications
+    ch_profiles
+    ch_databases
+    val_motu_version
 
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
     //Taxpasta standardisation
-    ch_prepare_for_taxpasta = profiles
+    ch_prepare_for_taxpasta = ch_profiles
         .map { meta, profile ->
             def meta_new = [:]
             meta_new.tool = meta.tool == 'malt' ? 'megan6' : meta.tool
@@ -75,7 +75,7 @@ workflow STANDARDISATION_PROFILES {
     /*
         Split profile results based on tool they come from
     */
-    ch_input_profiles = profiles.branch { entry ->
+    ch_input_profiles = ch_profiles.branch { entry ->
         bracken: entry[0]['tool'] == 'bracken'
         centrifuge: entry[0]['tool'] == 'centrifuge'
         ganon: entry[0]['tool'] == 'ganon'
@@ -86,16 +86,15 @@ workflow STANDARDISATION_PROFILES {
         melon: entry[0]['tool'] == 'melon'
         sylph: entry[0]['tool'] == 'sylph'
         metacache: entry[0]['tool'] == 'sylph'
-
         unknown: true
     }
 
-    ch_input_classifications = classifications.branch { entry ->
+    ch_input_classifications = ch_classifications.branch { entry ->
         kaiju: entry[0]['tool'] == 'kaiju'
         unknown: true
     }
 
-    ch_input_databases = databases.branch { entry ->
+    ch_input_databases = ch_databases.branch { entry ->
         motus: entry[0]['tool'] == 'motus'
         kaiju: entry[0]['tool'] == 'kaiju'
         unknown: true
@@ -110,6 +109,7 @@ workflow STANDARDISATION_PROFILES {
     ch_profiles_for_bracken = groupProfiles(ch_input_profiles.bracken)
 
     BRACKEN_COMBINEBRACKENOUTPUTS(ch_profiles_for_bracken)
+    ch_versions = ch_versions.mix(BRACKEN_COMBINEBRACKENOUTPUTS.out.versions)
 
     // CENTRIFUGE
 
@@ -172,7 +172,7 @@ workflow STANDARDISATION_PROFILES {
 
     ch_input_for_motusmerge = combineProfilesWithDatabase(ch_profiles_for_motus, ch_input_databases.motus)
 
-    MOTUS_MERGE(ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, motu_version)
+    MOTUS_MERGE(ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, val_motu_version)
     ch_versions = ch_versions.mix(MOTUS_MERGE.out.versions)
 
     // Ganon
@@ -229,9 +229,8 @@ def combineProfilesWithDatabase(ch_profiles, ch_database) {
     return ch_profiles
         .map { meta, profile -> [meta.id, meta, profile] }
         .combine(ch_database.map { db_meta, db -> [db_meta.db_name, db] }, by: 0)
-        .multiMap {
-            key, meta, profile, db ->
-                profile: [meta, profile]
-                db: db
+        .multiMap { key, meta, profile, db ->
+            profile: [meta, profile]
+            db: db
         }
 }
