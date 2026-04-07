@@ -64,7 +64,7 @@
                 "multiqc/multiqc_plots/pdf/malt-taxonomic-success-plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/malt-taxonomic-success-plot-pct.pdf",
                 "multiqc/multiqc_plots/png",
-                "multiqc/multiqc_plots/png/fastqc_adapter_content_plot.png",
+                  "multiqc/multiqc_plots/png/fastqc_adapter_content_plot.png",
                 "multiqc/multiqc_plots/png/fastqc_per_base_n_content_plot.png",
                 "multiqc/multiqc_plots/png/fastqc_per_base_sequence_quality_plot.png",
                 "multiqc/multiqc_plots/png/fastqc_per_sequence_gc_content_plot_Counts.png",
@@ -97,10 +97,10 @@
             ]
         ],
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
         },
-        "timestamp": "2026-03-19T04:57:13.7489916"
+        "timestamp": "2026-04-02T14:11:33.469587866"
     },
     "-profile test_malt": {
         "content": [

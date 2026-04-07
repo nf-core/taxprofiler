@@ -3,34 +3,34 @@
 //
 
 
-include { SHORTREAD_FASTP            } from './shortread_fastp'
-include { SHORTREAD_ADAPTERREMOVAL   } from './shortread_adapterremoval'
-include { FASTQC as FASTQC_PROCESSED } from '../../modules/nf-core/fastqc/main'
-include { FALCO as FALCO_PROCESSED   } from '../../modules/nf-core/falco/main'
+include { SHORTREAD_FASTP            } from '../shortread_fastp'
+include { SHORTREAD_ADAPTERREMOVAL   } from '../shortread_adapterremoval'
+include { FASTQC as FASTQC_PROCESSED } from '../../../modules/nf-core/fastqc'
+include { FALCO as FALCO_PROCESSED   } from '../../../modules/nf-core/falco'
 
 workflow SHORTREAD_PREPROCESSING {
     take:
-    reads //  [ [ meta ], [ reads ] ]
-    adapterlist // file
+    ch_reads //  [ [ meta ], [ reads ] ]
+    ch_adapterlist // file
 
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
     if (params.shortread_qc_tool == "fastp") {
-        SHORTREAD_FASTP(reads, adapterlist)
+        SHORTREAD_FASTP(ch_reads, ch_adapterlist)
         ch_processed_reads = SHORTREAD_FASTP.out.reads
         ch_versions = ch_versions.mix(SHORTREAD_FASTP.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_FASTP.out.mqc)
     }
     else if (params.shortread_qc_tool == "adapterremoval") {
-        SHORTREAD_ADAPTERREMOVAL(reads, adapterlist)
+        SHORTREAD_ADAPTERREMOVAL(ch_reads, ch_adapterlist)
         ch_processed_reads = SHORTREAD_ADAPTERREMOVAL.out.reads
         ch_versions = ch_versions.mix(SHORTREAD_ADAPTERREMOVAL.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(SHORTREAD_ADAPTERREMOVAL.out.mqc)
     }
     else {
-        ch_processed_reads = reads
+        ch_processed_reads = ch_reads
     }
 
     if (params.preprocessing_qc_tool == 'fastqc') {

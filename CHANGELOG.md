@@ -15,14 +15,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#694](https://github.com/nf-core/taxprofiler/pull/694) Developer and contributor documentation (by @jfy133)
 - [#698](https://github.com/nf-core/taxprofiler/pull/698) Add new config and nf-test for `test_falcobbduk` (by @jfy133)
 - [#699](https://github.com/nf-core/taxprofiler/pull/699) Add new config and nf-test for `test_fastpnonpareilkrakenuniq` (by @jfy133)
+- [#703](https://github.com/nf-core/taxprofiler/pull/703) Change stable branch name from `master` to `main` (by @jfy133)
+- [#705](https://github.com/nf-core/taxprofiler/pull/705) Add new config and nf-test for `test_malt` (by @jfy133)
+- [#707](https://github.com/nf-core/taxprofiler/pull/707) Add new config and nf-test for `test_motus` (by @jfy133)
+- [#709](https://github.com/nf-core/taxprofiler/pull/709) Add new config and nf-test for `test_nopreprocessing` (by @jfy133)
 
 ### `Fixed`
 
 - [#711](https://github.com/nf-core/taxprofiler/pulls/711) Better error strategy for the sylph classifier steps so it doesn't fail if sylph finds no hits (by @sofstam)
+- [#713](https://github.com/nf-core/taxprofiler/pull/713) Improve Nextflow syntax compliance in `.nf` file structure (by @jfy133)
+- [#714](https://github.com/nf-core/taxprofiler/pull/714) Improve nf-core linting compliance with `meta.yaml` files for all local subworkflows (by @jfy133)
 
 ### `Changed`
 
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Switch Slack channel reporting to nf-slack plugin for AWS Megatests (by @jfy133)
+- [#714](https://github.com/nf-core/taxprofiler/pull/714) Module name changes for KRAKEN2_STANDARD_REPORT and KRONA_CLEANUP (both remove `*`) (by @jfy133)
+
+### `Deprecated`
+
+- [#710](https://github.com/nf-core/taxprofiler/pull/710) Removed the custom script krona_cleanup due to hardcoded taxonomic ranks causing krona plots to not being properly updated. (by @sofstam)
 
 ### `Dependencies`
 

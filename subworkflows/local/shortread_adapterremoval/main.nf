@@ -2,26 +2,26 @@
 // Process short raw reads with AdapterRemoval
 //
 
-include { ADAPTERREMOVAL as ADAPTERREMOVAL_SINGLE } from '../../modules/nf-core/adapterremoval/main'
-include { ADAPTERREMOVAL as ADAPTERREMOVAL_PAIRED } from '../../modules/nf-core/adapterremoval/main'
-include { CAT_FASTQ                               } from '../../modules/nf-core/cat/fastq/main'
+include { ADAPTERREMOVAL as ADAPTERREMOVAL_SINGLE } from '../../../modules/nf-core/adapterremoval'
+include { ADAPTERREMOVAL as ADAPTERREMOVAL_PAIRED } from '../../../modules/nf-core/adapterremoval'
+include { CAT_FASTQ                               } from '../../../modules/nf-core/cat/fastq'
 
 workflow SHORTREAD_ADAPTERREMOVAL {
     take:
-    reads // [[meta], [reads]]
-    adapterlist // file
+    ch_reads // [[meta], [reads]]
+    ch_adapterlist // file
 
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    ch_input_for_adapterremoval = reads.branch {
+    ch_input_for_adapterremoval = ch_reads.branch {
         single: it[0].single_end
         paired: !it[0].single_end
     }
 
-    ADAPTERREMOVAL_SINGLE(ch_input_for_adapterremoval.single, adapterlist)
-    ADAPTERREMOVAL_PAIRED(ch_input_for_adapterremoval.paired, adapterlist)
+    ADAPTERREMOVAL_SINGLE(ch_input_for_adapterremoval.single, ch_adapterlist)
+    ADAPTERREMOVAL_PAIRED(ch_input_for_adapterremoval.paired, ch_adapterlist)
 
     /*
      * Due to the ~slightly~ very ugly output implementation of the current AdapterRemoval2 version, each file
