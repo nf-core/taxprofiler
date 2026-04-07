@@ -1,17 +1,17 @@
-include { NONPAREIL_NONPAREIL        } from '../../modules/nf-core/nonpareil/nonpareil/main'
-include { NONPAREIL_CURVE            } from '../../modules/nf-core/nonpareil/curve/main'
-include { NONPAREIL_SET              } from '../../modules/nf-core/nonpareil/set/main'
-include { NONPAREIL_NONPAREILCURVESR } from '../../modules/nf-core/nonpareil/nonpareilcurvesr/main'
+include { NONPAREIL_NONPAREIL        } from '../../../modules/nf-core/nonpareil/nonpareil'
+include { NONPAREIL_CURVE            } from '../../../modules/nf-core/nonpareil/curve'
+include { NONPAREIL_SET              } from '../../../modules/nf-core/nonpareil/set'
+include { NONPAREIL_NONPAREILCURVESR } from '../../../modules/nf-core/nonpareil/nonpareilcurvesr'
 
 workflow NONPAREIL {
     take:
-    reads // [ [ meta ], [ reads ] ]
+    ch_reads // [ [ meta ], [ reads ] ]
 
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    ch_reads_for_nonpareil = reads
+    ch_reads_for_nonpareil = ch_reads
         .map { meta, input_reads ->
             def reads_new = meta.single_end ? input_reads : input_reads[0]
             // taxprofiler only accepts gzipped input files,

@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: shortread_complexityfiltering
+description: Filter short-read sequencing data based on complexity
+keywords:
+  - complexity filtering
+  - preprocessing
+  - short reads
+components:
+  - bbmap/bbduk
+  - prinseqplusplus
+input:
+  - ch_reads:
+      type: file
+      description: |
+        Input reads in FASTQ format, typically from Illumina sequencers for complexity filtering.
+        Structure: [ val(meta), path(reads) ]
+output:
+  - reads:
+      type: file
+      description: |
+        Filtered reads after complexity filtering
+        Structure: [ val(meta), path(reads) ]
+      pattern: "*.fastq.gz"
+  - mqc:
+      type: file
+      description: |
+        Log files for MultiQC
+        Structure: [ path(files) ]
+      pattern: "*"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: path(versions.yml)
+      pattern: "versions.yml"
+authors:
+  - "@jfy133"
+maintainers:
+  - "@jfy133"

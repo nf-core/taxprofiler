@@ -2,31 +2,31 @@
 // Remove host reads via alignment and export off-target reads
 //
 
-include { MINIMAP2_INDEX } from '../../modules/nf-core/minimap2/index/main'
-include { MINIMAP2_ALIGN } from '../../modules/nf-core/minimap2/align/main'
-include { SAMTOOLS_VIEW  } from '../../modules/nf-core/samtools/view/main'
-include { SAMTOOLS_FASTQ } from '../../modules/nf-core/samtools/fastq/main'
-include { SAMTOOLS_STATS } from '../../modules/nf-core/samtools/stats/main'
+include { MINIMAP2_INDEX } from '../../../modules/nf-core/minimap2/index'
+include { MINIMAP2_ALIGN } from '../../../modules/nf-core/minimap2/align'
+include { SAMTOOLS_VIEW  } from '../../../modules/nf-core/samtools/view'
+include { SAMTOOLS_FASTQ } from '../../../modules/nf-core/samtools/fastq'
+include { SAMTOOLS_STATS } from '../../../modules/nf-core/samtools/stats'
 
 workflow LONGREAD_HOSTREMOVAL {
     take:
-    reads // [ [ meta ], [ reads ] ]
-    reference // /path/to/fasta
-    index // /path/to/index
+    ch_reads // [ [ meta ], [ reads ] ]
+    ch_reference // /path/to/fasta
+    ch_index // /path/to/index
 
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
     if (!params.longread_hostremoval_index) {
-        ch_minimap2_index = MINIMAP2_INDEX([[], reference]).index
+        ch_minimap2_index = MINIMAP2_INDEX([[], ch_reference]).index
         ch_versions = ch_versions.mix(MINIMAP2_INDEX.out.versions)
     }
     else {
-        ch_minimap2_index = index
+        ch_minimap2_index = ch_index
     }
 
-    MINIMAP2_ALIGN(reads, ch_minimap2_index, true, 'bai', false, false)
+    MINIMAP2_ALIGN(ch_reads, ch_minimap2_index, true, 'bai', false, false)
     ch_versions = ch_versions.mix(MINIMAP2_ALIGN.out.versions.first())
     ch_minimap2_mapped = MINIMAP2_ALIGN.out.bam.map { meta, long_reads ->
         [meta, long_reads, []]
@@ -35,7 +35,7 @@ workflow LONGREAD_HOSTREMOVAL {
     // Join BAI back to BAM for host removal statistics
     bam_bai = MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index)
 
-    SAMTOOLS_STATS(bam_bai, [[], reference])
+    SAMTOOLS_STATS(bam_bai, [[], ch_reference])
     ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
 
     // Generate unmapped reads FASTQ for downstream taxprofiling
@@ -45,7 +45,7 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_versions = ch_versions.mix(SAMTOOLS_FASTQ.out.versions.first())
 
     emit:
-    stats    = SAMTOOLS_STATS.out.stats //channel: [val(meta), [reads  ] ]
+    stats    = SAMTOOLS_STATS.out.stats //channel: [val(meta), [ stats_files ] ]
     reads    = SAMTOOLS_FASTQ.out.other // channel: [ val(meta), [ reads ] ]
     versions = ch_versions // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
