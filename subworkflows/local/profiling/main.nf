@@ -591,7 +591,16 @@ workflow PROFILING {
                 db: db
             }
 
-        SYLPHTAX_TAXPROF(ch_input_for_sylphtax.report, file(params.sylph_taxonomy, checkExists: true))
+        ch_input_for_sylphtax_filtered = ch_input_for_sylphtax.report
+                .filter { meta, report ->
+                    if (report.isEmpty()) {
+                        log.warn("[nf-core/taxprofiler] Sample ${meta.id} has an empty report file. Will not be processed by SYLPHTAX_TAXPROF.")
+                    }
+                    !report.isEmpty()
+                }
+
+        SYLPHTAX_TAXPROF(ch_input_for_sylphtax_filtered, file(params.sylph_taxonomy, checkIfExists: true))
+
         ch_versions = ch_versions.mix(SYLPHTAX_TAXPROF.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(SYLPHTAX_TAXPROF.out.taxprof_output)
     }
