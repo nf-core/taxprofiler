@@ -599,7 +599,11 @@ workflow PROFILING {
                     !report.isEmpty()
                 }
 
-        SYLPHTAX_TAXPROF(ch_input_for_sylphtax_filtered, file(params.sylph_taxonomy, checkIfExists: true))
+        if (!params.sylph_taxonomy) {
+            error "ERROR: --sylph_taxonomy is required when run_sylph is enabled"
+        }
+
+        SYLPHTAX_TAXPROF(ch_input_for_sylphtax_filtered, params.sylph_taxonomy ? file(params.sylph_taxonomy, checkIfExists: true) : error("ERROR: --sylph_taxonomy is required at this step"))
 
         ch_versions = ch_versions.mix(SYLPHTAX_TAXPROF.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(SYLPHTAX_TAXPROF.out.taxprof_output)
