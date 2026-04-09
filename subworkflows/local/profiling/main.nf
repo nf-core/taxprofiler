@@ -619,7 +619,7 @@ workflow PROFILING {
                 db: it[3]
             }
 
-        ch_melon_k2_db = params.melon_k2_db ? channel.fromPath(params.melon_k2_db) : []
+        ch_melon_k2_db = params.melon_k2_db ? channel.fromPath(params.melon_k2_db, checkIfExists: true).collect() : []
 
         MELON(ch_input_for_melon.reads, ch_input_for_melon.db, ch_melon_k2_db)
         ch_versions = ch_versions.mix(MELON.out.versions.first())
