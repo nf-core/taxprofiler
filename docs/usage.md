@@ -503,7 +503,7 @@ KMCP is only suitable for short-read metagenomic profiling, with much lower sens
 
 ##### sylph
 
-Currently, no specific tips or suggestions.
+There are no specific tips or suggestions currently for sylph.
 
 ##### Melon
 
