@@ -315,7 +315,7 @@ Below is a description of the format for a custom adapter list file:
 
 An example is:
 
-```
+```txt title="custom_adapters_list.txt"
     custom_adapter_1
     GGTTGTTTCTGTTGGTGCTGATATTGCT
     GAAGATAGAGCGACAGGCAAGT
