@@ -658,7 +658,7 @@ For further descriptions of the contents of each file, see the [melon documentat
 
 ### MetaCache
 
-[MetaCache](https://github.com/muellan/metacache) is a taxonomic classifier that minhashing for the classification of reads
+[MetaCache](https://github.com/muellan/metacache) is a taxonomic classifier that uses minhashing for the classification of reads
 
 <details markdown="1">
 <summary>Output files</summary>
