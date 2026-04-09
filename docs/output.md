@@ -724,7 +724,7 @@ The following report files are used for the taxpasta step:
 - ganon: `<sample_id>_<db_name>.tre` Taxpasta uses the `nr_unique` column for the standardised profile.
 - kmcp: `<sample_id>.profile` Taxpasta uses the `reads` column for the standardised profile.
 
-Neither the sylph nor melon classifiers are yet supported in taxpasta.
+Neither the sylph, MetaCache, nor melon classifiers are yet supported in taxpasta.
 
 :::warning
 Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.
