@@ -85,7 +85,7 @@ workflow STANDARDISATION_PROFILES {
         motus: entry[0]['tool'] == 'motus'
         melon: entry[0]['tool'] == 'melon'
         sylph: entry[0]['tool'] == 'sylph'
-        metacache: entry[0]['tool'] == 'sylph'
+        metacache: entry[0]['tool'] == 'metacache'
         unknown: true
     }
 
