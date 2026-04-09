@@ -282,7 +282,7 @@
                     },
                     "sylphtax/taxprof": {
                         "branch": "master",
-                        "git_sha": "635aec1a50ccbea3a89fa1b0956457606732f0f6",
+                        "git_sha": "83b10fcc4e99f362d30cd73606c08036d18c7ade",
                         "installed_by": ["modules"]
                     },
                     "taxpasta/merge": {
