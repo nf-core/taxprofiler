@@ -619,7 +619,9 @@ workflow PROFILING {
                 db: it[3]
             }
 
-        MELON(ch_input_for_melon.reads, ch_input_for_melon.db, params.melon_k2_db)
+        ch_melon_k2_db = params.melon_k2_db ? channel.fromPath(params.melon_k2_db) : []
+
+        MELON(ch_input_for_melon.reads, ch_input_for_melon.db, ch_melon_k2_db)
         ch_versions = ch_versions.mix(MELON.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(MELON.out.json_output)
         ch_raw_profiles = ch_raw_profiles.mix(MELON.out.tsv_output)
