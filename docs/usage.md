@@ -306,7 +306,7 @@ When using porechop_abi, you can enable on the `abi` option by turning on `--lon
 
 Below is a description of the format for a custom adapter list file:
 
-```txt title="custom_adapters_list.txt"
+```txt
     line 1: Adapter name
     line 2: Start adapter sequence
     line 3: End adapter sequence
