@@ -600,10 +600,9 @@ workflow PROFILING {
                 }
 
 
-        ch_sylph_taxonomy = params.sylph_taxonomy ? channel.fromPath(params.sylph_taxonomy, checkIfExists: true).collect() : []
+        def file_sylphtaxonomy = params.sylph_taxonomy ? file(params.sylph_taxonomy, checkIfExists: true) : []
 
-        SYLPHTAX_TAXPROF(ch_input_for_sylphtax_filtered, ch_sylph_taxonomy)
-
+        SYLPHTAX_TAXPROF(ch_input_for_sylphtax_filtered, file_sylphtaxonomy)
 
         ch_raw_profiles = ch_raw_profiles.mix(SYLPHTAX_TAXPROF.out.taxprof_output)
     }
