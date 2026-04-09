@@ -96,7 +96,7 @@ When writing a new pipeline-level nf-tests for nf-core/taxprofiler, we recommend
 
 Write the test files following the specifications below.
 
-The necessary files are are follows:
+The necessary files are follows:
 
 - [ ] New test files should go under `tests/`
 - [ ] Test file should be called `<test_config_name>.nf.test`
