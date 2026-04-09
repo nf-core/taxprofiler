@@ -697,7 +697,7 @@ After downloading the marker gene set provided in the GitHub repository, you wil
 
 For example, if you have conda installed:
 
-````bash
+```bash
 ## -y means to automatically accept list of packages to install!
 conda create -n melon-db-build -c bioconda minimap2 diamond -y
 conda activate melon-db-build
