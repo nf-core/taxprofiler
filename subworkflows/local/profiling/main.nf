@@ -352,7 +352,6 @@ workflow PROFILING {
             .filter { meta, _db -> meta.tool == 'motus' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
-
         ch_prepped_to_motus = MOTUS_PREPLONG.out.out
             .map { meta, in_reads -> [meta.db_name, [meta, in_reads]] }
             .combine(ch_database_for_motus, by: 0)
