@@ -229,7 +229,7 @@ def combineProfilesWithDatabase(ch_profiles, ch_database) {
     return ch_profiles
         .map { meta, profile -> [meta.id, meta, profile] }
         .combine(ch_database.map { db_meta, db -> [db_meta.db_name, db] }, by: 0)
-        .multiMap { key, meta, profile, db ->
+        .multiMap { _key, meta, profile, db ->
             profile: [meta, profile]
             db: db
         }
