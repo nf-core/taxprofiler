@@ -40,9 +40,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool | Previous version | New version |
-| ---- | ---------------- | ----------- |
-|      |                  |             |
+| Tool      | Previous version | New version |
+| --------- | ---------------- | ----------- |
+| sylph     |                  | 0.7.0       |
+| melon     |                  | 0.2.5       |
+| metacache |                  | 2.5.0       |
+| sylphtax  |                  | 1.2.0       |
 
 ## v1.2.6 - [2026-02-16]
 
