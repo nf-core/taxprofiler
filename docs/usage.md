@@ -512,7 +512,7 @@ Therefore, nf-core/taxprofiler does not currently run Melon on data specified as
 
 ##### MetaCache
 
-Currently, no specific tips or suggestions.
+There are no specific tips or suggestions currently for MetaCache.
 
 #### Post Processing
 
