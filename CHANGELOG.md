@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Deprecated`
 
-- [#698](https://github.com/nf-core/taxprofiler/pull/698) Deprecate `test_bbduk` and `test_falco` test profiles (merged into `test_falcobduk) (by @jfy133)
+- [#698](https://github.com/nf-core/taxprofiler/pull/698) Deprecate `test_bbduk` and `test_falco` test profiles (merged into `test_falcobbduk`) (by @jfy133)
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Remove hook_url from the pipeline configuration, cf[tools#4051](https://github.com/nf-core/tools/pull/4051) (by @jfy133 and @FriederikeHanssen)
 - [#699](https://github.com/nf-core/taxprofiler/pull/699) Deprecate `test_fastp` and `test_krakenuniq` test profiles (merged into `test_fastpnonpareilkrakenuniq`) (by @jfy133)
 
