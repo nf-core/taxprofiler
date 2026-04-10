@@ -64,15 +64,15 @@
                     "untar": 1.34
                 },
                 "Workflow": {
-                    "nf-core/taxprofiler": "v1.2.7dev"
+                    "nf-core/taxprofiler": "v2.0.0"
                 }
             }
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-01T10:47:01.588497498"
+        "timestamp": "2026-04-09T17:19:53.689294746"
     },
     "all_files": {
         "content": [
@@ -402,9 +402,9 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-01T10:47:01.628948335"
+        "timestamp": "2026-04-09T17:19:53.72337942"
     },
     "filtlong": {
         "content": [

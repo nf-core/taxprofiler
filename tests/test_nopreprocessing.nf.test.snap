@@ -511,9 +511,9 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-02T13:14:03.799756509"
+        "timestamp": "2026-04-09T17:42:18.236369681"
     },
     "ganon": {
         "content": [
@@ -811,15 +811,15 @@
                     "untar": 1.34
                 },
                 "Workflow": {
-                    "nf-core/taxprofiler": "v1.2.7dev"
+                    "nf-core/taxprofiler": "v2.0.0"
                 }
             }
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-02T13:14:03.689681103"
+        "timestamp": "2026-04-09T17:42:18.172240635"
     },
     "kraken2": {
         "content": [

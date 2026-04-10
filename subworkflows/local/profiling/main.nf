@@ -598,9 +598,11 @@ workflow PROFILING {
                     !report.isEmpty()
                 }
 
-        SYLPHTAX_TAXPROF(ch_input_for_sylphtax_filtered, file(params.sylph_taxonomy, checkIfExists: true))
 
-        ch_versions = ch_versions.mix(SYLPHTAX_TAXPROF.out.versions.first())
+        def file_sylphtaxonomy = params.sylph_taxonomy ? file(params.sylph_taxonomy, checkIfExists: true) : []
+
+        SYLPHTAX_TAXPROF(ch_input_for_sylphtax_filtered, file_sylphtaxonomy)
+
         ch_raw_profiles = ch_raw_profiles.mix(SYLPHTAX_TAXPROF.out.taxprof_output)
     }
 
@@ -618,7 +620,9 @@ workflow PROFILING {
                 db: it[3]
             }
 
-        MELON(ch_input_for_melon.reads, ch_input_for_melon.db, [])
+        ch_melon_k2_db = params.melon_k2_db ? channel.fromPath(params.melon_k2_db, checkIfExists: true).collect() : []
+
+        MELON(ch_input_for_melon.reads, ch_input_for_melon.db, ch_melon_k2_db)
         ch_versions = ch_versions.mix(MELON.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(MELON.out.json_output)
         ch_raw_profiles = ch_raw_profiles.mix(MELON.out.tsv_output)
