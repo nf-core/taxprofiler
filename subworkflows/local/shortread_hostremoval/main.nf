@@ -20,7 +20,7 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_multiqc_files = channel.empty()
 
     if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
-        ch_hostremoval_index = BOWTIE2_BUILD([[], reference]).index
+        ch_hostremoval_index = BOWTIE2_BUILD([[], ch_reference]).index
         ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
     }
     else if (!ch_index && params.shortread_hostremoval_tool == 'hostile') {
@@ -34,7 +34,7 @@ workflow SHORTREAD_HOSTREMOVAL {
 
     if (params.shortread_hostremoval_tool == 'bowtie2') {
         // Map, generate BAM with all reads and unmapped reads in FASTQ for downstream
-        BOWTIE2_ALIGN(reads, ch_hostremoval_index, [[], reference], true, true)
+        BOWTIE2_ALIGN(reads, ch_hostremoval_index, [[], ch_reference], true, true)
         ch_versions = ch_versions.mix(BOWTIE2_ALIGN.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(BOWTIE2_ALIGN.out.log)
 
