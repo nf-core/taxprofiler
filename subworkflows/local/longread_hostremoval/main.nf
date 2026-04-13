@@ -43,7 +43,8 @@ workflow LONGREAD_HOSTREMOVAL {
         // Join BAI back to BAM for host removal statistics
         bam_bai = MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index)
 
-        ch_stats = SAMTOOLS_STATS(bam_bai, [[], ch_reference, []])
+        SAMTOOLS_STATS(bam_bai, [[], ch_reference, []])
+        ch_stats = SAMTOOLS_STATS.out.stats
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
 
         // Generate unmapped reads FASTQ for downstream taxprofiling
