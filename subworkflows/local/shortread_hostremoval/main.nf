@@ -11,9 +11,9 @@ include { HOSTILE_CLEAN as HOSTILE_CLEAN_SHORTREADS } from '../../../modules/nf-
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:
-    reads // [ [ meta ], [ reads ] ]
-    reference // /path/to/fasta
-    index // /path/to/index
+    ch_reads // [ [ meta ], [ reads ] ]
+    ch_reference // /path/to/fasta
+    ch_index // /path/to/index
 
     main:
     ch_versions = channel.empty()

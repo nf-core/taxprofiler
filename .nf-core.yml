@@ -10,7 +10,10 @@ template:
   outdir: .
   skip_features:
     - igenomes
-  version: 1.2.7dev
+  version: 2.0.0
 lint:
   files_unchanged:
     - .github/PULL_REQUEST_TEMPLATE.md
+  files_exist:
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config

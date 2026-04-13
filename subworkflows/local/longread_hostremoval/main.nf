@@ -12,9 +12,9 @@ include { HOSTILE_CLEAN as HOSTILE_CLEAN_LONGREADS } from '../../../modules/nf-c
 
 workflow LONGREAD_HOSTREMOVAL {
     take:
-    reads // [ [ meta ], [ reads ] ]
-    reference // /path/to/fasta
-    index // /path/to/index
+    ch_reads // [ [ meta ], [ reads ] ]
+    ch_reference // /path/to/fasta
+    ch_index // /path/to/index
 
     main:
     ch_versions = channel.empty()
@@ -65,6 +65,8 @@ workflow LONGREAD_HOSTREMOVAL {
 
     emit:
     reads    = ch_cleaned_reads // channel: [ val(meta), [ reads ] ]
+    stats    = SAMTOOLS_STATS.out.stats //channel: [val(meta), [ stats_files ] ]
+    reads    = SAMTOOLS_FASTQ.out.other // channel: [ val(meta), [ reads ] ]
     versions = ch_versions // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }

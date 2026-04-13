@@ -292,17 +292,17 @@
                     },
                     "sylphtax/taxprof": {
                         "branch": "master",
-                        "git_sha": "635aec1a50ccbea3a89fa1b0956457606732f0f6",
+                        "git_sha": "83b10fcc4e99f362d30cd73606c08036d18c7ade",
                         "installed_by": ["modules"]
                     },
                     "taxpasta/merge": {
                         "branch": "master",
-                        "git_sha": "f9aa121d8b7f3b01d052ecac9175145592eb6041",
+                        "git_sha": "1b9d9c500cbadcb012359c2b631750cbaab6abd3",
                         "installed_by": ["modules"]
                     },
                     "taxpasta/standardise": {
                         "branch": "master",
-                        "git_sha": "f9aa121d8b7f3b01d052ecac9175145592eb6041",
+                        "git_sha": "1b9d9c500cbadcb012359c2b631750cbaab6abd3",
                         "installed_by": ["modules"]
                     },
                     "untar": {

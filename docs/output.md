@@ -40,7 +40,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [ganon](#ganon) - Taxonomic classifier and profile that uses Interleaved Bloom Filters as indices based on k-mers/minimizers.
 - [sylph](#sylph) - Taxonomic classifier that performs ultrafast average nucleotide identity (ANI) querying or metagenomic profiling for metagenomic shotgun samples.
 - [Melon](#Melon) - Taxonomic classifier that uses ribosomal marker genes to classify and quantify long-read metagenomic data.
-- [MetaCache](#metacache) - Taxonomic classifier using minhashing
+- [MetaCache](#metacache) - Taxonomic classifier using minhashing.
 - [TAXPASTA](#taxpasta) - Tool to standardise taxonomic profiles as well as merge profiles across samples from the same database and classifier/profiler.
 - [MultiQC](#multiqc) - Aggregate report describing results and QC from the whole pipeline
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
@@ -682,7 +682,7 @@ For further descriptions of the contents of each file, see the [melon documentat
 
 ### MetaCache
 
-[MetaCache](https://github.com/muellan/metacache) is a taxonomic classifier that minhashing for the classification of reads
+[MetaCache](https://github.com/muellan/metacache) is a taxonomic classifier that uses minhashing for the classification of reads
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -690,7 +690,7 @@ For further descriptions of the contents of each file, see the [melon documentat
 - `metacache/`
   - `<db_name>/`
     - `<sample_id>.abundances.txt`: Absolute and relative abundance of each taxon on each rank in .txt format
-    - `<sample_id>.mspping.txt`: Mapping outout in .txt format
+    - `<sample_id>.mapping.txt`: Mapping output in .txt format
 
 </details>
 
@@ -748,7 +748,7 @@ The following report files are used for the taxpasta step:
 - ganon: `<sample_id>_<db_name>.tre` Taxpasta uses the `nr_unique` column for the standardised profile.
 - kmcp: `<sample_id>.profile` Taxpasta uses the `reads` column for the standardised profile.
 
-The Sylph nor melon classifiers are not yet supported in taxpasta.
+Neither the sylph, MetaCache, nor melon classifiers are yet supported in taxpasta.
 
 :::warning
 Please aware the outputs of each tool's standardised profile _may not_ be directly comparable between each tool. Some may report raw read counts, whereas others may report abundance information. Please always refer to the list above, for which information is used for each tool.

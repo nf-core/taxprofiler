@@ -298,7 +298,7 @@ By default, paired-end merging is not activated. In this case paired-end 'alignm
 You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
 Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. Performing length filtering can be useful to remove short (often low sequencing complexity) sequences that result in unspecific classification and therefore slow down runtime during classification/profiling, with minimal gain.
 
-###### Long reads
+##### Long reads
 
 There are currently two options for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop), [`porechop_abi`](https://github.com/bonsai-team/Porechop_ABI).
 
@@ -306,7 +306,7 @@ When using porechop_abi, you can enable on the `abi` option by turning on `--lon
 
 Below is a description of the format for a custom adapter list file:
 
-```txt title="custom_adapters_list.txt"
+```txt
     line 1: Adapter name
     line 2: Start adapter sequence
     line 3: End adapter sequence
@@ -315,7 +315,7 @@ Below is a description of the format for a custom adapter list file:
 
 An example is:
 
-```
+```txt title="custom_adapters_list.txt"
     custom_adapter_1
     GGTTGTTTCTGTTGGTGCTGATATTGCT
     GAAGATAGAGCGACAGGCAAGT
@@ -489,7 +489,7 @@ MetaPhlAn4 is compatible with the MetaPhlAn3 database by adding the `--mpa3` int
 ##### mOTUs
 
 mOTUs currently does not accept FASTA files as input, therefore no output will be produced for these input files.
-For long reads, the `motus prep_long` command will be being executed first to split long reads into shorter reads which can then be profiled with `motus profile` command.
+For long reads, the `motus prep_long` command will be executed first to split long reads into shorter reads which can then be profiled with `motus profile` command.
 
 ##### ganon
 
@@ -503,16 +503,16 @@ KMCP is only suitable for short-read metagenomic profiling, with much lower sens
 
 ##### sylph
 
-Currently, no specific tips or suggestions.
+There are no specific tips or suggestions currently for sylph.
 
-##### melon
+##### Melon
 
 Melon is only suitable for long-read metagenomic profiling.
 Therefore, nf-core/taxprofiler does not currently run Melon on data specified as being sequenced with `Illumina` or any other short-read platform in the input samplesheet.
 
 ##### MetaCache
 
-Currently, no specific tips or suggestions.
+There are no specific tips or suggestions currently for MetaCache.
 
 #### Post Processing
 

@@ -15,17 +15,17 @@ include { SYLPHTAX_MERGE                                                        
 
 workflow STANDARDISATION_PROFILES {
     take:
-    classifications
-    profiles
-    databases
-    motu_version
+    ch_classifications
+    ch_profiles
+    ch_databases
+    val_motu_version
 
     main:
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
     //Taxpasta standardisation
-    ch_prepare_for_taxpasta = profiles
+    ch_prepare_for_taxpasta = ch_profiles
         .map { meta, profile ->
             def meta_new = [:]
             meta_new.tool = meta.tool == 'malt' ? 'megan6' : meta.tool
@@ -75,7 +75,7 @@ workflow STANDARDISATION_PROFILES {
     /*
         Split profile results based on tool they come from
     */
-    ch_input_profiles = profiles.branch { entry ->
+    ch_input_profiles = ch_profiles.branch { entry ->
         bracken: entry[0]['tool'] == 'bracken'
         centrifuge: entry[0]['tool'] == 'centrifuge'
         ganon: entry[0]['tool'] == 'ganon'
@@ -85,16 +85,16 @@ workflow STANDARDISATION_PROFILES {
         motus: entry[0]['tool'] == 'motus'
         melon: entry[0]['tool'] == 'melon'
         sylph: entry[0]['tool'] == 'sylph'
-        metacache: entry[0]['tool'] == 'sylph'
+        metacache: entry[0]['tool'] == 'metacache'
         unknown: true
     }
 
-    ch_input_classifications = classifications.branch { entry ->
+    ch_input_classifications = ch_classifications.branch { entry ->
         kaiju: entry[0]['tool'] == 'kaiju'
         unknown: true
     }
 
-    ch_input_databases = databases.branch { entry ->
+    ch_input_databases = ch_databases.branch { entry ->
         motus: entry[0]['tool'] == 'motus'
         kaiju: entry[0]['tool'] == 'kaiju'
         unknown: true
@@ -109,6 +109,7 @@ workflow STANDARDISATION_PROFILES {
     ch_profiles_for_bracken = groupProfiles(ch_input_profiles.bracken)
 
     BRACKEN_COMBINEBRACKENOUTPUTS(ch_profiles_for_bracken)
+    ch_versions = ch_versions.mix(BRACKEN_COMBINEBRACKENOUTPUTS.out.versions)
 
     // CENTRIFUGE
 
@@ -171,7 +172,7 @@ workflow STANDARDISATION_PROFILES {
 
     ch_input_for_motusmerge = combineProfilesWithDatabase(ch_profiles_for_motus, ch_input_databases.motus)
 
-    MOTUS_MERGE(ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, motu_version)
+    MOTUS_MERGE(ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, val_motu_version)
     ch_versions = ch_versions.mix(MOTUS_MERGE.out.versions)
 
     // Ganon
@@ -228,7 +229,7 @@ def combineProfilesWithDatabase(ch_profiles, ch_database) {
     return ch_profiles
         .map { meta, profile -> [meta.id, meta, profile] }
         .combine(ch_database.map { db_meta, db -> [db_meta.db_name, db] }, by: 0)
-        .multiMap { key, meta, profile, db ->
+        .multiMap { _key, meta, profile, db ->
             profile: [meta, profile]
             db: db
         }

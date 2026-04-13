@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.3.0dev [unreleased]
+## v2.0.0 [unreleased]
 
 ### `Added`
 
@@ -22,21 +22,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#711](https://github.com/nf-core/taxprofiler/pull/711) Better error strategy for the sylph classifier steps so it doesn't fail if sylph finds no hits (by @sofstam)
+- [#713](https://github.com/nf-core/taxprofiler/pull/713) Improve Nextflow syntax compliance in `.nf` file structure (by @jfy133)
+- [#714](https://github.com/nf-core/taxprofiler/pull/714) Improve nf-core linting compliance with `meta.yaml` files for all local subworkflows (by @jfy133)
+
 ### `Changed`
 
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Switch Slack channel reporting to nf-slack plugin for AWS Megatests (by @jfy133)
 
-### `Dependencies`
-
-| Tool | Previous version | New version |
-| ---- | ---------------- | ----------- |
-|      |                  |             |
-
 ### `Deprecated`
 
-- [#698](https://github.com/nf-core/taxprofiler/pull/698) Deprecate `test_bbduk` and `test_falco` test profiles (merged into `test_falcobduk) (by @jfy133)
+- [#710](https://github.com/nf-core/taxprofiler/pull/710) Removed the custom script krona_cleanup due to hardcoded taxonomic ranks causing krona plots to not being properly updated. (by @sofstam)
+- [#698](https://github.com/nf-core/taxprofiler/pull/698) Deprecate `test_bbduk` and `test_falco` test profiles (merged into `test_falcobbduk`) (by @jfy133)
 - [#696](https://github.com/nf-core/taxprofiler/pull/696) Remove hook_url from the pipeline configuration, cf[tools#4051](https://github.com/nf-core/tools/pull/4051) (by @jfy133 and @FriederikeHanssen)
 - [#699](https://github.com/nf-core/taxprofiler/pull/699) Deprecate `test_fastp` and `test_krakenuniq` test profiles (merged into `test_fastpnonpareilkrakenuniq`) (by @jfy133)
+- [#714](https://github.com/nf-core/taxprofiler/pull/714) Renamed modules KRAKEN2_STANDARD_REPORT and KRONA_CLEANUP for consistency with nf-core guidelines (by @jfy133)
+
+### `Dependencies`
+
+| Tool      | Previous version | New version |
+| --------- | ---------------- | ----------- |
+| sylph     |                  | 0.7.0       |
+| sylphtax  |                  | 1.2.0       |
+| melon     |                  | 0.2.5       |
+| metacache |                  | 2.5.0       |
 
 ## v1.2.6 - [2026-02-16]
 

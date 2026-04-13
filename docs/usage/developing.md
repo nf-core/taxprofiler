@@ -26,7 +26,7 @@ This page can act as a reference for new developers who wish to contribute to th
   - [ ] Added `withName:` block
   - [ ] Added `ext.args = { "${meta.db_params}" }` (no other parameters should be added to this for the actual profiling modules!)
   - [ ] Added other args for non-profiling modules (outside of `meta.db_params`, e.g. saving optional files [read classifications])
-  - [ ] (Profiling) Added ext.prefix conditional to account for run merging (see other tools)
+  - [ ] (Profiling) Added `ext.prefix` conditional to account for run merging (see other tools)
   - [ ] (Standardisation) Added `ext.prefix = { "ganon_${meta.id}_combined_reports" }` for native multi-sample tables (i.e. not from taxpasta)
   - [ ] Added publish dir for the particular profiler + database, with pattern (see other tools)
 - [ ] Added profiler(s) to `subworkflows/local/standardisation_profiles.nf` if necessary
@@ -96,7 +96,7 @@ When writing a new pipeline-level nf-tests for nf-core/taxprofiler, we recommend
 
 Write the test files following the specifications below.
 
-The necessary files are are follows:
+The necessary files are follows:
 
 - [ ] New test files should go under `tests/`
 - [ ] Test file should be called `<test_config_name>.nf.test`
