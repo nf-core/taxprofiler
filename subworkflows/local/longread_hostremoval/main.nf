@@ -21,7 +21,7 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_multiqc_files = channel.empty()
 
     if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'minimap2') {
-        ch_hostremoval_index = MINIMAP2_INDEX([[], reference]).index
+        ch_hostremoval_index = MINIMAP2_INDEX([[], ch_reference]).index
         ch_versions = ch_versions.mix(MINIMAP2_INDEX.out.versions)
     }
     else if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'hostile') {
@@ -30,11 +30,11 @@ workflow LONGREAD_HOSTREMOVAL {
         ch_hostremoval_index = HOSTILE_FETCH_LONGREADS.out.reference
     }
     else {
-        ch_hostremoval_index = index
+        ch_hostremoval_index = ch_index
     }
 
     if (params.longread_hostremoval_tool == 'minimap2') {
-        MINIMAP2_ALIGN(reads, ch_hostremoval_index, true, 'bai', false, false)
+        MINIMAP2_ALIGN(ch_reads, ch_hostremoval_index, true, 'bai', false, false)
         ch_versions = ch_versions.mix(MINIMAP2_ALIGN.out.versions.first())
         ch_minimap2_mapped = MINIMAP2_ALIGN.out.bam.map { meta, long_reads ->
             [meta, long_reads, []]
@@ -43,7 +43,7 @@ workflow LONGREAD_HOSTREMOVAL {
         // Join BAI back to BAM for host removal statistics
         bam_bai = MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index)
 
-        SAMTOOLS_STATS(bam_bai, [[], reference, []])
+        ch_stats = SAMTOOLS_STATS(bam_bai, [[], ch_reference, []])
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
 
         // Generate unmapped reads FASTQ for downstream taxprofiling
@@ -57,16 +57,17 @@ workflow LONGREAD_HOSTREMOVAL {
         // find the correct files in the index directory
         ch_hostremoval_index_hostile = ch_hostremoval_index.map { _meta, indexdir -> [params.hostremoval_hostile_referencename, indexdir] }
 
-        HOSTILE_CLEAN_LONGREADS(reads, ch_hostremoval_index_hostile)
+        HOSTILE_CLEAN_LONGREADS(ch_reads, ch_hostremoval_index_hostile)
         ch_versions = ch_versions.mix(HOSTILE_CLEAN_LONGREADS.out.versions)
         ch_cleaned_reads = HOSTILE_CLEAN_LONGREADS.out.fastq
         ch_multiqc_files = ch_multiqc_files.mix(HOSTILE_CLEAN_LONGREADS.out.json)
+
+        ch_stats = channel.empty()
     }
 
     emit:
     reads    = ch_cleaned_reads // channel: [ val(meta), [ reads ] ]
-    stats    = SAMTOOLS_STATS.out.stats //channel: [val(meta), [ stats_files ] ]
-    reads    = SAMTOOLS_FASTQ.out.other // channel: [ val(meta), [ reads ] ]
+    stats    = ch_stats //channel: [val(meta), [ stats_files ] ]
     versions = ch_versions // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }

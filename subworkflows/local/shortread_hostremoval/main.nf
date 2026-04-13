@@ -19,17 +19,17 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    if (reference && !index && params.shortread_hostremoval_tool == 'bowtie2') {
+    if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
         ch_hostremoval_index = BOWTIE2_BUILD([[], reference]).index
         ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
     }
-    else if (!index && params.shortread_hostremoval_tool == 'hostile') {
+    else if (!ch_index && params.shortread_hostremoval_tool == 'hostile') {
         HOSTILE_FETCH_SHORTREADS(params.hostremoval_hostile_referencename)
         ch_versions = ch_versions.mix(HOSTILE_FETCH_SHORTREADS.out.versions)
         ch_hostremoval_index = HOSTILE_FETCH_SHORTREADS.out.reference
     }
     else {
-        ch_hostremoval_index = index
+        ch_hostremoval_index = ch_index
     }
 
     if (params.shortread_hostremoval_tool == 'bowtie2') {
@@ -44,7 +44,7 @@ workflow SHORTREAD_HOSTREMOVAL {
         SAMTOOLS_INDEX(BOWTIE2_ALIGN.out.bam)
         ch_bam_bai = BOWTIE2_ALIGN.out.bam.join(SAMTOOLS_INDEX.out.index, remainder: true)
 
-        SAMTOOLS_STATS(ch_bam_bai, [[], reference, []])
+        SAMTOOLS_STATS(ch_bam_bai, [[], ch_reference, []])
         ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
     }
     else if (params.shortread_hostremoval_tool == 'hostile') {
@@ -52,7 +52,7 @@ workflow SHORTREAD_HOSTREMOVAL {
         // find the correct files in the index directory
         ch_hostremoval_index_hostile = ch_hostremoval_index.map { _meta, indexdir -> [params.hostremoval_hostile_referencename, indexdir] }
 
-        HOSTILE_CLEAN_SHORTREADS(reads, ch_hostremoval_index_hostile)
+        HOSTILE_CLEAN_SHORTREADS(ch_reads, ch_hostremoval_index_hostile)
         ch_versions = ch_versions.mix(HOSTILE_CLEAN_SHORTREADS.out.versions)
         ch_cleaned_reads = HOSTILE_CLEAN_SHORTREADS.out.fastq
         ch_multiqc_files = ch_multiqc_files.mix(HOSTILE_CLEAN_SHORTREADS.out.json)
