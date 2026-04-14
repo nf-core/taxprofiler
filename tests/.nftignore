@@ -17,6 +17,7 @@ malt/*/*.rma6
 malt/*/*.log
 metaphlan/*/*.{biom,txt,sam}
 motus/*/*.log
+motus/*/*.out
 motus/*.txt
 multiqc/multiqc_data/*.txt
 multiqc/multiqc_data/fastqc_top_overrepresented_sequences_table.txt
