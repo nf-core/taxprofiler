@@ -62,7 +62,7 @@
                 "multiqc/multiqc_data/multiqc_sources.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
-                 "multiqc/multiqc_plots/pdf/fastqc_adapter_content_plot.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc_adapter_content_plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc_overrepresented_sequences_plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc_per_base_n_content_plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc_per_base_sequence_quality_plot.pdf",
@@ -129,7 +129,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-09T17:35:36.198046039"
+        "timestamp": "2026-04-14T12:20:51.715790889"
     },
     "-profile test_motus": {
         "content": [
@@ -158,16 +158,12 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-09T17:35:36.182518928"
+        "timestamp": "2026-04-14T12:20:51.701496939"
     },
     "motus": {
         "content": [
             [
-                "2612_ERR5766176_B_db1.out:md5,3dcded9a5a870c8fcce90915900c03d1",
-                "2612_ERR5766176_db1.out:md5,72918f1439a2a3d606d1af5b4e9ff292",
-                "2612_ERR5766180_db1.out:md5,f94badab8dfc949fcf92a3a04c03b58d",
-                "2613_ERR5766181_db1.out:md5,615b11613a3cb618a4725bcbd9e4450c",
-                "ERR3201952_ERR3201952_db1.out:md5,e4d56ed888060b6518b4d88feb51cf39"
+
             ],
             [
                 "2612_ERR5766176_B_db1.log contains string 'Finished computation': true",
@@ -176,13 +172,20 @@
                 "2613_ERR5766181_db1.log contains string 'Finished computation': true",
                 "ERR3201952_ERR3201952_db1.log contains string 'Finished computation': true"
             ],
+            [
+                "2612_ERR5766176_B_db1.out contains string 'Leptospira alexanderi: true",
+                "2612_ERR5766176_db1.out contains string 'Leptospira alexanderi: true",
+                "2612_ERR5766180_db1.out contains string 'Leptospira alexanderi: true",
+                "2613_ERR5766181_db1.out contains string 'Leptospira alexanderi: true",
+                "ERR3201952_ERR3201952_db1.out contains string 'Leptospira alexanderi: true"
+            ],
             "motus_db1_combined_reports.txt contains string 'unassigned': true",
             "motus_db1.tsv contains string '165179': true"
         ],
         "meta": {
-            "nf-test": "0.9.2",
+            "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-22T05:13:41.788244427"
+        "timestamp": "2026-04-14T12:20:51.807598317"
     }
 }
