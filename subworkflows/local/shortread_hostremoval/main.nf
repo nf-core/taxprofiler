@@ -2,10 +2,12 @@
 // Remove host reads via alignment and export off-target reads
 //
 
-include { BOWTIE2_BUILD  } from '../../../modules/nf-core/bowtie2/build'
-include { BOWTIE2_ALIGN  } from '../../../modules/nf-core/bowtie2/align'
-include { SAMTOOLS_INDEX } from '../../../modules/nf-core/samtools/index'
-include { SAMTOOLS_STATS } from '../../../modules/nf-core/samtools/stats'
+include { BOWTIE2_BUILD                             } from '../../../modules/nf-core/bowtie2/build'
+include { BOWTIE2_ALIGN                             } from '../../../modules/nf-core/bowtie2/align'
+include { SAMTOOLS_INDEX                            } from '../../../modules/nf-core/samtools/index'
+include { SAMTOOLS_STATS                            } from '../../../modules/nf-core/samtools/stats'
+include { HOSTILE_FETCH as HOSTILE_FETCH_SHORTREADS } from '../../../modules/nf-core/hostile/fetch'
+include { HOSTILE_CLEAN as HOSTILE_CLEAN_SHORTREADS } from '../../../modules/nf-core/hostile/clean'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:
@@ -17,31 +19,47 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    if (!params.shortread_hostremoval_index) {
-        ch_bowtie2_index = BOWTIE2_BUILD([[], ch_reference]).index
+    if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
+        ch_hostremoval_index = BOWTIE2_BUILD([[], ch_reference]).index
         ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
     }
+    else if (!ch_index && params.shortread_hostremoval_tool == 'hostile') {
+        HOSTILE_FETCH_SHORTREADS(params.hostremoval_hostile_referencename)
+        ch_versions = ch_versions.mix(HOSTILE_FETCH_SHORTREADS.out.versions)
+        ch_hostremoval_index = HOSTILE_FETCH_SHORTREADS.out.reference
+    }
     else {
-        ch_bowtie2_index = ch_index.first()
+        ch_hostremoval_index = ch_index
     }
 
-    // Map, generate BAM with all reads and unmapped reads in FASTQ for downstream
-    BOWTIE2_ALIGN(ch_reads, ch_bowtie2_index, [[], ch_reference], true, true)
-    ch_versions = ch_versions.mix(BOWTIE2_ALIGN.out.versions.first())
-    ch_multiqc_files = ch_multiqc_files.mix(BOWTIE2_ALIGN.out.log)
+    if (params.shortread_hostremoval_tool == 'bowtie2') {
+        // Map, generate BAM with all reads and unmapped reads in FASTQ for downstream
+        BOWTIE2_ALIGN(ch_reads, ch_hostremoval_index, [[], ch_reference], true, true)
+        ch_versions = ch_versions.mix(BOWTIE2_ALIGN.out.versions.first())
+        ch_multiqc_files = ch_multiqc_files.mix(BOWTIE2_ALIGN.out.log)
 
-    // Indexing whole BAM for host removal statistics
-    SAMTOOLS_INDEX(BOWTIE2_ALIGN.out.bam)
-    ch_versions = ch_versions.mix(SAMTOOLS_INDEX.out.versions.first())
+        ch_cleaned_reads = BOWTIE2_ALIGN.out.fastq
 
-    bam_bai = BOWTIE2_ALIGN.out.bam.join(SAMTOOLS_INDEX.out.bai, remainder: true)
+        // Indexing whole BAM for host removal statistics
+        SAMTOOLS_INDEX(BOWTIE2_ALIGN.out.bam)
+        ch_bam_bai = BOWTIE2_ALIGN.out.bam.join(SAMTOOLS_INDEX.out.index, remainder: true)
 
-    SAMTOOLS_STATS(bam_bai, [[], ch_reference])
-    ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
+        SAMTOOLS_STATS(ch_bam_bai, [[], ch_reference, []])
+        ch_multiqc_files = ch_multiqc_files.mix(SAMTOOLS_STATS.out.stats)
+    }
+    else if (params.shortread_hostremoval_tool == 'hostile') {
+        // HOSTILE specifically needs a name of the reference to either download or
+        // find the correct files in the index directory
+        ch_hostremoval_index_hostile = ch_hostremoval_index.map { _meta, indexdir -> [params.hostremoval_hostile_referencename, indexdir] }
+
+        HOSTILE_CLEAN_SHORTREADS(ch_reads, ch_hostremoval_index_hostile)
+        ch_versions = ch_versions.mix(HOSTILE_CLEAN_SHORTREADS.out.versions)
+        ch_cleaned_reads = HOSTILE_CLEAN_SHORTREADS.out.fastq
+        ch_multiqc_files = ch_multiqc_files.mix(HOSTILE_CLEAN_SHORTREADS.out.json)
+    }
 
     emit:
-    stats    = SAMTOOLS_STATS.out.stats
-    reads    = BOWTIE2_ALIGN.out.fastq // channel: [ val(meta), [ reads ] ]
+    reads    = ch_cleaned_reads // channel: [ val(meta), [ reads ] ]
     versions = ch_versions // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }

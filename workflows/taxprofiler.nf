@@ -63,15 +63,24 @@ workflow TAXPROFILER {
     adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
     custom_adapters = params.longread_qc_adapterlist ? file(params.longread_qc_adapterlist, checkIfExists: true) : []
 
-    if (params.hostremoval_reference) {
+    if (params.shortread_hostremoval_tool == 'bowtie2' || params.longread_hostremoval_tool == 'bowtie2') {
         ch_reference = file(params.hostremoval_reference)
     }
+    else if (params.shortread_hostremoval_tool == 'hostile' && params.longread_hostremoval_tool == 'hostile') {
+        // Hostile does not accept references directly
+        ch_reference = channel.empty()
+    }
+    else {
+        error('[nf-core/taxprofiler] Invalid host removal parameters selected. Please select check host removal parameter inputs.')
+    }
+
     if (params.shortread_hostremoval_index) {
         ch_shortread_reference_index = channel.fromPath(params.shortread_hostremoval_index, checkIfExists: true).first().map { index -> [[], index] }
     }
     else {
         ch_shortread_reference_index = []
     }
+
     if (params.longread_hostremoval_index) {
         ch_longread_reference_index = channel.fromPath(params.longread_hostremoval_index, checkIfExists: true).first().map { index -> [[], index] }
     }

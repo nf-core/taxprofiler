@@ -381,7 +381,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-07T15:30:09.306580745"
+        "timestamp": "2026-03-31T16:48:10.200608674"
     },
     "nanoq": {
         "content": [
@@ -393,7 +393,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-07T15:30:10.347259034"
+        "timestamp": "2026-03-31T16:48:10.454401565"
     },
     "nonpareil": {
         "content": [
@@ -442,18 +442,18 @@
     "samtools": {
         "content": [
             [
-                "2612_ERR5766176.stats:md5,e1480b2fd221631f995d2fc78336328d",
-                "2612_ERR5766176_B.stats:md5,4c1ed9306c96a1ac1bc005b26cf77bb0",
-                "2612_ERR5766180.stats:md5,68363c54131bc7831ec3148a10c04ca1",
-                "2613_ERR5766181.stats:md5,3790d57396459e2bb24923c8c5947575",
-                "ERR3201952_ERR3201952.stats:md5,4b27072b8c9224f1eefece14d3977d27"
+                "2612_ERR5766176.stats:md5,78b8c74311e5ae288f6b127da8302fe5",
+                "2612_ERR5766176_B.stats:md5,a5338acbe9da94226129b648f812db31",
+                "2612_ERR5766180.stats:md5,7f354e1fd7ace13cca378d073f66d3dc",
+                "2613_ERR5766181.stats:md5,1803fac55f5e781a9e3422049c197955",
+                "ERR3201952_ERR3201952.stats:md5,0374c11ff03521ee0268cbf0bd95d74d"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-03-07T15:30:12.793652238"
+        "timestamp": "2026-03-31T16:48:10.52676185"
     },
     "taxpasta": {
         "content": [
@@ -522,16 +522,16 @@
                     "porechop_abi": "0.5.0"
                 },
                 "SAMTOOLS_FASTQ": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "TAXPASTA_MERGE": {
                     "taxpasta": "0.7.0"
