@@ -10,7 +10,7 @@ fastqc/*_fastqc.{html,zip}
 fastqc/*/*fastqc.zip
 ganon/*/*.log
 kaiju/*/*.{tsv,txt}
-kraken2/*/*.{fastq.gz,txt}
+kraken2/**.{fastq.gz,txt}
 krakenuniq/*/*.txt
 krona/*.html
 malt/*/*.rma6
