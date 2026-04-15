@@ -530,7 +530,7 @@ If you want to download the MetaPhlAn database with MetaPhlAn >= v4.2, please us
 metaphlan --install --db_dir <YOUR_DB_NAME>/
 ```
 
-If you want to download the MetaPhlAn database with MetaPhlAn <= v4.1
+If you want to download the MetaPhlAn database with MetaPhlAn <= v4.1, please use:
 
 ```bash
 metaphlan --install --bowtie2db <YOUR_DB_NAME>/
