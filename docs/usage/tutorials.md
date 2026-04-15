@@ -518,7 +518,19 @@ See the [MALT manual](https://software-ab.informatik.uni-tuebingen.de/download/m
 
 MetaPhlAn does not allow (easy) construction of custom databases. Therefore we recommend to use the prebuilt database of marker genes that is provided by the developers.
 
-To perform this task, ensure that you have installed `MetaPhlAn` on your machine. Keep in mind that each version of MetaPhlAn aligns with a specific version of the database. Therefore, if you download the MetaPhlAn3 database, remember to include `--mpa3` as a parameter for the database in the `--databases` CSV file.
+To perform this task, ensure that you have installed `MetaPhlAn` on your machine. Keep in mind that each version of MetaPhlAn aligns with a specific version of the database.
+
+:::warning
+If you download the MetaPhlAn3 database, remember to also include `--mpa3` as a parameter for the database in the `--databases` CSV file.
+:::
+
+If you want to download the MetaPhlAn database with MetaPhlAn >= v4.2, please use the follow command:
+
+```bash
+metaphlan --install --db_dir <YOUR_DB_NAME>/
+```
+
+If you want to download the MetaPhlAn database with MetaPhlAn <= v4.1, please use:
 
 ```bash
 metaphlan --install --bowtie2db <YOUR_DB_NAME>/
@@ -555,6 +567,10 @@ More information on the MetaPhlAn database can be found [here](https://github.co
 ### mOTUs custom database
 
 mOTUs does not provide the ability to construct custom databases. Therefore we recommend to use the the prebuilt database of marker genes provided by the developers.
+
+:::warning
+Only the database from mOTUs v3 is currently supported!
+:::
 
 :::warning
 **Do not change the directory name of the resulting database if moving to a central location** The database name of `db_mOTU/` is hardcoded in the mOTUs tool

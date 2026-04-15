@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#711](https://github.com/nf-core/taxprofiler/pull/711) Better error strategy for the sylph classifier steps so it doesn't fail if sylph finds no hits (by @sofstam)
 - [#713](https://github.com/nf-core/taxprofiler/pull/713) Improve Nextflow syntax compliance in `.nf` file structure (by @jfy133)
 - [#714](https://github.com/nf-core/taxprofiler/pull/714) Improve nf-core linting compliance with `meta.yaml` files for all local subworkflows (by @jfy133)
+- [#730](https://github.com/nf-core/taxprofiler/pull/730) Minor documentation fixes and updates for mOTUs, MetaPhlAn, and NONPAREIL (by @jfy133)
 
 ### `Changed`
 

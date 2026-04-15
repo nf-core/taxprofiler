@@ -212,7 +212,8 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**KrakenUniq**:](usage/tutorials.md#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
 - [**MALT**](usage/tutorials.md#malt-custom-database) output of `malt-build`.
 - [**MetaPhlAn**:](usage/tutorials.md#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
-- [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
+- [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`
+  - Important: only mOTUs v3 currently supported.
   - Note that you must use `motus downloadDB` and if installed via `conda`, will be placed in a specific `site-package` directory in the conda environment. For more details see the [mOTUs database tutorial](usage/tutorials.md#motus-custom-database).
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
