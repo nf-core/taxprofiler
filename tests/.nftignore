@@ -15,7 +15,7 @@ krakenuniq/*/*.txt
 krona/*.html
 malt/*/*.rma6
 malt/*/*.log
-metaphlan/*/*.{biom,txt,sam}
+metaphlan/**.{biom,txt,sam}
 motus/*/*.log
 motus/*/*.out
 motus/*.txt
