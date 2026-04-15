@@ -22,7 +22,7 @@ workflow SHORTREAD_HOSTREMOVAL {
         ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
     }
     else {
-        ch_bowtie2_index = ch_index.first()
+        ch_bowtie2_index = ch_index
     }
 
     // Map, generate BAM with all reads and unmapped reads in FASTQ for downstream
