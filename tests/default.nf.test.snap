@@ -169,6 +169,18 @@
                 "krona/kaiju_db7.html",
                 "krona/kraken2-bracken_db1.html",
                 "krona/kraken2_db2.html",
+                "melon",
+                "melon/db1",
+                "melon/db1/2614_db1",
+                "melon/db1/2614_db1/ERR3201952_dup.json",
+                "melon/db1/2614_db1/ERR3201952_dup.tsv",
+                "melon/db1/ERR3201952_db1",
+                "melon/db1/ERR3201952_db1/ERR3201952_ERR3201952.unmapped_other.json",
+                "melon/db1/ERR3201952_db1/ERR3201952_ERR3201952.unmapped_other.tsv",
+                "metacache",
+                "metacache/db1",
+                "metacache/db1/2614_db1.mapping.txt",
+                "metacache/db1/ERR3201952_db1.mapping.txt",
                 "metaphlan",
                 "metaphlan/metaphlan3",
                 "metaphlan/metaphlan3/2611_metaphlan3.metaphlan.biom",
@@ -354,7 +366,7 @@
                 "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Species-pct.pdf",
                 "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Unclassified-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Unclassified-pct.pdf",
-                 "multiqc/multiqc_plots/pdf/fastp-insert-size-plot.pdf",
+                "multiqc/multiqc_plots/pdf/fastp-insert-size-plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Merged_and_filtered.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_1_After_filtering.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_1_Before_filtering.pdf",
@@ -564,7 +576,7 @@
                 "multiqc/multiqc_plots/png/samtools_alignment_plot-cnt.png",
                 "multiqc/multiqc_plots/png/samtools_alignment_plot-pct.png",
                 "multiqc/multiqc_plots/svg",
-                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-cnt.svg",
+                "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-cnt.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-pct.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-cnt.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-pct.svg",
@@ -729,6 +741,14 @@
                 "samtools/stats/2612_ERR5766180.stats",
                 "samtools/stats/2613_ERR5766181.stats",
                 "samtools/stats/ERR3201952_ERR3201952.stats",
+                "sylph",
+                "sylph/db1",
+                "sylph/db1/2612_db1.sylph.tsv",
+                "sylph/db1/2612_db1.sylphmpa",
+                "sylph/db1/2613_db1.sylph.tsv",
+                "sylph/db1/2613_db1.sylphmpa",
+                "sylph/db1/ERR3201952_db1.sylph.tsv",
+                "sylph/sylph_db1_combined_reports.tsv",
                 "taxpasta",
                 "taxpasta/bracken_db1.tsv",
                 "taxpasta/centrifuge_db3.tsv",
@@ -748,34 +768,26 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-02-12T14:29:46.792909691"
+        "timestamp": "2026-04-15T11:26:02.703829156"
     },
     "krona": {
         "content": [
             [
-                "centrifuge_db3.html exists:true",
-                "kaiju_db5.html exists:true",
-                "kaiju_db6.html exists:true",
-                "kaiju_db7.html exists:true",
-                "kraken2-bracken_db1.html exists:true",
-                "kraken2_db2.html exists:true"
-            ],
-            [
-                "centrifuge_db3.html",
-                "kaiju_db5.html",
-                "kaiju_db6.html",
-                "kaiju_db7.html",
-                "kraken2-bracken_db1.html",
-                "kraken2_db2.html"
+                "centrifuge_db3.html exists: true",
+                "kaiju_db5.html exists: true",
+                "kaiju_db6.html exists: true",
+                "kaiju_db7.html exists: true",
+                "kraken2-bracken_db1.html exists: true",
+                "kraken2_db2.html exists: true"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:24.210307271"
+        "timestamp": "2026-04-14T15:11:54.802232839"
     },
     "bowtie2": {
         "content": [
@@ -788,21 +800,21 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:15.101200677"
+        "timestamp": "2026-04-15T11:26:02.890891828"
     },
     "nanoq": {
         "content": [
             [
-                "ERR3201952_ERR3201952_filtered.stats"
+                "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:24.280527311"
+        "timestamp": "2026-04-15T11:26:43.425571435"
     },
     "samtools": {
         "content": [
@@ -816,48 +828,32 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:24.381476776"
+        "timestamp": "2026-04-15T11:26:44.035818858"
     },
     "taxpasta": {
         "content": [
-            "bracken_db1.tsv contains string:'9606':true",
-            "centrifuge_db3.tsv contains string:'131567':true",
-            "diamond_db1.tsv contains string:'8058':true",
-            "diamond_db2.tsv contains string:'taxonomy_id':true",
-            "diamond_db3.tsv contains string:'8058':true",
-            "ganon_db1.tsv contains string:'taxonomy_id':true",
-            "kaiju_db5.tsv contains string:'10239':true",
-            "kaiju_db6.tsv contains string:'10239':true",
-            "kaiju_db7.tsv contains string:'10239':true",
-            "kmcp_db1.tsv contains string:'9606':true",
-            "kraken2_db1-bracken.tsv contains string:'131567':true",
-            "kraken2_db2.tsv contains string:'131567':true",
-            "metaphlan_metaphlan3.tsv contains string:'taxonomy_id':true",
-            "metaphlan_metaphlan4.tsv contains string:'1239':true",
-            [
-                "bracken_db1.tsv",
-                "centrifuge_db3.tsv",
-                "diamond_db1.tsv",
-                "diamond_db2.tsv",
-                "diamond_db3.tsv",
-                "ganon_db1.tsv",
-                "kaiju_db5.tsv",
-                "kaiju_db6.tsv",
-                "kaiju_db7.tsv",
-                "kmcp_db1.tsv",
-                "kraken2_db1-bracken.tsv",
-                "kraken2_db2.tsv",
-                "metaphlan_metaphlan3.tsv",
-                "metaphlan_metaphlan4.tsv"
-            ]
+            "bracken_db1.tsv contains string '9606': true",
+            "centrifuge_db3.tsv contains string '131567': true",
+            "diamond_db1.tsv contains string '8058': true",
+            "diamond_db2.tsv contains string 'taxonomy_id': true",
+            "diamond_db3.tsv contains string '8058': true",
+            "ganon_db1.tsv contains string 'taxonomy_id': true",
+            "kaiju_db5.tsv contains string '10239': true",
+            "kaiju_db6.tsv contains string '10239': true",
+            "kaiju_db7.tsv contains string '10239': true",
+            "kmcp_db1.tsv contains string '9606': true",
+            "kraken2_db1-bracken.tsv contains string '131567': true",
+            "kraken2_db2.tsv contains string '131567': true",
+            "metaphlan_metaphlan3.tsv contains string 'taxonomy_id': true",
+            "metaphlan_metaphlan4.tsv contains string '1239': true"
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:24.442180374"
+        "timestamp": "2026-04-14T15:11:55.159858318"
     },
     "bbduk": {
         "content": [
@@ -866,94 +862,98 @@
                 "2612_ERR5766176_B.bbduk.log contains string:true",
                 "2612_ERR5766180.bbduk.log contains string:true",
                 "2613_ERR5766181.bbduk.log contains string:true"
-            ],
-            [
-                "2612_ERR5766176.bbduk.log",
-                "2612_ERR5766176_B.bbduk.log",
-                "2612_ERR5766180.bbduk.log",
-                "2613_ERR5766181.bbduk.log"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:15.08245804"
+        "timestamp": "2026-04-14T15:11:49.531307621"
     },
     "ganon": {
         "content": [
             [
-                "2611_db1.ganon.log contains string:true",
-                "2612_db1.ganon.log contains string:true",
-                "2613_db1.ganon.log contains string:true"
+                "2611_db1.ganon.log contains string 'entries reported': true",
+                "2612_db1.ganon.log contains string 'entries reported': true",
+                "2613_db1.ganon.log contains string 'entries reported': true"
             ],
             [
-                "2611_db1.ganon.rep contains string:true",
-                "2612_db1.ganon.rep contains string:true",
-                "2613_db1.ganon.rep contains string:true"
+                "2611_db1.ganon.rep contains string 'NC_001148.4': true",
+                "2612_db1.ganon.rep contains string 'NC_001148.4': true",
+                "2613_db1.ganon.rep contains string 'NC_001148.4': true"
             ],
             [
-                "2611_db1.ganon.tre contains string:true",
-                "2611_db1.ganon_report.tre contains string:true",
-                "2612_db1.ganon.tre contains string:true",
-                "2612_db1.ganon_report.tre contains string:true",
-                "2613_db1.ganon.tre contains string:true",
-                "2613_db1.ganon_report.tre contains string:true"
+                "2611_db1.ganon.tre contains string 'root': true",
+                "2611_db1.ganon_report.tre contains string 'root': true",
+                "2612_db1.ganon.tre contains string 'root': true",
+                "2612_db1.ganon_report.tre contains string 'root': true",
+                "2613_db1.ganon.tre contains string 'root': true",
+                "2613_db1.ganon_report.tre contains string 'root': true"
             ],
-            "ganon_db1_combined_reports.txt contains string 'root':true",
+            "ganon_db1_combined_reports.txt contains string 'root': true",
             [
-                "db1/2611_db1.ganon.log",
-                "db1/2611_db1.ganon.rep",
-                "db1/2611_db1.ganon.tre",
-                "db1/2611_db1.ganon_report.tre",
-                "db1/2612_db1.ganon.log",
-                "db1/2612_db1.ganon.rep",
-                "db1/2612_db1.ganon.tre",
-                "db1/2612_db1.ganon_report.tre",
-                "db1/2613_db1.ganon.log",
-                "db1/2613_db1.ganon.rep",
-                "db1/2613_db1.ganon.tre",
-                "db1/2613_db1.ganon_report.tre",
-                "ganon_db1_combined_reports.txt"
+                "2611_db1.ganon.rep:md5,b1be294d015636784dd66dbc7f3f0f47",
+                "2611_db1.ganon.tre:md5,79312ad176987ab97efe79274f9d03f2",
+                "2611_db1.ganon_report.tre:md5,79312ad176987ab97efe79274f9d03f2",
+                "2612_db1.ganon.rep:md5,317abc9555fe15a76ccf21624f2bdf86",
+                "2612_db1.ganon.tre:md5,000eb2b555a822af4e811e777dca64cb",
+                "2612_db1.ganon_report.tre:md5,e2eddd80a235dfc46d0a0a73d113d869",
+                "2613_db1.ganon.rep:md5,b7022ac3a8694b0fcb167f7f93d1ceca",
+                "2613_db1.ganon.tre:md5,e3c066281504f20484a13d77155731b3",
+                "2613_db1.ganon_report.tre:md5,b8daad0c4a3d6f9b3458c058bf35d77c",
+                "ganon_db1_combined_reports.txt:md5,86682b88f5ae31e1754b51fcdfc4bc2a"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:19.57247613"
+        "timestamp": "2026-04-14T15:11:50.031277447"
     },
-    "kaiju": {
+    "metacache": {
         "content": [
-            "2611_db5.kaijutable.txt contains string '10239':true",
-            "2611_db5.kaiju.tsv contains string 'ERR5766174.4':true",
-            "2612_db5.kaijutable.txt contains string '10239':true",
-            "2612_db5.kaiju.tsv contains string 'ERR5766180.602':true",
-            "2613_db5.kaijutable.txt contains string '10239':true",
-            "2613_db5.kaiju.tsv contains string 'ERR5766181.1':true",
-            "kaiju_db5_combined_reports.txt contains string '10239':true",
-            "2614_db6.kaijutable.txt contains string '10239':true",
-            "2614_db6.kaiju.tsv contains string 'ERR3201952.1794060':true",
-            "ERR3201952_db6.kaijutable.txt contains string 'Viruses':true",
-            "ERR3201952_db6.kaiju.tsv contains string 'ERR3201952.1159044':true",
-            "kaiju_db6_combined_reports.txt contains string '10239':true",
-            "2611_db7.kaijutable.txt contains string '10239':true",
-            "2611_db7.kaiju.tsv contains string 'ERR5766174.4':true",
-            "2612_db7.kaijutable.txt contains string '10239':true",
-            "2612_db7.kaiju.tsv contains string 'ERR5766180.602':true",
-            "2613_db7.kaijutable.txt contains string '10239':true",
-            "2613_db7.kaiju.tsv contains string 'ERR5766181.2':true",
-            "2614_db7.kaijutable.txt contains string '10239':true",
-            "2614_db7.kaiju.tsv contains string 'ERR3201952.1794060':true",
-            "ERR3201952_db7.kaijutable.txt contains string '10239':true",
-            "ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.1159044':true",
-            "kaiju_db7_combined_reports.txt contains string '10239':true"
+            [
+                "2614_db1.mapping.txt contains string 'Penicillium roqueforti': true",
+                "ERR3201952_db1.mapping.txt contains string 'Penicillium roqueforti': true"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:19.930657058"
+        "timestamp": "2026-04-14T15:11:54.83090624"
+    },
+    "kaiju": {
+        "content": [
+            "2611_db5.kaijutable.txt contains string '10239': true",
+            "2611_db5.kaiju.tsv contains string 'ERR5766174.4': true",
+            "2612_db5.kaijutable.txt contains string '10239': true",
+            "2612_db5.kaiju.tsv contains string 'ERR5766180.602': true",
+            "2613_db5.kaijutable.txt contains string '10239': true",
+            "2613_db5.kaiju.tsv contains string 'ERR5766181.1': true",
+            "kaiju_db5_combined_reports.txt contains string '10239': true",
+            "2614_db6.kaijutable.txt contains string '10239': true",
+            "2614_db6.kaiju.tsv contains string 'ERR3201952.1794060': true",
+            "ERR3201952_db6.kaijutable.txt contains string 'Viruses': true",
+            "ERR3201952_db6.kaiju.tsv contains string 'ERR3201952.1159044': true",
+            "kaiju_db6_combined_reports.txt contains string '10239': true",
+            "2611_db7.kaijutable.txt contains string '10239': true",
+            "2611_db7.kaiju.tsv contains string 'ERR5766174.4': true",
+            "2612_db7.kaijutable.txt contains string '10239': true",
+            "2612_db7.kaiju.tsv contains string 'ERR5766180.602': true",
+            "2613_db7.kaijutable.txt contains string '10239': true",
+            "2613_db7.kaiju.tsv contains string 'ERR5766181.2': true",
+            "2614_db7.kaijutable.txt contains string '10239': true",
+            "2614_db7.kaiju.tsv contains string 'ERR3201952.1794060': true",
+            "ERR3201952_db7.kaijutable.txt contains string '10239': true",
+            "ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.1159044': true",
+            "kaiju_db7_combined_reports.txt contains string '10239': true"
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-04-14T15:11:50.401036796"
     },
     "bracken": {
         "content": [
@@ -969,171 +969,128 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:15.12463315"
+        "timestamp": "2026-04-15T11:26:02.962967595"
     },
     "diamond": {
         "content": [
             [
-                "2611_db1.diamond.log contains string:true",
-                "2612_db1.diamond.log contains string:true",
-                "2613_db1.diamond.log contains string:true",
-                "2614_db2.diamond.log contains string:true",
-                "ERR3201952_db2.diamond.log contains string:true",
-                "2611_db3.diamond.log contains string:true",
-                "2612_db3.diamond.log contains string:true",
-                "2613_db3.diamond.log contains string:true",
-                "2614_db3.diamond.log contains string:true",
-                "ERR3201952_db3.diamond.log contains string:true"
+                "2611_db1.diamond.log contains string 'queries aligned': true",
+                "2612_db1.diamond.log contains string 'queries aligned': true",
+                "2613_db1.diamond.log contains string 'queries aligned': true",
+                "2614_db2.diamond.log contains string 'queries aligned': true",
+                "ERR3201952_db2.diamond.log contains string 'queries aligned': true",
+                "2611_db3.diamond.log contains string 'queries aligned': true",
+                "2612_db3.diamond.log contains string 'queries aligned': true",
+                "2613_db3.diamond.log contains string 'queries aligned': true",
+                "2614_db3.diamond.log contains string 'queries aligned': true",
+                "ERR3201952_db3.diamond.log contains string 'queries aligned': true"
             ],
-            "2611_db1.diamond.tsv contains string 'ERR5766174.77':true",
-            "2612_db1.diamond.tsv contains string 'ERR5766180.773':true",
-            "2613_db1.diamond.tsv contains string 'ERR5766181.59':true",
-            "2614_db2.diamond.tsv contains string 'ERR3201952.882919':true",
-            "ERR3201952_db2.diamond.tsv contains string 'ERR3201952.882919':true",
-            "2611_db3.diamond.tsv contains string 'ERR5766174.77':true",
-            "2612_db3.diamond.tsv contains string 'ERR5766180.773':true",
-            "2613_db3.diamond.tsv contains string 'ERR5766181.59':true",
-            "2614_db3.diamond.tsv contains string 'ERR3201952.882919':true",
-            "ERR3201952_db3.diamond.tsv contains string 'ERR3201952.882919':true",
-            [
-                "db1/2611_db1.diamond.log",
-                "db1/2611_db1.diamond.tsv",
-                "db1/2612_db1.diamond.log",
-                "db1/2612_db1.diamond.tsv",
-                "db1/2613_db1.diamond.log",
-                "db1/2613_db1.diamond.tsv",
-                "db2/2614_db2.diamond.log",
-                "db2/2614_db2.diamond.tsv",
-                "db2/ERR3201952_db2.diamond.log",
-                "db2/ERR3201952_db2.diamond.tsv",
-                "db3/2611_db3.diamond.log",
-                "db3/2611_db3.diamond.tsv",
-                "db3/2612_db3.diamond.log",
-                "db3/2612_db3.diamond.tsv",
-                "db3/2613_db3.diamond.log",
-                "db3/2613_db3.diamond.tsv",
-                "db3/2614_db3.diamond.log",
-                "db3/2614_db3.diamond.tsv",
-                "db3/ERR3201952_db3.diamond.log",
-                "db3/ERR3201952_db3.diamond.tsv"
-            ]
+            "2611_db1.diamond.tsv contains string 'ERR5766174.77': true",
+            "2612_db1.diamond.tsv contains string 'ERR5766180.773': true",
+            "2613_db1.diamond.tsv contains string 'ERR5766181.59': true",
+            "2614_db2.diamond.tsv contains string 'ERR3201952.882919': true",
+            "ERR3201952_db2.diamond.tsv contains string 'ERR3201952.882919': true",
+            "2611_db3.diamond.tsv contains string 'ERR5766174.77': true",
+            "2612_db3.diamond.tsv contains string 'ERR5766180.773': true",
+            "2613_db3.diamond.tsv contains string 'ERR5766181.59': true",
+            "2614_db3.diamond.tsv contains string 'ERR3201952.882919': true",
+            "ERR3201952_db3.diamond.tsv contains string 'ERR3201952.882919': true"
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:19.491100272"
+        "timestamp": "2026-04-14T15:11:49.964408307"
     },
     "metaphlan": {
         "content": [
             [
-                "2611_metaphlan3.metaphlan.biom contains string:true",
-                "2612_metaphlan3.metaphlan.biom contains string:true",
-                "2613_metaphlan3.metaphlan.biom contains string:true",
-                "2611_metaphlan4.metaphlan.biom contains string:true",
-                "2612_metaphlan4.metaphlan.biom contains string:true",
-                "2613_metaphlan4.metaphlan.biom contains string:true"
+                "2611_metaphlan3.metaphlan.biom contains string 'generated_by': true",
+                "2612_metaphlan3.metaphlan.biom contains string 'generated_by': true",
+                "2613_metaphlan3.metaphlan.biom contains string 'generated_by': true",
+                "2611_metaphlan4.metaphlan.biom contains string 'generated_by': true",
+                "2612_metaphlan4.metaphlan.biom contains string 'generated_by': true",
+                "2613_metaphlan4.metaphlan.biom contains string 'generated_by': true"
             ],
             [
-                "2611_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
-                "2612_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
-                "2613_metaphlan3.metaphlan.bowtie2out.txt contains string:true",
-                "2611_metaphlan4.metaphlan.bowtie2out.txt contains string:true",
-                "2612_metaphlan4.metaphlan.bowtie2out.txt contains string:true",
-                "2613_metaphlan4.metaphlan.bowtie2out.txt contains string:true"
+                "2611_metaphlan3.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2612_metaphlan3.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2613_metaphlan3.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2611_metaphlan4.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2612_metaphlan4.metaphlan.bowtie2out.txt contains string 'avg_read_length': true",
+                "2613_metaphlan4.metaphlan.bowtie2out.txt contains string 'avg_read_length': true"
             ],
             [
-                "2611_metaphlan3.metaphlan_profile.txt contains string:true",
-                "2612_metaphlan3.metaphlan_profile.txt contains string:true",
-                "2613_metaphlan3.metaphlan_profile.txt contains string:true",
-                "2611_metaphlan4.metaphlan_profile.txt contains string:true",
-                "2612_metaphlan4.metaphlan_profile.txt contains string:true",
-                "2613_metaphlan4.metaphlan_profile.txt contains string:true"
+                "2611_metaphlan3.metaphlan_profile.txt contains string 'clade_name': true",
+                "2612_metaphlan3.metaphlan_profile.txt contains string 'clade_name': true",
+                "2613_metaphlan3.metaphlan_profile.txt contains string 'clade_name': true",
+                "2611_metaphlan4.metaphlan_profile.txt contains string 'clade_name': true",
+                "2612_metaphlan4.metaphlan_profile.txt contains string 'clade_name': true",
+                "2613_metaphlan4.metaphlan_profile.txt contains string 'clade_name': true"
             ],
-            "metaphlan_metaphlan3_combined_reports.txt contains string: 'UNCLASSIFIED':true",
-            "metaphlan_metaphlan4_combined_reports.txt contains string: 't__SGB4933_group':true",
+            "metaphlan_metaphlan3_combined_reports.txt contains string 'UNCLASSIFIED': true",
+            "metaphlan_metaphlan4_combined_reports.txt contains string 't__SGB4933_group': true",
             [
-                "metaphlan3/2611_metaphlan3.metaphlan.biom",
-                "metaphlan3/2611_metaphlan3.metaphlan.bowtie2out.txt",
-                "metaphlan3/2611_metaphlan3.metaphlan.sam",
-                "metaphlan3/2611_metaphlan3.metaphlan_profile.txt",
-                "metaphlan3/2612_metaphlan3.metaphlan.biom",
-                "metaphlan3/2612_metaphlan3.metaphlan.bowtie2out.txt",
-                "metaphlan3/2612_metaphlan3.metaphlan.sam",
-                "metaphlan3/2612_metaphlan3.metaphlan_profile.txt",
-                "metaphlan3/2613_metaphlan3.metaphlan.biom",
-                "metaphlan3/2613_metaphlan3.metaphlan.bowtie2out.txt",
-                "metaphlan3/2613_metaphlan3.metaphlan.sam",
-                "metaphlan3/2613_metaphlan3.metaphlan_profile.txt",
-                "metaphlan4/2611_metaphlan4.metaphlan.biom",
-                "metaphlan4/2611_metaphlan4.metaphlan.bowtie2out.txt",
-                "metaphlan4/2611_metaphlan4.metaphlan.sam",
-                "metaphlan4/2611_metaphlan4.metaphlan_profile.txt",
-                "metaphlan4/2612_metaphlan4.metaphlan.biom",
-                "metaphlan4/2612_metaphlan4.metaphlan.bowtie2out.txt",
-                "metaphlan4/2612_metaphlan4.metaphlan.sam",
-                "metaphlan4/2612_metaphlan4.metaphlan_profile.txt",
-                "metaphlan4/2613_metaphlan4.metaphlan.biom",
-                "metaphlan4/2613_metaphlan4.metaphlan.bowtie2out.txt",
-                "metaphlan4/2613_metaphlan4.metaphlan.sam",
-                "metaphlan4/2613_metaphlan4.metaphlan_profile.txt",
-                "metaphlan_metaphlan3_combined_reports.txt",
-                "metaphlan_metaphlan4_combined_reports.txt"
+
             ]
         ],
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.2",
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:24.255641571"
+        "timestamp": "2026-04-15T09:05:52.024752635"
     },
     "porechop_abi": {
         "content": [
-            "ERR3201952_ERR3201952_porechop_abi.log contains string: 'Looking for known adapter':true",
+            "ERR3201952_ERR3201952_porechop_abi.log contains string 'Looking for known adapter': true"
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-04-14T15:11:55.048796048"
+    },
+    "sylph": {
+        "content": [
+            "sylph_db1_combined_reports.tsv contains string 'Penicillium roqueforti': true",
             [
-                "ERR3201952_ERR3201952_porechop_abi.log"
+                "2612_db1.sylph.tsv:md5,a84853a9ea0e88e62f3caa13f28ef945",
+                "2612_db1.sylphmpa:md5,a0832fc0d249a96e5c22afaa63e0bba8",
+                "2613_db1.sylph.tsv:md5,609a51bbcbbfe48ad780d0dadd1105e4",
+                "2613_db1.sylphmpa:md5,253491defa87230970e890256dc0cb02",
+                "ERR3201952_db1.sylph.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:24.359920904"
+        "timestamp": "2026-04-14T15:11:55.217101911"
     },
     "kraken2": {
         "content": [
-            "2611_db2.kraken2.kraken2.report.txt contains string:'Homo sapiens':true",
-            "2611_db2.kraken2.classified.fastq.gz contains string 'ERR5766174.15494 kraken:taxid|559292':[>ERR5766174.15494 kraken:taxid|559292]",
-            "2611_db2.kraken2.unclassified.fastq.gz contains string '>ERR5766174.184799':[>ERR5766174.184799]",
-            "2612_db2.kraken2.kraken2.report.txt contains string:'Saccharomyces cerevisiae S288C':true",
-            "2612_db2.kraken2.classified.fastq.gz contains string:'@ERR5766180.35963':[@ERR5766180.35963 kraken:taxid|9606]",
-            "2612_db2.kraken2.unclassified.fastq.gz contains string:'@ERR5766180.601927':[@ERR5766180.601927]",
-            "2613_db2.kraken2.kraken2.report.txt contains string:'Saccharomyces cerevisiae S288C':true",
-            "2613_db2.kraken2.classified.fastq.gz contains string:'@ERR5766181.6866':[@ERR5766181.6866 kraken:taxid|9606]",
-            "2613_db2.kraken2.unclassified.fastq.gz contains string:'@ERR5766181.108601':[@ERR5766181.108601]",
-            "kraken2_db1-bracken_combined_reports.txt contains string:'Saccharomyces cerevisiae S288C':true",
-            "kraken2_db2_combined_reports.txt contains string:'Saccharomyces cerevisiae S288C':true",
+            "2611_db2.kraken2.kraken2.report.txt contains string 'Homo sapiens': true",
+            "2611_db2.kraken2.classified.fastq.gz contains string 'ERR5766174.15494 kraken:taxid|559292': [>ERR5766174.15494 kraken:taxid|559292]",
+            "2611_db2.kraken2.unclassified.fastq.gz contains string '>ERR5766174.184799': [>ERR5766174.184799]",
+            "2612_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true",
+            "2612_db2.kraken2.classified.fastq.gz contains string '@ERR5766180.35963': [@ERR5766180.35963 kraken:taxid|9606]",
+            "2612_db2.kraken2.unclassified.fastq.gz contains string '@ERR5766180.601927': [@ERR5766180.601927]",
+            "2613_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true",
+            "2613_db2.kraken2.classified.fastq.gz contains string '@ERR5766181.6866': [@ERR5766181.6866 kraken:taxid|9606]",
+            "2613_db2.kraken2.unclassified.fastq.gz contains string '@ERR5766181.108601': [@ERR5766181.108601]",
+            "kraken2_db1-bracken_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
+            "kraken2_db2_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
             [
-                "db2/2611_db2.kraken2.classified.fastq.gz",
-                "db2/2611_db2.kraken2.kraken2.report.txt",
-                "db2/2611_db2.kraken2.unclassified.fastq.gz",
-                "db2/2612_db2.kraken2.classified.fastq.gz",
-                "db2/2612_db2.kraken2.kraken2.report.txt",
-                "db2/2612_db2.kraken2.unclassified.fastq.gz",
-                "db2/2613_db2.kraken2.classified.fastq.gz",
-                "db2/2613_db2.kraken2.kraken2.report.txt",
-                "db2/2613_db2.kraken2.unclassified.fastq.gz",
-                "kraken2_db1-bracken_combined_reports.txt",
-                "kraken2_db2_combined_reports.txt"
+
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:24.183676934"
+        "timestamp": "2026-04-15T11:26:43.013855166"
     },
     "-profile test": {
         "content": [
@@ -1143,14 +1100,17 @@
                 },
                 "BOWTIE2_ALIGN": {
                     "bowtie2": "2.5.4",
-                    "samtools": 1.21,
-                    "pigz": 2.8
+                    "pigz": 2.8,
+                    "samtools": 1.21
                 },
                 "BOWTIE2_BUILD": {
                     "bowtie2": "2.5.4"
                 },
                 "BRACKEN_BRACKEN": {
                     "bracken": "3.0.1"
+                },
+                "BRACKEN_COMBINEBRACKENOUTPUTS": {
+                    "combine_bracken_output": 2.9
                 },
                 "CENTRIFUGE_CENTRIFUGE": {
                     "centrifuge": "1.0.4"
@@ -1182,6 +1142,9 @@
                 "GANON_TABLE": {
                     "ganon": "2.1.0"
                 },
+                "KAIJU_KAIJU": {
+                    "kaiju": "1.10.0"
+                },
                 "KAIJU_KAIJU2KRONA": {
                     "kaiju": "1.10.0"
                 },
@@ -1189,9 +1152,6 @@
                     "kaiju": "1.10.0"
                 },
                 "KAIJU_KAIJU2TABLE_SINGLE": {
-                    "kaiju": "1.10.0"
-                },
-                "KAIJU_KAIJU": {
                     "kaiju": "1.10.0"
                 },
                 "KMCP_PROFILE": {
@@ -1213,14 +1173,17 @@
                 "KRAKENTOOLS_KREPORT2KRONA": {
                     "kreport2krona.py": 1.2
                 },
-                "KRONA_CLEANUP": {
-                    "sed": 4.7
-                },
                 "KRONA_KTIMPORTTEXT": {
                     "krona": "2.8.1"
                 },
+                "MELON": {
+                    "melon": "0.2.5"
+                },
                 "MERGE_RUNS": {
                     "cat": 9.5
+                },
+                "METACACHE_QUERY": {
+                    "metacache": "2.5.0"
                 },
                 "METAPHLAN_MERGEMETAPHLANTABLES": {
                     "metaphlan": "4.1.1"
@@ -1265,6 +1228,15 @@
                 "SAMTOOLS_VIEW": {
                     "samtools": "1.22.1"
                 },
+                "SYLPHTAX_MERGE": {
+                    "sylph-tax": "1.2.0"
+                },
+                "SYLPHTAX_TAXPROF": {
+                    "sylph-tax": "1.2.0"
+                },
+                "SYLPH_PROFILE": {
+                    "sylph": "0.7.0"
+                },
                 "TAXPASTA_MERGE": {
                     "taxpasta": "0.7.0"
                 },
@@ -1272,117 +1244,91 @@
                     "untar": 1.34
                 },
                 "Workflow": {
-                    "nf-core/taxprofiler": "v1.2.6"
+                    "nf-core/taxprofiler": "v2.0.0"
                 }
             }
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-02-12T14:29:46.671648743"
+        "timestamp": "2026-04-15T11:26:02.413315166"
     },
     "centrifuge": {
         "content": [
             [
-                "centrifuge_db3_combined_reports.txt contains string:true",
-                "2612_db3.centrifuge.report.txt contains string:true",
-                "2612_db3.centrifuge.results.txt contains string:true",
-                "2612_db3.centrifuge.txt contains string:true",
-                "2613_db3.centrifuge.report.txt contains string:true",
-                "2613_db3.centrifuge.results.txt contains string:true",
-                "2613_db3.centrifuge.txt contains string:true"
+                "2612_db3.centrifuge.report.txt contains string 'Homo sapiens': true",
+                "2613_db3.centrifuge.report.txt contains string 'Homo sapiens': true"
             ],
-            "2612_db3.centrifuge.mapped.fastq.gz contains string '@ERR5766176.5733':[@ERR5766176.5733, @ERR5766176.5733]",
-            "2612_db3.centrifuge.unmapped.fastq.gz contains string '@ERR5766176.191984':[@ERR5766176.191984, @ERR5766176.191984]",
-            "2613_db3.centrifuge.mapped.fastq.gz contains string '@ERR5766181.3868':[@ERR5766181.3868]",
-            "2613_db3.centrifuge.unmapped.fastq.gz contains string '@ERR5766181.537239':[@ERR5766181.537239]",
             [
-                "centrifuge_db3_combined_reports.txt",
-                "db3/2612_db3.centrifuge.mapped.fastq.gz",
-                "db3/2612_db3.centrifuge.report.txt",
-                "db3/2612_db3.centrifuge.results.txt",
-                "db3/2612_db3.centrifuge.txt",
-                "db3/2612_db3.centrifuge.unmapped.fastq.gz",
-                "db3/2613_db3.centrifuge.mapped.fastq.gz",
-                "db3/2613_db3.centrifuge.report.txt",
-                "db3/2613_db3.centrifuge.results.txt",
-                "db3/2613_db3.centrifuge.txt",
-                "db3/2613_db3.centrifuge.unmapped.fastq.gz"
+                "2612_db3.centrifuge.results.txt contains string '4392': true",
+                "2613_db3.centrifuge.results.txt contains string '4392': true"
+            ],
+            [
+                "2612_db3.centrifuge.txt contains string 'Homo sapiens': true",
+                "2613_db3.centrifuge.txt contains string 'Homo sapiens': true"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:19.435972225"
+        "timestamp": "2026-04-14T15:11:49.909035301"
     },
     "nonpareil": {
         "content": [
             [
-                "2612_ERR5766176.npa contains string:true",
-                "2612_ERR5766176_B.npa contains string:true",
-                "2612_ERR5766180.npa contains string:true",
-                "2613_ERR5766181.npa contains string:true"
+                "2612_ERR5766176.npa contains string '0.00': true",
+                "2612_ERR5766176_B.npa contains string '0.00': true",
+                "2612_ERR5766180.npa contains string '0.00': true",
+                "2613_ERR5766181.npa contains string '0.00': true"
             ],
             [
-                "2612_ERR5766176.npl contains string:true",
-                "2612_ERR5766176_B.npl contains string:true",
-                "2612_ERR5766180.npl contains string:true",
-                "2613_ERR5766181.npl contains string:true"
+                "2612_ERR5766176.npl contains string 'Average read length': true",
+                "2612_ERR5766176_B.npl contains string 'Average read length': true",
+                "2612_ERR5766180.npl contains string 'Average read length': true",
+                "2613_ERR5766181.npl contains string 'Average read length': true"
             ],
             [
-                "2612_ERR5766176.npo contains string:true",
-                "2612_ERR5766176_B.npo contains string:true",
-                "2612_ERR5766180.npo contains string:true",
-                "2613_ERR5766181.npo contains string:true"
+                "2612_ERR5766176.npo contains string '@version': true",
+                "2612_ERR5766176_B.npo contains string '@version': true",
+                "2612_ERR5766180.npo contains string '@version': true",
+                "2613_ERR5766181.npo contains string '@version': true"
             ],
-            "2612_ERR5766176_B.npc contains string:'177104':true",
+            "2612_ERR5766176_B.npc contains string '177104': true",
             "File 2612_ERR5766176_B.png exists:  true",
-            "2612_ERR5766176.npc contains string:'205699':true",
+            "2612_ERR5766176.npc contains string '205699': true",
             "File 2612_ERR5766176.png exists:  true",
-            "2612_ERR5766180.npc contains string:'143862':true",
+            "2612_ERR5766180.npc contains string '143862': true",
             "File 2612_ERR5766180.png exists:  true",
-            "2613_ERR5766181.npc contains string:'127039':true",
+            "2613_ERR5766181.npc contains string '127039': true",
             "File 2613_ERR5766181.png exists:  true",
-            "nonpareil_all_samples.csv contains string:'modelR':true",
-            "nonpareil_all_samples.json contains string:'log.sample':true",
+            "nonpareil_all_samples.csv contains string 'modelR': true",
+            "nonpareil_all_samples.json contains string 'log.sample': true",
             "File nonpareil_all_samples_mqc.png exists:  true",
             "File nonpareil_all_samples.pdf exists:  true",
-            "nonpareil_all_samples.tsv contains string:'diversity':true",
+            "nonpareil_all_samples.tsv contains string 'diversity': true"
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        },
+        "timestamp": "2026-04-14T15:11:55.01402829"
+    },
+    "melon": {
+        "content": [
             [
-                "2612_ERR5766176.npa",
-                "2612_ERR5766176.npc",
-                "2612_ERR5766176.npl",
-                "2612_ERR5766176.npo",
-                "2612_ERR5766176.png",
-                "2612_ERR5766176_B.npa",
-                "2612_ERR5766176_B.npc",
-                "2612_ERR5766176_B.npl",
-                "2612_ERR5766176_B.npo",
-                "2612_ERR5766176_B.png",
-                "2612_ERR5766180.npa",
-                "2612_ERR5766180.npc",
-                "2612_ERR5766180.npl",
-                "2612_ERR5766180.npo",
-                "2612_ERR5766180.png",
-                "2613_ERR5766181.npa",
-                "2613_ERR5766181.npc",
-                "2613_ERR5766181.npl",
-                "2613_ERR5766181.npo",
-                "2613_ERR5766181.png",
-                "nonpareil_all_samples.csv",
-                "nonpareil_all_samples.json",
-                "nonpareil_all_samples.pdf",
-                "nonpareil_all_samples.tsv",
-                "nonpareil_all_samples_mqc.png"
+                "ERR3201952_dup.json:md5,293a437efc4be9d8b34fa05acb292828",
+                "ERR3201952_dup.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799",
+                "ERR3201952_ERR3201952.unmapped_other.json:md5,293a437efc4be9d8b34fa05acb292828",
+                "ERR3201952_ERR3201952.unmapped_other.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:24.32971159"
+        "timestamp": "2026-04-15T11:26:43.37748018"
     },
     "kmcp": {
         "content": [
@@ -1394,43 +1340,29 @@
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:19.954799738"
+        "timestamp": "2026-04-15T11:26:25.349515446"
     },
     "fastp": {
         "content": [
             [
-                "2612_ERR5766176.fastp.json contains string:true",
-                "2612_ERR5766176_B.fastp.json contains string:true",
-                "2612_ERR5766180.fastp.json contains string:true",
-                "2613_ERR5766181.fastp.json contains string:true"
+                "2612_ERR5766176.fastp.json contains string 'fastp_version': true",
+                "2612_ERR5766176_B.fastp.json contains string 'fastp_version': true",
+                "2612_ERR5766180.fastp.json contains string 'fastp_version': true",
+                "2613_ERR5766181.fastp.json contains string 'fastp_version': true"
             ],
             [
-                "2612_ERR5766176.fastp.log contains string:true",
-                "2612_ERR5766176_B.fastp.log contains string:true",
-                "2612_ERR5766180.fastp.log contains string:true",
-                "2613_ERR5766181.fastp.log contains string:true"
-            ],
-            [
-                "2612_ERR5766176.fastp.html",
-                "2612_ERR5766176.fastp.json",
-                "2612_ERR5766176.fastp.log",
-                "2612_ERR5766176_B.fastp.html",
-                "2612_ERR5766176_B.fastp.json",
-                "2612_ERR5766176_B.fastp.log",
-                "2612_ERR5766180.fastp.html",
-                "2612_ERR5766180.fastp.json",
-                "2612_ERR5766180.fastp.log",
-                "2613_ERR5766181.fastp.html",
-                "2613_ERR5766181.fastp.json",
-                "2613_ERR5766181.fastp.log"
+                "2612_ERR5766176.fastp.log contains string 'Detecting adapter sequence': true",
+                "2612_ERR5766176_B.fastp.log contains string 'Detecting adapter sequence': true",
+                "2612_ERR5766180.fastp.log contains string 'Detecting adapter sequence': true",
+                "2613_ERR5766181.fastp.log contains string 'Detecting adapter sequence': true"
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nextflow": "25.10.4"
         },
-        "timestamp": "2026-01-28T16:46:19.535068755"
+        "timestamp": "2026-04-15T11:26:06.102980408"
     }
 }

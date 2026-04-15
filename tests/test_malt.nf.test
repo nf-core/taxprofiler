@@ -1,0 +1,42 @@
+nextflow_pipeline {
+
+    name "Test malt"
+    script "../main.nf"
+    tag "pipeline"
+    tag "test_malt"
+    profile "test_malt"
+
+    test("-profile test_malt") {
+
+        when {
+            params {
+                outdir = "$outputDir"
+            }
+        }
+
+        then {
+            def stable_name_all     = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_content_malt = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["malt/**"], ignoreFile: 'tests/.nftignore')
+
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
+                ).match() },
+
+                { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
+                { assert new File("$outputDir/multiqc/multiqc_report.html").exists() },
+                { assert snapshot ( stable_name_all ).match("all_files") },
+                { assert snapshot (
+                        stable_content_malt,
+                        getAllFilesFromDir("$outputDir/malt", include: ['**.log']).collect { file -> "${file.getName()} contains string 'Peak memory:': " + file.text.contains("Peak memory:")},
+                        getAllFilesFromDir("$outputDir/malt", include: ['**.rma6']).collect { file -> "${file.getName()} file size more than '600000': " + "${file.length() > 600000}" },
+                    ).match("malt")
+                },
+
+            )
+
+        }
+    }
+}

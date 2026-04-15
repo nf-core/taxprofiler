@@ -160,6 +160,16 @@
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
                         "installed_by": ["modules"]
                     },
+                    "melon": {
+                        "branch": "master",
+                        "git_sha": "83fe5c85a83aae68a6eb0561e04cbba1e153ac5a",
+                        "installed_by": ["modules"]
+                    },
+                    "metacache/query": {
+                        "branch": "master",
+                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "installed_by": ["modules"]
+                    },
                     "metaphlan/mergemetaphlantables": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
@@ -183,6 +193,11 @@
                     "motus/merge": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "installed_by": ["modules"]
+                    },
+                    "motus/preplong": {
+                        "branch": "master",
+                        "git_sha": "44a142b45f70e3fbc80d0d0e38a8c788ec17545f",
                         "installed_by": ["modules"]
                     },
                     "motus/profile": {
@@ -222,7 +237,7 @@
                     },
                     "porechop/abi": {
                         "branch": "master",
-                        "git_sha": "06c8865e36741e05ad32ef70ab3fac127486af48",
+                        "git_sha": "956a7c2d20df53c1e6acc05ca9dd5059bb9cca99",
                         "installed_by": ["modules"]
                     },
                     "porechop/porechop": {
@@ -255,14 +270,29 @@
                         "git_sha": "5cb9a8694da0a0e550921636bb60bc8c56445fd7",
                         "installed_by": ["modules"]
                     },
+                    "sylph/profile": {
+                        "branch": "master",
+                        "git_sha": "905850725a129463c8108efa952e5b1df62e3bb6",
+                        "installed_by": ["modules"]
+                    },
+                    "sylphtax/merge": {
+                        "branch": "master",
+                        "git_sha": "635aec1a50ccbea3a89fa1b0956457606732f0f6",
+                        "installed_by": ["modules"]
+                    },
+                    "sylphtax/taxprof": {
+                        "branch": "master",
+                        "git_sha": "83b10fcc4e99f362d30cd73606c08036d18c7ade",
+                        "installed_by": ["modules"]
+                    },
                     "taxpasta/merge": {
                         "branch": "master",
-                        "git_sha": "f9aa121d8b7f3b01d052ecac9175145592eb6041",
+                        "git_sha": "1959ef7e16e74283d0b7ac638a040ca138350a43",
                         "installed_by": ["modules"]
                     },
                     "taxpasta/standardise": {
                         "branch": "master",
-                        "git_sha": "f9aa121d8b7f3b01d052ecac9175145592eb6041",
+                        "git_sha": "1959ef7e16e74283d0b7ac638a040ca138350a43",
                         "installed_by": ["modules"]
                     },
                     "untar": {
@@ -281,7 +311,7 @@
                     },
                     "utils_nfcore_pipeline": {
                         "branch": "master",
-                        "git_sha": "65f5e638d901a51534c68fd5c1c19e8112fb4df1",
+                        "git_sha": "f0b535b3ae20080f8db03dd5388876ad1ec29d70",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfschema_plugin": {

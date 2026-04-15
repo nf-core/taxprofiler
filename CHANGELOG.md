@@ -3,6 +3,51 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.0.0 [unreleased]
+
+### `Added`
+
+- [#682](https://github.com/nf-core/taxprofiler/pull/682) Added metacache classifier and improved nf-tests (added by @sofstam)
+- [#559](https://github.com/nf-core/taxprofiler/pull/559) Profiling of long reads with motus (added by @LilyAnderssonLee and @sofstam )
+- [#591](https://github.com/nf-core/taxprofiler/pull/591) Add options to enable the `abi` option to predict adapters or provide a custom adapter list for `porechop_abi` (❤️ to @AlexHoratio for suggesting, fix by @LilyAnderssonLee and @sofstam)
+- [#595](https://github.com/nf-core/taxprofiler/pull/595) **New classifier** [sylph](https://github.com/bluenote-1577/sylph) (added by @sofstam)
+- [#608](https://github.com/nf-core/taxprofiler/pull/608) **New classifier** [melon](https://github.com/xinehc/melon) (added by @parisis and @sofstam)
+- [#694](https://github.com/nf-core/taxprofiler/pull/694) Developer and contributor documentation (by @jfy133)
+- [#698](https://github.com/nf-core/taxprofiler/pull/698) Add new config and nf-test for `test_falcobbduk` (by @jfy133)
+- [#699](https://github.com/nf-core/taxprofiler/pull/699) Add new config and nf-test for `test_fastpnonpareilkrakenuniq` (by @jfy133)
+- [#703](https://github.com/nf-core/taxprofiler/pull/703) Change stable branch name from `master` to `main` (by @jfy133)
+- [#705](https://github.com/nf-core/taxprofiler/pull/705) Add new config and nf-test for `test_malt` (by @jfy133)
+- [#707](https://github.com/nf-core/taxprofiler/pull/707) Add new config and nf-test for `test_motus` (by @jfy133)
+- [#709](https://github.com/nf-core/taxprofiler/pull/709) Add new config and nf-test for `test_nopreprocessing` (by @jfy133)
+
+### `Fixed`
+
+- [#711](https://github.com/nf-core/taxprofiler/pull/711) Better error strategy for the sylph classifier steps so it doesn't fail if sylph finds no hits (by @sofstam)
+- [#713](https://github.com/nf-core/taxprofiler/pull/713) Improve Nextflow syntax compliance in `.nf` file structure (by @jfy133)
+- [#714](https://github.com/nf-core/taxprofiler/pull/714) Improve nf-core linting compliance with `meta.yaml` files for all local subworkflows (by @jfy133)
+- [#730](https://github.com/nf-core/taxprofiler/pull/730) Minor documentation fixes and updates for mOTUs, MetaPhlAn, and NONPAREIL (by @jfy133)
+
+### `Changed`
+
+- [#696](https://github.com/nf-core/taxprofiler/pull/696) Switch Slack channel reporting to nf-slack plugin for AWS Megatests (by @jfy133)
+
+### `Deprecated`
+
+- [#710](https://github.com/nf-core/taxprofiler/pull/710) Removed the custom script krona_cleanup due to hardcoded taxonomic ranks causing krona plots to not being properly updated. (by @sofstam)
+- [#698](https://github.com/nf-core/taxprofiler/pull/698) Deprecate `test_bbduk` and `test_falco` test profiles (merged into `test_falcobbduk`) (by @jfy133)
+- [#696](https://github.com/nf-core/taxprofiler/pull/696) Remove hook_url from the pipeline configuration, cf[tools#4051](https://github.com/nf-core/tools/pull/4051) (by @jfy133 and @FriederikeHanssen)
+- [#699](https://github.com/nf-core/taxprofiler/pull/699) Deprecate `test_fastp` and `test_krakenuniq` test profiles (merged into `test_fastpnonpareilkrakenuniq`) (by @jfy133)
+- [#714](https://github.com/nf-core/taxprofiler/pull/714) Renamed modules KRAKEN2_STANDARD_REPORT and KRONA_CLEANUP for consistency with nf-core guidelines (by @jfy133)
+
+### `Dependencies`
+
+| Tool      | Previous version | New version |
+| --------- | ---------------- | ----------- |
+| sylph     |                  | 0.7.0       |
+| sylphtax  |                  | 1.2.0       |
+| melon     |                  | 0.2.5       |
+| metacache |                  | 2.5.0       |
+
 ## v1.2.6 - [2026-02-16]
 
 ### `Added`
@@ -98,7 +143,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#576](https://github.com/nf-core/taxprofiler/pull/576) Sort input to krakenuniq to enable retrieval of cached batch tasks (❤️ to @muniheart for reporting and fix)
 - [#569](https://github.com/nf-core/taxprofiler/pull/569) Updated to nf-core pipeline template v3.1.2 (added by @sofstam)
 - [#571](https://github.com/nf-core/taxprofiler/pull/571) Updated to nf-core pipeline template v3.2.0 (added by @sofstam)
--
 
 ### `Fixed`
 

@@ -1,0 +1,58 @@
+//
+// Perform read trimming and filtering
+//
+
+include { FASTQC as FASTQC_PROCESSED } from '../../../modules/nf-core/fastqc'
+include { FALCO as FALCO_PROCESSED   } from '../../../modules/nf-core/falco'
+
+include { LONGREAD_ADAPTERREMOVAL    } from '../longread_adapterremoval'
+include { LONGREAD_FILTERING         } from '../longread_filtering'
+
+workflow LONGREAD_PREPROCESSING {
+    take:
+    ch_reads
+    ch_custom_adapters
+
+    main:
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
+
+    if (!params.longread_qc_skipadaptertrim && params.longread_qc_skipqualityfilter) {
+        LONGREAD_ADAPTERREMOVAL(ch_reads, ch_custom_adapters)
+        ch_processed_reads = LONGREAD_ADAPTERREMOVAL.out.reads
+        ch_versions = ch_versions.mix(LONGREAD_ADAPTERREMOVAL.out.versions.first())
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_ADAPTERREMOVAL.out.mqc)
+    }
+    else if (params.longread_qc_skipadaptertrim && !params.longread_qc_skipqualityfilter) {
+        LONGREAD_FILTERING(ch_reads)
+        ch_processed_reads = LONGREAD_FILTERING.out.reads
+        ch_versions = ch_versions.mix(LONGREAD_FILTERING.out.versions.first())
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_FILTERING.out.mqc)
+    }
+    else {
+        LONGREAD_ADAPTERREMOVAL(ch_reads, ch_custom_adapters)
+        ch_clipped_reads = LONGREAD_ADAPTERREMOVAL.out.reads.map { meta, clipped_long_reads -> [meta + [single_end: true], clipped_long_reads] }
+        LONGREAD_FILTERING(ch_clipped_reads)
+        ch_processed_reads = LONGREAD_FILTERING.out.reads
+        ch_versions = ch_versions.mix(LONGREAD_ADAPTERREMOVAL.out.versions.first())
+        ch_versions = ch_versions.mix(LONGREAD_FILTERING.out.versions.first())
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_ADAPTERREMOVAL.out.mqc)
+        ch_multiqc_files = ch_multiqc_files.mix(LONGREAD_FILTERING.out.mqc)
+    }
+
+    if (params.preprocessing_qc_tool == 'fastqc') {
+        FASTQC_PROCESSED(ch_processed_reads)
+        ch_versions = ch_versions.mix(FASTQC_PROCESSED.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(FASTQC_PROCESSED.out.zip)
+    }
+    else if (params.preprocessing_qc_tool == 'falco') {
+        FALCO_PROCESSED(ch_processed_reads)
+        ch_versions = ch_versions.mix(FALCO_PROCESSED.out.versions)
+        ch_multiqc_files = ch_multiqc_files.mix(FALCO_PROCESSED.out.txt)
+    }
+
+    emit:
+    reads    = ch_processed_reads // channel: [ val(meta), [ reads ] ]
+    versions = ch_versions // channel: [ versions.yml ]
+    mqc      = ch_multiqc_files
+}
