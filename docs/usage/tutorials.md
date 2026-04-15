@@ -524,7 +524,7 @@ To perform this task, ensure that you have installed `MetaPhlAn` on your machine
 If you download the MetaPhlAn3 database, remember to also include `--mpa3` as a parameter for the database in the `--databases` CSV file.
 :::
 
-If you want to download the MetaPhlAn database with MetaPhlAn >= v4.2
+If you want to download the MetaPhlAn database with MetaPhlAn >= v4.2, please use the follow command:
 
 ```bash
 metaphlan --install --db_dir <YOUR_DB_NAME>/
