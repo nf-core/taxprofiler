@@ -770,7 +770,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T19:44:58.652731117"
+        "timestamp": "2026-04-15T11:26:02.703829156"
     },
     "krona": {
         "content": [
@@ -802,7 +802,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T15:11:49.550107859"
+        "timestamp": "2026-04-15T11:26:02.890891828"
     },
     "nanoq": {
         "content": [
@@ -814,7 +814,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T15:11:54.933536337"
+        "timestamp": "2026-04-15T11:26:43.425571435"
     },
     "samtools": {
         "content": [
@@ -830,7 +830,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T15:11:55.079127627"
+        "timestamp": "2026-04-15T11:26:44.035818858"
     },
     "taxpasta": {
         "content": [
@@ -971,7 +971,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T15:11:49.574613125"
+        "timestamp": "2026-04-15T11:26:02.962967595"
     },
     "diamond": {
         "content": [
@@ -1033,7 +1033,7 @@
             "metaphlan_metaphlan3_combined_reports.txt contains string 'UNCLASSIFIED': true",
             "metaphlan_metaphlan4_combined_reports.txt contains string 't__SGB4933_group': true",
             [
-                
+
             ]
         ],
         "meta": {
@@ -1083,15 +1083,14 @@
             "kraken2_db1-bracken_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
             "kraken2_db2_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
             [
-                "kraken2_db1-bracken_combined_reports.txt:md5,5041aeeaf372fc7e7d06e7e9eb8ba0e7",
-                "kraken2_db2_combined_reports.txt:md5,3f0e82a2f537d587388e9f652dcb6a1c"
+
             ]
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T15:11:54.77296739"
+        "timestamp": "2026-04-15T11:26:43.013855166"
     },
     "-profile test": {
         "content": [
@@ -1253,7 +1252,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T15:11:49.410914781"
+        "timestamp": "2026-04-15T11:26:02.413315166"
     },
     "centrifuge": {
         "content": [
@@ -1329,7 +1328,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T15:11:54.904816698"
+        "timestamp": "2026-04-15T11:26:43.37748018"
     },
     "kmcp": {
         "content": [
@@ -1343,7 +1342,7 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T15:11:50.430972614"
+        "timestamp": "2026-04-15T11:26:25.349515446"
     },
     "fastp": {
         "content": [
@@ -1364,6 +1363,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-04-14T15:11:49.998333045"
+        "timestamp": "2026-04-15T11:26:06.102980408"
     }
 }
