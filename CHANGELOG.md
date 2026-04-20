@@ -15,8 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool      | Previous version | New version |
-| --------- | ---------------- | ----------- |
+| Tool | Previous version | New version |
+| ---- | ---------------- | ----------- |
 
 ## v2.0.0 - [2026-04-15]
 
