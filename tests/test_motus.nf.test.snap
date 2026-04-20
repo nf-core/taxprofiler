@@ -150,7 +150,7 @@
                     "taxpasta": "0.7.0"
                 },
                 "Workflow": {
-                    "nf-core/taxprofiler": "v2.0.0"
+                    "nf-core/taxprofiler": "v2.1.0dev"
                 }
             }
         ],

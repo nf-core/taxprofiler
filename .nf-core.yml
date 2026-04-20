@@ -10,7 +10,7 @@ template:
   outdir: .
   skip_features:
     - igenomes
-  version: 2.0.0
+  version: 2.1.0dev
 lint:
   files_unchanged:
     - .github/PULL_REQUEST_TEMPLATE.md
