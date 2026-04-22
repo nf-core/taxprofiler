@@ -127,6 +127,7 @@ We thank the following people for their contributions to the development of this
 - [Alex Caswell](https://github.com/AlexHoratio)
 - [Aidan Epstein](https://github.com/epstein6)
 - [Efthymios Parisis](https://github.com/eparisis)
+- [Leila Nasirzadeh](https://github.com/Leilanasd)
 
 ### Acknowledgments
 
