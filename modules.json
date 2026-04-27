@@ -52,7 +52,7 @@
                     },
                     "diamond/blastx": {
                         "branch": "master",
-                        "git_sha": "3fc6d40d163d89ae44d40a00b9017d5a9df5170e",
+                        "git_sha": "1b534ad2336876dbe82e9fea2773334cb624b426",
                         "installed_by": ["modules"]
                     },
                     "falco": {
