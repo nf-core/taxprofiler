@@ -1,4 +1,10 @@
-nf_core_version: 3.5.1
+lint:
+  files_exist:
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config
+  files_unchanged:
+    - .github/PULL_REQUEST_TEMPLATE.md
+nf_core_version: 4.0.0
 repository_type: pipeline
 template:
   author: James A. Fellows Yates, Sofia Stamouli, Moritz E. Beber, Lili Andersson-Li,
@@ -12,4 +18,4 @@ template:
   outdir: .
   skip_features:
     - igenomes
-  version: 1.2.5
+  version: 2.1.0dev
