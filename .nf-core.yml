@@ -4,7 +4,7 @@ lint:
     - conf/igenomes_ignored.config
   files_unchanged:
     - .github/PULL_REQUEST_TEMPLATE.md
-nf_core_version: 4.0.0
+nf_core_version: 4.0.2
 repository_type: pipeline
 template:
   author: James A. Fellows Yates, Sofia Stamouli, Moritz E. Beber, Lili Andersson-Li,
