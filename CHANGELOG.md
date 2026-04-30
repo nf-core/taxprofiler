@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#736](https://github.com/nf-core/taxprofiler/issues/736) Fix MultiQC silently skipping large samtools stats files by increasing `log_filesize_limit` in MultiQC config (reported and fixed by @Leilanasd)
+
 ### `Changed`
 
 ### `Deprecated`
