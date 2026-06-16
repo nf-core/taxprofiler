@@ -11,13 +11,14 @@ fastqc/*/*fastqc.zip
 ganon/*/*.log
 hostile/*/*.{json,fastq.gz}
 kaiju/*/*.{tsv,txt}
-kraken2/*/*.{fastq.gz,txt}
+kraken2/**.{fastq.gz,txt}
 krakenuniq/*/*.txt
 krona/*.html
 malt/*/*.rma6
 malt/*/*.log
-metaphlan/*/*.{biom,txt,sam}
+metaphlan/**.{biom,txt,sam}
 motus/*/*.log
+motus/*/*.out
 motus/*.txt
 multiqc/multiqc_data/*.txt
 multiqc/multiqc_data/fastqc_top_overrepresented_sequences_table.txt
@@ -38,7 +39,6 @@ ganon/*/*.log
 kaiju/*/*.{tsv,txt}
 kraken2/*/*.{fastq.gz,txt}
 krona/*.html
-metaphlan/*/*.{biom,txt,sam}
 nonpareil/*.{npa,npc,npl,npo,png,csv,json,pdf}
 nonpareil/nonpareil_all_samples.tsv
 pipeline_info/*.{html,json,txt,yml}

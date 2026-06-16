@@ -1,4 +1,10 @@
-nf_core_version: 3.5.2
+lint:
+  files_exist:
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config
+  files_unchanged:
+    - .github/PULL_REQUEST_TEMPLATE.md
+nf_core_version: 4.0.2
 repository_type: pipeline
 template:
   author: James A. Fellows Yates, Sofia Stamouli, Moritz E. Beber, Lili Andersson-Li, and the nf-core/taxprofiler team
@@ -10,10 +16,4 @@ template:
   outdir: .
   skip_features:
     - igenomes
-  version: 2.0.0
-lint:
-  files_unchanged:
-    - .github/PULL_REQUEST_TEMPLATE.md
-  files_exist:
-    - conf/igenomes.config
-    - conf/igenomes_ignored.config
+  version: 2.0.2dev

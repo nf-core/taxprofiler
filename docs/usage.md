@@ -212,7 +212,8 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 - [**KrakenUniq**:](usage/tutorials.md#krakenuniq-custom-database) output of `krakenuniq-build` command(s).
 - [**MALT**](usage/tutorials.md#malt-custom-database) output of `malt-build`.
 - [**MetaPhlAn**:](usage/tutorials.md#metaphlan-custom-database) output of with `metaphlan --install` or downloaded from links on the [MetaPhlAn wiki](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4#customizing-the-database).
-- [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`.
+- [**mOTUs**:](usage/tutorials.md#motus-custom-database) the directory `db_mOTU/` that is downloaded via `motus downloadDB`
+  - Important: only mOTUs v3 currently supported.
   - Note that you must use `motus downloadDB` and if installed via `conda`, will be placed in a specific `site-package` directory in the conda environment. For more details see the [mOTUs database tutorial](usage/tutorials.md#motus-custom-database).
 - [**ganon**:](usage/tutorials.md#ganon-custom-database) output of `ganon build` or `ganon build-custom`.
 - [**KMCP**:](usage/tutorials.md#kmcp-custom-database) output of `kmcp index`. Note: `kmcp index` uses the output of an upstream `kmcp compute` step.
@@ -660,7 +661,7 @@ Specify the path to a specific config file (this is a core Nextflow command). Se
 
 Whilst the default requirements set within the pipeline will hopefully work for most people and with most input data, you may find that you want to customise the compute resources that the pipeline requests. Each step in the pipeline has a default set of requirements for number of CPUs, memory and time. For most of the pipeline steps, if the job exits with any of the error codes specified [here](https://github.com/nf-core/rnaseq/blob/4c27ef5610c87db00c3c5a3eed10b1d161abf575/conf/base.config#L18) it will automatically be resubmitted with higher resources request (2 x original, then 3 x original). If it still fails after the third attempt then the pipeline execution is stopped.
 
-To change the resource requests, please see the [max resources](https://nf-co.re/docs/usage/configuration#max-resources) and [tuning workflow resources](https://nf-co.re/docs/usage/configuration#tuning-workflow-resources) section of the nf-core website.
+To change the resource requests, please see the [max resources](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#set-max-resources) and [customise process resources](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#customize-process-resources) section of the nf-core website.
 
 :::warning
 If modifying `--krakenuniq_ram_chunk_size` or KrakenUniq's `--preload-size` parameters in a `--databases` CSV file, make sure to update your workflow resources for the KRAKENUNIQ/PRELOADEDKRAKENUNIQ process to match the same value!
@@ -681,13 +682,13 @@ Otherwise by default the pipeline will request 16GB of memory for this process b
 
 In some cases, you may wish to change the container or conda environment used by a pipeline steps for a particular tool. By default, nf-core pipelines use containers and software from the [biocontainers](https://biocontainers.pro/) or [bioconda](https://bioconda.github.io/) projects. However, in some cases the pipeline specified version maybe out of date.
 
-To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/usage/configuration#updating-tool-versions) section of the nf-core website.
+To use a different container from the default container or conda environment specified in a pipeline, please see the [updating tool versions](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#update-tool-versions) section of the nf-core website.
 
 ### Custom Tool Arguments
 
 A pipeline might not always support every possible argument or option of a particular tool used in pipeline. Fortunately, nf-core pipelines provide some freedom to users to insert additional parameters that the pipeline does not include by default.
 
-To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/usage/configuration#customising-tool-arguments) section of the nf-core website.
+To learn how to provide additional arguments to a particular tool of the pipeline, please see the [customising tool arguments](https://nf-co.re/docs/running/configuration/nextflow-for-your-system#modifying-tool-arguments) section of the nf-core website.
 
 ### nf-core/configs
 

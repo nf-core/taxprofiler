@@ -301,6 +301,7 @@
                 "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Species-pct.pdf",
                 "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Unclassified-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Unclassified-pct.pdf",
+                "multiqc/multiqc_plots/pdf/fastqc-status-check-heatmap.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc_adapter_content_plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc_overrepresented_sequences_plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc_per_base_n_content_plot.pdf",
@@ -377,6 +378,7 @@
                 "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Species-pct.png",
                 "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Unclassified-cnt.png",
                 "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Unclassified-pct.png",
+                "multiqc/multiqc_plots/png/fastqc-status-check-heatmap.png",
                 "multiqc/multiqc_plots/png/fastqc_adapter_content_plot.png",
                 "multiqc/multiqc_plots/png/fastqc_overrepresented_sequences_plot.png",
                 "multiqc/multiqc_plots/png/fastqc_per_base_n_content_plot.png",
@@ -453,6 +455,7 @@
                 "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Species-pct.svg",
                 "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Unclassified-cnt.svg",
                 "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Unclassified-pct.svg",
+                "multiqc/multiqc_plots/svg/fastqc-status-check-heatmap.svg",
                 "multiqc/multiqc_plots/svg/fastqc_adapter_content_plot.svg",
                 "multiqc/multiqc_plots/svg/fastqc_overrepresented_sequences_plot.svg",
                 "multiqc/multiqc_plots/svg/fastqc_per_base_n_content_plot.svg",
@@ -509,11 +512,11 @@
                 "sylph/db1/ERR3201952_ERR3201952_db1.sylphmpa"
             ]
         ],
+        "timestamp": "2026-06-08T11:06:14.55052",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-04-09T17:42:18.236369681"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "ganon": {
         "content": [
@@ -561,11 +564,11 @@
                 "2613_ERR5766181_db1.ganon_report.tre:md5,7f0dca3f162b404848b611d9cdb4ffb0"
             ]
         ],
+        "timestamp": "2026-06-08T11:06:15.650434",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-25T12:18:55.129216986"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "metacache": {
         "content": [
@@ -574,11 +577,11 @@
                 "ERR3201952_ERR3201952_db1.mapping.txt contains string 'Penicillium roqueforti': true"
             ]
         ],
+        "timestamp": "2026-06-08T11:06:16.627665",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T05:19:49.095172156"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "kaiju": {
         "content": [
@@ -611,11 +614,11 @@
             "ERR3201952_ERR3201952_db7.kaijutable.txt contains string '10239':true",
             "ERR3201952_ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.3334323':true"
         ],
+        "timestamp": "2026-06-08T11:06:16.416721",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-25T12:18:57.159150844"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "bracken": {
         "content": [
@@ -632,11 +635,11 @@
                 "2613_ERR5766181_db1.bracken.tsv:md5,2d3022913990b29d929f4177b52bc008"
             ]
         ],
+        "timestamp": "2026-06-08T11:06:14.623469",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-04-01T21:12:46.827058506"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "diamond": {
         "content": [
@@ -671,11 +674,11 @@
             "2614_ERR3201952_db3.diamond.tsv contains string 'ERR3201952.1276975':true",
             "ERR3201952_ERR3201952_db3.diamond.tsv contains string 'ERR3201952.1276975':true"
         ],
+        "timestamp": "2026-06-08T11:06:15.585966",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T05:19:48.665438887"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "metaphlan": {
         "content": [
@@ -716,11 +719,11 @@
                 "2613_ERR5766181_metaphlan4.metaphlan_profile.txt contains string 'clade_name': true"
             ]
         ],
+        "timestamp": "2026-06-08T11:06:16.700827",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-25T10:40:53.892852763"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "sylph": {
         "content": [
@@ -737,11 +740,11 @@
                 "ERR3201952_ERR3201952_db1.sylphmpa:md5,902af46f2bfff0858f6e1a672f2f7178"
             ]
         ],
+        "timestamp": "2026-06-08T11:06:16.755269",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-04-01T21:12:59.734126641"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "-profile test_nopreprocessing": {
         "content": [
@@ -756,7 +759,7 @@
                     "centrifuge": "1.0.4"
                 },
                 "DIAMOND_BLASTX": {
-                    "diamond": "2.1.12"
+                    "diamond": "2.2.1"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -811,15 +814,15 @@
                     "untar": 1.34
                 },
                 "Workflow": {
-                    "nf-core/taxprofiler": "v2.0.0"
+                    "nf-core/taxprofiler": "v2.0.2dev"
                 }
             }
         ],
+        "timestamp": "2026-06-08T11:06:14.500276",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-04-09T17:42:18.172240635"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "kraken2": {
         "content": [
@@ -829,11 +832,11 @@
             "2612_ERR5766180_db2.kraken2.kraken2.report.txt contains string:'Saccharomyces cerevisiae S288C':true",
             "2613_ERR5766181_db2.kraken2.kraken2.report.txt contains string:'Saccharomyces cerevisiae S288C':true"
         ],
+        "timestamp": "2026-06-08T11:06:16.517324",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-25T12:18:58.781264219"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "centrifuge": {
         "content": [
@@ -856,11 +859,11 @@
                 "2613_ERR5766181_db3.centrifuge.txt contains string 'Homo sapiens': true"
             ]
         ],
+        "timestamp": "2026-06-08T11:06:15.412326",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
-        },
-        "timestamp": "2026-03-26T05:19:48.592093542"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "melon": {
         "content": [
@@ -871,11 +874,11 @@
                 "ERR3201952.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799"
             ]
         ],
+        "timestamp": "2026-06-08T11:06:16.571234",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-04-01T21:12:59.599333626"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     },
     "kmcp": {
         "content": [
@@ -887,10 +890,10 @@
                 "2613_ERR5766181_db1.kmcp.profile:md5,836b26ea68ab5d2cd98868c3a480dc02"
             ]
         ],
+        "timestamp": "2026-06-08T11:06:16.459818",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
-        },
-        "timestamp": "2026-04-01T21:12:59.560959176"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
+        }
     }
 }

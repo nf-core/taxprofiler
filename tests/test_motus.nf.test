@@ -41,6 +41,7 @@ nextflow_pipeline {
                 { assert snapshot (
                         stable_content_motus,
                         getAllFilesFromDir("$outputDir/motus", include: ['**.log']).collect { file -> "${file.getName()} contains string 'Finished computation': " + file.text.contains("Finished computation")},
+                        getAllFilesFromDir("$outputDir/motus", include: ['**.out']).collect { file -> "${file.getName()} contains string 'Leptospira alexanderi: " + file.text.contains("Leptospira alexanderi")},
                         file("$outputDir/motus/motus_db1_combined_reports.txt").getName() + " contains string 'unassigned': " + file("$outputDir/motus/motus_db1_combined_reports.txt").text.contains("unassigned"),
                         file("$outputDir/taxpasta/motus_db1.tsv").getName() + " contains string '165179': " + file("$outputDir/taxpasta/motus_db1.tsv").text.contains("165179"),
                     ).match("motus")

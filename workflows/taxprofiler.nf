@@ -51,13 +51,17 @@ include { CAT_FASTQ as MERGE_RUNS       } from '../modules/nf-core/cat/fastq/mai
 
 workflow TAXPROFILER {
     take:
-    samplesheet // channel: samplesheet read in from --input
+    ch_samplesheet // channel: samplesheet read in from --input
     databases // channel: databases from --databases
+    multiqc_config
+    multiqc_logo
+    multiqc_methods_description
+    outdir
 
     main:
 
-    ch_versions = channel.empty()
-    ch_multiqc_files = channel.empty()
+    def ch_versions = channel.empty()
+    def ch_multiqc_files = channel.empty()
 
     // Preprocessing auxiliary file input channel preperation
     adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
@@ -91,7 +95,7 @@ workflow TAXPROFILER {
     }
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
-    ch_input = samplesheet.branch { meta, _run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+    ch_input = ch_samplesheet.branch { meta, _run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
         fastq: meta.single_end || fastq_2
         return [meta + [type: "short"], fastq_2 ? [fastq_1, fastq_2] : [fastq_1]]
         nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
@@ -161,7 +165,6 @@ workflow TAXPROFILER {
         }
         else {
             FASTQC(ch_input_for_fastqc)
-            ch_versions = ch_versions.mix(FASTQC.out.versions.first())
         }
     }
 
@@ -286,78 +289,6 @@ workflow TAXPROFILER {
         ch_versions = ch_versions.mix(STANDARDISATION_PROFILES.out.versions)
     }
 
-    /*
-        MODULE: MultiQC
-    */
-
-    //
-    // Collate and save software versions
-    //
-    def topic_versions = channel.topic("versions")
-        .distinct()
-        .branch { entry ->
-            versions_file: entry instanceof Path
-            versions_tuple: true
-        }
-
-    def topic_versions_string = topic_versions.versions_tuple
-        .map { process, tool, version ->
-            [process[process.lastIndexOf(':') + 1..-1], "  ${tool}: ${version}"]
-        }
-        .groupTuple(by: 0)
-        .map { process, tool_versions ->
-            tool_versions.unique().sort()
-            "${process}:\n${tool_versions.join('\n')}"
-        }
-
-    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
-        .mix(topic_versions_string)
-        .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
-            name: 'nf_core_' + 'taxprofiler_software_' + 'mqc_' + 'versions.yml',
-            sort: true,
-            newLine: true,
-        )
-        .set { ch_collated_versions }
-
-
-    //
-    // MODULE: MultiQC
-    //
-    ch_multiqc_config = channel.fromPath(
-        "${projectDir}/assets/multiqc_config.yml",
-        checkIfExists: true
-    )
-    ch_multiqc_custom_config = params.multiqc_config
-        ? channel.fromPath(params.multiqc_config, checkIfExists: true)
-        : channel.empty()
-    ch_multiqc_logo = params.multiqc_logo
-        ? channel.fromPath(params.multiqc_logo, checkIfExists: true)
-        : channel.empty()
-
-    summary_params = paramsSummaryMap(
-        workflow,
-        parameters_schema: "nextflow_schema.json"
-    )
-    ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
-    ch_multiqc_files = ch_multiqc_files.mix(
-        ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml')
-    )
-    ch_multiqc_custom_methods_description = params.multiqc_methods_description
-        ? file(params.multiqc_methods_description, checkIfExists: true)
-        : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
-    ch_methods_description = channel.value(
-        methodsDescriptionText(ch_multiqc_custom_methods_description)
-    )
-
-    ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
-    ch_multiqc_files = ch_multiqc_files.mix(
-        ch_methods_description.collectFile(
-            name: 'methods_description_mqc.yaml',
-            sort: true,
-        )
-    )
-
     if (!params.skip_preprocessing_qc) {
         if (params.preprocessing_qc_tool == 'falco') {
             // only mix in files actually used by MultiQC
@@ -400,16 +331,72 @@ workflow TAXPROFILER {
         ch_multiqc_files = ch_multiqc_files.mix(STANDARDISATION_PROFILES.out.mqc.collect { mqc -> mqc[1] }.ifEmpty([]))
     }
 
+        //
+    // Collate and save software versions
+    //
+    def topic_versions = channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
+
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [process[process.lastIndexOf(':') + 1..-1], "  ${tool}: ${version}"]
+        }
+        .groupTuple(by: 0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
+
+    def ch_collated_versions = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
+        .collectFile(
+            storeDir: "${outdir}/pipeline_info",
+            name: 'nf_core_'  +  'taxprofiler_software_'  + 'mqc_'  + 'versions.yml',
+            sort: true,
+            newLine: true
+        )
+
+    //
+    // MODULE: MultiQC
+    //
+    ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
+    def ch_summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
+    def ch_workflow_summary = channel.value(paramsSummaryMultiqc(ch_summary_params))
+    ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
+    def ch_multiqc_custom_methods_description = multiqc_methods_description
+        ? file(multiqc_methods_description, checkIfExists: true)
+        : file("${projectDir}/assets/methods_description_template.yml", checkIfExists: true)
+    def ch_methods_description = channel.value(methodsDescriptionText(ch_multiqc_custom_methods_description))
+    ch_multiqc_files = ch_multiqc_files.mix(ch_methods_description.collectFile(name: 'methods_description_mqc.yaml', sort: true))
+
     MULTIQC(
-        ch_multiqc_files.collect(),
-        ch_multiqc_config.toList(),
-        ch_multiqc_custom_config.toList(),
-        ch_multiqc_logo.toList(),
-        [],
-        [],
+        ch_multiqc_files.flatten().collect().map { files ->
+            [
+                [id: 'taxprofiler'],
+                files,
+                multiqc_config
+                    ? file(multiqc_config, checkIfExists: true)
+                    : file("${projectDir}/assets/multiqc_config.yml", checkIfExists: true),
+                multiqc_logo ? file(multiqc_logo, checkIfExists: true) : [],
+                [],
+                [],
+            ]
+        }
+    )
+
+    ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
+    ch_multiqc_files = ch_multiqc_files.mix(
+        ch_methods_description.collectFile(
+            name: 'methods_description_mqc.yaml',
+            sort: true,
+        )
     )
 
     emit:
-    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
-    versions       = ch_versions // channel: [ path(versions.yml) ]
+    multiqc_report = MULTIQC.out.report.map { _meta, report -> [report] }.toList() // channel: /path/to/multiqc_report.html
+    versions       = ch_versions                 // channel: [ path(versions.yml) ]
 }
