@@ -75,6 +75,13 @@ nextflow_pipeline {
                     ).match("centrifuge")
                 },
 
+                // centrifuger
+                { assert snapshot(
+                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.classification.tsv']).collect{file -> file.getName() + " contains string 'Homo sapiens': " + file.text.contains("Homo sapiens") },
+                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.report.tsv']).collect{file -> file.getName() + " contains string '5082': " + file.text.contains("5082") }
+                    ).match("centrifuger")
+                },
+
                 // DIAMOND
                 { assert snapshot(
                         getAllFilesFromDir("$outputDir/diamond", include: ['**/*diamond.log']).collect{file -> file.getName() + " contains string 'queries aligned': " + file.text.contains("queries aligned") },

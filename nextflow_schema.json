@@ -454,6 +454,17 @@
                     "description": "Turn on saving of Centrifuge-aligned reads",
                     "help_text": "Save mapped (SAM, FASTQ) and unmapped (FASTQ) reads from alignment step of centrifuge in your output results directory.\n\n> Modifies tool parameter(s):\n> - centrifuge: `--un-gz`, `--al-gz`, `--un-conc-gz`, `--al-conc-gz`, `--out-fmt`"
                 },
+                "run_centrifuger": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turn on profiling with Centrifuger. Requires database to be present CSV file passed to --databases"
+                },
+                "centrifuger_save_reads": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Turn on saving of Centrifuger-aligned reads",
+                    "help_text": "Save classified and unclassified reads from centrifuger in your output results directory.\n\n> Modifies tool parameter(s):\n> - centrifuger: `--save-slassiffied`, `--save-unclassified`"
+                },
                 "run_diamond": {
                     "type": "boolean",
                     "fa_icon": "fas fa-toggle-on",
