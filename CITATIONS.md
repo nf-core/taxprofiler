@@ -73,9 +73,9 @@
 
   > Constantinides, B., Hunt, M., Crook, D.W., 2023. Hostile: accurate decontamination of microbial host sequences. Bioinformatics 39. https://doi.org/10.1093/bioinformatics/btad728
 
- - [Deacon](https://doi.org/10.1101/2025.06.09.658732)
+- [Deacon](https://doi.org/10.1101/2025.06.09.658732)
 
-  > Constantinides, B., Lees, J., Crook, D.W., 2025. Deacon: fast sequence filtering and contaminant depletion. bioRxiv 2025.06.09.658732. https://doi.org/10.1101/2025.06.09.658732
+> Constantinides, B., Lees, J., Crook, D.W., 2025. Deacon: fast sequence filtering and contaminant depletion. bioRxiv 2025.06.09.658732. https://doi.org/10.1101/2025.06.09.658732
 
 - [Bracken](https://doi.org/10.7717/peerj-cs.104)
 
