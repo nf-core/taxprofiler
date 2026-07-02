@@ -351,7 +351,7 @@
                     "default": "bowtie2",
                     "fa_icon": "fas fa-hammer",
                     "description": "Specify which tool to use for short read host removal",
-                    "enum": ["bowtie2", "hostile"]
+                    "enum": ["bowtie2", "hostile", "deacon"]
                 },
                 "perform_longread_hostremoval": {
                     "type": "boolean",
@@ -364,7 +364,7 @@
                     "default": "minimap2",
                     "fa_icon": "fas fa-hammer",
                     "description": "Specify which tool to use for long read host removal",
-                    "enum": ["minimap2", "hostile"]
+                    "enum": ["minimap2", "hostile", "deacon"]
                 },
                 "hostremoval_reference": {
                     "type": "string",

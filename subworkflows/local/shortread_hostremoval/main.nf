@@ -8,6 +8,8 @@ include { SAMTOOLS_INDEX                            } from '../../../modules/nf-
 include { SAMTOOLS_STATS                            } from '../../../modules/nf-core/samtools/stats'
 include { HOSTILE_FETCH as HOSTILE_FETCH_SHORTREADS } from '../../../modules/nf-core/hostile/fetch'
 include { HOSTILE_CLEAN as HOSTILE_CLEAN_SHORTREADS } from '../../../modules/nf-core/hostile/clean'
+include { DEACON_INDEX                              } from '../../../modules/nf-core/deacon/index'
+include { DEACON_FILTER                             } from '../../../modules/nf-core/deacon/filter'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:
@@ -19,7 +21,12 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
+    if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'deacon') {
+        ch_hostremoval_index = DEACON_INDEX([[], ch_reference]).index
+        ch_versions = ch_versions.mix(DEACON_INDEX.out.versions_deacon)
+    }
+
+    else if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
         ch_hostremoval_index = BOWTIE2_BUILD([[], ch_reference]).index
         ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
     }
@@ -32,7 +39,14 @@ workflow SHORTREAD_HOSTREMOVAL {
         ch_hostremoval_index = ch_index
     }
 
-    if (params.shortread_hostremoval_tool == 'bowtie2') {
+    if (params.shortread_hostremoval_tool == 'deacon') {
+
+        DEACON_FILTER(ch_reads, ch_hostremoval_index)
+        ch_versions = ch_versions.mix(DEACON_FILTER.out.versions)
+        ch_cleaned_reads = DEACON_FILTER.out.fastq_filtered
+        ch_multiqc_files = ch_multiqc_files.mix(DEACON_FILTER.out.log)
+    }
+    else if (params.shortread_hostremoval_tool == 'bowtie2') {
         // Map, generate BAM with all reads and unmapped reads in FASTQ for downstream
         BOWTIE2_ALIGN(ch_reads, ch_hostremoval_index, [[], ch_reference], true, true)
         ch_versions = ch_versions.mix(BOWTIE2_ALIGN.out.versions.first())
