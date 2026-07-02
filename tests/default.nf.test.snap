@@ -825,11 +825,11 @@
     "samtools": {
         "content": [
             [
-                "2612_ERR5766176.stats:md5,14ac2eb1b383e7f9be7514ebd1a39b0f",
-                "2612_ERR5766176_B.stats:md5,f1ab2d05e62dcafe2ac865318b6ef6bf",
-                "2612_ERR5766180.stats:md5,73eb6b8421a3c094a3bbb6667035bf10",
-                "2613_ERR5766181.stats:md5,d082f298244d082f095c1febb4c51ce4",
-                "ERR3201952_ERR3201952.stats:md5,4b27072b8c9224f1eefece14d3977d27"
+                "2612_ERR5766176.stats:md5,fbe21e2933dd3df28ec4ad1baa5e188b",
+                "2612_ERR5766176_B.stats:md5,72852a5a264934b0215331360c841a8d",
+                "2612_ERR5766180.stats:md5,72c4a0fedbd1008d8957e1ad1b9fb869",
+                "2613_ERR5766181.stats:md5,dcf64023739a3d0ce71e0d8465861cc2",
+                "ERR3201952_ERR3201952.stats:md5,0374c11ff03521ee0268cbf0bd95d74d"
             ]
         ],
         "timestamp": "2026-06-05T23:04:38.648172",
@@ -1223,16 +1223,16 @@
                     "porechop_abi": "0.5.0"
                 },
                 "SAMTOOLS_FASTQ": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.22.1"
+                    "samtools": "1.23.1"
                 },
                 "SYLPHTAX_MERGE": {
                     "sylph-tax": "1.2.0"
