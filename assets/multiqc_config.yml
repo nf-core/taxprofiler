@@ -37,22 +37,24 @@ report_section_order:
     order: 100
   hostile:
     order: 95
+  deacon:
+    order: 85
   kraken:
-    order: 90
-  bracken:
     order: 80
-  centrifuge:
+  bracken:
     order: 70
-  metaphlan:
+  centrifuge:
     order: 60
-  malt:
+  metaphlan:
     order: 50
-  diamond:
+  malt:
     order: 40
-  kaiju:
+  diamond:
     order: 30
-  motus:
+  kaiju:
     order: 20
+  motus:
+    order: 10
 
 export_plots: true
 
@@ -75,6 +77,7 @@ run_modules:
   - bowtie2
   - samtools
   - hostile
+  - deacon
   - kraken
   - kaiju
   - diamond
