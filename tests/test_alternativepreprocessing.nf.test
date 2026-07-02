@@ -17,7 +17,7 @@ nextflow_pipeline {
         then {
             def stable_name_all                = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             def stable_content_adapterremoval  = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["adapterremoval/**"], ignoreFile: 'tests/.nftignore')
-            def stable_content_bowtie2         = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["bowtie2/**"]       , ignoreFile: 'tests/.nftignore')
+            // hostile: partly unstable files, see custom assertions
             // fastqc: all unstable files, see stable_name_all
             def stable_content_filtlong        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["filtlong/**"]      , ignoreFile: 'tests/.nftignore')
             // kaiju: partly unstable files, see custom assertions
@@ -26,7 +26,6 @@ nextflow_pipeline {
             // porechop: partly unstable files, see custom assertions
             // pipeline_info: all unstable files, custom assertions from template at top
             def stable_content_prinseqplusplus = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["prinseqplusplus/**"], ignoreFile: 'tests/.nftignore')
-            def stable_content_samtools        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["samtools/**"]      , ignoreFile: 'tests/.nftignore')
 
             assertAll(
                 { assert workflow.success},
@@ -43,8 +42,11 @@ nextflow_pipeline {
                 // adapterremoval
                 { assert snapshot ( stable_content_adapterremoval ).match("adapterremoval") },
 
-                // bowtie2
-                { assert snapshot ( stable_content_bowtie2 ).match("bowtie2") },
+                // hostile
+                { assert snapshot (
+                        getAllFilesFromDir("$outputDir/hostile/clean", include: ['*.json']).collect { file -> file.getName() + " contains string 'fastq1_out_name': " + file.text.contains("fastq1_out_name")}
+                    ).match("hostile")
+                },
 
                 // filtlong
                 { assert snapshot ( stable_content_filtlong ).match("filtlong") },
@@ -92,8 +94,6 @@ nextflow_pipeline {
                 // prinseqplusplus
                 { assert snapshot ( stable_content_prinseqplusplus ).match("prinseqplusplus") },
 
-                // samtools
-                { assert snapshot ( stable_content_samtools ).match("samtools") },
             )
 
         }

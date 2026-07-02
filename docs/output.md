@@ -345,6 +345,30 @@ This directory will be present and contain the unmapped reads from the `.fastq` 
 For short-read unmapped reads, see [bowtie2](#bowtie2).
 :::
 
+### Hostile
+
+[Hostile](https://github.com/bede/hostile) removes host sequences from short and long read (meta)genomes, consuming single or paired FASTQ using specialised reference genomes.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `hostile/`
+  - `fetch/`
+    - `*.{bt2,fa.gz,*mmi}`: bowtie2 indices (short read) or minimap2 index (long reads) of downloaded reference genome, only if `--save_hostremoval_index` supplied.
+  - `clean/`  
+    -`<sample_id>_<accession_id>.clean_{1,2}.fastq.gz`: FASTQ file(s) with host reads removed, only if `-- save_hostremoval_unmapped` supplied.  
+    -`<sample_id>_<accession_id>.json`: host removal statistics in JSON format.
+
+</details>
+
+By default nf-core/taxprofiler will only provide the `.json` file if host removal is turned on.
+You will only get FASTQ files if you specify to save `--save_hostremoval_unmapped` - these contain only unmapped reads.
+Alternatively, if you wish only to have the 'final' reads that go into classification/profiling (i.e., that may have additional processing), do not specify this flag but rather specify `--save_analysis_ready_fastqs`, in which case the reads will be in the folder `analysis_ready_reads`.
+
+:::info
+The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as run merging etc..
+:::
+
 ### Analysis Ready Reads
 
 :::info
