@@ -463,7 +463,7 @@
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Turn on saving of Centrifuger-aligned reads",
-                    "help_text": "Save classified and unclassified reads from centrifuger in your output results directory.\n\n> Modifies tool parameter(s):\n> - centrifuger: `--save-slassiffied`, `--save-unclassified`"
+                    "help_text": "Save classified and unclassified reads from centrifuger in your output results directory.\n\n> Modifies tool parameter(s):\n> - centrifuger: `--cl`, `--un`"
                 },
                 "run_diamond": {
                     "type": "boolean",

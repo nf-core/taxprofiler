@@ -519,8 +519,11 @@ The main taxonomic classification files from Centrifuge are the `_combined_repor
 <summary>Output files</summary>
 
 - `centrifuger/`
-  - `<db_name>/` - `<sample_id>.centrifuger.classification.tsv`: File containing classification assignment for each read (read ID, taxonomy ID, score, length etc.) - `<sample_id>.centrifuger.report.tsv`: A kraken-style report that summarizes the taxID, taxonomicRank, length of genome sequence, number of classified reads and
-  uniquely classified reads. - `<sample_id>.centrifuge.classified.fq.gz`: FASTQ file containng classified reads (optional, if `--centrifuger_save_reads`. - `<sample_id>.centrifuge.unclassified.fq.qz`: FASTQ file containng unclassified reads (optional, if `--centrifuger_save_reads`. - `centrifuger_<id>_combined_reports.txt`: Combined multi-sample Kraken-style report (produced by KrakenTools' `combine_kreports.py`)
+  - `<db_name>/` - `<sample_id>.centrifuger.classification.tsv`: File containing classification assignment for each read (read ID, taxonomy ID, score, length etc.)  
+  - `<sample_id>.centrifuger.report.tsv`: A kraken-style report that summarizes the taxID, taxonomicRank, length of genome sequence, number of classified reads and
+  uniquely classified reads.
+ - `<sample_id>.centrifuge.classified.fq.gz`: FASTQ file containng classified reads (optional, if `--centrifuger_save_reads`.
+ - `<sample_id>.centrifuge.unclassified.fq.qz`: FASTQ file containng unclassified reads (optional, if `--centrifuger_save_reads`. - `centrifuger_<id>_combined_reports.txt`: Combined multi-sample Kraken-style report (produced by KrakenTools' `combine_kreports.py`)
   </details>
 
 The main taxonomic classification files from Centrifuger are the `_combined_reports.txt`, and the per-smaple `*report.tsv`. The latter is used by the taxpasta step. You will receive the `.fastq` files if you supply `--centrifuge_save_reads`.
