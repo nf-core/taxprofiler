@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#712](https://github.com/nf-core/taxprofiler/pull/712) Added new read decontamination tool Hostile (by @jfy133, ❤️ @bede for upstream support)
+
 ### `Fixed`
 
 ### `Changed`
@@ -15,9 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool | Previous version | New version |
-| ---- | ---------------- | ----------- |
-|      |                  |             |
+| Tool    | Previous version | New version |
+| ------- | ---------------- | ----------- |
+| hostile |                  | 2.0.2       |
 
 ## v2.0.1 - [2026-06-15]
 
