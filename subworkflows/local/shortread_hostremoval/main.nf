@@ -23,7 +23,6 @@ workflow SHORTREAD_HOSTREMOVAL {
 
     if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'deacon') {
         ch_hostremoval_index = DEACON_INDEX([[], ch_reference]).index
-        ch_versions = ch_versions.mix(DEACON_INDEX.out.versions_deacon)
     }
 
     else if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
@@ -41,8 +40,10 @@ workflow SHORTREAD_HOSTREMOVAL {
 
     if (params.shortread_hostremoval_tool == 'deacon') {
 
-        DEACON_FILTER(ch_reads, ch_hostremoval_index)
-        ch_versions = ch_versions.mix(DEACON_FILTER.out.versions)
+        ch_deacon_input = ch_reads.combine(ch_hostremoval_index)
+            .map { meta, reads, index -> [meta, index, reads] }
+
+        DEACON_FILTER(ch_deacon_input)
         ch_cleaned_reads = DEACON_FILTER.out.fastq_filtered
         ch_multiqc_files = ch_multiqc_files.mix(DEACON_FILTER.out.log)
     }

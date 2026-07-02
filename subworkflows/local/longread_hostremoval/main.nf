@@ -24,9 +24,7 @@ workflow LONGREAD_HOSTREMOVAL {
 
     if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'deacon') {
         ch_hostremoval_index = DEACON_INDEX([[], ch_reference]).index
-        ch_versions = ch_versions.mix(DEACON_INDEX.out.versions_deacon)
     }
-
     else if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'minimap2') {
         ch_hostremoval_index = MINIMAP2_INDEX([[], ch_reference]).index
         ch_versions = ch_versions.mix(MINIMAP2_INDEX.out.versions)
@@ -41,12 +39,23 @@ workflow LONGREAD_HOSTREMOVAL {
     }
 
     if (params.longread_hostremoval_tool == 'deacon') {
-        DEACON_FILTER( ch_hostremoval_index, ch_reads)
-        ch_versions = ch_versions.mix(DEACON_FILTER.out.versions)
+
+        ch_deacon_input = ch_reads.combine(ch_hostremoval_index)
+            .map { meta, reads, index -> [meta, index, reads] }
+
+        DEACON_FILTER(ch_deacon_input)
+
+        ch_versions = ch_versions.mix(DEACON_FILTER.out.versions_deacon)
         ch_cleaned_reads = DEACON_FILTER.out.fastq_filtered
         ch_multiqc_files = ch_multiqc_files.mix(DEACON_FILTER.out.log)
+        ch_stats = channel.empty()
     }
     else if (params.longread_hostremoval_tool == 'minimap2') {
+        MINIMAP2_ALIGN(ch_reads, ch_hostremoval_index, true, 'bai', false, false)
+        ch_versions = ch_versions.mix(MINIMAP2_ALIGN.out.versions.first())
+        ch_minimap2_mapped = MINIMAP2_ALIGN.out.bam.map { meta, long_reads ->
+            [meta, long_reads, []]
+        }
 
         // Join BAI back to BAM for host removal statistics
         bam_bai = MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index)
