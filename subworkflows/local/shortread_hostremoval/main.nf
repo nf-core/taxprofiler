@@ -22,7 +22,7 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_multiqc_files = channel.empty()
 
     if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'deacon') {
-        ch_hostremoval_index = DEACON_INDEX([[], ch_reference]).index
+        ch_hostremoval_index = DEACON_INDEX(ch_reference).index
     }
 
     else if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
