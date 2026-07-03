@@ -826,12 +826,12 @@
     "centrifuger": {
         "content": [
             [
-                "2612_db4.centrifuger.classification.tsv contains string 'Homo sapiens': false",
-                "2613_db4.centrifuger.classification.tsv contains string 'Homo sapiens': false"
+                "2612_db4.centrifuger.classification.tsv contains string '9606': true",
+                "2613_db4.centrifuger.classification.tsv contains string '9606': true"
             ],
             [
-                "2612_db4.centrifuger.report.tsv contains string '5082': true",
-                "2613_db4.centrifuger.report.tsv contains string '5082': true"
+                "2612_db4.centrifuger.report.tsv contains string 'Homo_sapiens': true",
+                "2613_db4.centrifuger.report.tsv contains string 'Homo_sapiens': true"
             ]
         ],
         "timestamp": "2026-06-24T17:36:14.489818",
@@ -1069,7 +1069,7 @@
             "metaphlan_metaphlan3_combined_reports.txt contains string 'UNCLASSIFIED': true",
             "metaphlan_metaphlan4_combined_reports.txt contains string 't__SGB4933_group': true",
             [
-                
+
             ]
         ],
         "timestamp": "2026-04-15T09:05:52.024752635",
@@ -1119,7 +1119,7 @@
             "kraken2_db1-bracken_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
             "kraken2_db2_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
             [
-                
+
             ]
         ],
         "timestamp": "2026-04-15T11:26:43.013855166",

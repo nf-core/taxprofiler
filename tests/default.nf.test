@@ -77,8 +77,8 @@ nextflow_pipeline {
 
                 // centrifuger
                 { assert snapshot(
-                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.classification.tsv']).collect{file -> file.getName() + " contains string 'Homo sapiens': " + file.text.contains("Homo sapiens") },
-                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.report.tsv']).collect{file -> file.getName() + " contains string '5082': " + file.text.contains("5082") }
+                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.classification.tsv']).collect{file -> file.getName() + " contains string '9606': " + file.text.contains("9606") },
+                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.report.tsv']).collect{file -> file.getName() + " contains string 'Homo_sapiens': " + file.text.contains("Homo_sapiens") }
                     ).match("centrifuger")
                 },
 
