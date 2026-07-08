@@ -276,24 +276,44 @@ workflow PROFILING {
     }
 
     if (params.run_centrifuger) {
-        ch_input_for_centrifuger = ch_input_for_profiling.centrifuger
-            .filter {
-                if (it[0].is_fasta) {
-                    log.warn("[nf-core/taxprofiler] Centrifuger currently does not accept FASTA files as input. Skipping Centrifuger for sample ${it[0].id}.")
+        def ch_prepare_for_centrifuger = ch_input_for_profiling.centrifuger
+            .map {meta, input_reads, db_meta, db ->
+
+                def parsed_params = db_meta['db_params'].split(";")
+                def db_meta_new = [:]
+                if (parsed_params.size() == 2) {
+                    db_meta_new = db_meta + [db_params: parsed_params[0], db_params_quant: parsed_params[1]]
                 }
-                !it[0].is_fasta
-            }
-            .multiMap { it ->
+                else if (parsed_params.size() == 0)  {
+                    db_meta_new = db_meta + [db_params: '', db_params_quant: '']
+                }
+                else {
+                    db_meta_new = db_meta + [db_params: parsed_params[0] ?: '', db_params_quant: '']
+                }
+                [meta, input_reads, db_meta_new, db]
+                }
+                .filter {
+                    if (it[0].is_fasta) {
+                        log.warn("[nf-core/taxprofiler] Centrifuger currently does not accept FASTA files as input. Skipping Centrifuger for sample ${it[0].id}.")
+                    }
+                    !it[0].is_fasta
+                }
+
+            ch_input_for_centrifuger = ch_prepare_for_centrifuger.multiMap { it ->
                 reads: [it[0] + it[2], it[1]]
                 db: [it[0], it[3]]
             }
+
         CENTRIFUGER_CENTRIFUGER(ch_input_for_centrifuger.reads, ch_input_for_centrifuger.db, params.centrifuger_save_reads, params.centrifuger_save_reads, [], [])
         ch_raw_classifications = ch_raw_classifications.mix(CENTRIFUGER_CENTRIFUGER.out.classification_file)
 
         // Ensure the correct database goes with the generated report for KREPORT
         ch_database_for_centrifugerquant = ch_databases
             .filter { meta, _db -> meta.tool == 'centrifuger' }
-            .map { meta, db -> [meta.db_name, meta, db] }
+            .map { meta, db ->
+                def parsed = meta.db_params?.split(';')
+                def quant_params = parsed && parsed.size() >1 ? parsed[1]:''
+                [meta.db_name, meta +  [db_params: quant_params], db] }
 
         //combine classificstions with db for quantificaion
         ch_input_for_centrifuger_quant = combineProfilesWithDatabase(CENTRIFUGER_CENTRIFUGER.out.classification_file, ch_database_for_centrifugerquant)
@@ -304,7 +324,6 @@ workflow PROFILING {
         ch_multiqc_files = ch_multiqc_files.mix(CENTRIFUGER_QUANTIFICATION.out.report_file)
 
     }
-
 
     if (params.run_metaphlan) {
 
