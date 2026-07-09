@@ -42,6 +42,7 @@
    - [MALT](https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/algorithms-in-bioinformatics/software/malt/)
    - [DIAMOND](https://github.com/bbuchfink/diamond)
    - [Centrifuge](https://ccb.jhu.edu/software/centrifuge/)
+   - [Centrifuger](https://github.com/mourisl/centrifuger)
    - [Kaiju](https://kaiju.binf.ku.dk/)
    - [mOTUs](https://motu-tool.org/)
    - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
@@ -54,7 +55,7 @@
    - [bracken](https://ccb.jhu.edu/software/bracken/)
 6. Standardises output tables ([`Taxpasta`](https://taxpasta.readthedocs.io))
 7. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
-8. Plotting Kraken2, Centrifuge, Kaiju and MALT results ([`Krona`](https://hpc.nih.gov/apps/kronatools.html))
+8. Plotting Kraken2, Centrifuge, Centrifuger, Kaiju and MALT results ([`Krona`](https://hpc.nih.gov/apps/kronatools.html))
 
 ## Usage
 
