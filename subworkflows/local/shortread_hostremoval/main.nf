@@ -23,13 +23,14 @@ workflow SHORTREAD_HOSTREMOVAL {
 
     //ch_reference_for_index = ch_reference.map { fasta -> [ [id: fasta.baseName], fasta ] } // channel: [ val(meta), path(fasta) ]
 
-      ch_reference_for_index = Channel.value([[id: ch_reference.baseName], ch_reference])
 
     if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'deacon') {
+        ch_reference_for_index = Channel.value([[id: ch_reference.baseName], ch_reference])
         ch_hostremoval_index = DEACON_INDEX(ch_reference_for_index).index
     }
 
     else if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
+        ch_reference_for_index = Channel.value([[id: ch_reference.baseName], ch_reference])
         ch_hostremoval_index = BOWTIE2_BUILD(ch_reference_for_index).index
     }
     else if (!ch_index && params.shortread_hostremoval_tool == 'hostile') {
@@ -44,7 +45,10 @@ workflow SHORTREAD_HOSTREMOVAL {
     if (params.shortread_hostremoval_tool == 'deacon') {
 
         ch_deacon_input = ch_reads.combine(ch_hostremoval_index)
-            .map { meta, reads, index -> [meta, index, reads] }
+            .map { meta, reads, _index_meta, index ->
+            [meta, index, reads]
+        }
+
 
         DEACON_FILTER(ch_deacon_input)
         ch_cleaned_reads = DEACON_FILTER.out.fastq_filtered

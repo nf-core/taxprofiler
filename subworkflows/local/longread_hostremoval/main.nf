@@ -23,9 +23,9 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_multiqc_files = channel.empty()
 
     //ch_reference_for_index = ch_reference.map { fasta -> [ [id: fasta.baseName], fasta ] } // channel: [ val(meta), path(fasta) ]
-    ch_reference_for_index = Channel.value([[id: ch_reference.baseName], ch_reference])
 
     if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'deacon') {
+        ch_reference_for_index = Channel.value([[id: ch_reference.baseName], ch_reference])
         ch_hostremoval_index = DEACON_INDEX(ch_reference_for_index).index
     }
     else if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'minimap2') {
@@ -43,12 +43,13 @@ workflow LONGREAD_HOSTREMOVAL {
 
     if (params.longread_hostremoval_tool == 'deacon') {
 
-        ch_deacon_input = ch_reads.combine(ch_hostremoval_index)
-            .map { meta, reads, index -> [meta, index, reads] }
+        ch_deacon_input =  ch_reads.combine(ch_hostremoval_index)
+            .map { meta, reads, _index_meta, index ->
+        [meta, index, reads]
+    }
 
         DEACON_FILTER(ch_deacon_input)
 
-        ch_versions = ch_versions.mix(DEACON_FILTER.out.versions_deacon)
         ch_cleaned_reads = DEACON_FILTER.out.fastq_filtered
         ch_multiqc_files = ch_multiqc_files.mix(DEACON_FILTER.out.log)
         ch_stats = channel.empty()
