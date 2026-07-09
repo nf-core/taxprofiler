@@ -21,13 +21,16 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
+    //ch_reference_for_index = ch_reference.map { fasta -> [ [id: fasta.baseName], fasta ] } // channel: [ val(meta), path(fasta) ]
+
+      ch_reference_for_index = Channel.value([[id: ch_reference.baseName], ch_reference])
+
     if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'deacon') {
-        ch_hostremoval_index = DEACON_INDEX(ch_reference).index
+        ch_hostremoval_index = DEACON_INDEX(ch_reference_for_index).index
     }
 
     else if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
-        ch_hostremoval_index = BOWTIE2_BUILD([[], ch_reference]).index
-        ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
+        ch_hostremoval_index = BOWTIE2_BUILD(ch_reference_for_index).index
     }
     else if (!ch_index && params.shortread_hostremoval_tool == 'hostile') {
         HOSTILE_FETCH_SHORTREADS(params.hostremoval_hostile_referencename)
@@ -50,7 +53,6 @@ workflow SHORTREAD_HOSTREMOVAL {
     else if (params.shortread_hostremoval_tool == 'bowtie2') {
         // Map, generate BAM with all reads and unmapped reads in FASTQ for downstream
         BOWTIE2_ALIGN(ch_reads, ch_hostremoval_index, [[], ch_reference], true, true)
-        ch_versions = ch_versions.mix(BOWTIE2_ALIGN.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(BOWTIE2_ALIGN.out.log)
 
         ch_cleaned_reads = BOWTIE2_ALIGN.out.fastq

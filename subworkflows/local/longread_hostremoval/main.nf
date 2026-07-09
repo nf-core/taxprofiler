@@ -22,8 +22,11 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
+    //ch_reference_for_index = ch_reference.map { fasta -> [ [id: fasta.baseName], fasta ] } // channel: [ val(meta), path(fasta) ]
+    ch_reference_for_index = Channel.value([[id: ch_reference.baseName], ch_reference])
+
     if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'deacon') {
-        ch_hostremoval_index = DEACON_INDEX([[], ch_reference]).index
+        ch_hostremoval_index = DEACON_INDEX(ch_reference_for_index).index
     }
     else if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'minimap2') {
         ch_hostremoval_index = MINIMAP2_INDEX([[], ch_reference]).index
