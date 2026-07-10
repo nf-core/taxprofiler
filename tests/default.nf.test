@@ -77,8 +77,14 @@ nextflow_pipeline {
                 },
 
                  //deacon
-                { assert snapshot (stable_content_deacon).match("deacon")},
-
+                { assert snapshot (
+                            file("$outputDir/deacon/filter/2612.fq.gz").getName() + " contains string '@ERR5766176': " + path("$outputDir/deacon/filter/2612.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176') },
+                            file("$outputDir/deacon/filter/2613.fq.gz").getName() + " contains string '@ERR5766181': " + path("$outputDir/deacon/filter/2613.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181') },
+                            file("$outputDir/deacon/filter/ERR3201952.fq.gz").getName() + " contains string '@ERR3201952': " + file("$outputDir/deacon/filter/ERR3201952.fq.gz").linesGzip.findAll { l -> l.contains('@ERR3201952') },
+                            getAllFilesFromDir("$outputDir/deacon/filter", include: ['*.json']).collect { file -> file.getName() + " contains string 'version': " + file.text.contains("version")},
+                            stable_content_deacon
+                        ).match("deacon")
+                }
                 // DIAMOND
                 { assert snapshot(
                         getAllFilesFromDir("$outputDir/diamond", include: ['**/*diamond.log']).collect{file -> file.getName() + " contains string 'queries aligned': " + file.text.contains("queries aligned") },
