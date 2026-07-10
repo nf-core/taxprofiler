@@ -25,13 +25,11 @@ workflow SHORTREAD_HOSTREMOVAL {
 
 
     if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'deacon') {
-        ch_reference_for_index = Channel.value([[id: ch_reference.baseName], ch_reference])
-        ch_hostremoval_index = DEACON_INDEX(ch_reference_for_index).index
+        ch_hostremoval_index = DEACON_INDEX(Channel.value([[id: ch_reference.baseName], ch_reference])).index
     }
 
     else if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
-        ch_reference_for_index = Channel.value([[id: ch_reference.baseName], ch_reference])
-        ch_hostremoval_index = BOWTIE2_BUILD(ch_reference_for_index).index
+        ch_hostremoval_index = BOWTIE2_BUILD(Channel.value([[id: ch_reference.baseName], ch_reference])).index
     }
     else if (!ch_index && params.shortread_hostremoval_tool == 'hostile') {
         HOSTILE_FETCH_SHORTREADS(params.hostremoval_hostile_referencename)

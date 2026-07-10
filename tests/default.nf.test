@@ -17,12 +17,13 @@ nextflow_pipeline {
         then {
             def stable_name_all            = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             // bbduk:  partly unstable files, see custom assertions
-            def stable_content_bowtie2     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['bowtie2/align/**'], ignoreFile: 'tests/.nftignore')
+            //def stable_content_bowtie2     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['bowtie2/align/**'], ignoreFile: 'tests/.nftignore')
             def stable_content_bracken     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['bracken/**']      , ignoreFile: 'tests/.nftignore')
             // centrifuge:  partly unstable files, see custom assertions
             // diamond:  partly unstable files, see custom assertions
             // fastp:  partly unstable files, see custom assertions
             // fastqc: no stable files, see stable_name_all
+            def stable_content_deacon     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['deacon/filter/**'], ignoreFile: 'tests/.nftignore')
             def stable_content_ganon       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['ganon/**']        , ignoreFile: 'tests/.nftignore')
             // kaiju: no stable files, see stable_name_all
             def stable_content_kraken2     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['kraken2/**']      , ignoreFile: 'tests/.nftignore')
@@ -62,7 +63,7 @@ nextflow_pipeline {
                 },
 
                 //bowtie2
-                { assert snapshot (stable_content_bowtie2).match("bowtie2")},
+                //{ assert snapshot (stable_content_bowtie2).match("bowtie2")},
 
                 //bracken
                 { assert snapshot (stable_content_bracken).match("bracken")},
@@ -74,6 +75,9 @@ nextflow_pipeline {
                         getAllFilesFromDir("$outputDir/centrifuge", include: ['**/*.centrifuge.txt']).collect{file -> file.getName() + " contains string 'Homo sapiens': " + file.text.contains("Homo sapiens") }
                     ).match("centrifuge")
                 },
+
+                 //deacon
+                { assert snapshot (stable_content_deacon).match("deacon")},
 
                 // DIAMOND
                 { assert snapshot(
