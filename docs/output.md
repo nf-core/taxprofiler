@@ -23,6 +23,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Filtlong](#filtlong) - Quality trimming and filtering for Nanopore data
 - [Nanoq](#nanoq) - Quality trimming and filtering for Nanopore data
 - [Bowtie2](#bowtie2) - Host removal for Illumina reads
+- [Hostile](#hostile) - Host removal for Illumina and Nanopore reads
+- [Deacon](#deacon) - Host removal for Illumina and Nanopore reads
 - [minimap2](#minimap2) - Host removal for Nanopore reads
 - [SAMtools stats](#samtools-stats) - Statistics from host removal
 - [SAMtools fastq](#samtools-fastq) - Converts unmapped BAM file to fastq format (minimap2 only)
@@ -355,8 +357,8 @@ For short-read unmapped reads, see [bowtie2](#bowtie2).
 - `hostile/`
   - `fetch/`
     - `*.{bt2,fa.gz,*mmi}`: bowtie2 indices (short read) or minimap2 index (long reads) of downloaded reference genome, only if `--save_hostremoval_index` supplied.
-  - `clean/`  
-    -`<sample_id>_<accession_id>.clean_{1,2}.fastq.gz`: FASTQ file(s) with host reads removed, only if `-- save_hostremoval_unmapped` supplied.  
+  - `clean/`
+    -`<sample_id>_<accession_id>.clean_{1,2}.fastq.gz`: FASTQ file(s) with host reads removed, only if `-- save_hostremoval_unmapped` supplied.
     -`<sample_id>_<accession_id>.json`: host removal statistics in JSON format.
 
 </details>
@@ -368,6 +370,23 @@ Alternatively, if you wish only to have the 'final' reads that go into classific
 :::info
 The resulting `.fastq` files may _not_ always be the 'final' reads that go into taxprofiling, if you also run other steps such as run merging etc..
 :::
+
+### Deacon
+
+[Deacon](https://github.com/bede/deacon) filters DNA sequences in FASTA/Q files and streams both for short and long reads.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `deacon/`
+  - `index/`
+    - `*.{}`:
+  - `filter/`
+    -`<`:
+
+</details>
+
+By default nf-core/taxprofiler will
 
 ### Analysis Ready Reads
 
