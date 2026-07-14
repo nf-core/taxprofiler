@@ -78,9 +78,9 @@ nextflow_pipeline {
 
                  //deacon
                 { assert snapshot (
-                            file("$outputDir/deacon/filter/2612.fq.gz").getName() + " contains string '@ERR5766176': " + path("$outputDir/deacon/filter/2612.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.244 M00380:230:000000000-C5D55:1:1101:10348:1993/1 merged_133_0') },
-                            file("$outputDir/deacon/filter/2613.fq.gz").getName() + " contains string '@ERR5766181': " + path("$outputDir/deacon/filter/2613.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.716 M00380:230:000000000-C5D55:1:1101:11068:16066/1 merged_120_0') },
-                            file("$outputDir/deacon/filter/ERR3201952.fq.gz").getName() + " contains string '@ERR3201952': " + path("$outputDir/deacon/filter/ERR3201952.fq.gz").linesGzip.findAll { l -> l.contains('@ERR3201952.882919 f9cedf1c-13d5-45f5-889a-260995589f92/1') },
+                            file("$outputDir/deacon/filter/2612.fq.gz").getName() + " contains string '@ERR5766176': " + path("$outputDir/deacon/filter/2612.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.244998') },
+                            file("$outputDir/deacon/filter/2613.fq.gz").getName() + " contains string '@ERR5766181': " + path("$outputDir/deacon/filter/2613.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.305906') },
+                            file("$outputDir/deacon/filter/ERR3201952.fq.gz").getName() + " contains string '@ERR3201952': " + path("$outputDir/deacon/filter/ERR3201952.fq.gz").linesGzip.findAll { l -> l.contains('@ERR3201952.882919') },
                             getAllFilesFromDir("$outputDir/deacon/filter", include: ['*.json']).collect { file -> file.getName() + " contains string 'version': " + file.text.contains("version")},
                             //stable_content_deacon
                         ).match("deacon")

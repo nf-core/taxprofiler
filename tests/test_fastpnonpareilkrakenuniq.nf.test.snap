@@ -333,7 +333,7 @@
                 "taxpasta/krakenuniq_db6.tsv"
             ]
         ],
-        "timestamp": "2026-07-14T10:36:51.506008",
+        "timestamp": "2026-07-14T14:57:42.716828",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -343,7 +343,7 @@
         "content": [
             "ERR3201952_ERR3201952_porechop_abi.log contains string '7 / 10,000': true"
         ],
-        "timestamp": "2026-07-14T10:36:56.184818",
+        "timestamp": "2026-07-14T14:57:46.772086",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -351,8 +351,8 @@
     },
     "deacon": {
         "content": [
-            "2612.fq.gz contains string '@ERR5766176': [@ERR5766176.244 M00380:230:000000000-C5D55:1:1101:10348:1993/1 merged_133_0]",
-            "2613.fq.gz contains string '@ERR5766181': [@ERR5766181.716 M00380:230:000000000-C5D55:1:1101:11068:16066/1 merged_120_0]",
+            "2612.fq.gz contains string '@ERR5766176': [@ERR5766176.244998 M00380:230:000000000-C5D55:1:1115:16122:3267/1 merged_144_0]",
+            "2613.fq.gz contains string '@ERR5766181': [@ERR5766181.305906 M00380:230:000000000-C5D55:1:2102:8988:6944/1 merged_151_1]",
             "ERR3201952.fq.gz contains string '@ERR3201952': [@ERR3201952.882919 f9cedf1c-13d5-45f5-889a-260995589f92/1]",
             [
                 "2612.json contains string 'version': true",
@@ -360,7 +360,7 @@
                 "ERR3201952.json contains string 'version': true"
             ]
         ],
-        "timestamp": "2026-07-14T10:36:54.935307",
+        "timestamp": "2026-07-14T14:57:46.07108",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -372,7 +372,7 @@
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
             ]
         ],
-        "timestamp": "2026-07-14T10:36:55.988309",
+        "timestamp": "2026-07-14T14:57:46.616384",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -416,7 +416,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T10:36:56.13714",
+        "timestamp": "2026-07-14T14:57:46.734348",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -428,7 +428,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T10:36:56.222067",
+        "timestamp": "2026-07-14T14:57:46.806618",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -440,7 +440,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T10:36:56.252761",
+        "timestamp": "2026-07-14T14:57:46.836977",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -502,7 +502,7 @@
                 }
             }
         ],
-        "timestamp": "2026-07-14T10:36:51.464457",
+        "timestamp": "2026-07-14T14:57:42.669455",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -521,7 +521,7 @@
             "ERR3201952.se.krakenuniq.classified.txt contains string 'ERR3201952.1159044\t2697049': true",
             "ERR3201952.se.krakenuniq.report.txt contains string 'Severe acute respiratory syndrome coronavirus 2    ': true"
         ],
-        "timestamp": "2026-07-14T10:36:55.947269",
+        "timestamp": "2026-07-14T14:57:46.588701",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -545,7 +545,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T10:36:54.985579",
+        "timestamp": "2026-07-14T14:57:46.11913",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
