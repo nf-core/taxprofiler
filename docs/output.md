@@ -357,9 +357,7 @@ For short-read unmapped reads, see [bowtie2](#bowtie2).
 - `hostile/`
   - `fetch/`
     - `*.{bt2,fa.gz,*mmi}`: bowtie2 indices (short read) or minimap2 index (long reads) of downloaded reference genome, only if `--save_hostremoval_index` supplied.
-  - `clean/`
-    -`<sample_id>_<accession_id>.clean_{1,2}.fastq.gz`: FASTQ file(s) with host reads removed, only if `-- save_hostremoval_unmapped` supplied.
-    -`<sample_id>_<accession_id>.json`: host removal statistics in JSON format.
+  - `clean/` -`<sample_id>_<accession_id>.clean_{1,2}.fastq.gz`: FASTQ file(s) with host reads removed, only if `-- save_hostremoval_unmapped` supplied. -`<sample_id>_<accession_id>.json`: host removal statistics in JSON format.
 
 </details>
 
@@ -380,9 +378,8 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
 
 - `deacon/`
   - `index/`
-    - `*.{}`:
-  - `filter/`
-    -`<`:
+    - `*.idx`: deacon indices of reference genome, only if `--save_hostremoval_index` supplied.
+  - `filter/` -`<sample_id>.fq.gz`: FASTQ files containing the retained reads. -`<sample_id>.json`: detailed filtering statistics in json format
 
 </details>
 
