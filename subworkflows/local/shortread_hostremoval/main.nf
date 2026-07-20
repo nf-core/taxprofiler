@@ -21,11 +21,9 @@ workflow SHORTREAD_HOSTREMOVAL {
 
     if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
         ch_hostremoval_index = BOWTIE2_BUILD([[], ch_reference]).index
-        ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions)
     }
     else if (!ch_index && params.shortread_hostremoval_tool == 'hostile') {
         HOSTILE_FETCH_SHORTREADS(params.hostremoval_hostile_referencename)
-        ch_versions = ch_versions.mix(HOSTILE_FETCH_SHORTREADS.out.versions)
         ch_hostremoval_index = HOSTILE_FETCH_SHORTREADS.out.reference
     }
     else {
@@ -53,7 +51,6 @@ workflow SHORTREAD_HOSTREMOVAL {
         ch_hostremoval_index_hostile = ch_hostremoval_index.map { _meta, indexdir -> [params.hostremoval_hostile_referencename, indexdir] }
 
         HOSTILE_CLEAN_SHORTREADS(ch_reads, ch_hostremoval_index_hostile)
-        ch_versions = ch_versions.mix(HOSTILE_CLEAN_SHORTREADS.out.versions)
         ch_cleaned_reads = HOSTILE_CLEAN_SHORTREADS.out.fastq
         ch_multiqc_files = ch_multiqc_files.mix(HOSTILE_CLEAN_SHORTREADS.out.json)
     }

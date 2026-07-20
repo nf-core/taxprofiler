@@ -448,17 +448,17 @@
     "samtools": {
         "content": [
             [
-                "2612_ERR5766176.stats:md5,78b8c74311e5ae288f6b127da8302fe5",
-                "2612_ERR5766176_B.stats:md5,a5338acbe9da94226129b648f812db31",
-                "2612_ERR5766180.stats:md5,7f354e1fd7ace13cca378d073f66d3dc",
-                "2613_ERR5766181.stats:md5,1803fac55f5e781a9e3422049c197955",
-                "ERR3201952_ERR3201952.stats:md5,0374c11ff03521ee0268cbf0bd95d74d"
+                "2612_ERR5766176.stats:md5,c946ec49983c314e41662762375d06f8",
+                "2612_ERR5766176_B.stats:md5,6c52024e8f8cae9407d96567778ba0db",
+                "2612_ERR5766180.stats:md5,a186632e2bd34ac40be9ecb2bed1d1bf",
+                "2613_ERR5766181.stats:md5,9cac757c445d99a3965217e228343aaf",
+                "ERR3201952_ERR3201952.stats:md5,d4278c3e383f56ce3de131d019e44eb8"
             ]
         ],
-        "timestamp": "2026-03-07T15:30:12.793652238",
+        "timestamp": "2026-07-20T16:41:38.244387",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "taxpasta": {
@@ -503,17 +503,16 @@
                     "cat": 9.5
                 },
                 "MINIMAP2_ALIGN": {
-                    "minimap2": "2.29-r1283",
-                    "samtools": 1.21
+                    "minimap2": "2.30-r1287"
                 },
                 "MINIMAP2_INDEX": {
-                    "minimap2": "2.29-r1283"
+                    "minimap2": "2.30-r1287"
                 },
                 "NANOQ": {
                     "nanoq": "0.10.0"
                 },
                 "NONPAREIL_CURVE": {
-                    "nonpareil": "3.5.3"
+                    "Nonpareil": "3.5.3"
                 },
                 "NONPAREIL_NONPAREIL": {
                     "nonpareil": "3.5.5"
@@ -522,22 +521,22 @@
                     "nonpareil": "3.5.5"
                 },
                 "NONPAREIL_SET": {
-                    "nonpareil": "3.5.3"
+                    "Nonpareil": "3.5.3"
                 },
                 "PORECHOP_ABI": {
                     "porechop_abi": "0.5.0"
                 },
                 "SAMTOOLS_FASTQ": {
-                    "samtools": "1.23.1"
+                    "samtools": 1.24
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": "1.23.1"
+                    "samtools": 1.24
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": "1.23.1"
+                    "samtools": 1.24
                 },
                 "SAMTOOLS_VIEW": {
-                    "samtools": "1.23.1"
+                    "samtools": 1.24
                 },
                 "TAXPASTA_MERGE": {
                     "taxpasta": "0.7.0"
@@ -550,10 +549,10 @@
                 }
             }
         ],
-        "timestamp": "2026-04-09T17:26:27.685912739",
+        "timestamp": "2026-07-20T16:41:36.485579",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "krakenuniq": {

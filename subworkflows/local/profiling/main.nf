@@ -133,7 +133,6 @@ workflow PROFILING {
 
         MEGAN_RMA2INFO_TSV(ch_maltrun_for_megan, params.malt_generate_megansummary)
         ch_multiqc_files = ch_multiqc_files.mix(MALT_RUN.out.log)
-        ch_versions = ch_versions.mix(MALT_RUN.out.versions.first(), MEGAN_RMA2INFO_TSV.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(ch_maltrun_for_megan)
         ch_raw_profiles = ch_raw_profiles.mix(MEGAN_RMA2INFO_TSV.out.txt)
     }
@@ -174,7 +173,6 @@ workflow PROFILING {
 
         KRAKEN2_KRAKEN2(ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassifications)
         ch_multiqc_files = ch_multiqc_files.mix(KRAKEN2_KRAKEN2.out.report)
-        ch_versions = ch_versions.mix(KRAKEN2_KRAKEN2.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(KRAKEN2_KRAKEN2.out.classified_reads_assignment)
         ch_raw_profiles = ch_raw_profiles.mix(
             KRAKEN2_KRAKEN2.out.report.map { meta, report ->
@@ -236,7 +234,6 @@ workflow PROFILING {
             }
 
         BRACKEN_BRACKEN(ch_input_for_bracken.report, ch_input_for_bracken.db)
-        ch_versions = ch_versions.mix(BRACKEN_BRACKEN.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(BRACKEN_BRACKEN.out.reports)
     }
 
@@ -267,7 +264,6 @@ workflow PROFILING {
 
         // Generate profile
         CENTRIFUGE_KREPORT(ch_input_for_centrifuge_kreport.profile, ch_input_for_centrifuge_kreport.db)
-        ch_versions = ch_versions.mix(CENTRIFUGE_KREPORT.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(CENTRIFUGE_KREPORT.out.kreport)
         ch_multiqc_files = ch_multiqc_files.mix(CENTRIFUGE_KREPORT.out.kreport)
     }
@@ -280,7 +276,6 @@ workflow PROFILING {
         }
 
         METAPHLAN_METAPHLAN(ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db, params.metaphlan_save_samfiles)
-        ch_versions = ch_versions.mix(METAPHLAN_METAPHLAN.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(METAPHLAN_METAPHLAN.out.profile)
         ch_multiqc_files = ch_multiqc_files.mix(METAPHLAN_METAPHLAN.out.profile)
     }
@@ -293,7 +288,6 @@ workflow PROFILING {
         }
 
         KAIJU_KAIJU(ch_input_for_kaiju.reads, ch_input_for_kaiju.db)
-        ch_versions = ch_versions.mix(KAIJU_KAIJU.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(KAIJU_KAIJU.out.results)
 
         // Ensure the correct database goes with the generated report for KAIJU2TABLE
@@ -304,7 +298,6 @@ workflow PROFILING {
         ch_input_for_kaiju2table = combineProfilesWithDatabase(KAIJU_KAIJU.out.results, ch_database_for_kaiju2table)
         // Generate profile
         KAIJU_KAIJU2TABLE_SINGLE(ch_input_for_kaiju2table.profile, ch_input_for_kaiju2table.db, params.kaiju_taxon_rank)
-        ch_versions = ch_versions.mix(KAIJU_KAIJU2TABLE_SINGLE.out.versions)
         ch_multiqc_files = ch_multiqc_files.mix(KAIJU_KAIJU2TABLE_SINGLE.out.summary)
         ch_raw_profiles = ch_raw_profiles.mix(KAIJU_KAIJU2TABLE_SINGLE.out.summary)
     }
@@ -377,8 +370,6 @@ workflow PROFILING {
 
         MOTUS_PROFILE(ch_prepped_to_motus.reads, ch_prepped_to_motus.db)
 
-        ch_versions = ch_versions.mix(MOTUS_PREPLONG.out.versions.first())
-        ch_versions = ch_versions.mix(MOTUS_PROFILE.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(MOTUS_PROFILE.out.out)
         ch_multiqc_files = ch_multiqc_files.mix(MOTUS_PROFILE.out.log)
     }
@@ -509,7 +500,6 @@ workflow PROFILING {
         ch_input_for_ganonclassify.reads
 
         GANON_CLASSIFY(ch_input_for_ganonclassify.reads, ch_input_for_ganonclassify.db)
-        ch_versions = ch_versions.mix(GANON_CLASSIFY.out.versions.first())
 
         ch_database_for_ganonreport = ch_databases
             .filter { meta, _db -> meta.tool == "ganon" }
@@ -518,7 +508,6 @@ workflow PROFILING {
         ch_report_for_ganonreport = combineProfilesWithDatabase(GANON_CLASSIFY.out.report, ch_database_for_ganonreport)
 
         GANON_REPORT(ch_report_for_ganonreport.profile, ch_report_for_ganonreport.db)
-        ch_versions = ch_versions.mix(GANON_REPORT.out.versions.first())
 
         // Might be flipped - check/define what is a profile vs raw classification
         ch_raw_profiles = ch_raw_profiles.mix(GANON_REPORT.out.tre)
@@ -557,7 +546,6 @@ workflow PROFILING {
             }
 
         SYLPH_PROFILE(ch_input_for_sylph.reads, ch_input_for_sylph.db)
-        ch_versions = ch_versions.mix(SYLPH_PROFILE.out.versions.first())
 
         ch_database_for_sylph_profile = ch_databases
             .filter { meta, _db -> meta.tool == 'sylph' }
@@ -620,7 +608,6 @@ workflow PROFILING {
         ch_melon_k2_db = params.melon_k2_db ? channel.fromPath(params.melon_k2_db, checkIfExists: true).collect() : []
 
         MELON(ch_input_for_melon.reads, ch_input_for_melon.db, ch_melon_k2_db)
-        ch_versions = ch_versions.mix(MELON.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(MELON.out.json_output)
         ch_raw_profiles = ch_raw_profiles.mix(MELON.out.tsv_output)
     }
@@ -633,7 +620,6 @@ workflow PROFILING {
         }
 
         METACACHE_QUERY(ch_input_for_metacache.reads, ch_input_for_metacache.db, params.metacache_abundances)
-        ch_versions = ch_versions.mix(METACACHE_QUERY.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(METACACHE_QUERY.out.mapping_results)
     }
 
@@ -641,7 +627,6 @@ workflow PROFILING {
     classifications = ch_raw_classifications
     profiles        = ch_raw_profiles // channel: [ val(meta), [ reads ] ] - should be text files or biom
     versions        = ch_versions // channel: [ versions.yml ]
-    motus_version   = params.run_motus ? MOTUS_PROFILE.out.versions.first() : channel.empty()
     mqc             = ch_multiqc_files
 }
 

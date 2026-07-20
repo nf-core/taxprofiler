@@ -22,11 +22,9 @@ workflow LONGREAD_HOSTREMOVAL {
 
     if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'minimap2') {
         ch_hostremoval_index = MINIMAP2_INDEX([[], ch_reference]).index
-        ch_versions = ch_versions.mix(MINIMAP2_INDEX.out.versions)
     }
     else if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'hostile') {
         HOSTILE_FETCH_LONGREADS(params.hostremoval_hostile_referencename)
-        ch_versions = ch_versions.mix(HOSTILE_FETCH_LONGREADS.out.versions)
         ch_hostremoval_index = HOSTILE_FETCH_LONGREADS.out.reference
     }
     else {
@@ -35,7 +33,6 @@ workflow LONGREAD_HOSTREMOVAL {
 
     if (params.longread_hostremoval_tool == 'minimap2') {
         MINIMAP2_ALIGN(ch_reads, ch_hostremoval_index, true, 'bai', false, false)
-        ch_versions = ch_versions.mix(MINIMAP2_ALIGN.out.versions.first())
         ch_minimap2_mapped = MINIMAP2_ALIGN.out.bam.map { meta, long_reads ->
             [meta, long_reads, []]
         }
@@ -59,7 +56,6 @@ workflow LONGREAD_HOSTREMOVAL {
         ch_hostremoval_index_hostile = ch_hostremoval_index.map { _meta, indexdir -> [params.hostremoval_hostile_referencename, indexdir] }
 
         HOSTILE_CLEAN_LONGREADS(ch_reads, ch_hostremoval_index_hostile)
-        ch_versions = ch_versions.mix(HOSTILE_CLEAN_LONGREADS.out.versions)
         ch_cleaned_reads = HOSTILE_CLEAN_LONGREADS.out.fastq
         ch_multiqc_files = ch_multiqc_files.mix(HOSTILE_CLEAN_LONGREADS.out.json)
 

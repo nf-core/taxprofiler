@@ -137,7 +137,6 @@ workflow TAXPROFILER {
 
     // Untar the databases
     UNTAR(ch_inputdb_untar)
-    ch_versions = ch_versions.mix(UNTAR.out.versions.first())
 
     // Spread out the untarred and shared databases
     ch_outputdb_from_untar = UNTAR.out.untar
@@ -161,7 +160,6 @@ workflow TAXPROFILER {
     if (!params.skip_preprocessing_qc) {
         if (params.preprocessing_qc_tool == 'falco') {
             FALCO(ch_input_for_fastqc)
-            ch_versions = ch_versions.mix(FALCO.out.versions.first())
         }
         else {
             FASTQC(ch_input_for_fastqc)
@@ -260,7 +258,6 @@ workflow TAXPROFILER {
             }
             .mix(ch_input.fasta_short, ch_input.fasta_long)
 
-        ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
     }
     else {
         ch_reads_runmerged = ch_shortreads_hostremoved.mix(ch_longreads_hostremoved, ch_input.fasta_short, ch_input.fasta_long)
@@ -285,7 +282,7 @@ workflow TAXPROFILER {
         SUBWORKFLOW: PROFILING STANDARDISATION
     */
     if (params.run_profile_standardisation) {
-        STANDARDISATION_PROFILES(PROFILING.out.classifications, PROFILING.out.profiles, ch_final_dbs, PROFILING.out.motus_version)
+        STANDARDISATION_PROFILES(PROFILING.out.classifications, PROFILING.out.profiles, ch_final_dbs)
         ch_versions = ch_versions.mix(STANDARDISATION_PROFILES.out.versions)
     }
 

@@ -38,13 +38,6 @@ workflow NONPAREIL {
     // For static multi-curve PNG
     NONPAREIL_NONPAREILCURVESR(ch_npos_for_nonparielset)
     // For dynamic multi-curve PNG in MultiQC and raw files
-
-    ch_versions = ch_versions.mix(
-        NONPAREIL_NONPAREIL.out.versions.first(),
-        NONPAREIL_CURVE.out.versions.first(),
-        NONPAREIL_SET.out.versions.first(),
-        NONPAREIL_NONPAREILCURVESR.out.versions.first(),
-    )
     ch_multiqc_files = ch_multiqc_files.mix(NONPAREIL_NONPAREILCURVESR.out.json)
 
     emit:
