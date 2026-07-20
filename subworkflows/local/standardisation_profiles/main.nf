@@ -172,7 +172,7 @@ workflow STANDARDISATION_PROFILES {
 
     ch_input_for_motusmerge = combineProfilesWithDatabase(ch_profiles_for_motus, ch_input_databases.motus)
 
-    MOTUS_MERGE(ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db))
+    MOTUS_MERGE(ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db)
     ch_versions = ch_versions.mix(MOTUS_MERGE.out.versions)
 
     // Ganon
