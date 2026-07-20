@@ -202,17 +202,17 @@
                     },
                     "motus/merge": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "6ac134c0ce95cbd173066257d03a8a4718cf7c68",
                         "installed_by": ["modules"]
                     },
                     "motus/preplong": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "6ac134c0ce95cbd173066257d03a8a4718cf7c68",
                         "installed_by": ["modules"]
                     },
                     "motus/profile": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "6ac134c0ce95cbd173066257d03a8a4718cf7c68",
                         "installed_by": ["modules"]
                     },
                     "multiqc": {
