@@ -147,6 +147,8 @@ top_modules:
       name: "Samtools Stats"
   - "hostile":
       name: "Hostile"
+  - "deacon":
+      name: "Deacon"
   - "kraken":
       name: "Kraken"
       path_filters:

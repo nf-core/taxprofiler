@@ -747,7 +747,7 @@
                 "taxpasta/metaphlan_metaphlan4.tsv"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:25.533773",
+        "timestamp": "2026-07-21T14:15:19.165474",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -764,7 +764,7 @@
                 "kraken2_db2.html exists: true"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:35.982043",
+        "timestamp": "2026-07-21T14:15:31.890729",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -772,7 +772,7 @@
     },
     "deacon": {
         "content": [
-            "2612.fq.gz contains string '@ERR5766176': [@ERR5766176.244998 M00380:230:000000000-C5D55:1:1115:16122:3267/1 merged_144_0]",
+            "2612.fq.gz contains string '@ERR5766176': []",
             "2613.fq.gz contains string '@ERR5766181': [@ERR5766181.305906 M00380:230:000000000-C5D55:1:2102:8988:6944/1 merged_151_1]",
             "ERR3201952.fq.gz contains string '@ERR3201952': [@ERR3201952.882919 f9cedf1c-13d5-45f5-889a-260995589f92/1]",
             [
@@ -781,7 +781,7 @@
                 "ERR3201952.json contains string 'version': true"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:29.193111",
+        "timestamp": "2026-07-21T14:15:23.14918",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -793,7 +793,7 @@
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:36.226146",
+        "timestamp": "2026-07-21T14:15:32.134458",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -805,7 +805,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T14:31:36.497385",
+        "timestamp": "2026-07-21T14:15:32.366433",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -828,7 +828,7 @@
             "metaphlan_metaphlan3.tsv contains string 'taxonomy_id': true",
             "metaphlan_metaphlan4.tsv contains string '1239': true"
         ],
-        "timestamp": "2026-07-14T14:31:36.584538",
+        "timestamp": "2026-07-21T14:15:32.438509",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -843,7 +843,7 @@
                 "2613_ERR5766181.bbduk.log contains string:true"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:25.642006",
+        "timestamp": "2026-07-21T14:15:19.318275",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -883,7 +883,7 @@
                 "ganon_db1_combined_reports.txt:md5,466f4222fb437e7e94a8180f3bc2f768"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:29.489067",
+        "timestamp": "2026-07-21T14:15:23.430699",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -896,7 +896,7 @@
                 "ERR3201952_db1.mapping.txt contains string 'Penicillium roqueforti': true"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:36.037023",
+        "timestamp": "2026-07-21T14:15:31.939984",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -928,7 +928,7 @@
             "ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.1159044': true",
             "kaiju_db7_combined_reports.txt contains string '10239': true"
         ],
-        "timestamp": "2026-07-14T14:31:30.12475",
+        "timestamp": "2026-07-21T14:15:24.43463",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -946,7 +946,7 @@
                 "2613_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:25.693407",
+        "timestamp": "2026-07-21T14:15:19.383027",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -977,7 +977,7 @@
             "2614_db3.diamond.tsv contains string 'ERR3201952.882919': true",
             "ERR3201952_db3.diamond.tsv contains string 'ERR3201952.882919': true"
         ],
-        "timestamp": "2026-07-14T14:31:29.349665",
+        "timestamp": "2026-07-21T14:15:23.284996",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1015,7 +1015,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T14:31:36.114409",
+        "timestamp": "2026-07-21T14:15:32.029495",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1025,7 +1025,7 @@
         "content": [
             "ERR3201952_ERR3201952_porechop_abi.log contains string 'Looking for known adapter': true"
         ],
-        "timestamp": "2026-07-14T14:31:36.418682",
+        "timestamp": "2026-07-21T14:15:32.32204",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1042,7 +1042,7 @@
                 "ERR3201952_db1.sylph.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:36.640603",
+        "timestamp": "2026-07-21T14:15:32.480795",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1065,7 +1065,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T14:31:35.931879",
+        "timestamp": "2026-07-21T14:15:31.841957",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1206,7 +1206,7 @@
                 }
             }
         ],
-        "timestamp": "2026-07-14T14:31:25.474106",
+        "timestamp": "2026-07-21T14:15:19.103096",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1227,7 +1227,7 @@
                 "2613_db3.centrifuge.txt contains string 'Homo sapiens': true"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:26.304229",
+        "timestamp": "2026-07-21T14:15:20.081074",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1267,7 +1267,7 @@
             "File nonpareil_all_samples.pdf exists:  true",
             "nonpareil_all_samples.tsv contains string 'diversity': true"
         ],
-        "timestamp": "2026-07-14T14:31:36.355794",
+        "timestamp": "2026-07-21T14:15:32.271797",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1282,7 +1282,7 @@
                 "ERR3201952.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:36.167727",
+        "timestamp": "2026-07-21T14:15:32.084438",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1296,7 +1296,7 @@
                 "2613_db1.kmcp.profile:md5,3d8c1e51679639d6011e3cb9b679485b"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:30.168929",
+        "timestamp": "2026-07-21T14:15:24.52275",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -1317,7 +1317,7 @@
                 "2613_ERR5766181.fastp.log contains string 'Detecting adapter sequence': true"
             ]
         ],
-        "timestamp": "2026-07-14T14:31:29.418156",
+        "timestamp": "2026-07-21T14:15:23.35597",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

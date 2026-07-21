@@ -23,7 +23,7 @@ nextflow_pipeline {
             // diamond:  partly unstable files, see custom assertions
             // fastp:  partly unstable files, see custom assertions
             // fastqc: no stable files, see stable_name_all
-            def stable_content_deacon     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['deacon/filter/**'], ignoreFile: 'tests/.nftignore')
+            //def stable_content_deacon     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['deacon/filter/**'], ignoreFile: 'tests/.nftignore')
             def stable_content_ganon       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['ganon/**']        , ignoreFile: 'tests/.nftignore')
             // kaiju: no stable files, see stable_name_all
             def stable_content_kraken2     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['kraken2/**']      , ignoreFile: 'tests/.nftignore')
@@ -62,9 +62,6 @@ nextflow_pipeline {
                     ).match("bbduk")
                 },
 
-                //bowtie2
-                //{ assert snapshot (stable_content_bowtie2).match("bowtie2")},
-
                 //bracken
                 { assert snapshot (stable_content_bracken).match("bracken")},
 
@@ -81,8 +78,7 @@ nextflow_pipeline {
                             file("$outputDir/deacon/filter/2612.fq.gz").getName() + " contains string '@ERR5766176': " + path("$outputDir/deacon/filter/2612.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.244998') },
                             file("$outputDir/deacon/filter/2613.fq.gz").getName() + " contains string '@ERR5766181': " + path("$outputDir/deacon/filter/2613.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.305906') },
                             file("$outputDir/deacon/filter/ERR3201952.fq.gz").getName() + " contains string '@ERR3201952': " + path("$outputDir/deacon/filter/ERR3201952.fq.gz").linesGzip.findAll { l -> l.contains('@ERR3201952.882919') },
-                            getAllFilesFromDir("$outputDir/deacon/filter", include: ['*.json']).collect { file -> file.getName() + " contains string 'version': " + file.text.contains("version")},
-                            //stable_content_deacon
+                            getAllFilesFromDir("$outputDir/deacon/filter", include: ['*.json']).collect { file -> file.getName() + " contains string 'version': " + file.text.contains("version")}
                         ).match("deacon")
                 },
                 // DIAMOND
