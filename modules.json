@@ -107,17 +107,17 @@
                     },
                     "kaiju/kaiju": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "5e510d0648e0d7fecd3b359fd2a7e59b36744b21",
                         "installed_by": ["modules"]
                     },
                     "kaiju/kaiju2krona": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "5e510d0648e0d7fecd3b359fd2a7e59b36744b21",
                         "installed_by": ["modules"]
                     },
                     "kaiju/kaiju2table": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "5e510d0648e0d7fecd3b359fd2a7e59b36744b21",
                         "installed_by": ["modules"]
                     },
                     "kmcp/profile": {
