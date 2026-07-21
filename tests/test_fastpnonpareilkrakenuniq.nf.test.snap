@@ -333,7 +333,7 @@
                 "taxpasta/krakenuniq_db6.tsv"
             ]
         ],
-        "timestamp": "2026-07-14T14:57:42.716828",
+        "timestamp": "2026-07-21T15:52:33.714132",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -343,7 +343,7 @@
         "content": [
             "ERR3201952_ERR3201952_porechop_abi.log contains string '7 / 10,000': true"
         ],
-        "timestamp": "2026-07-14T14:57:46.772086",
+        "timestamp": "2026-07-21T15:52:39.780635",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -360,7 +360,7 @@
                 "ERR3201952.json contains string 'version': true"
             ]
         ],
-        "timestamp": "2026-07-14T14:57:46.07108",
+        "timestamp": "2026-07-21T15:52:38.378558",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -372,7 +372,7 @@
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
             ]
         ],
-        "timestamp": "2026-07-14T14:57:46.616384",
+        "timestamp": "2026-07-21T15:52:39.572304",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -416,7 +416,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T14:57:46.734348",
+        "timestamp": "2026-07-21T15:52:39.734521",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -428,7 +428,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T14:57:46.806618",
+        "timestamp": "2026-07-21T15:52:39.816042",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -440,7 +440,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T14:57:46.836977",
+        "timestamp": "2026-07-21T15:52:39.848189",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -502,7 +502,7 @@
                 }
             }
         ],
-        "timestamp": "2026-07-14T14:57:42.669455",
+        "timestamp": "2026-07-21T15:52:33.648169",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -521,7 +521,7 @@
             "ERR3201952.se.krakenuniq.classified.txt contains string 'ERR3201952.1159044\t2697049': true",
             "ERR3201952.se.krakenuniq.report.txt contains string 'Severe acute respiratory syndrome coronavirus 2    ': true"
         ],
-        "timestamp": "2026-07-14T14:57:46.588701",
+        "timestamp": "2026-07-21T15:52:39.527986",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -545,7 +545,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-14T14:57:46.11913",
+        "timestamp": "2026-07-21T15:52:38.44774",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
