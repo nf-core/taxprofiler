@@ -41,7 +41,6 @@ workflow LONGREAD_HOSTREMOVAL {
     }
 
     if (params.longread_hostremoval_tool == 'deacon') {
-
         ch_deacon_input =  ch_reads.combine(ch_hostremoval_index)
             .map { meta, reads, _index_meta, index ->
         [meta, index, reads]
