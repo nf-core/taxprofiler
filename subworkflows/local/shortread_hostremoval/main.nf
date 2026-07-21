@@ -47,7 +47,6 @@ workflow SHORTREAD_HOSTREMOVAL {
             [meta, index, reads]
         }
 
-
         DEACON_FILTER(ch_deacon_input)
         ch_cleaned_reads = DEACON_FILTER.out.fastq_filtered
         ch_multiqc_files = ch_multiqc_files.mix(DEACON_FILTER.out.log)
