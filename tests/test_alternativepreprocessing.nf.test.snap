@@ -3,7 +3,7 @@
         "content": [
             {
                 "ADAPTERREMOVAL_PAIRED": {
-                    "adapterremoval": "2.3.2"
+                    "AdapterRemoval": "2.3.4"
                 },
                 "FASTQC": {
                     "fastqc": "0.12.1"
@@ -33,7 +33,7 @@
                     "kaiju": "1.10.0"
                 },
                 "KRAKEN2_KRAKEN2": {
-                    "kraken2": "2.1.5",
+                    "kraken2": "2.1.6",
                     "pigz": 2.8
                 },
                 "MERGE_RUNS": {
@@ -53,10 +53,10 @@
                 }
             }
         ],
-        "timestamp": "2026-04-09T17:19:53.689294746",
+        "timestamp": "2026-07-22T15:59:12.565367",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "all_files": {
@@ -374,7 +374,7 @@
                 "prinseqplusplus/2613_ERR5766181.log"
             ]
         ],
-        "timestamp": "2026-06-07T21:07:42.536169",
+        "timestamp": "2026-07-22T15:59:12.632943",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -386,10 +386,10 @@
                 "ERR3201952_ERR3201952_filtered.log:md5,513650c6b058af60a824f98e6a632e2d"
             ]
         ],
-        "timestamp": "2026-03-19T09:11:43.957876537",
+        "timestamp": "2026-07-22T15:59:12.927295",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "kraken2": {
@@ -401,20 +401,20 @@
             "2612_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true",
             "2613_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true"
         ],
-        "timestamp": "2026-03-19T09:11:44.362584893",
+        "timestamp": "2026-07-22T15:59:14.163749",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "porechop": {
         "content": [
             "ERR3201952_ERR3201952_porechop.log contains string '7 / 10,000': true"
         ],
-        "timestamp": "2026-03-19T09:11:44.377728595",
+        "timestamp": "2026-07-22T15:59:14.216071",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "hostile": {
@@ -426,10 +426,10 @@
                 "ERR3201952_ERR3201952.json contains string 'fastq1_out_name': true"
             ]
         ],
-        "timestamp": "2026-04-01T10:47:03.68106169",
+        "timestamp": "2026-07-22T15:59:12.85618",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "prinseqplusplus": {
@@ -440,24 +440,24 @@
                 "2613_ERR5766181.log:md5,af5912aea0917f53d7bf98060b1992a8"
             ]
         ],
-        "timestamp": "2026-04-01T10:47:03.56579113",
+        "timestamp": "2026-07-22T15:59:14.263256",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "adapterremoval": {
         "content": [
             [
-                "2612_ERR5766176.settings:md5,26cec2a6c8e1210372464bacc0388c28",
-                "2612_ERR5766176_B.settings:md5,26cec2a6c8e1210372464bacc0388c28",
-                "2613_ERR5766181.settings:md5,30814271ddb4303ecca729fd725ba819"
+                "2612_ERR5766176.settings:md5,3b273359e357a380ae3dc362d22e548a",
+                "2612_ERR5766176_B.settings:md5,3b273359e357a380ae3dc362d22e548a",
+                "2613_ERR5766181.settings:md5,b9b238c1b0ad4b3fb62eda9d8967e8db"
             ]
         ],
-        "timestamp": "2026-04-01T10:47:01.654515421",
+        "timestamp": "2026-07-22T15:59:12.714805",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.04.8"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "kaiju": {
@@ -483,10 +483,10 @@
             "ERR3201952_db7.kaijutable.txt contains string '10239':true",
             "ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.1159044':true"
         ],
-        "timestamp": "2026-03-19T09:11:44.347045748",
+        "timestamp": "2026-07-22T15:59:14.024805",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     }
 }
