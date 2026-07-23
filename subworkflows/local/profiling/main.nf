@@ -315,7 +315,7 @@ workflow PROFILING {
                 def quant_params = parsed && parsed.size() >1 ? parsed[1]:''
                 [meta.db_name, meta +  [db_params: quant_params], db] }
 
-        //combine classificstions with db for quantificaion
+        // Combine classificstions with db for quantificaion
         ch_input_for_centrifuger_quant = combineProfilesWithDatabase(CENTRIFUGER_CENTRIFUGER.out.classification_file, ch_database_for_centrifugerquant)
 
         CENTRIFUGER_QUANTIFICATION(ch_input_for_centrifuger_quant.profile, ch_input_for_centrifuger_quant.db.map {db -> [[id: 'centrifuger-db'],db ]},
