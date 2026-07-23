@@ -311,7 +311,7 @@ def toolCitationText() {
 
     def text_shortreadhostremoval = [
         "Host read removal was performed for short reads with:",
-        params.shortread_hostreadremoval_tool == "deacon" ? "Deacon (Constantinides et al. 2025)." : "",
+        params.shortread_hostremoval_tool == "deacon" ? "Deacon (Constantinides et al. 2025)." : "",
         params.shortread_hostremoval_tool == "bowtie2" ? "Bowtie2 (Langmead and Salzberg 2012) and SAMtools (Danecek et al. 2021)." : "",
         params.shortread_hostremoval_tool == "hostile" ? "Hostile (Constantinides et al. 2023)." : "",
     ].join(' ').trim()
