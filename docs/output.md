@@ -803,6 +803,8 @@ You can expect in the MultiQC reports either sections and/or general stats colum
 - porechop
 - filtlong
 - bowtie2
+- deacon
+- hostile
 - minimap2
 - samtools (stats)
 - kraken
