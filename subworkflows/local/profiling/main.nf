@@ -115,8 +115,9 @@ workflow PROFILING {
             .groupTuple(by: [0, 2])
             .multiMap { meta, input_reads, db ->
                 reads: [meta, input_reads.flatten()]
-                db: db
+                db: [meta, db ]
             }
+
 
         MALT_RUN(ch_input_for_malt.reads, ch_input_for_malt.db)
 

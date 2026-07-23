@@ -99,7 +99,7 @@
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"
             ]
         ],
-        "timestamp": "2026-06-07T23:08:11.053781",
+        "timestamp": "2026-07-23T10:24:53.92337",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -112,7 +112,7 @@
                     "fastqc": "0.12.1"
                 },
                 "MALT_RUN": {
-                    "malt": "0.6.1"
+                    "malt": "0.6.2"
                 },
                 "MEGAN_RMA2INFO_TSV": {
                     "megan": "6.25.9"
@@ -128,10 +128,10 @@
                 }
             }
         ],
-        "timestamp": "2026-04-09T17:28:58.058104318",
+        "timestamp": "2026-07-23T10:24:53.867491",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "malt": {
@@ -153,10 +153,10 @@
                 "2612_2.merged.rma6 file size more than '600000': true"
             ]
         ],
-        "timestamp": "2026-03-19T07:47:10.510915006",
+        "timestamp": "2026-07-23T10:24:54.04313",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     }
 }
