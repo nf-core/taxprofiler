@@ -66,6 +66,8 @@
                 "krakenuniq/db6/ERR3201952.se.krakenuniq.report.txt",
                 "multiqc",
                 "multiqc/multiqc_data",
+                "multiqc/multiqc_data/deacon_sequences_removed_vs_kept_plot.txt",
+                "multiqc/multiqc_data/deacon_statistics_table.txt",
                 "multiqc/multiqc_data/fastp-insert-size-plot.txt",
                 "multiqc/multiqc_data/fastp-seq-content-gc-plot_Merged_and_filtered.txt",
                 "multiqc/multiqc_data/fastp-seq-content-gc-plot_Read_1_After_filtering.txt",
@@ -108,6 +110,8 @@
                 "multiqc/multiqc_data/multiqc.parquet",
                 "multiqc/multiqc_data/multiqc_citations.txt",
                 "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_deacon.txt",
+                "multiqc/multiqc_data/multiqc_deacon_deacon-1.txt",
                 "multiqc/multiqc_data/multiqc_fastp.txt",
                 "multiqc/multiqc_data/multiqc_fastqc.txt",
                 "multiqc/multiqc_data/multiqc_fastqc_fastqc-1.txt",
@@ -129,6 +133,9 @@
                 "multiqc/multiqc_data/porechop_porechop_abi.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
+                "multiqc/multiqc_plots/pdf/deacon_sequences_removed_vs_kept_plot-cnt.pdf",
+                "multiqc/multiqc_plots/pdf/deacon_sequences_removed_vs_kept_plot-pct.pdf",
+                "multiqc/multiqc_plots/pdf/deacon_statistics_table.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-insert-size-plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Merged_and_filtered.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_1_After_filtering.pdf",
@@ -185,6 +192,9 @@
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-pct.pdf",
                 "multiqc/multiqc_plots/png",
+                "multiqc/multiqc_plots/png/deacon_sequences_removed_vs_kept_plot-cnt.png",
+                "multiqc/multiqc_plots/png/deacon_sequences_removed_vs_kept_plot-pct.png",
+                "multiqc/multiqc_plots/png/deacon_statistics_table.png",
                 "multiqc/multiqc_plots/png/fastp-insert-size-plot.png",
                 "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Merged_and_filtered.png",
                 "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Read_1_After_filtering.png",
@@ -241,6 +251,9 @@
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-cnt.png",
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-pct.png",
                 "multiqc/multiqc_plots/svg",
+                "multiqc/multiqc_plots/svg/deacon_sequences_removed_vs_kept_plot-cnt.svg",
+                "multiqc/multiqc_plots/svg/deacon_sequences_removed_vs_kept_plot-pct.svg",
+                "multiqc/multiqc_plots/svg/deacon_statistics_table.svg",
                 "multiqc/multiqc_plots/svg/fastp-insert-size-plot.svg",
                 "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Merged_and_filtered.svg",
                 "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Read_1_After_filtering.svg",
@@ -333,7 +346,7 @@
                 "taxpasta/krakenuniq_db6.tsv"
             ]
         ],
-        "timestamp": "2026-07-22T14:58:10.781525",
+        "timestamp": "2026-07-23T14:48:14.174922",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -343,7 +356,7 @@
         "content": [
             "ERR3201952_ERR3201952_porechop_abi.log contains string '7 / 10,000': true"
         ],
-        "timestamp": "2026-07-22T14:58:16.942673",
+        "timestamp": "2026-07-23T14:48:18.309228",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -360,7 +373,7 @@
                 "ERR3201952.json contains string 'version': true"
             ]
         ],
-        "timestamp": "2026-07-22T14:58:15.738355",
+        "timestamp": "2026-07-23T14:48:17.525815",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -372,7 +385,7 @@
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
             ]
         ],
-        "timestamp": "2026-07-22T14:58:16.681046",
+        "timestamp": "2026-07-23T14:48:18.141767",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -416,7 +429,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-22T14:58:16.892967",
+        "timestamp": "2026-07-23T14:48:18.27094",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -428,7 +441,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-22T14:58:16.986835",
+        "timestamp": "2026-07-23T14:48:18.34011",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -440,7 +453,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-22T14:58:17.033172",
+        "timestamp": "2026-07-23T14:48:18.373464",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -502,7 +515,7 @@
                 }
             }
         ],
-        "timestamp": "2026-07-22T14:58:10.686697",
+        "timestamp": "2026-07-23T14:48:14.106006",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -521,7 +534,7 @@
             "ERR3201952.se.krakenuniq.classified.txt contains string 'ERR3201952.1159044\t2697049': true",
             "ERR3201952.se.krakenuniq.report.txt contains string 'Severe acute respiratory syndrome coronavirus 2    ': true"
         ],
-        "timestamp": "2026-07-22T14:58:16.613839",
+        "timestamp": "2026-07-23T14:48:18.112068",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -545,7 +558,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-22T14:58:15.80844",
+        "timestamp": "2026-07-23T14:48:17.577059",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

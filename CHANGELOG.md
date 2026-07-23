@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | ------- | ---------------- | ----------- |
 | hostile |                  | 2.0.2       |
 | deacon  |                  | 0.15.0      |
+| MultiQC | 1.34             | 1.35        |
 
 ## v2.0.1 - [2026-06-15]
 
