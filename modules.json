@@ -17,7 +17,7 @@
                     },
                     "bowtie2/align": {
                         "branch": "master",
-                        "git_sha": "a0961c41021561ac7cf139f86bd7812a2f99e994",
+                        "git_sha": "0cd85f32cf1a1828205b16e4267277ba9457570b",
                         "installed_by": ["modules"]
                     },
                     "bowtie2/build": {

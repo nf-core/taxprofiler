@@ -1,6 +1,4 @@
 lint:
-  merge_markers:
-    - modules/nf-core/bowtie2/align/tests/main.nf.test.snap
   files_exist:
     - conf/igenomes.config
     - conf/igenomes_ignored.config
