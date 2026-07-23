@@ -501,7 +501,7 @@ The output system of KrakenUniq can result in other `stdout` or `stderr` logging
 
 - `centrifuge/`
   - `<db_name>/`
-    - `<sample_id>.centrifuge.mapped.fastq.gz`: File containing the classification assignment for each read (read ID, taxonomy ID, score, length etc )
+    - `<sample_id>.centrifuge.mapped.fastq.gz`: `FASTQ` files containing all reads that were classified against a reference
     - `<sample_id>.centrifuge.report.txt`: A classification report that summarises the taxonomic ID, the taxonomic rank, length of genome sequence, number of classified and uniquely classified reads
     - `<sample_id>.centrifuge.results.txt`: A file that summarises the classification assignment for a read, i.e read ID, sequence ID, score for the classification, score for the next best classification, number of classifications for this read
     - `<sample_id>.centrifuge.txt`: A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of k-mers, taxonomic path of all the hits in the centrifuge run for a given sample
