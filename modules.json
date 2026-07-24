@@ -58,6 +58,8 @@
                     "deacon/index": {
                         "branch": "master",
                         "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
+                        "installed_by": ["modules"]
+                    },
                     "centrifuger/centrifuger": {
                         "branch": "master",
                         "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
