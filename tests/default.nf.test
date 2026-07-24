@@ -23,7 +23,7 @@ nextflow_pipeline {
             // diamond:  partly unstable files, see custom assertions
             // fastp:  partly unstable files, see custom assertions
             // fastqc: no stable files, see stable_name_all
-            //def stable_content_deacon     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['deacon/filter/**'], ignoreFile: 'tests/.nftignore')
+            // deacon:  partly unstable files, see custom assertions
             def stable_content_ganon       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['ganon/**']        , ignoreFile: 'tests/.nftignore')
             // kaiju: no stable files, see stable_name_all
             def stable_content_kraken2     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['kraken2/**']      , ignoreFile: 'tests/.nftignore')
