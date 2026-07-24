@@ -8,6 +8,7 @@ include { BRACKEN_COMBINEBRACKENOUTPUTS                                         
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_COMBINED                       } from '../../../modules/nf-core/kaiju/kaiju2table'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_KRAKEN     } from '../../../modules/nf-core/krakentools/combinekreports'
 include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE } from '../../../modules/nf-core/krakentools/combinekreports'
+include { KRAKENTOOLS_COMBINEKREPORTS as KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGER } from '../../../modules/nf-core/krakentools/combinekreports'
 include { METAPHLAN_MERGEMETAPHLANTABLES                                        } from '../../../modules/nf-core/metaphlan/mergemetaphlantables'
 include { MOTUS_MERGE                                                           } from '../../../modules/nf-core/motus/merge'
 include { GANON_TABLE                                                           } from '../../../modules/nf-core/ganon/table'
@@ -51,14 +52,14 @@ workflow STANDARDISATION_PROFILES {
     }
 
     ch_input_for_taxpasta_merge = ch_input_for_taxpasta.merge
-        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache']) }
+        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache', 'centrifuger']) }
         .multiMap { meta, input_profiles ->
             profiles: [meta, input_profiles]
             tool: meta.tool
         }
 
     ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
-        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache']) }
+        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache', 'centrifuger']) }
         .multiMap { meta, input_profiles ->
             profiles: [meta, input_profiles]
             tool: meta.tool
@@ -78,6 +79,7 @@ workflow STANDARDISATION_PROFILES {
     ch_input_profiles = ch_profiles.branch { entry ->
         bracken: entry[0]['tool'] == 'bracken'
         centrifuge: entry[0]['tool'] == 'centrifuge'
+        centrifuger: entry[0]['tool'] == 'centrifuger'
         ganon: entry[0]['tool'] == 'ganon'
         kmcp: entry[0]['tool'] == 'kmcp'
         kraken2: entry[0]['tool'] == 'kraken2' || entry[0]['tool'] == 'kraken2-bracken'
@@ -124,6 +126,18 @@ workflow STANDARDISATION_PROFILES {
     KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE(ch_profiles_for_centrifuge)
     ch_multiqc_files = ch_multiqc_files.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt)
     ch_versions = ch_versions.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.versions)
+
+    // CENTRIFUGER
+
+    ch_profiles_for_centrifuger = groupProfiles(
+        ch_input_profiles.centrifuger,
+        [sort: { rows -> -rows.size() }],
+    )
+
+    KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGER(ch_profiles_for_centrifuger)
+    ch_multiqc_files = ch_multiqc_files.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGER.out.txt)
+    ch_versions = ch_versions.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGER.out.versions)
+
 
     // Kaiju
 

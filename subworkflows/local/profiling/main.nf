@@ -9,6 +9,8 @@ include { KRAKEN2STANDARDREPORT                         } from '../../../modules
 include { BRACKEN_BRACKEN                               } from '../../../modules/nf-core/bracken/bracken'
 include { CENTRIFUGE_CENTRIFUGE                         } from '../../../modules/nf-core/centrifuge/centrifuge'
 include { CENTRIFUGE_KREPORT                            } from '../../../modules/nf-core/centrifuge/kreport'
+include { CENTRIFUGER_CENTRIFUGER                       } from '../../../modules/nf-core/centrifuger/centrifuger'
+include { CENTRIFUGER_QUANTIFICATION                    } from '../../../modules/nf-core/centrifuger/quantification'
 include { METAPHLAN_METAPHLAN                           } from '../../../modules/nf-core/metaphlan/metaphlan'
 include { KAIJU_KAIJU                                   } from '../../../modules/nf-core/kaiju/kaiju'
 include { KAIJU_KAIJU2TABLE as KAIJU_KAIJU2TABLE_SINGLE } from '../../../modules/nf-core/kaiju/kaiju2table'
@@ -69,6 +71,7 @@ workflow PROFILING {
         }
         .branch { _meta, _input_reads, db_meta, _db ->
             centrifuge: db_meta.tool == 'centrifuge'
+            centrifuger: db_meta.tool == 'centrifuger'
             diamond: db_meta.tool == 'diamond'
             kaiju: db_meta.tool == 'kaiju'
             kraken2: db_meta.tool == 'kraken2' || db_meta.tool == 'bracken'
@@ -270,6 +273,56 @@ workflow PROFILING {
         ch_versions = ch_versions.mix(CENTRIFUGE_KREPORT.out.versions.first())
         ch_raw_profiles = ch_raw_profiles.mix(CENTRIFUGE_KREPORT.out.kreport)
         ch_multiqc_files = ch_multiqc_files.mix(CENTRIFUGE_KREPORT.out.kreport)
+    }
+
+    if (params.run_centrifuger) {
+        def ch_prepare_for_centrifuger = ch_input_for_profiling.centrifuger
+            .map {meta, input_reads, db_meta, db ->
+
+                def parsed_params = db_meta['db_params'].split(";")
+                def db_meta_new = [:]
+                if (parsed_params.size() == 2) {
+                    db_meta_new = db_meta + [db_params: parsed_params[0], db_params_quant: parsed_params[1]]
+                }
+                else if (parsed_params.size() == 0)  {
+                    db_meta_new = db_meta + [db_params: '', db_params_quant: '']
+                }
+                else {
+                    db_meta_new = db_meta + [db_params: parsed_params[0] ?: '', db_params_quant: '']
+                }
+                [meta, input_reads, db_meta_new, db]
+                }
+                .filter {
+                    if (it[0].is_fasta) {
+                        log.warn("[nf-core/taxprofiler] Centrifuger currently does not accept FASTA files as input. Skipping Centrifuger for sample ${it[0].id}.")
+                    }
+                    !it[0].is_fasta
+                }
+
+            ch_input_for_centrifuger = ch_prepare_for_centrifuger.multiMap { it ->
+                reads: [it[0] + it[2], it[1]]
+                db: [it[0], it[3]]
+            }
+
+        CENTRIFUGER_CENTRIFUGER(ch_input_for_centrifuger.reads, ch_input_for_centrifuger.db, params.centrifuger_save_reads, params.centrifuger_save_reads, [], [])
+        ch_raw_classifications = ch_raw_classifications.mix(CENTRIFUGER_CENTRIFUGER.out.classification_file)
+
+        // Ensure the correct database goes with the generated report for KREPORT
+        ch_database_for_centrifugerquant = ch_databases
+            .filter { meta, _db -> meta.tool == 'centrifuger' }
+            .map { meta, db ->
+                def parsed = meta.db_params?.split(';')
+                def quant_params = parsed && parsed.size() >1 ? parsed[1]:''
+                [meta.db_name, meta +  [db_params: quant_params], db] }
+
+        // Combine classifications with db for quantification
+        ch_input_for_centrifuger_quant = combineProfilesWithDatabase(CENTRIFUGER_CENTRIFUGER.out.classification_file, ch_database_for_centrifugerquant)
+
+        CENTRIFUGER_QUANTIFICATION(ch_input_for_centrifuger_quant.profile, ch_input_for_centrifuger_quant.db.map {db -> [[id: 'centrifuger-db'],db ]},
+                                    [], [], [])
+        ch_raw_profiles = ch_raw_profiles.mix(CENTRIFUGER_QUANTIFICATION.out.report_file)
+        ch_multiqc_files = ch_multiqc_files.mix(CENTRIFUGER_QUANTIFICATION.out.report_file)
+
     }
 
     if (params.run_metaphlan) {

@@ -33,6 +33,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [Kraken2](#kraken2) - Taxonomic classifier using exact k-mer matches
 - [KrakenUniq](#krakenuniq) - Taxonomic classifier that combines the k-mer-based classification and the number of unique k-mers found in each species
 - [Centrifuge](#centrifuge) - Taxonomic classifier that uses a novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index.
+- [Centrifuger](#centrifuger) - Taxonomic classifier for sequencing reads (bulk and single-cell data, short and long read) using FM-index with run-block compressed BWT.
 - [Kaiju](#kaiju) - Taxonomic classifier that finds maximum (in-)exact matches on the protein-level.
 - [Diamond](#diamond) - Sequence aligner for protein and translated DNA searches.
 - [MALT](#malt) - Sequence alignment and analysis tool designed for processing high-throughput sequencing data, especially in the context of metagenomics
@@ -357,8 +358,9 @@ For short-read unmapped reads, see [bowtie2](#bowtie2).
 - `hostile/`
   - `fetch/`
     - `*.{bt2,fa.gz,*mmi}`: bowtie2 indices (short read) or minimap2 index (long reads) of downloaded reference genome, only if `--save_hostremoval_index` supplied.
-  - `clean/` -`<sample_id>_<accession_id>.clean_{1,2}.fastq.gz`: FASTQ file(s) with host reads removed, only if `-- save_hostremoval_unmapped` supplied.
-  - `<sample_id>_<accession_id>.json`: host removal statistics in JSON format.
+  - `clean/`
+    - `<sample_id>_<accession_id>.clean_{1,2}.fastq.gz`: FASTQ file(s) with host reads removed, only if `-- save_hostremoval_unmapped` supplied.
+    - `<sample_id>_<accession_id>.json`: host removal statistics in JSON format.
 
 </details>
 
@@ -518,7 +520,7 @@ The output system of KrakenUniq can result in other `stdout` or `stderr` logging
 
 - `centrifuge/`
   - `<db_name>/`
-    - `<sample_id>.centrifuge.mapped.fastq.gz`: `FASTQ` files containing all mapped reads
+    - `<sample_id>.centrifuge.mapped.fastq.gz`: `FASTQ` files containing all reads that were classified against a reference
     - `<sample_id>.centrifuge.report.txt`: A classification report that summarises the taxonomic ID, the taxonomic rank, length of genome sequence, number of classified and uniquely classified reads
     - `<sample_id>.centrifuge.results.txt`: A file that summarises the classification assignment for a read, i.e read ID, sequence ID, score for the classification, score for the next best classification, number of classifications for this read
     - `<sample_id>.centrifuge.txt`: A Kraken2-style report that summarises the fraction abundance, taxonomic ID, number of k-mers, taxonomic path of all the hits in the centrifuge run for a given sample
@@ -527,6 +529,24 @@ The output system of KrakenUniq can result in other `stdout` or `stderr` logging
 </details>
 
 The main taxonomic classification files from Centrifuge are the `_combined_reports.txt`, `*report.txt`, `*results.txt` and the `*centrifuge.txt`. The latter is used by the taxpasta step. You will receive the `.fastq` files if you supply `--centrifuge_save_reads`.
+
+### Centrifuger
+
+[Centrifuger](https://github.com/mourisl/centrifuger) is a taxonomic sequence classifier (bulk and single-cell data, short and long read) using FM-index with run-block compressed BWT.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `centrifuger/`
+  - `<db_name>/` - `<sample_id>.centrifuger.classification.tsv`: File containing classification assignment for each read (read ID, taxonomy ID, score, length etc.)
+    - `<sample_id>.centrifuger.report.tsv`: A kraken-style report that summarizes the taxID, taxonomic rank, length of genome sequence, number of classified reads and uniquely classified reads.
+    - `<sample_id>.centrifuge.classified.fq.gz`: FASTQ file containing classified reads (optional, if `--centrifuger_save_reads`.
+    - `<sample_id>.centrifuge.unclassified.fq.qz`: FASTQ file containng unclassified reads (optional, if `--centrifuger_save_reads`.
+    - `centrifuger_<id>_combined_reports.txt`: Combined multi-sample Kraken-style report (produced by KrakenTools' `combine_kreports.py`)
+
+  </details>
+
+The main taxonomic classification files from Centrifuger are the `_combined_reports.txt`, and the per-smaple `*report.tsv`. The latter is used by the taxpasta step. You will receive the `.fastq` files if you supply `--centrifuge_save_reads`.
 
 ### Kaiju
 
@@ -810,6 +830,7 @@ You can expect in the MultiQC reports either sections and/or general stats colum
 - kraken
 - bracken
 - centrifuge
+- centrifuger
 - kaiju
 - diamond
 - malt

@@ -142,6 +142,7 @@ bracken,db1,;-r 150,/<path>/<to>/bracken/testdb-bracken.tar.gz
 kraken2,db2,--quick,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 krakenuniq,db3,,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
 centrifuge,db1,,/<path>/<to>/centrifuge/minigut_cf.tar.gz
+centrifuger,db1,,/<path>/<to>/centrifuger/testdb_centrifuger.tar.gz
 metaphlan,db1,,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,/<path>/<to>/motus/motus_database/
 ganon,db1,,/<path>/<to>/ganon/test-db-ganon.tar.gz
@@ -159,6 +160,7 @@ bracken,db1,;-r 150,short,/<path>/<to>/bracken/testdb-bracken.tar.gz
 kraken2,db2,--quick,short,/<path>/<to>/kraken2/testdb-kraken2.tar.gz
 krakenuniq,db3,,short;long,/<path>/<to>/krakenuniq/testdb-krakenuniq.tar.gz
 centrifuge,db1,,short,/<path>/<to>/centrifuge/minigut_cf.tar.gz
+centrifuger,db1,,short,/<path>/<to>/centrifuger/testdb_centrifuger.tar.gz
 metaphlan,db1,,short,/<path>/<to>/metaphlan/metaphlan_database/
 motus,db_mOTU,,long,/<path>/<to>/motus/motus_database/
 ganon,db1,,short,/<path>/<to>/ganon/test-db-ganon.tar.gz
@@ -206,6 +208,7 @@ The (uncompressed) database paths (`db_path`) for each tool are expected to cont
 
 - [**Bracken**:](usage/tutorials.md#bracken-custom-database) output of the combined `kraken2-build` and `bracken-build` process.
 - [**Centrifuge**:](usage/tutorials.md#centrifuge-custom-database) output of `centrifuge-build`.
+- [**Centrifuger**:](usage/tutorials.md#centrifuger-custom-database) output of `centrifuger-build`.
 - [**DIAMOND**:](usage/tutorials.md#diamond-custom-database) output of `diamond makedb`.
 - [**Kaiju**:](usage/tutorials.md#kaiju-custom-database) output of `kaiju-makedb`.
 - [**Kraken2**:](usage/tutorials.md#kraken2-custom-database) output of `kraken2-build` command(s).
@@ -452,6 +455,10 @@ See [Full database sheet](#full-database-sheet) for more information.
 
 Centrifuge currently does not accept FASTA files as input, therefore no output will be produced for these input files.
 
+##### Centrifuger
+
+Centrifuge currently does not accept FASTA files as input, therefore no output will be produced for these input files.
+
 ##### DIAMOND
 
 DIAMOND can only accept a single input read file. When run DIAMOND on paired-end reads without merging, only the `read1` file will be used.
@@ -523,6 +530,7 @@ nf-core/taxprofiler supports generation of Krona interactive pie chart plots for
 
 - Kraken2
 - Centrifuge
+- Centrifuger
 - Kaiju
 - MALT
 
@@ -542,6 +550,7 @@ The following tools will produce multi-sample taxon tables:
 
 - **Bracken** (via bracken's `combine_bracken_outputs.py` script)
 - **Centrifuge** (via KrakenTools' `combine_kreports.py` script)
+- **Centrifuger** (via KrakenTools' `combine_kreports.py` script)
 - **Kaiju** (via Kaiju's `kaiju2table` tool)
 - **Kraken2** (via KrakenTools' `combine_kreports.py` script)
 - **MetaPhlAn** (via MetaPhlAn's `merge_metaphlan_tables.py` script)
@@ -580,7 +589,7 @@ If you want to remove host reads from short-read input for use in `metaval`, add
 
 If you want to remove host reads from long-read input for use in `metaval`, additionally include `--perform_longread_hostremoval --save_hostremoval_unmapped --hostremoval_reference '/path/to/host/genome'`.
 
-By default, the `metaval` config will turn on all of `--run_kraken2 --kraken2_save_readclassifications`, `--run_centrifuge` and `--run_diamond`.
+By default, the `metaval` config will turn on all of `--run_kraken2 --kraken2_save_readclassifications`, `--run_centrifuge`, and `--run_diamond`.
 If you only wish to run one or two, specify `--run_<tool> false`
 
 ### Updating the pipeline

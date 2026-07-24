@@ -37,6 +37,17 @@
                 "deacon/filter/2613.json",
                 "deacon/filter/ERR3201952.fq.gz",
                 "deacon/filter/ERR3201952.json",
+                "centrifuger",
+                "centrifuger/centrifuger_db4_combined_reports.txt",
+                "centrifuger/db4",
+                "centrifuger/db4/2612_db4.centrifuger.classification.classified.fq.gz",
+                "centrifuger/db4/2612_db4.centrifuger.classification.tsv",
+                "centrifuger/db4/2612_db4.centrifuger.classification.unclassified.fq.gz",
+                "centrifuger/db4/2612_db4.centrifuger.report.tsv",
+                "centrifuger/db4/2613_db4.centrifuger.classification.classified.fq.gz",
+                "centrifuger/db4/2613_db4.centrifuger.classification.tsv",
+                "centrifuger/db4/2613_db4.centrifuger.classification.unclassified.fq.gz",
+                "centrifuger/db4/2613_db4.centrifuger.report.tsv",
                 "diamond",
                 "diamond/db1",
                 "diamond/db1/2611_db1.diamond.log",
@@ -166,6 +177,7 @@
                 "kraken2/kraken2_db2_combined_reports.txt",
                 "krona",
                 "krona/centrifuge_db3.html",
+                "krona/centrifuger_db4.html",
                 "krona/kaiju_db5.html",
                 "krona/kaiju_db6.html",
                 "krona/kaiju_db7.html",
@@ -763,13 +775,14 @@
         "timestamp": "2026-07-23T18:54:37.433553",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.4"
         }
     },
     "krona": {
         "content": [
             [
                 "centrifuge_db3.html exists: true",
+                "centrifuger_db4.html exists: true",
                 "kaiju_db5.html exists: true",
                 "kaiju_db6.html exists: true",
                 "kaiju_db7.html exists: true",
@@ -777,10 +790,10 @@
                 "kraken2_db2.html exists: true"
             ]
         ],
-        "timestamp": "2026-07-23T18:54:49.944045",
+        "timestamp": "2026-06-24T14:11:06.448599",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "deacon": {
@@ -794,10 +807,27 @@
                 "ERR3201952.json contains string 'version': true"
             ]
         ],
-        "timestamp": "2026-07-23T18:54:41.801557",
+        "timestamp": "2026-06-24T16:45:44.560929",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
+        }
+    },
+    "centrifuger": {
+        "content": [
+            [
+                "2612_db4.centrifuger.classification.tsv contains string '9606': true",
+                "2613_db4.centrifuger.classification.tsv contains string '9606': true"
+            ],
+            [
+                "2612_db4.centrifuger.report.tsv contains string 'Homo_sapiens': true",
+                "2613_db4.centrifuger.report.tsv contains string 'Homo_sapiens': true"
+            ]
+        ],
+        "timestamp": "2026-06-24T17:36:14.489818",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "nanoq": {
@@ -806,10 +836,10 @@
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
             ]
         ],
-        "timestamp": "2026-07-23T18:54:50.144984",
+        "timestamp": "2026-06-24T16:45:47.906594",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "samtools": {
@@ -818,10 +848,10 @@
                 
             ]
         ],
-        "timestamp": "2026-07-23T18:54:50.45203",
+        "timestamp": "2026-06-24T16:45:47.995044",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "taxpasta": {
@@ -841,10 +871,10 @@
             "metaphlan_metaphlan3.tsv contains string 'taxonomy_id': true",
             "metaphlan_metaphlan4.tsv contains string '1239': true"
         ],
-        "timestamp": "2026-07-23T18:54:50.521966",
+        "timestamp": "2026-06-24T18:11:24.763355",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "bbduk": {
@@ -909,10 +939,10 @@
                 "ERR3201952_db1.mapping.txt contains string 'Penicillium roqueforti': true"
             ]
         ],
-        "timestamp": "2026-07-23T18:54:49.992781",
+        "timestamp": "2026-06-23T17:23:19.014995",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "kaiju": {
@@ -959,10 +989,10 @@
                 "2613_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b"
             ]
         ],
-        "timestamp": "2026-07-23T18:54:37.622064",
+        "timestamp": "2026-06-24T16:45:44.588761",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "diamond": {
@@ -1025,7 +1055,7 @@
             "metaphlan_metaphlan3_combined_reports.txt contains string 'UNCLASSIFIED': true",
             "metaphlan_metaphlan4_combined_reports.txt contains string 't__SGB4933_group': true",
             [
-                
+
             ]
         ],
         "timestamp": "2026-07-23T18:54:50.058498",
@@ -1075,7 +1105,7 @@
             "kraken2_db1-bracken_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
             "kraken2_db2_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
             [
-                
+
             ]
         ],
         "timestamp": "2026-07-23T18:54:49.899002",
@@ -1095,6 +1125,12 @@
                 },
                 "BRACKEN_COMBINEBRACKENOUTPUTS": {
                     "combine_bracken_output": 2.9
+                },
+                "CENTRIFUGER_CENTRIFUGER": {
+                    "centrifuger": "1.1.2-r329"
+                },
+                "CENTRIFUGER_QUANTIFICATION": {
+                    "centrifuger": "1.1.2-r329"
                 },
                 "CENTRIFUGE_CENTRIFUGE": {
                     "centrifuge": "1.0.4"
@@ -1155,6 +1191,9 @@
                     "pigz": 2.8
                 },
                 "KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE": {
+                    "combine_kreports.py": 1.2
+                },
+                "KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGER": {
                     "combine_kreports.py": 1.2
                 },
                 "KRAKENTOOLS_COMBINEKREPORTS_KRAKEN": {
@@ -1219,10 +1258,10 @@
                 }
             }
         ],
-        "timestamp": "2026-07-23T18:54:37.373756",
+        "timestamp": "2026-06-29T15:26:22.012318",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "centrifuge": {
@@ -1240,10 +1279,10 @@
                 "2613_db3.centrifuge.txt contains string 'Homo sapiens': true"
             ]
         ],
-        "timestamp": "2026-07-23T18:54:38.240662",
+        "timestamp": "2026-06-24T11:11:32.113799",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "nonpareil": {
@@ -1295,10 +1334,10 @@
                 "ERR3201952.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799"
             ]
         ],
-        "timestamp": "2026-07-23T18:54:50.098462",
+        "timestamp": "2026-06-24T16:45:47.88045",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "kmcp": {
@@ -1309,10 +1348,10 @@
                 "2613_db1.kmcp.profile:md5,3d8c1e51679639d6011e3cb9b679485b"
             ]
         ],
-        "timestamp": "2026-07-23T18:54:43.146396",
+        "timestamp": "2026-06-24T18:11:22.044533",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "fastp": {
