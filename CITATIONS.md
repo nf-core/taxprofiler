@@ -144,6 +144,7 @@
 - [Centrifuger](https://doi.org/10.1186/s13059-024-03244-4)
 
   > Song, L. & Langmead B. (2023). Centrifuger: lossless compression of microbial genomes for efficient and accurate metagenomic sequence classification.
+  
   > Genome Biol. 2024 Apr 25;25(1):106. https://doi.org/10.1186/s13059-024-03244-4
 
 ## Software packaging/containerisation tools
