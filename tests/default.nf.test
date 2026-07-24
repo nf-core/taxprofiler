@@ -62,7 +62,6 @@ nextflow_pipeline {
                     ).match("bbduk")
                 },
 
-                //bowtie2
 
                 //bracken
                 { assert snapshot (stable_content_bracken).match("bracken")},
