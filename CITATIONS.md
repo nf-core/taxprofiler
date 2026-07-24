@@ -141,6 +141,11 @@
 
   > Müller, A., Hundt, C., Hildebrandt, A., Hankeln, T., & Schmidt, B.(2017). MetaCache: context-aware classification of metagenomic reads using minhashing. Bioinformatics, 33(23), 3740–3748. https://doi.org/10.1093/bioinformatics/btx520
 
+- [Centrifuger](https://doi.org/10.1186/s13059-024-03244-4)
+
+  > Song, L. & Langmead B. (2023). Centrifuger: lossless compression of microbial genomes for efficient and accurate metagenomic sequence classification.
+  > Genome Biol. 2024 Apr 25;25(1):106. https://doi.org/10.1186/s13059-024-03244-4
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)
