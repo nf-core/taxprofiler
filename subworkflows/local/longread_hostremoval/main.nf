@@ -22,8 +22,6 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    //ch_reference_for_index = ch_reference.map { fasta -> [ [id: fasta.baseName], fasta ] } // channel: [ val(meta), path(fasta) ]
-
     if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'deacon') {
         DEACON_INDEX( Channel.value([[id: ch_reference.baseName], ch_reference]) )
         ch_hostremoval_index = DEACON_INDEX.out.index

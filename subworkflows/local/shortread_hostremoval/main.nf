@@ -21,13 +21,11 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    //ch_reference_for_index = ch_reference.map { fasta -> [ [id: fasta.baseName], fasta ] } // channel: [ val(meta), path(fasta) ]
 
-
-    if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'deacon') {
-        ch_hostremoval_index = DEACON_INDEX(Channel.value([[id: ch_reference.baseName], ch_reference])).index
+    if (!params.shortread_hostremoval_index && params.shortread_hostremoval_tool == 'deacon') {
+        DEACON_INDEX( Channel.value([[id: ch_reference.baseName], ch_reference]) )
+        ch_hostremoval_index = DEACON_INDEX.out.index
     }
-
     else if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
         ch_hostremoval_index = BOWTIE2_BUILD(Channel.value([[id: ch_reference.baseName], ch_reference])).index
     }
