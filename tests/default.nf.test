@@ -17,7 +17,6 @@ nextflow_pipeline {
         then {
             def stable_name_all            = getAllFilesFromDir(params.outdir, relative: true, includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
             // bbduk:  partly unstable files, see custom assertions
-            //bowtie2: partly unstable files, see custom assertions
             def stable_content_bracken     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['bracken/**']      , ignoreFile: 'tests/.nftignore')
             // centrifuge:  partly unstable files, see custom assertions
             // diamond:  partly unstable files, see custom assertions
