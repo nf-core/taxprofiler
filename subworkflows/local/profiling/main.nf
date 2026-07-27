@@ -631,10 +631,13 @@ workflow PROFILING {
             }
 
         ch_input_for_sylphtax_filtered = ch_input_for_sylphtax.report.filter { meta, report ->
-            if (report.isEmpty()) {
+            def lines = report.readLines()
+            if (lines.size() <= 1) {
+            //if (report.isEmpty()) {
                 log.warn("[nf-core/taxprofiler] Sample ${meta.id} has an empty report file. Will not be processed by SYLPHTAX_TAXPROF.")
             }
-            !report.isEmpty()
+            //!report.isEmpty()
+            lines.size() > 1
         }
 
 
