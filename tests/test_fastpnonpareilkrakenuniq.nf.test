@@ -16,7 +16,7 @@ nextflow_pipeline {
 
         then {
             def stable_name_all             = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
-            def stable_content_deacon       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['deacon/filter/**'], ignoreFile: 'tests/.nftignore')
+            //deacon: partly unstable files, see custom assertions
             def stable_content_fastp        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["fastp/**"]        , ignoreFile: 'tests/.nftignore')
             def stable_content_krakenuniq   = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["krakenuniq/**"]        , ignoreFile: 'tests/.nftignore')
             // multiqc: all unstable files, see custom assertions from template at top

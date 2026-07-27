@@ -19,10 +19,10 @@ nextflow_pipeline {
             // bbduk:  partly unstable files, see custom assertions
             def stable_content_bracken     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['bracken/**']      , ignoreFile: 'tests/.nftignore')
             // centrifuge:  partly unstable files, see custom assertions
-            // diamond:  partly unstable files, see custom assertions
             // fastp:  partly unstable files, see custom assertions
             // fastqc: no stable files, see stable_name_all
             // deacon:  partly unstable files, see custom assertions
+            // diamond:  partly unstable files, see custom assertions
             def stable_content_ganon       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['ganon/**']        , ignoreFile: 'tests/.nftignore')
             // kaiju: no stable files, see stable_name_all
             def stable_content_kraken2     = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['kraken2/**']      , ignoreFile: 'tests/.nftignore')
@@ -38,10 +38,9 @@ nextflow_pipeline {
             // pipeline_info: all unstable files, custom assertions from template at top
             // porechop_abi:  partly unstable files, see custom assertions
             def stable_content_samtools    = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['samtools/**']     , ignoreFile: 'tests/.nftignore')
-            // taxpasta:  partly unstable files, see custom assertions
             def stable_content_melon       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['melon/**']        , ignoreFile: 'tests/.nftignore')
             def stable_content_sylph       = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include :['sylph/**']        , ignoreFile: 'tests/.nftignore')
-
+            // taxpasta:  partly unstable files, see custom assertions
 
             assertAll(
                 { assert workflow.success},
@@ -73,19 +72,20 @@ nextflow_pipeline {
                     ).match("centrifuge")
                 },
 
-                 //deacon
+                // centrifuger
+                { assert snapshot(
+                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.classification.tsv']).collect{file -> file.getName() + " contains string '9606': " + file.text.contains("9606") },
+                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.report.tsv']).collect{file -> file.getName() + " contains string 'Homo_sapiens': " + file.text.contains("Homo_sapiens") }
+                    ).match("centrifuger")
+                },
+
+                //deacon
                 { assert snapshot (
                             file("$outputDir/deacon/filter/2612.fq.gz").getName() + " contains string '@ERR5766176': " + path("$outputDir/deacon/filter/2612.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.244998') },
                             file("$outputDir/deacon/filter/2613.fq.gz").getName() + " contains string '@ERR5766181': " + path("$outputDir/deacon/filter/2613.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.305906') },
                             file("$outputDir/deacon/filter/ERR3201952.fq.gz").getName() + " contains string '@ERR3201952': " + path("$outputDir/deacon/filter/ERR3201952.fq.gz").linesGzip.findAll { l -> l.contains('@ERR3201952.882919') },
                             getAllFilesFromDir("$outputDir/deacon/filter", include: ['*.json']).collect { file -> file.getName() + " contains string 'version': " + file.text.contains("version")}
                         ).match("deacon")
-                },
-                // centrifuger
-                { assert snapshot(
-                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.classification.tsv']).collect{file -> file.getName() + " contains string '9606': " + file.text.contains("9606") },
-                        getAllFilesFromDir("$outputDir/centrifuger", include: ['**/*.centrifuger.report.tsv']).collect{file -> file.getName() + " contains string 'Homo_sapiens': " + file.text.contains("Homo_sapiens") }
-                    ).match("centrifuger")
                 },
 
                 // DIAMOND
@@ -196,7 +196,6 @@ nextflow_pipeline {
 
                 // melon
                 { assert snapshot (stable_content_melon).match("melon")},
-
 
                 // nanoq
                 { assert snapshot (stable_content_nanoq).match("nanoq")},
