@@ -25,6 +25,7 @@ workflow VISUALIZATION_KRONA {
     */
     ch_input_profiles = ch_profiles.branch {
         centrifuge: it[0]['tool'] == 'centrifuge'
+        centrifuger: it[0]['tool'] == 'centrifuger'
         kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
         unknown: true
     }
@@ -42,6 +43,7 @@ workflow VISUALIZATION_KRONA {
             [meta + [tool: meta.tool == 'bracken' ? 'kraken2-bracken' : meta.tool], report]
         }
         .mix(ch_input_profiles.centrifuge)
+        .mix(ch_input_profiles.centrifuger)
     KRAKENTOOLS_KREPORT2KRONA(ch_kraken_reports)
     ch_krona_text = ch_krona_text.mix(KRAKENTOOLS_KREPORT2KRONA.out.txt)
 

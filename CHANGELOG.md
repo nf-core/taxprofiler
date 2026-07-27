@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Added`
 
+- [#753](https://github.com/nf-core/taxprofiler/pull/753) Added centrifuger as a new taxonomic classifier (added by @haris18s)
+
 - [#712](https://github.com/nf-core/taxprofiler/pull/712) Added new read decontamination tool Hostile (by @jfy133, ❤️ @bede for upstream support)
 
 ### `Fixed`
@@ -17,9 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Dependencies`
 
-| Tool    | Previous version | New version |
-| ------- | ---------------- | ----------- |
-| hostile |                  | 2.0.2       |
+| Tool        | Previous version | New version |
+| ----------- | ---------------- | ----------- |
+| hostile     |                  | 2.0.2       |
+| Centrifuger |                  | 1.1.2       |
 
 ## v2.0.1 - [2026-06-15]
 

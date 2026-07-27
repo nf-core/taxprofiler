@@ -28,6 +28,16 @@
                 "centrifuge/db3/2613_ERR5766181_db3.centrifuge.report.txt",
                 "centrifuge/db3/2613_ERR5766181_db3.centrifuge.results.txt",
                 "centrifuge/db3/2613_ERR5766181_db3.centrifuge.txt",
+                "centrifuger",
+                "centrifuger/db4",
+                "centrifuger/db4/2612_ERR5766176_B_db4.centrifuger.classification.tsv",
+                "centrifuger/db4/2612_ERR5766176_B_db4.centrifuger.report.tsv",
+                "centrifuger/db4/2612_ERR5766176_db4.centrifuger.classification.tsv",
+                "centrifuger/db4/2612_ERR5766176_db4.centrifuger.report.tsv",
+                "centrifuger/db4/2612_ERR5766180_db4.centrifuger.classification.tsv",
+                "centrifuger/db4/2612_ERR5766180_db4.centrifuger.report.tsv",
+                "centrifuger/db4/2613_ERR5766181_db4.centrifuger.classification.tsv",
+                "centrifuger/db4/2613_ERR5766181_db4.centrifuger.report.tsv",
                 "diamond",
                 "diamond/db1",
                 "diamond/db1/2611_ERR5766174_db1.diamond.log",
@@ -149,6 +159,7 @@
                 "kraken2/db2/2613_ERR5766181_db2.kraken2.kraken2.report.txt",
                 "krona",
                 "krona/centrifuge_db3.html",
+                "krona/centrifuger_db4.html",
                 "krona/kaiju_db5.html",
                 "krona/kaiju_db6.html",
                 "krona/kaiju_db7.html",
@@ -514,8 +525,29 @@
         ],
         "timestamp": "2026-07-22T15:15:07.619602",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
+        }
+    },
+    "centrifuger": {
+        "content": [
+            [
+                "2612_ERR5766176_B_db4.centrifuger.classification.tsv contains string '9606': true",
+                "2612_ERR5766176_db4.centrifuger.classification.tsv contains string '9606': true",
+                "2612_ERR5766180_db4.centrifuger.classification.tsv contains string '9606': true",
+                "2613_ERR5766181_db4.centrifuger.classification.tsv contains string '9606': true"
+            ],
+            [
+                "2612_ERR5766176_B_db4.centrifuger.report.tsv contains string 'Homo_sapiens': true",
+                "2612_ERR5766176_db4.centrifuger.report.tsv contains string 'Homo_sapiens': true",
+                "2612_ERR5766180_db4.centrifuger.report.tsv contains string 'Homo_sapiens': true",
+                "2613_ERR5766181_db4.centrifuger.report.tsv contains string 'Homo_sapiens': true"
+            ]
+        ],
+        "timestamp": "2026-07-06T22:17:33.199491",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "ganon": {
@@ -752,6 +784,12 @@
                 "BRACKEN_BRACKEN": {
                     "bracken": "3.0.1"
                 },
+                "CENTRIFUGER_CENTRIFUGER": {
+                    "centrifuger": "1.1.2-r329"
+                },
+                "CENTRIFUGER_QUANTIFICATION": {
+                    "centrifuger": "1.1.2-r329"
+                },
                 "CENTRIFUGE_CENTRIFUGE": {
                     "centrifuge": "1.0.4"
                 },
@@ -821,8 +859,8 @@
         ],
         "timestamp": "2026-07-22T15:15:07.544938",
         "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nf-test": "0.9.4",
+            "nextflow": "26.04.0"
         }
     },
     "kraken2": {

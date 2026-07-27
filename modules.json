@@ -50,6 +50,16 @@
                         "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
+                    "centrifuger/centrifuger": {
+                        "branch": "master",
+                        "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
+                        "installed_by": ["modules"]
+                    },
+                    "centrifuger/quantification": {
+                        "branch": "master",
+                        "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
+                        "installed_by": ["modules"]
+                    },
                     "diamond/blastx": {
                         "branch": "master",
                         "git_sha": "83ce9b314157a24d9a92f17a07ed5d55f30b78f9",
