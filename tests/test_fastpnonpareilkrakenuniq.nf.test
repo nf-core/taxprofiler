@@ -40,7 +40,6 @@ nextflow_pipeline {
                 { assert snapshot ( stable_name_all ).match("all_files") },
 
                 // deacon
-                 //deacon
                 { assert snapshot (
                             file("$outputDir/deacon/filter/2612.fq.gz").getName() + " contains string '@ERR5766176': " + path("$outputDir/deacon/filter/2612.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.244998') },
                             file("$outputDir/deacon/filter/2613.fq.gz").getName() + " contains string '@ERR5766181': " + path("$outputDir/deacon/filter/2613.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.305906') },
