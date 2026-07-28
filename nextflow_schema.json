@@ -348,10 +348,10 @@
                 },
                 "shortread_hostremoval_tool": {
                     "type": "string",
-                    "default": "bowtie2",
+                    "default": "deacon",
                     "fa_icon": "fas fa-hammer",
                     "description": "Specify which tool to use for short read host removal",
-                    "enum": ["bowtie2", "hostile"]
+                    "enum": ["bowtie2", "hostile", "deacon"]
                 },
                 "perform_longread_hostremoval": {
                     "type": "boolean",
@@ -361,18 +361,18 @@
                 },
                 "longread_hostremoval_tool": {
                     "type": "string",
-                    "default": "minimap2",
+                    "default": "deacon",
                     "fa_icon": "fas fa-hammer",
                     "description": "Specify which tool to use for long read host removal",
-                    "enum": ["minimap2", "hostile"]
+                    "enum": ["minimap2", "hostile", "deacon"]
                 },
                 "hostremoval_reference": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
                     "fa_icon": "fas fa-file-alt",
-                    "description": "Specify path to the reference genome FASTA for Bowtie2 of host reads to remove (Bowtie2 only)",
-                    "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed using Bowtie2.\n\nThis is not required for Hostile.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
+                    "description": "Specify path to the reference genome FASTA for Deacon or Bowtie2 of host reads to remove.",
+                    "help_text": "Specify a path to the FASTA file (optionally gzipped) of the reference genome of the organism to be removed using Deacon or Bowtie2.\n\nThis is not required for Hostile.\n\nIf you have two or more host organisms or contaminants you wish to remove, you can concatenate the FASTAs of the different taxa into a single one to provide to the pipeline."
                 },
                 "hostremoval_hostile_referencename": {
                     "type": "string",
@@ -384,8 +384,8 @@
                     "type": "string",
                     "format": "directory-path",
                     "fa_icon": "fas fa-address-book",
-                    "description": "Specify path to the directory containing pre-made Bowtie2 or Hostile indexes of the host removal reference",
-                    "help_text": "Specify path to a pre-made Minimap2 index file or Hostile reference index (i.e., .mmi).\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you.\n\nHostile does not require the reference file, and you should supply the Hostile cache directory (`$HOSTILE_CACHE_DIR`) containing the Hostile index files.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate (bowtie2) or download (Hostile) the indices for you."
+                    "description": "Specify path to the directory containing pre-made Deacon, Bowtie2 or Hostile indexes of the host removal reference",
+                    "help_text": "Specify path to a pre-made Minimap2 index file or Hostile reference index (i.e., .mmi).\n\nSpecifying a premade index file can speed up runtime of the host-removal step, however if not supplied the pipeline will generate the indices for you.\n\nHostile does not require the reference file, and you should supply the Hostile cache directory (`$HOSTILE_CACHE_DIR`) containing the Hostile index files.\n\nSpecifying premade indices can speed up runtime of the host-removal step, however if not supplied the pipeline will generate (deacon,bowtie2) or download (Hostile) the indices for you."
                 },
                 "longread_hostremoval_index": {
                     "type": "string",

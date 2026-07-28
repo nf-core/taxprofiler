@@ -102,7 +102,7 @@ workflow PIPELINE_INITIALISATION {
     // Validate and create channel from input file provided through params.input
     //
 
-      channel
+    channel
         .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
         .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             meta.run_accession = run_accession
@@ -168,10 +168,10 @@ workflow PIPELINE_INITIALISATION {
     // Input parameter validation
 
     if (params.perform_shortread_hostremoval) {
-        if (params.shortread_hostremoval_tool == 'bowtie2' && !params.hostremoval_reference) {
-            error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval with Bowtie2 requested, but no --hostremoval_reference FASTA supplied. Check input.")
+        if ((params.shortread_hostremoval_tool == 'bowtie2' || params.shortread_hostremoval_tool == 'deacon') && !params.hostremoval_reference) {
+            error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval with ${params.shortread_hostremoval_tool} requested, but no --hostremoval_reference FASTA supplied. Check input.")
         }
-        if (params.shortread_hostremoval_tool == 'bowtie2' && !params.hostremoval_reference && params.shortread_hostremoval_index) {
+        if ((params.shortread_hostremoval_tool == 'bowtie2' || params.shortread_hostremoval_tool == 'deacon') && params.shortread_hostremoval_index) {
             error("ERROR: [nf-core/taxprofiler] --shortread_hostremoval_index provided but no --hostremoval_reference FASTA supplied. Check input.")
         }
 
@@ -311,6 +311,7 @@ def toolCitationText() {
 
     def text_shortreadhostremoval = [
         "Host read removal was performed for short reads with:",
+        params.shortread_hostremoval_tool == "deacon" ? "Deacon (Constantinides et al. 2025)." : "",
         params.shortread_hostremoval_tool == "bowtie2" ? "Bowtie2 (Langmead and Salzberg 2012) and SAMtools (Danecek et al. 2021)." : "",
         params.shortread_hostremoval_tool == "hostile" ? "Hostile (Constantinides et al. 2023)." : "",
     ].join(' ').trim()
@@ -397,6 +398,7 @@ def toolBibliographyText() {
     ].join(' ').trim()
 
     def text_shortreadhostremoval = [
+        params.shortread_hostremoval_tool == "deacon" ? "<li>Constantinides, B., Less, J., & Crook, D. W. (2025). Deacon: fast sequence filtering and contaminant depletion. bioRxiv. <a href=\"https://doi.org/10.1101/2025.06.09.658732\">10.1101/2025.06.09.658732</a></li>" : "",
         params.shortread_hostremoval_tool == "bowtie2" ? "<li>Langmead, B., & Salzberg, S. L. (2012). Fast gapped-read alignment with Bowtie 2. Nature Methods, 9(4), 357–359. <a href=\"https://doi.org/10.1038/nmeth.1923\">10.1038/nmeth.1923</a></li>" : "",
         params.shortread_hostremoval_tool == "hostile" ? "<li>Constantinides, B., Hunt, M., Crook, D.W., 2023. Hostile: accurate decontamination of microbial host sequences. Bioinformatics 39. <a href=\"https://doi.org/10.1093/bioinformatics/btad728\">10.1093/bioinformatics/btad728</a></li>" : "",
     ].join(' ').trim()

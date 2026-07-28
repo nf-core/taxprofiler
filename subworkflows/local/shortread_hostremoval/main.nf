@@ -8,6 +8,8 @@ include { SAMTOOLS_INDEX                            } from '../../../modules/nf-
 include { SAMTOOLS_STATS                            } from '../../../modules/nf-core/samtools/stats'
 include { HOSTILE_FETCH as HOSTILE_FETCH_SHORTREADS } from '../../../modules/nf-core/hostile/fetch'
 include { HOSTILE_CLEAN as HOSTILE_CLEAN_SHORTREADS } from '../../../modules/nf-core/hostile/clean'
+include { DEACON_INDEX                              } from '../../../modules/nf-core/deacon/index'
+include { DEACON_FILTER                             } from '../../../modules/nf-core/deacon/filter'
 
 workflow SHORTREAD_HOSTREMOVAL {
     take:
@@ -19,8 +21,13 @@ workflow SHORTREAD_HOSTREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
-        ch_hostremoval_index = BOWTIE2_BUILD([[], ch_reference]).index
+
+    if (!params.shortread_hostremoval_index && params.shortread_hostremoval_tool == 'deacon') {
+        DEACON_INDEX( Channel.value([[id: ch_reference.baseName], ch_reference]) )
+        ch_hostremoval_index = DEACON_INDEX.out.index
+    }
+    else if (ch_reference && !ch_index && params.shortread_hostremoval_tool == 'bowtie2') {
+        ch_hostremoval_index = BOWTIE2_BUILD(Channel.value([[id: ch_reference.baseName], ch_reference])).index
     }
     else if (!ch_index && params.shortread_hostremoval_tool == 'hostile') {
         HOSTILE_FETCH_SHORTREADS(params.hostremoval_hostile_referencename)
@@ -30,10 +37,20 @@ workflow SHORTREAD_HOSTREMOVAL {
         ch_hostremoval_index = ch_index
     }
 
-    if (params.shortread_hostremoval_tool == 'bowtie2') {
+    if (params.shortread_hostremoval_tool == 'deacon') {
+
+        ch_deacon_input = ch_reads.combine(ch_hostremoval_index)
+            .map { meta, reads, _index_meta, index ->
+            [meta, index, reads]
+        }
+
+        DEACON_FILTER(ch_deacon_input)
+        ch_cleaned_reads = DEACON_FILTER.out.fastq_filtered
+        ch_multiqc_files = ch_multiqc_files.mix(DEACON_FILTER.out.log)
+    }
+    else if (params.shortread_hostremoval_tool == 'bowtie2') {
         // Map, generate BAM with all reads and unmapped reads in FASTQ for downstream
         BOWTIE2_ALIGN(ch_reads, ch_hostremoval_index, [[], ch_reference], true, true)
-        ch_versions = ch_versions.mix(BOWTIE2_ALIGN.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(BOWTIE2_ALIGN.out.log)
 
         ch_cleaned_reads = BOWTIE2_ALIGN.out.fastq

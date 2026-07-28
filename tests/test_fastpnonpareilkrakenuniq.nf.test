@@ -16,8 +16,7 @@ nextflow_pipeline {
 
         then {
             def stable_name_all             = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
-            def stable_content_bowtie2      = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["bowtie2/**"]      , ignoreFile: 'tests/.nftignore')
-            // fastqc: all unstable files, see stable_name_all
+            //deacon: partly unstable files, see custom assertions
             def stable_content_fastp        = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["fastp/**"]        , ignoreFile: 'tests/.nftignore')
             def stable_content_krakenuniq   = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["krakenuniq/**"]        , ignoreFile: 'tests/.nftignore')
             // multiqc: all unstable files, see custom assertions from template at top
@@ -40,8 +39,14 @@ nextflow_pipeline {
 
                 { assert snapshot ( stable_name_all ).match("all_files") },
 
-                // bowtie2
-                { assert snapshot ( stable_content_bowtie2 ).match("bowtie2") },
+                // deacon
+                { assert snapshot (
+                            file("$outputDir/deacon/filter/2612.fq.gz").getName() + " contains string '@ERR5766176': " + path("$outputDir/deacon/filter/2612.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.244998') },
+                            file("$outputDir/deacon/filter/2613.fq.gz").getName() + " contains string '@ERR5766181': " + path("$outputDir/deacon/filter/2613.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.305906') },
+                            file("$outputDir/deacon/filter/ERR3201952.fq.gz").getName() + " contains string '@ERR3201952': " + path("$outputDir/deacon/filter/ERR3201952.fq.gz").linesGzip.findAll { l -> l.contains('@ERR3201952.882919') },
+                            getAllFilesFromDir("$outputDir/deacon/filter", include: ['*.json']).collect { file -> file.getName() + " contains string 'version': " + file.text.contains("version")}
+                        ).match("deacon")
+                },
 
                 // fastp
                 { assert snapshot(

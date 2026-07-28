@@ -2,12 +2,14 @@
     "all_files": {
         "content": [
             [
-                "bowtie2",
-                "bowtie2/align",
-                "bowtie2/align/2612_ERR5766176.bowtie2.log",
-                "bowtie2/align/2612_ERR5766176_B.bowtie2.log",
-                "bowtie2/align/2612_ERR5766180.bowtie2.log",
-                "bowtie2/align/2613_ERR5766181.bowtie2.log",
+                "deacon",
+                "deacon/filter",
+                "deacon/filter/2612.fq.gz",
+                "deacon/filter/2612.json",
+                "deacon/filter/2613.fq.gz",
+                "deacon/filter/2613.json",
+                "deacon/filter/ERR3201952.fq.gz",
+                "deacon/filter/ERR3201952.json",
                 "fastp",
                 "fastp/2612_ERR5766176.fastp.html",
                 "fastp/2612_ERR5766176.fastp.json",
@@ -64,7 +66,8 @@
                 "krakenuniq/db6/ERR3201952.se.krakenuniq.report.txt",
                 "multiqc",
                 "multiqc/multiqc_data",
-                "multiqc/multiqc_data/bowtie2_se_plot.txt",
+                "multiqc/multiqc_data/deacon_sequences_removed_vs_kept_plot.txt",
+                "multiqc/multiqc_data/deacon_statistics_table.txt",
                 "multiqc/multiqc_data/fastp-insert-size-plot.txt",
                 "multiqc/multiqc_data/fastp-seq-content-gc-plot_Merged_and_filtered.txt",
                 "multiqc/multiqc_data/fastp-seq-content-gc-plot_Read_1_After_filtering.txt",
@@ -105,16 +108,16 @@
                 "multiqc/multiqc_data/llms-full.txt",
                 "multiqc/multiqc_data/multiqc.log",
                 "multiqc/multiqc_data/multiqc.parquet",
-                "multiqc/multiqc_data/multiqc_bowtie2.txt",
                 "multiqc/multiqc_data/multiqc_citations.txt",
                 "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_deacon.txt",
+                "multiqc/multiqc_data/multiqc_deacon_deacon-1.txt",
                 "multiqc/multiqc_data/multiqc_fastp.txt",
                 "multiqc/multiqc_data/multiqc_fastqc.txt",
                 "multiqc/multiqc_data/multiqc_fastqc_fastqc-1.txt",
                 "multiqc/multiqc_data/multiqc_general_stats.txt",
                 "multiqc/multiqc_data/multiqc_nanoq.txt",
                 "multiqc/multiqc_data/multiqc_nonpareil.txt",
-                "multiqc/multiqc_data/multiqc_samtools_stats.txt",
                 "multiqc/multiqc_data/multiqc_software_versions.txt",
                 "multiqc/multiqc_data/multiqc_sources.txt",
                 "multiqc/multiqc_data/nanoq_plot_length_plot.txt",
@@ -128,12 +131,11 @@
                 "multiqc/multiqc_data/porechop-middlesplit-barplot.txt",
                 "multiqc/multiqc_data/porechop-starttrim-barplot.txt",
                 "multiqc/multiqc_data/porechop_porechop_abi.txt",
-                "multiqc/multiqc_data/samtools-stats-dp.txt",
-                "multiqc/multiqc_data/samtools_alignment_plot.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
-                "multiqc/multiqc_plots/pdf/bowtie2_se_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bowtie2_se_plot-pct.pdf",
+                "multiqc/multiqc_plots/pdf/deacon_sequences_removed_vs_kept_plot-cnt.pdf",
+                "multiqc/multiqc_plots/pdf/deacon_sequences_removed_vs_kept_plot-pct.pdf",
+                "multiqc/multiqc_plots/pdf/deacon_statistics_table.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-insert-size-plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Merged_and_filtered.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_1_After_filtering.pdf",
@@ -189,12 +191,10 @@
                 "multiqc/multiqc_plots/pdf/porechop-middlesplit-barplot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/samtools-stats-dp.pdf",
-                "multiqc/multiqc_plots/pdf/samtools_alignment_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/samtools_alignment_plot-pct.pdf",
                 "multiqc/multiqc_plots/png",
-                "multiqc/multiqc_plots/png/bowtie2_se_plot-cnt.png",
-                "multiqc/multiqc_plots/png/bowtie2_se_plot-pct.png",
+                "multiqc/multiqc_plots/png/deacon_sequences_removed_vs_kept_plot-cnt.png",
+                "multiqc/multiqc_plots/png/deacon_sequences_removed_vs_kept_plot-pct.png",
+                "multiqc/multiqc_plots/png/deacon_statistics_table.png",
                 "multiqc/multiqc_plots/png/fastp-insert-size-plot.png",
                 "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Merged_and_filtered.png",
                 "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Read_1_After_filtering.png",
@@ -250,12 +250,10 @@
                 "multiqc/multiqc_plots/png/porechop-middlesplit-barplot-pct.png",
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-cnt.png",
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-pct.png",
-                "multiqc/multiqc_plots/png/samtools-stats-dp.png",
-                "multiqc/multiqc_plots/png/samtools_alignment_plot-cnt.png",
-                "multiqc/multiqc_plots/png/samtools_alignment_plot-pct.png",
                 "multiqc/multiqc_plots/svg",
-                "multiqc/multiqc_plots/svg/bowtie2_se_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/bowtie2_se_plot-pct.svg",
+                "multiqc/multiqc_plots/svg/deacon_sequences_removed_vs_kept_plot-cnt.svg",
+                "multiqc/multiqc_plots/svg/deacon_sequences_removed_vs_kept_plot-pct.svg",
+                "multiqc/multiqc_plots/svg/deacon_statistics_table.svg",
                 "multiqc/multiqc_plots/svg/fastp-insert-size-plot.svg",
                 "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Merged_and_filtered.svg",
                 "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Read_1_After_filtering.svg",
@@ -311,9 +309,6 @@
                 "multiqc/multiqc_plots/svg/porechop-middlesplit-barplot-pct.svg",
                 "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-cnt.svg",
                 "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-pct.svg",
-                "multiqc/multiqc_plots/svg/samtools-stats-dp.svg",
-                "multiqc/multiqc_plots/svg/samtools_alignment_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/samtools_alignment_plot-pct.svg",
                 "multiqc/multiqc_report.html",
                 "nanoq",
                 "nanoq/ERR3201952_ERR3201952_filtered.stats",
@@ -347,18 +342,11 @@
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml",
                 "porechop_abi",
                 "porechop_abi/ERR3201952_ERR3201952_porechop_abi.log",
-                "samtools",
-                "samtools/stats",
-                "samtools/stats/2612_ERR5766176.stats",
-                "samtools/stats/2612_ERR5766176_B.stats",
-                "samtools/stats/2612_ERR5766180.stats",
-                "samtools/stats/2613_ERR5766181.stats",
-                "samtools/stats/ERR3201952_ERR3201952.stats",
                 "taxpasta",
                 "taxpasta/krakenuniq_db6.tsv"
             ]
         ],
-        "timestamp": "2026-06-07T22:27:10.007126",
+        "timestamp": "2026-07-27T16:31:24.656679",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -368,25 +356,27 @@
         "content": [
             "ERR3201952_ERR3201952_porechop_abi.log contains string '7 / 10,000': true"
         ],
-        "timestamp": "2026-03-07T15:30:12.015223808",
+        "timestamp": "2026-07-27T16:31:33.274733",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
-    "bowtie2": {
+    "deacon": {
         "content": [
+            "2612.fq.gz contains string '@ERR5766176': [@ERR5766176.244998 M00380:230:000000000-C5D55:1:1115:16122:3267/1 merged_144_0]",
+            "2613.fq.gz contains string '@ERR5766181': [@ERR5766181.305906 M00380:230:000000000-C5D55:1:2102:8988:6944/1 merged_151_1]",
+            "ERR3201952.fq.gz contains string '@ERR3201952': [@ERR3201952.882919 f9cedf1c-13d5-45f5-889a-260995589f92/1]",
             [
-                "2612_ERR5766176.bowtie2.log:md5,dda1526e79de4bdab426d79ef706119d",
-                "2612_ERR5766176_B.bowtie2.log:md5,dda1526e79de4bdab426d79ef706119d",
-                "2612_ERR5766180.bowtie2.log:md5,16be5d96f4f7cb306557893332fd0848",
-                "2613_ERR5766181.bowtie2.log:md5,3b7b3b6344e77229d79934e8a2958211"
+                "2612.json contains string 'version': true",
+                "2613.json contains string 'version': true",
+                "ERR3201952.json contains string 'version': true"
             ]
         ],
-        "timestamp": "2026-03-07T15:30:09.306580745",
+        "timestamp": "2026-07-27T16:31:30.543676",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "nanoq": {
@@ -395,10 +385,10 @@
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
             ]
         ],
-        "timestamp": "2026-03-07T15:30:10.347259034",
+        "timestamp": "2026-07-27T16:31:32.953278",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "nonpareil": {
@@ -439,23 +429,19 @@
                 
             ]
         ],
-        "timestamp": "2026-03-08T07:56:48.052065792",
+        "timestamp": "2026-07-27T16:31:33.20661",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "samtools": {
         "content": [
             [
-                "2612_ERR5766176.stats:md5,c946ec49983c314e41662762375d06f8",
-                "2612_ERR5766176_B.stats:md5,6c52024e8f8cae9407d96567778ba0db",
-                "2612_ERR5766180.stats:md5,a186632e2bd34ac40be9ecb2bed1d1bf",
-                "2613_ERR5766181.stats:md5,9cac757c445d99a3965217e228343aaf",
-                "ERR3201952_ERR3201952.stats:md5,d4278c3e383f56ce3de131d019e44eb8"
+                
             ]
         ],
-        "timestamp": "2026-07-20T16:41:38.244387",
+        "timestamp": "2026-07-27T16:31:33.345914",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -467,22 +453,20 @@
                 
             ]
         ],
-        "timestamp": "2026-03-07T16:13:20.346042994",
+        "timestamp": "2026-07-27T16:31:33.393239",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "-profile test_fastpnonpareilkrakenuniq": {
         "content": [
             {
-                "BOWTIE2_ALIGN": {
-                    "bowtie2": "2.5.4",
-                    "pigz": 2.8,
-                    "samtools": 1.21
+                "DEACON_FILTER": {
+                    "deacon": "0.15.0"
                 },
-                "BOWTIE2_BUILD": {
-                    "bowtie2": "2.5.4"
+                "DEACON_INDEX": {
+                    "deacon": "0.15.0"
                 },
                 "FASTP_PAIRED": {
                     "fastp": "0.24.0"
@@ -502,12 +486,6 @@
                 "MERGE_RUNS": {
                     "cat": 9.5
                 },
-                "MINIMAP2_ALIGN": {
-                    "minimap2": "2.30-r1287"
-                },
-                "MINIMAP2_INDEX": {
-                    "minimap2": "2.30-r1287"
-                },
                 "NANOQ": {
                     "nanoq": "0.10.0"
                 },
@@ -526,18 +504,6 @@
                 "PORECHOP_ABI": {
                     "porechop_abi": "0.5.0"
                 },
-                "SAMTOOLS_FASTQ": {
-                    "samtools": 1.24
-                },
-                "SAMTOOLS_INDEX": {
-                    "samtools": 1.24
-                },
-                "SAMTOOLS_STATS": {
-                    "samtools": 1.24
-                },
-                "SAMTOOLS_VIEW": {
-                    "samtools": 1.24
-                },
                 "TAXPASTA_MERGE": {
                     "taxpasta": "0.7.0"
                 },
@@ -549,7 +515,7 @@
                 }
             }
         ],
-        "timestamp": "2026-07-20T16:41:36.485579",
+        "timestamp": "2026-07-27T16:31:24.57496",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -568,10 +534,10 @@
             "ERR3201952.se.krakenuniq.classified.txt contains string 'ERR3201952.1159044\t2697049': true",
             "ERR3201952.se.krakenuniq.report.txt contains string 'Severe acute respiratory syndrome coronavirus 2    ': true"
         ],
-        "timestamp": "2026-03-08T07:49:20.687312872",
+        "timestamp": "2026-07-27T16:31:32.909885",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "fastp": {
@@ -592,10 +558,10 @@
                 
             ]
         ],
-        "timestamp": "2026-03-08T07:56:47.769564726",
+        "timestamp": "2026-07-27T16:31:30.606177",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     }
 }
