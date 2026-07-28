@@ -337,7 +337,7 @@
                 "samtools/stats/2613_ERR5766181.stats"
             ]
         ],
-        "timestamp": "2026-07-22T16:35:12.472514",
+        "timestamp": "2026-07-28T11:28:01.401209",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -351,7 +351,7 @@
                 "2613_ERR5766181.bowtie2.log:md5,464e0ccb1f7e294daa31ec1e28efe360"
             ]
         ],
-        "timestamp": "2026-07-22T16:35:24.130347",
+        "timestamp": "2026-07-28T11:28:24.82039",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -363,7 +363,7 @@
             "2612_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true",
             "2613_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true"
         ],
-        "timestamp": "2026-07-22T16:35:25.596069",
+        "timestamp": "2026-07-28T11:28:27.203588",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -400,7 +400,7 @@
             "ERX5474937_ERR5766181_1.fastq.gz_fastqc_data.txt contains string '151\t64.4773': false",
             "ERX5474937_ERR5766181_2.fastq.gz_fastqc_data.txt contains string '151\t63.5701': false"
         ],
-        "timestamp": "2026-07-22T16:35:24.301684",
+        "timestamp": "2026-07-28T11:28:25.945677",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -414,7 +414,7 @@
                 "2613_ERR5766181.stats:md5,a82637ec0cc325e59ba3002d5fc80455"
             ]
         ],
-        "timestamp": "2026-07-22T16:35:25.631222",
+        "timestamp": "2026-07-28T11:28:27.255795",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -432,7 +432,7 @@
             "2613_ERR5766181_1.fastq.gz.fastq.gz contains string '@ERR5766181.204': true",
             "2613_ERR5766181_1.fastq.gz.fastq.gz contains string '@ERR5766181.204': true"
         ],
-        "timestamp": "2026-07-22T16:35:24.08444",
+        "timestamp": "2026-07-28T11:28:24.704629",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -488,7 +488,7 @@
                 }
             }
         ],
-        "timestamp": "2026-07-22T16:35:12.423116",
+        "timestamp": "2026-07-28T11:28:01.317591",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -500,7 +500,7 @@
                 
             ]
         ],
-        "timestamp": "2026-07-22T16:35:24.180322",
+        "timestamp": "2026-07-28T11:28:24.910197",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -529,7 +529,7 @@
             "ERR3201952_db7.kaijutable.txt contains string '10239':true",
             "ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.1159044':true"
         ],
-        "timestamp": "2026-07-22T16:35:25.544811",
+        "timestamp": "2026-07-28T11:28:27.127429",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
