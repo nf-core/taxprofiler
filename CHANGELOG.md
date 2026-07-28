@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#753](https://github.com/nf-core/taxprofiler/pull/753) Added centrifuger as a new taxonomic classifier (added by @haris18s)
 
 - [#712](https://github.com/nf-core/taxprofiler/pull/712) Added new read decontamination tool Hostile (by @jfy133, ❤️ @bede for upstream support)
+- [#757](https://github.com/nf-core/taxprofiler/pull/757) Added new read decontamination tool Deacon (by @sofstam)
 
 ### `Fixed`
 
@@ -26,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | AdapterRemoval | 2.3.2 | 2.3.4 |
 | Centrifuger | | 1.1.2 |
+| deacon      |                  | 0.15.0      |
 | falco | 1.2.1 | 1.2.5 |
 | hostile | | 2.0.2 |
 | Kraken2 | 2.1.5 | 2.1.6 |
