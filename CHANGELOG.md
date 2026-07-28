@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | AdapterRemoval | 2.3.2 | 2.3.4 |
 | Centrifuger | | 1.1.2 |
-| deacon      |                  | 0.15.0      |
+| deacon | | 0.15.0 |
 | falco | 1.2.1 | 1.2.5 |
 | hostile | | 2.0.2 |
 | Kraken2 | 2.1.5 | 2.1.6 |
