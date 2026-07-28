@@ -17,12 +17,12 @@
                     },
                     "bowtie2/align": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "0cd85f32cf1a1828205b16e4267277ba9457570b",
                         "installed_by": ["modules"]
                     },
                     "bowtie2/build": {
                         "branch": "master",
-                        "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "git_sha": "a0961c41021561ac7cf139f86bd7812a2f99e994",
                         "installed_by": ["modules"]
                     },
                     "bracken/bracken": {
@@ -48,6 +48,16 @@
                     "centrifuge/kreport": {
                         "branch": "master",
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
+                        "installed_by": ["modules"]
+                    },
+                    "deacon/filter": {
+                        "branch": "master",
+                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
+                        "installed_by": ["modules"]
+                    },
+                    "deacon/index": {
+                        "branch": "master",
+                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
                         "installed_by": ["modules"]
                     },
                     "centrifuger/centrifuger": {
@@ -227,7 +237,7 @@
                     },
                     "multiqc": {
                         "branch": "master",
-                        "git_sha": "008f9d3e61209bf995edac3ba531f54e269e1215",
+                        "git_sha": "98403d15b0e50edae1f3fec5eae5e24982f1fade",
                         "installed_by": ["modules"]
                     },
                     "nanoq": {

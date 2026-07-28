@@ -7,12 +7,6 @@
                 "bbduk/2612_ERR5766176_B.bbduk.log",
                 "bbduk/2612_ERR5766180.bbduk.log",
                 "bbduk/2613_ERR5766181.bbduk.log",
-                "bowtie2",
-                "bowtie2/align",
-                "bowtie2/align/2612_ERR5766176.bowtie2.log",
-                "bowtie2/align/2612_ERR5766176_B.bowtie2.log",
-                "bowtie2/align/2612_ERR5766180.bowtie2.log",
-                "bowtie2/align/2613_ERR5766181.bowtie2.log",
                 "bracken",
                 "bracken/bracken_db1_combined_reports.txt",
                 "bracken/db1",
@@ -46,6 +40,14 @@
                 "centrifuger/db4/2613_db4.centrifuger.classification.tsv",
                 "centrifuger/db4/2613_db4.centrifuger.classification.unclassified.fq.gz",
                 "centrifuger/db4/2613_db4.centrifuger.report.tsv",
+                "deacon",
+                "deacon/filter",
+                "deacon/filter/2612.fq.gz",
+                "deacon/filter/2612.json",
+                "deacon/filter/2613.fq.gz",
+                "deacon/filter/2613.json",
+                "deacon/filter/ERR3201952.fq.gz",
+                "deacon/filter/ERR3201952.json",
                 "diamond",
                 "diamond/db1",
                 "diamond/db1/2611_db1.diamond.log",
@@ -187,8 +189,8 @@
                 "melon/db1/2614_db1/ERR3201952_dup.json",
                 "melon/db1/2614_db1/ERR3201952_dup.tsv",
                 "melon/db1/ERR3201952_db1",
-                "melon/db1/ERR3201952_db1/ERR3201952_ERR3201952.unmapped_other.json",
-                "melon/db1/ERR3201952_db1/ERR3201952_ERR3201952.unmapped_other.tsv",
+                "melon/db1/ERR3201952_db1/ERR3201952.json",
+                "melon/db1/ERR3201952_db1/ERR3201952.tsv",
                 "metacache",
                 "metacache/db1",
                 "metacache/db1/2614_db1.mapping.txt",
@@ -227,7 +229,6 @@
                 "multiqc/multiqc_data/bbduk-filtered-barplot_Bases.txt",
                 "multiqc/multiqc_data/bbduk-filtered-barplot_Reads.txt",
                 "multiqc/multiqc_data/bbduk.txt",
-                "multiqc/multiqc_data/bowtie2_se_plot.txt",
                 "multiqc/multiqc_data/bracken-top-n-plot_Class.txt",
                 "multiqc/multiqc_data/bracken-top-n-plot_Domain.txt",
                 "multiqc/multiqc_data/bracken-top-n-plot_Family.txt",
@@ -246,6 +247,8 @@
                 "multiqc/multiqc_data/centrifuge-top-n-plot_Phylum.txt",
                 "multiqc/multiqc_data/centrifuge-top-n-plot_Species.txt",
                 "multiqc/multiqc_data/centrifuge-top-n-plot_Unclassified.txt",
+                "multiqc/multiqc_data/deacon_sequences_removed_vs_kept_plot.txt",
+                "multiqc/multiqc_data/deacon_statistics_table.txt",
                 "multiqc/multiqc_data/diamond.txt",
                 "multiqc/multiqc_data/fastp-insert-size-plot.txt",
                 "multiqc/multiqc_data/fastp-seq-content-gc-plot_Merged_and_filtered.txt",
@@ -304,11 +307,12 @@
                 "multiqc/multiqc_data/metaphlan-top-n-plot_Species.txt",
                 "multiqc/multiqc_data/multiqc.log",
                 "multiqc/multiqc_data/multiqc.parquet",
-                "multiqc/multiqc_data/multiqc_bowtie2.txt",
                 "multiqc/multiqc_data/multiqc_bracken_bracken.txt",
                 "multiqc/multiqc_data/multiqc_centrifuge_centrifuge.txt",
                 "multiqc/multiqc_data/multiqc_citations.txt",
                 "multiqc/multiqc_data/multiqc_data.json",
+                "multiqc/multiqc_data/multiqc_deacon.txt",
+                "multiqc/multiqc_data/multiqc_deacon_deacon-1.txt",
                 "multiqc/multiqc_data/multiqc_fastp.txt",
                 "multiqc/multiqc_data/multiqc_fastqc.txt",
                 "multiqc/multiqc_data/multiqc_fastqc_fastqc-1.txt",
@@ -318,7 +322,6 @@
                 "multiqc/multiqc_data/multiqc_metaphlan.txt",
                 "multiqc/multiqc_data/multiqc_nanoq.txt",
                 "multiqc/multiqc_data/multiqc_nonpareil.txt",
-                "multiqc/multiqc_data/multiqc_samtools_stats.txt",
                 "multiqc/multiqc_data/multiqc_software_versions.txt",
                 "multiqc/multiqc_data/multiqc_sources.txt",
                 "multiqc/multiqc_data/nanoq_plot_length_plot.txt",
@@ -332,16 +335,12 @@
                 "multiqc/multiqc_data/porechop-middlesplit-barplot.txt",
                 "multiqc/multiqc_data/porechop-starttrim-barplot.txt",
                 "multiqc/multiqc_data/porechop_porechop_abi.txt",
-                "multiqc/multiqc_data/samtools-stats-dp.txt",
-                "multiqc/multiqc_data/samtools_alignment_plot.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-pct.pdf",
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Reads-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Reads-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bowtie2_se_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bowtie2_se_plot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Class-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Class-pct.pdf",
                 "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Domain-cnt.pdf",
@@ -378,6 +377,9 @@
                 "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Species-pct.pdf",
                 "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Unclassified-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/centrifuge-top-n-plot_Unclassified-pct.pdf",
+                "multiqc/multiqc_plots/pdf/deacon_sequences_removed_vs_kept_plot-cnt.pdf",
+                "multiqc/multiqc_plots/pdf/deacon_sequences_removed_vs_kept_plot-pct.pdf",
+                "multiqc/multiqc_plots/pdf/deacon_statistics_table.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-insert-size-plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Merged_and_filtered.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_1_After_filtering.pdf",
@@ -460,16 +462,11 @@
                 "multiqc/multiqc_plots/pdf/porechop-middlesplit-barplot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/samtools-stats-dp.pdf",
-                "multiqc/multiqc_plots/pdf/samtools_alignment_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/samtools_alignment_plot-pct.pdf",
                 "multiqc/multiqc_plots/png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-cnt.png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-pct.png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Reads-cnt.png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Reads-pct.png",
-                "multiqc/multiqc_plots/png/bowtie2_se_plot-cnt.png",
-                "multiqc/multiqc_plots/png/bowtie2_se_plot-pct.png",
                 "multiqc/multiqc_plots/png/bracken-top-n-plot_Class-cnt.png",
                 "multiqc/multiqc_plots/png/bracken-top-n-plot_Class-pct.png",
                 "multiqc/multiqc_plots/png/bracken-top-n-plot_Domain-cnt.png",
@@ -506,6 +503,9 @@
                 "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Species-pct.png",
                 "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Unclassified-cnt.png",
                 "multiqc/multiqc_plots/png/centrifuge-top-n-plot_Unclassified-pct.png",
+                "multiqc/multiqc_plots/png/deacon_sequences_removed_vs_kept_plot-cnt.png",
+                "multiqc/multiqc_plots/png/deacon_sequences_removed_vs_kept_plot-pct.png",
+                "multiqc/multiqc_plots/png/deacon_statistics_table.png",
                 "multiqc/multiqc_plots/png/fastp-insert-size-plot.png",
                 "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Merged_and_filtered.png",
                 "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Read_1_After_filtering.png",
@@ -588,16 +588,11 @@
                 "multiqc/multiqc_plots/png/porechop-middlesplit-barplot-pct.png",
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-cnt.png",
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-pct.png",
-                "multiqc/multiqc_plots/png/samtools-stats-dp.png",
-                "multiqc/multiqc_plots/png/samtools_alignment_plot-cnt.png",
-                "multiqc/multiqc_plots/png/samtools_alignment_plot-pct.png",
                 "multiqc/multiqc_plots/svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-cnt.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-pct.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-cnt.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-pct.svg",
-                "multiqc/multiqc_plots/svg/bowtie2_se_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/bowtie2_se_plot-pct.svg",
                 "multiqc/multiqc_plots/svg/bracken-top-n-plot_Class-cnt.svg",
                 "multiqc/multiqc_plots/svg/bracken-top-n-plot_Class-pct.svg",
                 "multiqc/multiqc_plots/svg/bracken-top-n-plot_Domain-cnt.svg",
@@ -634,6 +629,9 @@
                 "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Species-pct.svg",
                 "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Unclassified-cnt.svg",
                 "multiqc/multiqc_plots/svg/centrifuge-top-n-plot_Unclassified-pct.svg",
+                "multiqc/multiqc_plots/svg/deacon_sequences_removed_vs_kept_plot-cnt.svg",
+                "multiqc/multiqc_plots/svg/deacon_sequences_removed_vs_kept_plot-pct.svg",
+                "multiqc/multiqc_plots/svg/deacon_statistics_table.svg",
                 "multiqc/multiqc_plots/svg/fastp-insert-size-plot.svg",
                 "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Merged_and_filtered.svg",
                 "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Read_1_After_filtering.svg",
@@ -716,9 +714,6 @@
                 "multiqc/multiqc_plots/svg/porechop-middlesplit-barplot-pct.svg",
                 "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-cnt.svg",
                 "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-pct.svg",
-                "multiqc/multiqc_plots/svg/samtools-stats-dp.svg",
-                "multiqc/multiqc_plots/svg/samtools_alignment_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/samtools_alignment_plot-pct.svg",
                 "multiqc/multiqc_report.html",
                 "nanoq",
                 "nanoq/ERR3201952_ERR3201952_filtered.stats",
@@ -752,13 +747,6 @@
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml",
                 "porechop_abi",
                 "porechop_abi/ERR3201952_ERR3201952_porechop_abi.log",
-                "samtools",
-                "samtools/stats",
-                "samtools/stats/2612_ERR5766176.stats",
-                "samtools/stats/2612_ERR5766176_B.stats",
-                "samtools/stats/2612_ERR5766180.stats",
-                "samtools/stats/2613_ERR5766181.stats",
-                "samtools/stats/ERR3201952_ERR3201952.stats",
                 "sylph",
                 "sylph/db1",
                 "sylph/db1/2612_db1.sylph.tsv",
@@ -784,10 +772,10 @@
                 "taxpasta/metaphlan_metaphlan4.tsv"
             ]
         ],
-        "timestamp": "2026-07-02T10:01:49.576760608",
+        "timestamp": "2026-07-27T09:32:41.542695",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.4"
+            "nextflow": "26.04.3"
         }
     },
     "krona": {
@@ -802,25 +790,27 @@
                 "kraken2_db2.html exists: true"
             ]
         ],
-        "timestamp": "2026-06-24T14:11:06.448599",
+        "timestamp": "2026-07-27T09:32:56.294841",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
-    "bowtie2": {
+    "deacon": {
         "content": [
+            "2612.fq.gz contains string '@ERR5766176': [@ERR5766176.244998 M00380:230:000000000-C5D55:1:1115:16122:3267/1 merged_144_0]",
+            "2613.fq.gz contains string '@ERR5766181': [@ERR5766181.305906 M00380:230:000000000-C5D55:1:2102:8988:6944/1 merged_151_1]",
+            "ERR3201952.fq.gz contains string '@ERR3201952': [@ERR3201952.882919 f9cedf1c-13d5-45f5-889a-260995589f92/1]",
             [
-                "2612_ERR5766176.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
-                "2612_ERR5766176_B.bowtie2.log:md5,9ecf931cf545c9f4777dd4586dd883d2",
-                "2612_ERR5766180.bowtie2.log:md5,a7487ce9c549a7f8fb5694fd0889f929",
-                "2613_ERR5766181.bowtie2.log:md5,6cb148fdf3840de7a8a1f5315847817b"
+                "2612.json contains string 'version': true",
+                "2613.json contains string 'version': true",
+                "ERR3201952.json contains string 'version': true"
             ]
         ],
-        "timestamp": "2026-06-24T16:45:44.560929",
+        "timestamp": "2026-07-27T09:32:46.020565",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "centrifuger": {
@@ -834,10 +824,10 @@
                 "2613_db4.centrifuger.report.tsv contains string 'Homo_sapiens': true"
             ]
         ],
-        "timestamp": "2026-06-24T17:36:14.489818",
+        "timestamp": "2026-07-27T09:32:46.676957",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "nanoq": {
@@ -846,26 +836,22 @@
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
             ]
         ],
-        "timestamp": "2026-06-24T16:45:47.906594",
+        "timestamp": "2026-07-27T09:32:56.560917",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "samtools": {
         "content": [
             [
-                "2612_ERR5766176.stats:md5,fbe21e2933dd3df28ec4ad1baa5e188b",
-                "2612_ERR5766176_B.stats:md5,72852a5a264934b0215331360c841a8d",
-                "2612_ERR5766180.stats:md5,72c4a0fedbd1008d8957e1ad1b9fb869",
-                "2613_ERR5766181.stats:md5,dcf64023739a3d0ce71e0d8465861cc2",
-                "ERR3201952_ERR3201952.stats:md5,0374c11ff03521ee0268cbf0bd95d74d"
+                
             ]
         ],
-        "timestamp": "2026-06-24T16:45:47.995044",
+        "timestamp": "2026-07-27T09:32:56.808942",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "taxpasta": {
@@ -885,10 +871,10 @@
             "metaphlan_metaphlan3.tsv contains string 'taxonomy_id': true",
             "metaphlan_metaphlan4.tsv contains string '1239': true"
         ],
-        "timestamp": "2026-06-24T18:11:24.763355",
+        "timestamp": "2026-07-27T09:32:56.895128",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "bbduk": {
@@ -900,10 +886,10 @@
                 "2613_ERR5766181.bbduk.log contains string:true"
             ]
         ],
-        "timestamp": "2026-04-14T15:11:49.531307621",
+        "timestamp": "2026-07-27T09:32:41.713388",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "ganon": {
@@ -931,19 +917,19 @@
                 "2611_db1.ganon.rep:md5,b1be294d015636784dd66dbc7f3f0f47",
                 "2611_db1.ganon.tre:md5,79312ad176987ab97efe79274f9d03f2",
                 "2611_db1.ganon_report.tre:md5,79312ad176987ab97efe79274f9d03f2",
-                "2612_db1.ganon.rep:md5,317abc9555fe15a76ccf21624f2bdf86",
-                "2612_db1.ganon.tre:md5,000eb2b555a822af4e811e777dca64cb",
-                "2612_db1.ganon_report.tre:md5,e2eddd80a235dfc46d0a0a73d113d869",
-                "2613_db1.ganon.rep:md5,b7022ac3a8694b0fcb167f7f93d1ceca",
-                "2613_db1.ganon.tre:md5,e3c066281504f20484a13d77155731b3",
-                "2613_db1.ganon_report.tre:md5,b8daad0c4a3d6f9b3458c058bf35d77c",
-                "ganon_db1_combined_reports.txt:md5,86682b88f5ae31e1754b51fcdfc4bc2a"
+                "2612_db1.ganon.rep:md5,acdddd2cfa7df4d40472b536ed62de4e",
+                "2612_db1.ganon.tre:md5,84170db00c6742caf9e7fd00ed1291bf",
+                "2612_db1.ganon_report.tre:md5,1837094643762cfb9ac76adaabd1c5b7",
+                "2613_db1.ganon.rep:md5,40acd044d47caaeff8b523e8d12e26d6",
+                "2613_db1.ganon.tre:md5,85c8a55da8034a0f651a4db5b8b1117b",
+                "2613_db1.ganon_report.tre:md5,b799d025fd33a58f67a55282bf778092",
+                "ganon_db1_combined_reports.txt:md5,466f4222fb437e7e94a8180f3bc2f768"
             ]
         ],
-        "timestamp": "2026-04-14T15:11:50.031277447",
+        "timestamp": "2026-07-27T09:32:47.006883",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "metacache": {
@@ -953,10 +939,10 @@
                 "ERR3201952_db1.mapping.txt contains string 'Penicillium roqueforti': true"
             ]
         ],
-        "timestamp": "2026-06-23T17:23:19.014995",
+        "timestamp": "2026-07-27T09:32:56.350368",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "kaiju": {
@@ -985,10 +971,10 @@
             "ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.1159044': true",
             "kaiju_db7_combined_reports.txt contains string '10239': true"
         ],
-        "timestamp": "2026-04-14T15:11:50.401036796",
+        "timestamp": "2026-07-27T09:32:47.665445",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "bracken": {
@@ -1003,10 +989,10 @@
                 "2613_db1.bracken.tsv:md5,751961958ba36955dc0867e314d9da8b"
             ]
         ],
-        "timestamp": "2026-06-24T16:45:44.588761",
+        "timestamp": "2026-07-27T09:32:41.809709",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "diamond": {
@@ -1034,10 +1020,10 @@
             "2614_db3.diamond.tsv contains string 'ERR3201952.882919': true",
             "ERR3201952_db3.diamond.tsv contains string 'ERR3201952.882919': true"
         ],
-        "timestamp": "2026-04-14T15:11:49.964408307",
+        "timestamp": "2026-07-27T09:32:46.838786",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "metaphlan": {
@@ -1069,23 +1055,23 @@
             "metaphlan_metaphlan3_combined_reports.txt contains string 'UNCLASSIFIED': true",
             "metaphlan_metaphlan4_combined_reports.txt contains string 't__SGB4933_group': true",
             [
-
+                
             ]
         ],
-        "timestamp": "2026-04-15T09:05:52.024752635",
+        "timestamp": "2026-07-27T09:32:56.45119",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "porechop_abi": {
         "content": [
             "ERR3201952_ERR3201952_porechop_abi.log contains string 'Looking for known adapter': true"
         ],
-        "timestamp": "2026-04-14T15:11:55.048796048",
+        "timestamp": "2026-07-27T09:32:56.765719",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "sylph": {
@@ -1094,15 +1080,15 @@
             [
                 "2612_db1.sylph.tsv:md5,a84853a9ea0e88e62f3caa13f28ef945",
                 "2612_db1.sylphmpa:md5,a0832fc0d249a96e5c22afaa63e0bba8",
-                "2613_db1.sylph.tsv:md5,609a51bbcbbfe48ad780d0dadd1105e4",
-                "2613_db1.sylphmpa:md5,253491defa87230970e890256dc0cb02",
+                "2613_db1.sylph.tsv:md5,2f3a52210df3a34f8f64d1c2ce62c97f",
+                "2613_db1.sylphmpa:md5,e02aeffbe7ce2dca501dd5930df269cf",
                 "ERR3201952_db1.sylph.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-04-14T15:11:55.217101911",
+        "timestamp": "2026-07-27T09:32:56.948523",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "kraken2": {
@@ -1119,13 +1105,13 @@
             "kraken2_db1-bracken_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
             "kraken2_db2_combined_reports.txt contains string 'Saccharomyces cerevisiae S288C': true",
             [
-
+                
             ]
         ],
-        "timestamp": "2026-04-15T11:26:43.013855166",
+        "timestamp": "2026-07-27T09:32:56.156382",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "-profile test": {
@@ -1133,14 +1119,6 @@
             {
                 "BBMAP_BBDUK": {
                     "bbmap": 39.18
-                },
-                "BOWTIE2_ALIGN": {
-                    "bowtie2": "2.5.4",
-                    "pigz": 2.8,
-                    "samtools": 1.21
-                },
-                "BOWTIE2_BUILD": {
-                    "bowtie2": "2.5.4"
                 },
                 "BRACKEN_BRACKEN": {
                     "bracken": "3.0.1"
@@ -1159,6 +1137,12 @@
                 },
                 "CENTRIFUGE_KREPORT": {
                     "centrifuge": "1.0.4"
+                },
+                "DEACON_FILTER": {
+                    "deacon": "0.15.0"
+                },
+                "DEACON_INDEX": {
+                    "deacon": "0.15.0"
                 },
                 "DIAMOND_BLASTX": {
                     "diamond": "2.2.1"
@@ -1236,13 +1220,6 @@
                 "METAPHLAN_METAPHLAN": {
                     "metaphlan": "4.1.1"
                 },
-                "MINIMAP2_ALIGN": {
-                    "minimap2": "2.29-r1283",
-                    "samtools": 1.21
-                },
-                "MINIMAP2_INDEX": {
-                    "minimap2": "2.29-r1283"
-                },
                 "NANOQ": {
                     "nanoq": "0.10.0"
                 },
@@ -1260,18 +1237,6 @@
                 },
                 "PORECHOP_ABI": {
                     "porechop_abi": "0.5.0"
-                },
-                "SAMTOOLS_FASTQ": {
-                    "samtools": "1.23.1"
-                },
-                "SAMTOOLS_INDEX": {
-                    "samtools": "1.23.1"
-                },
-                "SAMTOOLS_STATS": {
-                    "samtools": "1.23.1"
-                },
-                "SAMTOOLS_VIEW": {
-                    "samtools": "1.23.1"
                 },
                 "SYLPHTAX_MERGE": {
                     "sylph-tax": "1.2.0"
@@ -1293,10 +1258,10 @@
                 }
             }
         ],
-        "timestamp": "2026-06-29T15:26:22.012318",
+        "timestamp": "2026-07-27T09:32:41.469938",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "centrifuge": {
@@ -1314,10 +1279,10 @@
                 "2613_db3.centrifuge.txt contains string 'Homo sapiens': true"
             ]
         ],
-        "timestamp": "2026-06-24T11:11:32.113799",
+        "timestamp": "2026-07-27T09:32:42.578002",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "nonpareil": {
@@ -1354,10 +1319,10 @@
             "File nonpareil_all_samples.pdf exists:  true",
             "nonpareil_all_samples.tsv contains string 'diversity': true"
         ],
-        "timestamp": "2026-04-14T15:11:55.01402829",
+        "timestamp": "2026-07-27T09:32:56.703468",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "melon": {
@@ -1365,28 +1330,28 @@
             [
                 "ERR3201952_dup.json:md5,293a437efc4be9d8b34fa05acb292828",
                 "ERR3201952_dup.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799",
-                "ERR3201952_ERR3201952.unmapped_other.json:md5,293a437efc4be9d8b34fa05acb292828",
-                "ERR3201952_ERR3201952.unmapped_other.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799"
+                "ERR3201952.json:md5,293a437efc4be9d8b34fa05acb292828",
+                "ERR3201952.tsv:md5,2f4e7a4cb46beff1c7059471a9ce0799"
             ]
         ],
-        "timestamp": "2026-06-24T16:45:47.88045",
+        "timestamp": "2026-07-27T09:32:56.512362",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "kmcp": {
         "content": [
             [
                 "2611_db1.kmcp.profile:md5,8b50fa20b6e60078b4e82ee56ad9a687",
-                "2612_db1.kmcp.profile:md5,59d06b55c1df0739e92ab6d8ce23cd83",
+                "2612_db1.kmcp.profile:md5,adccff1bfb40fc6fda6043461774eacd",
                 "2613_db1.kmcp.profile:md5,3d8c1e51679639d6011e3cb9b679485b"
             ]
         ],
-        "timestamp": "2026-06-24T18:11:22.044533",
+        "timestamp": "2026-07-27T09:32:47.717914",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     },
     "fastp": {
@@ -1404,10 +1369,10 @@
                 "2613_ERR5766181.fastp.log contains string 'Detecting adapter sequence': true"
             ]
         ],
-        "timestamp": "2026-04-15T11:26:06.102980408",
+        "timestamp": "2026-07-27T09:32:46.917519",
         "meta": {
-            "nf-test": "0.9.3",
-            "nextflow": "25.10.4"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.3"
         }
     }
 }

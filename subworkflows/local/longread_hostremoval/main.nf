@@ -9,6 +9,8 @@ include { SAMTOOLS_FASTQ                           } from '../../../modules/nf-c
 include { SAMTOOLS_STATS                           } from '../../../modules/nf-core/samtools/stats'
 include { HOSTILE_FETCH as HOSTILE_FETCH_LONGREADS } from '../../../modules/nf-core/hostile/fetch'
 include { HOSTILE_CLEAN as HOSTILE_CLEAN_LONGREADS } from '../../../modules/nf-core/hostile/clean'
+include { DEACON_INDEX                             } from '../../../modules/nf-core/deacon/index'
+include { DEACON_FILTER                            } from '../../../modules/nf-core/deacon/filter'
 
 workflow LONGREAD_HOSTREMOVAL {
     take:
@@ -20,7 +22,11 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'minimap2') {
+    if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'deacon') {
+        DEACON_INDEX( Channel.value([[id: ch_reference.baseName], ch_reference]) )
+        ch_hostremoval_index = DEACON_INDEX.out.index
+    }
+    else if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'minimap2') {
         ch_hostremoval_index = MINIMAP2_INDEX([[], ch_reference]).index
         ch_versions = ch_versions.mix(MINIMAP2_INDEX.out.versions)
     }
@@ -33,7 +39,19 @@ workflow LONGREAD_HOSTREMOVAL {
         ch_hostremoval_index = ch_index
     }
 
-    if (params.longread_hostremoval_tool == 'minimap2') {
+    if (params.longread_hostremoval_tool == 'deacon') {
+        ch_deacon_input =  ch_reads.combine(ch_hostremoval_index)
+            .map { meta, reads, _index_meta, index ->
+                [meta, index, reads]
+            }
+
+        DEACON_FILTER(ch_deacon_input)
+
+        ch_cleaned_reads = DEACON_FILTER.out.fastq_filtered
+        ch_multiqc_files = ch_multiqc_files.mix(DEACON_FILTER.out.log)
+        ch_stats = channel.empty()
+    }
+    else if (params.longread_hostremoval_tool == 'minimap2') {
         MINIMAP2_ALIGN(ch_reads, ch_hostremoval_index, true, 'bai', false, false)
         ch_versions = ch_versions.mix(MINIMAP2_ALIGN.out.versions.first())
         ch_minimap2_mapped = MINIMAP2_ALIGN.out.bam.map { meta, long_reads ->

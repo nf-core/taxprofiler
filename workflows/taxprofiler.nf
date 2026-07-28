@@ -68,7 +68,7 @@ workflow TAXPROFILER {
     custom_adapters = params.longread_qc_adapterlist ? file(params.longread_qc_adapterlist, checkIfExists: true) : []
 
     // Manual host removal
-    if (params.shortread_hostremoval_tool == 'bowtie2' || params.longread_hostremoval_tool == 'minimap2') {
+    if (params.shortread_hostremoval_tool == 'bowtie2' || params.longread_hostremoval_tool == 'minimap2' || params.shortread_hostremoval_tool == 'deacon' || params.longread_hostremoval_tool == 'deacon') {
         ch_reference = file(params.hostremoval_reference)
     }
     // Dedicated tool host removal
