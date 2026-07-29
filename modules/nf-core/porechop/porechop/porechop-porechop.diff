@@ -1,0 +1,27 @@
+Changes in component 'nf-core/porechop/porechop'
+'modules/nf-core/porechop/porechop/environment.yml' is unchanged
+'modules/nf-core/porechop/porechop/meta.yml' is unchanged
+Changes in 'porechop/porechop/main.nf':
+--- modules/nf-core/porechop/porechop/main.nf
++++ modules/nf-core/porechop/porechop/main.nf
+@@ -22,6 +22,7 @@
+     script:
+     def args = task.ext.args ?: ''
+     def prefix = task.ext.prefix ?: "${meta.id}"
++    if ("$reads" == "${prefix}.fastq.gz") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
+     """
+     porechop \\
+         -i $reads \\
+@@ -29,6 +30,7 @@
+         $args \\
+         -o ${prefix}.fastq.gz \\
+         > ${prefix}.log
++
+     cat <<-END_VERSIONS > versions.yml
+     "${task.process}":
+         porechop: \$( porechop --version )
+
+'modules/nf-core/porechop/porechop/tests/main.nf.test.snap' is unchanged
+'modules/nf-core/porechop/porechop/tests/nextflow.config' is unchanged
+'modules/nf-core/porechop/porechop/tests/main.nf.test' is unchanged
+************************************************************

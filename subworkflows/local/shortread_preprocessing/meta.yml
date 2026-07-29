@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: shortread_preprocessing
+description: Subworkflow for sequencing read QC, adapter removal, and quality filtering of short reads
+keywords:
+  - qc
+  - adapter removal
+  - quality filtering
+  - preprocessing
+  - short reads
+components:
+  - shortread_adapterremoval
+  - shortread_fastp
+  - fastqc
+  - falco
+input:
+  - ch_reads:
+      type: file
+      description: |
+        Short-read sequencing reads from typically Illumina sequencers in FASTQ format.
+        Structure: [ val(meta), path(reads) ]
+      pattern: "*.{fastq.gz,fastq,fq.gz,fq}"
+  - ch_adapterlist:
+      type: file
+      description: |
+        Optional file containing list of adapters to remove.
+        Structure: [ val(meta), path(custom_adapters) ]
+      pattern: "*"
+output:
+  - reads:
+      type: file
+      description: |
+        Adapter removed and processed reads
+        Structure: [ val(meta), path(reads) ]
+      pattern: "*.fastq.gz"
+  - mqc:
+      type: file
+      description: |
+        Log files for MultiQC
+        Structure: [ path(files) ]
+      pattern: "*"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: path(versions.yml)
+      pattern: "versions.yml"
+authors:
+  - "@jfy133"
+maintainers:
+  - "@jfy133"

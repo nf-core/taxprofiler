@@ -1,0 +1,58 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: longread_hostremoval
+description: Removal of potential contaminating or host reads from long-read sequencing libraries
+keywords:
+  - host removal
+  - preprocessing
+  - long reads
+components:
+  - minimap2/index
+  - minimap2/align
+  - samtools/view
+  - samtools/fastq
+  - samtools/stats
+input:
+  - ch_reads:
+      type: file
+      description: |
+        Input long-read sequencing reads for host removal
+        Structure: [ val(meta), path(file) ]
+  - ch_reference:
+      type: file
+      description: |
+        Reference genome of host sequences to be removed
+        Structure: [ path(fasta) ]
+  - ch_index:
+      type: file
+      description: |
+        Pre-built minimap2 index of host reference genome for host decontamination.
+        Structure: [ path(index_files) ]
+output:
+  - stats:
+      type: file
+      description: |
+        Host removal statistics from decontamination tool
+        Structure: [ val(meta), path(stats_files) ]
+      pattern: "*"
+  - reads:
+      type: file
+      description: |
+        Long-read reads with host-like reads removed
+        Structure: [ val(meta), path(reads) ]
+      pattern: "*.fastq.gz"
+  - mqc:
+      type: file
+      description: |
+        Log files for MultiQC
+        Structure: [ path(files) ]
+      pattern: "*"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: path(versions.yml)
+      pattern: "versions.yml"
+authors:
+  - "@ljmesi"
+maintainers:
+  - "@LilyAnderssonLee"
