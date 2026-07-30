@@ -2,6 +2,7 @@ lint:
   files_exist:
     - conf/igenomes.config
     - conf/igenomes_ignored.config
+    - .github/workflows/linting_comment.yml
   files_unchanged:
     - .github/PULL_REQUEST_TEMPLATE.md
 nf_core_version: 4.0.3
