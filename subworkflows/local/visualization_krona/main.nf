@@ -23,13 +23,13 @@ workflow VISUALIZATION_KRONA {
     /*
         Split profile results based on tool they come from
     */
-    ch_input_profiles = ch_profiles.branch {
+    ch_input_profiles = ch_profiles.branch { it ->
         centrifuge: it[0]['tool'] == 'centrifuge'
         centrifuger: it[0]['tool'] == 'centrifuger'
         kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
         unknown: true
     }
-    ch_input_classifications = ch_classifications.branch {
+    ch_input_classifications = ch_classifications.branch { it ->
         kaiju: it[0]['tool'] == 'kaiju'
         malt: it[0]['tool'] == 'malt'
         unknown: true
@@ -71,7 +71,7 @@ workflow VISUALIZATION_KRONA {
     */
 
     ch_krona_text_for_import = ch_krona_text
-        .map { [[id: it[0]['db_name'], tool: it[0]['tool']], it[1]] }
+        .map { it -> [[id: it[0]['db_name'], tool: it[0]['tool']], it[1]] }
         .groupTuple()
 
     KRONA_KTIMPORTTEXT(ch_krona_text_for_import)
@@ -85,7 +85,7 @@ workflow VISUALIZATION_KRONA {
         MEGAN_RMA2INFO_KRONA(ch_input_classifications.malt, false)
         GUNZIP(MEGAN_RMA2INFO_KRONA.out.txt)
         ch_krona_taxonomy_for_input = GUNZIP.out.gunzip
-            .map { [[id: it[0]['db_name'], tool: it[0]['tool']], it[1]] }
+            .map { it -> [[id: it[0]['db_name'], tool: it[0]['tool']], it[1]] }
             .groupTuple()
 
         KRONA_KTIMPORTTAXONOMY(ch_krona_taxonomy_for_input, file(params.krona_taxonomy_directory, checkExists: true))
