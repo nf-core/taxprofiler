@@ -346,20 +346,20 @@
                 "taxpasta/krakenuniq_db6.tsv"
             ]
         ],
-        "timestamp": "2026-07-27T16:31:24.656679",
+        "timestamp": "2026-08-07T15:20:45.683223",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "porechop_abi": {
         "content": [
             "ERR3201952_ERR3201952_porechop_abi.log contains string '7 / 10,000': true"
         ],
-        "timestamp": "2026-07-27T16:31:33.274733",
+        "timestamp": "2026-08-07T15:20:50.392343",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "deacon": {
@@ -373,10 +373,10 @@
                 "ERR3201952.json contains string 'version': true"
             ]
         ],
-        "timestamp": "2026-07-27T16:31:30.543676",
+        "timestamp": "2026-08-07T15:20:49.123161",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "nanoq": {
@@ -385,10 +385,10 @@
                 "ERR3201952_ERR3201952_filtered.stats:md5,70a916aef496e0335a3125ed3c1397a9"
             ]
         ],
-        "timestamp": "2026-07-27T16:31:32.953278",
+        "timestamp": "2026-08-07T15:20:50.161461",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "nonpareil": {
@@ -429,10 +429,10 @@
                 
             ]
         ],
-        "timestamp": "2026-07-27T16:31:33.20661",
+        "timestamp": "2026-08-07T15:20:50.282797",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "samtools": {
@@ -441,10 +441,10 @@
                 
             ]
         ],
-        "timestamp": "2026-07-27T16:31:33.345914",
+        "timestamp": "2026-08-07T15:20:50.417667",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "taxpasta": {
@@ -453,10 +453,10 @@
                 
             ]
         ],
-        "timestamp": "2026-07-27T16:31:33.393239",
+        "timestamp": "2026-08-07T15:20:50.444109",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "-profile test_fastpnonpareilkrakenuniq": {
@@ -515,10 +515,10 @@
                 }
             }
         ],
-        "timestamp": "2026-07-27T16:31:24.57496",
+        "timestamp": "2026-08-07T15:20:45.635736",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "krakenuniq": {
@@ -534,10 +534,10 @@
             "ERR3201952.se.krakenuniq.classified.txt contains string 'ERR3201952.1159044\t2697049': true",
             "ERR3201952.se.krakenuniq.report.txt contains string 'Severe acute respiratory syndrome coronavirus 2    ': true"
         ],
-        "timestamp": "2026-07-27T16:31:32.909885",
+        "timestamp": "2026-08-07T15:20:50.129846",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     },
     "fastp": {
@@ -558,10 +558,10 @@
                 
             ]
         ],
-        "timestamp": "2026-07-27T16:31:30.606177",
+        "timestamp": "2026-08-07T15:20:49.241533",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.3"
+            "nextflow": "26.04.6"
         }
     }
 }
