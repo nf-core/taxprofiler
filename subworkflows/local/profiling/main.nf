@@ -343,6 +343,7 @@ workflow PROFILING {
         }
 
         KAIJU_KAIJU(ch_input_for_kaiju.reads, ch_input_for_kaiju.db)
+        ch_versions = ch_versions.mix(KAIJU_KAIJU.out.versions.first())
         ch_raw_classifications = ch_raw_classifications.mix(KAIJU_KAIJU.out.results)
 
         // Ensure the correct database goes with the generated report for KAIJU2TABLE

@@ -53,7 +53,6 @@ workflow LONGREAD_HOSTREMOVAL {
     }
     else if (params.longread_hostremoval_tool == 'minimap2') {
         MINIMAP2_ALIGN(ch_reads, ch_hostremoval_index, true, 'bai', false, false)
-        ch_versions = ch_versions.mix(MINIMAP2_ALIGN.out.versions.first())
         ch_minimap2_mapped = MINIMAP2_ALIGN.out.bam.map { meta, long_reads ->
             [meta, long_reads, []]
         }

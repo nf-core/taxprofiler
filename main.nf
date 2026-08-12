@@ -48,7 +48,7 @@ workflow NFCORE_TAXPROFILER {
     )
 
     emit:
-        TAXPROFILER.out.multiqc_report // channel: /path/to/multiqc_report.html
+    multiqc_report = TAXPROFILER.out.multiqc_report // channel: /path/to/multiqc_report.html
 }
 
 
