@@ -195,7 +195,6 @@ workflow TAXPROFILER {
 
     if (params.perform_shortread_redundancyestimation) {
         NONPAREIL(ch_shortreads_preprocessed)
-        ch_versions = ch_versions.mix(NONPAREIL.out.versions)
     }
 
     /*
@@ -260,7 +259,6 @@ workflow TAXPROFILER {
             }
             .mix(ch_input.fasta_short, ch_input.fasta_long)
 
-        ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
     }
     else {
         ch_reads_runmerged = ch_shortreads_hostremoved.mix(ch_longreads_hostremoved, ch_input.fasta_short, ch_input.fasta_long)

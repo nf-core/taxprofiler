@@ -21,7 +21,6 @@ workflow LONGREAD_FILTERING {
     }
     else if (params.longread_filter_tool == 'nanoq') {
         ch_filtered_reads = NANOQ(ch_reads, 'fastq.gz').reads
-        ch_versions = ch_versions.mix(NANOQ.out.versions.first())
         ch_multiqc_files = ch_multiqc_files.mix(NANOQ.out.stats)
     }
     else {
