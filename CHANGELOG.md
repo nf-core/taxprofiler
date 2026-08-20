@@ -24,7 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Tool | Previous version | New version |
 | ---- | ---------------- | ----------- |
-
 | AdapterRemoval | 2.3.2 | 2.3.4 |
 | Centrifuger | | 1.1.2 |
 | deacon | | 0.15.0 |
@@ -35,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | malt | 0.61 | 0.62 |
 | minimap2 | 2.29 | 2.30 |
 | MultiQC | 1.34 | 1.35 |
+| samtools | 1.23.1 | 1.24 |
 | sylph | 0.7.0 | 0.9.0 |
 | sylphtax | 1.2.0 | 1.9.0 |
 
