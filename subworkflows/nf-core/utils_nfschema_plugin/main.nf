@@ -73,5 +73,5 @@ workflow UTILS_NFSCHEMA_PLUGIN {
     }
 
     emit:
-        true
+    dummy_emit = true
 }

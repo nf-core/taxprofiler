@@ -13,10 +13,11 @@ workflow UTILS_NFCORE_PIPELINE {
     nextflow_cli_args
 
     main:
+    valid_config = checkConfigProvided()
     checkProfileProvided(nextflow_cli_args)
 
     emit:
-        checkConfigProvided()
+    valid_config = valid_config
 }
 
 /*
