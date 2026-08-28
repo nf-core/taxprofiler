@@ -50,16 +50,6 @@
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
                         "installed_by": ["modules"]
                     },
-                    "centrifuger/centrifuger": {
-                        "branch": "master",
-                        "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
-                        "installed_by": ["modules"]
-                    },
-                    "centrifuger/quantification": {
-                        "branch": "master",
-                        "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
-                        "installed_by": ["modules"]
-                    },
                     "deacon/filter": {
                         "branch": "master",
                         "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
@@ -68,6 +58,16 @@
                     "deacon/index": {
                         "branch": "master",
                         "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
+                        "installed_by": ["modules"]
+                    },
+                    "centrifuger/centrifuger": {
+                        "branch": "master",
+                        "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
+                        "installed_by": ["modules"]
+                    },
+                    "centrifuger/quantification": {
+                        "branch": "master",
+                        "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
                         "installed_by": ["modules"]
                     },
                     "diamond/blastx": {
@@ -336,7 +336,7 @@
                 "nf-core": {
                     "utils_nextflow_pipeline": {
                         "branch": "master",
-                        "git_sha": "1a545fcbd762911c21a64ced3dbef99b2b51ac75",
+                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
                         "installed_by": ["subworkflows"]
                     },
                     "utils_nfcore_pipeline": {
@@ -346,7 +346,7 @@
                     },
                     "utils_nfschema_plugin": {
                         "branch": "master",
-                        "git_sha": "a7b27fd25bfa8dcc07d299e88bd790585901a436",
+                        "git_sha": "fdc08b8b1ae74f56686ce21f7ea11ad11990ce57",
                         "installed_by": ["subworkflows"]
                     }
                 }
