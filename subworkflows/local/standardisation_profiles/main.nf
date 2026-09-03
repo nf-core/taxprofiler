@@ -19,7 +19,6 @@ workflow STANDARDISATION_PROFILES {
     ch_classifications
     ch_profiles
     ch_databases
-    val_motu_version
 
     main:
     ch_versions = channel.empty()
@@ -68,8 +67,6 @@ workflow STANDARDISATION_PROFILES {
 
     TAXPASTA_MERGE(ch_input_for_taxpasta_merge.profiles, ch_input_for_taxpasta_merge.tool, params.standardisation_taxpasta_format, ch_taxpasta_tax_dir, [])
     TAXPASTA_STANDARDISE(ch_input_for_taxpasta_standardise.profiles, ch_input_for_taxpasta_standardise.tool, params.standardisation_taxpasta_format, ch_taxpasta_tax_dir)
-    ch_versions = ch_versions.mix(TAXPASTA_MERGE.out.versions.first())
-    ch_versions = ch_versions.mix(TAXPASTA_STANDARDISE.out.versions.first())
 
 
 
@@ -111,7 +108,6 @@ workflow STANDARDISATION_PROFILES {
     ch_profiles_for_bracken = groupProfiles(ch_input_profiles.bracken)
 
     BRACKEN_COMBINEBRACKENOUTPUTS(ch_profiles_for_bracken)
-    ch_versions = ch_versions.mix(BRACKEN_COMBINEBRACKENOUTPUTS.out.versions)
 
     // CENTRIFUGE
 
@@ -125,7 +121,6 @@ workflow STANDARDISATION_PROFILES {
 
     KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE(ch_profiles_for_centrifuge)
     ch_multiqc_files = ch_multiqc_files.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.txt)
-    ch_versions = ch_versions.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE.out.versions)
 
     // CENTRIFUGER
 
@@ -136,8 +131,6 @@ workflow STANDARDISATION_PROFILES {
 
     KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGER(ch_profiles_for_centrifuger)
     ch_multiqc_files = ch_multiqc_files.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGER.out.txt)
-    ch_versions = ch_versions.mix(KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGER.out.versions)
-
 
     // Kaiju
 
@@ -148,7 +141,6 @@ workflow STANDARDISATION_PROFILES {
 
     KAIJU_KAIJU2TABLE_COMBINED(ch_input_for_kaiju2tablecombine.profile, ch_input_for_kaiju2tablecombine.db, params.kaiju_taxon_rank)
     ch_multiqc_files = ch_multiqc_files.mix(KAIJU_KAIJU2TABLE_COMBINED.out.summary)
-    ch_versions = ch_versions.mix(KAIJU_KAIJU2TABLE_COMBINED.out.versions)
 
     // Kraken2
 
@@ -166,7 +158,6 @@ workflow STANDARDISATION_PROFILES {
 
     KRAKENTOOLS_COMBINEKREPORTS_KRAKEN(ch_profiles_for_kraken2)
     ch_multiqc_files = ch_multiqc_files.mix(KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.txt)
-    ch_versions = ch_versions.mix(KRAKENTOOLS_COMBINEKREPORTS_KRAKEN.out.versions)
 
     // MetaPhlAn
 
@@ -174,7 +165,6 @@ workflow STANDARDISATION_PROFILES {
 
     METAPHLAN_MERGEMETAPHLANTABLES(ch_profiles_for_metaphlan)
     ch_multiqc_files = ch_multiqc_files.mix(METAPHLAN_MERGEMETAPHLANTABLES.out.txt)
-    ch_versions = ch_versions.mix(METAPHLAN_MERGEMETAPHLANTABLES.out.versions)
 
     // mOTUs
 
@@ -186,8 +176,7 @@ workflow STANDARDISATION_PROFILES {
 
     ch_input_for_motusmerge = combineProfilesWithDatabase(ch_profiles_for_motus, ch_input_databases.motus)
 
-    MOTUS_MERGE(ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db, val_motu_version)
-    ch_versions = ch_versions.mix(MOTUS_MERGE.out.versions)
+    MOTUS_MERGE(ch_input_for_motusmerge.profile, ch_input_for_motusmerge.db)
 
     // Ganon
 
@@ -195,12 +184,10 @@ workflow STANDARDISATION_PROFILES {
 
     GANON_TABLE(ch_profiles_for_ganon)
     ch_multiqc_files = ch_multiqc_files.mix(GANON_TABLE.out.txt)
-    ch_versions = ch_versions.mix(GANON_TABLE.out.versions)
 
     // sylph
     ch_profiles_for_sylph = groupProfiles(ch_input_profiles.sylph)
     SYLPHTAX_MERGE(ch_profiles_for_sylph, params.sylph_data_type)
-    ch_versions = ch_versions.mix(SYLPHTAX_MERGE.out.versions)
 
     emit:
     taxpasta = TAXPASTA_MERGE.out.merged_profiles

@@ -72,9 +72,6 @@ workflow SHORTREAD_ADAPTERREMOVAL {
         ch_adapterremoval_reads_prepped = ADAPTERREMOVAL_PAIRED.out.paired_truncated.mix(ADAPTERREMOVAL_SINGLE.out.singles_truncated)
     }
 
-    ch_versions = ch_versions.mix(ADAPTERREMOVAL_SINGLE.out.versions.first())
-    ch_versions = ch_versions.mix(ADAPTERREMOVAL_PAIRED.out.versions.first())
-
     ch_multiqc_files = ch_multiqc_files.mix(
         ADAPTERREMOVAL_PAIRED.out.settings,
         ADAPTERREMOVAL_SINGLE.out.settings,

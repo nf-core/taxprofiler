@@ -46,7 +46,6 @@ workflow VISUALIZATION_KRONA {
         .mix(ch_input_profiles.centrifuger)
     KRAKENTOOLS_KREPORT2KRONA(ch_kraken_reports)
     ch_krona_text = ch_krona_text.mix(KRAKENTOOLS_KREPORT2KRONA.out.txt)
-    ch_versions = ch_versions.mix(KRAKENTOOLS_KREPORT2KRONA.out.versions.first())
 
     /*
         Combine Kaiju profiles with their databases
@@ -64,7 +63,6 @@ workflow VISUALIZATION_KRONA {
     */
     KAIJU_KAIJU2KRONA(ch_input_for_kaiju2krona.profiles, ch_input_for_kaiju2krona.db)
     ch_krona_text = ch_krona_text.mix(KAIJU_KAIJU2KRONA.out.txt)
-    ch_versions = ch_versions.mix(KAIJU_KAIJU2KRONA.out.versions.first())
 
     /*
         Convert Krona text files into html Krona visualizations
@@ -76,7 +74,6 @@ workflow VISUALIZATION_KRONA {
 
     KRONA_KTIMPORTTEXT(ch_krona_text_for_import)
     ch_krona_html = ch_krona_html.mix(KRONA_KTIMPORTTEXT.out.html)
-    ch_versions = ch_versions.mix(KRONA_KTIMPORTTEXT.out.versions.first())
 
     /*
         Convert MALT/MEGAN RMA2INFO files into html Krona visualisations
@@ -90,9 +87,6 @@ workflow VISUALIZATION_KRONA {
 
         KRONA_KTIMPORTTAXONOMY(ch_krona_taxonomy_for_input, file(params.krona_taxonomy_directory, checkExists: true))
         ch_krona_html.mix(KRONA_KTIMPORTTAXONOMY.out.html)
-        ch_versions = ch_versions.mix(GUNZIP.out.versions.first())
-        ch_versions = ch_versions.mix(MEGAN_RMA2INFO_KRONA.out.versions.first())
-        ch_versions = ch_versions.mix(KRONA_KTIMPORTTAXONOMY.out.versions.first())
     }
 
     emit:

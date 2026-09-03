@@ -490,7 +490,7 @@
                     "nanoq": "0.10.0"
                 },
                 "NONPAREIL_CURVE": {
-                    "nonpareil": "3.5.3"
+                    "Nonpareil": "3.5.3"
                 },
                 "NONPAREIL_NONPAREIL": {
                     "nonpareil": "3.5.5"
@@ -499,7 +499,7 @@
                     "nonpareil": "3.5.5"
                 },
                 "NONPAREIL_SET": {
-                    "nonpareil": "3.5.3"
+                    "Nonpareil": "3.5.3"
                 },
                 "PORECHOP_ABI": {
                     "porechop_abi": "0.5.0"

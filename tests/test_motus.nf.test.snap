@@ -128,7 +128,7 @@
                 "taxpasta/motus_db1.tsv"
             ]
         ],
-        "timestamp": "2026-06-08T14:09:01.241609",
+        "timestamp": "2026-07-28T10:33:50.321626",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -141,13 +141,13 @@
                     "fastqc": "0.12.1"
                 },
                 "MOTUS_MERGE": {
-                    "motus": "3.0.3"
+                    "motus": "3.1.0"
                 },
                 "MOTUS_PREPLONG": {
-                    "motus": "3.0.3"
+                    "motus": "3.1.0"
                 },
                 "MOTUS_PROFILE": {
-                    "motus": "3.0.3"
+                    "motus": "3.1.0"
                 },
                 "TAXPASTA_MERGE": {
                     "taxpasta": "0.7.0"
@@ -157,7 +157,7 @@
                 }
             }
         ],
-        "timestamp": "2026-06-08T14:09:01.195046",
+        "timestamp": "2026-07-28T10:33:50.288503",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
@@ -185,7 +185,7 @@
             "motus_db1_combined_reports.txt contains string 'unassigned': true",
             "motus_db1.tsv contains string '165179': true"
         ],
-        "timestamp": "2026-06-08T14:09:01.852248",
+        "timestamp": "2026-07-28T10:33:50.786376",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"

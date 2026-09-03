@@ -234,9 +234,9 @@ nextflow_pipeline {
                 { assert snapshot(
                         file("$outputDir/taxpasta/bracken_db1.tsv").getName() + " contains string '9606': " + file("$outputDir/taxpasta/bracken_db1.tsv").text.contains("9606"),
                         file("$outputDir/taxpasta/centrifuge_db3.tsv").getName() + " contains string '131567': " + file("$outputDir/taxpasta/centrifuge_db3.tsv").text.contains("131567"),
-                        file("$outputDir/taxpasta/diamond_db1.tsv").getName() + " contains string '8058': " + file("$outputDir/taxpasta/diamond_db1.tsv").text.contains("8058"),
+                        file("$outputDir/taxpasta/diamond_db1.tsv").getName() + " contains string '8807': " + file("$outputDir/taxpasta/diamond_db1.tsv").text.contains("8807"),
                         file("$outputDir/taxpasta/diamond_db2.tsv").getName() + " contains string 'taxonomy_id': " + file("$outputDir/taxpasta/diamond_db2.tsv").text.contains("taxonomy_id"),
-                        file("$outputDir/taxpasta/diamond_db3.tsv").getName() + " contains string '8058': " + file("$outputDir/taxpasta/diamond_db3.tsv").text.contains("8058"),
+                        file("$outputDir/taxpasta/diamond_db3.tsv").getName() + " contains string '8807': " + file("$outputDir/taxpasta/diamond_db3.tsv").text.contains("8807"),
                         file("$outputDir/taxpasta/ganon_db1.tsv").getName() + " contains string 'taxonomy_id': " + file("$outputDir/taxpasta/ganon_db1.tsv").text.contains("taxonomy_id"),
                         file("$outputDir/taxpasta/kaiju_db5.tsv").getName() + " contains string '10239': " + file("$outputDir/taxpasta/kaiju_db5.tsv").text.contains("10239"),
                         file("$outputDir/taxpasta/kaiju_db6.tsv").getName() + " contains string '10239': " + file("$outputDir/taxpasta/kaiju_db6.tsv").text.contains("10239"),

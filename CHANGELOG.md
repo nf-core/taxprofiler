@@ -16,17 +16,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Changed`
 
+- [#758](https://github.com/nf-core/taxprofiler/pull/758) Modules topic versions update (by @sofstam)
+
 ### `Deprecated`
 
 ### `Dependencies`
 
-| Tool        | Previous version | New version |
-| ----------- | ---------------- | ----------- |
-| hostile     |                  | 2.0.2       |
-| deacon      |                  | 0.15.0      |
-| MultiQC     | 1.34             | 1.35        |
-| hostile     |                  | 2.0.2       |
-| Centrifuger |                  | 1.1.2       |
+| Tool           | Previous version | New version |
+| -------------- | ---------------- | ----------- |
+| AdapterRemoval | 2.3.2            | 2.3.4       |
+| Centrifuger    |                  | 1.1.2       |
+| deacon         |                  | 0.15.0      |
+| falco          | 1.2.1            | 1.2.5       |
+| hostile        |                  | 2.0.2       |
+| Kraken2        | 2.1.5            | 2.1.6       |
+| KrakenTools    | 1.2              | 1.2.1       |
+| malt           | 0.61             | 0.62        |
+| minimap2       | 2.29             | 2.30        |
+| MultiQC        | 1.34             | 1.35        |
+| samtools       | 1.23.1           | 1.24        |
+| sylph          | 0.7.0            | 0.9.0       |
+| sylphtax       | 1.2.0            | 1.9.0       |
 
 ## v2.0.1 - [2026-06-15]
 
