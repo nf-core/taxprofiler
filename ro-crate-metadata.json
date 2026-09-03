@@ -1,6 +1,6 @@
 {
     "@context": [
-        "https://w3id.org/ro/crate/1.2/context",
+        "https://w3id.org/ro/crate/1.1/context",
         {
             "GithubService": "https://w3id.org/ro/terms/test#GithubService",
             "JenkinsService": "https://w3id.org/ro/terms/test#JenkinsService",
@@ -42,6 +42,9 @@
                 },
                 {
                     "@id": "modules/"
+                },
+                {
+                    "@id": "modules/local/"
                 },
                 {
                     "@id": "modules/nf-core/"
@@ -112,7 +115,7 @@
             },
             "conformsTo": [
                 {
-                    "@id": "https://w3id.org/ro/crate/1.2"
+                    "@id": "https://w3id.org/ro/crate/1.1"
                 },
                 {
                     "@id": "https://w3id.org/workflowhub/workflow-ro-crate/1.0"
@@ -121,8 +124,12 @@
         },
         {
             "@id": "main.nf",
-            "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
-            "contributor": [
+            "@type": [
+                "File",
+                "SoftwareSourceCode",
+                "ComputationalWorkflow"
+            ],
+            "author": [
                 {
                     "@id": "#0e56f305-eecf-4fec-b732-6bb8af719d9e"
                 },
@@ -136,7 +143,7 @@
                     "@id": "#b1863227-d913-4eca-927a-fe74c7697a49"
                 },
                 {
-                    "@id": "https://orcid.org/0000-0003-1581-0711"
+                    "@id": "#ee7a52d1-b247-46df-a312-2daf7d69eb4d"
                 }
             ],
             "dateCreated": "",
@@ -157,8 +164,23 @@
                 "taxonomic-classification",
                 "taxonomic-profiling"
             ],
-            "license": ["MIT"],
-            "name": ["nf-core/taxprofiler"],
+            "license": [
+                "MIT"
+            ],
+            "maintainer": [
+                {
+                    "@id": "https://orcid.org/0000-0001-5585-6277"
+                },
+                {
+                    "@id": "https://orcid.org/0009-0006-0893-3771"
+                },
+                {
+                    "@id": "https://orcid.org/0000-0002-6059-4192"
+                }
+            ],
+            "name": [
+                "nf-core/taxprofiler"
+            ],
             "programmingLanguage": {
                 "@id": "https://w3id.org/workflowhub/workflow-ro-crate#nextflow"
             },
@@ -235,6 +257,11 @@
             "@id": "modules/",
             "@type": "Dataset",
             "description": "Modules used by the pipeline"
+        },
+        {
+            "@id": "modules/local/",
+            "@type": "Dataset",
+            "description": "Pipeline-specific modules"
         },
         {
             "@id": "modules/nf-core/",
@@ -325,27 +352,41 @@
         {
             "@id": "#0e56f305-eecf-4fec-b732-6bb8af719d9e",
             "@type": "Person",
-            "name": "James A. Fellows Yates"
+            "affiliation": "nf-core community",
+            "name": "The nf-core/taxprofiler team",
+            "url": "https://github.com/nf-core"
+        },
+        {
+            "@id": "https://orcid.org/0000-0001-5585-6277",
+            "@type": "Person",
+            "affiliation": "Leibniz Institute for Natural Product Research and Infection Biology - Hans Kn\u00f6ll Institute, Jena, Germany; Max Planck Institute for Evolutionary Anthropology, Leipzig, Germany",
+            "email": "jfy133@gmail.com",
+            "name": "James A. Fellows Yates",
+            "url": "https://github.com/jfy133"
         },
         {
             "@id": "https://orcid.org/0009-0006-0893-3771",
             "@type": "Person",
-            "name": "Sofia Stamouli"
+            "affiliation": "Karolinska Institutet/Karolinska University Hospital/Clinical Genomics SciLifeLab, Solna, Sweden",
+            "email": "sofia.stamouli@scilifelab.se",
+            "name": "Sofia Stamouli",
+            "url": "https://github.com/sofstam"
         },
         {
             "@id": "https://orcid.org/0000-0003-2406-1978",
             "@type": "Person",
-            "name": "Moritz E. Beber"
+            "affiliation": "Unseen Bio ApS, Copenhagen, Denmark\u200b",
+            "email": "midnighter@posteo.net",
+            "name": "Moritz E. Beber",
+            "url": "https://github.com/Midnighter"
         },
         {
-            "@id": "#b1863227-d913-4eca-927a-fe74c7697a49",
+            "@id": "https://orcid.org/0000-0002-6059-4192",
             "@type": "Person",
-            "name": "Lili Andersson-Li"
-        },
-        {
-            "@id": "https://orcid.org/0000-0003-1581-0711",
-            "@type": "Person",
-            "name": "and the nf-core/taxprofiler team"
+            "affiliation": "Karolinska Institutet/Karolinska University Hospital/Clinical Genomics SciLifeLab, Solna, Sweden",
+            "email": "64467552+LilyAnderssonLee@users.noreply.github.com",
+            "name": "Lili Andersson-Li",
+            "url": "https://github.com/LilyAnderssonLee"
         }
     ]
 }

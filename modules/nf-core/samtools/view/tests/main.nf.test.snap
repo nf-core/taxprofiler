@@ -1,0 +1,812 @@
+{
+    "bam - stub": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam.csi"
+                    ]
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T09:06:58.641723",
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        }
+    },
+    "cram_to_bam_index": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam.csi"
+                    ]
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T09:06:44.475595",
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        }
+    },
+    "bam_csi_index - stub": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-07-10T16:12:09.164122236",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.4"
+        }
+    },
+    "bam_csi_index": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam.csi"
+                    ]
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T09:06:07.203393",
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        }
+    },
+    "cram_to_bam_index_qname": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam.csi:md5,36dfac2afdf9721b069abb6d5a72575b"
+                    ]
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.bam"
+                    ]
+                ],
+                "unselected_index": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.bam.csi"
+                    ]
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-07-10T07:05:48.466004",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "bam_bai_index_unselected": {
+        "content": [
+            {
+                "bai": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam.bai"
+                    ]
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.bam"
+                    ]
+                ],
+                "unselected_index": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.bam.csi"
+                    ]
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T09:06:18.267421",
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        }
+    },
+    "cram_crai_index_unselected - stub": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    
+                ],
+                "crai": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.cram.crai:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "cram": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.cram:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.cram:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "unselected_index": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.cram.crai:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-07-10T16:12:24.084790566",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.4"
+        }
+    },
+    "bam": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T09:06:01.906355",
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        }
+    },
+    "bam_bai_index": {
+        "content": [
+            {
+                "bai": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam.bai"
+                    ]
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T09:06:12.483533",
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        }
+    },
+    "cram_to_bam": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-07-10T07:11:14.584008",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "bam_bai_index - stub": {
+        "content": [
+            {
+                "bai": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam.bai:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-07-10T16:12:13.984891834",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.4"
+        }
+    },
+    "cram": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.cram"
+                    ]
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-19T09:06:29.867409",
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.4"
+        }
+    },
+    "bam_bai_index_uselected - stub": {
+        "content": [
+            {
+                "bai": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam.bai:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.bam:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "unselected_index": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.bam.csi:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-07-10T16:12:18.931059039",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.4"
+        }
+    },
+    "bam_with_bed": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.bam"
+                    ]
+                ],
+                "crai": [
+                    
+                ],
+                "cram": [
+                    
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    
+                ],
+                "unselected_index": [
+                    
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-03-25T12:13:59.0656",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "cram_crai_index_unselected": {
+        "content": [
+            {
+                "bai": [
+                    
+                ],
+                "bam": [
+                    
+                ],
+                "crai": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.cram.crai"
+                    ]
+                ],
+                "cram": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.cram:md5,ed9bda19351bd1adb3b92db0f86745f1"
+                    ]
+                ],
+                "csi": [
+                    
+                ],
+                "sam": [
+                    
+                ],
+                "unselected": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.cram"
+                    ]
+                ],
+                "unselected_index": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.unselected.cram.crai"
+                    ]
+                ],
+                "versions_samtools": [
+                    [
+                        "SAMTOOLS_VIEW",
+                        "samtools",
+                        "1.24"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-07-10T07:05:26.622858",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}
