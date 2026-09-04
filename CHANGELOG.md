@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.0.2dev - [date]
+## v3.0.0dev - [dev]
 
 ### `Added`
 
@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#712](https://github.com/nf-core/taxprofiler/pull/712) Added new read decontamination tool Hostile (by @jfy133, ❤️ @bede for upstream support)
 - [#757](https://github.com/nf-core/taxprofiler/pull/757) Added new read decontamination tool Deacon (by @sofstam)
 - [#759](https://github.com/nf-core/taxprofiler/pull/759) Updated to the nf-core template 4.0.3 (by @sofstam)
+- [#768](https://github.com/nf-core/taxprofiler/pull/768) Updated to the nf-core template 4.1.0 (by @sofstam)
 
 ### `Fixed`
 
