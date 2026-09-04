@@ -244,7 +244,7 @@ workflow PROFILING {
     if (params.run_centrifuge) {
 
         ch_input_for_centrifuge = ch_input_for_profiling.centrifuge
-            .filter {
+            .filter { it ->
                 if (it[0].is_fasta) {
                     log.warn("[nf-core/taxprofiler] Centrifuge currently does not accept FASTA files as input. Skipping Centrifuge for sample ${it[0].id}.")
                 }
@@ -289,7 +289,7 @@ workflow PROFILING {
                 }
                 [meta, input_reads, db_meta_new, db]
                 }
-                .filter {
+                .filter { it ->
                     if (it[0].is_fasta) {
                         log.warn("[nf-core/taxprofiler] Centrifuger currently does not accept FASTA files as input. Skipping Centrifuger for sample ${it[0].id}.")
                     }
@@ -377,13 +377,13 @@ workflow PROFILING {
     if (params.run_motus) {
 
         ch_input_for_motus = ch_input_for_profiling.motus
-            .filter {
+            .filter { it ->
                 if (it[0].is_fasta) {
                     log.warn("[nf-core/taxprofiler] mOTUs currently does not accept FASTA files as input. Skipping mOTUs for sample ${it[0].id}.")
                 }
                 !it[0].is_fasta
             }
-            .branch {
+            .branch { it ->
                 longread: it[0].instrument_platform == 'OXFORD_NANOPORE' || it[0].instrument_platform == 'PACBIO_SMRT'
                 shortread: it[0].instrument_platform != 'OXFORD_NANOPORE' && it[0].instrument_platform != 'PACBIO_SMRT'
             }
@@ -570,7 +570,7 @@ workflow PROFILING {
 
     if (params.run_sylph) {
         ch_input_for_sylph = ch_input_for_profiling.sylph
-            .filter {
+            .filter { it ->
                 if (it[0].is_fasta) {
                     log.warn("[nf-core/taxprofiler] sylph currently does not accept FASTA files as input. Skipping sylph for sample ${it[0].id}.")
                 }
