@@ -1015,5 +1015,24 @@
         {
             "$ref": "#/$defs/generic_options"
         }
-    ]
+    ],
+    "properties": {
+        "run_sourmash": {
+            "type": "boolean",
+            "description": "Turn on profiling with sourmash."
+        },
+        "sourmash_lineages": {
+            "type": "string",
+            "description": "Path to lineages CSV file for sourmash tax annotate.",
+            "default": "csv"
+        },
+        "sourmash_save_matches": {
+            "type": "boolean",
+            "description": "Save matched signatures from sourmash gather."
+        },
+        "sourmash_save_unassigned": {
+            "type": "boolean",
+            "description": "Save unassigned reads from sourmash gather."
+        }
+    }
 }

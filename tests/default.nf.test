@@ -255,6 +255,15 @@ nextflow_pipeline {
                             stable_content_sylph
                         ).match("sylph")
                 },
+
+                // sourmash
+                { assert snapshot(
+                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*.sourmash.gather.csv.gz']).collect{file -> file.getName()  },
+                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*.with-lineages.csv.gz']).collect{file -> file.getName()  },
+
+                        ).match("sourmash")
+                },
+
             )
         }
     }
