@@ -22,6 +22,9 @@ include { KMCP_SEARCH                                   } from '../../../modules
 include { KMCP_PROFILE                                  } from '../../../modules/nf-core/kmcp/profile'
 include { GANON_CLASSIFY                                } from '../../../modules/nf-core/ganon/classify'
 include { GANON_REPORT                                  } from '../../../modules/nf-core/ganon/report'
+include { SOURMASH_SKETCH                               } from '../../../modules/nf-core/sourmash/sketch'
+include { SOURMASH_GATHER                               } from '../../../modules/nf-core/sourmash/gather'
+include { SOURMASH_TAXANNOTATE                          } from '../../../modules/nf-core/sourmash/taxannotate'
 include { SYLPH_PROFILE                                 } from '../../../modules/nf-core/sylph/profile'
 include { SYLPHTAX_TAXPROF                              } from '../../../modules/nf-core/sylphtax/taxprof'
 include { MELON                                         } from '../../../modules/nf-core/melon'
@@ -81,6 +84,7 @@ workflow PROFILING {
             motus: db_meta.tool == 'motus'
             kmcp: db_meta.tool == 'kmcp'
             ganon: db_meta.tool == 'ganon'
+            sourmash: db_meta.tool == 'sourmash'
             sylph: db_meta.tool == 'sylph'
             melon: db_meta.tool == 'melon'
             metacache: db_meta.tool == 'metacache'
@@ -567,6 +571,60 @@ workflow PROFILING {
         ch_raw_profiles = ch_raw_profiles.mix(GANON_REPORT.out.tre)
         ch_raw_classifications = ch_raw_classifications.mix(GANON_CLASSIFY.out.all)
     }
+
+
+    if (params.run_sourmash) {
+        def ch_prepare_for_sourmash = ch_input_for_profiling.sourmash
+            .map { meta, input_reads, db_meta, db ->
+                def parsed_params = db_meta['db_params'].split(";")
+                def db_meta_new   = [:]
+                // sketch, gather, tax
+                if (parsed_params.size() == 3) {
+                    db_meta_new = db_meta + [
+                        db_params: parsed_params[0],
+                        db_params_gather: parsed_params[1],
+                        db_params_tax: parsed_params[2]
+                    ]
+                } else if (parsed_params.size() == 2) {
+                    db_meta_new = db_meta + [
+                        db_params: parsed_params[0],
+                        db_params_gather: parsed_params[1],
+                        db_params_tax: ''
+                    ]
+                } else {
+                    db_meta_new = db_meta + [
+                        db_params: parsed_params[0] ?: '',
+                        db_params_gather: '',
+                        db_params_tax: ''
+                    ]
+                }
+                [meta, input_reads , db_meta_new, db]
+            }
+        ch_input_for_sourmash = ch_prepare_for_sourmash.multiMap { it ->
+            reads: [it[0]+ it[2], it[1]]
+            db: file("${it[3]}/sourmash-db.zip")
+            lineages: file("${it[3]}/lineages.csv.gz")
+
+        }
+
+        SOURMASH_SKETCH(ch_input_for_sourmash.reads)
+
+        SOURMASH_GATHER(SOURMASH_SKETCH.out.signatures,
+                        ch_input_for_sourmash.db,
+                        false, // save unassigned
+                        params.sourmash_save_matches,
+                        false, // save_prefetch
+                        false //save_prefetch_csv
+                        )
+
+        SOURMASH_TAXANNOTATE(SOURMASH_GATHER.out.result,
+                            ch_input_for_sourmash.lineages
+                        )
+
+        ch_raw_profiles = ch_raw_profiles.mix(SOURMASH_TAXANNOTATE.out.result)
+        ch_multiqc_files = ch_multiqc_files.mix(SOURMASH_GATHER.out.result) // gather csv for multiqc
+    }
+
 
     if (params.run_sylph) {
         ch_input_for_sylph = ch_input_for_profiling.sylph

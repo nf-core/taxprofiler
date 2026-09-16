@@ -50,16 +50,6 @@
                         "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
-                    "deacon/filter": {
-                        "branch": "master",
-                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
-                        "installed_by": ["modules"]
-                    },
-                    "deacon/index": {
-                        "branch": "master",
-                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
-                        "installed_by": ["modules"]
-                    },
                     "centrifuger/centrifuger": {
                         "branch": "master",
                         "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
@@ -68,6 +58,16 @@
                     "centrifuger/quantification": {
                         "branch": "master",
                         "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
+                        "installed_by": ["modules"]
+                    },
+                    "deacon/filter": {
+                        "branch": "master",
+                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
+                        "installed_by": ["modules"]
+                    },
+                    "deacon/index": {
+                        "branch": "master",
+                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
                         "installed_by": ["modules"]
                     },
                     "diamond/blastx": {
@@ -298,6 +298,21 @@
                     "samtools/view": {
                         "branch": "master",
                         "git_sha": "9339809fcb90af8a8b7051e6cd914894d5c52002",
+                        "installed_by": ["modules"]
+                    },
+                    "sourmash/gather": {
+                        "branch": "master",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "installed_by": ["modules"]
+                    },
+                    "sourmash/sketch": {
+                        "branch": "master",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "installed_by": ["modules"]
+                    },
+                    "sourmash/taxannotate": {
+                        "branch": "master",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
                     "sylph/profile": {

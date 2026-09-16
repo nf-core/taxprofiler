@@ -747,6 +747,17 @@
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml",
                 "porechop_abi",
                 "porechop_abi/ERR3201952_ERR3201952_porechop_abi.log",
+                "sourmash",
+                "sourmash/db1",
+                "sourmash/db1/2611_db1.sourmash.gather.csv.gz",
+                "sourmash/db1/2611_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2611_db1.sourmash.sketch.sig",
+                "sourmash/db1/2612_db1.sourmash.gather.csv.gz",
+                "sourmash/db1/2612_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2612_db1.sourmash.sketch.sig",
+                "sourmash/db1/2613_db1.sourmash.gather.csv.gz",
+                "sourmash/db1/2613_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2613_db1.sourmash.sketch.sig",
                 "sylph",
                 "sylph/db1",
                 "sylph/db1/2612_db1.sylph.tsv",
@@ -772,7 +783,7 @@
                 "taxpasta/metaphlan_metaphlan4.tsv"
             ]
         ],
-        "timestamp": "2026-08-27T21:30:49.244356",
+        "timestamp": "2026-09-15T19:33:52.413188452",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -1239,6 +1250,15 @@
                 "PORECHOP_ABI": {
                     "porechop_abi": "0.5.0"
                 },
+                "SOURMASH_GATHER": {
+                    "sourmash": "4.9.4"
+                },
+                "SOURMASH_SKETCH": {
+                    "sourmash": "4.9.4"
+                },
+                "SOURMASH_TAXANNOTATE": {
+                    "sourmash": "4.9.4"
+                },
                 "SYLPHTAX_MERGE": {
                     "sylph-tax": "1.9.0"
                 },
@@ -1259,7 +1279,7 @@
                 }
             }
         ],
-        "timestamp": "2026-08-27T21:30:49.175176",
+        "timestamp": "2026-09-15T19:33:52.280712934",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -1321,6 +1341,25 @@
             "nonpareil_all_samples.tsv contains string 'diversity': true"
         ],
         "timestamp": "2026-08-27T21:31:06.634391",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    },
+    "sourmash": {
+        "content": [
+            [
+                "2611_db1.sourmash.gather.csv.gz",
+                "2612_db1.sourmash.gather.csv.gz",
+                "2613_db1.sourmash.gather.csv.gz"
+            ],
+            [
+                "2611_db1.sourmash.gather.with-lineages.csv.gz",
+                "2612_db1.sourmash.gather.with-lineages.csv.gz",
+                "2613_db1.sourmash.gather.with-lineages.csv.gz"
+            ]
+        ],
+        "timestamp": "2026-09-15T19:34:02.537642633",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
