@@ -129,6 +129,10 @@
                 "ganon/db1/2613_db1.ganon.tre",
                 "ganon/db1/2613_db1.ganon_report.tre",
                 "ganon/ganon_db1_combined_reports.txt",
+                "gunzip",
+                "gunzip/2611_db1.sourmash.gather.csv",
+                "gunzip/2612_db1.sourmash.gather.csv",
+                "gunzip/2613_db1.sourmash.gather.csv",
                 "kaiju",
                 "kaiju/db5",
                 "kaiju/db5/2611_db5.kaiju.tsv",
@@ -324,6 +328,7 @@
                 "multiqc/multiqc_data/multiqc_nonpareil.txt",
                 "multiqc/multiqc_data/multiqc_software_versions.txt",
                 "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_data/multiqc_sourmash_gather.txt",
                 "multiqc/multiqc_data/nanoq_plot_length_plot.txt",
                 "multiqc/multiqc_data/nanoq_plot_quality_plot.txt",
                 "multiqc/multiqc_data/nanoq_table.txt",
@@ -335,6 +340,7 @@
                 "multiqc/multiqc_data/porechop-middlesplit-barplot.txt",
                 "multiqc/multiqc_data/porechop-starttrim-barplot.txt",
                 "multiqc/multiqc_data/porechop_porechop_abi.txt",
+                "multiqc/multiqc_data/sourmash-gather-top-plot.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-cnt.pdf",
@@ -462,6 +468,7 @@
                 "multiqc/multiqc_plots/pdf/porechop-middlesplit-barplot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-pct.pdf",
+                "multiqc/multiqc_plots/pdf/sourmash-gather-top-plot.pdf",
                 "multiqc/multiqc_plots/png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-cnt.png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-pct.png",
@@ -588,6 +595,7 @@
                 "multiqc/multiqc_plots/png/porechop-middlesplit-barplot-pct.png",
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-cnt.png",
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-pct.png",
+                "multiqc/multiqc_plots/png/sourmash-gather-top-plot.png",
                 "multiqc/multiqc_plots/svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-cnt.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-pct.svg",
@@ -714,6 +722,7 @@
                 "multiqc/multiqc_plots/svg/porechop-middlesplit-barplot-pct.svg",
                 "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-cnt.svg",
                 "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-pct.svg",
+                "multiqc/multiqc_plots/svg/sourmash-gather-top-plot.svg",
                 "multiqc/multiqc_report.html",
                 "nanoq",
                 "nanoq/ERR3201952_ERR3201952_filtered.stats",
@@ -783,7 +792,7 @@
                 "taxpasta/metaphlan_metaphlan4.tsv"
             ]
         ],
-        "timestamp": "2026-09-15T19:33:52.413188452",
+        "timestamp": "2026-09-23T14:27:29.08841678",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -1179,6 +1188,9 @@
                 "GANON_TABLE": {
                     "ganon": "2.1.0"
                 },
+                "GUNZIP": {
+                    "gunzip": 1.13
+                },
                 "KAIJU_KAIJU": {
                     "kaiju": "1.10.0"
                 },
@@ -1279,7 +1291,7 @@
                 }
             }
         ],
-        "timestamp": "2026-09-15T19:33:52.280712934",
+        "timestamp": "2026-09-23T14:27:28.877842921",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -1348,18 +1360,16 @@
     },
     "sourmash": {
         "content": [
-            [
-                "2611_db1.sourmash.gather.csv.gz",
-                "2612_db1.sourmash.gather.csv.gz",
-                "2613_db1.sourmash.gather.csv.gz"
-            ],
+            "2611_db1.sourmash.gather.csv.gz contains  'GCF_015533775.1': [1000,2.185887907668095e-05,3.7458795325142346e-05,2.185887907668095e-05,1.8588915429729252e-05,2.0,2.0,0.0,/workspaces/taxprofiler/.nf-test/tests/ac3dd9fa81d1f138d80d46af2200cee4/work/62/b4e41d6e79f56a2793e554fad7b89b/sourmash-db.zip,GCF_015533775.1,6d8ef2af9fa31587b9800a0d17ef5ff0,3.7458795325142346e-05,1000,1,45737000,library/2612.merged.fastq.gz,2612_db1.sourmash.sketch,c2c26215,45748000,31,DNA,1000,45748,True,0.7074005867915636,0.7197992886294927,0.7135999377105282,0.7197992886294927,True,2,26,107591]",
+            "2612_db1.sourmash.gather.csv.gz contains  'NC_012920.1': [10000,0.00021858879076680948,0.7142863040894061,0.00021858879076680948,0.00022306698515675103,2.4,2.0,0.9165151389911681,/workspaces/taxprofiler/.nf-test/tests/ac3dd9fa81d1f138d80d46af2200cee4/work/62/b4e41d6e79f56a2793e554fad7b89b/sourmash-db.zip,NC_012920.1,556b487060551cc25dbf3ac5eb5cfe7c,0.7142863040894061,10000,0,45738000,library/2612.merged.fastq.gz,2612_db1.sourmash.sketch,c2c26215,45748000,31,DNA,1000,45748,True,,,,,False,24,24,107591]",
+            "2613_db1.sourmash.gather.cv.gz contains  'NC_012920.1': [4000,0.0001662717712100428,0.28571452163576244,0.0001662717712100428,0.00012574662055957246,1.0,1.0,0.0,/workspaces/taxprofiler/.nf-test/tests/ac3dd9fa81d1f138d80d46af2200cee4/work/5b/75df528cbcf1e5d0bc4436627efe25/sourmash-db.zip,NC_012920.1,556b487060551cc25dbf3ac5eb5cfe7c,0.28571452163576244,4000,0,24053000,library/2613.fq.gz,2613_db1.sourmash.sketch,5601ff50,24057000,31,DNA,1000,24057,True,,,,,True,4,4,31810]",
             [
                 "2611_db1.sourmash.gather.with-lineages.csv.gz",
                 "2612_db1.sourmash.gather.with-lineages.csv.gz",
                 "2613_db1.sourmash.gather.with-lineages.csv.gz"
             ]
         ],
-        "timestamp": "2026-09-15T19:34:02.537642633",
+        "timestamp": "2026-09-23T14:27:40.491664852",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
