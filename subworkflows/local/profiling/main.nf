@@ -29,6 +29,7 @@ include { SYLPH_PROFILE                                 } from '../../../modules
 include { SYLPHTAX_TAXPROF                              } from '../../../modules/nf-core/sylphtax/taxprof'
 include { MELON                                         } from '../../../modules/nf-core/melon'
 include { METACACHE_QUERY                               } from '../../../modules/nf-core/metacache/query'
+include { GUNZIP                                        } from '../../../modules/nf-core/gunzip'
 
 
 workflow PROFILING {
@@ -607,7 +608,7 @@ workflow PROFILING {
 
         }
 
-        SOURMASH_SKETCH(ch_input_for_sourmash.reads)
+        SOURMASH_SKETCH(ch_input_for_sourmash.reads, true)
 
         SOURMASH_GATHER(SOURMASH_SKETCH.out.signatures,
                         ch_input_for_sourmash.db,
@@ -622,7 +623,8 @@ workflow PROFILING {
                         )
 
         ch_raw_profiles = ch_raw_profiles.mix(SOURMASH_TAXANNOTATE.out.result)
-        ch_multiqc_files = ch_multiqc_files.mix(SOURMASH_GATHER.out.result) // gather csv for multiqc
+        GUNZIP(SOURMASH_GATHER.out.result)
+        ch_multiqc_files = ch_multiqc_files.mix(GUNZIP.out.gunzip) // gather csv for multiqc
     }
 
 

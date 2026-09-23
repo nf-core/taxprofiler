@@ -302,17 +302,17 @@
                     },
                     "sourmash/gather": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "6eaecd6ef9bfc7faf313b1abeaae9b129795291d",
                         "installed_by": ["modules"]
                     },
                     "sourmash/sketch": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "6eaecd6ef9bfc7faf313b1abeaae9b129795291d",
                         "installed_by": ["modules"]
                     },
                     "sourmash/taxannotate": {
                         "branch": "master",
-                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "git_sha": "6eaecd6ef9bfc7faf313b1abeaae9b129795291d",
                         "installed_by": ["modules"]
                     },
                     "sylph/profile": {
