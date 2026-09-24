@@ -51,14 +51,14 @@ workflow STANDARDISATION_PROFILES {
     }
 
     ch_input_for_taxpasta_merge = ch_input_for_taxpasta.merge
-        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache', 'centrifuger']) }
+        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache', 'centrifuger', 'sourmash']) }
         .multiMap { meta, input_profiles ->
             profiles: [meta, input_profiles]
             tool: meta.tool
         }
 
     ch_input_for_taxpasta_standardise = ch_input_for_taxpasta.standardise
-        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache', 'centrifuger']) }
+        .filter { meta, _input_profiles -> !(meta.tool in ['sylph', 'melon', 'metacache', 'centrifuger', 'sourmash']) }
         .multiMap { meta, input_profiles ->
             profiles: [meta, input_profiles]
             tool: meta.tool

@@ -300,6 +300,21 @@
                         "git_sha": "9339809fcb90af8a8b7051e6cd914894d5c52002",
                         "installed_by": ["modules"]
                     },
+                    "sourmash/gather": {
+                        "branch": "master",
+                        "git_sha": "6eaecd6ef9bfc7faf313b1abeaae9b129795291d",
+                        "installed_by": ["modules"]
+                    },
+                    "sourmash/sketch": {
+                        "branch": "master",
+                        "git_sha": "6eaecd6ef9bfc7faf313b1abeaae9b129795291d",
+                        "installed_by": ["modules"]
+                    },
+                    "sourmash/taxannotate": {
+                        "branch": "master",
+                        "git_sha": "6eaecd6ef9bfc7faf313b1abeaae9b129795291d",
+                        "installed_by": ["modules"]
+                    },
                     "sylph/profile": {
                         "branch": "master",
                         "git_sha": "ce985fd8f624817dcf50165cbc82dc78251675da",
