@@ -19,8 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Changed`
 
 - [#758](https://github.com/nf-core/taxprofiler/pull/758) Modules topic versions update (by @sofstam)
-- [#774](https://github.com/nf-core/taxprofiler/pull/774) Use ext.args2 for preload-size in KrakenUniq config (by@sofstam) 
-
+- [#774](https://github.com/nf-core/taxprofiler/pull/774) Use ext.args2 for preload-size in KrakenUniq config (by@sofstam)
 
 ### `Deprecated`
 
