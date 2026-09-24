@@ -110,6 +110,12 @@
                 "ganon/db1/2613_ERR5766181_db1.ganon.rep",
                 "ganon/db1/2613_ERR5766181_db1.ganon.tre",
                 "ganon/db1/2613_ERR5766181_db1.ganon_report.tre",
+                "gunzip",
+                "gunzip/2611_ERR5766174_db1.sourmash.gather.csv",
+                "gunzip/2612_ERR5766176_B_db1.sourmash.gather.csv",
+                "gunzip/2612_ERR5766176_db1.sourmash.gather.csv",
+                "gunzip/2612_ERR5766180_db1.sourmash.gather.csv",
+                "gunzip/2613_ERR5766181_db1.sourmash.gather.csv",
                 "kaiju",
                 "kaiju/db5",
                 "kaiju/db5/2611_ERR5766174_db5.kaiju.tsv",
@@ -274,6 +280,8 @@
                 "multiqc/multiqc_data/multiqc_metaphlan.txt",
                 "multiqc/multiqc_data/multiqc_software_versions.txt",
                 "multiqc/multiqc_data/multiqc_sources.txt",
+                "multiqc/multiqc_data/multiqc_sourmash_gather.txt",
+                "multiqc/multiqc_data/sourmash-gather-top-plot.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
                 "multiqc/multiqc_plots/pdf/bracken-top-n-plot_Class-cnt.pdf",
@@ -352,6 +360,7 @@
                 "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Order.pdf",
                 "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Phylum.pdf",
                 "multiqc/multiqc_plots/pdf/metaphlan-top-n-plot_Species.pdf",
+                "multiqc/multiqc_plots/pdf/sourmash-gather-top-plot.pdf",
                 "multiqc/multiqc_plots/png",
                 "multiqc/multiqc_plots/png/bracken-top-n-plot_Class-cnt.png",
                 "multiqc/multiqc_plots/png/bracken-top-n-plot_Class-pct.png",
@@ -429,6 +438,7 @@
                 "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Order.png",
                 "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Phylum.png",
                 "multiqc/multiqc_plots/png/metaphlan-top-n-plot_Species.png",
+                "multiqc/multiqc_plots/png/sourmash-gather-top-plot.png",
                 "multiqc/multiqc_plots/svg",
                 "multiqc/multiqc_plots/svg/bracken-top-n-plot_Class-cnt.svg",
                 "multiqc/multiqc_plots/svg/bracken-top-n-plot_Class-pct.svg",
@@ -506,9 +516,27 @@
                 "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Order.svg",
                 "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Phylum.svg",
                 "multiqc/multiqc_plots/svg/metaphlan-top-n-plot_Species.svg",
+                "multiqc/multiqc_plots/svg/sourmash-gather-top-plot.svg",
                 "multiqc/multiqc_report.html",
                 "pipeline_info",
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml",
+                "sourmash",
+                "sourmash/db1",
+                "sourmash/db1/2611_ERR5766174_db1.sourmash.gather.csv.gz",
+                "sourmash/db1/2611_ERR5766174_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2611_ERR5766174_db1.sourmash.sketch.sig",
+                "sourmash/db1/2612_ERR5766176_B_db1.sourmash.gather.csv.gz",
+                "sourmash/db1/2612_ERR5766176_B_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2612_ERR5766176_B_db1.sourmash.sketch.sig",
+                "sourmash/db1/2612_ERR5766176_db1.sourmash.gather.csv.gz",
+                "sourmash/db1/2612_ERR5766176_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2612_ERR5766176_db1.sourmash.sketch.sig",
+                "sourmash/db1/2612_ERR5766180_db1.sourmash.gather.csv.gz",
+                "sourmash/db1/2612_ERR5766180_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2612_ERR5766180_db1.sourmash.sketch.sig",
+                "sourmash/db1/2613_ERR5766181_db1.sourmash.gather.csv.gz",
+                "sourmash/db1/2613_ERR5766181_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2613_ERR5766181_db1.sourmash.sketch.sig",
                 "sylph",
                 "sylph/db1",
                 "sylph/db1/2612_ERR5766176_B_db1.sylph.tsv",
@@ -523,10 +551,10 @@
                 "sylph/db1/ERR3201952_ERR3201952_db1.sylphmpa"
             ]
         ],
-        "timestamp": "2026-07-22T15:15:07.619602",
+        "timestamp": "2026-09-24T08:42:42.820287102",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "centrifuger": {
@@ -808,6 +836,9 @@
                 "GANON_REPORT": {
                     "ganon": "2.1.0"
                 },
+                "GUNZIP": {
+                    "gunzip": 1.13
+                },
                 "KAIJU_KAIJU": {
                     "kaiju": "1.10.0"
                 },
@@ -843,6 +874,15 @@
                 "METAPHLAN_METAPHLAN": {
                     "metaphlan": "4.1.1"
                 },
+                "SOURMASH_GATHER": {
+                    "sourmash": "4.9.4"
+                },
+                "SOURMASH_SKETCH": {
+                    "sourmash": "4.9.4"
+                },
+                "SOURMASH_TAXANNOTATE": {
+                    "sourmash": "4.9.4"
+                },
                 "SYLPHTAX_TAXPROF": {
                     "sylph-tax": "1.9.0"
                 },
@@ -857,10 +897,10 @@
                 }
             }
         ],
-        "timestamp": "2026-07-22T15:15:07.544938",
+        "timestamp": "2026-09-24T08:42:42.71839442",
         "meta": {
-            "nf-test": "0.9.4",
-            "nextflow": "26.04.0"
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "kraken2": {
@@ -902,6 +942,29 @@
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.3"
+        }
+    },
+    "sourmash": {
+        "content": [
+            [
+                "2611_ERR5766174_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': [1000,2.209407657806942e-05,3.7458795325142346e-05,2.209407657806942e-05,8.69424813384174e-05,7.0,7.0,0.0,/workspaces/taxprofiler/.nf-test/tests/8a6ac97e7ea8c4c3a38bd51b227c5e80/work/be/ba45cabe6c9ecb3c1077a79c32af44/sourmash-db.zip,GCF_015533775.1,6d8ef2af9fa31587b9800a0d17ef5ff0,3.7458795325142346e-05,1000,0,45260000,library/ERX5474930_ERR5766174_1.fa.gz,2611_ERR5766174_db1.sourmash.sketch,88567558,45261000,31,DNA,1000,45261,True,0.7076448496590141,0.7197992886294927,0.7137220691442534,0.7197992886294927,True,7,7,80513]",
+                "2612_ERR5766176_B_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': [1000,1.3759700588915186e-05,3.7458795325142346e-05,1.3759700588915186e-05,5.144751251277001e-05,7.0,7.0,0.0,/workspaces/taxprofiler/.nf-test/tests/8a6ac97e7ea8c4c3a38bd51b227c5e80/work/3c/56b3314fd38be5153ef2ff81c1b194/sourmash-db.zip,GCF_015533775.1,6d8ef2af9fa31587b9800a0d17ef5ff0,3.7458795325142346e-05,1000,1,72666000,library/ERX5474932_ERR5766176_B_1.fastq.gz,2612_ERR5766176_B_db1.sourmash.sketch,2edf37e8,72676000,31,DNA,1000,72676,True,0.6969168018196081,0.7197992886294927,0.7083580452245504,0.7197992886294927,True,7,28,136061]",
+                "2612_ERR5766176_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': [1000,1.3759700588915186e-05,3.7458795325142346e-05,1.3759700588915186e-05,5.144751251277001e-05,7.0,7.0,0.0,/workspaces/taxprofiler/.nf-test/tests/8a6ac97e7ea8c4c3a38bd51b227c5e80/work/cc/e6a16f0350f52ea575a6d2a7dec3cb/sourmash-db.zip,GCF_015533775.1,6d8ef2af9fa31587b9800a0d17ef5ff0,3.7458795325142346e-05,1000,1,72666000,library/ERX5474932_ERR5766176_2.fastq.gz,2612_ERR5766176_db1.sourmash.sketch,2edf37e8,72676000,31,DNA,1000,72676,True,0.6969168018196081,0.7197992886294927,0.7083580452245504,0.7197992886294927,True,7,28,136061]",
+                "2612_ERR5766180_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': [2000,4.490849893342315e-05,7.491759065028469e-05,4.490849893342315e-05,0.00010254423644422164,4.5,4.5,2.5,/workspaces/taxprofiler/.nf-test/tests/8a6ac97e7ea8c4c3a38bd51b227c5e80/work/b9/8001cb0d51e5c7a90aa87cc577f838/sourmash-db.zip,GCF_015533775.1,6d8ef2af9fa31587b9800a0d17ef5ff0,7.491759065028469e-05,2000,0,44533000,library/ERX5474936_ERR5766180_1.fastq.gz,2612_ERR5766180_db1.sourmash.sketch,42a17613,44535000,31,DNA,1000,44535,True,0.7240232848959948,0.7360749838901773,0.730049134393086,0.7360749838901773,True,9,9,87767]",
+                "2613_ERR5766181_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': [1000,1.71556013038257e-05,3.7458795325142346e-05,1.71556013038257e-05,1.8720281553034556e-05,2.0,2.0,0.0,/workspaces/taxprofiler/.nf-test/tests/8a6ac97e7ea8c4c3a38bd51b227c5e80/work/f4/af470a79ddd44a75edb9d783013870/sourmash-db.zip,GCF_015533775.1,6d8ef2af9fa31587b9800a0d17ef5ff0,3.7458795325142346e-05,1000,1,58284000,library/ERX5474937_ERR5766181_1.fastq.gz,2613_ERR5766181_db1.sourmash.sketch,c32d3c19,58290000,31,DNA,1000,58290,True,0.7018934013010923,0.7197992886294927,0.7108463449652925,0.7197992886294927,True,2,10,106836]"
+            ],
+            [
+                "2611_ERR5766174_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': []",
+                "2612_ERR5766176_B_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': [9000,0.00012383730530023666,0.6428576736804655,0.00012383730530023666,0.00015434253753831003,2.3333333333333335,2.0,1.0540925533894598,/workspaces/taxprofiler/.nf-test/tests/8a6ac97e7ea8c4c3a38bd51b227c5e80/work/3c/56b3314fd38be5153ef2ff81c1b194/sourmash-db.zip,NC_012920.1,556b487060551cc25dbf3ac5eb5cfe7c,0.6428576736804655,9000,0,72667000,library/ERX5474932_ERR5766176_B_1.fastq.gz,2612_ERR5766176_B_db1.sourmash.sketch,2edf37e8,72676000,31,DNA,1000,72676,True,,,,,False,21,21,136061,Eukaryota;Chordata;Mammalia;Primates;Hominidae;Homo;Homo sapiens;Homo sapiens]",
+                "2612_ERR5766176_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': [9000,0.00012383730530023666,0.6428576736804655,0.00012383730530023666,0.00015434253753831003,2.3333333333333335,2.0,1.0540925533894598,/workspaces/taxprofiler/.nf-test/tests/8a6ac97e7ea8c4c3a38bd51b227c5e80/work/cc/e6a16f0350f52ea575a6d2a7dec3cb/sourmash-db.zip,NC_012920.1,556b487060551cc25dbf3ac5eb5cfe7c,0.6428576736804655,9000,0,72667000,library/ERX5474932_ERR5766176_2.fastq.gz,2612_ERR5766176_db1.sourmash.sketch,2edf37e8,72676000,31,DNA,1000,72676,True,,,,,False,21,21,136061,Eukaryota;Chordata;Mammalia;Primates;Hominidae;Homo;Homo sapiens;Homo sapiens]",
+                "2612_ERR5766180_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': [2000,4.490849893342315e-05,0.14285726081788122,4.490849893342315e-05,2.2787608098715917e-05,1.0,1.0,0.0,/workspaces/taxprofiler/.nf-test/tests/8a6ac97e7ea8c4c3a38bd51b227c5e80/work/b9/8001cb0d51e5c7a90aa87cc577f838/sourmash-db.zip,NC_012920.1,556b487060551cc25dbf3ac5eb5cfe7c,0.14285726081788122,2000,1,44531000,library/ERX5474936_ERR5766180_1.fastq.gz,2612_ERR5766180_db1.sourmash.sketch,42a17613,44535000,31,DNA,1000,44535,True,,,,,True,2,11,87767,Eukaryota;Chordata;Mammalia;Primates;Hominidae;Homo;Homo sapiens;Homo sapiens]",
+                "2613_ERR5766181_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': [5000,8.577800651912849e-05,0.35714315204470304,8.577800651912849e-05,7.488112621213822e-05,1.6,2.0,0.4898979485566356,/workspaces/taxprofiler/.nf-test/tests/8a6ac97e7ea8c4c3a38bd51b227c5e80/work/f4/af470a79ddd44a75edb9d783013870/sourmash-db.zip,NC_012920.1,556b487060551cc25dbf3ac5eb5cfe7c,0.35714315204470304,5000,0,58285000,library/ERX5474937_ERR5766181_1.fastq.gz,2613_ERR5766181_db1.sourmash.sketch,c32d3c19,58290000,31,DNA,1000,58290,True,,,,,True,8,8,106836,Eukaryota;Chordata;Mammalia;Primates;Hominidae;Homo;Homo sapiens;Homo sapiens]"
+            ]
+        ],
+        "timestamp": "2026-09-24T08:42:45.107756726",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
         }
     },
     "melon": {
