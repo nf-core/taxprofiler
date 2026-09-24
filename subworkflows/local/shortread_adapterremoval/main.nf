@@ -15,7 +15,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    ch_input_for_adapterremoval = ch_reads.branch {
+    ch_input_for_adapterremoval = ch_reads.branch { it->
         single: it[0].single_end
         paired: !it[0].single_end
     }
