@@ -1360,16 +1360,16 @@
     },
     "sourmash": {
         "content": [
-            "2611_db1.sourmash.gather.csv.gz contains  'GCF_015533775.1': [1000,2.185887907668095e-05,3.7458795325142346e-05,2.185887907668095e-05,1.8588915429729252e-05,2.0,2.0,0.0,/workspaces/taxprofiler/.nf-test/tests/ac3dd9fa81d1f138d80d46af2200cee4/work/b8/8987de105d3659a8b86f9ec7a78ffa/sourmash-db.zip,GCF_015533775.1,6d8ef2af9fa31587b9800a0d17ef5ff0,3.7458795325142346e-05,1000,1,45737000,library/2612.merged.fastq.gz,2612_db1.sourmash.sketch,c2c26215,45748000,31,DNA,1000,45748,True,0.7074005867915636,0.7197992886294927,0.7135999377105282,0.7197992886294927,True,2,26,107591]",
-            "2612_db1.sourmash.gather.csv.gz contains  'NC_012920.1': [10000,0.00021858879076680948,0.7142863040894061,0.00021858879076680948,0.00022306698515675103,2.4,2.0,0.9165151389911681,/workspaces/taxprofiler/.nf-test/tests/ac3dd9fa81d1f138d80d46af2200cee4/work/b8/8987de105d3659a8b86f9ec7a78ffa/sourmash-db.zip,NC_012920.1,556b487060551cc25dbf3ac5eb5cfe7c,0.7142863040894061,10000,0,45738000,library/2612.merged.fastq.gz,2612_db1.sourmash.sketch,c2c26215,45748000,31,DNA,1000,45748,True,,,,,False,24,24,107591]",
-            "2613_db1.sourmash.gather.cv.gz contains  'NC_012920.1': [4000,0.0001662717712100428,0.28571452163576244,0.0001662717712100428,0.00012574662055957246,1.0,1.0,0.0,/workspaces/taxprofiler/.nf-test/tests/ac3dd9fa81d1f138d80d46af2200cee4/work/c2/0b76e68f12bbba580e1500bdc6b73e/sourmash-db.zip,NC_012920.1,556b487060551cc25dbf3ac5eb5cfe7c,0.28571452163576244,4000,0,24053000,library/2613.fq.gz,2613_db1.sourmash.sketch,5601ff50,24057000,31,DNA,1000,24057,True,,,,,True,4,4,31810]",
+            "2611_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': true",
+            "2612_db1.sourmash.gather.csv.gz contains 'NC_012920.1': true",
+            "2613_db1.sourmash.gather.cv.gz contains 'NC_012920.1': true",
             [
                 "2611_db1.sourmash.gather.with-lineages.csv.gz",
                 "2612_db1.sourmash.gather.with-lineages.csv.gz",
                 "2613_db1.sourmash.gather.with-lineages.csv.gz"
             ]
         ],
-        "timestamp": "2026-09-24T07:35:22.378465053",
+        "timestamp": "2026-09-24T15:36:47.799130288",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
