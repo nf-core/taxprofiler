@@ -158,8 +158,8 @@ nextflow_pipeline {
 
                 // sourmash
                 { assert snapshot(
-                                getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.sourmash.gather.csv.gz']).collect{ file -> file.getName() + " contains 'GCF_015533775.1': " + path(file.toString()).linesGzip.findAll { l -> l.contains('GCF_015533775.1') } },
-                                getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.with-lineages.csv.gz']).collect{ file -> file.getName() + " contains 'Homo sapiens': " + path(file.toString()).linesGzip.findAll { l -> l.contains('Homo sapiens') } }
+                                getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.sourmash.gather.csv.gz']).collect{ file -> file.getName() + " contains 'GCF_015533775.1': " + path(file.toString()).linesGzip.any { l -> l.contains('GCF_015533775.1') } },
+                                getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.with-lineages.csv.gz']).collect{ file -> file.getName() + " contains 'Homo sapiens': " + path(file.toString()).linesGzip.any { l -> l.contains('Homo sapiens') } }
                         ).match("sourmash") }
 
 
