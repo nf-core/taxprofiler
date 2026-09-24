@@ -50,16 +50,6 @@
                         "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["modules"]
                     },
-                    "deacon/filter": {
-                        "branch": "master",
-                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
-                        "installed_by": ["modules"]
-                    },
-                    "deacon/index": {
-                        "branch": "master",
-                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
-                        "installed_by": ["modules"]
-                    },
                     "centrifuger/centrifuger": {
                         "branch": "master",
                         "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
@@ -68,6 +58,16 @@
                     "centrifuger/quantification": {
                         "branch": "master",
                         "git_sha": "fd621e0378a3692aa31943d0d4bd49c435b9efcf",
+                        "installed_by": ["modules"]
+                    },
+                    "deacon/filter": {
+                        "branch": "master",
+                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
+                        "installed_by": ["modules"]
+                    },
+                    "deacon/index": {
+                        "branch": "master",
+                        "git_sha": "719abfd0ec41bcc7e2f540b4fd5c8150fdfe228e",
                         "installed_by": ["modules"]
                     },
                     "diamond/blastx": {
@@ -167,7 +167,7 @@
                     },
                     "krakenuniq/preloadedkrakenuniq": {
                         "branch": "master",
-                        "git_sha": "53c5d14fe7173a1fee9973dcba5cf79164760770",
+                        "git_sha": "65d35c30a46419599cfd1b2b183e6f17af6889f6",
                         "installed_by": ["modules"]
                     },
                     "krona/ktimporttaxonomy": {
