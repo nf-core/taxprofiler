@@ -687,7 +687,7 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
 
 ### Sourmash
 
-[Sourmash](https://github.com/sourmash-bio/sourmash) Quickly search, compare, and analyze genomic and metagenomic data sets.
+[Sourmash](https://github.com/sourmash-bio/sourmash) Quickly searches, compares, and analyzes genomic and metagenomic data sets.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -696,13 +696,12 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
   - `<db_name>/`
     - `<sample_id>.sourmash.sketch.sig`: Sketch signature file created from input reads.
     - `<sample_id>.sourmash.gather.csv.gz`: Gather results - reference genomes matched to query reads with fraction of reads matched
-    - `<sample_id>.sourmash.taxannotate.with-lineages.csv.gz`: Gather results annotated with taxonomic lineages from user-provided lineages CSV
-    - `<sample_id>.sourmash.gather_unassigned.sig.zip`: Unassigned signatures (optional) - if `--sourmash_save_unassigned` )
-    - `<sample_id>.sourmash.gather_matches.sig.zip`: Matched signatures from database (optional) - if `--sourmash_save_matches` )
+    - `<sample_id>.sourmash.gather.with-lineages.csv.gz`: Gather results annotated with taxonomic lineages from user-provided lineages CSV
+    - `<sample_id>.sourmash.gather_unassigned.sig.zip`: Unassigned signatures (optional) - if `--sourmash_save_unassigned`).
+    - `<sample_id>.sourmash.gather_matches.sig.zip`: Matched signatures from the database (optional - if `--sourmash_save_matches` is set).
   </details>
 
-You will need at minimum gather results and tax annotate results. The taxannotate file is the main output for the downstream txanomix analysis, while
-gather CSV is what Multiqc parses.
+The main output for downstream taxonomic analysis is `<sample_id>_<db_name>.sourmash.gather.with-lineages.csv.gz`. The `<sample_id>_<db_name>.sourmash.gather.csv.gz` file is what MultiQC parses to produce summary plots.
 
 ### sylph
 
