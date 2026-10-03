@@ -23,7 +23,7 @@ workflow LONGREAD_HOSTREMOVAL {
     ch_multiqc_files = channel.empty()
 
     if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'deacon') {
-        DEACON_INDEX( Channel.value([[id: ch_reference.baseName], ch_reference]) )
+        DEACON_INDEX( channel.value([[id: ch_reference.baseName], ch_reference]) )
         ch_hostremoval_index = DEACON_INDEX.out.index
     }
     else if (!params.longread_hostremoval_index && params.longread_hostremoval_tool == 'minimap2') {
