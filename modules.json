@@ -167,7 +167,7 @@
                     },
                     "krakenuniq/preloadedkrakenuniq": {
                         "branch": "master",
-                        "git_sha": "53c5d14fe7173a1fee9973dcba5cf79164760770",
+                        "git_sha": "65d35c30a46419599cfd1b2b183e6f17af6889f6",
                         "installed_by": ["modules"]
                     },
                     "krona/ktimporttaxonomy": {

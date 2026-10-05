@@ -12,12 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#757](https://github.com/nf-core/taxprofiler/pull/757) Added new read decontamination tool Deacon (by @sofstam)
 - [#759](https://github.com/nf-core/taxprofiler/pull/759) Updated to the nf-core template 4.0.3 (by @sofstam)
 - [#768](https://github.com/nf-core/taxprofiler/pull/768) Updated to the nf-core template 4.1.0 (by @sofstam)
+- [#769](https://github.com/nf-core/taxprofiler/pull/769) Add `manifest.diagram` to the pipeline config (by @ewels)
 
 ### `Fixed`
 
 ### `Changed`
 
 - [#758](https://github.com/nf-core/taxprofiler/pull/758) Modules topic versions update (by @sofstam)
+- [#774](https://github.com/nf-core/taxprofiler/pull/774) Use ext.args2 for preload-size in KrakenUniq config (by@sofstam)
 
 ### `Deprecated`
 
