@@ -743,6 +743,18 @@
                     "fa_icon": "fas fa-percent",
                     "description": "Print all mapping information in separate columns (rank, taxon name, taxon ids).",
                     "help_text": "Modifies tool parameter(s):\n- metacache: `-abundances`"
+                },
+                "run_sourmash": {
+                    "type": "boolean",
+                    "description": "Turn on profiling with sourmash."
+                },
+                "sourmash_save_matches": {
+                    "type": "boolean",
+                    "description": "Save matched signatures from sourmash gather."
+                },
+                "sourmash_save_unassigned": {
+                    "type": "boolean",
+                    "description": "Save unassigned reads from sourmash gather."
                 }
             },
             "fa_icon": "fas fa-align-center"

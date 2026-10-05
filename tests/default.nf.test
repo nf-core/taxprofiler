@@ -255,6 +255,16 @@ nextflow_pipeline {
                             stable_content_sylph
                         ).match("sylph")
                 },
+
+                // sourmash
+                { assert snapshot(
+                            file("$outputDir/sourmash/db1/2611_db1.sourmash.gather.csv.gz").getName() + " contains 'GCF_015533775.1': " + path("$outputDir/sourmash/db1/2611_db1.sourmash.gather.csv.gz").linesGzip.any { l -> l.contains('GCF_015533775.1') },
+                            file("$outputDir/sourmash/db1/2612_db1.sourmash.gather.csv.gz").getName() + " contains 'NC_012920.1': " + path("$outputDir/sourmash/db1/2612_db1.sourmash.gather.csv.gz").linesGzip.any { l -> l.contains('NC_012920.1') },
+                            file("$outputDir/sourmash/db1/2613_db1.sourmash.gather.cv.gz").getName() + " contains 'NC_012920.1': " + path("$outputDir/sourmash/db1/2613_db1.sourmash.gather.csv.gz").linesGzip.any { l -> l.contains('NC_012920.1') },
+                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*.with-lineages.csv.gz']).collect{file -> file.getName()  },
+                        ).match("sourmash")
+                },
+
             )
         }
     }

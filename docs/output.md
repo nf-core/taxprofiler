@@ -685,6 +685,24 @@ Generally you will want to refer to the `combined_reports.txt` or `_report.tre` 
 
 You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--ganon_save_readclassifications` parameter to the pipeline.
 
+### Sourmash
+
+[Sourmash](https://github.com/sourmash-bio/sourmash) Quickly searches, compares, and analyzes genomic and metagenomic data sets.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `sourmash/`
+  - `<db_name>/`
+    - `<sample_id>.sourmash.sketch.sig`: Sketch signature file created from input reads.
+    - `<sample_id>.sourmash.gather.csv.gz`: Gather results - reference genomes matched to query reads with fraction of reads matched
+    - `<sample_id>.sourmash.gather.with-lineages.csv.gz`: Gather results annotated with taxonomic lineages from user-provided lineages CSV
+    - `<sample_id>.sourmash.gather_unassigned.sig.zip`: Unassigned signatures (optional) - if `--sourmash_save_unassigned`).
+    - `<sample_id>.sourmash.gather_matches.sig.zip`: Matched signatures from the database (optional - if `--sourmash_save_matches` is set).
+  </details>
+
+The main output for downstream taxonomic analysis is `<sample_id>_<db_name>.sourmash.gather.with-lineages.csv.gz`. The `<sample_id>_<db_name>.sourmash.gather.csv.gz` file is what MultiQC parses to produce summary plots.
+
 ### sylph
 
 [sylph](https://github.com/bluenote-1577/sylph) is a program that performs metagenomic profiling or containment average nucleotide identity (ANI) querying for metagenomic shotgun sequencing samples.
@@ -836,6 +854,7 @@ You can expect in the MultiQC reports either sections and/or general stats colum
 - malt
 - motus
 - metaphlan
+- sourmash
 
 :::info
 The 'General Stats' table by default will only show statistics referring to pre-processing steps, and will not display possible values from each classifier/profiler, unless turned on by the user within the 'Configure Columns' menu or via a custom MultiQC config file (`--multiqc_config`).
