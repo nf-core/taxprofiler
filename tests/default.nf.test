@@ -258,13 +258,23 @@ nextflow_pipeline {
 
                 // sourmash
                 { assert snapshot(
-                            file("$outputDir/sourmash/db1/2611_db1.sourmash.gather.csv.gz").getName() + " contains 'GCF_015533775.1': " + path("$outputDir/sourmash/db1/2611_db1.sourmash.gather.csv.gz").linesGzip.any { l -> l.contains('GCF_015533775.1') },
-                            file("$outputDir/sourmash/db1/2612_db1.sourmash.gather.csv.gz").getName() + " contains 'NC_012920.1': " + path("$outputDir/sourmash/db1/2612_db1.sourmash.gather.csv.gz").linesGzip.any { l -> l.contains('NC_012920.1') },
-                            file("$outputDir/sourmash/db1/2613_db1.sourmash.gather.cv.gz").getName() + " contains 'NC_012920.1': " + path("$outputDir/sourmash/db1/2613_db1.sourmash.gather.csv.gz").linesGzip.any { l -> l.contains('NC_012920.1') },
-                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*.with-lineages.csv.gz']).collect{file -> file.getName()  },
+                            // Sketch output
+                            getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.sourmash.sketch.sig']).collect{ file -> file.getName() },
+                            // Gather output
+                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*.sourmash.gather.csv.gz']).collect{file -> file.getName() + " contains 'GCF_015533775.1': " + path(file.toString()).linesGzip.any { l -> l.contains('GCF_015533775.1') } },
+                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*.with-lineages.csv.gz']).collect{file -> file.getName() + " contains 'NC_012920.1': " + path(file.toString()).linesGzip.any { l -> l.contains('NC_012920.1') }   },
+                            // tax annotate output
+                            getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.with-lineages.csv.gz']).collect{ file -> file.getName() + " contains 'Penicillium roqueforti': " + path(file.toString()).linesGzip.any{ l -> l.contains('Penicillium roqueforti') }   },
+                            getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.with-lineages.csv.gz']).collect{ file -> file.getName() + " contains 'Homo sapiens': " + path(file.toString()).linesGzip.any { l -> l.contains('Homo sapiens') } },
+                            // Check prefetch CSV
+                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*_prefetch.csv.gz']).collect{file -> file.getName() + " contains 'GCF_015533775.1': " + path(file.toString()).linesGzip.any { l -> l.contains('GCF_015533775.1') } },
+                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*_prefetch.csv.gz']).collect{file -> file.getName() + " contains 'NC_012920.1': " + path(file.toString()).linesGzip.any { l -> l.contains('NC_012920.1') }   },
+                            // Chech save .sig.zip files are present - check only, binary content
+                            getAllFilesFromDir("$outputDir/sourmash", include: ['**/*_matches.sig.zip']).collect{file -> file.getName() },
+                            getAllFilesFromDir("$outputDir/sourmash", include: ['**/*_prefetch.sig.zip']).collect{file -> file.getName() },
+                            getAllFilesFromDir("$outputDir/sourmash", include: ['**/*_unassigned.sig.zip']).collect{file -> file.getName() },
                         ).match("sourmash")
                 },
-
             )
         }
     }

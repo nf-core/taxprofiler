@@ -516,7 +516,9 @@ KMCP is only suitable for short-read metagenomic profiling, with much lower sens
 ##### Sourmash
 
 Sourmash requires a database with per-genome signatures for meaningful taxonomic profiling. Databases built with `sourmash sketch --merge` collapse all references into a single signature and cannot be resolved to species-level taxonomy. Ensure your database contains one signature per reference genome, named by its accession, with matching identifiers in the lineages CSV.
-The default `--threshold-bp` in `sourmash gather` is 50 kbp. For samples with small or fragmented sequences, lower this via `db_params` (e.g. `;--threshold-bp 0;`).
+
+The default `--threshold-bp` in `sourmash gather` is 50 kbp, meaning only matches with at least 50 kbp of overlap are reported. For samples with small overlaps (e.g., small test datasets or targeted sequencing), lower this via the `db_params` in the database sheet (e.g. `;--threshold-bp 0;`).
+
 The sourmash database file must be a tarball (`.tar.gz`) containing both `sourmash-db.zip` and `lineages.csv.gz`.
 
 ##### sylph

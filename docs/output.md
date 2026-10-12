@@ -41,6 +41,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [mOTUs](#motus) - Tool for marker gene-based OTU (mOTU) profiling.
 - [KMCP](#kmcp) - Taxonomic classifier that utilizes genome coverage information by splitting the reference genomes into chunks and stores k-mers in a modified and optimized COBS index for fast alignment-free sequence searching.
 - [ganon](#ganon) - Taxonomic classifier and profile that uses Interleaved Bloom Filters as indices based on k-mers/minimizers.
+- [Sourmash](#sourmash) - Searches, compares and analyzes genomic and metagenomic data.
 - [sylph](#sylph) - Taxonomic classifier that performs ultrafast average nucleotide identity (ANI) querying or metagenomic profiling for metagenomic shotgun samples.
 - [Melon](#Melon) - Taxonomic classifier that uses ribosomal marker genes to classify and quantify long-read metagenomic data.
 - [MetaCache](#metacache) - Taxonomic classifier using minhashing.
@@ -687,7 +688,7 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
 
 ### Sourmash
 
-[Sourmash](https://github.com/sourmash-bio/sourmash) Quickly searches, compares, and analyzes genomic and metagenomic data sets.
+[Sourmash](https://github.com/sourmash-bio/sourmash) quickly searches, compares, and analyzes genomic and metagenomic data sets using sketches [sketches](https://sourmash.readthedocs.io/en/latest/sourmash-internals.html#signatures-and-sketches) - small, hashed representations of a sequence's k-mer content wrapped in signatures.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -695,8 +696,8 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
 - `sourmash/`
   - `<db_name>/`
     - `<sample_id>.sourmash.sketch.sig`: Sketch signature file created from input reads.
-    - `<sample_id>.sourmash.gather.csv.gz`: Gather results - reference genomes matched to query reads with fraction of reads matched
-    - `<sample_id>.sourmash.gather.with-lineages.csv.gz`: Gather results annotated with taxonomic lineages from user-provided lineages CSV
+    - `<sample_id>.sourmash.gather.csv.gz`: Gather results - reference genomes matched to query reads with fraction of reads matched.
+    - `<sample_id>.sourmash.gather.with-lineages.csv.gz`: Gather results annotated with taxonomic lineages from the user-provided lineages CSV.
     - `<sample_id>.sourmash.gather_unassigned.sig.zip`: Unassigned signatures (optional) - if `--sourmash_save_unassigned`).
     - `<sample_id>.sourmash.gather_matches.sig.zip`: Matched signatures from the database (optional - if `--sourmash_save_matches` is set).
   </details>

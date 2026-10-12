@@ -577,53 +577,82 @@ workflow PROFILING {
     if (params.run_sourmash) {
         def ch_prepare_for_sourmash = ch_input_for_profiling.sourmash
             .map { meta, input_reads, db_meta, db ->
-                def parsed_params = db_meta['db_params'].split(";")
-                def db_meta_new   = [:]
-                // sketch, gather, tax
+                def parsed_params = (db_meta['db_params'] ?: '').split(";", -1) // use -1 to keep empty trailing strings (empty)
+                def db_meta_new = []
+                // if user provides params but ar not size 3 params, it fails
+                if (db_meta['db_params'] && parsed_params.size() != 3 ) {
+                        error "Sourmash db_params for '${db_meta.db_name}' must have exactly two semicolons: '<sketch_args>;<gather_args>;<tax_args>'.
+                        Got '${db_meta.db_params}'. Use empty positions for steps without args (e.g. ';--threshold-bp 0;' for gather only, or ';;--force' for tax only)."
+                }
                 if (parsed_params.size() == 3) {
                     db_meta_new = db_meta + [
                         db_params: parsed_params[0],
                         db_params_gather: parsed_params[1],
                         db_params_tax: parsed_params[2]
                     ]
-                } else if (parsed_params.size() == 2) {
-                    db_meta_new = db_meta + [
-                        db_params: parsed_params[0],
-                        db_params_gather: parsed_params[1],
-                        db_params_tax: ''
-                    ]
                 } else {
+                    // EMpty db_params case - use the defaults
                     db_meta_new = db_meta + [
-                        db_params: parsed_params[0] ?: '',
-                        db_params_gather: '',
+                        db_params: '',
+                        db_params_gather:'',
                         db_params_tax: ''
                     ]
                 }
-                [meta, input_reads , db_meta_new, db]
+            [meta, input_reads, db_meta_new, db]
             }
-        ch_input_for_sourmash = ch_prepare_for_sourmash.multiMap { it ->
-            reads: [it[0]+ it[2], it[1]]
-            db: file("${it[3]}/sourmash-db.zip")
-            lineages: file("${it[3]}/lineages.csv.gz")
-
+        ch_input_for_sketch = ch_prepare_for_sourmash.multiMap { meta, reads, db_meta, _db ->
+            reads: [meta + db_meta, reads]
         }
 
-        SOURMASH_SKETCH(ch_input_for_sourmash.reads, true)
+        SOURMASH_SKETCH(ch_input_for_sketch.reads, true)
 
-        SOURMASH_GATHER(SOURMASH_SKETCH.out.signatures,
-                        ch_input_for_sourmash.db,
-                        false, // save unassigned
-                        params.sourmash_save_matches,
-                        false, // save_prefetch
-                        false //save_prefetch_csv
-                        )
+        // prepare database channel
+        ch_database_for_sourmash = ch_databases
+            .filter { meta, _db -> meta.tool == 'sourmash' }
+            .map { meta, db -> [meta.db_name, meta, db] }
 
-        SOURMASH_TAXANNOTATE(SOURMASH_GATHER.out.result,
-                            ch_input_for_sourmash.lineages
-                        )
+        // Join sketch signatures with each database
+        ch_input_for_gather = SOURMASH_SKETCH.out.signatures
+            .map { meta, sig -> [meta.db_name, meta, sig] }
+            .combine(ch_database_for_sourmash, by: 0)
+            .multiMap { _key, sample_meta, sig, db_meta, db ->
+                signatures: [sample_meta + db_meta, sig]
+                db: file("${db}/sourmash-db.zip")
+                lineages: file("${db}/lineages.csv.gz")
+        }
+
+        SOURMASH_GATHER(
+            ch_input_for_gather.signatures,
+            ch_input_for_gather.db,
+            params.sourmash_save_unassigned,
+            params.sourmash_save_matches,
+            params.sourmash_save_prefetch, // save_prefetch
+            params.sourmash_save_prefetch_csv //save_prefetch_csv
+        )
+
+        // filter out prefetch files so sourmash taxannotate run on the main gather.csv
+        ch_gather_for_tax = SOURMASH_GATHER.out.result
+            .flatMap { meta, files ->
+                def file_list = files instanceof List ? files : [files]
+                file_list.findAll { file -> !file.name.contains('_prefetch') }
+                .collect { file -> [meta, file] }
+            }
+
+        SOURMASH_TAXANNOTATE(
+            ch_gather_for_tax,
+            ch_input_for_gather.lineages
+        )
 
         ch_raw_profiles = ch_raw_profiles.mix(SOURMASH_TAXANNOTATE.out.result)
-        GUNZIP(SOURMASH_GATHER.out.result)
+        // because gather  `result` module emit glob `*.csv.gz`, which capture also prefetch.csv.gz. So capture only gather's result and parse it to Multiqc
+        GUNZIP(SOURMASH_GATHER.out.result
+            .flatMap { meta, files ->
+                def file_list = files instanceof List ? files : [files]
+                file_list.findAll { file -> !file.name.contains('_prefetch') }
+                .collect { file -> [meta, file] }
+            }
+
+        )
         ch_multiqc_files = ch_multiqc_files.mix(GUNZIP.out.gunzip) // gather csv for multiqc
     }
 
