@@ -1,5 +1,31 @@
 # Troubleshooting and FAQs
 
+## Which classifier(s) should I use?
+
+Choosing a classifier is not easy!
+There is a reason why nf-core/taxprofiler is designed to offer multiple classifiers.
+There are main pros- and cons- to each, and the best choice will depend on your research question, the information you need, and the trade-offs needed regarding resources (amongst others).
+
+Here we provide a brief summary of the classifiers available in nf-core/taxprofiler.
+With this information we hope to help you make an informed decision on which classifier(s) to use for your particular use case analysis.
+
+| Classifier | Sequence read type | Database type | Primary algorithm | Unique characteristic |
+| ---------- | ------------------ | ------------- | ----------------- | --------------------- |
+| Bracken    | short              |               |                   |                       |
+| Centrifuge | short              |               |                   |                       |
+| DIAMOND    | short/long         |               |                   |                       |
+| ganon      | short              |               |                   |                       |
+| Kaiju      | short              |               |                   |                       |
+| KMCP       | short              |               |                   |                       |
+| Kraken2    | short              |               |                   |                       |
+| KrakenUniq | short              |               |                   |                       |
+| MALT       | short              |               |                   |                       |
+| melon      | long               |               |                   |                       |
+| MetaPhlAn  | short              |               |                   |                       |
+| metacache  | long               |               |                   |                       |
+| mOTUs      | short/long         |               |                   |                       |
+| sylph      | short/ long        |               |                   |                       |
+
 ## I get a warning during CENTRIFUGE_KREPORT or KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE process with exit status 255
 
 When a sample has insufficient hits for abundance estimation, the resulting `report.txt` file will be empty.
