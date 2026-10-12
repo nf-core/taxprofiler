@@ -766,13 +766,12 @@
                     "description": "Save sourmash gather prefetch signatures fm the databases to a signature file. Corresponds to `--save-prefetch` in `sourmash gather`.",
                     "help_text": "`."
                 },
-                "sourmash_save_prefetc_csv": {
+                "sourmash_save_prefetch_csv": {
                     "type": "boolean",
                     "fa_icon": "fas fa-save",
                     "description": "Save sourmash gather prefetch results as a CSV.",
                     "help_text": "Saves as CSV with information from all prefetched-matched signatures.. Corresponds to `--save-prefetch-csv` in `sourmash gather`."
                 }
-
             },
             "fa_icon": "fas fa-align-center"
         },

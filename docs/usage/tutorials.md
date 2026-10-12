@@ -782,8 +782,9 @@ More information on custom MetaCache database construction can be found [here](h
 Sourmash operates on [sketches](https://sourmash.readthedocs.io/en/latest/sourmash-internals.html#signatures-and-sketches), which are small, hashed representations of a sequence's k-mer content. Each sketch is wrapped in a **signature** containing some metadata.
 
 To build a custom Sourmash db, you need:
-  - **Reference signatures** (one per genome). This is the actual db used by `sourmash gather` to identify which reference genomes are present in a sample.
-  - **Taxonomic lineages file** - a seperate CSV mapping each signature to its taxonomy. Used by `sourmash tax annotate` to add taxonomy to the gather results.
+
+- **Reference signatures** (one per genome). This is the actual db used by `sourmash gather` to identify which reference genomes are present in a sample.
+- **Taxonomic lineages file** - a seperate CSV mapping each signature to its taxonomy. Used by `sourmash tax annotate` to add taxonomy to the gather results.
 
 For use with nf-core/taxprofiler, both files must be bundled together in a single tarball (`.tar.gz`).
 
@@ -827,5 +828,5 @@ tar -czf test-db-sourmash.tar.gz test-db-sourmash/
   </details>
 
 :::note
-If you have an existing sourmash database (e.g downloaded from sourmash-bio prepared databses), you can adapt it to taxprofiler's format by placing both the signatures `.zip` and the lineages CSV into a tarball. Please rename them to `sourmash-db.zip` and `lineages.csv.gz` to match the expected filenames.
+If you have an existing sourmash database (e.g. downloaded from sourmash-bio prepared databases), you can adapt it to taxprofiler's format by placing both the signatures `.zip` and the lineages CSV into a tarball. Please rename them to `sourmash-db.zip` and `lineages.csv.gz` to match the expected filenames.
 :::

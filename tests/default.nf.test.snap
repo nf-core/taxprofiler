@@ -760,12 +760,24 @@
                 "sourmash/db1",
                 "sourmash/db1/2611_db1.sourmash.gather.csv.gz",
                 "sourmash/db1/2611_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2611_db1.sourmash.gather_matches.sig.zip",
+                "sourmash/db1/2611_db1.sourmash.gather_prefetch.csv.gz",
+                "sourmash/db1/2611_db1.sourmash.gather_prefetch.sig.zip",
+                "sourmash/db1/2611_db1.sourmash.gather_unassigned.sig.zip",
                 "sourmash/db1/2611_db1.sourmash.sketch.sig",
                 "sourmash/db1/2612_db1.sourmash.gather.csv.gz",
                 "sourmash/db1/2612_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2612_db1.sourmash.gather_matches.sig.zip",
+                "sourmash/db1/2612_db1.sourmash.gather_prefetch.csv.gz",
+                "sourmash/db1/2612_db1.sourmash.gather_prefetch.sig.zip",
+                "sourmash/db1/2612_db1.sourmash.gather_unassigned.sig.zip",
                 "sourmash/db1/2612_db1.sourmash.sketch.sig",
                 "sourmash/db1/2613_db1.sourmash.gather.csv.gz",
                 "sourmash/db1/2613_db1.sourmash.gather.with-lineages.csv.gz",
+                "sourmash/db1/2613_db1.sourmash.gather_matches.sig.zip",
+                "sourmash/db1/2613_db1.sourmash.gather_prefetch.csv.gz",
+                "sourmash/db1/2613_db1.sourmash.gather_prefetch.sig.zip",
+                "sourmash/db1/2613_db1.sourmash.gather_unassigned.sig.zip",
                 "sourmash/db1/2613_db1.sourmash.sketch.sig",
                 "sylph",
                 "sylph/db1",
@@ -792,7 +804,7 @@
                 "taxpasta/metaphlan_metaphlan4.tsv"
             ]
         ],
-        "timestamp": "2026-09-24T07:35:11.187933188",
+        "timestamp": "2026-10-12T11:03:01.340226166",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -1360,16 +1372,58 @@
     },
     "sourmash": {
         "content": [
-            "2611_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': true",
-            "2612_db1.sourmash.gather.csv.gz contains 'NC_012920.1': true",
-            "2613_db1.sourmash.gather.cv.gz contains 'NC_012920.1': true",
             [
-                "2611_db1.sourmash.gather.with-lineages.csv.gz",
-                "2612_db1.sourmash.gather.with-lineages.csv.gz",
-                "2613_db1.sourmash.gather.with-lineages.csv.gz"
+                "2611_db1.sourmash.sketch.sig",
+                "2612_db1.sourmash.sketch.sig",
+                "2613_db1.sourmash.sketch.sig"
+            ],
+            [
+                "2611_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': true",
+                "2612_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': true",
+                "2613_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': false"
+            ],
+            [
+                "2611_db1.sourmash.gather.with-lineages.csv.gz contains 'NC_012920.1': false",
+                "2612_db1.sourmash.gather.with-lineages.csv.gz contains 'NC_012920.1': true",
+                "2613_db1.sourmash.gather.with-lineages.csv.gz contains 'NC_012920.1': true"
+            ],
+            [
+                "2611_db1.sourmash.gather.with-lineages.csv.gz contains 'Penicillium roqueforti': true",
+                "2612_db1.sourmash.gather.with-lineages.csv.gz contains 'Penicillium roqueforti': true",
+                "2613_db1.sourmash.gather.with-lineages.csv.gz contains 'Penicillium roqueforti': false"
+            ],
+            [
+                "2611_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': false",
+                "2612_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': true",
+                "2613_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': true"
+            ],
+            [
+                "2611_db1.sourmash.gather_prefetch.csv.gz contains 'GCF_015533775.1': true",
+                "2612_db1.sourmash.gather_prefetch.csv.gz contains 'GCF_015533775.1': true",
+                "2613_db1.sourmash.gather_prefetch.csv.gz contains 'GCF_015533775.1': false"
+            ],
+            [
+                "2611_db1.sourmash.gather_prefetch.csv.gz contains 'NC_012920.1': false",
+                "2612_db1.sourmash.gather_prefetch.csv.gz contains 'NC_012920.1': true",
+                "2613_db1.sourmash.gather_prefetch.csv.gz contains 'NC_012920.1': true"
+            ],
+            [
+                "2611_db1.sourmash.gather_matches.sig.zip",
+                "2612_db1.sourmash.gather_matches.sig.zip",
+                "2613_db1.sourmash.gather_matches.sig.zip"
+            ],
+            [
+                "2611_db1.sourmash.gather_prefetch.sig.zip",
+                "2612_db1.sourmash.gather_prefetch.sig.zip",
+                "2613_db1.sourmash.gather_prefetch.sig.zip"
+            ],
+            [
+                "2611_db1.sourmash.gather_unassigned.sig.zip",
+                "2612_db1.sourmash.gather_unassigned.sig.zip",
+                "2613_db1.sourmash.gather_unassigned.sig.zip"
             ]
         ],
-        "timestamp": "2026-09-24T15:36:47.799130288",
+        "timestamp": "2026-10-12T11:03:12.457625902",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
