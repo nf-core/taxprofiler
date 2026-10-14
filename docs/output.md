@@ -688,7 +688,7 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
 
 ### Sourmash
 
-[Sourmash](https://github.com/sourmash-bio/sourmash) quickly searches, compares, and analyzes genomic and metagenomic data sets using sketches [sketches](https://sourmash.readthedocs.io/en/latest/sourmash-internals.html#signatures-and-sketches) - small, hashed representations of a sequence's k-mer content wrapped in signatures.
+[Sourmash](https://github.com/sourmash-bio/sourmash) quickly searches, compares, and analyzes genomic and metagenomic data sets using [sketches](https://sourmash.readthedocs.io/en/latest/sourmash-internals.html#signatures-and-sketches) - small, hashed representations of a sequence's k-mer content wrapped in signatures.
 
 <details markdown="1">
 <summary>Output files</summary>
