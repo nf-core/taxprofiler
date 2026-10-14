@@ -954,14 +954,28 @@
                 "2613_ERR5766181_db1.sourmash.gather.csv.gz contains 'GCF_015533775.1': true"
             ],
             [
+                "2611_ERR5766174_db1.sourmash.gather.csv.gz contains 'NC_012920.1': false",
+                "2612_ERR5766176_B_db1.sourmash.gather.csv.gz contains 'NC_012920.1': true",
+                "2612_ERR5766176_db1.sourmash.gather.csv.gz contains 'NC_012920.1': true",
+                "2612_ERR5766180_db1.sourmash.gather.csv.gz contains 'NC_012920.1': true",
+                "2613_ERR5766181_db1.sourmash.gather.csv.gz contains 'NC_012920.1': true"
+            ],
+            [
                 "2611_ERR5766174_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': false",
                 "2612_ERR5766176_B_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': true",
                 "2612_ERR5766176_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': true",
                 "2612_ERR5766180_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': true",
                 "2613_ERR5766181_db1.sourmash.gather.with-lineages.csv.gz contains 'Homo sapiens': true"
+            ],
+            [
+                "2611_ERR5766174_db1.sourmash.gather.with-lineages.csv.gz contains 'Penicillium roqueforti': true",
+                "2612_ERR5766176_B_db1.sourmash.gather.with-lineages.csv.gz contains 'Penicillium roqueforti': true",
+                "2612_ERR5766176_db1.sourmash.gather.with-lineages.csv.gz contains 'Penicillium roqueforti': true",
+                "2612_ERR5766180_db1.sourmash.gather.with-lineages.csv.gz contains 'Penicillium roqueforti': true",
+                "2613_ERR5766181_db1.sourmash.gather.with-lineages.csv.gz contains 'Penicillium roqueforti': true"
             ]
         ],
-        "timestamp": "2026-09-24T09:33:57.857877041",
+        "timestamp": "2026-10-14T19:25:13.699809271",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
