@@ -150,6 +150,10 @@
   > Song, L. & Langmead B. (2023). Centrifuger: lossless compression of microbial genomes for efficient and accurate metagenomic sequence classification.
   > Genome Biol. 2024 Apr 25;25(1):106. https://doi.org/10.1186/s13059-024-03244-4
 
+- [Sourmash](https://doi.org/10.21105/joss.06830)
+
+  > Irber, L., Pierce-Ward, N. T., Abuelanin, M., Alexander, H., Anant, A., Barve, K., Baumler, C., Botvinnik, O., Brooks, P., Dsouza, D., Gautier, L., Hera, M. R., Houts, H. E., Johnson, L. K., Klötzl, F., Koslicki, D., Lim, M., Lim, R., Nelson, B., Ogasawara, I., Reiter, T., Scott, C., Sjödin, A., Standage, D., Swamidass, S. J., Tiffany, C., Vemuri, P., Young, E., & Brown, C. T. (2024). sourmash v4: A multitool to quickly search, compare, and analyze genomic and metagenomic data sets. Journal of Open Source Software, 9(98), 6830. https://doi.org/10.21105/joss.06830
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)
