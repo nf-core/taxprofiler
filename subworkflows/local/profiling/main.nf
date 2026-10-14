@@ -578,11 +578,10 @@ workflow PROFILING {
         def ch_prepare_for_sourmash = ch_input_for_profiling.sourmash
             .map { meta, input_reads, db_meta, db ->
                 def parsed_params = (db_meta['db_params'] ?: '').split(";", -1) // use -1 to keep empty trailing strings (empty)
-                def db_meta_new = []
+                def db_meta_new = [:]
                 // if user provides params but ar not size 3 params, it fails
                 if (db_meta['db_params'] && parsed_params.size() != 3 ) {
-                        error "Sourmash db_params for '${db_meta.db_name}' must have exactly two semicolons: '<sketch_args>;<gather_args>;<tax_args>'.
-                        Got '${db_meta.db_params}'. Use empty positions for steps without args (e.g. ';--threshold-bp 0;' for gather only, or ';;--force' for tax only)."
+                        error "Sourmash db_params for '${db_meta.db_name}' must have exactly two semicolons: '<sketch_args>;<gather_args>;<tax_args>'. Got '${db_meta.db_params}'. Use empty positions for steps without args (e.g. ';--threshold-bp 0;' for gather only, or ';;--force' for tax only)."
                 }
                 if (parsed_params.size() == 3) {
                     db_meta_new = db_meta + [
@@ -611,7 +610,7 @@ workflow PROFILING {
             .filter { meta, _db -> meta.tool == 'sourmash' }
             .map { meta, db -> [meta.db_name, meta, db] }
 
-        // Join sketch signatures with each database
+        // Join sketch signatures with each database for all-to-all pairing
         ch_input_for_gather = SOURMASH_SKETCH.out.signatures
             .map { meta, sig -> [meta.db_name, meta, sig] }
             .combine(ch_database_for_sourmash, by: 0)
