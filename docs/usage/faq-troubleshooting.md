@@ -9,22 +9,22 @@ There are main pros- and cons- to each, and the best choice will depend on your 
 Here we provide a brief summary of the classifiers available in nf-core/taxprofiler.
 With this information we hope to help you make an informed decision on which classifier(s) to use for your particular use case analysis.
 
-| Classifier | Sequence read type | Database type | Primary algorithm | Unique characteristic |
-| ---------- | ------------------ | ------------- | ----------------- | --------------------- |
-| Bracken    | short              |  Nucleotide             |                   |                       |
-| Centrifuge | short              |  Nucleotide             |                   |                       |
-| DIAMOND    | short/long         |  Amino acid            |                   |                       |
-| ganon      | short              |  Nucleotide             |                   |                       |
-| Kaiju      | short              |  Amino acid             |                   |                       |
-| KMCP       | short              |  Nucleotide             |                   |                       |
-| Kraken2    | short              |  Nucleotide             |                   |                       |
-| KrakenUniq | short              |  Nucleotide             |                   |                       |
-| MALT       | short              |  Nucleotide/                                                      Amino acid                 |                   |                       |
-| melon      | long               |  Nucleotide            |                   |                       |
-| MetaPhlAn  | short              |  Nucleotide             |                   |                       |
-| MetaCache  | long               |  Nucleotide             |                   |                       |
-| mOTUs      | short/long         |  Nucleotide             |                   |                       |
-| sylph      | short/long        |  Nucleotide             |                   |                       |
+| Classifier | Sequence read type | Database type          | Primary algorithm | Unique characteristic |
+| ---------- | ------------------ | ---------------------- | ----------------- | --------------------- |
+| Bracken    | short              | Nucleotide             |                   |                       |
+| Centrifuge | short              | Nucleotide             |                   |                       |
+| DIAMOND    | short/long         | Amino acid             |                   |                       |
+| ganon      | short              | Nucleotide             |                   |                       |
+| Kaiju      | short              | Amino acid             |                   |                       |
+| KMCP       | short              | Nucleotide             |                   |                       |
+| Kraken2    | short              | Nucleotide             |                   |                       |
+| KrakenUniq | short              | Nucleotide             |                   |                       |
+| MALT       | short              | Nucleotide/ Amino acid |                   |                       |
+| melon      | long               | Nucleotide             |                   |                       |
+| MetaPhlAn  | short              | Nucleotide             |                   |                       |
+| MetaCache  | long               | Nucleotide             |                   |                       |
+| mOTUs      | short/long         | Nucleotide             |                   |                       |
+| sylph      | short/long         | Nucleotide             |                   |                       |
 
 ## I get a warning during CENTRIFUGE_KREPORT or KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE process with exit status 255
 
