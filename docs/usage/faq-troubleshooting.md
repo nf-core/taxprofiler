@@ -9,22 +9,22 @@ There are main pros- and cons- to each, and the best choice will depend on your 
 Here we provide a brief summary of the classifiers available in nf-core/taxprofiler.
 With this information we hope to help you make an informed decision on which classifier(s) to use for your particular use case analysis.
 
-| Classifier | Sequence read type | Database type          | Primary algorithm | Unique characteristic |
-| ---------- | ------------------ | ---------------------- | ----------------- | --------------------- |
-| Bracken    | short              | Nucleotide             | k-mer             |                       |
-| Centrifuge | short              | Nucleotide             | FM-index          |                       |
-| DIAMOND    | short/long         | Amino acid             | alignment based   |                       |
-| ganon      | short              | Nucleotide             | k-mer             |                       |
-| Kaiju      | short              | Amino acid             | alignment based   |                       |
-| KMCP       | short              | Nucleotide             | k-mer             |                       |
-| Kraken2    | short              | Nucleotide             | k-mer             |                       |
-| KrakenUniq | short              | Nucleotide             | k-mer             |                       |
-| MALT       | short              | Nucleotide/ Amino acid | alignment based   |                       |
-| melon      | long               | Nucleotide             | alignment based   |                       |
-| MetaPhlAn  | short              | Nucleotide             | alignment based   |                       |
-| MetaCache  | long               | Nucleotide             | k-mer             |                       |
-| mOTUs      | short/long         | Nucleotide             | alignment based   |                       |
-| sylph      | short/long         | Nucleotide             | k-mer             |                       |
+| Classifier | Sequence read type | Database type          | Primary algorithm | Unique characteristic                                                                          |
+| ---------- | ------------------ | ---------------------- | ----------------- | ---------------------------------------------------------------------------------------------- |
+| Bracken    | short              | Nucleotide             | k-mer             | Redistribution of ambiguously classified reads by Kraken2 using a Bayesian model               |
+| Centrifuge | short              | Nucleotide             | FM-index          | Does not require a lot of RAM like the other k-mer based classifiers                           |
+| DIAMOND    | short/long         | Amino acid             | alignment based   | High sensitivity and it runs much faster than the traditional BLAST                            |
+| ganon      | short              | Nucleotide             | k-mer             | Can update the databases with new sequencing without needing to rebuild the index from scratch |
+| Kaiju      | short              | Amino acid             | alignment based   | Fast taxonomic classification at the protein level                                             |
+| KMCP       | short              | Nucleotide             | k-mer             | Reduces the high false-positive rates compared to other k-mer based classifiers                |
+| Kraken2    | short              | Nucleotide             | k-mer             | Ultrafast speed at a minimal memory usage                                                      |
+| KrakenUniq | short              | Nucleotide             | k-mer             | Reduced false-positive taxonomic classifications                                               |
+| MALT       | short              | Nucleotide/ Amino acid | alignment based   | It can provide functional classification along taxonomic classification                        |
+| melon      | long               | Nucleotide             | alignment based   | Two steps classification to handle long-read sequencing data                                   |
+| MetaPhlAn  | short              | Nucleotide             | alignment based   | Uses clade-specific marker gene                                                                |
+| MetaCache  | short/long         | Nucleotide             | k-mer             | Uses subset of k-mers using minhashing method and reduces memory requirements                  |
+| mOTUs      | short/long         | Nucleotide             | alignment based   | Uses universal mark genes and it does not rely on complete reference genomes                   |
+| sylph      | short/long         | Nucleotide             | k-mer             | Calculates Average Nucleotide Identity (ANI) and includes rapid processing time                |
 
 ## I get a warning during CENTRIFUGE_KREPORT or KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE process with exit status 255
 
