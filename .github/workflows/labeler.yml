@@ -1,6 +1,8 @@
 name: labeler
 
-on: [pull_request]
+# pull_request_target so fork PRs get a writable token.
+# Safe: this job never checks out or runs PR code, it only reads the diff via the API.
+on: [pull_request_target]
 
 jobs:
   labeler:
