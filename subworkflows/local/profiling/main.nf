@@ -170,9 +170,9 @@ workflow PROFILING {
                 db_meta_new.tool == 'kraken2' || (db_meta_new.tool == 'bracken' && (meta.instrument_platform != 'OXFORD_NANOPORE' && meta.instrument_platform != 'PACBIO_SMRT'))
             }
 
-        ch_input_for_kraken2 = ch_prepare_for_kraken2.multiMap { it ->
-            reads: [it[0] + it[2], it[1]]
-            db: it[3]
+        ch_input_for_kraken2 = ch_prepare_for_kraken2.multiMap { meta, input_reads, db_meta, db ->
+            reads: [meta + db_meta, input_reads]
+            db: db
         }
 
         KRAKEN2_KRAKEN2(ch_input_for_kraken2.reads, ch_input_for_kraken2.db, params.kraken2_save_reads, params.kraken2_save_readclassifications)
@@ -244,15 +244,15 @@ workflow PROFILING {
     if (params.run_centrifuge) {
 
         ch_input_for_centrifuge = ch_input_for_profiling.centrifuge
-            .filter { it ->
-                if (it[0].is_fasta) {
-                    log.warn("[nf-core/taxprofiler] Centrifuge currently does not accept FASTA files as input. Skipping Centrifuge for sample ${it[0].id}.")
+            .filter { meta, _input_reads, _db_meta, _db ->
+                if (meta.is_fasta) {
+                    log.warn("[nf-core/taxprofiler] Centrifuge currently does not accept FASTA files as input. Skipping Centrifuge for sample ${meta.id}.")
                 }
-                !it[0].is_fasta
+                !meta.is_fasta
             }
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: it[3]
+            .multiMap { meta, input_reads, db_meta, db ->
+                reads: [meta + db_meta, input_reads]
+                db: db
             }
 
         CENTRIFUGE_CENTRIFUGE(ch_input_for_centrifuge.reads, ch_input_for_centrifuge.db, params.centrifuge_save_reads, params.centrifuge_save_reads)
@@ -289,16 +289,16 @@ workflow PROFILING {
                 }
                 [meta, input_reads, db_meta_new, db]
                 }
-                .filter { it ->
-                    if (it[0].is_fasta) {
-                        log.warn("[nf-core/taxprofiler] Centrifuger currently does not accept FASTA files as input. Skipping Centrifuger for sample ${it[0].id}.")
+                .filter { meta, _input_reads, _db_meta, _db ->
+                    if (meta.is_fasta) {
+                        log.warn("[nf-core/taxprofiler] Centrifuger currently does not accept FASTA files as input. Skipping Centrifuger for sample ${meta.id}.")
                     }
-                    !it[0].is_fasta
+                    !meta.is_fasta
                 }
 
-            ch_input_for_centrifuger = ch_prepare_for_centrifuger.multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: [it[0], it[3]]
+            ch_input_for_centrifuger = ch_prepare_for_centrifuger.multiMap { meta, input_reads, db_meta, db ->
+                reads: [meta + db_meta, input_reads]
+                db: [meta, db]
             }
 
         CENTRIFUGER_CENTRIFUGER(ch_input_for_centrifuger.reads, ch_input_for_centrifuger.db, params.centrifuger_save_reads, params.centrifuger_save_reads, [], [])
@@ -324,9 +324,9 @@ workflow PROFILING {
 
     if (params.run_metaphlan) {
 
-        ch_input_for_metaphlan = ch_input_for_profiling.metaphlan.multiMap { it ->
-            reads: [it[0] + it[2], it[1]]
-            db: it[3]
+        ch_input_for_metaphlan = ch_input_for_profiling.metaphlan.multiMap { meta, input_reads, db_meta, db ->
+            reads: [meta + db_meta, input_reads]
+            db: db
         }
 
         METAPHLAN_METAPHLAN(ch_input_for_metaphlan.reads, ch_input_for_metaphlan.db, params.metaphlan_save_samfiles)
@@ -336,9 +336,9 @@ workflow PROFILING {
 
     if (params.run_kaiju) {
 
-        ch_input_for_kaiju = ch_input_for_profiling.kaiju.multiMap { it ->
-            reads: [it[0] + it[2], it[1]]
-            db: it[3]
+        ch_input_for_kaiju = ch_input_for_profiling.kaiju.multiMap { meta, input_reads, db_meta, db ->
+            reads: [meta + db_meta, input_reads]
+            db: db
         }
 
         KAIJU_KAIJU(ch_input_for_kaiju.reads, ch_input_for_kaiju.db)
@@ -357,12 +357,12 @@ workflow PROFILING {
     }
 
     if (params.run_diamond) {
-        ch_input_for_diamond = ch_input_for_profiling.diamond.multiMap { meta, input_reads, meta_db, db ->
+        ch_input_for_diamond = ch_input_for_profiling.diamond.multiMap { meta, input_reads, db_meta, db ->
             if (!meta.single_end) {
                 log.warn("[nf-core/taxprofiler] DIAMOND does not accept paired-end files as input. Only read 1 will be used for profiling. Running DIAMOND for sample ${meta.id} using only read 1.")
             }
-            reads: [meta + meta_db, meta.single_end ? input_reads : input_reads[0]]
-            db: [meta_db, db]
+            reads: [meta + db_meta, meta.single_end ? input_reads : input_reads[0]]
+            db: [db_meta, db]
         }
 
         // diamond only accepts single output file specification, therefore
@@ -377,19 +377,19 @@ workflow PROFILING {
     if (params.run_motus) {
 
         ch_input_for_motus = ch_input_for_profiling.motus
-            .filter { it ->
-                if (it[0].is_fasta) {
-                    log.warn("[nf-core/taxprofiler] mOTUs currently does not accept FASTA files as input. Skipping mOTUs for sample ${it[0].id}.")
+            .filter { meta, _input_reads, _db_meta, db ->
+                if (meta.is_fasta) {
+                    log.warn("[nf-core/taxprofiler] mOTUs currently does not accept FASTA files as input. Skipping mOTUs for sample ${meta.id}.")
                 }
-                !it[0].is_fasta
+                !meta.is_fasta
             }
-            .branch { it ->
-                longread: it[0].instrument_platform == 'OXFORD_NANOPORE' || it[0].instrument_platform == 'PACBIO_SMRT'
-                shortread: it[0].instrument_platform != 'OXFORD_NANOPORE' && it[0].instrument_platform != 'PACBIO_SMRT'
+            .branch { meta, _input_reads, _db_meta, _db  ->
+                longread: meta.instrument_platform == 'OXFORD_NANOPORE' || meta.instrument_platform == 'PACBIO_SMRT'
+                shortread: meta.instrument_platform != 'OXFORD_NANOPORE' && meta.instrument_platform != 'PACBIO_SMRT'
             }
-        ch_input_for_motus_longread = ch_input_for_motus.longread.multiMap { it ->
-            reads: [it[0] + it[2], it[1]]
-            db: it[3]
+        ch_input_for_motus_longread = ch_input_for_motus.longread.multiMap { meta, input_reads, db_meta, db  ->
+            reads: [meta + db_meta, input_reads]
+            db: db
         }
 
         MOTUS_PREPLONG(ch_input_for_motus_longread.reads, ch_input_for_motus_longread.db)
@@ -416,9 +416,9 @@ workflow PROFILING {
                 [new_meta, [in_reads], new_db_meta, db]
             }
             .mix(ch_input_for_motus.shortread)
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: it[3]
+            .multiMap { meta, input_reads, db_meta, db ->
+                reads: [meta + db_meta, input_reads]
+                db: db
             }
 
 
@@ -490,9 +490,9 @@ workflow PROFILING {
 
                 [meta, input_reads, db_meta_new, db]
             }
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: it[3]
+            .multiMap { meta, input_reads, db_meta, db ->
+                reads: [meta + db_meta, input_reads]
+                db: db
             }
 
         KMCP_SEARCH(ch_input_for_kmcp.reads, ch_input_for_kmcp.db)
@@ -540,15 +540,15 @@ workflow PROFILING {
     if (params.run_ganon) {
 
         ch_input_for_ganonclassify = ch_input_for_profiling.ganon
-            .filter { meta, _input_reads, meta_db, _db ->
+            .filter { meta, _input_reads, db_meta, _db ->
                 if (meta.instrument_platform == 'OXFORD_NANOPORE' || meta.instrument_platform == 'PACBIO_SMRT') {
                     log.warn("[nf-core/taxprofiler] Ganon has not been evaluated for long-read datasets. Skipping Ganon for sample ${meta.id}.")
                 }
-                meta_db.tool == 'ganon' && (meta.instrument_platform != 'OXFORD_NANOPORE' && meta.instrument_platform != 'PACBIO_SMRT')
+                db_meta.tool == 'ganon' && (meta.instrument_platform != 'OXFORD_NANOPORE' && meta.instrument_platform != 'PACBIO_SMRT')
             }
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: it[3]
+            .multiMap { meta, input_reads, db_meta, db  ->
+                reads: [meta + db_meta, input_reads]
+                db: db
             }
 
         ch_input_for_ganonclassify.reads
@@ -570,13 +570,13 @@ workflow PROFILING {
 
     if (params.run_sylph) {
         ch_input_for_sylph = ch_input_for_profiling.sylph
-            .filter { it ->
-                if (it[0].is_fasta) {
-                    log.warn("[nf-core/taxprofiler] sylph currently does not accept FASTA files as input. Skipping sylph for sample ${it[0].id}.")
+            .filter { meta, _input_reads, _db_meta, _db ->
+                if (meta.is_fasta) {
+                    log.warn("[nf-core/taxprofiler] sylph currently does not accept FASTA files as input. Skipping sylph for sample ${meta.id}.")
                 }
-                !it[0].is_fasta
+                !meta.is_fasta
             }
-            .map { meta, in_reads, db_meta, db ->
+            .map { meta, input_reads, db_meta, db ->
                 def db_meta_keys = db_meta.keySet()
                 def db_meta_new = db_meta.subMap(db_meta_keys)
 
@@ -592,11 +592,11 @@ workflow PROFILING {
                     db_meta_new['db_params'] = parsed_params[0]
                 }
 
-                [meta, in_reads, db_meta_new, db]
+                [meta, input_reads, db_meta_new, db]
             }
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: it[3]
+            .multiMap { meta, input_reads, db_meta, db ->
+                reads: [meta + db_meta, input_reads]
+                db: db
             }
 
         SYLPH_PROFILE(ch_input_for_sylph.reads, ch_input_for_sylph.db)
@@ -649,15 +649,15 @@ workflow PROFILING {
     if (params.run_melon) {
 
         ch_input_for_melon = ch_input_for_profiling.melon
-            .filter { meta, _in_reads, meta_db, _db ->
+            .filter { meta, _input_reads, db_meta, _db ->
                 if (meta['type'] != 'long') {
                     log.warn("[nf-core/taxprofiler] Melon is only suitable for long-read metagenomic profiling. Skipping Melon for sample ${meta.id}.")
                 }
-                meta_db['tool'] == 'melon' && meta['type'] == 'long'
+                db_meta['tool'] == 'melon' && meta['type'] == 'long'
             }
-            .multiMap { it ->
-                reads: [it[0] + it[2], it[1]]
-                db: it[3]
+            .multiMap { meta, input_reads, db_meta, db ->
+                reads: [meta + db_meta, input_reads]
+                db: db
             }
 
         ch_melon_k2_db = params.melon_k2_db ? channel.fromPath(params.melon_k2_db, checkIfExists: true).collect() : []
@@ -669,9 +669,9 @@ workflow PROFILING {
 
     if (params.run_metacache) {
 
-        ch_input_for_metacache = ch_input_for_profiling.metacache.multiMap { it ->
-            reads: [it[0] + it[2], it[1]]
-            db: it[3]
+        ch_input_for_metacache = ch_input_for_profiling.metacache.multiMap { meta, input_reads, db_meta, db  ->
+            reads: [meta + db_meta, input_reads]
+            db: db
         }
 
         METACACHE_QUERY(ch_input_for_metacache.reads, ch_input_for_metacache.db, params.metacache_abundances)
