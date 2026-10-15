@@ -11,20 +11,20 @@ With this information we hope to help you make an informed decision on which cla
 
 | Classifier | Sequence read type | Database type          | Primary algorithm | Unique characteristic |
 | ---------- | ------------------ | ---------------------- | ----------------- | --------------------- |
-| Bracken    | short              | Nucleotide             |                   |                       |
-| Centrifuge | short              | Nucleotide             |                   |                       |
-| DIAMOND    | short/long         | Amino acid             |                   |                       |
-| ganon      | short              | Nucleotide             |                   |                       |
-| Kaiju      | short              | Amino acid             |                   |                       |
-| KMCP       | short              | Nucleotide             |                   |                       |
-| Kraken2    | short              | Nucleotide             |                   |                       |
-| KrakenUniq | short              | Nucleotide             |                   |                       |
-| MALT       | short              | Nucleotide/ Amino acid |                   |                       |
-| melon      | long               | Nucleotide             |                   |                       |
-| MetaPhlAn  | short              | Nucleotide             |                   |                       |
-| MetaCache  | long               | Nucleotide             |                   |                       |
-| mOTUs      | short/long         | Nucleotide             |                   |                       |
-| sylph      | short/long         | Nucleotide             |                   |                       |
+| Bracken    | short              | Nucleotide             | k-mer             |                       |
+| Centrifuge | short              | Nucleotide             | FM-index          |                       |
+| DIAMOND    | short/long         | Amino acid             | alignment based   |                       |
+| ganon      | short              | Nucleotide             | k-mer             |                       |
+| Kaiju      | short              | Amino acid             | alignment based   |                       |
+| KMCP       | short              | Nucleotide             | k-mer             |                       |
+| Kraken2    | short              | Nucleotide             | k-mer             |                       |
+| KrakenUniq | short              | Nucleotide             | k-mer             |                       |
+| MALT       | short              | Nucleotide/ Amino acid | alignment based   |                       |
+| melon      | long               | Nucleotide             | alignment based   |                       |
+| MetaPhlAn  | short              | Nucleotide             | alignment based   |                       |
+| MetaCache  | long               | Nucleotide             | k-mer             |                       |
+| mOTUs      | short/long         | Nucleotide             | alignment based   |                       |
+| sylph      | short/long         | Nucleotide             | k-mer             |                       |
 
 ## I get a warning during CENTRIFUGE_KREPORT or KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE process with exit status 255
 
