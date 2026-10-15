@@ -16,8 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#767](https://github.com/nf-core/taxprofiler/pull/767) Fixed Nextflow strict syntax warnings in `main.nf` and local subworkflows (by @haris18s). Additional fixes in modules were addressed by @sofstam in PR [#758](https://github.com/nf-core/taxprofiler/pull/758). Some warnings remain in upstream nf-core template subworkflows and modules, which will be addressed when those are updated.
+
 ### `Changed`
 
+- [#767](https://github.com/nf-core/taxprofiler/pull/767) Changed closures to use explicit destructured parameters for Nextflow strict syntax compliance (by @haris18s)
 - [#758](https://github.com/nf-core/taxprofiler/pull/758) Modules topic versions update (by @sofstam)
 - [#774](https://github.com/nf-core/taxprofiler/pull/774) Use ext.args2 for preload-size in KrakenUniq config (by@sofstam)
 
