@@ -1,5 +1,31 @@
 # Troubleshooting and FAQs
 
+## Which classifier(s) should I use?
+
+Choosing a classifier is not easy!
+There is a reason why nf-core/taxprofiler is designed to offer multiple classifiers.
+There are main pros- and cons- to each, and the best choice will depend on your research question, the information you need, and the trade-offs needed regarding resources (amongst others).
+
+Here we provide a brief summary of the classifiers available in nf-core/taxprofiler.
+With this information we hope to help you make an informed decision on which classifier(s) to use for your particular use case analysis.
+
+| Classifier | Sequence read type | Database type         | Primary algorithm | Unique characteristic                                                                                           | Common applications                                           |
+| ---------- | ------------------ | --------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Bracken    | short              | Nucleotide            | k-mer             | Redistribution of ambiguously classified reads by Kraken2 using a Bayesian model                                | metagenomics/abundance estimation for closely related species |
+| Centrifuge | short              | Nucleotide            | FM-index          | Does not require a lot of RAM compared to other k-mer based classifiers but accuracy depends on the database    | metagenomics, pathogen detection                              |
+| DIAMOND    | short/long         | Amino acid            | alignment based   | High sensitivity and it runs much faster than the traditional BLAST                                             | metagenomics, pathogen detection                              |
+| ganon      | short              | Nucleotide            | k-mer             | Improved genus level F1-score, increased precision, higher compute resource efficienct                          | metagenomics                                                  |
+| Kaiju      | short              | Amino acid            | alignment based   | Fast taxonomic classification at the protein level compared to other protein-based taxonomic classifiers        | metagenomics, microbial ecology                               |
+| KMCP       | short              | Nucleotide            | k-mer             | Reduces the high false-positive rates compared to other k-mer based classifiers                                 | pathogen detection                                            |
+| Kraken2    | short              | Nucleotide            | k-mer             | Ultrafast speed at a minimal memory usage                                                                       | pathogen detection                                            |
+| KrakenUniq | short              | Nucleotide            | k-mer             | Reduced false-positive taxonomic classifications but sensitivity can decrease when unclassified reads many      | pathogen detection                                            |
+| MALT       | short              | Nucleotide/Amino acid | alignment based   | It can provide functional classification along taxonomic classification                                         | ancient metagenomics, microbiome profiling                    |
+| melon      | long               | Nucleotide            | alignment based   | Outperformed existing tools in vitro mock and in silico simulated samples                                       | microbiome profiling                                          |
+| MetaPhlAn  | short              | Nucleotide            | alignment based   | High taxonomic precision                                                                                        | microbiome profiling                                          |
+| MetaCache  | short/long         | Nucleotide            | k-mer             | Reduced memory requirements                                                                                     | metagenomics, pathogen detection, microbial ecology           |
+| mOTUs      | short/long         | Nucleotide            | alignment based   | High genus-level completeness and strong performance in predicting microbial abundances in genus level          | microbiome profiling                                          |
+| sylph      | short/long         | Nucleotide            | k-mer             | High-species level profiling with rapid processing time, comparable to marker gene methods at the species level | metagenomics, pathogen detection                              |
+
 ## I get a warning during CENTRIFUGE_KREPORT or KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE process with exit status 255
 
 When a sample has insufficient hits for abundance estimation, the resulting `report.txt` file will be empty.
