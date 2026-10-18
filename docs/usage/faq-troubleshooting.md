@@ -2,6 +2,10 @@
 
 ## Which classifier(s) should I use?
 
+**Before you dive too deeply into the details of each tool, please be very aware
+that the most impactful choice is your reference database. Hence, we provide
+the companion pipeline [nf-core/createtaxdb](https://nf-co.re/createtaxdb).**
+
 Choosing a classifier is not easy!
 There are main pros- and cons- to each, and the best choice will depend on your research question, the information you need, and the trade-offs needed regarding resources (amongst others).
 nf-core/taxprofiler is designed to offer multiple classifiers, so you can choose the one(s) that best suit your needs.
