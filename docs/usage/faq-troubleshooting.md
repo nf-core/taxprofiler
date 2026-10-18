@@ -44,9 +44,9 @@ flowchart TD
 
 The table below contains all criteria that we find relevant to compare.
 
-| Classifier | Sequence read type | Reference database     | Result                                                                           | Primary algorithm | Unique characteristic                                                                                           | Common applications (Sofia)                                   | Source field (James)                              | Supports customisation? | In createtaxdb? |
+| Classifier | Sequence read type | Reference database\*   | Result                                                                           | Primary algorithm | Unique characteristic                                                                                           | Common applications (Sofia)                                   | Source field (James)                              | Supports customisation? | In createtaxdb? |
 | ---------- | ------------------ | ---------------------- | -------------------------------------------------------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------- | ----------------------- | --------------- |
-| Bracken    | short              | See Kraken2            | See Kraken2                                                                      | k-mer\*           | Redistribution of ambiguously classified reads by Kraken2 using a Bayesian model                                | metagenomics/abundance estimation for closely related species | Host-associated microbiome                        | yes                     | yes             |
+| Bracken    | short              | See Kraken2            | See Kraken2                                                                      | k-mer\*\*         | Redistribution of ambiguously classified reads by Kraken2 using a Bayesian model                                | metagenomics/abundance estimation for closely related species | Host-associated microbiome                        | yes                     | yes             |
 | Centrifuge | short              | DNA-to-DNA             | Sequence abundance (optionally normalized by genome size)                        | FM-index          | Does not require a lot of RAM compared to other k-mer based classifiers but accuracy depends on the database    | metagenomics, pathogen detection                              | Microbiome, pathogen, food Source                 | yes                     | yes             |
 | DIAMOND    | short/long         | DNA-to-AA              | Protein sequence abundance                                                       | alignment based   | High sensitivity and it runs much faster than the traditional BLAST                                             | metagenomics, pathogen detection                              | Host-associated microbiome, environmental DNA     | yes                     | yes             |
 | ganon      | short              | DNA-to-DNA             | Sequence abundance (optionally taxonomic abundance, with genome size correction) | k-mer             | Improved genus level F1-score, increased precision, higher compute resource efficient                           | metagenomics                                                  | Pathogen, wastewater monitoring                   | yes                     | yes             |
@@ -61,7 +61,13 @@ The table below contains all criteria that we find relevant to compare.
 | mOTUs      | short/long         | DNA-to-marker          | Taxonomic abundance                                                              | alignment based   | High genus-level completeness and strong performance in predicting microbial abundances in genus level          | microbiome profiling                                          | Host-associated microbiome, environmental DNA     | yes                     | no              |
 | sylph      | short/long         | DNA-to-DNA             | Taxonomic abundance                                                              | k-mer             | High-species level profiling with rapid processing time, comparable to marker gene methods at the species level | metagenomics, pathogen detection                              | Host-associated microbiome                        | yes                     | yes             |
 
-\* Bracken is technically not a standalone classifier, but rather a postprocessing tool for Kraken2 output. It does not classify reads itself, but rather re-estimates the abundance of species from Kraken2 results.
+\* Reference database:
+
+- DNA-to-DNA, a metagenome library
+- DNA-to-AA, a genomic library of protein coding sequences (amino-acid)
+- DNA-to-marker, marker gene or gene families selection
+
+\*\* Bracken is technically not a standalone classifier, but rather a postprocessing tool for Kraken2 output. It does not classify reads itself, but rather re-estimates the abundance of species from Kraken2 results.
 
 ## I get a warning during CENTRIFUGE_KREPORT or KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE process with exit status 255
 
