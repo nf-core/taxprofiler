@@ -15,6 +15,35 @@ With this information we hope to help you make an informed decision on which cla
 
 Please note that the guidance here is not definitive, and many of the classifiers can be used outside of the applications listed below.
 
+### Decision tree
+
+The decision tree below can help you narrow down the classifiers that match your data.
+Kraken2 can use both DNA-to-DNA and DNA-to-AA databases, and Bracken follows Kraken2.
+
+```mermaid
+flowchart TD
+    A{Sequencing read data?} -->|short| S{Reference database?}
+    A -->|long| L{Reference database?}
+
+    S -->|DNA-to-DNA| SD{Supported in createtaxdb?}
+    S -->|DNA-to-AA| SA{Supported in createtaxdb?}
+    S -->|DNA-to-marker| SM{Supported in createtaxdb?}
+    L -->|DNA-to-DNA| LD{Supported in createtaxdb?}
+    L -->|DNA-to-AA| LA{Supported in createtaxdb?}
+    L -->|DNA-to-marker| LM{Supported in createtaxdb?}
+
+    SD -->|yes| SDY[Bracken, Centrifuge, ganon, KMCP, Kraken2, KrakenUniq, MALT, MetaCache, sylph]
+    SA -->|yes| SAY[DIAMOND, Kaiju, Kraken2]
+    SM -->|no| SMN[MetaPhlAn, mOTUs]
+    LD -->|yes| LDY[MetaCache, sylph]
+    LA -->|yes| LAY[DIAMOND]
+    LM -->|no| LMN[melon, mOTUs]
+```
+
+### Full details
+
+The table below contains all criteria that we find relevant to compare.
+
 | Classifier | Sequence read type | Reference database     | Result                                                                           | Primary algorithm | Unique characteristic                                                                                           | Common applications (Sofia)                                   | Source field (James)                              | Supports customisation? | In createtaxdb? |
 | ---------- | ------------------ | ---------------------- | -------------------------------------------------------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------- | ----------------------- | --------------- |
 | Bracken    | short              | See Kraken2            | See Kraken2                                                                      | k-mer\*           | Redistribution of ambiguously classified reads by Kraken2 using a Bayesian model                                | metagenomics/abundance estimation for closely related species | Host-associated microbiome                        | yes                     | yes             |
