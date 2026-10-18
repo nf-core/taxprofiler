@@ -4,13 +4,13 @@
 
 **Before you dive too deeply into the details of each tool, please be very aware
 that the most impactful choice is your reference database. Hence, we provide
-the companion pipeline [nf-core/createtaxdb](https://nf-co.re/createtaxdb).**
+the companion pipeline [`nf-core/createtaxdb`](https://nf-co.re/createtaxdb).**
 
 Choosing a classifier is not easy!
-There are main pros- and cons- to each, and the best choice will depend on your research question, the information you need, and the trade-offs needed regarding resources (amongst others).
-nf-core/taxprofiler is designed to offer multiple classifiers, so you can choose the one(s) that best suit your needs.
+There are many pros and cons to each, and the best choice will depend on your research question, the information you need, and the trade-offs needed regarding resources (amongst others).
+`nf-core/taxprofiler` is designed to offer multiple classifiers, so you can choose the one(s) that best suit your needs.
 
-Here we provide a brief summary of the classifiers available in nf-core/taxprofiler.
+Here we provide a brief summary of the classifiers available in `nf-core/taxprofiler`.
 With this information we hope to help you make an informed decision on which classifier(s) to use for your particular use case analysis.
 
 Please note that the guidance here is not definitive, and many of the classifiers can be used outside of the applications listed below.
