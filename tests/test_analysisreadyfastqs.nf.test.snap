@@ -1,0 +1,55 @@
+{
+    "-profile test_minimal --save_analysis_ready_fastqs - bowtie2 and minimap2 host removal": {
+        "content": [
+            [
+                "analysis_ready_fastqs/2612_ERR5766176.unmapped_1.fastq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176.unmapped_2.fastq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176_B.unmapped_1.fastq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176_B.unmapped_2.fastq.gz",
+                "analysis_ready_fastqs/2612_ERR5766180.unmapped.fastq.gz",
+                "analysis_ready_fastqs/2613_ERR5766181.unmapped_1.fastq.gz",
+                "analysis_ready_fastqs/2613_ERR5766181.unmapped_2.fastq.gz",
+                "analysis_ready_fastqs/ERR3201952_ERR3201952.unmapped_other.fastq.gz"
+            ]
+        ],
+        "timestamp": "2026-10-23T19:09:20.216667",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.2"
+        }
+    },
+    "-profile test_minimal --save_analysis_ready_fastqs - deacon host removal": {
+        "content": [
+            [
+                "analysis_ready_fastqs/2612_ERR5766176_1.fq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176_2.fq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176_B_1.fq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176_B_2.fq.gz",
+                "analysis_ready_fastqs/2612_ERR5766180.fq.gz",
+                "analysis_ready_fastqs/2613_ERR5766181_1.fq.gz",
+                "analysis_ready_fastqs/2613_ERR5766181_2.fq.gz",
+                "analysis_ready_fastqs/ERR3201952_ERR3201952.fq.gz"
+            ],
+            [
+                "deacon/filter/2612_ERR5766176.json",
+                "deacon/filter/2612_ERR5766176_1.fq.gz",
+                "deacon/filter/2612_ERR5766176_2.fq.gz",
+                "deacon/filter/2612_ERR5766176_B.json",
+                "deacon/filter/2612_ERR5766176_B_1.fq.gz",
+                "deacon/filter/2612_ERR5766176_B_2.fq.gz",
+                "deacon/filter/2612_ERR5766180.fq.gz",
+                "deacon/filter/2612_ERR5766180.json",
+                "deacon/filter/2613_ERR5766181.json",
+                "deacon/filter/2613_ERR5766181_1.fq.gz",
+                "deacon/filter/2613_ERR5766181_2.fq.gz",
+                "deacon/filter/ERR3201952_ERR3201952.fq.gz",
+                "deacon/filter/ERR3201952_ERR3201952.json"
+            ]
+        ],
+        "timestamp": "2026-10-23T19:14:40.816715",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.2"
+        }
+    }
+}
