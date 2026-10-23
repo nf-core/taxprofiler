@@ -382,8 +382,9 @@ The resulting `.fastq` files may _not_ always be the 'final' reads that go into 
 - `deacon/`
   - `index/`
     - `*.idx`: deacon indices of reference genome, only if `--save_hostremoval_index` supplied.
-  - `filter/` -`<sample_id>.fq.gz`: FASTQ files containing the retained reads.
-  - `<sample_id>.json`: detailed filtering statistics in json format
+  - `filter/`
+    - `<sample_id>_<accession_id>{,_1,_2}.fq.gz`: FASTQ files containing the retained reads.
+    - `<sample_id>_<accession_id>.json`: detailed filtering statistics in json format
 
 </details>
 

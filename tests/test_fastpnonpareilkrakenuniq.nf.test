@@ -41,9 +41,9 @@ nextflow_pipeline {
 
                 // deacon
                 { assert snapshot (
-                            file("$outputDir/deacon/filter/2612.fq.gz").getName() + " contains string '@ERR5766176': " + path("$outputDir/deacon/filter/2612.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.244998') },
-                            file("$outputDir/deacon/filter/2613.fq.gz").getName() + " contains string '@ERR5766181': " + path("$outputDir/deacon/filter/2613.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.305906') },
-                            file("$outputDir/deacon/filter/ERR3201952.fq.gz").getName() + " contains string '@ERR3201952': " + path("$outputDir/deacon/filter/ERR3201952.fq.gz").linesGzip.findAll { l -> l.contains('@ERR3201952.882919') },
+                            file("$outputDir/deacon/filter/2612_ERR5766176.fq.gz").getName() + " contains string '@ERR5766176': " + path("$outputDir/deacon/filter/2612_ERR5766176.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766176.244998') },
+                            file("$outputDir/deacon/filter/2613_ERR5766181.fq.gz").getName() + " contains string '@ERR5766181': " + path("$outputDir/deacon/filter/2613_ERR5766181.fq.gz").linesGzip.findAll { l -> l.contains('@ERR5766181.305906') },
+                            file("$outputDir/deacon/filter/ERR3201952_ERR3201952.fq.gz").getName() + " contains string '@ERR3201952': " + path("$outputDir/deacon/filter/ERR3201952_ERR3201952.fq.gz").linesGzip.findAll { l -> l.contains('@ERR3201952.882919') },
                             getAllFilesFromDir("$outputDir/deacon/filter", include: ['*.json']).collect { file -> file.getName() + " contains string 'version': " + file.text.contains("version")}
                         ).match("deacon")
                 },
