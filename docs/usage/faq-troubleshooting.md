@@ -53,90 +53,78 @@ flowchart TD
 
 The table below contains all criteria that we find relevant to compare.
 
-| Classifier | Source research domain \*                         | Supports database customisation? | In createtaxdb? | Sequence read type | Database method\*\*    | Primary classification algorithm                   | Result taxon table contents \*\*                                                 | Unique characteristic                                                                                           |
-| ---------- | ------------------------------------------------- | -------------------------------- | --------------- | ------------------ | ---------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Bracken    | Host-associated microbiome                        | Yes                              | Yes             | Short              | See Kraken2            | See Kraken2 \*\*\*                                 | See Kraken2 \*\*\*                                                               | Redistribution of ambiguously classified reads by Kraken2 using a Bayesian model                                |
-| Centrifuge | Microbiome, pathogen, food source                 | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | Seed-and-extend k-mer match                        | Sequence abundance (optionally normalized by genome size)                        | Does not require a lot of RAM compared to other k-mer based classifiers but accuracy depends on the database    |
-| DIAMOND    | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short/Long         | DNA-to-AA              | Spaced seed-and-extend sequence alignment          | Protein sequence abundance                                                       | High sensitivity and it runs much faster than the traditional BLAST                                             |
-| ganon      | Pathogen, wastewater monitoring                   | Yes                              | Yes             | Short              | DNA-to-DNA             | K-mer match with bloom filter                      | Sequence abundance (optionally taxonomic abundance, with genome size correction) | Improved genus level F1-score, increased precision, higher compute resource efficient                           |
-| Kaiju      | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short              | DNA-to-AA              | Maximum exact match with burrows-wheeler-transform | Protein sequence abundance                                                       | Fast taxonomic classification at the protein level compared to other protein-based taxonomic classifiers        |
-| KMCP       | Pathogen                                          | Yes                              | Yes             | Short              | DNA-to-DNA             | K-mer with pseudo-mapping and bloom filter         | Taxonomic abundance                                                              | Reduces the high false-positive rates compared to other k-mer based classifiers                                 |
-| Kraken2    | Microbiome                                        | Yes                              | Yes             | Short              | DNA-to-DNA (DNA-to-AA) | K-mer exact match                                  | (Protein) sequence abundance                                                     | Ultrafast speed at a minimal memory usage                                                                       |
-| KrakenUniq | Host-associated microbiome, pathogen              | Yes                              | Yes             | Short              | DNA-to-DNA             | K-mer exact match with HyperLogLog counting        | Sequence abundance                                                               | Reduced false-positive taxonomic classifications but sensitivity can decrease when unclassified reads many      |
-| MALT       | Host-associated microbiome, pathogen, ancient DNA | Yes                              | Yes             | Short              | DNA-to-DNA             | Spaced seed-and-extend sequence alignment          | Sequence abundance                                                               | It can provide functional classification along taxonomic classification                                         |
-| melon      | Host-associated microbiome, wastewater monitoring | No                               | No              | Long               | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              | Outperformed existing tools in vitro mock and in silico simulated samples                                       |
-| MetaPhlAn  | Host-associated microbiome                        | Yes                              | No              | Short              | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              | High taxonomic precision                                                                                        |
-| MetaCache  | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | Min-hashing k-mer match                            | Sequence abundance                                                               | Reduced memory requirements                                                                                     |
-| mOTUs      | Host-associated microbiome, environmental DNA     | Yes                              | No              | Short/Long         | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              | High genus-level completeness and strong performance in predicting microbial abundances in genus level          |
-| sylph      | Host-associated microbiome                        | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | K-mer sketching                                    | Taxonomic abundance                                                              | High-species level profiling with rapid processing time, comparable to marker gene methods at the species level |
+| Classifier | Source research domain \*                         | Supports database customisation? | In createtaxdb? | Sequence read type | Database method\*\*    | Primary classification algorithm                   | Result taxon table contents \*\*\*                                               |
+| ---------- | ------------------------------------------------- | -------------------------------- | --------------- | ------------------ | ---------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Bracken    | Host-associated microbiome                        | Yes                              | Yes             | Short              | See Kraken2 \*\*\*\*   | See Kraken2 \*\*\*\*                               | See Kraken2 \*\*\*\*                                                             |
+| Centrifuge | Microbiome, pathogen, food source                 | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | Seed-and-extend k-mer match                        | Sequence abundance (optionally normalized by genome size)                        |
+| DIAMOND    | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short/Long         | DNA-to-AA              | Spaced seed-and-extend sequence alignment          | Protein sequence abundance                                                       |
+| ganon      | Pathogen, wastewater monitoring                   | Yes                              | Yes             | Short              | DNA-to-DNA             | K-mer match with bloom filter                      | Sequence abundance (optionally taxonomic abundance, with genome size correction) |
+| Kaiju      | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short              | DNA-to-AA              | Maximum exact match with burrows-wheeler-transform | Protein sequence abundance                                                       |
+| KMCP       | Pathogen                                          | Yes                              | Yes             | Short              | DNA-to-DNA             | K-mer with pseudo-mapping and bloom filter         | Taxonomic abundance                                                              |
+| Kraken2    | Microbiome, pathogen                              | Yes                              | Yes             | Short              | DNA-to-DNA (DNA-to-AA) | K-mer exact match                                  | Sequence and protein sequence abundance                                          |
+| KrakenUniq | Host-associated microbiome, pathogen              | Yes                              | Yes             | Short              | DNA-to-DNA             | K-mer exact match with HyperLogLog counting        | Sequence abundance                                                               |
+| MALT       | Host-associated microbiome, pathogen, ancient DNA | Yes                              | Yes             | Short              | DNA-to-DNA             | Spaced seed-and-extend sequence alignment          | Sequence abundance                                                               |
+| melon      | Host-associated microbiome, wastewater monitoring | No                               | No              | Long               | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              |
+| MetaPhlAn  | Host-associated microbiome                        | Yes                              | No              | Short              | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              |
+| MetaCache  | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | Min-hashing k-mer match                            | Sequence abundance                                                               |
+| mOTUs      | Host-associated microbiome, environmental DNA     | Yes                              | No              | Short/Long         | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              |
+| sylph      | Host-associated microbiome                        | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | K-mer sketching                                    | Taxonomic abundance                                                              |
 
 :::note{title=Legend}
 
-\* Source research domain corresponds to the research the classifier was applied to within the original publication of the classifier, for example the benchmarking datasets used to evaluate the classifier.
+\* Source research domain corresponds to the type of research the classifier was applied or referred to within the original publication of the classifier. For example, the benchmarking datasets used to evaluate the classifier, or stated in the potential applications if the tool.
 
 \*\* Reads to database comparison methods are defined as follows:
 
 - **DNA-to-DNA**: DNA sequencing reads against a library of genome-level nucleotide sequences
 - **DNA-to-AA**: DNA sequencing reads against a library of genome-level amino-acid (protein) coding sequences
-- **DNA-to-marker**: DNA sequencing reads against a library of pre-defined marker gene or gene families selection
+- **DNA-to-marker**: DNA sequencing reads against a library of predefined marker gene or gene families selection
 
-\*\* The result taxon table contents are defined as follows:
+\*\*\* The result taxon table contents are defined as follows:
 
 - **Sequence abundance**: the number of reads assigned to each taxon
 - **Protein sequence abundance**: the number of reads assigned to each taxon, based on protein coding
 - **Taxonomic abundance**: an estimate of true 'biological' (cellular) abundances of each taxon
 
-\*\*\* Bracken is technically not a standalone classifier, but rather a postprocessing tool for Kraken2 output. It does not classify reads itself, but rather re-estimates the abundance of species from Kraken2 results.
+\*\*\*\* Bracken is technically not a standalone classifier, but rather a postprocessing tool for Kraken2 output. It does not classify reads itself, but rather re-estimates the abundance of species from Kraken2 results.
 :::
 
-Furthermore, the table below provides a summary of the primary 'unique characteristics' of the particular classifier (as described in the original publication of the classifier).
+Furthermore, the table below provides a summary of the original primary 'unique characteristics' of the particular classifier (as described in the original publication of the classifier).
 We order by original publication year as often new-classifier 'improvements' are referring to earlier comparable classifiers; but may not reflect the latest version of the earlier classifier.
 
-<!-- TODO -->
-
-| Original publication\* | Latest publication \*\* | Classifier | Unique characteristic                                                                                                                 |
-| ---------------------- | ----------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| 2012                   | 2023                    | MetaPhlAn  |                                                                                                                                       |
-| 2013                   | 2022                    | mOTUs      |                                                                                                                                       |
-| 2014                   | 2024                    | Kraken2    | Fast and memory efficient using k-mers instead of alignment                                                                           |
-| 2015                   | 2021                    | DIAMOND    | Faster than BLASTX due to seeding heuristics                                                                                          |
-| 2016                   |                         | Kaiju      | Higher sensitivity and similar precision than other k-mer based classifiers, particularly for unrepresented genera                    |
-| 2016                   |                         | Centrifuge | Faster and less-memory hungry due to optimised index file                                                                             |
-| 2016                   |                         | MALT       |                                                                                                                                       |
-| 2017                   |                         | Bracken    |                                                                                                                                       |
-| 2017                   |                         | MetaCache  |                                                                                                                                       |
-| 2018                   |                         | KrakenUniq | Reduced false-positive identification than Kraken by incorporating k-mer coverage                                                     |
-| 2020                   | 2025                    | ganon2     | Fast, updatable, and small index size, fast classification                                                                            |
-| 2023                   |                         | KMCP       | Faster and less-memory hungry due to optimised index file and pseudo-mapping based approach, which offers genome coverage calculation |
-| 2024                   |                         | melon      |                                                                                                                                       |
-| 2024                   |                         | sylph      |                                                                                                                                       |
-
-<!--
-Sofia's original table - to incorporate into above table when verified:
-
-| Classifier |  Unique characteristic                                                                                           |
-| ---------- |  --------------------------------------------------------------------------------------------------------------- |
-| Bracken    |  Redistribution of ambiguously classified reads by Kraken2 using a Bayesian model                                |
-| Centrifuge |  Does not require a lot of RAM compared to other k-mer based classifiers but accuracy depends on the database    |
-| DIAMOND    |  High sensitivity and it runs much faster than the traditional BLAST                                             |
-| ganon      |  Improved genus level F1-score, increased precision, higher compute resource efficient                           |
-| Kaiju      |  Fast taxonomic classification at the protein level compared to other protein-based taxonomic classifiers        |
-| KMCP       |  Reduces the high false-positive rates compared to other k-mer based classifiers                                 |
-| Kraken2    |  Ultrafast speed at a minimal memory usage                                                                       |
-| KrakenUniq |  Reduced false-positive taxonomic classifications but sensitivity can decrease when unclassified reads many      |
-| MALT       |  It can provide functional classification along taxonomic classification                                         |
-| melon      |  Outperformed existing tools in vitro mock and in silico simulated samples                                       |
-| MetaPhlAn  |  High taxonomic precision                                                                                        |
-| MetaCache  |  Reduced memory requirements                                                                                     |
-| mOTUs      |  High genus-level completeness and strong performance in predicting microbial abundances in genus level          |
-| sylph      |  High-species level profiling with rapid processing time, comparable to marker gene methods at the species level |
--->
+| Original publication\* | Latest publication \*\* | Classifier | Unique characteristic                                                                                                                                  |
+| ---------------------- | ----------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2012                   | 2023                    | MetaPhlAn  | More accurate and faster species assignment by alignment against unique combinations of clade-marker genes rather than whole genomes                   |
+| 2013                   | 2022                    | mOTUs      | More accurate and faster species assignment by alignment against universal phylogenetic marker genes rather than whole genomes                         |
+| 2014                   | 2024                    | Kraken2    | Fast and computationally efficient sample assignment against genome-level sequences using k-mers instead of alignment                                  |
+| 2015                   | 2021                    | DIAMOND    | Faster than BLASTX due to seeding heuristics                                                                                                           |
+| 2016                   |                         | Kaiju      | Higher sensitivity and similar precision than other k-mer based classifiers, particularly for underrepresented genera                                  |
+| 2016                   |                         | Centrifuge | Faster and less-memory hungry due to an optimised index file                                                                                           |
+| 2016                   |                         | MALT       | Increased sensitivity and specificity over k-mer methods due to ultra-fast seed-and-extend and alignment approach                                      |
+| 2017                   |                         | Bracken    | More accurate species and strain abundance estimation over sequence abundance, through weighted reassignment of ambiguously classified reads           |
+| 2017                   |                         | MetaCache  | Significantly smaller RAM requirement over comparable k-mer with based tools at similar speed through 'Minhashing' a subset of k-mers                  |
+| 2018                   |                         | KrakenUniq | Reduced false-positive identification than Kraken by incorporating k-mer coverage                                                                      |
+| 2020                   | 2025                    | ganon2     | Fast, updatable, and small index size, fast classification through optimised index file                                                                |
+| 2023                   |                         | KMCP       | Faster and less-memory hungry due to an optimised index file and pseudo-mapping based approach, which offers genome coverage calculation               |
+| 2024                   |                         | melon      | Application of previously short-read-only gene marker-based classification approaches but for long-reads, with genome copy level abundance estimations |
+| 2024                   |                         | sylph      | Improved accuracy and smaller resource footprint through min-hash sketching of k-mers and ANI calculations                                             |
 
 :::note{title=Legend}
 
 \* Original publication: first description of original method or algorithm. Does not necessarily reflect version in the pipeline.
 \*\* Latest publication: most recent publication describing updated method or algorithm (e.g. in v2, v3), including updates and improvements
 :::
+
+### Other readings
+
+The follow list of publicly accessible or open-access readings may be useful for further understanding of the classifiers and their differences:
+
+- [**Differences between the Kraken family of classifiers**](https://ccb.jhu.edu/software/choosing-a-metagenomics-classifier/): from the Kraken\* authors themselves.
+- Ye, S. H., et al. (2019). Benchmarking Metagenomics Tools for Taxonomic Classification. Cell, 178(4), 779–794. [https://doi.org/10.1016/j.cell.2019.07.010](https://doi.org/10.1016/j.cell.2019.07.010)
+- Meyer, F., et al. (2022). Critical Assessment of Metagenome Interpretation: the second round of challenges. Nature Methods, 19(4), 429–440. [https://doi.org/10.1038/s41592-022-01431-4](https://doi.org/10.1038/s41592-022-01431-4)
+  -Sczyrba, A., et al.(2017). Critical Assessment of Metagenome Interpretation-a benchmark of metagenomics software. Nature Methods, 14(11), 1063–1071. [https://doi.org/10.1038/nmeth.4458](https://doi.org/10.1038/nmeth.4458)
+- Seppey, M., et al. (2026). LEMMIv2: benchmarking framework for metagenomic and 16S amplicon profilers with a catalogue of evaluated tools. Genome Biology, 1–25. [https://doi.org/10.1186/s13059-026-04089-9](https://doi.org/10.1186/s13059-026-04089-9)
+- Seppey, M., et al. (2020). LEMMI: a continuous benchmarking platform for metagenomics classifiers. Genome Research, 30(8), 1208–1216. [https://doi.org/10.1101/gr.260398.119](https://doi.org/10.1101/gr.260398.119)
 
 ## I get a warning during CENTRIFUGE_KREPORT or KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE process with exit status 255
 
