@@ -1,6 +1,40 @@
 {
     "-profile test_minimal --save_analysis_ready_fastqs - bowtie2 and minimap2 host removal": {
         "content": [
+            {
+                "BOWTIE2_ALIGN": {
+                    "bowtie2": "2.5.4",
+                    "pigz": 2.8,
+                    "samtools": 1.21
+                },
+                "BOWTIE2_BUILD": {
+                    "bowtie2": "2.5.4"
+                },
+                "FASTQC": {
+                    "fastqc": "0.12.1"
+                },
+                "MINIMAP2_ALIGN": {
+                    "minimap2": "2.30-r1287"
+                },
+                "MINIMAP2_INDEX": {
+                    "minimap2": "2.30-r1287"
+                },
+                "SAMTOOLS_FASTQ": {
+                    "samtools": 1.24
+                },
+                "SAMTOOLS_INDEX": {
+                    "samtools": 1.24
+                },
+                "SAMTOOLS_STATS": {
+                    "samtools": 1.24
+                },
+                "SAMTOOLS_VIEW": {
+                    "samtools": 1.24
+                },
+                "Workflow": {
+                    "nf-core/taxprofiler": "v2.0.2dev"
+                }
+            },
             [
                 "analysis_ready_fastqs/2612_ERR5766176.unmapped_1.fastq.gz",
                 "analysis_ready_fastqs/2612_ERR5766176.unmapped_2.fastq.gz",
@@ -12,7 +46,7 @@
                 "analysis_ready_fastqs/ERR3201952_ERR3201952.unmapped_other.fastq.gz"
             ]
         ],
-        "timestamp": "2026-10-23T19:09:20.216667",
+        "timestamp": "2026-10-24T04:52:53.183572",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.2"
@@ -20,6 +54,20 @@
     },
     "-profile test_minimal --save_analysis_ready_fastqs - deacon host removal": {
         "content": [
+            {
+                "DEACON_FILTER": {
+                    "deacon": "0.15.0"
+                },
+                "DEACON_INDEX": {
+                    "deacon": "0.15.0"
+                },
+                "FASTQC": {
+                    "fastqc": "0.12.1"
+                },
+                "Workflow": {
+                    "nf-core/taxprofiler": "v2.0.2dev"
+                }
+            },
             [
                 "analysis_ready_fastqs/2612_ERR5766176_1.fq.gz",
                 "analysis_ready_fastqs/2612_ERR5766176_2.fq.gz",
@@ -46,7 +94,7 @@
                 "deacon/filter/ERR3201952_ERR3201952.json"
             ]
         ],
-        "timestamp": "2026-10-23T19:14:40.816715",
+        "timestamp": "2026-10-24T04:58:01.139488",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.2"
