@@ -2,6 +2,16 @@
     "all_files": {
         "content": [
             [
+                "analysis_ready_fastqs",
+                "analysis_ready_fastqs/2612_1.merged.fastq.gz",
+                "analysis_ready_fastqs/2612_2.merged.fastq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176.unmapped_1.fastq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176.unmapped_2.fastq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176_B.unmapped_1.fastq.gz",
+                "analysis_ready_fastqs/2612_ERR5766176_B.unmapped_2.fastq.gz",
+                "analysis_ready_fastqs/2613_ERR5766181.unmapped_1.fastq.gz",
+                "analysis_ready_fastqs/2613_ERR5766181.unmapped_2.fastq.gz",
+                "analysis_ready_fastqs/ERR3201952_ERR3201952.unmapped_other.fastq.gz",
                 "bbduk",
                 "bbduk/2612_ERR5766176.bbduk.log",
                 "bbduk/2612_ERR5766176_1.fastq.gz",
