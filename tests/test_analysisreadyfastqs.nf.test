@@ -1,0 +1,98 @@
+nextflow_pipeline {
+
+    name "Test analysis-ready FASTQs after host removal"
+    script "../main.nf"
+    tag "pipeline"
+    tag "test_analysisreadyfastqs"
+    profile "test_minimal"
+
+    test("-profile test_minimal --save_analysis_ready_fastqs - bowtie2 and minimap2 host removal") {
+
+        when {
+            params {
+                outdir                        = "$outputDir"
+                perform_shortread_hostremoval = true
+                shortread_hostremoval_tool    = 'bowtie2'
+                perform_longread_hostremoval  = true
+                longread_hostremoval_tool     = 'minimap2'
+                save_analysis_ready_fastqs    = true
+            }
+        }
+
+        then {
+            def analysis_ready = getAllFilesFromDir(params.outdir, relative: true, includeDir: false, include: ['analysis_ready_fastqs/**'])
+
+            assertAll(
+                { assert workflow.success },
+                { assert analysis_ready.any { it.contains('ERR5766176') } },
+                { assert analysis_ready.any { it.contains('ERR3201952') } },
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
+                    analysis_ready,
+                ).match() },
+            )
+        }
+    }
+
+    test("-profile test_minimal --save_analysis_ready_fastqs - deacon host removal") {
+
+        when {
+            params {
+                outdir                        = "$outputDir"
+                perform_shortread_hostremoval = true
+                shortread_hostremoval_tool    = 'deacon'
+                perform_longread_hostremoval  = true
+                longread_hostremoval_tool     = 'deacon'
+                save_analysis_ready_fastqs    = true
+            }
+        }
+
+        then {
+            def analysis_ready = getAllFilesFromDir(params.outdir, relative: true, includeDir: false, include: ['analysis_ready_fastqs/**'])
+            def deacon_filter  = getAllFilesFromDir(params.outdir, relative: true, includeDir: false, include: ['deacon/filter/**'])
+
+            assertAll(
+                { assert workflow.success },
+                { assert analysis_ready.any { it.contains('ERR5766176') } },
+                { assert analysis_ready.any { it.contains('ERR3201952') } },
+                // runs of the same sample must not overwrite each other
+                { assert deacon_filter.any { it.endsWith('2612_ERR5766176_1.fq.gz') } },
+                { assert deacon_filter.any { it.endsWith('2612_ERR5766176_B_1.fq.gz') } },
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
+                    analysis_ready,
+                    deacon_filter,
+                ).match() },
+            )
+        }
+    }
+
+    test("-profile test_minimal --save_analysis_ready_fastqs - hostile host removal") {
+
+        when {
+            params {
+                outdir                            = "$outputDir"
+                perform_shortread_hostremoval     = true
+                shortread_hostremoval_tool        = 'hostile'
+                perform_longread_hostremoval      = true
+                longread_hostremoval_tool         = 'hostile'
+                hostremoval_hostile_referencename = 'test-human-mit'
+                save_analysis_ready_fastqs        = true
+            }
+        }
+
+        then {
+            def analysis_ready = getAllFilesFromDir(params.outdir, relative: true, includeDir: false, include: ['analysis_ready_fastqs/**'])
+
+            assertAll(
+                { assert workflow.success },
+                { assert new File("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml").exists() },
+                { assert analysis_ready.any { it.contains('ERR5766176') } },
+                { assert analysis_ready.any { it.contains('ERR5766180') } },
+                { assert analysis_ready.any { it.contains('ERR3201952') } },
+            )
+        }
+    }
+}
