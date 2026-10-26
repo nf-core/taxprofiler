@@ -72,7 +72,7 @@ The table below contains all criteria that we find relevant to compare.
 
 :::note{title=Legend}
 
-\* Source research domain corresponds to the type of research the classifier was applied or referred to within the original publication of the classifier. For example, the benchmarking datasets used to evaluate the classifier, or stated in the potential applications of the tool.
+\* Source research domain corresponds to the type of research the classifier was applied or referred to within the original publication of the classifier. For example, the benchmarking datasets used to evaluate the classifier, or stated in the potential applications of the tool. It does not preclude the application of the tool in other contexts.
 
 \*\* Reads to database comparison methods are defined as follows:
 
