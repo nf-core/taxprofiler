@@ -21,7 +21,7 @@ Below we provide a brief summary of some of the characteristics of the classifie
 With this information we hope to help you make an informed decision on which classifier(s) to use for your particular use case analysis.
 
 :::warning
-The guidance here is not definitive, and many of the classifiers can be used outside of the applications listed below.
+The guidance here is not definitive, and many of the classifiers can be, and are already, used outside of the applications listed below.
 :::
 
 ### Decision tree
