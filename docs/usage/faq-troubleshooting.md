@@ -11,7 +11,7 @@ Choosing a classifier is not easy!
 There are many pros and cons to each, and the best choice will depend on your research question, the information you need, and the trade-offs needed regarding resources (amongst others).
 `nf-core/taxprofiler` is designed to offer multiple classifiers; facilitating easier execution of the one(s) that best suit your needs.
 
-In most cases, you should read the publication of each classifier to understand their trade-offs, in addition to reviewing to what other researchers are using in your specific domain.
+In most cases, you should read the publication of each classifier to understand their trade-offs, in addition to reviewing what other researchers are using in your specific domain.
 For example, for more detailed and regularly-updated quantitative comparisons, we highly recommend seeing the latest results of automated benchmarking platforms such as:
 
 - [CAMI challenge](https://www.cami-challenge.org/)
@@ -66,13 +66,13 @@ The table below contains all criteria that we find relevant to compare.
 | MALT       | Host-associated microbiome, pathogen, ancient DNA | Yes                              | Yes             | Short              | DNA-to-DNA             | Spaced seed-and-extend sequence alignment          | Sequence abundance                                                               |
 | melon      | Host-associated microbiome, wastewater monitoring | No                               | No              | Long               | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              |
 | MetaPhlAn  | Host-associated microbiome                        | Yes                              | No              | Short              | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              |
-| MetaCache  | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | Min-hashing k-mer match                            | Sequence abundance                                                               |
+| MetaCache  | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | Minhashing k-mer match                            | Sequence abundance                                                               |
 | mOTUs      | Host-associated microbiome, environmental DNA     | Yes                              | No              | Short/Long         | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              |
 | sylph      | Host-associated microbiome                        | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | K-mer sketching                                    | Taxonomic abundance                                                              |
 
 :::note{title=Legend}
 
-\* Source research domain corresponds to the type of research the classifier was applied or referred to within the original publication of the classifier. For example, the benchmarking datasets used to evaluate the classifier, or stated in the potential applications if the tool.
+\* Source research domain corresponds to the type of research the classifier was applied or referred to within the original publication of the classifier. For example, the benchmarking datasets used to evaluate the classifier, or stated in the potential applications of the tool.
 
 \*\* Reads to database comparison methods are defined as follows:
 
@@ -83,7 +83,7 @@ The table below contains all criteria that we find relevant to compare.
 \*\*\* The result taxon table contents are defined as follows:
 
 - **Sequence abundance**: the number of reads assigned to each taxon
-- **Protein sequence abundance**: the number of reads assigned to each taxon, based on protein coding
+- **Protein sequence abundance**: the number of reads assigned to each taxon, based on protein coding sequences
 - **Taxonomic abundance**: an estimate of true 'biological' (cellular) abundances of each taxon
 
 \*\*\*\* Bracken is technically not a standalone classifier, but rather a postprocessing tool for Kraken2 output. It does not classify reads itself, but rather re-estimates the abundance of species from Kraken2 results.
@@ -107,7 +107,7 @@ We order by original publication year as often new-classifier 'improvements' are
 | 2020                   | 2025                    | ganon2     | Fast, updatable, and small index size, fast classification through optimised index file                                                                |
 | 2023                   |                         | KMCP       | Faster and less-memory hungry due to an optimised index file and pseudo-mapping based approach, which offers genome coverage calculation               |
 | 2024                   |                         | melon      | Application of previously short-read-only gene marker-based classification approaches but for long-reads, with genome copy level abundance estimations |
-| 2024                   |                         | sylph      | Improved accuracy and smaller resource footprint through min-hash sketching of k-mers and ANI calculations                                             |
+| 2024                   |                         | sylph      | Improved accuracy and smaller resource footprint through min-hash sketching of k-mers and average nucleotide identity (ANI) calculations                                             |
 
 :::note{title=Legend}
 
