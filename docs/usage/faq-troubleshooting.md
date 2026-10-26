@@ -120,11 +120,15 @@ We order by original publication year as often new-classifier 'improvements' are
 The follow list of publicly accessible or open-access readings may be useful for further understanding of the classifiers and their differences:
 
 - [**Differences between the Kraken family of classifiers**](https://ccb.jhu.edu/software/choosing-a-metagenomics-classifier/): from the Kraken\* authors themselves.
-- Ye, S. H., et al. (2019). Benchmarking Metagenomics Tools for Taxonomic Classification. Cell, 178(4), 779–794. [https://doi.org/10.1016/j.cell.2019.07.010](https://doi.org/10.1016/j.cell.2019.07.010)
+- de Vries, J. J. C., et al. (2021). Recommendations for the introduction of metagenomic next-generation sequencing in clinical virology, part II: bioinformatic analysis and reporting. Journal of Clinical Virology: The Official Publication of the Pan American Society for Clinical Virology, 138(104812), 104812. https://doi.org/10.1016/j.jcv.2021.104812
+- de Vries, J. J. C., et al. (2021). Benchmark of thirteen bioinformatic pipelines for metagenomic virus diagnostics using datasets from clinical samples. Journal of Clinical Virology: The Official Publication of the Pan American Society for Clinical Virology, 141(104908), 104908. https://doi.org/10.1016/j.jcv.2021.104908
+- Maas, M. A. M., et al. (2026). Use of metagenomics for the detection of pathogens in the environment: A scoping review. Environmental Research, 305(Pt 2), 125050. https://doi.org/10.1016/j.envres.2026.125050
 - Meyer, F., et al. (2022). Critical Assessment of Metagenome Interpretation: the second round of challenges. Nature Methods, 19(4), 429–440. [https://doi.org/10.1038/s41592-022-01431-4](https://doi.org/10.1038/s41592-022-01431-4)
-  -Sczyrba, A., et al.(2017). Critical Assessment of Metagenome Interpretation-a benchmark of metagenomics software. Nature Methods, 14(11), 1063–1071. [https://doi.org/10.1038/nmeth.4458](https://doi.org/10.1038/nmeth.4458)
+- Sczyrba, A., et al.(2017). Critical Assessment of Metagenome Interpretation-a benchmark of metagenomics software. Nature Methods, 14(11), 1063–1071. [https://doi.org/10.1038/nmeth.4458](https://doi.org/10.1038/nmeth.4458)
 - Seppey, M., et al. (2026). LEMMIv2: benchmarking framework for metagenomic and 16S amplicon profilers with a catalogue of evaluated tools. Genome Biology, 1–25. [https://doi.org/10.1186/s13059-026-04089-9](https://doi.org/10.1186/s13059-026-04089-9)
 - Seppey, M., et al. (2020). LEMMI: a continuous benchmarking platform for metagenomics classifiers. Genome Research, 30(8), 1208–1216. [https://doi.org/10.1101/gr.260398.119](https://doi.org/10.1101/gr.260398.119)
+- Ye, S. H., et al. (2019). Benchmarking Metagenomics Tools for Taxonomic Classification. Cell, 178(4), 779–794. [https://doi.org/10.1016/j.cell.2019.07.010](https://doi.org/10.1016/j.cell.2019.07.010)
+
 
 ## I get a warning during CENTRIFUGE_KREPORT or KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE process with exit status 255
 
