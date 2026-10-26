@@ -66,7 +66,7 @@ The table below contains all criteria that we find relevant to compare.
 | MALT       | Host-associated microbiome, pathogen, ancient DNA | Yes                              | Yes             | Short              | DNA-to-DNA             | Spaced seed-and-extend sequence alignment          | Sequence abundance                                                               |
 | melon      | Host-associated microbiome, wastewater monitoring | No                               | No              | Long               | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              |
 | MetaPhlAn  | Host-associated microbiome                        | Yes                              | No              | Short              | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              |
-| MetaCache  | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | Minhashing k-mer match                            | Sequence abundance                                                               |
+| MetaCache  | Host-associated microbiome, environmental DNA     | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | Minhashing k-mer match                             | Sequence abundance                                                               |
 | mOTUs      | Host-associated microbiome, environmental DNA     | Yes                              | No              | Short/Long         | DNA-to-marker          | Sequence read-mapper alignment                     | Taxonomic abundance                                                              |
 | sylph      | Host-associated microbiome                        | Yes                              | Yes             | Short/Long         | DNA-to-DNA             | K-mer sketching                                    | Taxonomic abundance                                                              |
 
@@ -107,7 +107,7 @@ We order by original publication year as often new-classifier 'improvements' are
 | 2020                   | 2025                    | ganon2     | Fast, updatable, and small index size, fast classification through optimised index file                                                                |
 | 2023                   |                         | KMCP       | Faster and less-memory hungry due to an optimised index file and pseudo-mapping based approach, which offers genome coverage calculation               |
 | 2024                   |                         | melon      | Application of previously short-read-only gene marker-based classification approaches but for long-reads, with genome copy level abundance estimations |
-| 2024                   |                         | sylph      | Improved accuracy and smaller resource footprint through min-hash sketching of k-mers and average nucleotide identity (ANI) calculations                                             |
+| 2024                   |                         | sylph      | Improved accuracy and smaller resource footprint through min-hash sketching of k-mers and average nucleotide identity (ANI) calculations               |
 
 :::note{title=Legend}
 
@@ -128,7 +128,6 @@ The follow list of publicly accessible or open-access readings may be useful for
 - Seppey, M., et al. (2026). LEMMIv2: benchmarking framework for metagenomic and 16S amplicon profilers with a catalogue of evaluated tools. Genome Biology, 1–25. [https://doi.org/10.1186/s13059-026-04089-9](https://doi.org/10.1186/s13059-026-04089-9)
 - Seppey, M., et al. (2020). LEMMI: a continuous benchmarking platform for metagenomics classifiers. Genome Research, 30(8), 1208–1216. [https://doi.org/10.1101/gr.260398.119](https://doi.org/10.1101/gr.260398.119)
 - Ye, S. H., et al. (2019). Benchmarking Metagenomics Tools for Taxonomic Classification. Cell, 178(4), 779–794. [https://doi.org/10.1016/j.cell.2019.07.010](https://doi.org/10.1016/j.cell.2019.07.010)
-
 
 ## I get a warning during CENTRIFUGE_KREPORT or KRAKENTOOLS_COMBINEKREPORTS_CENTRIFUGE process with exit status 255
 
