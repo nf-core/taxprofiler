@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: shortread_hostremoval
+description: Removal of potential contaminating reads from short-read sequencing libraries
+keywords:
+  - host removal
+  - preprocessing
+  - short reads
+components:
+  - bowtie2/build
+  - bowtie2/align
+  - samtools/index
+  - samtools/stats
+input:
+  - ch_reads:
+      type: file
+      description: |
+        Input short-read sequencing reads for host removal
+        Structure: [ val(meta), path(file) ]
+  - ch_reference:
+      type: file
+      description: |
+        Reference genome of host sequences to be removed
+        Structure: [ path(fasta) ]
+  - ch_index:
+      type: file
+      description: |
+        Pre-built bowtie2 index of host reference genome for host decontamination.
+        Structure: [ path(index_files) ]
+output:
+  - stats:
+      type: file
+      description: |
+        Host removal statistics from decontamination tool
+        Structure: [ val(meta), path(stats_files) ]
+      pattern: "*"
+  - reads:
+      type: file
+      description: |
+        Short-read reads with host-like reads removed
+        Structure: [ val(meta), path(reads) ]
+      pattern: "*.fastq.gz"
+  - mqc:
+      type: file
+      description: |
+        Log files for MultiQC
+        Structure: [ path(files) ]
+      pattern: "*"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: path(versions.yml)
+      pattern: "versions.yml"
+authors:
+  - "@jfy133"
+  - "@sofstam"
+maintainers:
+  - "@jfy133"
+  - "@sofstam"
