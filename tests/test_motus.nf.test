@@ -1,0 +1,57 @@
+nextflow_pipeline {
+
+    name "Test motus"
+    script "../main.nf"
+    tag "pipeline"
+    tag "test_motus"
+    profile "test_motus"
+
+    test("-profile test_motus") {
+
+        setup {
+            curlAndExtract("https://nf-core-awsmegatests.s3.eu-west-1.amazonaws.com/taxprofiler/input/db_mOTU.tar.gz", "${launchDir}/db_mOTU/")
+            def generate_custom_samplesheet = ['bash', '-c', "printf 'tool,db_name,db_params,db_path\nmotus,db1,,${launchDir}/db_mOTU/db_mOTU\n' > ${launchDir}/database.csv"]
+            def generate_custom_samplesheet_execute = generate_custom_samplesheet.execute()
+            generate_custom_samplesheet_execute.waitFor()
+        }
+
+        when {
+            params {
+                outdir = "$outputDir"
+                databases = "${launchDir}/database.csv"
+            }
+        }
+
+        then {
+            def stable_name_all     = getAllFilesFromDir(params.outdir, relative: true , includeDir: true, ignore: ['pipeline_info/*.{html,json,txt}'])
+            def stable_content_motus = getAllFilesFromDir(params.outdir, relative: false, includeDir: false, include: ["motus/**"], ignoreFile: 'tests/.nftignore')
+            // taxpasta: partly unstable files, see custom assertions
+
+
+            assertAll(
+                { assert workflow.success},
+                { assert snapshot(
+                    // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
+                    removeNextflowVersion("$outputDir/pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml"),
+                ).match() },
+
+                { assert snapshot ( stable_name_all ).match("all_files") },
+
+                // motus
+                { assert snapshot (
+                        stable_content_motus,
+                        getAllFilesFromDir("$outputDir/motus", include: ['**.log']).collect { file -> "${file.getName()} contains string 'Finished computation': " + file.text.contains("Finished computation")},
+                        getAllFilesFromDir("$outputDir/motus", include: ['**.out']).collect { file -> "${file.getName()} contains string 'Leptospira alexanderi: " + file.text.contains("Leptospira alexanderi")},
+                        file("$outputDir/motus/motus_db1_combined_reports.txt").getName() + " contains string 'unassigned': " + file("$outputDir/motus/motus_db1_combined_reports.txt").text.contains("unassigned"),
+                        file("$outputDir/taxpasta/motus_db1.tsv").getName() + " contains string '165179': " + file("$outputDir/taxpasta/motus_db1.tsv").text.contains("165179"),
+                    ).match("motus")
+                },
+            )
+
+        }
+
+        cleanup {
+            new File("${launchDir}/db_mOTU").deleteDir()
+        }
+    }
+}

@@ -1,0 +1,65 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: standardisation_profiles
+description: Standardise and merge profiles from different taxonomic profilers to common formats for downstream analysis and comparison
+keywords:
+  - standardisation
+  - profiles
+  - taxonomic profiling
+components:
+  - taxpasta/merge
+  - taxpasta/standardise
+  - bracken/combinebrackenoutputs
+  - kaiju/kaiju2table
+  - krakentools/combinekreports
+  - krakentools/combinekreports
+  - metaphlan/mergemetaphlantables
+  - motus/merge
+  - ganon/table
+  - sylphtax/merge
+input:
+  - ch_classifications:
+      type: file
+      description: |
+        Per-read ID taxonomic assignment tables
+        Structure: [ val(meta), path(file) ]
+  - ch_profiles:
+      type: file
+      description: |
+        Count tables of reads assigned to taxa reference genomes
+        Structure: [ val(meta), path(file) ]
+  - ch_databases:
+      type: file
+      description: |
+        Taxonomic databases for classifiers
+        Structure: [ val(meta), path(file) ]
+  - val_motu_version:
+      type: string
+      description: |
+        String containing mOTUs version
+        Structure: [ val(string) ]
+output:
+  - taxpasta:
+      type: file
+      description: |
+        Standardised and combined taxonomic profiles in different formats
+        Structure: [ val(meta), path(file) ]
+      pattern: "*"
+  - mqc:
+      type: file
+      description: |
+        Log files for MultiQC
+        Structure: [ path(files) ]
+      pattern: "*"
+  - versions:
+      type: x
+      description: |
+        File containing software versions
+        Structure: path(versions.yml)
+      pattern: "versions.yml"
+authors:
+  - "@sofstam"
+  - "@jfy133"
+  - "@Midnighter"
+  - "@LilyAnderssonLi"
+maintainers:
+  - "@sofstam"

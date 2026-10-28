@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: visualization_krona
+description: Generation of Krona charts for taxonomic classifications and profiles
+keywords:
+  - krona
+  - visualization
+  - post-processing
+components:
+  - megan/rma2info
+  - kaiju/kaiju2krona
+  - krakentools/kreport2krona
+  - kronacleanup
+  - krona/ktimporttext
+  - krona/ktimporttaxonomy
+  - gunzip
+input:
+  - ch_classifications:
+      type: file
+      description: |
+        Per-read ID taxonomic assignment tables
+        Structure: [ val(meta), path(file) ]
+  - ch_profiles:
+      type: file
+      description: |
+        Count tables of reads assigned to taxa reference genomes
+        Structure: [ val(meta), path(file) ]
+  - ch_databases:
+      type: file
+      description: |
+        Taxonomic databases for classifiers
+        Structure: [ val(meta), path(file) ]
+output:
+  - html:
+      type: file
+      description: |
+        Krona HTML visualization files
+        Structure: [ val(meta), path(file) ]
+      pattern: "*.html"
+  - mqc:
+      type: file
+      description: |
+        Log files for MultiQC
+        Structure: [ path(files) ]
+      pattern: "*"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: path(versions.yml)
+      pattern: "versions.yml"
+authors:
+  - "@MillironX"
+maintainers:
+  - "@MillironX"
