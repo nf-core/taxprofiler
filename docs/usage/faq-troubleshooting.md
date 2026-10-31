@@ -3,6 +3,7 @@
 ## Which sequencing read QC tool should I use?
 
 nf-core/taxprofiler offers two options for quality control reporting of sequencing reads, [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) and [Falco](https://github.com/smithlabcode/falco).
+These tools provided various overview statistics on the sequencing quality of the reads inside your FASTQ files, allowing you to identify potential sequencing artefacts.
 
 Falco is a recent, more performant C++, implementation of the Java-based FastQC, while producing the same output files.
 Falco is starting to add additional features, but is not as widely used as FastQC.
@@ -12,25 +13,35 @@ Falco is included as a faster alternative for users who wish to try it out or ne
 
 ## Which short read-adapter clipping/read merging tool should I use?
 
-nf-core/taxprofiler offers two options for short-read adapter clipping and read merging, [fastp](https://github.com/OpenGene/fastp) and [AdapterRemoval](https://github.com/MikkelSchubert/AdapterRemoval) (v2).
+nf-core/taxprofiler offers two options for short-read adapter clipping and paired-end read merging, [fastp](https://github.com/OpenGene/fastp) and [AdapterRemoval](https://github.com/MikkelSchubert/AdapterRemoval) (v2).
+These tools provide various types of sequencing read cleanup, including removal of sequencing library adapters, low quality bases, and so on.
 
 The two tools are both well-built tools, and offered based on popularity by different communities.
 For example, AdapterRemoval (v2) is often used in ancient DNA studies due to additional functionality for additional barcode data, while fastp is commonly used in modern metagenomics studies with additional general sequencing data cleanup functionality.
 
 Each have their own advantages and disadvantages, and the choice of which to use is up to the user.
-You should evaluate both tools, through literature review (such as benchmarking studies), and/or by testing on your own data.
+You should evaluate both tools, through reading their respective documentation, literature review (such as benchmarking studies), and/or by testing on your own data.
 
 ## Which long-read trimming tool should I use?
 
-nf-core/taxprofiler offers two options for Oxford Nanopore Technologies (ONT) data long-read adapter clipping and read trimming, [Porechop](https://github.com/rrwick/Porechop) and [Porechop_ABI](https://github.com/bonsai-team/Porechop_ABI).
+nf-core/taxprofiler offers two options for Oxford Nanopore Technologies (ONT) data long-read adapter clipping and read trimming, [Porechop](https://github.com/rrwick/Porechop), and [Porechop_ABI](https://github.com/bonsai-team/Porechop_ABI).
+These tools provide various types of sequencing read cleanup, including removal of sequencing library adapters, low quality bases etc.
 
 The two tools are very similar, with the main difference being that Porechop_ABI is a more recent fork of the original Porechop, with the same functionality but without the need to pre-define adapter sequences.
 
 Selection of the tool should be based on reading the documentation and comparing the features to the structure of your own data.
 
-## Which long-read length filtering tool should I use?
+:::tip
+Do you have sequencing data from other long-read platforms?
 
-nf-core/taxprofiler offers two options for long-read length filtering, [nanoq](https://github.com/esteinig/nanoq) and [Filtlong](https://github.com/rrwick/Filtlong).
+You can still use nf-core/taxprofiler!
+Make sure to supply the data already processed, or [request](https://github.com/nf-core/taxprofiler/issues) adding support for preprocessing steps for your platform on GitHub!
+:::
+
+## Which ONT long-read length filtering tool should I use?
+
+nf-core/taxprofiler offers two options for Oxford Nanopore Technologies (ONT) long-read length filtering, [nanoq](https://github.com/esteinig/nanoq) and [Filtlong](https://github.com/rrwick/Filtlong).
+These tools provide additional quality control by removing potentially lower-quality shorter reads.
 
 The two tools are designed to perform the same task of filtering ONT data long reads.
 
@@ -38,11 +49,19 @@ nanoq was developed as a more actively developed and a more performant alternati
 However, Filtlong has started to be slightly more active again.
 
 Each have their own advantages and disadvantages, and the choice of which to use is up to the user.
-You should evaluate both tools, through literature review (such as benchmarking studies), and/or by testing on your own data.
+You should evaluate both tools, through reading their respective documentation, literature review (such as benchmarking studies), and/or by testing on your own data.
+
+:::tip
+Do you have sequencing data from other long-read platforms?
+
+You can still use nf-core/taxprofiler!
+Make sure to supply the data already processed, or [request](https://github.com/nf-core/taxprofiler/issues) adding support for preprocessing steps for your platform on GitHub!
+:::
 
 ## Which short-read complexity filtering tool should I use?
 
 nf-core/taxprofiler offers three options for short-read complexity filtering, [PRINSEQ++](https://github.com/Adrian-Cantu/PRINSEQ-plus-plus), [BBDuk](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide/), and [fastp](https://github.com/OpenGene/fastp).
+Short-read complexity filtering allows you to remove non-specific low-complexity reads (such as mononucleotide repeats) that may be uninformative and slow down classification.
 
 PRINSEQ++ is a recent and more efficient C++ version of the original PRINSEQ tool that was written in Perl.
 BBDuk is a well-established and widely used Java based toolkit with a large number of features and a strong user base.
@@ -55,7 +74,7 @@ The three tools all perform well, and are offered as each provide different algo
 - **fastp**: also includes a complexity filtering step integrated into its own adapter-trimming steps
 
 Each have their own advantages and disadvantages, with different tuning parameters and the choice of which to use is up to the user.
-You should evaluate all three tools, through literature review (such as benchmarking studies), and/or by testing on your own data.
+You should evaluate all three tools, through reading their respective documentation, literature review (such as benchmarking studies), and/or by testing on your own data.
 
 ## Which short-read host-removal tool should I use?
 
@@ -65,13 +84,16 @@ nf-core/taxprofiler offers three different tools for host-removal of short-reads
 - [Hostile](https://github.com/bede/hostile)
 - [Deacon](https://github.com/bede/deacon)
 
+Host-read removal can help speed up classification and reduce false-positive results.
+This is through removing reads that may be classified against contaminated genomes in a classification database, and/or in the case of microbial only studies, reducing the number of reads needing to be classified through the removal of uninformative reads.
+
 Hostile and Bowtie2 provide alignment-based host-removal, while Deacon provides a k-mer based approach.
 If you wish to use an alignment approach for the removal of host DNA, and are working with Human-associated or common-model organism samples, we recommend using Hostile over Bowtie2.
 Hostile used Bowtie2 internally but as it provides optimised alignment presets as well as superior reference genomes (such as the T2T CHM13v2.0 human genome).
 
 Deacon is a newer k-mer based approach that is reportedly much faster and efficient than alignment-based methods, with the efficiency improvements allowing the use of more inclusive pan-genomes for host-removal.
 
-We recommend evaluating between Hostile and Deacon through literature review (such as benchmarking studies), and/or by testing on your own data.
+We recommend evaluating between Hostile and Deacon through reading their respective documentation, literature review (such as benchmarking studies), and/or by testing on your own data.
 
 ## Which classifier(s) should I use?
 
@@ -84,7 +106,8 @@ Choosing a classifier is not easy!
 There are many pros and cons to each, and the best choice will depend on your research question, the information you need, and the trade-offs needed regarding resources (amongst others).
 `nf-core/taxprofiler` is designed to offer multiple classifiers; facilitating easier execution of the one(s) that best suit your needs.
 
-In most cases, you should read the publication of each classifier to understand their trade-offs, in addition to reviewing what other researchers are using in your specific domain.
+In most cases, you should read the publication of each classifier to understand their trade-offs, reading benchmarking studies, and reviewing what other researchers are using in your specific domain.
+
 For example, for more detailed and regularly-updated quantitative comparisons, we highly recommend seeing the latest results of automated benchmarking platforms such as:
 
 - [CAMI challenge](https://www.cami-challenge.org/)
