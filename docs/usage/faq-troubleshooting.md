@@ -4,8 +4,8 @@
 
 nf-core/taxprofiler offers two options for quality control reporting of sequencing reads, [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) and [Falco](https://github.com/smithlabcode/falco).
 
-Falco is designed to be a more performant C++ implementation of the Java-based FastQC, while producing the same output files.
-Falco is starting to add additional features, but is not as widely used as FastQC as a newer tool.
+Falco is a recent, more performant C++, implementation of the Java-based FastQC, while producing the same output files.
+Falco is starting to add additional features, but is not as widely used as FastQC.
 
 We offer FastQC as the gold-standard and most used option within the genomics community.
 Falco is included as a faster alternative for users who wish to try it out or need to save time and resources.
@@ -15,7 +15,7 @@ Falco is included as a faster alternative for users who wish to try it out or ne
 nf-core/taxprofiler offers two options for short-read adapter clipping and read merging, [fastp](https://github.com/OpenGene/fastp) and [AdapterRemoval](https://github.com/MikkelSchubert/AdapterRemoval) (v2).
 
 The two tools are both well-built tools, and offered based on popularity by different communities.
-For example, AdapterRemoval (v2) is often used in ancient DNA studies due to additional functionality for additional barcode data, while the faster fastp is commonly used in modern metagenomics studies with additional general sequencing data cleanup functionality.
+For example, AdapterRemoval (v2) is often used in ancient DNA studies due to additional functionality for additional barcode data, while fastp is commonly used in modern metagenomics studies with additional general sequencing data cleanup functionality.
 
 Each have their own advantages and disadvantages, and the choice of which to use is up to the user.
 You should evaluate both tools, through literature review (such as benchmarking studies), and/or by testing on your own data.
@@ -34,7 +34,7 @@ nf-core/taxprofiler offers two options for long-read length filtering, [nanoq](h
 
 The two tools are designed to perform the same task of filtering ONT data long reads.
 
-nanoq was developed as a more actively developed and performant alternative to Filtlong but written in Rust, with performance reported to be much faster and more efficient than the older Filtlong tool.
+nanoq was developed as a more actively developed and a more performant alternative to Filtlong. It is written in Rust, with performance reported to be much faster and more efficient than the older Filtlong tool.
 However, Filtlong has started to be slightly more active again.
 
 Each have their own advantages and disadvantages, and the choice of which to use is up to the user.
@@ -52,7 +52,7 @@ The three tools all perform well, and are offered as each provide different algo
 
 - **PRINSEQ++**: filter based on an estimate of sequence randomness (entropy) using a [DUST score](https://pubmed.ncbi.nlm.nih.gov/16796549/).
 - **BBDuk**: filter based on k-mer frequency
-- **fastp**: also includes a complexity filtering step integrated into it's own adapter-trimming steps
+- **fastp**: also includes a complexity filtering step integrated into its own adapter-trimming steps
 
 Each have their own advantages and disadvantages, with different tuning parameters and the choice of which to use is up to the user.
 You should evaluate all three tools, through literature review (such as benchmarking studies), and/or by testing on your own data.
