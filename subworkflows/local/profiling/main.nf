@@ -581,7 +581,7 @@ workflow PROFILING {
                 def db_meta_new = [:]
                 // if user provides params but ar not size 3 params, it fails
                 if (db_meta['db_params'] && parsed_params.size() != 3 ) {
-                        error "Sourmash db_params for '${db_meta.db_name}' must have exactly two semicolons: '<sketch_args>;<gather_args>;<tax_args>'. Got '${db_meta.db_params}'. Use empty positions for steps without args (e.g. ';--threshold-bp 0;' for gather only, or ';;--force' for tax only)."
+                        error "[nf-core/taxprofiler] ERROR: If customising sourmash parameters, db_params for '${db_meta.db_name}' must have exactly two semicolons: '<sketch_args>;<gather_args>;<tax_args>'. Got '${db_meta.db_params}'. Use empty positions for steps without args (e.g. ';--threshold-bp 0;' for gather only, or ';;--force' for tax only)."
                 }
                 if (parsed_params.size() == 3) {
                     db_meta_new = db_meta + [
@@ -590,7 +590,7 @@ workflow PROFILING {
                         db_params_tax: parsed_params[2]
                     ]
                 } else {
-                    // EMpty db_params case - use the defaults
+                    // Empty db_params case - use the defaults
                     db_meta_new = db_meta + [
                         db_params: '',
                         db_params_gather:'',
