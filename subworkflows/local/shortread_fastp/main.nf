@@ -14,9 +14,9 @@ workflow SHORTREAD_FASTP {
     ch_versions = channel.empty()
     ch_multiqc_files = channel.empty()
 
-    ch_input_for_fastp = ch_reads.branch { it ->
-        single: it[0]['single_end'] == true
-        paired: it[0]['single_end'] == false
+    ch_input_for_fastp = ch_reads.branch { meta, _reads ->
+single: meta['single_end'] == true
+paired: meta['single_end'] == false
     }
 
     FASTP_SINGLE(ch_input_for_fastp.single, ch_adapterlist, false, false, false)
