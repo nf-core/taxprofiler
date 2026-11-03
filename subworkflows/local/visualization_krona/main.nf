@@ -53,9 +53,9 @@ unknown: true
     ch_input_for_kaiju2krona = ch_input_classifications.kaiju
         .map { meta, kaiju_profiles -> [[meta['tool'], meta['db_name']], meta, kaiju_profiles] }
         .combine(ch_databases.map { meta, db -> [[meta['tool'], meta['db_name']], db] }, by: 0)
-        .multiMap { it ->
-            profiles: [it[1], it[2]]
-            db: it[3]
+        .multiMap { _key, meta, kaiju_profiles, db ->
+            profiles: [meta, kaiju_profiles]
+            db: db
         }
 
     /*

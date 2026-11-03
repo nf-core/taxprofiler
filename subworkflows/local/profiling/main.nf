@@ -377,7 +377,7 @@ workflow PROFILING {
     if (params.run_motus) {
 
         ch_input_for_motus = ch_input_for_profiling.motus
-            .filter { meta, _input_reads, _db_meta, db ->
+            .filter { meta, _input_reads, _db_meta, _db ->
                 if (meta.is_fasta) {
                     log.warn("[nf-core/taxprofiler] mOTUs currently does not accept FASTA files as input. Skipping mOTUs for sample ${meta.id}.")
                 }
