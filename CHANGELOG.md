@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#767](https://github.com/nf-core/taxprofiler/pull/767) Fixed Nextflow strict syntax warnings in `main.nf` and local subworkflows (by @haris18s). Additional fixes in modules were addressed by @sofstam in PR [#758](https://github.com/nf-core/taxprofiler/pull/758). Some warnings remain in upstream nf-core template subworkflows and modules, which will be addressed when those are updated.
+- [#782](https://github.com/nf-core/taxprofiler/pull/782) Fixed empty `analysis_ready_fastqs/` after host removal with minimap2, hostile or deacon, and deacon outputs of runs from the same sample overwriting each other (by @stev004)
 
 ### `Changed`
 
