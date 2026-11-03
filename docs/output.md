@@ -695,10 +695,10 @@ You will only receive the `.all`, `.lca`, and `.unc` files if you supply the `--
 
 - `sourmash/`
   - `<db_name>/`
-    - `<sample_id>.sourmash.sketch.sig`: Sketch signature file created from input reads.
+    - `<sample_id>.sourmash.sketch.sig`: Sourmash signsature file containing hashed k-mers (sketch) of the input reads. Signatures are compressed represenations of the sample's k-mer content, used downstream by `sourmash gather` to identify matching reference genomes.
     - `<sample_id>.sourmash.gather.csv.gz`: Gather results - reference genomes matched to query reads with fraction of reads matched.
     - `<sample_id>.sourmash.gather.with-lineages.csv.gz`: Gather results annotated with taxonomic lineages from the user-provided lineages CSV.
-    - `<sample_id>.sourmash.gather_unassigned.sig.zip`: Unassigned signatures (optional) - if `--sourmash_save_unassigned`).
+    - `<sample_id>.sourmash.gather_unassigned.sig.zip`: Unassigned signatures (optional - if `--sourmash_save_unassigned`). Portion of the query signature not matched to any reference, saved as a signature file.
     - `<sample_id>.sourmash.gather_matches.sig.zip`: Matched signatures from the database (optional - if `--sourmash_save_matches` is set).
   </details>
 

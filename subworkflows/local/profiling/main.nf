@@ -629,29 +629,32 @@ workflow PROFILING {
             params.sourmash_save_prefetch_csv //save_prefetch_csv
         )
 
+        //Prepeare lineages channel keyed by db_name for proper join
+        ch_lineages = ch_database_for_sourmash
+            .map { key, _db_meta, db -> [key, file("${db}/lineages.csv.gz")] }
+
         // filter out prefetch files so sourmash taxannotate run on the main gather.csv
+        // then join each gather result with its own db's lineages by db_name
         ch_gather_for_tax = SOURMASH_GATHER.out.result
             .flatMap { meta, files ->
                 def file_list = files instanceof List ? files : [files]
                 file_list.findAll { file -> !file.name.contains('_prefetch') }
-                .collect { file -> [meta, file] }
+                .collect { file -> [meta.db_name, meta, file] }
+            }
+            .combine(ch_lineages, by:0) // join by key
+            .multiMap{ _key, meta, gather, lineages ->
+                gather: [meta, gather]
+                lineages: lineages
             }
 
         SOURMASH_TAXANNOTATE(
-            ch_gather_for_tax,
-            ch_input_for_gather.lineages
+            ch_gather_for_tax.gather,
+            ch_gather_for_tax.lineages
         )
 
         ch_raw_profiles = ch_raw_profiles.mix(SOURMASH_TAXANNOTATE.out.result)
         // because gather  `result` module emit glob `*.csv.gz`, which capture also prefetch.csv.gz. So capture only gather's result and parse it to Multiqc
-        GUNZIP(SOURMASH_GATHER.out.result
-            .flatMap { meta, files ->
-                def file_list = files instanceof List ? files : [files]
-                file_list.findAll { file -> !file.name.contains('_prefetch') }
-                .collect { file -> [meta, file] }
-            }
-
-        )
+        GUNZIP(ch_gather_for_tax.gather)
         ch_multiqc_files = ch_multiqc_files.mix(GUNZIP.out.gunzip) // gather csv for multiqc
     }
 
