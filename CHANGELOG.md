@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#759](https://github.com/nf-core/taxprofiler/pull/759) Updated to the nf-core template 4.0.3 (by @sofstam)
 - [#768](https://github.com/nf-core/taxprofiler/pull/768) Updated to the nf-core template 4.1.0 (by @sofstam)
 - [#769](https://github.com/nf-core/taxprofiler/pull/769) Add `manifest.diagram` to the pipeline config (by @ewels)
+- [#783](https://github.com/nf-core/taxprofiler/pull/783) Updated to nf-core pipeline template v4.2.1 (added by @Skitionek)
 
 ### `Fixed`
 
