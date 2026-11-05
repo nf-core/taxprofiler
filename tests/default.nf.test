@@ -272,7 +272,7 @@ nextflow_pipeline {
                             //minimum of 2 species check (only 2612 contains both)
                             "2612_db1.sourmash.gather.with-lineages.csv.gz contains both species: " + (
                                 path("$outputDir/sourmash/db1/2612_db1.sourmash.gather.with-lineages.csv.gz").linesGzip.any { l ->l.contains('Penicillium roqueforti')} &&
-                                path("$outputDir/sourmash/db1/2612_db1.sourmash.gather.with-lineages.csv.gz").linesGzip.any { l ->l.contains('Homo sapiens')} ),                             
+                                path("$outputDir/sourmash/db1/2612_db1.sourmash.gather.with-lineages.csv.gz").linesGzip.any { l ->l.contains('Homo sapiens')} ),
                             // Check save .sig.zip files are present - check only, binary content
                             getAllFilesFromDir("$outputDir/sourmash", include: ['**/*_matches.sig.zip']).collect{file -> file.getName() },
                             getAllFilesFromDir("$outputDir/sourmash", include: ['**/*_prefetch.sig.zip']).collect{file -> file.getName() },
