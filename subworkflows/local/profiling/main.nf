@@ -581,7 +581,7 @@ workflow PROFILING {
                 def db_meta_new = [:]
                 // if user provides params but ar not size 3 params, it fails
                 if (db_meta['db_params'] && parsed_params.size() != 3 ) {
-                        error "Sourmash db_params for '${db_meta.db_name}' must have exactly two semicolons: '<sketch_args>;<gather_args>;<tax_args>'. Got '${db_meta.db_params}'. Use empty positions for steps without args (e.g. ';--threshold-bp 0;' for gather only, or ';;--force' for tax only)."
+                        error "[nf-core/taxprofiler] ERROR: If customising sourmash parameters, db_params for '${db_meta.db_name}' must have exactly two semicolons: '<sketch_args>;<gather_args>;<tax_args>'. Got '${db_meta.db_params}'. Use empty positions for steps without args (e.g. ';--threshold-bp 0;' for gather only, or ';;--force' for tax only)."
                 }
                 if (parsed_params.size() == 3) {
                     db_meta_new = db_meta + [
@@ -590,7 +590,7 @@ workflow PROFILING {
                         db_params_tax: parsed_params[2]
                     ]
                 } else {
-                    // EMpty db_params case - use the defaults
+                    // Empty db_params case - use the defaults
                     db_meta_new = db_meta + [
                         db_params: '',
                         db_params_gather:'',
@@ -629,29 +629,32 @@ workflow PROFILING {
             params.sourmash_save_prefetch_csv //save_prefetch_csv
         )
 
+        //Prepeare lineages channel keyed by db_name for proper join
+        ch_lineages = ch_database_for_sourmash
+            .map { key, _db_meta, db -> [key, file("${db}/lineages.csv.gz")] }
+
         // filter out prefetch files so sourmash taxannotate run on the main gather.csv
+        // then join each gather result with its own db's lineages by db_name
         ch_gather_for_tax = SOURMASH_GATHER.out.result
             .flatMap { meta, files ->
                 def file_list = files instanceof List ? files : [files]
                 file_list.findAll { file -> !file.name.contains('_prefetch') }
-                .collect { file -> [meta, file] }
+                .collect { file -> [meta.db_name, meta, file] }
+            }
+            .combine(ch_lineages, by:0) // join by key
+            .multiMap{ _key, meta, gather, lineages ->
+                gather: [meta, gather]
+                lineages: lineages
             }
 
         SOURMASH_TAXANNOTATE(
-            ch_gather_for_tax,
-            ch_input_for_gather.lineages
+            ch_gather_for_tax.gather,
+            ch_gather_for_tax.lineages
         )
 
         ch_raw_profiles = ch_raw_profiles.mix(SOURMASH_TAXANNOTATE.out.result)
         // because gather  `result` module emit glob `*.csv.gz`, which capture also prefetch.csv.gz. So capture only gather's result and parse it to Multiqc
-        GUNZIP(SOURMASH_GATHER.out.result
-            .flatMap { meta, files ->
-                def file_list = files instanceof List ? files : [files]
-                file_list.findAll { file -> !file.name.contains('_prefetch') }
-                .collect { file -> [meta, file] }
-            }
-
-        )
+        GUNZIP(ch_gather_for_tax.gather)
         ch_multiqc_files = ch_multiqc_files.mix(GUNZIP.out.gunzip) // gather csv for multiqc
     }
 

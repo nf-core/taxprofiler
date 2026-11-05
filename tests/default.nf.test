@@ -261,7 +261,7 @@ nextflow_pipeline {
                             // Sketch output
                             getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.sourmash.sketch.sig']).collect{ file -> file.getName() },
                             // Gather output
-                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*.sourmash.gather.csv.gz']).collect{file -> 
+                            getAllFilesFromDir("$outputDir/sourmash/", include: ['**/*.sourmash.gather.csv.gz']).collect{file ->
                                 file.getName() + " contains string: " + (path(file.toString()).linesGzip.any { l -> l.contains('GCF_015533775.1') } || path(file.toString()).linesGzip.any { l -> l.contains('NC_012920.1') }) },
                             // tax annotate output
                             getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.with-lineages.csv.gz']).collect{ file ->
@@ -272,7 +272,7 @@ nextflow_pipeline {
                             //minimum of 2 species check (only 2612 contains both)
                             "2612_db1.sourmash.gather.with-lineages.csv.gz contains both species: " + (
                                 path("$outputDir/sourmash/db1/2612_db1.sourmash.gather.with-lineages.csv.gz").linesGzip.any { l ->l.contains('Penicillium roqueforti')} &&
-                                path("$outputDir/sourmash/db1/2612_db1.sourmash.gather.with-lineages.csv.gz").linesGzip.any { l ->l.contains('Homo sapiens')} ),                                                    
+                                path("$outputDir/sourmash/db1/2612_db1.sourmash.gather.with-lineages.csv.gz").linesGzip.any { l ->l.contains('Homo sapiens')} ),                             
                             // Check save .sig.zip files are present - check only, binary content
                             getAllFilesFromDir("$outputDir/sourmash", include: ['**/*_matches.sig.zip']).collect{file -> file.getName() },
                             getAllFilesFromDir("$outputDir/sourmash", include: ['**/*_prefetch.sig.zip']).collect{file -> file.getName() },
