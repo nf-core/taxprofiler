@@ -233,6 +233,7 @@ If you update images or graphics, follow the nf-core [style guidelines](https://
     - [ ] Entry in results section including tool description, expected output files list, and general tips
     - [ ] Entry in taxpasta section
     - [ ] Entry in MultiQC section
+  - [ ] Described classifier research context in choosing a pre-processing tool/classifier in `faq-troubleshooting.md`
   - [ ] Added to pipeline summary list on `README.md`
   - [ ] (Optional) Added to pipeline metro map diagram (can be done just before release)
   - [ ] If it's your first contribution, add or move yourself to the Team list on `README.md`!
