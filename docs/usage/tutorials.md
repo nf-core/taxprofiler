@@ -776,3 +776,57 @@ metacache build metacache all_genomes.fasta -taxonomy ncbi_taxonomy
   </details>
 
 More information on custom MetaCache database construction can be found [here](https://github.com/muellan/metacache/blob/d7646eca4c4dc131262b16d2910923fce3f5d4fc/docs/building.md).
+
+#### Sourmash custom database
+
+Sourmash operates on [sketches](https://sourmash.readthedocs.io/en/latest/sourmash-internals.html#signatures-and-sketches), which are small, hashed representations of a sequence's k-mer content. Each sketch is wrapped in a **signature** containing some metadata.
+
+To build a custom Sourmash db, you need:
+
+- **Reference signatures** (one per genome). This is the actual db used by `sourmash gather` to identify which reference genomes are present in a sample.
+- **Taxonomic lineages file** - a seperate CSV mapping each signature to its taxonomy. Used by `sourmash tax annotate` to add taxonomy to the gather results.
+
+For use with nf-core/taxprofiler, both files must be bundled together in a single tarball (`.tar.gz`).
+
+Sketch each reference genome into its own signature, naming it after a stable identifier (such as the NCBI accession):
+
+```bash
+sourmash sketch dna -p k=31,scaled=1000 --name "GCF_015533775.1" -o proq.sig proqueforti.fna.gz
+sourmash sketch dna -p k=31,scaled=1000 --name "NC_012920.1" -o human.sig NC_012920.1.fa.gz
+```
+
+Combine all per-genome signatures into a single `.zip`
+
+```bash
+sourmash sig cat *.sig -o sourmash-db.zip
+```
+
+Create a lineages CSV in NCBI format, with the `ident` column matching the `--name` used during sketching:
+
+```csv title="lineages.csv"
+ident,taxid,superkingdom,phylum,class,order,family,genus,species
+GCF_015533775.1,5082,Eukaryota,Ascomycota,Eurotiomycetes,Eurotiales,Aspergillaceae,Penicillium,Penicillium roqueforti
+NC_012920.1,9606,Eukaryota,Chordata,Mammalia,Primates,Hominidae,Homo,Homo sapiens
+```
+
+Bundle the database and lineages file into a tarball:
+
+```bash
+mkdir test-db-sourmash
+gzip -f lineages.csv
+cp sourmash-db.zip lineages.csv.gz test-db-sourmash/
+tar -czf test-db-sourmash.tar.gz test-db-sourmash/
+```
+
+<details markdown="1">
+<summary>Expected files in database directory</summary>
+
+- `test-db-sourmash`
+  - `sourmash-db-zip`
+  - `lineages.csv.gz`
+
+  </details>
+
+:::note
+If you have an existing sourmash database (e.g. downloaded from sourmash-bio prepared databases), you can adapt it to taxprofiler's format by placing both the signatures `.zip` and the lineages CSV into a tarball. Please rename them to `sourmash-db.zip` and `lineages.csv.gz` to match the expected filenames.
+:::

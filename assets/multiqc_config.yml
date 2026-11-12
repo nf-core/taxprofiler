@@ -85,7 +85,7 @@ run_modules:
   - motus
   - metaphlan
   - custom_content
-
+  - sourmash
 sp:
   diamond:
     fn: "*.diamond.log"
@@ -187,6 +187,8 @@ top_modules:
       name: "MALT"
   - "kaiju":
       name: "Kaiju"
+  - "sourmash":
+      name: "sourmash"
 
 # It is not possible to set placement for custom kraken
 # and centrifuge columns.

@@ -48,6 +48,7 @@
    - [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)
    - [KMCP](https://github.com/shenwei356/kmcp)
    - [ganon](https://pirovc.github.io/ganon/)
+   - [sourmash](https://github.com/sourmash-bio/sourmash)
    - [sylph](https://github.com/bluenote-1577/sylph)
    - [Melon](https://github.com/xinehc/melon)
    - [MetaCache](https://github.com/muellan/metacache)
