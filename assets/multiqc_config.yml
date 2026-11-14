@@ -166,7 +166,7 @@ top_modules:
         the same output format as Kraken. Abundance information is currently not supported
         in MultiQC.
       path_filters:
-        - "*.bracken.kraken2.report.txt"
+        - "*.bracken.kraken2.report_bracken.txt"
   - "kraken":
       name: "Centrifuge"
       anchor: "centrifuge"

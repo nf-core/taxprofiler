@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### `Fixed`
 
 - [#782](https://github.com/nf-core/taxprofiler/pull/782) Fixed empty `analysis_ready_fastqs/` after host removal with minimap2, hostile or deacon, and deacon outputs of runs from the same sample overwriting each other (by @stev004)
+- [#788](https://github.com/nf-core/taxprofiler/issues/788) Fixed the MultiQC Bracken panel using the intermediate Kraken2 report instead of the Bracken re-estimated report (reported and fixed by @nttg8100)
 
 ### `Changed`
 

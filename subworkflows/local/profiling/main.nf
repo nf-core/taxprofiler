@@ -239,6 +239,7 @@ workflow PROFILING {
 
         BRACKEN_BRACKEN(ch_input_for_bracken.report, ch_input_for_bracken.db)
         ch_raw_profiles = ch_raw_profiles.mix(BRACKEN_BRACKEN.out.reports)
+        ch_multiqc_files = ch_multiqc_files.mix(BRACKEN_BRACKEN.out.txt)
     }
 
     if (params.run_centrifuge) {
