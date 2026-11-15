@@ -127,17 +127,17 @@
                     },
                     "kaiju/kaiju": {
                         "branch": "master",
-                        "git_sha": "5e510d0648e0d7fecd3b359fd2a7e59b36744b21",
+                        "git_sha": "d45f3e3cf5f3f7c60ca56ad03d41e58cb755a282",
                         "installed_by": ["modules"]
                     },
                     "kaiju/kaiju2krona": {
                         "branch": "master",
-                        "git_sha": "5e510d0648e0d7fecd3b359fd2a7e59b36744b21",
+                        "git_sha": "d45f3e3cf5f3f7c60ca56ad03d41e58cb755a282",
                         "installed_by": ["modules"]
                     },
                     "kaiju/kaiju2table": {
                         "branch": "master",
-                        "git_sha": "5e510d0648e0d7fecd3b359fd2a7e59b36744b21",
+                        "git_sha": "d45f3e3cf5f3f7c60ca56ad03d41e58cb755a282",
                         "installed_by": ["modules"]
                     },
                     "kmcp/profile": {
@@ -202,12 +202,12 @@
                     },
                     "metaphlan/mergemetaphlantables": {
                         "branch": "master",
-                        "git_sha": "98ad2ea364508c5eefa3eee721f5659b3d7585a9",
+                        "git_sha": "3f10df6804f18c40f80f9df5fd2b1bed0a8ab74d",
                         "installed_by": ["modules"]
                     },
                     "metaphlan/metaphlan": {
                         "branch": "master",
-                        "git_sha": "98ad2ea364508c5eefa3eee721f5659b3d7585a9",
+                        "git_sha": "3f10df6804f18c40f80f9df5fd2b1bed0a8ab74d",
                         "installed_by": ["modules"]
                     },
                     "minimap2/align": {
