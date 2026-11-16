@@ -108,21 +108,12 @@
                 "kraken2/db2/2611_db2.kraken2.kraken2.report.txt",
                 "kraken2/db2/2612_db2.kraken2.kraken2.report.txt",
                 "kraken2/db2/2613_db2.kraken2.kraken2.report.txt",
-                "multiqc",
+		"multiqc",
                 "multiqc/multiqc_data",
                 "multiqc/multiqc_data/bbduk-filtered-barplot_Bases.txt",
                 "multiqc/multiqc_data/bbduk-filtered-barplot_Reads.txt",
                 "multiqc/multiqc_data/bbduk.txt",
                 "multiqc/multiqc_data/bowtie2_pe_plot.txt",
-                "multiqc/multiqc_data/falco-status-check-heatmap.txt",
-                "multiqc/multiqc_data/falco_adapter_content_plot.txt",
-                "multiqc/multiqc_data/falco_per_base_n_content_plot.txt",
-                "multiqc/multiqc_data/falco_per_base_sequence_quality_plot.txt",
-                "multiqc/multiqc_data/falco_per_sequence_gc_content_plot_Counts.txt",
-                "multiqc/multiqc_data/falco_per_sequence_gc_content_plot_Percentages.txt",
-                "multiqc/multiqc_data/falco_per_sequence_quality_scores_plot.txt",
-                "multiqc/multiqc_data/falco_sequence_counts_plot.txt",
-                "multiqc/multiqc_data/falco_sequence_duplication_levels_plot.txt",
                 "multiqc/multiqc_data/fastp-insert-size-plot.txt",
                 "multiqc/multiqc_data/fastp-seq-content-gc-plot_Read_1_After_filtering.txt",
                 "multiqc/multiqc_data/fastp-seq-content-gc-plot_Read_1_Before_filtering.txt",
@@ -137,7 +128,6 @@
                 "multiqc/multiqc_data/fastp-seq-quality-plot_Read_2_After_filtering.txt",
                 "multiqc/multiqc_data/fastp-seq-quality-plot_Read_2_Before_filtering.txt",
                 "multiqc/multiqc_data/fastp_filtered_reads_plot.txt",
-                "multiqc/multiqc_data/fastqc_sequence_length_distribution_plot.txt",
                 "multiqc/multiqc_data/kaiju-topfive-plot.txt",
                 "multiqc/multiqc_data/kraken-top-n-plot_Class.txt",
                 "multiqc/multiqc_data/kraken-top-n-plot_Domain.txt",
@@ -155,7 +145,6 @@
                 "multiqc/multiqc_data/multiqc_citations.txt",
                 "multiqc/multiqc_data/multiqc_data.json",
                 "multiqc/multiqc_data/multiqc_fastp.txt",
-                "multiqc/multiqc_data/multiqc_fastqc.txt",
                 "multiqc/multiqc_data/multiqc_general_stats.txt",
                 "multiqc/multiqc_data/multiqc_kaiju_species.txt",
                 "multiqc/multiqc_data/multiqc_kraken.txt",
@@ -164,7 +153,6 @@
                 "multiqc/multiqc_data/multiqc_sources.txt",
                 "multiqc/multiqc_data/samtools-stats-dp.txt",
                 "multiqc/multiqc_data/samtools_alignment_plot.txt",
-                "multiqc/multiqc_data/samtools_insert_size.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Bases-cnt.pdf",
@@ -173,16 +161,6 @@
                 "multiqc/multiqc_plots/pdf/bbduk-filtered-barplot_Reads-pct.pdf",
                 "multiqc/multiqc_plots/pdf/bowtie2_pe_plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/bowtie2_pe_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/falco-status-check-heatmap.pdf",
-                "multiqc/multiqc_plots/pdf/falco_adapter_content_plot.pdf",
-                "multiqc/multiqc_plots/pdf/falco_per_base_n_content_plot.pdf",
-                "multiqc/multiqc_plots/pdf/falco_per_base_sequence_quality_plot.pdf",
-                "multiqc/multiqc_plots/pdf/falco_per_sequence_gc_content_plot_Counts.pdf",
-                "multiqc/multiqc_plots/pdf/falco_per_sequence_gc_content_plot_Percentages.pdf",
-                "multiqc/multiqc_plots/pdf/falco_per_sequence_quality_scores_plot.pdf",
-                "multiqc/multiqc_plots/pdf/falco_sequence_counts_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/falco_sequence_counts_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/falco_sequence_duplication_levels_plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-insert-size-plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_1_After_filtering.pdf",
                 "multiqc/multiqc_plots/pdf/fastp-seq-content-gc-plot_Read_1_Before_filtering.pdf",
@@ -198,7 +176,6 @@
                 "multiqc/multiqc_plots/pdf/fastp-seq-quality-plot_Read_2_Before_filtering.pdf",
                 "multiqc/multiqc_plots/pdf/fastp_filtered_reads_plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/fastp_filtered_reads_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/fastqc_sequence_length_distribution_plot.pdf",
                 "multiqc/multiqc_plots/pdf/kaiju-topfive-plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/kaiju-topfive-plot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Class-cnt.pdf",
@@ -222,7 +199,6 @@
                 "multiqc/multiqc_plots/pdf/samtools-stats-dp.pdf",
                 "multiqc/multiqc_plots/pdf/samtools_alignment_plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/samtools_alignment_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/samtools_insert_size.pdf",
                 "multiqc/multiqc_plots/png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-cnt.png",
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Bases-pct.png",
@@ -230,16 +206,6 @@
                 "multiqc/multiqc_plots/png/bbduk-filtered-barplot_Reads-pct.png",
                 "multiqc/multiqc_plots/png/bowtie2_pe_plot-cnt.png",
                 "multiqc/multiqc_plots/png/bowtie2_pe_plot-pct.png",
-                "multiqc/multiqc_plots/png/falco-status-check-heatmap.png",
-                "multiqc/multiqc_plots/png/falco_adapter_content_plot.png",
-                "multiqc/multiqc_plots/png/falco_per_base_n_content_plot.png",
-                "multiqc/multiqc_plots/png/falco_per_base_sequence_quality_plot.png",
-                "multiqc/multiqc_plots/png/falco_per_sequence_gc_content_plot_Counts.png",
-                "multiqc/multiqc_plots/png/falco_per_sequence_gc_content_plot_Percentages.png",
-                "multiqc/multiqc_plots/png/falco_per_sequence_quality_scores_plot.png",
-                "multiqc/multiqc_plots/png/falco_sequence_counts_plot-cnt.png",
-                "multiqc/multiqc_plots/png/falco_sequence_counts_plot-pct.png",
-                "multiqc/multiqc_plots/png/falco_sequence_duplication_levels_plot.png",
                 "multiqc/multiqc_plots/png/fastp-insert-size-plot.png",
                 "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Read_1_After_filtering.png",
                 "multiqc/multiqc_plots/png/fastp-seq-content-gc-plot_Read_1_Before_filtering.png",
@@ -255,7 +221,6 @@
                 "multiqc/multiqc_plots/png/fastp-seq-quality-plot_Read_2_Before_filtering.png",
                 "multiqc/multiqc_plots/png/fastp_filtered_reads_plot-cnt.png",
                 "multiqc/multiqc_plots/png/fastp_filtered_reads_plot-pct.png",
-                "multiqc/multiqc_plots/png/fastqc_sequence_length_distribution_plot.png",
                 "multiqc/multiqc_plots/png/kaiju-topfive-plot-cnt.png",
                 "multiqc/multiqc_plots/png/kaiju-topfive-plot-pct.png",
                 "multiqc/multiqc_plots/png/kraken-top-n-plot_Class-cnt.png",
@@ -279,7 +244,6 @@
                 "multiqc/multiqc_plots/png/samtools-stats-dp.png",
                 "multiqc/multiqc_plots/png/samtools_alignment_plot-cnt.png",
                 "multiqc/multiqc_plots/png/samtools_alignment_plot-pct.png",
-                "multiqc/multiqc_plots/png/samtools_insert_size.png",
                 "multiqc/multiqc_plots/svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-cnt.svg",
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Bases-pct.svg",
@@ -287,16 +251,6 @@
                 "multiqc/multiqc_plots/svg/bbduk-filtered-barplot_Reads-pct.svg",
                 "multiqc/multiqc_plots/svg/bowtie2_pe_plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/bowtie2_pe_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/falco-status-check-heatmap.svg",
-                "multiqc/multiqc_plots/svg/falco_adapter_content_plot.svg",
-                "multiqc/multiqc_plots/svg/falco_per_base_n_content_plot.svg",
-                "multiqc/multiqc_plots/svg/falco_per_base_sequence_quality_plot.svg",
-                "multiqc/multiqc_plots/svg/falco_per_sequence_gc_content_plot_Counts.svg",
-                "multiqc/multiqc_plots/svg/falco_per_sequence_gc_content_plot_Percentages.svg",
-                "multiqc/multiqc_plots/svg/falco_per_sequence_quality_scores_plot.svg",
-                "multiqc/multiqc_plots/svg/falco_sequence_counts_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/falco_sequence_counts_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/falco_sequence_duplication_levels_plot.svg",
                 "multiqc/multiqc_plots/svg/fastp-insert-size-plot.svg",
                 "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Read_1_After_filtering.svg",
                 "multiqc/multiqc_plots/svg/fastp-seq-content-gc-plot_Read_1_Before_filtering.svg",
@@ -312,7 +266,6 @@
                 "multiqc/multiqc_plots/svg/fastp-seq-quality-plot_Read_2_Before_filtering.svg",
                 "multiqc/multiqc_plots/svg/fastp_filtered_reads_plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/fastp_filtered_reads_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/fastqc_sequence_length_distribution_plot.svg",
                 "multiqc/multiqc_plots/svg/kaiju-topfive-plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/kaiju-topfive-plot-pct.svg",
                 "multiqc/multiqc_plots/svg/kraken-top-n-plot_Class-cnt.svg",
@@ -336,7 +289,6 @@
                 "multiqc/multiqc_plots/svg/samtools-stats-dp.svg",
                 "multiqc/multiqc_plots/svg/samtools_alignment_plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/samtools_alignment_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/samtools_insert_size.svg",
                 "multiqc/multiqc_report.html",
                 "pipeline_info",
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml",
@@ -348,7 +300,7 @@
                 "samtools/stats/ERR3201952_ERR3201952.stats"
             ]
         ],
-        "timestamp": "2026-08-27T21:55:57.10322",
+        "timestamp": "2026-11-16T21:23:54.307705833",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -362,7 +314,7 @@
                 "2613_ERR5766181.bowtie2.log:md5,464e0ccb1f7e294daa31ec1e28efe360"
             ]
         ],
-        "timestamp": "2026-08-27T21:56:11.458995",
+        "timestamp": "2026-11-16T21:24:02.880145694",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -374,7 +326,7 @@
             "2612_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true",
             "2613_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true"
         ],
-        "timestamp": "2026-08-27T21:56:12.953595",
+        "timestamp": "2026-11-16T21:24:03.391180211",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -411,7 +363,7 @@
             "ERX5474937_ERR5766181_1.fastq.gz_fastqc_data.txt contains string '33.5552': true",
             "ERX5474937_ERR5766181_2.fastq.gz_fastqc_data.txt contains string '32.9964': true"
         ],
-        "timestamp": "2026-08-27T21:56:11.669645",
+        "timestamp": "2026-11-16T21:24:02.954226849",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -426,7 +378,7 @@
                 "ERR3201952_ERR3201952.stats:md5,c732be126e1ca2deefef98ea91731041"
             ]
         ],
-        "timestamp": "2026-08-27T21:56:13.038974",
+        "timestamp": "2026-11-16T21:24:03.411331758",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -444,7 +396,7 @@
             "2613_ERR5766181_1.fastq.gz.fastq.gz contains string '@ERR5766181.204': true",
             "2613_ERR5766181_1.fastq.gz.fastq.gz contains string '@ERR5766181.204': true"
         ],
-        "timestamp": "2026-08-27T21:56:11.40942",
+        "timestamp": "2026-11-16T21:24:02.862771258",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -474,10 +426,10 @@
                     "fastp": "0.24.0"
                 },
                 "KAIJU_KAIJU": {
-                    "kaiju": "1.10.0"
+                    "kaiju": "1.10.3"
                 },
                 "KAIJU_KAIJU2TABLE_SINGLE": {
-                    "kaiju": "1.10.0"
+                    "kaiju": "1.10.3"
                 },
                 "KRAKEN2_KRAKEN2": {
                     "kraken2": "2.1.6",
@@ -512,7 +464,7 @@
                 }
             }
         ],
-        "timestamp": "2026-08-27T21:55:57.037779",
+        "timestamp": "2026-11-16T21:23:54.275350306",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -524,7 +476,7 @@
                 
             ]
         ],
-        "timestamp": "2026-08-27T21:56:11.515431",
+        "timestamp": "2026-11-16T21:24:02.896743993",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -553,7 +505,7 @@
             "ERR3201952_db7.kaijutable.txt contains string '10239':true",
             "ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.1159044':true"
         ],
-        "timestamp": "2026-08-27T21:56:12.869612",
+        "timestamp": "2026-11-16T21:24:03.363576665",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
