@@ -53,7 +53,7 @@
                 }
             }
         ],
-        "timestamp": "2026-11-16T21:02:22.567924212",
+        "timestamp": "2026-11-18T17:04:58.280327",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -152,7 +152,6 @@
                 "multiqc/multiqc_data/ar_length_count_plot_Mate2.txt",
                 "multiqc/multiqc_data/ar_length_count_plot_Singleton.txt",
                 "multiqc/multiqc_data/ar_retained_plot.txt",
-                "multiqc/multiqc_data/bowtie2_pe_plot.txt",
                 "multiqc/multiqc_data/fastqc-1-status-check-heatmap.txt",
                 "multiqc/multiqc_data/fastqc-1_adapter_content_plot.txt",
                 "multiqc/multiqc_data/fastqc-1_per_base_n_content_plot.txt",
@@ -173,6 +172,7 @@
                 "multiqc/multiqc_data/fastqc_sequence_duplication_levels_plot.txt",
                 "multiqc/multiqc_data/fastqc_sequence_length_distribution_plot.txt",
                 "multiqc/multiqc_data/filtlong.txt",
+                "multiqc/multiqc_data/he_reads_plots.txt",
                 "multiqc/multiqc_data/kaiju-topfive-plot.txt",
                 "multiqc/multiqc_data/kraken-top-n-plot_Class.txt",
                 "multiqc/multiqc_data/kraken-top-n-plot_Domain.txt",
@@ -187,23 +187,20 @@
                 "multiqc/multiqc_data/multiqc.log",
                 "multiqc/multiqc_data/multiqc.parquet",
                 "multiqc/multiqc_data/multiqc_adapter_removal.txt",
-                "multiqc/multiqc_data/multiqc_bowtie2.txt",
                 "multiqc/multiqc_data/multiqc_citations.txt",
                 "multiqc/multiqc_data/multiqc_data.json",
                 "multiqc/multiqc_data/multiqc_fastqc.txt",
                 "multiqc/multiqc_data/multiqc_fastqc_fastqc-1.txt",
                 "multiqc/multiqc_data/multiqc_general_stats.txt",
+                "multiqc/multiqc_data/multiqc_hostile.txt",
                 "multiqc/multiqc_data/multiqc_kaiju_species.txt",
                 "multiqc/multiqc_data/multiqc_kraken.txt",
-                "multiqc/multiqc_data/multiqc_samtools_stats.txt",
                 "multiqc/multiqc_data/multiqc_software_versions.txt",
                 "multiqc/multiqc_data/multiqc_sources.txt",
                 "multiqc/multiqc_data/porechop-endtrim-barplot.txt",
                 "multiqc/multiqc_data/porechop-middlesplit-barplot.txt",
                 "multiqc/multiqc_data/porechop-starttrim-barplot.txt",
                 "multiqc/multiqc_data/porechop_porechop.txt",
-                "multiqc/multiqc_data/samtools-stats-dp.txt",
-                "multiqc/multiqc_data/samtools_alignment_plot.txt",
                 "multiqc/multiqc_plots",
                 "multiqc/multiqc_plots/pdf",
                 "multiqc/multiqc_plots/pdf/ar_length_count_plot_All.pdf",
@@ -213,8 +210,6 @@
                 "multiqc/multiqc_plots/pdf/ar_length_count_plot_Singleton.pdf",
                 "multiqc/multiqc_plots/pdf/ar_retained_plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/ar_retained_plot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/bowtie2_pe_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/bowtie2_pe_plot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc-1-status-check-heatmap.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc-1_adapter_content_plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc-1_per_base_n_content_plot.pdf",
@@ -236,6 +231,8 @@
                 "multiqc/multiqc_plots/pdf/fastqc_sequence_counts_plot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc_sequence_duplication_levels_plot.pdf",
                 "multiqc/multiqc_plots/pdf/fastqc_sequence_length_distribution_plot.pdf",
+                "multiqc/multiqc_plots/pdf/he_reads_plots-cnt.pdf",
+                "multiqc/multiqc_plots/pdf/he_reads_plots-pct.pdf",
                 "multiqc/multiqc_plots/pdf/kaiju-topfive-plot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/kaiju-topfive-plot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/kraken-top-n-plot_Class-cnt.pdf",
@@ -262,9 +259,6 @@
                 "multiqc/multiqc_plots/pdf/porechop-middlesplit-barplot-pct.pdf",
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-cnt.pdf",
                 "multiqc/multiqc_plots/pdf/porechop-starttrim-barplot-pct.pdf",
-                "multiqc/multiqc_plots/pdf/samtools-stats-dp.pdf",
-                "multiqc/multiqc_plots/pdf/samtools_alignment_plot-cnt.pdf",
-                "multiqc/multiqc_plots/pdf/samtools_alignment_plot-pct.pdf",
                 "multiqc/multiqc_plots/png",
                 "multiqc/multiqc_plots/png/ar_length_count_plot_All.png",
                 "multiqc/multiqc_plots/png/ar_length_count_plot_Discarded.png",
@@ -273,8 +267,6 @@
                 "multiqc/multiqc_plots/png/ar_length_count_plot_Singleton.png",
                 "multiqc/multiqc_plots/png/ar_retained_plot-cnt.png",
                 "multiqc/multiqc_plots/png/ar_retained_plot-pct.png",
-                "multiqc/multiqc_plots/png/bowtie2_pe_plot-cnt.png",
-                "multiqc/multiqc_plots/png/bowtie2_pe_plot-pct.png",
                 "multiqc/multiqc_plots/png/fastqc-1-status-check-heatmap.png",
                 "multiqc/multiqc_plots/png/fastqc-1_adapter_content_plot.png",
                 "multiqc/multiqc_plots/png/fastqc-1_per_base_n_content_plot.png",
@@ -296,6 +288,8 @@
                 "multiqc/multiqc_plots/png/fastqc_sequence_counts_plot-pct.png",
                 "multiqc/multiqc_plots/png/fastqc_sequence_duplication_levels_plot.png",
                 "multiqc/multiqc_plots/png/fastqc_sequence_length_distribution_plot.png",
+                "multiqc/multiqc_plots/png/he_reads_plots-cnt.png",
+                "multiqc/multiqc_plots/png/he_reads_plots-pct.png",
                 "multiqc/multiqc_plots/png/kaiju-topfive-plot-cnt.png",
                 "multiqc/multiqc_plots/png/kaiju-topfive-plot-pct.png",
                 "multiqc/multiqc_plots/png/kraken-top-n-plot_Class-cnt.png",
@@ -322,9 +316,6 @@
                 "multiqc/multiqc_plots/png/porechop-middlesplit-barplot-pct.png",
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-cnt.png",
                 "multiqc/multiqc_plots/png/porechop-starttrim-barplot-pct.png",
-                "multiqc/multiqc_plots/png/samtools-stats-dp.png",
-                "multiqc/multiqc_plots/png/samtools_alignment_plot-cnt.png",
-                "multiqc/multiqc_plots/png/samtools_alignment_plot-pct.png",
                 "multiqc/multiqc_plots/svg",
                 "multiqc/multiqc_plots/svg/ar_length_count_plot_All.svg",
                 "multiqc/multiqc_plots/svg/ar_length_count_plot_Discarded.svg",
@@ -333,8 +324,6 @@
                 "multiqc/multiqc_plots/svg/ar_length_count_plot_Singleton.svg",
                 "multiqc/multiqc_plots/svg/ar_retained_plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/ar_retained_plot-pct.svg",
-                "multiqc/multiqc_plots/svg/bowtie2_pe_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/bowtie2_pe_plot-pct.svg",
                 "multiqc/multiqc_plots/svg/fastqc-1-status-check-heatmap.svg",
                 "multiqc/multiqc_plots/svg/fastqc-1_adapter_content_plot.svg",
                 "multiqc/multiqc_plots/svg/fastqc-1_per_base_n_content_plot.svg",
@@ -356,6 +345,8 @@
                 "multiqc/multiqc_plots/svg/fastqc_sequence_counts_plot-pct.svg",
                 "multiqc/multiqc_plots/svg/fastqc_sequence_duplication_levels_plot.svg",
                 "multiqc/multiqc_plots/svg/fastqc_sequence_length_distribution_plot.svg",
+                "multiqc/multiqc_plots/svg/he_reads_plots-cnt.svg",
+                "multiqc/multiqc_plots/svg/he_reads_plots-pct.svg",
                 "multiqc/multiqc_plots/svg/kaiju-topfive-plot-cnt.svg",
                 "multiqc/multiqc_plots/svg/kaiju-topfive-plot-pct.svg",
                 "multiqc/multiqc_plots/svg/kraken-top-n-plot_Class-cnt.svg",
@@ -382,11 +373,8 @@
                 "multiqc/multiqc_plots/svg/porechop-middlesplit-barplot-pct.svg",
                 "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-cnt.svg",
                 "multiqc/multiqc_plots/svg/porechop-starttrim-barplot-pct.svg",
-                "multiqc/multiqc_plots/svg/samtools-stats-dp.svg",
-                "multiqc/multiqc_plots/svg/samtools_alignment_plot-cnt.svg",
-                "multiqc/multiqc_plots/svg/samtools_alignment_plot-pct.svg",
                 "multiqc/multiqc_report.html",
-		"pipeline_info",
+                "pipeline_info",
                 "pipeline_info/nf_core_taxprofiler_software_mqc_versions.yml",
                 "porechop",
                 "porechop/ERR3201952_ERR3201952_porechop.log",
@@ -396,7 +384,7 @@
                 "prinseqplusplus/2613_ERR5766181.log"
             ]
         ],
-        "timestamp": "2026-11-16T21:02:22.593459272",
+        "timestamp": "2026-11-18T17:04:58.344525",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -408,7 +396,7 @@
                 "ERR3201952_ERR3201952_filtered.log:md5,513650c6b058af60a824f98e6a632e2d"
             ]
         ],
-        "timestamp": "2026-11-16T21:02:22.662276658",
+        "timestamp": "2026-11-18T17:04:58.62793",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -423,7 +411,7 @@
             "2612_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true",
             "2613_db2.kraken2.kraken2.report.txt contains string 'Saccharomyces cerevisiae S288C': true"
         ],
-        "timestamp": "2026-11-16T21:02:23.15035279",
+        "timestamp": "2026-11-18T17:04:59.483246",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -433,7 +421,7 @@
         "content": [
             "ERR3201952_ERR3201952_porechop.log contains string '7 / 10,000': true"
         ],
-        "timestamp": "2026-11-16T21:02:23.165337304",
+        "timestamp": "2026-11-18T17:04:59.512273",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -448,7 +436,7 @@
                 "ERR3201952_ERR3201952.json contains string 'fastq1_out_name': true"
             ]
         ],
-        "timestamp": "2026-11-16T21:02:22.647933387",
+        "timestamp": "2026-11-18T17:04:58.562567",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -462,7 +450,7 @@
                 "2613_ERR5766181.log:md5,af5912aea0917f53d7bf98060b1992a8"
             ]
         ],
-        "timestamp": "2026-11-16T21:02:23.177299327",
+        "timestamp": "2026-11-18T17:04:59.544818",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -476,7 +464,7 @@
                 "2613_ERR5766181.settings:md5,b9b238c1b0ad4b3fb62eda9d8967e8db"
             ]
         ],
-        "timestamp": "2026-11-16T21:02:22.612297806",
+        "timestamp": "2026-11-18T17:04:58.419147",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
@@ -505,7 +493,7 @@
             "ERR3201952_db7.kaijutable.txt contains string '10239':true",
             "ERR3201952_db7.kaiju.tsv contains string 'ERR3201952.1159044':true"
         ],
-        "timestamp": "2026-11-16T21:02:23.128383144",
+        "timestamp": "2026-11-18T17:04:59.441003",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
