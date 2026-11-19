@@ -17,10 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### `Fixed`
 
+- [#767](https://github.com/nf-core/taxprofiler/pull/767) Fixed Nextflow strict syntax warnings in `main.nf` and local subworkflows (by @haris18s).
+- [#758](https://github.com/nf-core/taxprofiler/pull/758) Fixed Nextflow strict syntax warnings in modules (@sofstam in PR)
 - [#782](https://github.com/nf-core/taxprofiler/pull/782) Fixed empty `analysis_ready_fastqs/` after host removal with minimap2, hostile or deacon, and deacon outputs of runs from the same sample overwriting each other (by @stev004)
 
 ### `Changed`
 
+- [#767](https://github.com/nf-core/taxprofiler/pull/767) Changed closures to use explicit destructured parameters for Nextflow strict syntax compliance (by @haris18s)
 - [#758](https://github.com/nf-core/taxprofiler/pull/758) Modules topic versions update (by @sofstam)
 - [#774](https://github.com/nf-core/taxprofiler/pull/774) Use ext.args2 for preload-size in KrakenUniq config (by@sofstam)
 

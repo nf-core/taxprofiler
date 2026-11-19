@@ -23,16 +23,16 @@ workflow VISUALIZATION_KRONA {
     /*
         Split profile results based on tool they come from
     */
-    ch_input_profiles = ch_profiles.branch {
-        centrifuge: it[0]['tool'] == 'centrifuge'
-        centrifuger: it[0]['tool'] == 'centrifuger'
-        kraken2: it[0]['tool'] == 'kraken2' || it[0]['tool'] == 'kraken2-bracken'
+    ch_input_profiles = ch_profiles.branch { meta, _profiles ->
+centrifuge: meta['tool'] == 'centrifuge'
+centrifuger: meta['tool'] == 'centrifuger'
+kraken2: meta['tool'] == 'kraken2' || meta['tool'] == 'kraken2-bracken'
         unknown: true
     }
-    ch_input_classifications = ch_classifications.branch {
-        kaiju: it[0]['tool'] == 'kaiju'
-        malt: it[0]['tool'] == 'malt'
-        unknown: true
+    ch_input_classifications = ch_classifications.branch { meta, _classifications ->
+kaiju: meta['tool'] == 'kaiju'
+malt: meta['tool'] == 'malt'
+unknown: true
     }
 
     /*
@@ -53,9 +53,9 @@ workflow VISUALIZATION_KRONA {
     ch_input_for_kaiju2krona = ch_input_classifications.kaiju
         .map { meta, kaiju_profiles -> [[meta['tool'], meta['db_name']], meta, kaiju_profiles] }
         .combine(ch_databases.map { meta, db -> [[meta['tool'], meta['db_name']], db] }, by: 0)
-        .multiMap { it ->
-            profiles: [it[1], it[2]]
-            db: it[3]
+        .multiMap { _key, meta, kaiju_profiles, db ->
+            profiles: [meta, kaiju_profiles]
+            db: db
         }
 
     /*
@@ -69,7 +69,7 @@ workflow VISUALIZATION_KRONA {
     */
 
     ch_krona_text_for_import = ch_krona_text
-        .map { [[id: it[0]['db_name'], tool: it[0]['tool']], it[1]] }
+        .map { meta, profiles -> [[id: meta['db_name'], tool: meta['tool']], profiles] }
         .groupTuple()
 
     KRONA_KTIMPORTTEXT(ch_krona_text_for_import)
@@ -82,7 +82,7 @@ workflow VISUALIZATION_KRONA {
         MEGAN_RMA2INFO_KRONA(ch_input_classifications.malt, false)
         GUNZIP(MEGAN_RMA2INFO_KRONA.out.txt)
         ch_krona_taxonomy_for_input = GUNZIP.out.gunzip
-            .map { [[id: it[0]['db_name'], tool: it[0]['tool']], it[1]] }
+            .map { meta, classifications-> [[id: meta['db_name'], tool: meta['tool']], classifications] }
             .groupTuple()
 
         KRONA_KTIMPORTTAXONOMY(ch_krona_taxonomy_for_input, file(params.krona_taxonomy_directory, checkExists: true))
