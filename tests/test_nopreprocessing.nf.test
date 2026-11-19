@@ -154,7 +154,18 @@ nextflow_pipeline {
                 },
 
                 // sylph
-                { assert snapshot ( stable_content_sylph ).match("sylph") }
+                { assert snapshot ( stable_content_sylph ).match("sylph") },
+
+                // sourmash
+                { assert snapshot(
+                                // Gather CSV
+                                getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.sourmash.gather.csv.gz']).collect{ file -> file.getName() + " contains 'GCF_015533775.1': " + path(file.toString()).linesGzip.any { l -> l.contains('GCF_015533775.1') } },
+                                getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.sourmash.gather.csv.gz']).collect{ file -> file.getName() + " contains 'NC_012920.1': " + path(file.toString()).linesGzip.any { l -> l.contains('NC_012920.1') } },
+                                // Tax annotate
+                                getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.with-lineages.csv.gz']).collect{ file -> file.getName() + " contains 'Homo sapiens': " + path(file.toString()).linesGzip.any { l -> l.contains('Homo sapiens') } },
+                                getAllFilesFromDir("$outputDir/sourmash", include: ['**/*.with-lineages.csv.gz']).collect{ file -> file.getName() + " contains 'Penicillium roqueforti': " + path(file.toString()).linesGzip.any { l -> l.contains('Penicillium roqueforti') } },
+
+                        ).match("sourmash") }
 
 
             )

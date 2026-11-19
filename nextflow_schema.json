@@ -743,6 +743,34 @@
                     "fa_icon": "fas fa-percent",
                     "description": "Print all mapping information in separate columns (rank, taxon name, taxon ids).",
                     "help_text": "Modifies tool parameter(s):\n- metacache: `-abundances`"
+                },
+                "run_sourmash": {
+                    "type": "boolean",
+                    "description": "Turn on profiling with sourmash."
+                },
+                "sourmash_save_matches": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save matched signatures from sourmash gather.",
+                    "help_text": "Saves gather matched signatures from the database to a `.sig.zip` file.  Useful for inspecting which specific references were detected.\n\n> Modifies tool parameter(s):\n> - sourmash gather: `--save-matches`"
+                },
+                "sourmash_save_unassigned": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save unassigned portion of the query signature from sourmash gather.",
+                    "help_text": "Save the portion of the query signature not matched to any reference to a `.sig.zip` file. Useful for identifying unclassified content.\n\n> Modifies tool parameter(s):\n> - sourmash gather: `--output-unassigned`"
+                },
+                "sourmash_save_prefetch": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Saves all signatures matched during gather's internal prefetch step to a signature file.\n\n> Modifies tool parameter(s):\n> - sourmash gather: `--save-prefetch`",
+                    "help_text": "`."
+                },
+                "sourmash_save_prefetch_csv": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-save",
+                    "description": "Save sourmash gather prefetch results as a CSV.",
+                    "help_text": "Saves prefetch results from gather as a CSV, with information from all prefetch-matched signatures.\n\n> Modifies tool parameter(s):\n> - sourmash gather: `--save-prefetch-csv`"
                 }
             },
             "fa_icon": "fas fa-align-center"
